@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_margin="16dp">
+<de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/civ_barber_photo"
+    android:src="@drawable/partner_luffy"
+    android:layout_width="80dp"
+    android:layout_height="80dp" />
+    <TextView
+        android:id="@+id/tv_barber_name"
+        android:text="阿晓"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_position"
+        android:text="总监"
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/tv_black"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

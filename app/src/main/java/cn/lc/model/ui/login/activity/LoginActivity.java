@@ -3,6 +3,7 @@ package cn.lc.model.ui.login.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,14 +14,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
+import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.manager.UIManager;
+import cn.lc.model.framework.spfs.SharedPrefHelper;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.EditTextWithDel;
+import cn.lc.model.framework.widget.TitleBar;
+import cn.lc.model.ui.home.bean.LoginBean;
 import cn.lc.model.ui.login.model.LoginModel;
 import cn.lc.model.ui.login.modelimpl.LoginModelImpl;
 import cn.lc.model.ui.login.presenter.LoginPresenter;
 import cn.lc.model.ui.login.view.LoginView;
+import cn.lc.model.ui.main.activity.MainActivity;
+import cn.sharesdk.framework.ShareSDK;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.CrcUtil;
 
@@ -31,14 +39,16 @@ import mvp.cn.util.CrcUtil;
  * @author --FY
  * @version 创建时间：2015-8-3 上午11:07:24
  */
-public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPresenter> {
+public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPresenter>implements LoginView{
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
+    @BindView(R.id.login_title)
+    TitleBar titleBar;
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
-        @BindView(R.id.et_uname)
-        EditTextWithDel etUname;
+    @BindView(R.id.et_uname)
+    EditTextWithDel etUname;
+    @BindView(R.id.iv_all_cancle)
+    ImageView allCancle;
     @BindView(R.id.et_psw)
     EditTextWithDel etPsw;
     @BindView(R.id.l_tv_register)
@@ -55,6 +65,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     TextView lIvWeibo;
     @BindView(R.id.l_iv_qq)
     TextView lIvQq;
+    private String mobile;
+    private String pwd;
 
 
     @Override
@@ -65,8 +77,18 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     @Override
     public void initView() {
-//        ShareSDK.initSDK(this);
-//        etUname.setText(SharedPrefHelper.getInstance().getLoginAccount());
+        initTitle();
+      /*  ShareSDK.initSDK(this);
+        etUname.setText(SharedPrefHelper.getInstance().getLoginAccount());*/
+        if(SharedPrefHelper.getInstance().getPhoneNumber()!=null){
+            etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
+            etPsw.setText(SharedPrefHelper.getInstance().getPassword());
+        }
+    }
+
+    private void initTitle() {
+        titleBar.setBack(true);
+        titleBar.setTitle("登陆");
     }
 
     @Override
@@ -79,11 +101,11 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         return new LoginModelImpl();
     }
 
-    @OnClick({R.id.iv_back, R.id.l_tv_register, R.id.l_tv_findPsw, R.id.bt_login, R.id.l_iv_wecat, R.id.l_iv_weibo, R.id.l_iv_qq})
+    @OnClick({R.id.iv_all_cancle, R.id.l_tv_register, R.id.l_tv_findPsw, R.id.bt_login, R.id.l_iv_wecat, R.id.l_iv_weibo, R.id.l_iv_qq})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_back:
-                finish();
+            case R.id.iv_all_cancle:
+                etUname.setText("");
                 break;
             case R.id.l_tv_register:
                 turnToRegist();
@@ -105,8 +127,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                 break;
         }
     }
-
-
     /**
      * 返回
      */
@@ -120,7 +140,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     public void turnToFindPwd() {
         Bundle b = new Bundle();
         b.putInt("from", Constants.FORGET);
-        UIManager.turnToAct(this, RegistStep1Activity.class, b);
+        UIManager.turnToAct(this, RegistStepOneActivity.class, b);
     }
 
     /**
@@ -129,9 +149,9 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     public void turnToRegist() {
         Bundle b = new Bundle();
         b.putInt("from", Constants.REGIST);
-        UIManager.turnToAct(this, RegistStep1Activity.class, b);
+       // UIManager.turnToAct(this, RegistStep1Activity.class, b);
+        UIManager.turnToAct(this, RegistStepOneActivity.class, b);
     }
-
     /**
      * 注册
      *
@@ -149,8 +169,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
      * 登录
      */
     public void doLogin() {
-        String mobile = etUname.getText().toString().trim();
-        String pwd = etPsw.getText().toString().trim();
+        mobile = etUname.getText().toString().trim();
+        pwd = etPsw.getText().toString().trim();
         if (TextUtils.isEmpty(mobile)) {
             showToast("请输入手机号");
             return;
@@ -166,10 +186,34 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
             e.printStackTrace();
         }
         CommonUtil.closeSoftKeyboard(this, etUname);
-//        doLoginRequest(mobile, md5Pwd);
-    }
+       // doLoginRequest(mobile, md5Pwd);
+        getPresenter().getData(mobile,md5Pwd);
 
-  /*  private void doLoginRequest(final String mobile, final String md5Pwd) {
+    }
+    @Override
+    public void loginSuccess(LoginBean loginBean) {
+
+        if (loginBean.getErrCode()==0) {
+            SoftApplication.softApplication.setUserInfo(loginBean.getUserinfo());
+            SharedPrefHelper.getInstance().setPhoneNumber(mobile);
+            SharedPrefHelper.getInstance().setPassword(pwd);
+            SharedPrefHelper.getInstance().setToken(loginBean.getToken());
+            LogUtils.d("登陆返回Token():....."+loginBean.getToken()+"");
+            SharedPrefHelper.getInstance().setSex(loginBean.getUserinfo().getSex());
+            SharedPrefHelper.getInstance().setuserId(loginBean.getUserinfo().getUserId()+"");
+            SharedPrefHelper.getInstance().setNickname(loginBean.getUserinfo().getNickname());
+            SharedPrefHelper.getInstance().setuserPhoto(loginBean.getUserinfo().getPhoto());
+            SharedPrefHelper.getInstance().setRealName(loginBean.getUserinfo().getRealname());
+            SharedPrefHelper.getInstance().setNation(loginBean.getUserinfo().getNation());
+            SharedPrefHelper.getInstance().setMobile(loginBean.getUserinfo().getMobile()+"");
+            //getPresenter().getToke(loginBean.getUserId()+"");
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else{
+            Log.e("msg++++",loginBean.getMsg());
+            showToast(loginBean.getMsg());}    }
+
+ /* *//**//*  private void doLoginRequest(final String mobile, final String md5Pwd) {
         showProgressDialog();
         Request request = RequestMaker.getInstance().getLoginRequest(mobile, md5Pwd);
         getNetWorkDate(request, new SubBaseParser<UserResponse>(UserResponse.class), new OnCompleteListener<UserResponse>(this) {
@@ -183,9 +227,9 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                 SharedPrefHelper.getInstance().setLoginPwd(etPsw.getText().toString().trim());
                 softApplication.setUserInfo(result.data);
                 softApplication.setAlias(String.format("jpush%suser", result.data.uid));
-                *//**
+                *//**//**//**//**
      * 登录环信
-     *//*
+     *//**//**//**//*
                 loginHuanxinServer(mobile, "123456");
 
                 //未完善资料的
@@ -233,21 +277,21 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         });
     }
 
-    *//**
+    *//**//**//**//**
      * 三方登陆服务器
-     *//*
+     *//**//**//**//*
     private void doLoginByThirdPlatformRequest(final String thirdNum, final String thirdType) {
 //        showProgressDialog();
         Request request = RequestMaker.getInstance().getLoginByThirdPlatformRequest(thirdNum, thirdType);
         getNetWorkDate(request, new SubBaseParser<UserResponse>(UserResponse.class), new OnCompleteListener<UserResponse>(this) {
 
-            *//**
+            *//**//**//**//**
      -3： "未绑定手机号"
      -2： "暂时未开通该三方登录方式"
      -1 ： "参数异常"
      -5 ： "该三方账号已绑定其他手机号"
      -6 ：  "该手机号已绑定其他账号"
-     *//*
+     *//**//**//**//*
             @Override
             public void onSuccessed(UserResponse result, String resultString) {
                 SoftApplication.softApplication.setUserInfo(result.data);
@@ -273,11 +317,11 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     }
 
 
-    */
+    *//**//*
 
-    /**
+    *//**//**
      * 三方登录
-     *//*
+     *//**//**//**//*
     private void doLoginPlatForm(final String thirdType, String platformName) {
         showProgressDialog("登录中");
 
@@ -313,7 +357,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         });
         api.login(this);
 
-    }*/
+    }
+    /*daozhe */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent it) {
         super.onActivityResult(requestCode, resultCode, it);
@@ -331,5 +376,11 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
+    @Override
+    public void showToast() {
+
+    }
+
 
 }

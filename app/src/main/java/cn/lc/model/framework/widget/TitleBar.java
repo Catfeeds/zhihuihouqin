@@ -2,7 +2,9 @@ package cn.lc.model.framework.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.lc.model.R;
+import mvp.cn.util.DensityUtil;
 import mvp.cn.util.LogUtil;
 
 
@@ -45,7 +48,9 @@ public class TitleBar extends RelativeLayout implements View.OnClickListener {
     private void init() {
         LogUtil.log("init");
         View view = View.inflate(ct, R.layout.f_title, this);
-        setBackgroundColor(ContextCompat.getColor(ct,R.color.title_color ));
+        //setBackgroundColor(ContextCompat.getColor(ct,R.color.title_color ));
+        //设置背景色为透明色
+        setBackgroundColor(ContextCompat.getColor(ct,android.R.color.transparent));
         bindViews(view);
     }
 
@@ -87,6 +92,12 @@ public class TitleBar extends RelativeLayout implements View.OnClickListener {
 
     public void setTitle(String title) {
         tv_title.setText(title);
+        //wj后添加的
+        tv_title.setTextColor(Color.GRAY);
+        //字体加粗
+        TextPaint tp = tv_title.getPaint();
+        tp.setFakeBoldText(true);
+        tv_title.setTextSize(DensityUtil.dip2px(getContext(),8));
     }
 
     public void setTitle(int resId) {

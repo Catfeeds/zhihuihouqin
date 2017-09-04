@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_office_category"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/sp_category_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/indector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:background="@color/gray_lighter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/category_list"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"/>
+        <GridView
+            android:id="@+id/sp_grid"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:numColumns="2"
+            android:layout_marginBottom="100dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

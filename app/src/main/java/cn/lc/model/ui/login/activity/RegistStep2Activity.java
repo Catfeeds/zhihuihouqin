@@ -1,5 +1,6 @@
 package cn.lc.model.ui.login.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,15 +13,17 @@ import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.manager.UIManager;
 import cn.lc.model.framework.widget.TitleBar;
+import cn.lc.model.ui.login.bean.RegistBean;
 import cn.lc.model.ui.login.bean.UserResponse;
 import cn.lc.model.ui.login.model.RegistStep2Model;
+import cn.lc.model.ui.login.modelimpl.RegistStep2ModelImpl;
 import cn.lc.model.ui.login.presenter.RegistStep2Presenter;
 import cn.lc.model.ui.login.view.RegistStep2View;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.CrcUtil;
 
 
-public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistStep2View, RegistStep2Presenter> implements View.OnClickListener {
+public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistStep2View, RegistStep2Presenter>implements RegistStep2View, View.OnClickListener  {
 
 
     // Content View Elements
@@ -40,25 +43,21 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     public void setContentLayout() {
         setContentView(R.layout.login_regist_2);
     }
-
-
     @Override
     public void initView() {
         bindViews();
-
         getPerformData();
-
         initLayout();
     }
 
     @Override
     public RegistStep2Model createModel() {
-        return null;
+        return new RegistStep2ModelImpl();
     }
 
     @Override
     public RegistStep2Presenter createPresenter() {
-        return null;
+        return new RegistStep2Presenter();
     }
 
     private void getPerformData() {
@@ -104,7 +103,6 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     public void doRegist() {
         String pwd1 = et_password.getText().toString().trim();
         String pwd2 = et_repassword.getText().toString().trim();
-
         if (!isOtherChecked(pwd1, pwd2)) {
             return;
         }
@@ -114,6 +112,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
 //            doBindRequest(mMobile, mCptcha, pwd1);
         } else {
 //            doResistRequest(mMobile, mCptcha, pwd1);
+            getPresenter().getData(mMobile,mCptcha,pwd1);
         }
     }
 
@@ -136,12 +135,41 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
             showToast("密码长度不能大于20位");
             return false;
         }
-
         if (!pwd1.equals(pwd2)) {
             showToast("密码输入不一致");
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_next:
+                doRegist();
+                break;
+        }
+    }
+
+
+    @Override
+    public void registSuccess(RegistBean registBean) {
+
+        int errCode = registBean.getErrCode();
+        /*1004 ：验证码已过期
+        1005 ： 用户已注册
+        1006 ： 验证码错误*/
+        if(errCode==1004){
+            showToast("验证码已过期");
+        }else if(errCode==1005){
+            showToast("用户已注册");
+        }else if(errCode==1006){
+            showToast("验证码错误");
+        }else {
+            showToast("注册成功");
+            Intent intent = new Intent(this, RegistSuccessActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**
@@ -189,8 +217,6 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     *//**
      * 校验验证码,下一步
      *
-     * @param captcha
-     * @param mobile
      *//*
     private void doBindRequest(final String mobile, final String captcha, String pwd) {
         showProgressDialog();
@@ -215,17 +241,6 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
             }
         });
     }*/
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bt_next:
-                doRegist();
-                break;
-        }
-    }
-
 
 
 }

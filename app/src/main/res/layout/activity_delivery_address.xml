@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_delivery_address"
+    android:layout_width="match_parent"
+    android:background="@color/gray_lighter"
+    android:layout_height="match_parent">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/delivery_address_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+    <View
+        android:id="@+id/view"
+        android:layout_below="@+id/delivery_address_title"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000" />
+    <LinearLayout
+        android:layout_below="@id/view"
+        android:padding="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_select"
+            android:src="@drawable/selected"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name"
+                android:text="张旺旺"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_common"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_address"
+                android:text="教育部业务楼401会议室"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_phone"
+            android:text="123456787"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_common"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/bianji"
+            android:src="@drawable/bianji"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/new_build_address"
+        android:layout_alignParentBottom="true"
+        android:text="新建地址"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_common"
+        android:background="@color/bg_color"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+</RelativeLayout>

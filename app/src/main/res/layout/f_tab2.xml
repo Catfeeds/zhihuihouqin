@@ -1,10 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+
+            android:background="@drawable/shape_back"
+            android:src="@mipmap/back" />
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shap_search_text">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search" />
+
+            <TextView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="请输入关键词"
+                android:textColor="#a000"
+                android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/iv_f_tab2_close"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/close"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#1000"/>
+    <RelativeLayout
+        android:id="@+id/rl_my_app"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+        <View
+            android:id="@+id/view"
+            android:layout_width="4dp"
+            android:layout_height="12dp"
+            android:layout_centerVertical="true"
+            android:background="#3f79ec"/>
+        <TextView
+            android:id="@+id/tv_service_type"
+            android:layout_toRightOf="@id/view"
+            android:textSize="14sp"
+            android:textColor="#a000"
+            android:text="我的应用"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_finish"
+            android:textSize="14sp"
+            android:text="编辑"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <GridView
+        android:visibility="gone"
+        android:id="@+id/gv_app"
+        android:layout_width="match_parent"
+        android:numColumns="4"
+        android:layout_height="wrap_content"/>
+    <View
+        android:id="@+id/view_line"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#1000"/>
 
 
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_f_tab2_grid_container"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent"></LinearLayout>
+    </ScrollView>
+</LinearLayout>

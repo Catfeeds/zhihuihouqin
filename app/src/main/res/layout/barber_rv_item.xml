@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:gravity="center"
+    android:id="@+id/ll_item_container"
+    android:orientation="vertical">
+<TextView
+    android:id="@+id/tv_workday"
+    android:text="星期日"
+    android:textSize="14sp"
+    android:textColor="#a000"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_date"
+        android:text="01-01"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:textColor="#a000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/view_to_red"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#e75c5c"/>
+</LinearLayout>

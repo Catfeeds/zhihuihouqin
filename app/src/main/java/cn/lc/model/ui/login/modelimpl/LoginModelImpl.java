@@ -20,7 +20,7 @@ public class LoginModelImpl implements LoginModel {
     @Override
     public Observable login(String s, String s1) {
         LogUtil.log("MainModel请求数据-->login");
-        Observable observer = RetrofitUtils.getInstance().login("", "");
+        Observable observer = RetrofitUtils.getInstance().login(s,s1);
         return observer ;
     }
 }

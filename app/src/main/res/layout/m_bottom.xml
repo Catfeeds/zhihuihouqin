@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/iv_tab1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/tab1_n" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/home" />
 
         <TextView
             android:id="@+id/tv_tab1"
@@ -35,15 +35,15 @@
 
         <ImageView
             android:id="@+id/iv_tab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/tab2_n" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/treasure_chest" />
 
         <TextView
             android:id="@+id/tv_tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="专家问诊"
+            android:text="百宝箱"
             android:textSize="@dimen/sp_smaller" />
     </LinearLayout>
 
@@ -57,15 +57,15 @@
 
         <ImageView
             android:id="@+id/iv_tab3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/tab3_n" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/message" />
 
         <TextView
             android:id="@+id/tv_tab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="健康社区"
+            android:text="消息"
             android:textSize="@dimen/sp_smaller" />
     </LinearLayout>
 
@@ -79,9 +79,9 @@
 
         <ImageView
             android:id="@+id/iv_tab4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/tab4_n" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/me" />
 
         <TextView
             android:id="@+id/tv_tab4"

@@ -1,5 +1,6 @@
 package cn.lc.model.ui.login.presenter;
 
+import cn.lc.model.ui.home.bean.LoginBean;
 import cn.lc.model.ui.login.model.LoginModel;
 import cn.lc.model.ui.login.view.LoginView;
 import mvp.cn.rx.MvpRxPresenter;
@@ -12,13 +13,13 @@ import rx.Subscriber;
 
 public class LoginPresenter extends MvpRxPresenter<LoginModel, LoginView> {
 
-
-    public void getData() {
-        LogUtil.log("MainPresenter发出请求");
-        getModel().login("", "").subscribe(new Subscriber<Object>() {
+    public void getData(String s1, String s2) {
+        LogUtil.log("LoginPresenter发出请求");
+        getView().showProgressDialog();
+        getModel().login(s1, s2).subscribe(new Subscriber<LoginBean>() {
             @Override
             public void onCompleted() {
-
+                getView().dismissProgressDialog();
             }
 
             @Override
@@ -27,8 +28,13 @@ public class LoginPresenter extends MvpRxPresenter<LoginModel, LoginView> {
             }
 
             @Override
-            public void onNext(Object loginBean) {
+            public void onNext(LoginBean loginBean) {
+                if (loginBean.getErrCode() == 0) {
+                    getView().loginSuccess(loginBean);
 
+                } else {
+                    getView().showToast(loginBean.getMsg());
+                }
             }
         });
     }

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:banner="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+
+    <cn.lc.model.framework.widget.SimpleImageBanner
+        android:id="@+id/h_banner_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        banner:bb_barColor="#00000000"
+        banner:bb_barPaddingBottom="5dp"
+        banner:bb_barPaddingLeft="10dp"
+        banner:bb_barPaddingRight="10dp"
+        banner:bb_barPaddingTop="5dp"
+        banner:bb_delay="2"
+        banner:bb_indicatorCornerRadius="3dp"
+        banner:bb_indicatorGap="8dp"
+        banner:bb_indicatorGravity="CENTER"
+        banner:bb_indicatorHeight="6dp"
+        banner:bb_indicatorSelectColor="@color/tv_blue"
+        banner:bb_indicatorStyle="CORNER_RECTANGLE"
+        banner:bb_indicatorUnselectColor="#88ffffff"
+        banner:bb_indicatorWidth="6dp"
+        banner:bb_isAutoScrollEnable="true"
+        banner:bb_isBarShowWhenLast="true"
+        banner:bb_isIndicatorShow="true"
+        banner:bb_isLoopEnable="true"
+        banner:bb_isTitleShow="true"
+        banner:bb_period="5"
+        banner:bb_scale="0.5625"
+        banner:bb_textColor="#ffffff"
+        banner:bb_textSize="13.5sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/standard_padding"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_sp_category"
+            android:textSize="@dimen/sp_bigger"
+            android:textColor="@color/black"
+            android:text="文具用品"
+            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sp_price"
+            android:textSize="@dimen/sp_bigger"
+            android:textColor="@color/tv_red"
+            android:text="￥20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:padding="@dimen/standard_padding"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="送至："
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_address"
+            android:text="驾驭部业务楼401会议室现货,马上下单,预计11:21送达"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_three_dot"
+            android:src="@drawable/ic_launcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6sp"
+        android:background="@color/gray_lighter"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding">
+        <TextView
+            android:id="@+id/tv_comment"
+            android:text="评价(23)"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_more_comment"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_alignParentRight="true"
+                android:text="好评度"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_comment_rate"
+                android:text="99%"
+                android:textColor="@color/tv_red"
+                android:drawableRight="@drawable/turn_right"
+                android:textSize="@dimen/sp_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

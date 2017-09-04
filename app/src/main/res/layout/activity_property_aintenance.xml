@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_property_aintenance"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/reserve_info_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+
+    <View
+        android:id="@+id/view_down"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/reserve_info_title"
+        android:background="#2000" />
+
+    <ScrollView
+        android:layout_below="@id/view_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding"
+                android:text="个人信息"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_big" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="姓名："
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="80dp"
+                    android:text="张三"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="手机号："
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+
+                <TextView
+                    android:id="@+id/tv_phone_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="80dp"
+                    android:text="13521885849"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="预约时间："
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="80dp"
+                    android:text="17/4/3周四 13:00"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
+
+                <ImageView
+                    android:id="@+id/iv_select_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/turn_right" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="服务地址："
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+
+                <EditText
+                    android:id="@+id/et_service_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="80dp"
+                    android:background="@null"
+                    android:hint="请填写服务地址"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding"
+                android:text="服务分类"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_big" />
+
+            <cn.lc.model.framework.widget.NoSlidingGridView
+                android:id="@+id/nsgv_service_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_lighter" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="@dimen/standard_padding"
+                android:background="@drawable/shape_main_edit">
+
+                <EditText
+                    android:background="@null"
+                    android:id="@+id/et_baoxiu_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请告诉我们您的报修详情及相关所需材料" />
+
+                <ImageView
+                    android:id="@+id/iv_up_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/add_photo" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/gray_lighter" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/tv_now_posted"
+        android:background="@color/gray_light" />
+
+    <TextView
+        android:id="@+id/tv_now_posted"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="立即发布"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
+</RelativeLayout>

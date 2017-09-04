@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_photo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/partner_luffy" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_doc_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="肖新华"
+                android:textColor="#a000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_toRightOf="@id/tv_doc_name"
+                android:id="@+id/tv_zhicheng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="主任医师"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tv_order_percent"
+                android:text="17/25"
+                android:textSize="18sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/RatingBar"
+                android:progressTint="@color/yellow"
+                android:progressBackgroundTint="@color/gray"
+                android:secondaryProgressTint="@color/gray"
+                android:rating="2.8" />
+
+            <TextView
+                android:id="@+id/tv_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textSize="18sp"
+                android:text="4.9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical" >
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="问诊量：" />
+
+        <TextView
+            android:id="@+id/tv_seeing"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="232" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_hos"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="所属医院：" />
+
+        <TextView
+            android:layout_toRightOf="@+id/tv_hos"
+            android:id="@+id/tv_hospital"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="机关医务室" />
+        <TextView
+            android:id="@+id/tv_able_order"
+            android:text="可预约"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:background="@drawable/shap_order"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>
+
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1000"/>
+    <TextView
+        android:id="@+id/tv_shan_chang"
+        android:layout_marginLeft="68dp"
+        android:singleLine="true"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="擅长治疗高血压病，感冒、发烧、呕吐、哮喘"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1000"/>
+</LinearLayout>

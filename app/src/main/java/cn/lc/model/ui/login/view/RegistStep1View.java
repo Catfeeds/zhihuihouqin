@@ -1,5 +1,6 @@
 package cn.lc.model.ui.login.view;
 
+import cn.lc.model.ui.login.bean.CaptchaBean;
 import mvp.cn.common.MvpView;
 
 /**
@@ -8,5 +9,6 @@ import mvp.cn.common.MvpView;
 
 public interface RegistStep1View extends MvpView{
 
-    void showToast();
+
+    void success(CaptchaBean captchaBean);
 }

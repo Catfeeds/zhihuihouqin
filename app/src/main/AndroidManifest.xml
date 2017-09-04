@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.lc.model">
-
+    package="cn.lc.model"> <!-- 二维码 -->
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,16 +18,34 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
      
-    <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!--允许程序改变网络连接状态 -->
+    <!-- 允许程序改变网络连接状态 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <!--读取联系人权限，上传联系人需要用到此权限 -->
+    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!--外存储读权限，构建语法需要用到此权限 -->
+    <!-- 外存储读权限，构建语法需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--配置权限，用来记录应用配置信息 -->
+    <!-- 配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!-- 电话权限 -->
+    <!-- 加入访问权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 否则不能监听每个状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!--shareSDK-->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".framework.application.SoftApplication"
@@ -33,18 +54,52 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="cn.lc.model.ui.main.activity.MainActivity">
+        <activity android:name=".ui.main.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!--集成line客户端登录授权，需要添如下格式的过滤器-->
+            <intent-filter>
+                <data android:scheme="line.1477692153" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <!--微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.main.activity.GuideActivity" />
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
         <activity
             android:name=".ui.login.activity.RegistStep1Activity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -54,6 +109,70 @@
         <activity
             android:name=".ui.login.activity.AgreeActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.login.activity.RegistSuccessActivity" />
+        <activity android:name=".ui.main.activity.HealthServerceActivity" />
+        <activity android:name=".ui.main.activity.MoreHealthConsultActivity" />
+        <activity android:name=".ui.main.activity.OrderCutHearActivity" />
+        <activity android:name=".ui.main.activity.RegistrationActivity" />
+        <activity android:name=".ui.main.activity.DoctorDetailActivity" />
+        <activity android:name=".ui.main.activity.ExpertsVisitActivity" />
+        <activity android:name=".ui.main.activity.HealthConsultDetailActivity" />
+        <activity android:name=".ui.main.activity.SubmitSuccessActivity" />
+        <activity android:name=".ui.main.activity.ServiceOrderActivity" />
+        <activity android:name=".ui.main.activity.MoreUSerCommentActivity" />
+        <activity android:name=".ui.main.activity.ReserveInfoActivity" />
+        <activity android:name=".ui.main.activity.ConfirmOrderActivity" />
+        <activity
+            android:name=".ui.main.activity.BarberActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.main.activity.ReservaBarberActivity" />
+
+        <!-- 二维码 -->
+        <activity
+            android:name=".zxing.android.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name=".ui.main.activity.PayFiveJiaoActivity" />
+        <activity android:name=".ui.main.activity.MoreActivity" />
+        <activity android:name=".ui.main.activity.BarberDetailActivity" />
+        <activity android:name=".ui.main.activity.BarberMoreProductActivity" />
+        <activity android:name=".ui.main.activity.HairStyleDetailActivity" />
+        <activity android:name=".ui.main.activity.BarberJianjieActivity" />
+        <activity
+            android:name=".ui.main.activity.property_maintenance.PropertyAintenanceActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".ui.main.activity.property_maintenance.OrderTimeActivity" />
+        <activity android:name=".ui.main.activity.Library.LibraryActivity" />
+        <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
+        <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
+        <activity android:name=".ui.main.activity.Library.BookConfirmOrderActivity" />
+        <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity" />
+        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity" />
+        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />
+        <activity android:name=".ui.main.activity.ActivityRegistration.SignUpPersonActivity" />
+        <activity android:name=".ui.main.activity.ActivityRegistration.FillInfoActivity" />
+        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityPostedActivity" />
+        <activity android:name=".ui.main.activity.ActivityRegistration.PostedNotesActivity" />
+        <activity android:name=".ui.login.activity.RegistStepOneActivity" />
+        <activity android:name=".ui.main.activity.DryCleaners.DryCleanersActivity" />
+        <activity android:name=".ui.main.activity.DryCleaners.DryCleanReserveInfoActivity" />
+        <activity android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity" />
+        <activity android:name=".ui.main.activity.DryCleaners.SubmitResultActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSuppliesActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpConfirmOrderActivity" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.OrderRemarkActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.DeliveryAddressActivity" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.BianJiAddressActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpPayActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity" />
+        <activity android:name=".ui.main.activity.HealthSearchActivity"></activity>
     </application>
 
 </manifest>

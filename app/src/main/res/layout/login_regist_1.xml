@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/et_code"
-            style="@style/tvStyle_white"
+            style="@style/tvStyle_tv_black"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="30dp"

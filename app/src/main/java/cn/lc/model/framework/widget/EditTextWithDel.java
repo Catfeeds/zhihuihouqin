@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import cn.lc.model.R;
 import mvp.cn.util.DensityUtil;
+import mvp.cn.util.StringUtil;
 
 
 /**
@@ -56,10 +57,10 @@ public class EditTextWithDel extends EditText {
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (StringUtil.isNotNull(s.toString()))
-//                    setCompoundDrawables(null, null, imgAble, null);
-//                else
-//                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                if (StringUtil.isNotNull(s.toString()))
+                    setCompoundDrawables(null, null, imgAble, null);
+                else
+                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             }
         });
     }

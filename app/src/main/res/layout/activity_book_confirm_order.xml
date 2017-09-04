@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_book_confirm_order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/reserve_info_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+
+    <View
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000" />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:textSize="@dimen/sp_bigger"
+    android:textColor="@color/black"
+    android:gravity="center_vertical"
+    android:text="个人信息"
+    android:paddingLeft="@dimen/standard_padding"
+    android:background="@color/gray_lighter"/>
+    <include layout="@layout/personal_info" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <RelativeLayout
+    android:padding="@dimen/standard_padding"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+    <TextView
+        android:text="预计取书时间"
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/tv_black"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/tv_black"
+        android:id="@+id/iv_take_book_time"
+        android:text="时间"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="@dimen/sp_bigger"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:text="借阅信息"
+        android:paddingLeft="@dimen/standard_padding"
+        android:background="@color/gray_lighter"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:text="个人信息"
+        android:paddingLeft="@dimen/standard_padding" />
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="2dp"
+       android:background="@color/gray_lighter"/>
+    <TextView
+       android:textSize="@dimen/sp_small"
+       android:textColor="@color/gray"
+       android:padding="@dimen/standard_padding"
+       android:gravity="center"
+       android:text="+继续借阅"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" />
+    <TextView
+        android:text="温馨提示:
+单次 结束上限为3本，每个人的图书程定不可超过10本，如果超出后无权在结束"
+        android:textSize="@dimen/sp_small"
+        android:textColor="@color/gray"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="18dp"
+        android:background="@color/gray_lighter"
+        android:paddingRight="@dimen/standard_padding"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="立即提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_bigger" />
+</LinearLayout>

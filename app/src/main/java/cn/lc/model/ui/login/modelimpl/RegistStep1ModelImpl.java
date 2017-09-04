@@ -2,6 +2,7 @@ package cn.lc.model.ui.login.modelimpl;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.ui.login.model.LoginModel;
+import cn.lc.model.ui.login.model.RegistStep1Model;
 import mvp.cn.util.LogUtil;
 import rx.Observable;
 
@@ -9,7 +10,7 @@ import rx.Observable;
  * Created by hh on 2017/5/12.
  */
 
-public class RegistStep1ModelImpl implements LoginModel {
+public class RegistStep1ModelImpl implements RegistStep1Model {
     @Override
     public Observable getData() {
         LogUtil.log("MainModel请求数据");
@@ -18,9 +19,17 @@ public class RegistStep1ModelImpl implements LoginModel {
     }
 
     @Override
-    public Observable login(String s, String s1) {
+   // public Observable login(String s, String s1) {
+    public Observable getCaptcha(String s, int i) {
         LogUtil.log("MainModel请求数据-->login");
-        Observable observer = RetrofitUtils.getInstance().login("", "");
+        //Observable observer = RetrofitUtils.getInstance().getCaptcha("", "");
+        Observable observer = RetrofitUtils.getInstance().getCaptcha(s,i);
         return observer ;
     }
+
+   /* @Override
+    public Observable checkCode(String s, String s1) {
+        Observable observer = RetrofitUtils.getInstance().checkCode(s,s1);
+        return observer;
+    }*/
 }

@@ -72,7 +72,7 @@ public class RegistStep1Activity extends BaseActivity<RegistStep1Model,RegistSte
 
     @Override
     public RegistStep1Presenter createPresenter() {
-        return null;
+        return new RegistStep1Presenter();
     }
 
     @Override
@@ -96,9 +96,6 @@ public class RegistStep1Activity extends BaseActivity<RegistStep1Model,RegistSte
             }
         }
     }
-
-
-
 
     @OnClick({R.id.btn_getcode, R.id.tv_agreen, R.id.bt_next})
     public void onClick(View view) {
@@ -177,6 +174,7 @@ public class RegistStep1Activity extends BaseActivity<RegistStep1Model,RegistSte
             return;
         }
 //        doGetCodeRequest(mobile);
+        getPresenter().getData(mobile,0);
     }
 
 

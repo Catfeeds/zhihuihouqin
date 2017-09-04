@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_reader_recommend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/reader_commend_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <View
+        android:id="@+id/view_down"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/rl_title"
+        android:background="#2000" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+        <TextView
+            android:text="书籍名称:"
+            style="@style/tvStyle_black_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_book_name"
+            style="@style/etStyle_sp_big"
+            android:background="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+        <TextView
+            android:text="作者名称:"
+            style="@style/tvStyle_black_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/author_name"
+            android:background="@null"
+            style="@style/etStyle_sp_big"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+        <TextView
+            android:text="出版社名称:"
+            style="@style/tvStyle_black_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/chubanshe_name"
+            android:background="@null"
+            style="@style/etStyle_sp_big"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+        <TextView
+            android:text="其他备注:"
+            style="@style/tvStyle_black_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_marginLeft="@dimen/standard_padding"
+       android:layout_marginRight="@dimen/standard_padding"
+       android:layout_marginBottom="@dimen/standard_padding"
+       android:padding="@dimen/standard_padding"
+       android:background="@drawable/shape_xuxian_gray"
+       android:layout_height="200dp" >
+       <EditText
+           android:id="@+id/et_write_your_book_name"
+           android:background="@null"
+           android:hint="请输入你想要的书籍详细内容"
+           android:textColor="@color/gray_light"
+           android:textSize="@dimen/sp_big"
+           android:layout_marginLeft="8dp"
+           android:layout_marginRight="8dp"
+           android:layout_marginTop="8dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/gray_lighter">
+        <TextView
+            android:id="@+id/submit"
+            android:text="提交"
+            android:background="@color/white"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_bigger"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

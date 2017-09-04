@@ -22,4 +22,6 @@ public class UserInfo extends BaseResponse {
     public String userName;
     public String valid;
     public String versionId;
+
+
 }

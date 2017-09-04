@@ -3,7 +3,7 @@ package lc.cn.thirdplatform.pay;
 import android.app.Activity;
 
 
-public class PayActivity extends Activity {
+public class  PayActivity extends Activity {
 
 
     /*@Override

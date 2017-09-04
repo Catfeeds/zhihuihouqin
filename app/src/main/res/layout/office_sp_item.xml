@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_margin="2dp"
+    android:padding="@dimen/standard_padding"
+    android:paddingTop="6dp">
+
+    <ImageView
+        android:id="@+id/iv_sp_pic"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/partner_luffy" />
+
+    <TextView
+        android:id="@+id/tv_sp_des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="扁头票夹大号铁夹5号文具夹办公必备"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:text="￥0.8"
+        android:textColor="@color/tv_red"
+        android:textSize="@dimen/sp_small" />
+</LinearLayout>

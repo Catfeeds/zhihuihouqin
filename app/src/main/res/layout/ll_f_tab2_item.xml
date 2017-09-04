@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:id="@+id/rl_service"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+    <View
+        android:id="@+id/view"
+        android:layout_width="4dp"
+        android:layout_height="12dp"
+        android:layout_centerVertical="true"
+        android:background="#3f79ec"/>
+    <TextView
+        android:id="@+id/tv_service_type"
+        android:layout_toRightOf="@id/view"
+        android:textSize="14sp"
+        android:textColor="#a000"
+        android:text="餐饮服务"
+        android:layout_marginLeft="8dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_finish"
+        android:textSize="14sp"
+        android:text="完成"
+        android:visibility="gone"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+    <cn.lc.model.framework.widget.NoSlidingGridView
+        android:id="@+id/nsgv_f_tab_2"
+        android:numColumns="4"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#1000"/>
+</LinearLayout>

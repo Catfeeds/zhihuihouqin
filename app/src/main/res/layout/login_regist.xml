@@ -20,9 +20,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center" >
-
                 <!-- 手机号 -->
-
                 <RelativeLayout
                     android:id="@+id/rl_uname"
                     android:layout_width="wrap_content"
@@ -35,11 +33,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/phone" />
 
                     <EditText
                         android:id="@+id/et_phone"
-                        style="@style/tvStyle_white"
+                        style="@style/tvStyle_tv_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -51,7 +49,7 @@
                         android:gravity="left"
                         android:hint="手机号码"
                         android:paddingLeft="10dip"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/tv_gray" />
 
                     <ImageView
                         android:id="@+id/iv_uname"
@@ -81,11 +79,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/clock" />
 
                     <EditText
                         android:id="@+id/et_code"
-                        style="@style/tvStyle_white"
+                        style="@style/tvStyle_tv_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -97,11 +95,11 @@
                         android:hint="验证码"
                         android:inputType="number"
                         android:paddingLeft="10dip"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/tv_gray" />
 
                     <Button
                         android:id="@+id/btn_getcode"
-                        style="@style/tvStyle_white"
+                        style="@style/tvStyle_tv_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignRight="@id/iv_code"
@@ -129,7 +127,7 @@
 
                     <EditText
                         android:id="@+id/et_password"
-                        style="@style/tvStyle_white"
+                        style="@style/tvStyle_tv_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -169,7 +167,7 @@
 
                     <EditText
                         android:id="@+id/et_repassword"
-                        style="@style/tvStyle_white"
+                        style="@style/tvStyle_tv_black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

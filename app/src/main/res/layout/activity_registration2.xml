@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration2"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/activity_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+
+    <View
+        android:id="@+id/view_title"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000" />
+    <ImageView
+        android:id="@+id/iv_big_pic"
+        android:src="@drawable/partner_luffy"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_activity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_activity_posted"
+        android:text="活动发布"
+        style="@style/tvStyle_blue_bigger"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height" />
+</LinearLayout>

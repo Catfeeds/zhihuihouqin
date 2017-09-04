@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_comment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全部评价"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
+
+    <TextView
+        android:id="@+id/tv_comment_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
+</LinearLayout>

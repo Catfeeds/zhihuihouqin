@@ -71,7 +71,9 @@ public class TabBar extends LinearLayout implements View.OnClickListener {
     private void init() {
         View view = View.inflate(ct, R.layout.m_bottom, this);
         ButterKnife.bind(this, view);
-        setBackgroundColor(ContextCompat.getColor(ct, R.color.title_color));
+
+        //设置成下面的颜色
+        setBackgroundColor(ContextCompat.getColor(ct,android.R.color.white));
     }
 
     @OnClick({R.id.ll_tab1, R.id.ll_tab2, R.id.ll_tab3, R.id.ll_tab4})
@@ -126,36 +128,40 @@ public class TabBar extends LinearLayout implements View.OnClickListener {
         switch (position) {
             case 0:
                 resetColors();
-                ivTab1.setImageResource(R.mipmap.tab1_y);
-                tvTab1.setTextColor(ContextCompat.getColor(ct,R.color.white));
+                ivTab1.setImageResource(R.drawable.home_select);
+                tvTab1.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
                 break;
             case 1:
                 resetColors();
-                ivTab2.setImageResource(R.mipmap.tab2_y);
-                tvTab2.setTextColor(ContextCompat.getColor(ct,R.color.white));
+                ivTab2.setImageResource(R.drawable.treasure_chest_select);
+                tvTab2.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
                 break;
             case 2:
                 resetColors();
-                ivTab3.setImageResource(R.mipmap.tab3_y);
-                tvTab3.setTextColor(ContextCompat.getColor(ct,R.color.white));
+                ivTab3.setImageResource(R.drawable.message_select);
+                tvTab3.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
                 break;
             case 3:
                 resetColors();
-                ivTab4.setImageResource(R.mipmap.tab4_y);
-                tvTab4.setTextColor(ContextCompat.getColor(ct,R.color.white));
+                ivTab4.setImageResource(R.drawable.me_select);
+                tvTab4.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
                 break;
         }
     }
 
     private void resetColors(){
-        ivTab1.setImageResource(R.mipmap.tab1_n);
-        ivTab2.setImageResource(R.mipmap.tab2_n);
-        ivTab3.setImageResource(R.mipmap.tab3_n);
-        ivTab4.setImageResource(R.mipmap.tab4_n);
-        tvTab1.setTextColor(Color.parseColor("#7EC2D4"));
-        tvTab2.setTextColor(Color.parseColor("#7EC2D4"));
-        tvTab3.setTextColor(Color.parseColor("#7EC2D4"));
-        tvTab4.setTextColor(Color.parseColor("#7EC2D4"));
+        ivTab1.setImageResource(R.drawable.home);
+        ivTab2.setImageResource(R.drawable.treasure_chest);
+        ivTab3.setImageResource(R.drawable.message);
+        ivTab4.setImageResource(R.drawable.me);
+      /*  tvTab1.setTextColor(Color.parseColor("#000"));
+        tvTab2.setTextColor(Color.parseColor("#000"));
+        tvTab3.setTextColor(Color.parseColor("#000"));
+        tvTab4.setTextColor(Color.parseColor("#000"));*/
+        tvTab1.setTextColor(Color.BLACK);
+        tvTab2.setTextColor(Color.BLACK);
+        tvTab3.setTextColor(Color.BLACK);
+        tvTab4.setTextColor(Color.BLACK);
     }
 
 

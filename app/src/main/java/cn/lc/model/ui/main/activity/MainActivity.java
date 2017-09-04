@@ -64,7 +64,6 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
         }
     };
 
-
     private void changeFragment(Fragment f) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -85,5 +84,6 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
     public void getData() {
         getPresenter().getData();
     }
+
 
 }

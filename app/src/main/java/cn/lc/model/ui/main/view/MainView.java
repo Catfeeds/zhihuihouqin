@@ -8,4 +8,6 @@ import mvp.cn.common.MvpView;
 
 public interface MainView extends MvpView{
 
+
+
 }

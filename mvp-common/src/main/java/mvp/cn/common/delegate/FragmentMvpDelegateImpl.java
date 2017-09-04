@@ -58,7 +58,8 @@ public class FragmentMvpDelegateImpl<V extends MvpView, P extends MvpPresenter<V
 
     @Override
     public void onCreate(Bundle saved) {
-
+        getInternalDelegate().createPresenter();
+        getInternalDelegate().attachView();
     }
 
     @Override
@@ -68,8 +69,7 @@ public class FragmentMvpDelegateImpl<V extends MvpView, P extends MvpPresenter<V
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        getInternalDelegate().createPresenter();
-        getInternalDelegate().attachView();
+
     }
 
     @Override

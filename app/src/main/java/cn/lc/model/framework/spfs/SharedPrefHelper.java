@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.framework.config.UserInfo;
+import cn.lc.model.ui.home.bean.LoginBean;
 
 
 public class SharedPrefHelper {
@@ -89,7 +90,87 @@ public class SharedPrefHelper {
     public void setUserInfo(Object userInfo) {
     }
 
-    public UserInfo getUserInfo() {
+    public LoginBean.UserinfoBean getUserInfo() {
         return null;
+    }
+
+    public void setToken(String token) {
+        sharedPreferences.edit().putString("token", token).commit();
+    }
+
+    public String getToken() {
+        return sharedPreferences.getString("token", null);
+    }
+
+    public void setRyToken(String token) {
+        sharedPreferences.edit().putString("rytoken", token).commit();
+    }
+    /**
+     * 游客登录
+     *
+     * @param youke
+     */
+    public void setyouke(boolean youke) {
+        sharedPreferences.edit().putBoolean("youke", youke).commit();
+    }
+
+    public boolean getyouke() {
+        return sharedPreferences.getBoolean("youke", true);
+    }
+
+    public void setSex(String sex) {
+        sharedPreferences.edit().putString("sex", sex).commit();
+    }
+
+    public String getSex() {
+        return sharedPreferences.getString("sex",null);
+    }
+//
+    public String getUserId() {
+        return sharedPreferences.getString("userId",null);
+    }
+
+    public String getNickname() {
+        return sharedPreferences.getString("nickname",null);
+    }
+
+    public String getUserPhoto() {
+        return sharedPreferences.getString("userPhoto",null);
+    }
+
+    public String getRealName() {
+        return sharedPreferences.getString("realName",null);
+    }
+
+    public String getNation() {
+        return sharedPreferences.getString("nation",null);
+    }
+
+    public String getMobile() {
+        return sharedPreferences.getString("mobile",null);
+    }
+
+    public void setuserId(String userId) {
+        sharedPreferences.edit().putString("userId", userId).commit();
+    }
+
+    public void setNickname(String nickname) {
+        sharedPreferences.edit().putString("nickname", nickname).commit();
+    }
+
+    public void setuserPhoto(String userPhoto) {
+        sharedPreferences.edit().putString("userPhoto", userPhoto).commit();
+    }
+
+    public void setRealName(String realName) {
+        sharedPreferences.edit().putString("realName", realName).commit();
+    }
+
+    public void setNation(String nation) {
+        sharedPreferences.edit().putString("nation", nation).commit();
+    }
+
+    public void setMobile(String mobile) {
+        sharedPreferences.edit().putString("mobile", mobile).commit();
     }
 }

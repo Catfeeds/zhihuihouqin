@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_bian_ji_address"
+    android:layout_width="match_parent"
+    android:background="@color/gray_lighter"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <cn.lc.model.framework.widget.TitleBar
+            android:id="@+id/delivery_address_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/white" />
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="删除"
+            android:textColor="@color/tv_blue"
+            android:textSize="@dimen/sp_small" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/rl_title"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="@dimen/standard_padding"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="联系人"
+                android:textSize="@dimen/sp_small"
+                android:textColor="@color/tv_black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_contact"
+                android:text="张旺旺"
+                android:layout_marginLeft="16dp"
+                android:textSize="@dimen/sp_common"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:padding="@dimen/standard_padding"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="手机号码"
+                android:textSize="@dimen/sp_small"
+                android:textColor="@color/tv_black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_telphone"
+                android:text="12345678"
+                android:layout_marginLeft="16dp"
+                android:textSize="@dimen/sp_common"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="@dimen/standard_padding"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="服务地址"
+                android:textSize="@dimen/sp_small"
+                android:textColor="@color/tv_black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_service_address"
+                android:text="张旺旺"
+                android:layout_marginLeft="16dp"
+                android:textSize="@dimen/sp_common"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_save_address"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="@dimen/sp_bigger"
+        android:textColor="@color/white"
+        android:text="保存地址"
+        android:gravity="center"
+        android:background="@color/bg_color"/>
+</RelativeLayout>

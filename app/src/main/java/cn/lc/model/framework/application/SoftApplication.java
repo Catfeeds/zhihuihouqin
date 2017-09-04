@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.google.gson.Gson;
+import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -17,6 +18,7 @@ import cn.lc.model.framework.config.AppConfig;
 import cn.lc.model.framework.config.AppInfo;
 import cn.lc.model.framework.config.UserInfo;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
+import cn.lc.model.ui.home.bean.LoginBean;
 import mvp.cn.common.QuickApplication;
 import mvp.cn.util.DateUtil;
 import mvp.cn.util.NetUtil;
@@ -29,7 +31,7 @@ public class SoftApplication extends QuickApplication {
     public static List<Activity> unDestroyActivityList = new ArrayList<Activity>();
     public static SoftApplication softApplication;
     private static AppInfo appInfo;
-    private static UserInfo userInfo ;
+    private static LoginBean.UserinfoBean userInfo ;
     private static boolean isLogin;// 判断是否已经登录
 
     private static int authStatus;
@@ -41,6 +43,8 @@ public class SoftApplication extends QuickApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始化shareSDk
+        MobSDK.init(getApplicationContext(), "20ad34651b60e", "3e43dd44f20087c729bc6b4605d75c73");
         softApplication = this;
         refWatcher =  LeakCanary.install(this);
 
@@ -162,7 +166,7 @@ public class SoftApplication extends QuickApplication {
             authJsonObject.put("app_version", appInfo.appVersionCode);
 //            authJsonObject.put("source_id", appInfo.sourceId);
 //            authJsonObject.put("ver", appInfo.ver);
-            authJsonObject.put("uid", isLogin ? userInfo.uid : "");
+            authJsonObject.put("uid", isLogin ? userInfo.getUserId() : "");
             authJsonObject.put("time_stamp", timeStamp);
 //            authJsonObject.put("crc", CrcUtil.getCrc(timeStamp, appInfo.imei, (isLogin ? userInfo.uid : appInfo.uid), (isLogin ? passwordWithMd5 : CrcUtil.MD5(appInfo.crc)), jsonString));
 //            authJsonObject.put("token", getToken(timeStamp));
@@ -204,7 +208,7 @@ public class SoftApplication extends QuickApplication {
      *
      * @param result
      */
-    public void setUserInfo(UserInfo result) {
+    public void setUserInfo(LoginBean.UserinfoBean result) {
         userInfo = result;
         if (result != null) {
             isLogin = true;
@@ -220,7 +224,7 @@ public class SoftApplication extends QuickApplication {
      *
      * @return
      */
-    public UserInfo getUserInfo() {
+    public LoginBean.UserinfoBean getUserInfo() {
         if (userInfo == null) {
             userInfo = SharedPrefHelper.getInstance().getUserInfo();
         }

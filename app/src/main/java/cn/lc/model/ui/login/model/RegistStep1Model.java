@@ -10,5 +10,8 @@ import rx.Observable;
 public interface RegistStep1Model extends MvpModel{
     Observable getData();
 
-    Observable login(String s, String s1);
+    //获取验证码
+    Observable getCaptcha(String s, int s1);
+    /*//检测验证码
+    Observable checkCode(String s, String s1);*/
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/shap_text"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_workday"
+        android:text="今天"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_bigger" />
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:text="明天"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_big" />
+</LinearLayout>

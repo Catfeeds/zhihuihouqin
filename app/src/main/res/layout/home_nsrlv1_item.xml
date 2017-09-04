@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+<ImageView
+    android:id="@+id/iv_firstrv_logo"
+    android:src="@mipmap/ic_launcher"
+    android:layout_margin="8dp"
+    android:layout_width="80dp"
+    android:layout_height="80dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:id="@+id/tv_firstrv_title"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:maxLines="2"
+            android:text="美食合理搭配，健康是吃出来的，营养套餐为你贴心安排"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:id="@+id/tv_firstrv_time"
+                android:text="17-07-14 10:28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_firstrv_des"
+                android:text="机关食堂"
+
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

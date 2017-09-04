@@ -43,7 +43,7 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
         softApplication.unDestroyActivityList.add(this);
 //        NetChangeManager.newInstance(softApplication).addMinitor(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        if (isAllowFullScreen) {
+    /*    if (isAllowFullScreen) {
             setFullScreen(true);
         } else {
             setFullScreen(false);
@@ -52,7 +52,7 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
             setTranslucentStatus(R.color.title_color);
         } else {
             setTranslucentStatus(R.color.transparent);
-        }
+        }*/
         setContentLayout();
         ButterKnife.bind(this);
         initView();

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sp_detail"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/sp_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000" />
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/sp_detail_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/bottom_height">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+            <TextView
+                android:id="@+id/tv_share"
+                android:text="分享"
+                style="@style/tvStyle_white_small"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray_lighter"/>
+            <TextView
+                android:text="收藏"
+                android:id="@+id/tv_collect"
+                style="@style/tvStyle_white_small"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+            <TextView
+                android:id="@+id/tv_add_car"
+                android:background="@color/yellow"
+                android:text="加入购物车"
+                android:gravity="center"
+                android:textSize="@dimen/sp_small"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray_lighter"/>
+            <TextView
+                android:id="@+id/tv_now_buy"
+                android:background="@color/yellow"
+                android:text="立即购买"
+                android:gravity="center"
+                android:textSize="@dimen/sp_small"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

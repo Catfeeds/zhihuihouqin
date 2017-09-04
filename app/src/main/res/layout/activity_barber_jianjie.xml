@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_barber_jianjie"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/jianjie_content_title"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000"/>
+    <TextView
+        android:id="@+id/tv_jianjie_content"
+        android:textSize="@dimen/sp_small"
+        android:textColor="@color/tv_black"
+        android:text="jianjiecontent"
+        android:layout_margin="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/shape_rec_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

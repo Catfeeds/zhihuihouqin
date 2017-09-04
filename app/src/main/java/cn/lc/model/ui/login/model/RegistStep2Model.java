@@ -10,5 +10,5 @@ import rx.Observable;
 public interface RegistStep2Model extends MvpModel{
     Observable getData();
 
-    Observable login(String s, String s1);
+    Observable regist(String s, String code,String pas);
 }

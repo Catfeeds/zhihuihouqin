@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="#1000"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/iv_two_dimension_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/saoyisao" />
+
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shap_search_text"></RelativeLayout>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/iv_search"
+            android:src="@drawable/search" />
+
+        <TextView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="请输入关键词"
+            android:textColor="#a000"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/id_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_head"
+        android:layout_below="@+id/ll_head">
+        <!--<android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>-->
+        <ScrollView
+            android:id="@+id/pullToRefreshScrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_head"
+            android:descendantFocusability="blocksDescendants"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--轮播图-->
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp" />
+
+                <!--<cn.lc.model.framework.widget.SimpleImageBanner
+                    android:id="@+id/h_banner_viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    banner:bb_barColor="#00000000"
+                    banner:bb_barPaddingBottom="5dp"
+                    banner:bb_barPaddingLeft="10dp"
+                    banner:bb_barPaddingRight="10dp"
+                    banner:bb_barPaddingTop="5dp"
+                    banner:bb_delay="2"
+                    banner:bb_indicatorCornerRadius="3dp"
+                    banner:bb_indicatorGap="8dp"
+                    banner:bb_indicatorGravity="CENTER"
+                    banner:bb_indicatorHeight="6dp"
+                    banner:bb_indicatorSelectColor="@color/tv_blue"
+                    banner:bb_indicatorStyle="CORNER_RECTANGLE"
+                    banner:bb_indicatorUnselectColor="#88ffffff"
+                    banner:bb_indicatorWidth="6dp"
+                    banner:bb_isAutoScrollEnable="true"
+                    banner:bb_isBarShowWhenLast="true"
+                    banner:bb_isIndicatorShow="true"
+                    banner:bb_isLoopEnable="true"
+                    banner:bb_isTitleShow="true"
+                    banner:bb_period="5"
+                    banner:bb_scale="0.5625"
+                    banner:bb_textColor="#ffffff"
+                    banner:bb_textSize="13.5sp" />-->
+                <!--分类-->
+
+                <cn.lc.model.framework.widget.NoSlidingGridView
+                    android:id="@+id/gridView_catogary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:numColumns="4" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1000"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="最新公告" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+                    android:id="@+id/nsrlv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1000"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="网络报修" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+                    android:id="@+id/nsrlv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1000"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="最新活动" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+                    android:id="@+id/nsrlv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
