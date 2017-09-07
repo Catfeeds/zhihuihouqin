@@ -32,5 +32,18 @@ public interface NetUrl {
     String libraryHome ="appuser/tsjyfw/index";
     String recommandBook="appuser/tsjyfw/recommand";
     String bookdetail="appuser/tsjyfw/getbookdetail";
+    //工作餐预订
+    String createOrder = "appuser/dcfwgzcorder/generateOrder";
+    String orderReason = "appuser/dcfwgzcorder/findReasonList";
+    String cancelOrder = "appuser/dcfwgzcorder/orderCancel";
+    String getTime = "appuser/dcfwgzcorder/getFoodTimeList";
+    // 地址管理
+    String getAddress = "appuser/address/findUserAddressList";
+    // 营养套餐
+    String getNutritionData = "appuser/tyytcmeal/findMealList";
+    // 意见投诉
+    String submitComplain = "appuser/jyfwcomplaint/commitComplanit";
+    String getLabelling = "appuser/jyfwcomplaint/findComplanitTag";
+    String complainHistory = "appuser/jyfwcomplaint/findComplanitList";
 
 }

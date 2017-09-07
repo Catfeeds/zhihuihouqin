@@ -17,11 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.framework.network.AppConstants;
-import cn.lc.model.framework.network.ParameterKeys;
 import cn.lc.model.framework.network.ServerConstants;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.utils.LogUtils;
+import id.zelory.compressor.Compressor;
 import mvp.cn.util.DateUtil;
+import mvp.cn.util.LogUtil;
 import mvp.cn.util.Md5Util;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -34,6 +35,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static cn.lc.model.framework.network.retrofit.ParameterKeys.TOKEN;
 
 /**
  * Created by hh on 2017/5/12.
@@ -73,15 +76,13 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         //LogUtils.d("时间戳请求参数：" + timestamp);
         Log.e("token==",SharedPrefHelper.getInstance().getToken());
         if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
-           Log.e("getToken请求拼接参数：", SharedPrefHelper.getInstance().getToken());
-            //paramsMap.put("TOKEN", SharedPrefHelper.getInstance().getToken());
-            paramsMap.put("token", SharedPrefHelper.getInstance().getToken());
+            //LogUtils.d("getToken请求参数：" + SharedPrefHelper.getInstance().getToken());
+            paramsMap.put(TOKEN, SharedPrefHelper.getInstance().getToken());
 
         } else {
             //LogUtil.log(SharedPrefHelper.getInstance().getyouke() + "");
             if (SharedPrefHelper.getInstance().getyouke() == true) {
-               // paramsMap.put("TOKEN", "0");
-                paramsMap.put("token", "0");
+                paramsMap.put(TOKEN, "0");
             } else {
             }
         }
@@ -93,49 +94,47 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
     }
 
-    /*加密*/
-    private static String getSign(String biz, String timestamp, String secretKey) throws UnsupportedEncodingException {
-        return Md5Util.getMD5(URLEncoder.encode(biz, "UTF-8") + timestamp + secretKey);
-    }
-    /*private static void getRequestBody(Map<String, RequestBody> paramsMap, Map<String, String> tempMap) {
+
+    private static void getRequestBody(Map<String, RequestBody> paramsMap, Map<String, String> tempMap) {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         RequestBody requestbiz = RequestBody.create(MediaType.parse("multipart/form-data"), biz);
-       // paramsMap.put(ParameterKeys.BIZ, requestbiz);
+        paramsMap.put(ParameterKeys.BIZ, requestbiz);
         //  LogUtils.d("biz请求参数：" + biz);
-       // String device=gson.toJson(getdevice());
-        //RequestBody requestdevice = RequestBody.create(MediaType.parse("multipart/form-data"), device);
-        //paramsMap.put(ParameterKeys.DEVICE,requestdevice);
-        //    LogUtils.d("device请求参数：" + device);
+        //  String device=gson.toJson(getdevice());
+        //  RequestBody requestdevice = RequestBody.create(MediaType.parse("multipart/form-data"), device);
+        //  paramsMap.put(ParameterKeys.DEVICE,requestdevice);
+        //  LogUtils.d("device请求参数：" + device);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
-        RequestBody requesttimestamp = RequestBody.create(MediaType.parse("multipart/form-data"),timestamp);
-       // paramsMap.put(ParameterKeys.TIMESTAMP, requesttimestamp);
+        RequestBody requesttimestamp = RequestBody.create(MediaType.parse("multipart/form-data"), timestamp);
+        paramsMap.put(ParameterKeys.TIMESTAMP, requesttimestamp);
         //     LogUtils.d("时间戳请求参数：" + timestamp);
         if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
             //        LogUtils.d("请求参数：getToken" + SharedPrefHelper.getInstance().getToken());
-          //  paramsMap.put(TOKEN, RequestBody.create(MediaType.parse("multipart/form-data"), SharedPrefHelper.getInstance().getToken()));
+            paramsMap.put(TOKEN, RequestBody.create(MediaType.parse("multipart/form-data"), SharedPrefHelper.getInstance().getToken()));
         } else {
-          //  LogUtil.log(SharedPrefHelper.getInstance().getyouke() + "。。。。。。。。。");
+            LogUtil.log(SharedPrefHelper.getInstance().getyouke() + "。。。。。。。。。");
             if (SharedPrefHelper.getInstance().getyouke() == true) {
-              //  paramsMap.put(TOKEN,RequestBody.create(MediaType.parse("multipart/form-data"), "0"));
+                paramsMap.put(TOKEN, RequestBody.create(MediaType.parse("multipart/form-data"), "0"));
             } else {
             }
         }
         try {
-           // RequestBody requestsign= RequestBody.create(MediaType.parse("multipart/form-data"),getSign(device,biz, timestamp));
-          //  paramsMap.put(ParameterKeys.SIGN, requestsign);
+            RequestBody requestsign = RequestBody.create(MediaType.parse("multipart/form-data"), getSign(biz, timestamp, "zxcadsadwa@2321$"));
+            paramsMap.put(ParameterKeys.SIGN, requestsign);
             //       LogUtils.d("sign戳请求参数：" + getSign(device,biz, timestamp));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
 
+
     private static List<MultipartBody.Part> getImgList(ArrayList<String> paths, String s) {
         List<MultipartBody.Part> parts = new ArrayList<>();
 
         for (int i = 0; i < paths.size(); i++) {
             //这里采用的Compressor图片压缩
-            LogUtils.d("图片地址：" +paths.get(i));
+            LogUtils.d("图片地址：" + paths.get(i));
             File file = new Compressor.Builder(SoftApplication.softApplication)
                     .setMaxWidth(720)
                     .setMaxHeight(1080)
@@ -146,37 +145,18 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
                     .build()
                     .compressToFile(new File(paths.get(i)));
 
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image*//*"), file);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
             parts.add(part);
         }
         return parts;
-    }*/
-
-    /**
-     * 上传图片
-     *
-     * @return
-     *
-     */
-   /* public static Observable UpImages(String s1,String s2,String s3,ArrayList<String> paths) {
-        Map<String, RequestBody> paramsMap = new HashMap<>();
-        try {
-            Map<String, String> tempMap = new HashMap<String, String>();
-
-            tempMap.put("clubId ", s1);
-            tempMap.put("albumId", s2);
-            tempMap.put("albumTitle", s3);
-           // getRequestBody(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return getObservable(api.getWuyeHomeInfo(paramsMap,getImgList(paths,"albumPhoto")));
-
-    }*/
+    }
 
 
+    /*加密*/
+    private static String getSign(String biz, String timestamp, String secretKey) throws UnsupportedEncodingException {
+        return Md5Util.getMD5(URLEncoder.encode(biz, "UTF-8") + timestamp + secretKey);
+    }
 
     public static OkHttpClient getOkHttpClient() {
         if (okHttpClient == null) {
@@ -204,6 +184,28 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     //-------------------------------------------请求内容----------------------------------------------
+
+
+    /**
+     * 上传图片
+     *
+     * @return
+     */
+    public static Observable UpImages(int tagid, String complaintContent, String suggestContent, int anonymous, ArrayList<String> paths) {
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("tagid ", tagid + "");
+            tempMap.put("complaintContent", complaintContent);
+            tempMap.put("suggestContent", suggestContent);
+            tempMap.put("anonymous", anonymous + "");
+            getRequestBody(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return getObservable(api.UpImage(paramsMap, getImgList(paths, "imgFile")));
+    }
 
     /**
      * 登陆
@@ -480,6 +482,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
 
     /**
      * 图书馆首页
+     *
      * @return
      */
     public static Observable getLibraryHomeData(int position) {
@@ -497,6 +500,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
     /**
      * 推荐图书
+     *
      * @return
      */
     public static Observable getRecommandResult(String title,String author,String publisher,String remark) {
@@ -515,8 +519,10 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getRecommandResult(paramsMap));
     }
+
     /**
      * 图书详情
+     *
      * @return
      */
     public static Observable getBookDetailResult(int bookId) {
@@ -532,8 +538,10 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getBookDetailResult(paramsMap));
     }
+
     /**
      * 理发店铺
+     *
      * @return
      */
     public static Observable getShopInfo() {
@@ -547,8 +555,10 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getShopInfo(paramsMap));
     }
+
     /**
-     *理发师列表
+     * 理发师列表
+     *
      * @return
      */
     public static Observable getBarberList() {
@@ -562,15 +572,17 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getBarberList(paramsMap));
     }
+
     /**
-     *理发师详情信息
+     * 理发师详情信息
+     *
      * @return
      */
     public static Observable getBarberDetail(int id) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("id",id+"");
+            tempMap.put("id", id + "");
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -578,8 +590,10 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getBarberDetailInfo(paramsMap));
     }
+
     /**
-     *理发师作品列表
+     * 理发师作品列表
+     *
      * @return
      */
     public static Observable getBarberProductList(String id,String page,String limit) {
@@ -596,20 +610,197 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getbarberworklist(paramsMap));
     }
+
     /**
-     *预约理发师
+     * 预约理发师
+     *
      * @return
      */
     public static Observable preOrderBarber(int id) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("barberId",id+"");
+            tempMap.put("barberId", id + "");
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return getObservable(api.getbarberInfo(paramsMap));
+    }
+
+    /**
+     * 生成订餐订单
+     *
+     * @return
+     */
+    public static Observable createOrdering(String userName, String phoneNumber, int timeId, int count, int addressId) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("realname", userName);
+            tempMap.put("mobile", phoneNumber);
+            tempMap.put("sendfoodtimeId", timeId + "");
+            tempMap.put("count", count + "");
+            tempMap.put("addressId", addressId + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.createOrdering(paramsMap));
+    }
+
+    /**
+     * 获取取餐时间
+     *
+     * @return
+     */
+    public static Observable getTime() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getTime(paramsMap));
+    }
+
+    /**
+     * 获取取消订单原因
+     *
+     * @return
+     */
+    public static Observable getReason() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getReason(paramsMap));
+    }
+
+    /**
+     * 获取取消订单原因
+     *
+     * @return
+     */
+    public static Observable cancelOrder(int oid, int[] reasonIds, String reasonContent) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("oid", oid + "");
+            tempMap.put("reasonContent", reasonContent);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelOrder(paramsMap, reasonIds));
+    }
+
+    /**
+     * 获取营养套餐
+     */
+    public static Observable getNutritionData(int type) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("type", type + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getNutritionData(paramsMap));
+    }
+
+
+    /**
+     * 获取今日菜谱
+     */
+    public static Observable getTodayRecipe(int timeType, int type) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("timeType", timeType + "");
+            tempMap.put("type", type + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getTodayRecipe(paramsMap));
+    }
+
+    /**
+     * 获取营养套餐banner
+     */
+    public static Observable getNutritionBanner() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getNutritionBanner(paramsMap));
+    }
+
+    /**
+     * 获取意见反馈标签
+     */
+    public static Observable getLabelling() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getLabelling(paramsMap));
+    }
+
+    /**
+     * 提交意见反馈
+     */
+    public static Observable submitComplain(int id, String complaintContent, String suggestContent, int anonymous, String filePath) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("tagid", id + "");
+            tempMap.put("complaintContent", complaintContent);
+            tempMap.put("suggestContent", suggestContent);
+            tempMap.put("anonymous", anonymous + "");
+
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.submitComplain(paramsMap));
+    }
+
+    /**
+     * 获取反馈历史
+     */
+    public static Observable getComplainhistory(int page, int pageCount) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("page", page + "");
+            tempMap.put("limit", pageCount + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getComplainHistory(paramsMap));
     }
 }

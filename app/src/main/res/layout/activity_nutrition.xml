@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_lighter" />
+
+    <cn.lc.model.framework.widget.SimpleImageBanner
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/white">
+
+    </cn.lc.model.framework.widget.SimpleImageBanner>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/gray_lighter" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="今日食谱"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_big" />
+
+                <TextView
+                    android:id="@+id/today_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/turn_right"
+                    android:padding="12dp"
+                    android:text="更多"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/sp_big" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="@color/gray_lighter" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_book"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height"
+                android:background="@color/white"
+                app:tabIndicatorColor="@color/tv_red"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/tv_red"
+                app:tabTextColor="@color/tv_black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="@color/gray_lighter" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/today_recipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:text="营养套餐"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_big" />
+
+                <TextView
+                    android:id="@+id/nutrition_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/turn_right"
+                    android:padding="12dp"
+                    android:text="更多"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/sp_big" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <cn.lc.model.framework.widget.NoSlidingListView
+                android:id="@+id/nutrition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="@null">
+
+            </cn.lc.model.framework.widget.NoSlidingListView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

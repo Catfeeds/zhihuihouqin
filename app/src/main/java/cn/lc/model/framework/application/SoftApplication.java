@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.google.gson.Gson;
-import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -16,7 +15,6 @@ import java.util.Map;
 
 import cn.lc.model.framework.config.AppConfig;
 import cn.lc.model.framework.config.AppInfo;
-import cn.lc.model.framework.config.UserInfo;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.ui.home.bean.LoginBean;
 import mvp.cn.common.QuickApplication;
@@ -44,7 +42,7 @@ public class SoftApplication extends QuickApplication {
     public void onCreate() {
         super.onCreate();
         //初始化shareSDk
-        MobSDK.init(getApplicationContext(), "20ad34651b60e", "3e43dd44f20087c729bc6b4605d75c73");
+//        MobSDK.init(getApplicationContext(), "20ad34651b60e", "3e43dd44f20087c729bc6b4605d75c73");
         softApplication = this;
         refWatcher =  LeakCanary.install(this);
 

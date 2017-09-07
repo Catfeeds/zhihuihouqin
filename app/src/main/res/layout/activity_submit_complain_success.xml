@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sbumit_success"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="cn.lc.model.ui.main.activity.SubmitSuccessActivity">
+
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/heath_serverce_title"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="#1000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1000" />
+
+    <ImageView
+        android:id="@+id/iv_submit_or_pay"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/selected" />
+
+    <TextView
+        android:id="@+id/tv_submit_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="提交成功"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tv_book_submit_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="\t\t 您的投诉已提交，请您耐心等待\n处理结果，给您带来的不便，深表歉意"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/sp_big" />
+</LinearLayout>

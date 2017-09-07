@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import cn.lc.model.framework.application.SoftApplication;
-import cn.lc.model.framework.config.UserInfo;
 import cn.lc.model.ui.home.bean.LoginBean;
 
 
@@ -61,6 +60,7 @@ public class SharedPrefHelper {
     public boolean isRememberAccount() {
         return sharedPreferences.getBoolean("rememberAccount", false);
     }
+
     /**
      * 是否登录状态
      *
@@ -105,6 +105,7 @@ public class SharedPrefHelper {
     public void setRyToken(String token) {
         sharedPreferences.edit().putString("rytoken", token).commit();
     }
+
     /**
      * 游客登录
      *
@@ -123,31 +124,32 @@ public class SharedPrefHelper {
     }
 
     public String getSex() {
-        return sharedPreferences.getString("sex",null);
+        return sharedPreferences.getString("sex", "");
     }
-//
+
+    //
     public String getUserId() {
-        return sharedPreferences.getString("userId",null);
+        return sharedPreferences.getString("userId", "");
     }
 
     public String getNickname() {
-        return sharedPreferences.getString("nickname",null);
+        return sharedPreferences.getString("nickname", "");
     }
 
     public String getUserPhoto() {
-        return sharedPreferences.getString("userPhoto",null);
+        return sharedPreferences.getString("userPhoto", "");
     }
 
     public String getRealName() {
-        return sharedPreferences.getString("realName",null);
+        return sharedPreferences.getString("realName", "");
     }
 
     public String getNation() {
-        return sharedPreferences.getString("nation",null);
+        return sharedPreferences.getString("nation", "");
     }
 
     public String getMobile() {
-        return sharedPreferences.getString("mobile",null);
+        return sharedPreferences.getString("mobile", "");
     }
 
     public void setuserId(String userId) {

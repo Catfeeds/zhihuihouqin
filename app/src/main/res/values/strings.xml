@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVP_Model</string>
+    <string name="app_name">智慧后勤</string>
 
     <!--zxing-->
     <string name="app_picker_name">Applications</string>
@@ -127,4 +127,9 @@
 
     <string name="viewfinderview_status_text1">将二维码/条码放入取景框内</string>
     <string name="viewfinderview_status_text2">即可自动扫描</string>
+    <string name="sarah_number">工作餐份数</string>
+    <string name="name">姓名</string>
+    <string name="phone_number">手机号</string>
+    <string name="address">送货地址</string>
+    <string name="arrive_time">期望送达时间</string>
 </resources>
