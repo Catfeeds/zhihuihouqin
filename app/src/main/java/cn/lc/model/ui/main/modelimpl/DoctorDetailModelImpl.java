@@ -19,4 +19,18 @@ public class DoctorDetailModelImpl implements DoctorDetailModel {
         Observable observer = RetrofitUtils.getInstance().getDoctorDetail(id);
         return observer ;
     }
+
+    @Override
+    public Observable getCommentList(int id,int page,int limit) {
+        Log.e("DoctorDetailModelImpl","请求了数据");
+        Observable observer = RetrofitUtils.getInstance().getUserCommentList(id,page,limit);
+        return observer ;
+    }
+
+    @Override
+    public Observable collect(int type, int typeid) {
+        Log.e("DoctorDetailModelImpl","请求了数据");
+        Observable observer = RetrofitUtils.getInstance().getHealthInfoColect(type,typeid);
+        return observer ;
+    }
 }

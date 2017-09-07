@@ -80,9 +80,11 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         initTitle();
       /*  ShareSDK.initSDK(this);
         etUname.setText(SharedPrefHelper.getInstance().getLoginAccount());*/
-        if(SharedPrefHelper.getInstance().getPhoneNumber()!=null){
-            etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
-            etPsw.setText(SharedPrefHelper.getInstance().getPassword());
+        if(lCbRemenberPwd.isChecked()){
+            if(SharedPrefHelper.getInstance().getPhoneNumber()!=null){
+                etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
+                etPsw.setText(SharedPrefHelper.getInstance().getPassword());
+            }
         }
     }
 
@@ -191,6 +193,16 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     }
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent it) {
+        super.onActivityResult(requestCode, resultCode, it);
+        if (resultCode == RESULT_OK) {
+            String mobile = it.getStringExtra("mobile");
+            String pwd = it.getStringExtra("pwd");
+            etUname.setText(mobile);
+            etPsw.setText(pwd);
+        }
+    }
+    @Override
     public void loginSuccess(LoginBean loginBean) {
 
         if (loginBean.getErrCode()==0) {
@@ -198,7 +210,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
             SharedPrefHelper.getInstance().setPhoneNumber(mobile);
             SharedPrefHelper.getInstance().setPassword(pwd);
             SharedPrefHelper.getInstance().setToken(loginBean.getToken());
-            LogUtils.d("登陆返回Token():....."+loginBean.getToken()+"");
+            Log.e("登陆返回Token():.....",loginBean.getToken()+"");
             SharedPrefHelper.getInstance().setSex(loginBean.getUserinfo().getSex());
             SharedPrefHelper.getInstance().setuserId(loginBean.getUserinfo().getUserId()+"");
             SharedPrefHelper.getInstance().setNickname(loginBean.getUserinfo().getNickname());
@@ -209,6 +221,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
             //getPresenter().getToke(loginBean.getUserId()+"");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }else{
             Log.e("msg++++",loginBean.getMsg());
             showToast(loginBean.getMsg());}    }
@@ -359,23 +372,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     }
     /*daozhe */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent it) {
-        super.onActivityResult(requestCode, resultCode, it);
-        if (resultCode == RESULT_OK) {
-            String mobile = it.getStringExtra("mobile");
-            String pwd = it.getStringExtra("pwd");
-            etUname.setText(mobile);
-            etPsw.setText(pwd);
-        }
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @Override
     public void showToast() {

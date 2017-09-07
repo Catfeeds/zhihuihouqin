@@ -1,7 +1,9 @@
 package cn.lc.model.ui.main.view;
 
+import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
 import cn.lc.model.ui.main.bean.DoctorListBean;
+import cn.lc.model.ui.main.bean.UserCommentBean;
 import mvp.cn.common.MvpView;
 
 /**
@@ -11,5 +13,7 @@ import mvp.cn.common.MvpView;
 public interface DoctorDetailView extends MvpView{
 
 void getDoctorDetailSucc(DoctorDetailBean listBean);
+    void getUserCommentListSucc(UserCommentBean userCommentBean);
+    void getCollectResult(CollectBean collectBean);
 
 }

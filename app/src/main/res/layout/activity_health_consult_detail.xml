@@ -4,73 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <WebView
+        android:id="@+id/wv_health_consult_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_content_des"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:text="让负面情绪小时的妙法隐秘在中医学历"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:textSize="@dimen/sp_big" />
-            <LinearLayout
-                android:padding="@dimen/standard_padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="0dp"
-                    android:text="时间"
-                    android:textColor="@color/tv_gray"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/sp_small"
-                    android:gravity="center_horizontal"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/tv_srours"
-                    android:text="sour"
-                    android:gravity="center_horizontal"
-                    android:textSize="@dimen/sp_small"
-                    android:textColor="@color/tv_gray"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <WebView
-                android:id="@+id/wv_health_consult_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:background="#1000"
-                android:gravity="center"
-                android:text="用户评论"
-                android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
-
-            <cn.lc.model.ui.mywidget.NoSlideRecyclerView
-                android:id="@+id/rv_user_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="#1000" />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
@@ -80,10 +17,10 @@
 
     <LinearLayout
         android:id="@+id/ll_bottom"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -107,17 +44,28 @@
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
 
-        <TextView
-            android:id="@+id/tv_collect"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/tab3_y"
             android:gravity="center"
-            android:text="收藏"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small" />
+            android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/iv_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/tab3_y" />
+
+            <TextView
+                android:id="@+id/tv_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
+        </LinearLayout>
         <TextView
             android:id="@+id/tv_share"
             android:layout_width="0dp"

@@ -47,10 +47,7 @@
                 android:id="@+id/serverce_gridview"
                 android:numColumns="3"
                 android:layout_height="wrap_content"/>
-            <!--<View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"/>-->
+
             <RelativeLayout
                 android:background="@drawable/bg_tab"
                android:padding="8dp"
@@ -74,10 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
-            <!--<View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"/>-->
+
             <cn.lc.model.ui.mywidget.NoSlideRecyclerView
                 android:layout_margin="8dp"
                 android:id="@+id/rv_serverce"

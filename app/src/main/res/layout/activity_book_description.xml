@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#2000" />
-    <ScrollView
+    <!--<ScrollView
         android:layout_below="@+id/view_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -48,7 +48,7 @@
                         android:orientation="horizontal"
                         android:layout_weight="1">
                         <TextView
-                            android:id="@+id/tv_bookName"
+                            android:id="@+id/tv_book_name"
                             android:text="人性的弱点"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_bigger"
@@ -165,8 +165,12 @@
                 android:layout_height="20dp"
                 android:background="@color/gray_lighter"/>
         </LinearLayout>
-    </ScrollView>
-
+    </ScrollView>-->
+<WebView
+    android:id="@+id/wb_book_detail"
+    android:layout_below="@+id/view_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"></WebView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"

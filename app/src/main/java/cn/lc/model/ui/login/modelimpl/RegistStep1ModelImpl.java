@@ -1,5 +1,7 @@
 package cn.lc.model.ui.login.modelimpl;
 
+import android.util.Log;
+
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.ui.login.model.LoginModel;
 import cn.lc.model.ui.login.model.RegistStep1Model;
@@ -25,6 +27,13 @@ public class RegistStep1ModelImpl implements RegistStep1Model {
         //Observable observer = RetrofitUtils.getInstance().getCaptcha("", "");
         Observable observer = RetrofitUtils.getInstance().getCaptcha(s,i);
         return observer ;
+    }
+
+    @Override
+    public Observable bindPhone(int loginType, String userName, String thirdNum, String isRegister, String password, String captcha) {
+        Log.e("bindPhone","绑定手机号获取数据");
+        Observable observer = RetrofitUtils.getInstance().bindPhone(loginType,userName,thirdNum,isRegister,password,captcha);
+        return observer;
     }
 
    /* @Override

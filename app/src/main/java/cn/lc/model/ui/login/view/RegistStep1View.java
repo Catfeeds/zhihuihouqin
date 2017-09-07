@@ -1,5 +1,6 @@
 package cn.lc.model.ui.login.view;
 
+import cn.lc.model.framework.widget.bean.BindPhoneBean;
 import cn.lc.model.ui.login.bean.CaptchaBean;
 import mvp.cn.common.MvpView;
 
@@ -11,4 +12,5 @@ public interface RegistStep1View extends MvpView{
 
 
     void success(CaptchaBean captchaBean);
+    void bindResult(BindPhoneBean bindPhoneBean);
 }

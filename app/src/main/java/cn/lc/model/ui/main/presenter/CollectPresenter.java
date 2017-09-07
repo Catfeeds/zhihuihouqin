@@ -2,11 +2,9 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.BarberListBean;
+
 import cn.lc.model.ui.main.bean.CollectBean;
-import cn.lc.model.ui.main.model.BarberListModel;
 import cn.lc.model.ui.main.model.CollectModel;
-import cn.lc.model.ui.main.view.BarberListView;
 import cn.lc.model.ui.main.view.CollectView;
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
@@ -44,6 +42,7 @@ public class CollectPresenter extends MvpRxPresenter<CollectModel, CollectView> 
             }
         });
     }
+
 
     @Override
     public void detachView(boolean retainInstance) {

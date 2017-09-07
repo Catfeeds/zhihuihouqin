@@ -75,8 +75,8 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel,Hea
     }
     @Override
     public void success(HealthServerceHomeBean hshomeBean) {
+        Log.e("hshomeBean",hshomeBean.getPicture());
         if(hshomeBean!=null){
-            Log.e("hshomeBean",hshomeBean.getPicture());
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this,hshomeBean.getPicture(),ivServerce);
             rvAdapter.setData(hshomeBean.getInfolist());
         }

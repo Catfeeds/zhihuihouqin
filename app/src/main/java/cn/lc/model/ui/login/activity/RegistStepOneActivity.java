@@ -22,6 +22,7 @@ import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.manager.UIManager;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
+import cn.lc.model.framework.widget.bean.BindPhoneBean;
 import cn.lc.model.ui.login.bean.CaptchaBean;
 import cn.lc.model.ui.login.model.RegistStep1Model;
 import cn.lc.model.ui.login.modelimpl.RegistStep1ModelImpl;
@@ -85,6 +86,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     private String mCaptchaServer;
     private String thirdType;
     private String thirdNum;
+    private String mCaptcha;
 
     @Override
     public void setContentLayout() {
@@ -164,14 +166,19 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             showToast("请阅读并同意服务协议");
             return;
         }
+        if(!mCaptcha.equals(captcha)){
+            showToast("你输入的验证码不正确");
+            return;
+        }
 
         CommonUtil.closeSoftKeyboard(this, etCode);
         if (from == Constants.BIND) {
 //            doBindRequest(mobile, captcha);
+            // TODO: 2017/9/6 0006 进行绑定手机号
+            //getPresenter().bindPhone(1,);
         } else {
 //            doNextRequest(mobile, captcha);
             //验证码验证
-//            getPresenter().CheckCode(mobile,captcha);
             turnToPwdSet(captcha);
         }
     }
@@ -206,7 +213,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             return;
         }
         doTimer();
-        getPresenter().getData(mobile,0);
+        getPresenter().getData(mobile,from);
 //        doGetCodeRequest(mobile);
     }
 
@@ -233,20 +240,17 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
 
     public MyRunnable runnable;
 
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }*/
-
-
-
     @Override
     public void success(CaptchaBean captchaBean) {
         if(captchaBean!=null){
             Log.e("captcha=====",captchaBean.captcha);
+            this.mCaptcha=captchaBean.captcha;
         }
+    }
+    //获得绑定结果
+    @Override
+    public void bindResult(BindPhoneBean bindPhoneBean) {
+
     }
 
 
@@ -283,48 +287,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         return true;
     }
 
-    /**
-     * 获取验证码
-     *
-     * @param mobile
-     */
-    String flag;
-// TODO: 2017/8/25 0025 一下为注释的部分
-   /* private void doGetCodeRequest(final String mobile) {
-        tvNextStep.setClickable(false);
-        showProgressDialog();
-        String userId = null;
-        if (from == Constants.BIND) {
-            userId = softApplication.getUserInfo() == null ? null : softApplication.getUserInfo().uid;
-        }
-
-
-        if (from == Constants.REGIST)
-            flag = "0";
-        else
-            flag = "1";
-
-
-        Request request = RequestMaker.getInstance().getCodeRequest(mobile, userId, flag);
-        getNetWorkDate(request, new SubBaseParser<>(CaptchaBean.class), new OnCompleteListener<CaptchaBean>(this) {
-            @Override
-            public void onSuccessed(CaptchaBean result, String resultString) {
-                showToast("获取验证码成功");
-                if (result.data != null) {
-                    mCaptchaServer = result.data.captcha;
-                    etCode.setText(mCaptchaServer);
-                }
-                doTimer();
-            }
-
-            @Override
-            public void onCompleted(CaptchaBean result, String resultString) {
-                dismissProgressDialog();
-                btNext.setClickable(true);
-            }
-
-        });
-    }
+   /*
 
 
     *//**

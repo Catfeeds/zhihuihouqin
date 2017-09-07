@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import java.util.List;
@@ -48,11 +49,14 @@ public class RegistrationActivity extends BaseActivity<DoctorListModel,DoctorLis
 
     @Override
     public void initView() {
+        getPresenter().getData();
         initTitle();
         initRecycler();
     }
     @Override
     public void getDoctorListSucc(DoctorListBean listBean) {
+        Log.e("DoctorListBean","==="+listBean);
+        Log.e("getDoctorlist()","==="+listBean.getDoctorlist());
         if(listBean!=null){
             List<DoctorListBean.DoctorlistBean> doctorlist = listBean.getDoctorlist();
             adapter.setData(doctorlist);

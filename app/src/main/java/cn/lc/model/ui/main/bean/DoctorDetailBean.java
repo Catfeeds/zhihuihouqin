@@ -14,7 +14,7 @@ public class DoctorDetailBean {
      * brief : 123
      * schedules : [{"endtime":"10:00","id":1,"periodtype":1,"starttime":"9:00","status":0},{"endtime":"11:00","id":2,"periodtype":1,"starttime":"10:00","status":1}]
      */
-
+    private int totalcommentcount;
     private String msg;
     private int errCode;
     private String brief;
@@ -46,6 +46,10 @@ public class DoctorDetailBean {
 
     public List<SchedulesBean> getSchedules() {
         return schedules;
+    }
+
+    public int getTotalcommentcount() {
+        return totalcommentcount;
     }
 
     public void setSchedules(List<SchedulesBean> schedules) {

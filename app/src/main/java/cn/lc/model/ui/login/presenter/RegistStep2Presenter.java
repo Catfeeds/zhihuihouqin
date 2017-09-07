@@ -16,7 +16,7 @@ import rx.Subscriber;
 public class RegistStep2Presenter extends MvpRxPresenter<RegistStep2Model, RegistStep2View> {
 
     public void getData(String userName, String captcha, String password) {
-        LogUtil.log("RegistStep2发出请求");
+        Log.e("RegistStep2Presenter","发起请求");
         getView().showProgressDialog();
         getModel().regist(userName, captcha, password).subscribe(new Subscriber<RegistBean>() {
             @Override
@@ -31,6 +31,8 @@ public class RegistStep2Presenter extends MvpRxPresenter<RegistStep2Model, Regis
 
             @Override
             public void onNext(RegistBean registBean) {
+                Log.e("registBean",registBean.getErrCode()+"");
+                Log.e("registBean==",registBean.getMsg()+"");
                 if (registBean == null) {
                     return;
                 }

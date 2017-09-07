@@ -72,18 +72,21 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_phone_num"
-                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="80dp"
                     android:text="13521885849"
+                    android:hint="请输入手机号"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/standard_padding">
@@ -97,6 +100,7 @@
                     android:textSize="@dimen/sp_small" />
 
                 <TextView
+                    android:id="@+id/tv_yuyue_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -129,12 +133,13 @@
 
                 <EditText
                     android:id="@+id/et_service_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="80dp"
                     android:background="@null"
                     android:hint="请填写服务地址"
+                    android:singleLine="true"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
             </RelativeLayout>

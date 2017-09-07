@@ -14,4 +14,6 @@ public interface RegistStep1Model extends MvpModel{
     Observable getCaptcha(String s, int s1);
     /*//检测验证码
     Observable checkCode(String s, String s1);*/
+    Observable bindPhone(int loginType,String userName, String thirdNum,
+                         String isRegister,String password,String captcha);
 }

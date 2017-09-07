@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="肖新华"
                 android:textColor="#a000"
-                android:textSize="20sp" />
+                android:textSize="@dimen/sp_common" />
 
             <TextView
                 android:layout_toRightOf="@id/tv_doc_name"
@@ -42,11 +42,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="主任医师"
-                android:textSize="18sp" />
+                android:textSize="@dimen/sp_small" />
             <TextView
                 android:id="@+id/tv_order_percent"
                 android:text="17/25"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp_small"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="8dp"
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:textSize="18sp"
+                android:textSize="@dimen/sp_small"
                 android:text="4.9" />
         </LinearLayout>
 
@@ -88,14 +88,14 @@
             android:gravity="center_vertical" >
 
         <TextView
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="问诊量：" />
 
         <TextView
             android:id="@+id/tv_seeing"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="232" />
@@ -108,7 +108,7 @@
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/tv_hos"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="所属医院：" />
@@ -116,14 +116,14 @@
         <TextView
             android:layout_toRightOf="@+id/tv_hos"
             android:id="@+id/tv_hospital"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="机关医务室" />
         <TextView
             android:id="@+id/tv_able_order"
             android:text="可预约"
-            android:textSize="18sp"
+            android:textSize="@dimen/sp_small"
             android:textColor="#fff"
             android:gravity="center"
             android:paddingBottom="5dp"
@@ -147,7 +147,7 @@
         android:id="@+id/tv_shan_chang"
         android:layout_marginLeft="68dp"
         android:singleLine="true"
-        android:textSize="18sp"
+        android:textSize="@dimen/sp_small"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:paddingTop="5dp"

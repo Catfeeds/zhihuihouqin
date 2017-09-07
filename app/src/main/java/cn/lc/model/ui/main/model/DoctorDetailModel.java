@@ -9,4 +9,6 @@ import rx.Observable;
 
 public interface DoctorDetailModel extends MvpModel{
     Observable getData(int id);
+    Observable getCommentList(int id,int page,int limit);
+    Observable collect(int type,int typeid);
 }

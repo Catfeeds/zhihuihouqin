@@ -3,6 +3,7 @@ package cn.lc.model.ui.login.presenter;
 import android.util.Log;
 
 import cn.lc.model.framework.utils.LogUtils;
+import cn.lc.model.framework.widget.bean.BindPhoneBean;
 import cn.lc.model.ui.login.bean.CaptchaBean;
 import cn.lc.model.ui.login.model.RegistStep1Model;
 import cn.lc.model.ui.login.view.RegistStep1View;
@@ -42,6 +43,29 @@ public class RegistStep1Presenter extends MvpRxPresenter<RegistStep1Model, Regis
                     Log.e("errcode","token已过期");
                 }
 
+            }
+        });
+    }
+    public void bindPhone(int loginType, String userName, String thirdNum, String isRegister, String password, String captcha){
+        getView().showProgressDialog();
+        getModel().bindPhone(loginType,userName,thirdNum,isRegister,password,captcha).subscribe(new Subscriber<BindPhoneBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("错误信息", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BindPhoneBean bindPhoneBean) {
+                if(bindPhoneBean.getErrCode()==0){
+                    getView().bindResult(bindPhoneBean);
+                }else{
+                    getView().showToast(bindPhoneBean.getMsg());
+                }
             }
         });
     }

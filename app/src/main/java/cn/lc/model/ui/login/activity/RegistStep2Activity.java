@@ -3,6 +3,7 @@ package cn.lc.model.ui.login.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     private int from;
     private String thirdType;
     private String thirdNum;
+    private String pwd1;
 
 
     @Override
@@ -101,7 +103,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
      * 注册
      */
     public void doRegist() {
-        String pwd1 = et_password.getText().toString().trim();
+        pwd1 = et_password.getText().toString().trim();
         String pwd2 = et_repassword.getText().toString().trim();
         if (!isOtherChecked(pwd1, pwd2)) {
             return;
@@ -112,7 +114,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
 //            doBindRequest(mMobile, mCptcha, pwd1);
         } else {
 //            doResistRequest(mMobile, mCptcha, pwd1);
-            getPresenter().getData(mMobile,mCptcha,pwd1);
+            getPresenter().getData(mMobile,mCptcha, pwd1);
         }
     }
 
@@ -156,6 +158,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     public void registSuccess(RegistBean registBean) {
 
         int errCode = registBean.getErrCode();
+        Log.e("注册",registBean.getMsg());
         /*1004 ：验证码已过期
         1005 ： 用户已注册
         1006 ： 验证码错误*/
@@ -169,6 +172,11 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
             showToast("注册成功");
             Intent intent = new Intent(this, RegistSuccessActivity.class);
             startActivity(intent);
+            Intent intent1 = new Intent();
+            intent1.putExtra("mobile",mMobile);
+            intent1.putExtra("pwd",pwd1);
+            setResult(RESULT_OK,intent1);
+            finish();
         }
     }
 

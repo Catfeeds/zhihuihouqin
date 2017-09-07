@@ -3,6 +3,7 @@ package cn.lc.model.ui.main.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
-import cn.lc.model.framework.widget.CircleImageView;
 import cn.lc.model.ui.main.activity.DoctorDetailActivity;
 import cn.lc.model.ui.main.bean.DoctorListBean;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by 我的电脑 on 2017/8/15 0015.
  */
 public class RegistrationAdapter extends RecyclerView.Adapter {
+
 
     private Context context;
     private List<DoctorListBean.DoctorlistBean> data = new ArrayList<>();
@@ -61,6 +63,8 @@ public class RegistrationAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.civ_photo)
+        CircleImageView civPhoto;
         @BindView(R.id.tv_doc_name)
         TextView tvDocName;
         @BindView(R.id.tv_zhicheng)
@@ -81,8 +85,7 @@ public class RegistrationAdapter extends RecyclerView.Adapter {
         TextView tvAbleOrder;
         @BindView(R.id.tv_shan_chang)
         TextView tvShanChang;
-        @BindView(R.id.civ_photo)
-        CircleImageView civPhoto;
+
         private DoctorListBean.DoctorlistBean listBean;
 
         ViewHolder(View view) {
@@ -92,23 +95,25 @@ public class RegistrationAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     //点击预约医师，进入医生详情界面
+                    Log.e("dianji","进入到医生详情界面");
                     Intent intent = new Intent(context, DoctorDetailActivity.class);
-                    intent.putExtra("listBean",listBean);
+                    intent.putExtra("listBean", listBean);
                     context.startActivity(intent);
                 }
             });
         }
 
         public void setData(DoctorListBean.DoctorlistBean listBean) {
-            this.listBean=listBean;
+            this.listBean = listBean;
             tvDocName.setText(listBean.getRealname());
             tvZhicheng.setText(listBean.getPositionname());
             //ratingBar.setRating(listBean.get);
-            tvSeeing.setText(listBean.getConsultcount());
+            tvSeeing.setText(listBean.getConsultcount()+"");
             tvHospital.setText(listBean.getHospitalname());
-            tvOrderPercent.setText(listBean.getRemaincount() / listBean.getTotalcount());
+            tvOrderPercent.setText(listBean.getRemaincount() / listBean.getTotalcount()+"");
             tvShanChang.setText(listBean.getSkilledinfo());
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(context,listBean.getPhoto(),civPhoto);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, listBean.getPhoto(), civPhoto);
+
         }
     }
 }

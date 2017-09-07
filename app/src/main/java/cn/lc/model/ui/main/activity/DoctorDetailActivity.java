@@ -1,17 +1,11 @@
 package cn.lc.model.ui.main.activity;
 
-import android.animation.ArgbEvaluator;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.suke.widget.SwitchButton;
@@ -21,19 +15,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.framework.widget.NoSlidingGridView;
 import cn.lc.model.ui.main.adapter.DoctorDetailGrideAdapter;
 import cn.lc.model.ui.main.adapter.DoctorDetailrvAdapter;
+import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
+import cn.lc.model.ui.main.bean.DoctorListBean;
+import cn.lc.model.ui.main.bean.UserCommentBean;
 import cn.lc.model.ui.main.model.DoctorDetailModel;
+import cn.lc.model.ui.main.modelimpl.DoctorDetailModelImpl;
 import cn.lc.model.ui.main.presenter.DoctorDetailPresenter;
 import cn.lc.model.ui.main.view.DoctorDetailView;
 import cn.lc.model.ui.mywidget.NoSlideRecyclerView;
 
-public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel,DoctorDetailView,DoctorDetailPresenter> implements DoctorDetailView {
+public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel, DoctorDetailView, DoctorDetailPresenter> implements DoctorDetailView {
 
-    @BindView(R.id.iv_doc_photo)
-    ImageView ivDocPhoto;
     @BindView(R.id.tv_doctor_name)
     TextView tvDoctorName;
     @BindView(R.id.tv_doctor_position)
@@ -48,6 +45,8 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel,DoctorD
     TextView tvDoctorSpecialty;
     @BindView(R.id.tv_hospital)
     TextView tvHospital;
+    @BindView(R.id.iv_doc_photo)
+    ImageView ivDocPhoto;
     @BindView(R.id.iv_doc_detail_back)
     ImageView back;
     @BindView(R.id.nsgv_doc_detail)
@@ -64,56 +63,19 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel,DoctorD
     TextView tvNowOrder;
     @BindView(R.id.tv_check_all)
     TextView tvCheckAll;
-    private DoctorDetailBean doctorDetailBean;
+    private DoctorListBean.DoctorlistBean doctorDetailBean;
+    private DoctorDetailGrideAdapter grideAdapter;
+    private DoctorDetailrvAdapter detailrvAdapter;
 
-    /* @BindView(R.id.ll_title)
-     LinearLayout llTitle;
-     @BindView(R.id.sv)
-     ScrollView sv;*/
-    /*@BindView(R.id.activity_doctor_detail)
-    LinearLayout activityDoctorDetail;*/
-   /* int sumY; //在y轴方向上滚动的距离
-    float distance = 150.0f; //最大的滚动距离
-    int start = 0xFF3190E8;
-    int end = 0x553190E8;
-    int bgColor;  //动态计算的背景值
-    ArgbEvaluator mEvaluator = new ArgbEvaluator();*/
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            sv.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    int dy=oldScrollY-scrollY;
-                    sumY += dy;
-                    Log.e("scrollY",scrollY+"");
-                    Log.e("oldScrollY",oldScrollY+"");
-                    Log.e("dy====",dy+"");
-//                sumY / distance;
-                    if(sumY <= 0){
-                        bgColor = start; //未开始滚动
-                    }else if(sumY >= distance){
-                        bgColor = end; //已经达到或者超出最大值
-                    }else{
-                        bgColor = (int) mEvaluator.evaluate(sumY/distance, start, end);
-                    }
-                    llTitle.setBackgroundColor(bgColor);
-                }
-            });
-        }*/
-    }
 
     @Override
     public DoctorDetailPresenter createPresenter() {
-        return null;
+        return new DoctorDetailPresenter();
     }
 
     @Override
     public DoctorDetailModel createModel() {
-        return null;
+        return new DoctorDetailModelImpl();
     }
 
     @Override
@@ -124,22 +86,60 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel,DoctorD
 
     @Override
     public void initView() {
-        doctorDetailBean = (DoctorDetailBean) getIntent().getSerializableExtra("listBean");
+        doctorDetailBean = (DoctorListBean.DoctorlistBean) getIntent().getSerializableExtra("listBean");
+        setDoctorDetail(doctorDetailBean);
+        getPresenter().getData(doctorDetailBean.getDoctorid());
+        // TODO: 2017/9/6 0006 获取评论列表有问题
+        //getPresenter().getUserComment(doctorDetailBean.getDoctorid(),1,10);
         switchButtonClick();
         switchButton.setChecked(true);
         //ratingBar.setRating(3f);
         initGride();
         initRecycler();
+
+    }
+
+    @Override
+    public void getDoctorDetailSucc(DoctorDetailBean listBean) {
+        if (listBean != null) {
+            tvContentRecomment.setText(listBean.getBrief());
+            Log.e("totalcommentcount",listBean.getTotalcommentcount()+"====");
+            tvCheckAll.setText("查看全部（"+listBean.getTotalcommentcount()+"）");
+        }
+
+    }
+
+    @Override
+    public void getUserCommentListSucc(UserCommentBean userCommentBean) {
+        if(userCommentBean!=null){
+            detailrvAdapter.setData(userCommentBean.getCommentlist());
+        }else{
+            Log.e("userCommentBean","为空了");
+        }
+    }
+
+    @Override
+    public void getCollectResult(CollectBean collectBean) {
+        if(collectBean!=null){
+            // TODO: 2017/9/6 0006  根据返回装填修改图标
+            int status = collectBean.getStatus();
+            if(status==1){//收藏
+                //ivDocDetialCollect.setImageResource();
+            }else{
+               // ivDocDetialCollect.setImageResource();
+
+            }
+        }
     }
 
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DoctorDetailrvAdapter detailrvAdapter = new DoctorDetailrvAdapter(this);
+        detailrvAdapter = new DoctorDetailrvAdapter(this);
         recyclerView.setAdapter(detailrvAdapter);
     }
 
     private void initGride() {
-        DoctorDetailGrideAdapter grideAdapter = new DoctorDetailGrideAdapter(this);
+        grideAdapter = new DoctorDetailGrideAdapter(this);
         nsgvDocDetail.setAdapter(grideAdapter);
     }
 
@@ -153,27 +153,38 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel,DoctorD
     }
 
 
-    @OnClick({R.id.iv_doc_detail_back, R.id.iv_doc_detial_collect, R.id.tv_now_order,R.id.tv_check_all})
+    @OnClick({R.id.iv_doc_detail_back, R.id.iv_doc_detial_collect, R.id.tv_now_order, R.id.tv_check_all})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_doc_detail_back:
                 finish();
                 break;
             case R.id.iv_doc_detial_collect:
+//                getPresenter().
                 break;
             case R.id.tv_check_all:
                 Intent intent1 = new Intent(this, MoreUSerCommentActivity.class);
+                intent1.putExtra("id",doctorDetailBean.getDoctorid());
                 startActivity(intent1);
                 break;
             case R.id.tv_now_order:
-                Intent intent = new Intent(this,PayFiveJiaoActivity.class);
+                Intent intent = new Intent(this, PayFiveJiaoActivity.class);
                 startActivity(intent);
                 break;
         }
     }
 
-    @Override
-    public void getDoctorDetailSucc(DoctorDetailBean listBean) {
 
+    public void setDoctorDetail(DoctorListBean.DoctorlistBean doctorDetail) {
+        if (doctorDetail != null) {
+            tvDoctorName.setText(doctorDetail.getRealname());
+            tvDoctorPosition.setText(doctorDetail.getPositionname());
+            // TODO: 2017/9/5 0005 没有星星的字段
+            //ratingBar.setRating(listBean.get);
+            tvSeeing.setText(doctorDetail.getConsultcount() + "");
+            tvHospital.setText(doctorDetail.getHospitalname());
+            tvDoctorSpecialty.setText(doctorDetail.getSkilledinfo());
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(this, doctorDetail.getPhoto(), ivDocPhoto);
+        }
     }
 }

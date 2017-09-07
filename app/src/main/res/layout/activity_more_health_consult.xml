@@ -26,7 +26,7 @@
         android:layout_height="1dp"
         android:background="#1000"/>
 
-<android.support.v7.widget.RecyclerView
+<com.jcodecraeer.xrecyclerview.XRecyclerView
     android:id="@+id/rv_more_health_consult"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

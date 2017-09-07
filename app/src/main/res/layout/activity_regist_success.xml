@@ -13,5 +13,50 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/gray_lighter"/>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_height="200dp">
+        <TextView
+            android:id="@+id/tv_gongxile"
+            android:text="恭喜啦！"
+            android:drawableLeft="@drawable/smile"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_biggest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="你的个人账户成功创建"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/standard_padding"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_bigger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+<TextView
+    android:text="友情提示："
+    android:textSize="@dimen/sp_small"
+    android:textColor="@color/black"
+    android:layout_width="match_parent"
+    android:padding="@dimen/standard_padding"
+    android:layout_height="wrap_content" />
+    <TextView
+        android:text="请您填写身份信息用于身份审核认证"
+        android:textSize="@dimen/sp_small"
+        android:textColor="@color/tv_black"
+        android:layout_marginBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_to_write_info"
+        android:text="去填写身份信息"
+        android:textSize="@dimen/sp_big"
+        android:background="@drawable/shape_login"
+        style="@style/tvStyle_tv_black"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

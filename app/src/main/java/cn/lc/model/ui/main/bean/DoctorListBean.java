@@ -9,6 +9,15 @@ import java.util.List;
 
 public class DoctorListBean {
 
+    @Override
+    public String toString() {
+        return "DoctorListBean{" +
+                "msg='" + msg + '\'' +
+                ", errCode=" + errCode +
+                ", doctorlist=" + doctorlist +
+                '}';
+    }
+
     /**
      * msg : success
      * errCode : 0

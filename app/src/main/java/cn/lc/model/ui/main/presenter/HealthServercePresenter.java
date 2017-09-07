@@ -2,10 +2,13 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
+import java.util.List;
+
 import cn.lc.model.ui.home.bean.LoginBean;
 import cn.lc.model.ui.login.model.LoginModel;
 import cn.lc.model.ui.login.view.LoginView;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
+import cn.lc.model.ui.main.bean.InfolistBean;
 import cn.lc.model.ui.main.model.HealthServerceModel;
 import cn.lc.model.ui.main.view.HealthServerceView;
 import mvp.cn.rx.MvpRxPresenter;
@@ -33,6 +36,7 @@ public class HealthServercePresenter extends MvpRxPresenter<HealthServerceModel,
             @Override
             public void onNext(HealthServerceHomeBean hshBean) {
                 if(hshBean.getErrCode()==0){
+                   // List<InfolistBean> infolist = hshBean.getInfolist();
                     getView().success(hshBean);
                 }else{
                     Log.e("错误信息1",hshBean.getMsg());

@@ -209,8 +209,8 @@ public class BarberDetailBean {
         }
     }
 
-    public static class CommentlistBean {
-        /**
+   /* public static class CommentlistBean {
+        *//**
          * anonymous : null
          * barberid : 1
          * content : heool
@@ -220,7 +220,7 @@ public class BarberDetailBean {
          * orderid : 8
          * score : 1
          * uid : 1
-         */
+         *//*
 
         private String anonymous;
         private int barberid;
@@ -303,5 +303,5 @@ public class BarberDetailBean {
         public void setUid(int uid) {
             this.uid = uid;
         }
-    }
+    }*/
 }

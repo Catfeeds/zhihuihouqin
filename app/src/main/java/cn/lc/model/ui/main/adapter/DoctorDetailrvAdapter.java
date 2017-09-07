@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.ui.main.bean.BarberDetailBean;
+import cn.lc.model.ui.main.bean.CommentlistBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -24,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<BarberDetailBean.CommentlistBean> data=new ArrayList<>();
+    private List<CommentlistBean> data=new ArrayList<>();
 
     public DoctorDetailrvAdapter(Context context) {
         this.context = context;
@@ -40,7 +41,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         if(data!=null){
-            BarberDetailBean.CommentlistBean commentlistBean = data.get(position);
+            CommentlistBean commentlistBean = data.get(position);
             viewHolder.setData(commentlistBean);
         }
     }
@@ -53,7 +54,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public void setData(List<BarberDetailBean.CommentlistBean> data) {
+    public void setData(List<CommentlistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -76,11 +77,11 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-         public void setData(BarberDetailBean.CommentlistBean commentlistBean) {
+         public void setData(CommentlistBean commentlistBean) {
              GlideLoading.getInstance().loadImgUrlNyImgLoader(context,
                      commentlistBean.getImgs(),civUserPhoto);
-             tvUserName.setText(commentlistBean.getAnonymous());
-             userRatingBar.setRating(commentlistBean.getScore());
+             tvUserName.setText(commentlistBean.getRealname());
+             userRatingBar.setRating((float) commentlistBean.getScore());
              tvTime.setText(commentlistBean.getCreatetime());
              tvEvaluate.setText(commentlistBean.getContent());
          }

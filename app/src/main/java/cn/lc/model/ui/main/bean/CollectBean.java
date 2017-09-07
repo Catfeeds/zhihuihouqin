@@ -13,6 +13,11 @@ public class CollectBean {
 
     private int errCode;
     private String msg;
+    /**
+     * status : 0
+     */
+
+    private int status;
 
     public int getErrCode() {
         return errCode;
@@ -28,5 +33,13 @@ public class CollectBean {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

@@ -165,8 +165,10 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             case R.id.tv_more_zuopin:
                 Intent intent = new Intent(this, BarberMoreProductActivity.class);
                 //intent.putExtra("detailBean", detailBean);
-                int id = detailBean.getWorklist().get(1).getId();
-                intent.putExtra("id",id);
+                if(detailBean!=null){
+                    int id = detailBean.getWorklist().get(1).getId();
+                    intent.putExtra("id",id);
+                }
                 startActivity(intent);
                 break;
             case R.id.tv_more_comment:
