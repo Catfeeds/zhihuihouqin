@@ -3,7 +3,6 @@ package cn.lc.model.ui.mywidget;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,13 +23,15 @@ public class SelectTimePop extends PopupWindow {
 
     private Context context;
     private View view;
-    private OnSelectClick listener;
+    private OnSelectClick listene;
     private GridView am, pm;
     private SelectTimeAdapter adapterAm, adapterPm;
+    private SelectTimeBean data;
 
-    public SelectTimePop(final Context context, final SelectTimeBean bean, final OnSelectClick listener) {
+    public SelectTimePop(Context context, SelectTimeBean bean, OnSelectClick listener) {
         this.context = context;
-        this.listener = listener;
+        this.listene = listener;
+        this.data = bean;
         view = LayoutInflater.from(context).inflate(R.layout.pop_select_time, null);
         am = (GridView) view.findViewById(R.id.grid_am);
         pm = (GridView) view.findViewById(R.id.grid_pm);
@@ -44,7 +45,7 @@ public class SelectTimePop extends PopupWindow {
         am.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listener.onClick(bean.getAmList().get(position).getId());
+                listene.onClick(data.getAmList().get(position).getId(), data.getAmList().get(position).getTimeStr());
                 dismiss();
             }
         });
@@ -52,7 +53,7 @@ public class SelectTimePop extends PopupWindow {
         pm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listener.onClick(bean.getPmList().get(position).getId());
+                listene.onClick(data.getPmList().get(position).getId(), data.getPmList().get(position).getTimeStr());
                 dismiss();
             }
         });
@@ -74,24 +75,24 @@ public class SelectTimePop extends PopupWindow {
         //设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
         //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
-        view.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-
-                int height = view.findViewById(R.id.ll_top).getTop();
-                int y = (int) event.getY();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (y < height) {
-                        dismiss();
-                    }
-                }
-                return true;
-            }
-        });
+//        view.setOnTouchListener(new View.OnTouchListener() {
+//
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                int height = view.findViewById(R.id.ll_top).getTop();
+//                int y = (int) event.getY();
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    if (y < height) {
+//                        dismiss();
+//                    }
+//                }
+//                return true;
+//            }
+//        });
     }
 
     public interface OnSelectClick {
-        void onClick(int id);
+        void onClick(int id, String time);
     }
 
 }
