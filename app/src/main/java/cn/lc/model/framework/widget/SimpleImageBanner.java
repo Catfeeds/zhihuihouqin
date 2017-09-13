@@ -3,13 +3,19 @@ package cn.lc.model.framework.widget;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
 import com.flyco.banner.widget.Banner.BaseIndicatorBanner;
 
 import cn.lc.model.R;
+import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.framework.widget.bean.BannerItem;
 
 
@@ -37,20 +43,29 @@ public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleIma
 
     @Override
     public View onCreateItemView(int position) {
-        View inflate = View.inflate(mContext, R.layout.activity_main, null);
-//        ImageView iv = ViewFindUtils.find(inflate, R.id.iv);
-//        final BannerItem item = mDatas.get(position);
-//        iv.setScaleType(ImageView.ScaleType.FIT_XY);
-//        String imgUrl = item.imgUrl;
-//        if (!TextUtils.isEmpty(imgUrl)) {
-//
-//            Glide.with(mContext)
-//                    .load(imgUrl)
-//                    .placeholder(colorDrawable)
-//                    .into(iv);
-//        } else {
-//            iv.setImageDrawable(colorDrawable);
-//        }
+        View inflate = View.inflate(mContext, R.layout.adapter_simple_image, null);
+        ImageView iv = (ImageView) inflate.findViewById(R.id.iv);
+        final BannerItem item = mDatas.get(position);
+        int itemWidth = mDisplayMetrics.widthPixels;
+        int itemHeight = (int) (itemWidth * 360 * 1.0f / 640);
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        iv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, itemHeight));
+
+        String imgUrl = item.imgUrl;
+
+        if (!TextUtils.isEmpty(imgUrl)) {
+            //GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,imgUrl,iv);
+            Glide.with(mContext)
+                    .load(imgUrl)
+                    .override(itemWidth, itemHeight)
+                    .centerCrop()
+                    .placeholder(colorDrawable)
+                    .into(iv);
+
+        } else {
+            iv.setImageDrawable(colorDrawable);
+        }
+
         return inflate;
     }
 

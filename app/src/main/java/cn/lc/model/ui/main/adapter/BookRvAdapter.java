@@ -18,8 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
-import cn.lc.model.ui.main.activity.ActivityRegistration.PostedNotesActivity;
 import cn.lc.model.ui.main.activity.Library.BookDescriptionActivity;
+import cn.lc.model.ui.main.bean.BooklistBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
 
 /**
@@ -28,7 +28,7 @@ import cn.lc.model.ui.main.bean.LibraryHomeBean;
 
 public class BookRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<LibraryHomeBean.BooklistBean> data=new ArrayList<>();
+    private List<BooklistBean> data=new ArrayList<>();
 
     public BookRvAdapter(Context context) {
         this.mContext=context;
@@ -57,7 +57,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public void setData(List<LibraryHomeBean.BooklistBean> data) {
+    public void setData(List<BooklistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -79,7 +79,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
         TextView tvChubanshe;
         @BindView(R.id.tv_book_des)
         TextView tvBookDes;
-        private LibraryHomeBean.BooklistBean bookListvBean;
+        private BooklistBean bookListvBean;
 
         ViewHolder(View view) {
             super(view);
@@ -95,7 +95,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
         }
 
 
-        public void setData(LibraryHomeBean.BooklistBean booklistBean) {
+        public void setData(BooklistBean booklistBean) {
             this.bookListvBean=booklistBean;
             GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,
                     booklistBean.getImg(),ivBookPic);

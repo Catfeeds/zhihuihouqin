@@ -7,8 +7,10 @@ public class Constants {
 	public static final String APP_CONFIG_FILE_NAME = "AppConfig.json";
 
 	public static final int PAGESIZE = 10;
-
-	public static final int REGIST = 0;
 	public static final int FORGET = 1;
+	public static final int REGIST = 0;
 	public static final int BIND = 3;
+	public static final int SHIYOU=11;
+	public static final int SELECTSEX=11;
+	public static String YIJIANFANKUI="yijianfankui";
 }

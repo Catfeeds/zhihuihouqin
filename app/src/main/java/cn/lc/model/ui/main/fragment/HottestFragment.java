@@ -17,6 +17,7 @@ import butterknife.Unbinder;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
 import cn.lc.model.ui.main.adapter.BookRvAdapter;
+import cn.lc.model.ui.main.bean.BooklistBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.model.LibraryHomeModel;
 import cn.lc.model.ui.main.modelimpl.LibraryHomeModelImpl;
@@ -48,7 +49,7 @@ public class HottestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeVi
     @Override
     public void getLibraryHomeSucc(LibraryHomeBean homeBean) {
         if(homeBean!=null){
-            List<LibraryHomeBean.BooklistBean> booklist = homeBean.getBooklist();
+            List<BooklistBean> booklist = homeBean.getBooklist();
             bookRvAdapter.setData(booklist);
         }
     }

@@ -61,7 +61,7 @@ public class ReaderRecommendActivity extends BaseActivity<RecommandBookModel, Re
     @Override
     public void initView() {
         initTitle();
-        getReaderCommend();
+
     }
 
     private void initTitle() {
@@ -71,6 +71,7 @@ public class ReaderRecommendActivity extends BaseActivity<RecommandBookModel, Re
 
     @OnClick(R.id.submit)
     public void onViewClicked() {
+        getReaderCommend();
         if (TextUtils.isEmpty(bookName)||TextUtils.isEmpty(author)||
                 TextUtils.isEmpty(pressName)) {
             showToast("请讲信息填写完整");
@@ -88,9 +89,11 @@ public class ReaderRecommendActivity extends BaseActivity<RecommandBookModel, Re
     @Override
     public void getRecommandResult(RecommandBookBean recommandBookBean) {
         if(recommandBookBean.getErrCode()==0){
-            Intent intent =new Intent(this, SubmitSuccessActivity.class);
+            Intent intent =new Intent(this, JieYueSuccActivity.class);
+            intent.putExtra("from",1);
             intent.putExtra("bookSubmit",BOOKSUBMIT);
             startActivity(intent);
+            finish();
         }else{
             showToast(recommandBookBean.getMsg());
         }

@@ -228,6 +228,30 @@ public class SoftApplication extends QuickApplication {
         }
         return userInfo;
     }
+    //保存书名
+    private static List<String> mBooks=new ArrayList<>();
+    public static void saveBookName(List<String> books) {
+        mBooks.addAll(books);
+    }
+    public static List<String> getBookName(){
+        if(mBooks!=null&&mBooks.size()>0){
+            return mBooks;
 
+        }else{
+            return null;
+        }
+    }
+    private static List<String> mBookId=new ArrayList<>();
+    public static void saveBookId(List<String> bookId) {
+        mBookId.addAll(bookId);
+    }
+
+    public static List<String> getBookId(){
+        if(mBookId!=null&&mBookId.size()>0){
+            return mBookId;
+
+        }else{
+            return null;
+        }
+    }
 }
-

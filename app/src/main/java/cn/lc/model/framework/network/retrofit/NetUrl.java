@@ -23,16 +23,28 @@ public interface NetUrl {
     String userCommentList="appuser/ylfw/getcomment";
     //物业维修
     String wuyeHome="appuser/lffw/preorder";
+    String activityHome="appuser/tdhdfw/index";
+    //活动
+    String activitySign="appuser/tdhdfw/sign";
+    String activityList="appuser/tdhdfw/detail";
+    String activityPost="appuser/tdhdfw/pubactivity";
     //理发师
     String shop="appuser/lffw/toindex";
     String barberList="appuser/lffw/barberlist";
     String barberDetail="appuser/lffw/barberdetail";
     String barberworklist="appuser/lffw/barberworklist";
     String preorder="appuser/lffw/preorder";
+    //干洗店
+    String dryCleanerHome="appuser/service/getServiceInfo";
+    String orderDryCleaner="appuser/tgxdfwclothestype/findClothesTypeList";
     //图书
-    String libraryHome ="appuser/tsjyfw/index";
+    String libraryIndex="appuser/tsjyfw/getTopPicture";
+    String libraryHome ="appuser/tsjyfw/indexbooklist";
     String recommandBook="appuser/tsjyfw/recommand";
     String bookdetail="appuser/tsjyfw/getbookdetail";
+    String jieyue="appuser/tsjyfw/bookorder";
+    String searchCategory="appuser/tsjyfw/gettypelist";
+    String searchBookList="appuser/tsjyfw/getbooklist";
     //工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";
@@ -57,5 +69,9 @@ public interface NetUrl {
     String informationClass = "appuser/tnoticetype/findNoticeTypeList";
     String informationData = "appuser/tnotice/findNoticeList";
     String updataInformationClass = "appuser/tnoticetype/updateUserNoticeType";
+
+    //拜访人员
+    String baifang="appuser/user/addVisitLog";
+
 
 }

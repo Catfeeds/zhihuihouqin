@@ -9,6 +9,10 @@ import cn.lc.model.ui.login.bean.CaptchaBean;
 import cn.lc.model.ui.login.bean.PositionListBean;
 import cn.lc.model.ui.login.bean.RegistBean;
 import cn.lc.model.ui.login.bean.SubmitAuthBean;
+import cn.lc.model.ui.main.bean.ActivityHomeBean;
+import cn.lc.model.ui.main.bean.ActivityPostBean;
+import cn.lc.model.ui.main.bean.ActivitySignBean;
+import cn.lc.model.ui.main.bean.ActivitySignListBean;
 import cn.lc.model.ui.main.bean.AddressBean;
 import cn.lc.model.ui.main.bean.BarberDetailBean;
 import cn.lc.model.ui.main.bean.BarberListBean;
@@ -23,14 +27,20 @@ import cn.lc.model.ui.main.bean.DoctorListBean;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.bean.InformationClazzBean;
+import cn.lc.model.ui.main.bean.JieYueBean;
 import cn.lc.model.ui.main.bean.LabellingBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
+import cn.lc.model.ui.main.bean.LibraryPicBean;
 import cn.lc.model.ui.main.bean.MoreListBean;
 import cn.lc.model.ui.main.bean.NutritionBean;
+import cn.lc.model.ui.main.bean.OrderDryCleanBean;
 import cn.lc.model.ui.main.bean.PreOrderBean;
 import cn.lc.model.ui.main.bean.ReasonBean;
 import cn.lc.model.ui.main.bean.RecommandBookBean;
+import cn.lc.model.ui.main.bean.SearchBookListBean;
+import cn.lc.model.ui.main.bean.SearchCategoryBean;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
+import cn.lc.model.ui.main.bean.ServiceBean;
 import cn.lc.model.ui.main.bean.ShopBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
 import cn.lc.model.ui.main.bean.WuyeHomeBean;
@@ -122,11 +132,31 @@ public interface NetAPI {
     @Multipart
     @POST(NetUrl.wuyeHome)
     Observable<WuyeHomeBean> getWuyeHomeInfo(@PartMap() Map<String, RequestBody> map, @Part List<MultipartBody.Part> partList);
+    //活动首页
+    @FormUrlEncoded
+    @POST(NetUrl.activityHome)
+    Observable<ActivityHomeBean> getActivityHome(@FieldMap Map<String, Object> map);
+    //活动发布
+    @FormUrlEncoded
+    @POST(NetUrl.activityPost)
+    Observable<ActivityPostBean> postActivity(@FieldMap Map<String, Object> map);
+    //活动包名
+    @FormUrlEncoded
+    @POST(NetUrl.activitySign)
+    Observable<ActivitySignBean> getActivitySign(@FieldMap Map<String, Object> map);
+    //活动报名列表
+    @FormUrlEncoded
+    @POST(NetUrl.activityList)
+    Observable<ActivitySignListBean> getActivitySignList(@FieldMap Map<String, Object> map);
 
     //图书首页
     @FormUrlEncoded
     @POST(NetUrl.libraryHome)
     Observable<LibraryHomeBean> getLibraryHomeData(@FieldMap Map<String, Object> map);
+    //图书首页
+    @FormUrlEncoded
+    @POST(NetUrl.libraryIndex)
+    Observable<LibraryPicBean> getLibraryHomePic(@FieldMap Map<String, Object> map);
 
     //推荐图书
     @FormUrlEncoded
@@ -137,6 +167,18 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.bookdetail)
     Observable<BookDetailBean> getBookDetailResult(@FieldMap Map<String, Object> map);
+    //图书借阅
+    @FormUrlEncoded
+    @POST(NetUrl.jieyue)
+    Observable<JieYueBean> jieYueBook(@FieldMap Map<String, Object> map);
+    //查询类别
+    @FormUrlEncoded
+    @POST(NetUrl.searchCategory)
+    Observable<SearchCategoryBean> getSearchCategory(@FieldMap Map<String, Object> map);
+    //查询书列表
+    @FormUrlEncoded
+    @POST(NetUrl.searchBookList)
+    Observable<SearchBookListBean> getSearchBookList(@FieldMap Map<String, Object> map);
 
     //店铺
     @FormUrlEncoded
@@ -162,6 +204,15 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.preorder)
     Observable<PreOrderBean> getbarberInfo(@FieldMap Map<String, Object> map);
+
+    //干洗店
+    @FormUrlEncoded
+    @POST(NetUrl.dryCleanerHome)
+    Observable<ServiceBean> getDryCleanerHomeInfo(@FieldMap Map<String, Object> map);
+    //预约干洗
+    @FormUrlEncoded
+    @POST(NetUrl.orderDryCleaner)
+    Observable<OrderDryCleanBean> orderDryClean(@FieldMap Map<String, Object> map);
 
     //生成工作餐订单
     @FormUrlEncoded
@@ -268,4 +319,9 @@ public interface NetAPI {
     @Multipart
     @POST(NetUrl.submitComplain)
     Observable<CollectBean> UpImage(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+//    Observable<CollectBean> UpImage(@Part Map<String, RequestBody> paramsMap, @PartMap List<MultipartBody.Part> albumPhoto);
+    // 拜访人员
+    @FormUrlEncoded
+    @POST(NetUrl.baifang)
+    Observable<ActivityPostBean> postBaiFangInfo(@FieldMap Map<String, Object> map);
 }

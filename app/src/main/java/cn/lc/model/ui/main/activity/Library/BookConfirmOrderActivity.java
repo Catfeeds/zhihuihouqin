@@ -1,18 +1,28 @@
 package cn.lc.model.ui.main.activity.Library;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
+import cn.lc.model.framework.application.SoftApplication;
+import cn.lc.model.framework.network.retrofit.RetrofitUtils;
+import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.widget.TitleBar;
+import cn.lc.model.ui.main.activity.Base2Activity;
+import cn.lc.model.ui.main.bean.JieYueBean;
+import rx.Observable;
+import rx.Subscriber;
 
-public class BookConfirmOrderActivity extends AppCompatActivity {
+public class BookConfirmOrderActivity extends Base2Activity {
 
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
@@ -22,20 +32,56 @@ public class BookConfirmOrderActivity extends AppCompatActivity {
     TextView tvName;
     @BindView(R.id.tv_phone_num)
     TextView tvPhoneNum;
-    @BindView(R.id.iv_take_book_time)
-    TextView ivTakeBookTime;
+    @BindView(R.id.tv_take_book_time)
+    TextView tvTakeBookTime;
+    @BindView(R.id.ll_book_container)
+    LinearLayout llBookContainer;
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
     @BindView(R.id.activity_book_confirm_order)
     LinearLayout activityBookConfirmOrder;
-
+    @BindView(R.id.tv_again)
+    TextView tvAgain;
+    private List<String> books;
+    private List<String> bookName1;
+    private String time;
+    private String realName;
+    private String mobile;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initLayout() {
         setContentView(R.layout.activity_book_confirm_order);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void initView() {
         initTitle();
+        Intent intent = getIntent();
+        String bookId = intent.getStringExtra("bookId");
+        String bookName = intent.getStringExtra("bookName");
+        time = intent.getStringExtra("time");
+        realName = SharedPrefHelper.getInstance().getRealName();
+        mobile = SharedPrefHelper.getInstance().getMobile();
+        tvName.setText(realName);
+        tvPhoneNum.setText(mobile);
+        tvTakeBookTime.setText(time);
+        books = new ArrayList<>();
+        List<String> bookid = new ArrayList<>();
+        books.add(bookName);
+        bookid.add(bookId);
+        SoftApplication.saveBookName(books);
+        SoftApplication.saveBookId(bookid);
+        bookName1 = SoftApplication.getBookName();
+        for (int i = 0; i < bookName1.size(); i++) {
+            if (bookName1 != null && bookName1.size() > 0) {
+                View view = View.inflate(this, R.layout.book_name_item, null);
+                TextView name = (TextView) view.findViewById(R.id.book_name);
+                name.setText(bookName1.get(i));
+                llBookContainer.addView(view);
+
+            }
+        }
     }
 
     private void initTitle() {
@@ -43,7 +89,52 @@ public class BookConfirmOrderActivity extends AppCompatActivity {
         titleBar.setTitle("确认订单");
     }
 
-    @OnClick(R.id.tv_confirm)
-    public void onViewClicked() {
+    @OnClick({R.id.tv_again, R.id.tv_confirm})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_again:
+                if (bookName1.size() <= 3) {
+                    Intent intent = new Intent(this, LibraryActivity.class);
+                    startActivity(intent);
+                } else {
+                    showToast("单次最多可以借三本书");
+                }
+                break;
+            case R.id.tv_confirm:
+                getData();
+                break;
+        }
+    }
+
+    public void getData() {
+        List<String> bookIds = SoftApplication.getBookId();
+        String str = "";
+        for (String id : bookIds) {
+            str += id + ",";
+        }
+        str = str.substring(0, str.length() - 1);
+        Observable observable = RetrofitUtils.getInstance().jieYueBook(time, realName, mobile, str);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<JieYueBean>() {
+
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+                Log.e("借阅出现问题",e.getMessage());
+            }
+
+            @Override
+            public void onNext(JieYueBean jieYueBean) {
+                if(jieYueBean.getErrCode()==0){
+                    Intent intent = new Intent(BookConfirmOrderActivity.this, JieYueSuccActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }

@@ -35,7 +35,7 @@ public class RegistSuccessActivity extends AppCompatActivity {
     private void showhintDialog() {
         new AlertDialog(RegistSuccessActivity.this).builder().setTitle("提示")
                 .setMsg("注册完成后,需继续填写个人身份信息审核后,帐号方能使用")
-                .setPositiveButton("确认退出", new View.OnClickListener() {
+                .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(RegistSuccessActivity.this, IdentityActivity.class);

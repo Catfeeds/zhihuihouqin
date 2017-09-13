@@ -44,7 +44,7 @@
     <TextView
         android:textSize="@dimen/sp_big"
         android:textColor="@color/tv_black"
-        android:id="@+id/iv_take_book_time"
+        android:id="@+id/tv_take_book_time"
         android:text="时间"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
@@ -60,19 +60,25 @@
         android:text="借阅信息"
         android:paddingLeft="@dimen/standard_padding"
         android:background="@color/gray_lighter"/>
-    <TextView
+    <LinearLayout
+        android:id="@+id/ll_book_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
+   <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:textSize="@dimen/sp_big"
         android:textColor="@color/black"
         android:gravity="center_vertical"
         android:text="个人信息"
-        android:paddingLeft="@dimen/standard_padding" />
+        android:paddingLeft="@dimen/standard_padding" />-->
    <View
        android:layout_width="match_parent"
        android:layout_height="2dp"
        android:background="@color/gray_lighter"/>
     <TextView
+        android:id="@+id/tv_again"
        android:textSize="@dimen/sp_small"
        android:textColor="@color/gray"
        android:padding="@dimen/standard_padding"

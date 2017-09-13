@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ll_layout"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<cn.lc.model.ui.main.wheelView.WheelView
+    android:id="@+id/w_v1"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content" />
+    <cn.lc.model.ui.main.wheelView.WheelView
+        android:id="@+id/w_v2"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content" />
+    <cn.lc.model.ui.main.wheelView.WheelView
+        android:id="@+id/w_v3"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content" />
+</LinearLayout>

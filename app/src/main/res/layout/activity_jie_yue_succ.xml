@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_jie_yue_succ"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/heath_serverce_title"
+        android:layout_width="match_parent"
+        android:background="#1000"
+        android:layout_height="?actionBarSize"/>
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1000"/>
+    <ImageView
+        android:id="@+id/iv_submit_or_pay"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/unselected"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <TextView
+        android:id="@+id/tv_submit_success"
+        android:text="提交成功"
+        android:textSize="22sp"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+<FrameLayout
+    android:layout_margin="60dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_book_submit_des"
+        android:text="感谢您的提交，我方将以最快时间为您来准备，感谢您的借阅!"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</FrameLayout>
+
+</LinearLayout>

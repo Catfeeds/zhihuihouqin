@@ -104,7 +104,7 @@
            android:id="@+id/et_write_your_book_name"
            android:background="@null"
            android:hint="请输入你想要的书籍详细内容"
-           android:textColor="@color/gray_light"
+           android:textColor="@color/tv_black"
            android:textSize="@dimen/sp_big"
            android:layout_marginLeft="8dp"
            android:layout_marginRight="8dp"

@@ -44,7 +44,9 @@
         <EditText
             android:id="@+id/et_posted_name"
             android:background="@null"
-            android:hint="skfask"
+            android:hint="请输入姓名"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
             android:layout_centerVertical="true"
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
@@ -69,7 +71,9 @@
         <EditText
             android:id="@+id/et_phone"
             android:background="@null"
-            android:hint="skfask"
+            android:hint="请输入电话号"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
             android:layout_centerVertical="true"
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
@@ -94,7 +98,9 @@
         <EditText
             android:id="@+id/et_minzu"
             android:background="@null"
-            android:hint="skfask"
+            android:hint="请输入民族"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
             android:layout_centerVertical="true"
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
@@ -109,11 +115,12 @@
         android:layout_height="1dp"
         android:background="@color/gray_lighter"/>
     <RelativeLayout
+        android:id="@+id/rl_time"
         android:padding="@dimen/standard_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="手机号："
+            android:text="活动时间："
             android:padding="@dimen/standard_padding"
             android:gravity="center_vertical"
             android:textSize="@dimen/sp_small"
@@ -148,7 +155,9 @@
         <EditText
             android:id="@+id/et_activity_address"
             android:background="@null"
-            android:hint="skfask"
+            android:hint="请输入报名地点"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
             android:layout_centerVertical="true"
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
@@ -173,7 +182,9 @@
         <EditText
             android:id="@+id/et_person_limit"
             android:background="@null"
-            android:hint="skfask"
+            android:hint="请输入人数限制"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
             android:layout_centerVertical="true"
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"
@@ -199,6 +210,7 @@
             android:background="@null"
             android:layout_marginTop="8dp"
             android:textSize="@dimen/sp_small"
+            android:textColor="@color/tv_black"
             android:hint="请输入活动内容..."
             android:layout_marginLeft="90dp"
             android:layout_width="match_parent"

@@ -32,6 +32,7 @@ public class LibraryHomePresenter extends MvpRxPresenter<LibraryHomeModel, Libra
             @Override
             public void onError(Throwable e) {
                 Log.e("Throwable",e.getMessage());
+                getView().dismissProgressDialog();
             }
 
             @Override

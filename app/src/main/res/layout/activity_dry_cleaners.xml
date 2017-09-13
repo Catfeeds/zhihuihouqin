@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:banner="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_dry_cleaners"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -16,11 +17,33 @@
         android:layout_height="2dp"
         android:background="#2000"/>
     <!--轮播图占位-->
-    <ImageView
-        android:src="@drawable/partner_luffy"
-        android:scaleType="centerCrop"
+    <cn.lc.model.framework.widget.SimpleImageBanner
+        android:id="@+id/h_banner_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="180dp" />
+        android:layout_height="160dp"
+        banner:bb_barColor="#00000000"
+        banner:bb_barPaddingBottom="5dp"
+        banner:bb_barPaddingLeft="10dp"
+        banner:bb_barPaddingRight="10dp"
+        banner:bb_barPaddingTop="5dp"
+        banner:bb_delay="2"
+        banner:bb_indicatorCornerRadius="3dp"
+        banner:bb_indicatorGap="8dp"
+        banner:bb_indicatorGravity="CENTER"
+        banner:bb_indicatorHeight="6dp"
+        banner:bb_indicatorSelectColor="@color/tv_blue"
+        banner:bb_indicatorStyle="CORNER_RECTANGLE"
+        banner:bb_indicatorUnselectColor="#88ffffff"
+        banner:bb_indicatorWidth="6dp"
+        banner:bb_isAutoScrollEnable="true"
+        banner:bb_isBarShowWhenLast="true"
+        banner:bb_isIndicatorShow="true"
+        banner:bb_isLoopEnable="true"
+        banner:bb_isTitleShow="true"
+        banner:bb_period="5"
+        banner:bb_scale="0.5625"
+        banner:bb_textColor="#ffffff"
+        banner:bb_textSize="13.5sp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,6 +139,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/ll_call"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"

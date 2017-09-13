@@ -4,6 +4,8 @@ package cn.lc.model.framework.spfs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.List;
+
 import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.ui.home.bean.LoginBean;
 
@@ -175,7 +177,6 @@ public class SharedPrefHelper {
     public void setMobile(String mobile) {
         sharedPreferences.edit().putString("mobile", mobile).commit();
     }
-
     public void setRememberPassWord(boolean b) {
         sharedPreferences.edit().putBoolean("rememberPw", b).commit();
     }

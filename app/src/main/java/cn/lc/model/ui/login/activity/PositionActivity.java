@@ -71,7 +71,9 @@ public class PositionActivity extends BaseActivity<PositionListModel,PositionLis
                     public void itemClickLister(int position) {
                         Log.e("index","返回选中position"+position);
                         int positionId=positionlist.get(position).getId();
+                        String name = positionlist.get(position).getName();
                         Intent intent = new Intent();
+                        intent.putExtra("position",name);
                         intent.putExtra("positionId",positionId);
                         setResult(RESULT_OK,intent);
                         finish();

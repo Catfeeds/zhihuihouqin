@@ -2,6 +2,7 @@ package cn.lc.model.ui.mywidget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,10 +80,10 @@ public class AlertDialog {
 
 	public AlertDialog setMsg(String msg) {
 		showMsg = true;
-		if ("".equals(msg)) {
+		if (TextUtils.isEmpty(msg)) {
 			txt_msg.setText("内容");
 		} else {
-			txt_msg.setText(msg);
+			txt_msg.setText(msg+"");
 		}
 		return this;
 	}

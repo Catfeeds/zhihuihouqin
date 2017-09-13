@@ -15,6 +15,7 @@ import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.bean.BookDetailBean;
+import cn.lc.model.ui.main.bean.BooklistBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.model.BookDetailModel;
 import cn.lc.model.ui.main.modelimpl.BookDetailModelImpl;
@@ -40,28 +41,10 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     TextView tvNowBorrowing;
     @BindView(R.id.activity_book_description)
     RelativeLayout activityBookDescription;
-   /* @BindView(R.id.iv_book_pic)
-    ImageView ivBookPic;
-    @BindView(R.id.tv_book_name)
-    TextView tvBookName;
-    @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
-    @BindView(R.id.tv_star_num)
-    TextView tvStarNum;
-    @BindView(R.id.tv_author)
-    TextView tvAuthor;
-    @BindView(R.id.tv_chubanshe)
-    TextView tvChubanshe;
-    @BindView(R.id.tv_authors_introduce)
-    TextView tvAuthorsIntroduce;
-    @BindView(R.id.tv_authors_introduce_content)
-    TextView tvAuthorsIntroduceContent;
-    @BindView(R.id.tv_book_introduce)
-    TextView tvBookIntroduce;
-    @BindView(R.id.tv_book_introduce_content)
-    TextView tvBookIntroduceContent;*/
 
-    private LibraryHomeBean.BooklistBean bookListvBean;
+    private BooklistBean bookListvBean;
+    private int bookId;
+    private String title;
 
     @Override
     public BookDetailPresenter createPresenter() {
@@ -81,12 +64,13 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
     @Override
     public void initView() {
-        bookListvBean = (LibraryHomeBean.BooklistBean) getIntent().getSerializableExtra("bookListvBean");
-        int bookId = bookListvBean.getId();
+        bookListvBean = (BooklistBean) getIntent().getSerializableExtra("bookListvBean");
+        bookId = bookListvBean.getId();
+        title = bookListvBean.getTitle();
         String url = bookListvBean.getUrl();
         //加载静态界面
         wbBookDetail.loadUrl(url);
-        getPresenter().getData(bookId);
+
         initTitle();
         initAllViw();
     }
@@ -110,6 +94,13 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     @Override
     public void getBookDetailSucc(BookDetailBean detailBean) {
         if (detailBean != null) {
+            if(detailBean.getFavorstatus()==1){
+                showToast("收藏");
+            }else if(detailBean.getFavorstatus()==0){
+                showToast("取消收藏");
+            }else{
+                showToast("其他");
+            }
         }
     }
 
@@ -126,20 +117,23 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                 showShare("测试", "智慧后勤", "http://www.baidu.com", "http://casemeet.oss-cn-beijing.aliyuncs.com/2017080214260236353118.png");
                 break;
             case R.id.tv_collect:
+                getPresenter().getData(bookId);
                 break;
             case R.id.tv_now_borrowing://立即借阅
                 Intent intent = new Intent(this, BorrowOrderActivity.class);
+                intent.putExtra("bookids",bookId);
+                intent.putExtra("bookName",title);
                 startActivity(intent);
                 break;
         }
     }
 
-    private void sharePopWindow() {
+   /* private void sharePopWindow() {
         //实例化SelectPicPopupWindow
         SharePopupWindow menuWindow = new SharePopupWindow(BookDescriptionActivity.this, this);
         //显示窗口
         menuWindow.showAtLocation(BookDescriptionActivity.this.findViewById(R.id.activity_book_description), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-    }
+    }*/
 
     private void showShare(String titles, String content, String currenturl,
                            String imgurl) {

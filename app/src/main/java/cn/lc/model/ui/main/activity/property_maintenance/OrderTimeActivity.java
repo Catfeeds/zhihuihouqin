@@ -1,27 +1,26 @@
 package cn.lc.model.ui.main.activity.property_maintenance;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.util.Arrays;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
-import cn.lc.model.framework.widget.HorizontialListView;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.BarberGridAdapter;
 import cn.lc.model.ui.main.adapter.OrderTimeAdapter;
+import cn.lc.model.ui.main.adapter.OrderTimesAdapter;
+import mvp.cn.util.DateUtils;
+
 
 public class OrderTimeActivity extends AppCompatActivity {
 
@@ -44,6 +43,7 @@ public class OrderTimeActivity extends AppCompatActivity {
             "16:30","17:00","17:30","18:00");
     private BarberGridAdapter gridAdapter;
     private OrderTimeAdapter orderTimeAdapter;
+    private OrderTimesAdapter orderTimesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,32 +61,41 @@ public class OrderTimeActivity extends AppCompatActivity {
     }
 
     private void initGrid() {
-        gridAdapter = new BarberGridAdapter();
-        gvOrderTime.setAdapter(gridAdapter);
-        //gridAdapter.setTime(time);
-        gvOrderTime.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gridAdapter.changeColor(position);
-            }
-        });
+
+        orderTimesAdapter = new OrderTimesAdapter();
+        gvOrderTime.setAdapter(orderTimesAdapter);
+        orderTimesAdapter.setData(time);
+
     }
 
     private void initRecycler() {
         rvOrderTime.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         orderTimeAdapter = new OrderTimeAdapter(this);
         rvOrderTime.setAdapter(orderTimeAdapter);
-
+        List<String> week = DateUtils.get7week();
+        List<String> date = DateUtils.get7date();
+        orderTimeAdapter.setData(week,date);
 
     }
 
     @OnClick({R.id.tv_now, R.id.tv_confirm_select_time})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.tv_now:
+                intent.putExtra("time","立即上门");
+                setResult(RESULT_OK,intent);
+                finish();
                 break;
             case R.id.tv_confirm_select_time:
+                String s = orderTimeAdapter.getTime();
+                int selectPosition = orderTimesAdapter.getSelectPosition();
+                //获得时间
+                intent.putExtra("time", s+" "+this.time.get(selectPosition));
+                setResult(RESULT_OK,intent);
+                finish();
                 break;
+
         }
     }
 }

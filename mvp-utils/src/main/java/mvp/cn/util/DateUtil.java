@@ -16,7 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public final class DateUtil {
+public final class
+DateUtil {
 	public static SimpleDateFormat HHmmss = new SimpleDateFormat("HH:mm:ss");
 	public static SimpleDateFormat HHmmssNoColon = new SimpleDateFormat("HHmmss");
 	public static SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyyMMddHHmmss");
