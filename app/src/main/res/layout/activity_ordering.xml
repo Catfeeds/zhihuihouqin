@@ -214,6 +214,15 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_bigger" />
 
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/sp_small" />
+
                 <!--<TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
@@ -265,6 +274,15 @@
                     android:text="姓名"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_bigger" />-->
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"

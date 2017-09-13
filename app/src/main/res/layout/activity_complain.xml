@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +10,11 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-         <cn.lc.model.framework.widget.TitleBar
-             android:id="@+id/top_bar"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/title_height"
-             android:background="@color/white" />
+        <cn.lc.model.framework.widget.TitleBar
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/complain_history"
@@ -69,16 +70,17 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:background="@drawable/background_edit"
-                    android:minHeight="140dp"
+                    android:minHeight="160dp"
                     android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/et_content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@null"
                         android:gravity="left|top"
                         android:hint="请输入相关投诉内容"
-                        android:minHeight="100dp"
+                        android:minHeight="140dp"
                         android:padding="10dp"
                         android:textColor="@color/tv_black"
                         android:textColorHint="@color/gray"
@@ -86,10 +88,12 @@
 
                     <cn.lc.model.framework.widget.NoSlidingGridView
                         android:id="@+id/grid_view"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:numColumns="4">
+                        android:numColumns="5"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp">
 
                     </cn.lc.model.framework.widget.NoSlidingGridView>
                 </LinearLayout>
@@ -212,7 +216,7 @@
                     android:background="@drawable/background_edit"
                     android:gravity="left|top"
                     android:hint="请输入您的建议..."
-                    android:minHeight="80dp"
+                    android:minHeight="120dp"
                     android:padding="10dp"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/gray"

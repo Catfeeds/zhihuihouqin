@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
      
     <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -55,20 +56,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>-->
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -82,7 +84,8 @@
             <!--集成line客户端登录授权，需要添如下格式的过滤器-->
             <intent-filter>
                 <data android:scheme="line.1477692153" />
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -91,21 +94,27 @@
         <!--微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity android:name=".ui.main.activity.GuideActivity">
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.login.activity.LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.login.activity.RegistStep1Activity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -178,14 +187,13 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpPayActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity" />
-        <activity android:name=".ui.main.activity.HealthSearchActivity" />
         <activity
             android:name=".ui.login.activity.IdentityActivity"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
         </activity>
         <activity android:name=".ui.login.activity.PositionActivity" />
-        <activity android:name=".ui.login.activity.AuthSuccessActivity"></activity>
+        <activity android:name=".ui.login.activity.AuthSuccessActivity" />
         <activity android:name=".ui.main.activity.HealthSearchActivity" />
         <activity
             android:name=".ui.main.activity.ordering.OrderingActivity"
@@ -205,6 +213,31 @@
         <activity
             android:name=".ui.main.activity.nutritionalmeal.NutritionMoreActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.ordering.AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.complain.ComplainHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.complain.SubmitComplainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.complain.SubmitComplainSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.complain.ComplainReplyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.complain.ComplainHistoryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.InformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.InformationModuleManagerActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

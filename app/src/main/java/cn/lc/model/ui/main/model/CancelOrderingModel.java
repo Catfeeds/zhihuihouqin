@@ -8,7 +8,7 @@ import rx.Observable;
  * 作者：Shixhe On 2017/9/4 0004
  */
 
-public interface CancelOrderModel extends MvpModel {
+public interface CancelOrderingModel extends MvpModel {
 
     // 获取取消订单原因
     Observable getReasonList();

@@ -28,7 +28,6 @@ import cn.lc.model.ui.login.modelimpl.LoginModelImpl;
 import cn.lc.model.ui.login.presenter.LoginPresenter;
 import cn.lc.model.ui.login.view.LoginView;
 import cn.lc.model.ui.main.activity.MainActivity;
-import cn.sharesdk.framework.ShareSDK;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.CrcUtil;
 
@@ -39,7 +38,7 @@ import mvp.cn.util.CrcUtil;
  * @author --FY
  * @version 创建时间：2015-8-3 上午11:07:24
  */
-public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPresenter>implements LoginView{
+public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPresenter> implements LoginView {
 
     @BindView(R.id.login_title)
     TitleBar titleBar;
@@ -78,14 +77,13 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     @Override
     public void initView() {
         initTitle();
-      /*  ShareSDK.initSDK(this);
-        etUname.setText(SharedPrefHelper.getInstance().getLoginAccount());*/
-        if(lCbRemenberPwd.isChecked()){
-            if(SharedPrefHelper.getInstance().getPhoneNumber()!=null){
-                etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
-                etPsw.setText(SharedPrefHelper.getInstance().getPassword());
-            }
-        }
+        //  ShareSDK.initSDK(this);
+        LogUtils.d("账号：" + SharedPrefHelper.getInstance().getPhoneNumber() + "密码：" + SharedPrefHelper.getInstance().getPassword());
+        etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
+        etPsw.setText(SharedPrefHelper.getInstance().getPassword());
+
+        lCbRemenberPwd.setChecked(SharedPrefHelper.getInstance().isRememberPassWord());
+
     }
 
     private void initTitle() {
@@ -129,6 +127,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                 break;
         }
     }
+
     /**
      * 返回
      */
@@ -151,9 +150,10 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     public void turnToRegist() {
         Bundle b = new Bundle();
         b.putInt("from", Constants.REGIST);
-       // UIManager.turnToAct(this, RegistStep1Activity.class, b);
+//        UIManager.turnToAct(this, RegistStep1Activity.class, b);
         UIManager.turnToAct(this, RegistStepOneActivity.class, b);
     }
+
     /**
      * 注册
      *
@@ -187,11 +187,13 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         } catch (Exception e) {
             e.printStackTrace();
         }
+        SharedPrefHelper.getInstance().setPhoneNumber(etUname.getText().toString().trim());
         CommonUtil.closeSoftKeyboard(this, etUname);
-       // doLoginRequest(mobile, md5Pwd);
-        getPresenter().getData(mobile,md5Pwd);
+        // doLoginRequest(mobile, md5Pwd);
+        getPresenter().getData(mobile, md5Pwd);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent it) {
         super.onActivityResult(requestCode, resultCode, it);
@@ -202,29 +204,37 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
             etPsw.setText(pwd);
         }
     }
+
     @Override
     public void loginSuccess(LoginBean loginBean) {
-
-        if (loginBean.getErrCode()==0) {
+        if (lCbRemenberPwd.isChecked()) {
+            LogUtils.d("选中");
+            SharedPrefHelper.getInstance().setPassword(etPsw.getText().toString().trim());
+        } else {
+            LogUtils.d("未选中");
+            SharedPrefHelper.getInstance().setPassword("");
+        }
+        SharedPrefHelper.getInstance().setRememberPassWord(lCbRemenberPwd.isChecked());
+        if (loginBean.getErrCode() == 0) {
             SoftApplication.softApplication.setUserInfo(loginBean.getUserinfo());
-            SharedPrefHelper.getInstance().setPhoneNumber(mobile);
-            SharedPrefHelper.getInstance().setPassword(pwd);
             SharedPrefHelper.getInstance().setToken(loginBean.getToken());
-            Log.e("登陆返回Token():.....",loginBean.getToken()+"");
+            LogUtils.d("登陆返回Token():.....", loginBean.getToken() + "");
             SharedPrefHelper.getInstance().setSex(loginBean.getUserinfo().getSex());
-            SharedPrefHelper.getInstance().setuserId(loginBean.getUserinfo().getUserId()+"");
+            SharedPrefHelper.getInstance().setuserId(loginBean.getUserinfo().getUserId() + "");
             SharedPrefHelper.getInstance().setNickname(loginBean.getUserinfo().getNickname());
             SharedPrefHelper.getInstance().setuserPhoto(loginBean.getUserinfo().getPhoto());
             SharedPrefHelper.getInstance().setRealName(loginBean.getUserinfo().getRealname());
             SharedPrefHelper.getInstance().setNation(loginBean.getUserinfo().getNation());
-            SharedPrefHelper.getInstance().setMobile(loginBean.getUserinfo().getMobile()+"");
+            SharedPrefHelper.getInstance().setMobile(loginBean.getUserinfo().getMobile() + "");
             //getPresenter().getToke(loginBean.getUserId()+"");
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-        }else{
-            Log.e("msg++++",loginBean.getMsg());
-            showToast(loginBean.getMsg());}    }
+        } else {
+            Log.e("msg++++", loginBean.getMsg());
+            showToast(loginBean.getMsg());
+        }
+    }
 
  /* *//**//*  private void doLoginRequest(final String mobile, final String md5Pwd) {
         showProgressDialog();
@@ -332,7 +342,9 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     *//**//*
 
-    *//**//**
+    *//**/
+
+    /**
      * 三方登录
      *//**//**//**//*
     private void doLoginPlatForm(final String thirdType, String platformName) {
@@ -372,8 +384,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     }
     /*daozhe */
-
-
     @Override
     public void showToast() {
 

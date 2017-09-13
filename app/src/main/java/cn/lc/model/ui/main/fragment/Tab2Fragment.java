@@ -18,6 +18,8 @@ import butterknife.Unbinder;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
 import cn.lc.model.framework.widget.NoSlidingGridView;
+import cn.lc.model.ui.main.activity.complain.SubmitComplainActivity;
+import cn.lc.model.ui.main.activity.message.InformationActivity;
 import cn.lc.model.ui.main.activity.nutritionalmeal.NutritionActivity;
 import cn.lc.model.ui.main.activity.ordering.OrderingActivity;
 import cn.lc.model.ui.main.adapter.AllGrideAdapter;
@@ -195,6 +197,24 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
                 case 9:
                     AllGrideAdapter grideAdapter9 = new AllGrideAdapter(getActivity(), instantMessage, instantMessagePhotos);
                     gridView.setAdapter(grideAdapter9);
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            switch (position) {
+                                case 0:// 信息公告
+                                    startActivity(new Intent(getActivity(), InformationActivity.class));
+                                    break;
+
+                                case 1:// 意见投诉
+                                    startActivity(new Intent(getActivity(), SubmitComplainActivity.class));
+                                    break;
+//                                case 6:// 工作餐预订
+//                                    startActivity(new Intent(getActivity(), OrderingActivity.class));
+//                                    break;
+                            }
+
+                        }
+                    });
                     break;
 
             }

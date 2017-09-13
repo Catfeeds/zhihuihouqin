@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface AddressModel extends MvpModel {
 
-    Observable getData();
+    Observable getAddress();
 
 }

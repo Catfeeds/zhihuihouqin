@@ -1,10 +1,10 @@
 package cn.lc.model.ui.main.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
 import cn.lc.model.framework.widget.NoSlidingListView;
@@ -35,17 +35,18 @@ public class NutritionFragment extends BaseFragment<RecipeModel, RecipeView, Rec
 
     @Override
     public void initView(View v) {
-        Log.e("initView", "initView: " + getArguments().getInt("Type") + " more:" + getArguments().getInt("isMore"));
+        ButterKnife.bind(this, v);
         getPresenter().getTodayRecipe(1, getArguments().getInt("Type"));
     }
 
     @Override
     public void getTodayRecipe(NutritionBean bean) {
         if (adapter == null) {
-            if (getArguments().getInt("isMore") == 0)
+            if (getArguments().getInt("isMore") == 0) {
                 adapter = new TodayRecipeAdapter(getActivity(), bean, 0);
-            else
+            } else {
                 adapter = new TodayRecipeAdapter(getActivity(), bean, 1);
+            }
             listView.setAdapter(adapter);
         } else {
             adapter.notifyDataSetChanged();

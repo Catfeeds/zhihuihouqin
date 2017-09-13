@@ -46,26 +46,15 @@ public class TodayRecipeActivity extends AppCompatActivity {
 
         fragments = new ArrayList<>();
 
-        Bundle b1 = new Bundle();
-        b1.putInt("Type", 1);
-        b1.putInt("isMore", 1);
-        NutritionFragment fragment1 = new NutritionFragment();
-        fragment1.setArguments(b1);
-        fragments.add(fragment1);
+        for (int i = 0; i < 3; i++) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("Type", i + 1);
+            bundle.putInt("isMore", 1);
+            NutritionFragment fragment = new NutritionFragment();
+            fragment.setArguments(bundle);
+            fragments.add(fragment);
+        }
 
-        Bundle b2 = new Bundle();
-        b2.putInt("Type", 2);
-        b2.putInt("isMore", 1);
-        NutritionFragment fragment2 = new NutritionFragment();
-        fragment2.setArguments(b2);
-        fragments.add(fragment2);
-
-        Bundle b3 = new Bundle();
-        b3.putInt("Type", 3);
-        b3.putInt("isMore", 1);
-        NutritionFragment fragment3 = new NutritionFragment();
-        fragment3.setArguments(b3);
-        fragments.add(fragment3);
         RecipeAdapter pagerAdapter = new RecipeAdapter(getSupportFragmentManager());
         today_recipe.setAdapter(pagerAdapter);
         tabBook.setupWithViewPager(today_recipe);

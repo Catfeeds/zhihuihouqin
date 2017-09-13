@@ -13,7 +13,7 @@ public class ComplainHistoryModelImpl implements ComplainHistoryModel {
 
     @Override
     public Observable getComplainHistory(int page, int pageCount) {
-        Observable observable = RetrofitUtils.getInstance().getComplainhistory(page, pageCount);
+        Observable observable = RetrofitUtils.getInstance().getComplainHistory(page, pageCount);
         return observable;
     }
 }

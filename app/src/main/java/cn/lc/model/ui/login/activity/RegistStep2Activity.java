@@ -9,22 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import cn.lc.model.R;
-import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.contant.Constants;
-import cn.lc.model.framework.manager.UIManager;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.login.bean.RegistBean;
-import cn.lc.model.ui.login.bean.UserResponse;
 import cn.lc.model.ui.login.model.RegistStep2Model;
 import cn.lc.model.ui.login.modelimpl.RegistStep2ModelImpl;
 import cn.lc.model.ui.login.presenter.RegistStep2Presenter;
 import cn.lc.model.ui.login.view.RegistStep2View;
 import mvp.cn.util.CommonUtil;
-import mvp.cn.util.CrcUtil;
+import mvp.cn.util.ToastUtil;
 
 
-public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistStep2View, RegistStep2Presenter>implements RegistStep2View, View.OnClickListener  {
+public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistStep2View, RegistStep2Presenter> implements RegistStep2View, View.OnClickListener {
 
 
     // Content View Elements
@@ -45,6 +43,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     public void setContentLayout() {
         setContentView(R.layout.login_regist_2);
     }
+
     @Override
     public void initView() {
         bindViews();
@@ -77,8 +76,10 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         mTitleBar.setBack(true);
         if (from == Constants.REGIST) {
             mTitleBar.setTitle("设置资料");
+            bt_next.setText("注册");
         } else if (from == Constants.FORGET) {
             mTitleBar.setTitle("设置密码");
+            bt_next.setText("确认");
         }
     }
 
@@ -88,8 +89,6 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         et_repassword = (EditText) findViewById(R.id.et_repassword);
         bt_next = (Button) findViewById(R.id.bt_next);
         bt_next.setOnClickListener(this);
-
-
     }
 
     /**
@@ -110,11 +109,12 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         }
         CommonUtil.closeSoftKeyboard(this, et_password);
 
-        if (from == Constants.BIND) {
-//            doBindRequest(mMobile, mCptcha, pwd1);
+        if (from == Constants.FORGET) {
+            // TODO 修改密码
+            getPresenter().changePassWord(mMobile, mCptcha, pwd1);
         } else {
-//            doResistRequest(mMobile, mCptcha, pwd1);
-            getPresenter().getData(mMobile,mCptcha, pwd1);
+            // TODO 注册
+            getPresenter().getData(mMobile, mCptcha, pwd1);
         }
     }
 
@@ -156,28 +156,34 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
 
     @Override
     public void registSuccess(RegistBean registBean) {
-
         int errCode = registBean.getErrCode();
-        Log.e("注册",registBean.getMsg());
+        Log.e("注册", registBean.getMsg());
         /*1004 ：验证码已过期
         1005 ： 用户已注册
         1006 ： 验证码错误*/
-        if(errCode==1004){
-            showToast("验证码已过期");
-        }else if(errCode==1005){
-            showToast("用户已注册");
-        }else if(errCode==1006){
-            showToast("验证码错误");
-        }else {
-            showToast("注册成功");
-            Intent intent = new Intent(this, RegistSuccessActivity.class);
-            startActivity(intent);
-            Intent intent1 = new Intent();
-            intent1.putExtra("mobile",mMobile);
-            intent1.putExtra("pwd",pwd1);
-            setResult(RESULT_OK,intent1);
-            finish();
-        }
+        LogUtils.d("注册返回码：" + registBean.getErrCode() + "");
+//        if (errCode == 1004) {
+//            showToast("验证码已过期");
+//        } else if (errCode == 1005) {
+//            showToast("用户已注册");
+//        } else if (errCode == 1006) {
+//            showToast("验证码错误");
+//        } else if (errCode == 0) {
+        showToast("注册成功");
+        Intent intent = new Intent(this, RegistSuccessActivity.class);
+        startActivity(intent);
+//        Intent intent1 = new Intent();
+//        intent1.putExtra("mobile", mMobile);
+//        intent1.putExtra("pwd", pwd1);
+//        setResult(RESULT_OK, intent1);
+        finish();
+//        }
+    }
+
+    @Override
+    public void changePassWord(RegistBean registBean) {
+        ToastUtil.showToast(this, "修改密码成功！");
+        finish();
     }
 
     /**

@@ -86,12 +86,12 @@
                 android:layout_height="6dp"
                 android:background="@color/gray_lighter" />
 
-            <android.support.v4.view.ViewPager
+            <cn.lc.model.ui.mywidget.CalculateHeightViewPager
                 android:id="@+id/today_recipe"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-            </android.support.v4.view.ViewPager>
+            </cn.lc.model.ui.mywidget.CalculateHeightViewPager>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,14 +126,14 @@
                 android:layout_height="1px"
                 android:background="@color/gray_light" />
 
-            <cn.lc.model.framework.widget.NoSlidingListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/nutrition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
                 android:divider="@null">
 
-            </cn.lc.model.framework.widget.NoSlidingListView>
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
     </ScrollView>

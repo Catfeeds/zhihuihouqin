@@ -69,6 +69,7 @@ public class CommentPop extends PopupWindow {
         ColorDrawable dw = new ColorDrawable(0xb0000000);
         //设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
+        this.setAnimationStyle(R.style.popwin_anim_style);
         //mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
         view.setOnTouchListener(new View.OnTouchListener() {
 

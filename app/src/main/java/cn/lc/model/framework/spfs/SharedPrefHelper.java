@@ -175,4 +175,12 @@ public class SharedPrefHelper {
     public void setMobile(String mobile) {
         sharedPreferences.edit().putString("mobile", mobile).commit();
     }
+
+    public void setRememberPassWord(boolean b) {
+        sharedPreferences.edit().putBoolean("rememberPw", b).commit();
+    }
+
+    public boolean isRememberPassWord() {
+        return sharedPreferences.getBoolean("rememberPw", false);
+    }
 }

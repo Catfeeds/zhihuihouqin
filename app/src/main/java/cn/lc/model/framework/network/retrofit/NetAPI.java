@@ -15,16 +15,20 @@ import cn.lc.model.ui.main.bean.BarberListBean;
 import cn.lc.model.ui.main.bean.BarberWorkListBean;
 import cn.lc.model.ui.main.bean.BookDetailBean;
 import cn.lc.model.ui.main.bean.CollectBean;
+import cn.lc.model.ui.main.bean.ComplainDetailBean;
 import cn.lc.model.ui.main.bean.ComplainHistoryBean;
+import cn.lc.model.ui.main.bean.ComplainReplyBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
 import cn.lc.model.ui.main.bean.DoctorListBean;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
+import cn.lc.model.ui.main.bean.InformationBean;
+import cn.lc.model.ui.main.bean.InformationClazzBean;
 import cn.lc.model.ui.main.bean.LabellingBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.bean.MoreListBean;
 import cn.lc.model.ui.main.bean.NutritionBean;
 import cn.lc.model.ui.main.bean.PreOrderBean;
-import cn.lc.model.ui.main.bean.Reason;
+import cn.lc.model.ui.main.bean.ReasonBean;
 import cn.lc.model.ui.main.bean.RecommandBookBean;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
 import cn.lc.model.ui.main.bean.ShopBean;
@@ -58,8 +62,13 @@ public interface NetAPI {
 
     //注册
     @FormUrlEncoded
-    @POST(NetUrl.captcha)
+    @POST(NetUrl.regist)
     Observable<RegistBean> register(@FieldMap Map<String, Object> map);
+
+    //更改密码
+    @FormUrlEncoded
+    @POST(NetUrl.changePassWord)
+    Observable<RegistBean> changePassWord(@FieldMap Map<String, Object> map);
 
     //绑定手机号
     @FormUrlEncoded
@@ -169,10 +178,25 @@ public interface NetAPI {
     @POST(NetUrl.getAddress)
     Observable<AddressBean> getAddress(@FieldMap Map<String, Object> map);
 
+    //添加地址
+    @FormUrlEncoded
+    @POST(NetUrl.addAddress)
+    Observable<CollectBean> addAddress(@FieldMap Map<String, Object> map);
+
+    //修改地址
+    @FormUrlEncoded
+    @POST(NetUrl.editAddress)
+    Observable<CollectBean> editAddress(@FieldMap Map<String, Object> map);
+
+    //删除地址
+    @FormUrlEncoded
+    @POST(NetUrl.deleteAddress)
+    Observable<CollectBean> deleteAddress(@FieldMap Map<String, Object> map/*, @Query("ids[]") int... ids*/);
+
     //获取取消订单原因
     @FormUrlEncoded
     @POST(NetUrl.orderReason)
-    Observable<Reason> getReason(@FieldMap Map<String, Object> map);
+    Observable<ReasonBean> getReason(@FieldMap Map<String, Object> map);
 
     //取消工作餐订单
     @FormUrlEncoded
@@ -198,7 +222,7 @@ public interface NetAPI {
 //    @FormUrlEncoded
     @Multipart
     @POST(NetUrl.submitComplain)
-    Observable<CollectBean> submitComplain(@FieldMap Map<String, Object> map);
+    Observable<CollectBean> submitComplain(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
 
     // 获取意见投诉标签
     @FormUrlEncoded
@@ -210,8 +234,38 @@ public interface NetAPI {
     @POST(NetUrl.complainHistory)
     Observable<ComplainHistoryBean> getComplainHistory(@FieldMap Map<String, Object> map);
 
+    // 投诉详情
+    @FormUrlEncoded
+    @POST(NetUrl.complainDetail)
+    Observable<ComplainDetailBean> getComplainDetail(@FieldMap Map<String, Object> map);
+
+    // 投诉反馈列表
+    @FormUrlEncoded
+    @POST(NetUrl.complainReply)
+    Observable<ComplainReplyBean> getComplainReply(@FieldMap Map<String, Object> map);
+
+    // 反馈新信息
+    @FormUrlEncoded
+    @POST(NetUrl.feedbackMessage)
+    Observable<CollectBean> feedbackMessage(@FieldMap Map<String, Object> map);
+
+    // 获取信息公告分类
+    @FormUrlEncoded
+    @POST(NetUrl.informationClass)
+    Observable<InformationClazzBean> getInformationClass(@FieldMap Map<String, Object> map);
+
+    // 获取信息公告列表
+    @FormUrlEncoded
+    @POST(NetUrl.informationData)
+    Observable<InformationBean> getInformation(@FieldMap Map<String, Object> map);
+
+    // 修改用户分类
+    @FormUrlEncoded
+    @POST(NetUrl.updataInformationClass)
+    Observable<CollectBean> updataInformationClass(@FieldMap Map<String, Object> map);
+
     // 上传图片
     @Multipart
     @POST(NetUrl.submitComplain)
-    Observable<CollectBean> UpImage(@Part Map<String, RequestBody> paramsMap, @PartMap List<MultipartBody.Part> albumPhoto);
+    Observable<CollectBean> UpImage(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
 }

@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
-import cn.lc.model.framework.widget.NoSlidingListView;
 import cn.lc.model.framework.widget.SimpleImageBanner;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.NutritionAdapter;
@@ -28,6 +27,7 @@ import cn.lc.model.ui.main.model.NutritionModel;
 import cn.lc.model.ui.main.modelimpl.NutritionModelImpl;
 import cn.lc.model.ui.main.presenter.NutritionPresenter;
 import cn.lc.model.ui.main.view.NutritionView;
+import cn.lc.model.ui.mywidget.NoScrollLinearLayoutManager;
 
 /**
  * 类描述：营养套餐主页面
@@ -41,7 +41,7 @@ public class NutritionActivity extends BaseActivity<NutritionModel, NutritionVie
     @BindView(R.id.today_recipe)
     ViewPager today_recipe;
     @BindView(R.id.nutrition)
-    NoSlidingListView nutritionListView;
+    RecyclerView nutritionListView;
     @BindView(R.id.today_more)
     TextView today_more;
     @BindView(R.id.nutrition_more)
@@ -70,26 +70,15 @@ public class NutritionActivity extends BaseActivity<NutritionModel, NutritionVie
 
         fragments = new ArrayList<>();
 
-        Bundle b1 = new Bundle();
-        b1.putInt("Type", 1);
-        b1.putInt("isMore", 0);
-        NutritionFragment fragment1 = new NutritionFragment();
-        fragment1.setArguments(b1);
-        fragments.add(fragment1);
+        for (int i = 1; i < 4; i++) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("Type", i);
+            bundle.putInt("isMore", 0);
+            NutritionFragment fragment = new NutritionFragment();
+            fragment.setArguments(bundle);
+            fragments.add(fragment);
+        }
 
-        Bundle b2 = new Bundle();
-        b2.putInt("Type", 2);
-        b2.putInt("isMore", 0);
-        NutritionFragment fragment2 = new NutritionFragment();
-        fragment2.setArguments(b2);
-        fragments.add(fragment2);
-
-        Bundle b3 = new Bundle();
-        b3.putInt("Type", 3);
-        b3.putInt("isMore", 0);
-        NutritionFragment fragment3 = new NutritionFragment();
-        fragment3.setArguments(b3);
-        fragments.add(fragment3);
         RecipeAdapter pagerAdapter = new RecipeAdapter(getSupportFragmentManager());
         today_recipe.setAdapter(pagerAdapter);
         tabBook.setupWithViewPager(today_recipe);
@@ -101,12 +90,12 @@ public class NutritionActivity extends BaseActivity<NutritionModel, NutritionVie
         // 获取营养套餐
         getPresenter().getNutritionData(2);
 
-        nutritionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO 跳转详情页
-            }
-        });
+//        nutritionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // TODO 跳转详情页
+//            }
+//        });
 
     }
 
@@ -127,8 +116,12 @@ public class NutritionActivity extends BaseActivity<NutritionModel, NutritionVie
 
     @Override
     public void getNutritionList(NutritionBean bean) {
+        if (bean == null || bean.getPage() == null || bean.getPage().getList() == null) {
+            return;
+        }
         if (nutritionAdapter == null) {
-            nutritionAdapter = new NutritionAdapter(this, bean, 0);
+            nutritionAdapter = new NutritionAdapter(this, bean.getPage().getList(), 0);
+            nutritionListView.setLayoutManager(new NoScrollLinearLayoutManager(NutritionActivity.this));
             nutritionListView.setAdapter(nutritionAdapter);
         } else {
             nutritionAdapter.notifyDataSetChanged();
@@ -149,4 +142,5 @@ public class NutritionActivity extends BaseActivity<NutritionModel, NutritionVie
     public NutritionPresenter createPresenter() {
         return new NutritionPresenter();
     }
+
 }

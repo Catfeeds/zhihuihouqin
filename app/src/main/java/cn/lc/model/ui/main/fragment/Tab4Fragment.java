@@ -5,8 +5,6 @@ import android.view.View;
 
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
-import cn.lc.model.framework.manager.UIManager;
-import cn.lc.model.ui.login.activity.LoginActivity;
 import cn.lc.model.ui.main.model.Tab4Model;
 import cn.lc.model.ui.main.presenter.Tab4Presenter;
 import cn.lc.model.ui.main.view.Tab4View;
@@ -20,12 +18,12 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
         setContentView(R.layout.f_tab4);
-        getActivity().findViewById(R.id.ll_loginstatus).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UIManager.turnToAct(getActivity(), LoginActivity.class);
-            }
-        });
+//        getActivity().findViewById(R.id.ll_loginstatus).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                UIManager.turnToAct(getActivity(), LoginActivity.class);
+//            }
+//        });
     }
 
     @Override

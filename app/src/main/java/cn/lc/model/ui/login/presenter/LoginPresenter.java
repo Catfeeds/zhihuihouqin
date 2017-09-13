@@ -1,5 +1,6 @@
 package cn.lc.model.ui.login.presenter;
 
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.home.bean.LoginBean;
 import cn.lc.model.ui.login.model.LoginModel;
 import cn.lc.model.ui.login.view.LoginView;
@@ -31,8 +32,8 @@ public class LoginPresenter extends MvpRxPresenter<LoginModel, LoginView> {
             public void onNext(LoginBean loginBean) {
                 if (loginBean.getErrCode() == 0) {
                     getView().loginSuccess(loginBean);
-
                 } else {
+                    LogUtils.d("登录失败码：" + loginBean.getErrCode() + "");
                     getView().showToast(loginBean.getMsg());
                 }
             }

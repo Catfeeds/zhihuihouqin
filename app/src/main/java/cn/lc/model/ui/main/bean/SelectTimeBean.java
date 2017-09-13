@@ -143,4 +143,14 @@ public class SelectTimeBean {
             this.timeStr = timeStr;
         }
     }
+
+    @Override
+    public String toString() {
+        return "SelectTimeBean{" +
+                "amList=" + amList +
+                ", errCode=" + errCode +
+                ", msg='" + msg + '\'' +
+                ", pmList=" + pmList +
+                '}';
+    }
 }

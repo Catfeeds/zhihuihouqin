@@ -7,7 +7,7 @@ import java.util.List;
  * 作者：Shixhe On 2017/9/4 0004
  */
 
-public class Reason {
+public class ReasonBean {
 
     private int errCode;
     private String msg;

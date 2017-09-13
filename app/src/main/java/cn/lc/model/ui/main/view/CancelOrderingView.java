@@ -1,7 +1,7 @@
 package cn.lc.model.ui.main.view;
 
 import cn.lc.model.ui.main.bean.CollectBean;
-import cn.lc.model.ui.main.bean.Reason;
+import cn.lc.model.ui.main.bean.ReasonBean;
 import mvp.cn.common.MvpView;
 
 /**
@@ -9,10 +9,10 @@ import mvp.cn.common.MvpView;
  * 作者：Shixhe On 2017/9/4 0004
  */
 
-public interface CancelOrderView extends MvpView {
+public interface CancelOrderingView extends MvpView {
 
     // 获取的原因列表
-    void getReasonList(Reason reason);
+    void getReasonList(ReasonBean reasonBean);
 
     // 取消订单
     void cancelOrder(CollectBean bean);

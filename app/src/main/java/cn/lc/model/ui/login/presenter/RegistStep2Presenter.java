@@ -6,7 +6,6 @@ import cn.lc.model.ui.login.bean.RegistBean;
 import cn.lc.model.ui.login.model.RegistStep2Model;
 import cn.lc.model.ui.login.view.RegistStep2View;
 import mvp.cn.rx.MvpRxPresenter;
-import mvp.cn.util.LogUtil;
 import rx.Subscriber;
 
 /**
@@ -16,7 +15,7 @@ import rx.Subscriber;
 public class RegistStep2Presenter extends MvpRxPresenter<RegistStep2Model, RegistStep2View> {
 
     public void getData(String userName, String captcha, String password) {
-        Log.e("RegistStep2Presenter","发起请求");
+        Log.e("RegistStep2Presenter", "发起请求");
         getView().showProgressDialog();
         getModel().regist(userName, captcha, password).subscribe(new Subscriber<RegistBean>() {
             @Override
@@ -26,19 +25,42 @@ public class RegistStep2Presenter extends MvpRxPresenter<RegistStep2Model, Regis
 
             @Override
             public void onError(Throwable e) {
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(RegistBean registBean) {
-                Log.e("registBean",registBean.getErrCode()+"");
-                Log.e("registBean==",registBean.getMsg()+"");
-                if (registBean == null) {
-                    return;
-                }
-                if(registBean.getErrCode()==0){
+                Log.e("registBean", registBean.getErrCode() + "");
+                Log.e("registBean", registBean.getMsg() + "");
+                if (registBean.getErrCode() == 0) {
                     getView().registSuccess(registBean);
-                } else{
+                } else {
+                    getView().showToast(registBean.getMsg());
+                }
+            }
+        });
+    }
+
+    public void changePassWord(String userName, String captcha, String password) {
+        getView().showProgressDialog();
+        getModel().changePassWord(userName, captcha, password).subscribe(new Subscriber<RegistBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(RegistBean registBean) {
+                Log.e("changePassWord", registBean.getErrCode() + "");
+                Log.e("changePassWord", registBean.getMsg() + "");
+                if (registBean.getErrCode() == 0) {
+                    getView().changePassWord(registBean);
+                } else {
                     getView().showToast(registBean.getMsg());
                 }
             }

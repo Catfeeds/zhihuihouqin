@@ -12,6 +12,7 @@ public interface NetUrl {
     String positionList="appuser/user/positionlist";
     String submitAuth="appuser/user/auth";
     String bindPhone="appuser/user/bindMobile";
+    String changePassWord = "appuser/user/updatePass";
 
     //医疗
     String healthServiceHome="appuser/ylfw/ylfwindex";
@@ -39,11 +40,22 @@ public interface NetUrl {
     String getTime = "appuser/dcfwgzcorder/getFoodTimeList";
     // 地址管理
     String getAddress = "appuser/address/findUserAddressList";
+    String addAddress = "appuser/address/addAddress";
+    String editAddress = "appuser/address/updateAddress";
+    String deleteAddress = "appuser/address/deleteAddress";
     // 营养套餐
     String getNutritionData = "appuser/tyytcmeal/findMealList";
     // 意见投诉
     String submitComplain = "appuser/jyfwcomplaint/commitComplanit";
     String getLabelling = "appuser/jyfwcomplaint/findComplanitTag";
     String complainHistory = "appuser/jyfwcomplaint/findComplanitList";
+    String complainDetail = "appuser/jyfwcomplaint/getComplanitDetail";
+    String complainReply = "appuser/jyfwcomplaint/findFeedbackList";
+    String feedbackMessage = "appuser/jyfwcomplaint/addFeedback";
+
+    // 信息公告
+    String informationClass = "appuser/tnoticetype/findNoticeTypeList";
+    String informationData = "appuser/tnotice/findNoticeList";
+    String updataInformationClass = "appuser/tnoticetype/updateUserNoticeType";
 
 }

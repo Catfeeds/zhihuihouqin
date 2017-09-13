@@ -1,7 +1,8 @@
-package cn.lc.model.ui.main.adapter;
+package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
 import cn.lc.model.ui.main.model.OrderingModel;
@@ -61,6 +62,7 @@ public class OrderingPresenter extends MvpRxPresenter<OrderingModel, OrderingVie
 
             @Override
             public void onNext(SelectTimeBean listBean) {
+                LogUtils.d(listBean.toString());
                 if (listBean.getErrCode() == 0) {
                     getView().getTime(listBean);
                 } else {

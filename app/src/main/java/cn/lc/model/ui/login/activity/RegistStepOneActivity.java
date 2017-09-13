@@ -20,7 +20,6 @@ import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.manager.UIManager;
-import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.framework.widget.bean.BindPhoneBean;
 import cn.lc.model.ui.login.bean.CaptchaBean;
@@ -33,7 +32,7 @@ import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
 
 
-public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, RegistStep1View, RegistStep1Presenter>implements RegistStep1View {
+public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, RegistStep1View, RegistStep1Presenter> implements RegistStep1View {
     @BindView(R.id.regist_title)
     TitleBar registTitle;
     @BindView(R.id.iv1)
@@ -126,10 +125,10 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
                 registTitle.setTitle("注册");
             } else if (from == Constants.BIND) {
                 registTitle.setTitle("绑定手机号");
+                tvNextStep.setText("完成");
             }
         }
     }
-
 
     @OnClick({R.id.btn_getcode, R.id.tv_agreen, R.id.tv_next_step})
     public void onClick(View view) {
@@ -145,7 +144,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
                 break;
         }
     }
-
 
     /**
      * 下一步
@@ -166,19 +164,18 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             showToast("请阅读并同意服务协议");
             return;
         }
-        if(!mCaptcha.equals(captcha)){
-            showToast("你输入的验证码不正确");
+        if (!mCaptcha.equals(captcha)) {
+            showToast("验证码不正确");
             return;
         }
 
         CommonUtil.closeSoftKeyboard(this, etCode);
         if (from == Constants.BIND) {
-//            doBindRequest(mobile, captcha);
-            // TODO: 2017/9/6 0006 进行绑定手机号
-            //getPresenter().bindPhone(1,);
-        } else {
-//            doNextRequest(mobile, captcha);
-            //验证码验证
+            // TODO 绑定手机号
+//            getPresenter().bindPhone(thirdType, mobile, thirdNum, 1, , );
+
+        } else if (from == Constants.REGIST || from == Constants.FORGET) {
+            // TODO 注册或修改密码
             turnToPwdSet(captcha);
         }
     }
@@ -191,6 +188,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         b.putString("thirdNum", thirdNum);
         b.putInt("from", from);
         UIManager.turnToAct(RegistStepOneActivity.this, RegistStep2Activity.class, b);
+        finish();
     }
 
     private void turnToAgreen() {
@@ -213,7 +211,11 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             return;
         }
         doTimer();
-        getPresenter().getData(mobile,from);
+        if (from == 0) {
+            getPresenter().getData(mobile, 0);
+        } else {
+            getPresenter().getData(mobile, 1);
+        }
 //        doGetCodeRequest(mobile);
     }
 
@@ -242,11 +244,12 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
 
     @Override
     public void success(CaptchaBean captchaBean) {
-        if(captchaBean!=null){
-            Log.e("captcha=====",captchaBean.captcha);
-            this.mCaptcha=captchaBean.captcha;
+        if (captchaBean != null) {
+            Log.e("captcha=====", captchaBean.captcha);
+            this.mCaptcha = captchaBean.captcha;
         }
     }
+
     //获得绑定结果
     @Override
     public void bindResult(BindPhoneBean bindPhoneBean) {

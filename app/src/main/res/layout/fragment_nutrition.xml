@@ -7,8 +7,18 @@
     <cn.lc.model.framework.widget.NoSlidingListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp">
 
     </cn.lc.model.framework.widget.NoSlidingListView>
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 </LinearLayout>

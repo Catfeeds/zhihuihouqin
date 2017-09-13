@@ -8,7 +8,7 @@ public class Constants {
 
 	public static final int PAGESIZE = 10;
 
+	public static final int REGIST = 0;
 	public static final int FORGET = 1;
-	public static final int REGIST = 2;
 	public static final int BIND = 3;
 }

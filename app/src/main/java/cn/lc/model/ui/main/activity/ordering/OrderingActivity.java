@@ -14,11 +14,11 @@ import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.widget.TitleBar;
+import cn.lc.model.ui.main.presenter.OrderingPresenter;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
 import cn.lc.model.ui.main.model.OrderingModel;
 import cn.lc.model.ui.main.modelimpl.OrderingModelImpl;
-import cn.lc.model.ui.main.adapter.OrderingPresenter;
 import cn.lc.model.ui.main.view.OrderingView;
 import cn.lc.model.ui.mywidget.SelectTimePop;
 import mvp.cn.util.ToastUtil;
@@ -31,7 +31,7 @@ import mvp.cn.util.ToastUtil;
 public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, OrderingPresenter> implements OrderingView {
 
     private static final int REQUEST_ADDRESS = 101;
-    private static final int REQUEST_TIME = 102;
+//    private static final int REQUEST_TIME = 102;
 
     @BindView(R.id.all_sp_comment_title)
     TitleBar titleBar;
@@ -55,17 +55,22 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
     TextView number;
     @BindView(R.id.price_number)
     TextView price_number;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
 //    @BindView(R.id.send)
 //    Button send;
 
     private int sarahNumber = 0; // 份数
     private int price = 30; // 每份价格
-    private int addressId = 1; // 地址id
+    private int addressId = 0; // 地址id
+    private String addressName; // 地址名
     private String userName;
     private String phoneNumber;
-    private int timeId = 1;
+    private int timeId = 0;
     private SelectTimePop pop;
-    private SelectTimeBean timeBean;
+//    private SelectTimeBean timeBean;
 
     @Override
     public void setContentLayout() {
@@ -85,20 +90,22 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
 
     @Override
     public void createOrderingSucc(CollectBean bean) {
-        if (bean.getErrCode() == 2) {
-            ToastUtil.showToast(this, "工作餐数量不足!");
-        } else {
-            startActivity(new Intent(OrderingActivity.this, OrderingSuccessActivity.class));
-            finish();
-        }
+//        if (bean.getErrCode() == 2) {
+//            ToastUtil.showToast(this, "工作餐数量不足!");
+//        } else {
+        startActivity(new Intent(OrderingActivity.this, OrderingSuccessActivity.class));
+        finish();
+//        }
     }
 
     @Override
     public void getTime(SelectTimeBean bean) {
-        pop = new SelectTimePop(OrderingActivity.this, timeBean, new SelectTimePop.OnSelectClick() {
+//        ToastUtil.showToast(this, "请求成功!" + bean.toString());
+        pop = new SelectTimePop(OrderingActivity.this, bean, new SelectTimePop.OnSelectClick() {
             @Override
-            public void onClick(int id) {
+            public void onClick(int id, String time) {
                 timeId = id;
+                tv_time.setText(time);
             }
         });
         pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
@@ -127,13 +134,13 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
                 break;
             case R.id.ll_address:
                 Intent intent = new Intent(this, AddressManagerActivity.class);
+                intent.putExtra("ID", addressId);
+                intent.putExtra("addressName", addressName);
                 startActivityForResult(intent, REQUEST_ADDRESS);
                 break;
             case R.id.ll_arrive_time:
                 // TODO 跳转选择时间
                 getPresenter().getTime();
-//                Intent timeIntent = new Intent();
-//                startActivityForResult(timeIntent, REQUEST_TIME);
                 break;
             case R.id.send:
                 getData();
@@ -149,7 +156,9 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
         } else {
             switch (requestCode) {
                 case REQUEST_ADDRESS:
-                    addressId = data.getIntExtra("AddressId", 0);
+                    addressId = data.getIntExtra("ID", 0);
+                    addressName = data.getStringExtra("Name");
+                    tv_name.setText(addressName);
                     break;
             }
         }

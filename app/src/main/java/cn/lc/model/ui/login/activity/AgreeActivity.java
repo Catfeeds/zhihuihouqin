@@ -5,6 +5,7 @@ import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.model.MainModel;
+import cn.lc.model.ui.main.modelimpl.MainModelImpl;
 import cn.lc.model.ui.main.presenter.MainPresenter;
 import cn.lc.model.ui.main.view.MainView;
 
@@ -39,12 +40,12 @@ public class AgreeActivity extends BaseActivity<MainModel,MainView,MainPresenter
 
     @Override
     public MainModel createModel() {
-        return null;
+        return new MainModelImpl();
     }
 
     @Override
     public MainPresenter createPresenter() {
-        return null;
+        return new MainPresenter();
     }
 
 }

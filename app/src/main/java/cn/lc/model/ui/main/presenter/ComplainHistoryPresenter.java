@@ -18,13 +18,13 @@ import rx.Subscriber;
 public class ComplainHistoryPresenter extends MvpRxPresenter<ComplainHistoryModel, ComplainHistoryView> {
 
     public void getComplainHistoryData(int page, int pageCount) {
-        getView().showProgressDialog();
+//        getView().showProgressDialog();
         LogUtil.log("BarberListPresenter发出请求");
         Observable request = getModel().getComplainHistory(page, pageCount);
         getNetWork(request, new Subscriber<ComplainHistoryBean>() {
             @Override
             public void onCompleted() {
-                getView().dismissProgressDialog();
+//                getView().dismissProgressDialog();
             }
 
             @Override

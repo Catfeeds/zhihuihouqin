@@ -10,10 +10,11 @@
         android:id="@+id/mTitleBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_common" />
-<View
-    android:layout_width="match_parent"
-    android:layout_height="2dp"
-    android:background="@color/gray_lighter"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter" />
 
     <EditText
         android:id="@+id/et_password"

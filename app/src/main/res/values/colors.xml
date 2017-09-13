@@ -11,6 +11,7 @@
     <color name="tv_white">#FFFFFF</color>
     <color name="tv_gray">#999999</color>
     <color name="tv_gray_light">#A4ABAE</color>
+    <color name="white_lighter">#EDEDED</color>
     <color name="tv_blue">#0B8BAE</color>
     <color name="tv_red">#F95759</color>
 

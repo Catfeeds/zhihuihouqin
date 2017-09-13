@@ -13,14 +13,14 @@ import rx.Observable;
 public class OrderingModelImpl implements OrderingModel {
     @Override
     public Observable getData(String userName, String phoneNumber, int timeId, int count, int addressId) {
-        LogUtil.log("OrderingModelImpl-->login");
+        LogUtil.log("OrderingModelImpl-->getData");
         Observable observer = RetrofitUtils.getInstance().createOrdering(userName, phoneNumber, timeId, count, addressId);
         return observer;
     }
 
     @Override
     public Observable getTime() {
-        LogUtil.log("OrderingModelImpl-->login");
+        LogUtil.log("OrderingModelImpl-->getTime");
         Observable observer = RetrofitUtils.getInstance().getTime();
         return observer;
     }

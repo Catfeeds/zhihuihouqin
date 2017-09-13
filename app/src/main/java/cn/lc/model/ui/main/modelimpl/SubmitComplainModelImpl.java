@@ -15,7 +15,7 @@ public class SubmitComplainModelImpl implements SubmitComplainModel {
 
     @Override
     public Observable submitComplain(int id, String complaintContent, String suggestContent, int anonymous, ArrayList<String> paths) {
-        Observable observable = RetrofitUtils.getInstance().UpImages(id, complaintContent, suggestContent, anonymous, paths);
+        Observable observable = RetrofitUtils.getInstance().submitComplain(id, complaintContent, suggestContent, anonymous, paths);
         return observable;
     }
 
