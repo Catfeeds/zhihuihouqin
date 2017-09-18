@@ -201,6 +201,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         if (data != null) {
             switch (requestCode) {
                 case 1:
+                    if(resultCode==RESULT_OK)
                     // 两种方式 获取拍好的图片
                     if (data.getData() != null || data.getExtras() != null) { // 防止没有返回结果
                         Uri uri = data.getData();
