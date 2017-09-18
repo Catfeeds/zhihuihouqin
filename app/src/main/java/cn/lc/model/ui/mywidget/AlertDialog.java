@@ -16,6 +16,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import cn.lc.model.R;
+import mvp.cn.util.DensityUtil;
 
 public class AlertDialog {
 	private Context context;
@@ -84,6 +85,16 @@ public class AlertDialog {
 			txt_msg.setText("内容");
 		} else {
 			txt_msg.setText(msg+"");
+		}
+		return this;
+	}
+	public AlertDialog setBigMsg(String msg) {
+		showMsg = true;
+		if (TextUtils.isEmpty(msg)) {
+			txt_msg.setText("内容");
+		} else {
+			txt_msg.setText(msg+"");
+			txt_msg.setTextSize(DensityUtil.dip2px(context,16));
 		}
 		return this;
 	}

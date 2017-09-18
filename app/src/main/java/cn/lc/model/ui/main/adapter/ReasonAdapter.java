@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -56,40 +57,37 @@ public class ReasonAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-        holder.tvReason.setText(data.get(position).getContent());
-
-        holder.llItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.radio.isChecked()) {
-                    holder.radio.setChecked(false);
-                } else {
-                    holder.radio.setChecked(true);
-                }
-                if (null != listener) {
-                    if (holder.radio.isChecked()) {
-                        listener.onSelect(data.get(position).getId(), true);
-                    } else {
-                        listener.onSelect(data.get(position).getId(), false);
-                    }
-                }
-            }
-        });
+        if(data!=null){
+            holder.setData(data.get(position),position);
+        }
 
         return convertView;
     }
 
     class ViewHolder {
-        @BindView(R.id.radio)
-        RadioButton radio;
-        @BindView(R.id.tv_reason)
-        TextView tvReason;
-        @BindView(R.id.ll_item)
-        LinearLayout llItem;
+      @BindView(R.id.cb_select)
+      CheckBox checkBox;
+        private int mPosition;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean checked = checkBox.isChecked();
+                    if(listener!=null){
+                        listener.onSelect(data.get(mPosition).getId(),checked);
+                    }
+                }
+            });
+
+        }
+
+        public void setData(ReasonBean.ReasonListEntity reasonListEntity, int position) {
+            this.mPosition=position;
+            if(reasonListEntity!=null){
+                checkBox.setText(reasonListEntity.getContent());
+            }
         }
     }
 

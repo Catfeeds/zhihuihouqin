@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +16,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.contant.Constants;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.NoSlidingListView;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.ReasonAdapter;
 import cn.lc.model.ui.main.bean.CollectBean;
+import cn.lc.model.ui.main.bean.NotifyChange;
 import cn.lc.model.ui.main.bean.ReasonBean;
 import cn.lc.model.ui.main.model.CancelOrderingModel;
 import cn.lc.model.ui.main.modelimpl.CancelOrderingModelImpl;
@@ -42,6 +49,7 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
 
     private ReasonAdapter adapter;
     private List<ReasonBean.ReasonListEntity> data;
+    private String from;
 
     @Override
     public void setContentLayout() {
@@ -53,12 +61,18 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
     public void initView() {
         titleBar.setBack(true);
         titleBar.setTitle("取消订单");
-        id = getIntent().getIntExtra("OrderingID", 0);
         ids = new ArrayList<>();
         data = new ArrayList<>();
         adapter = new ReasonAdapter(this, data);
         listView.setAdapter(adapter);
-
+        Intent intent = getIntent();
+        from = intent.getStringExtra("from");
+        id = intent.getIntExtra("OrderingID", 0);
+        switch (from) {
+            case Constants.DRYCANCEL:
+                getPresenter().getDryCancelList();
+                break;
+        }
         getPresenter().getReasonList();
 
         adapter.setOnSelectItemListener(new ReasonAdapter.OnSelectItemListener() {
@@ -93,6 +107,7 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
     public void cancelOrder(CollectBean bean) {
         ToastUtil.showToast(this, "取消订单成功！");
         setResult(RESULT_OK, new Intent().putExtra("OrderingID", id));
+        EventBus.getDefault().post(new NotifyChange());
         finish();
     }
 
@@ -100,6 +115,8 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.submit:
+
+                LogUtils.i(id+"的值为");
                 if (id == 0) {
                     ToastUtil.showToast(CancelOrderingActivity.this, "当前订单信息错误！");
                 }
@@ -107,7 +124,14 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
                 for (int i = 0; i < ids.size(); i++) {
                     reasonId[i] = ids.get(i);
                 }
-                getPresenter().cancelOrdering(id, reasonId, etReason.getText().toString().trim());
+                Gson gson = new Gson();
+                String s = gson.toJson(reasonId);
+                String content = etReason.getText().toString().trim();
+                if(from.equals(Constants.DRYCANCEL)){
+                    getPresenter().commitDryCancelOrder(id,s,content);
+                }
+
+//                getPresenter().cancelOrdering(id, reasonId, etReason.getText().toString().trim());
                 break;
         }
     }

@@ -2,7 +2,7 @@ package cn.lc.model.ui.main.activity.Library;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.os.SystemClock;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
@@ -13,15 +13,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.bean.BookDetailBean;
 import cn.lc.model.ui.main.bean.BooklistBean;
-import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.model.BookDetailModel;
 import cn.lc.model.ui.main.modelimpl.BookDetailModelImpl;
 import cn.lc.model.ui.main.presenter.BookDetailPresenter;
 import cn.lc.model.ui.main.view.BookDetailView;
-import cn.lc.model.ui.mywidget.SharePopupWindow;
 import cn.sharesdk.tencent.qq.QQ;
 import lc.cn.thirdplatform.sharesdk.onekeyshare.OnekeyShare;
 
@@ -45,6 +44,8 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     private BooklistBean bookListvBean;
     private int bookId;
     private String title;
+    private boolean again;
+    private int bollowstatus;
 
     @Override
     public BookDetailPresenter createPresenter() {
@@ -64,10 +65,14 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
     @Override
     public void initView() {
-        bookListvBean = (BooklistBean) getIntent().getSerializableExtra("bookListvBean");
+        Intent intent = getIntent();
+        bookListvBean = (BooklistBean) intent.getSerializableExtra("bookListvBean");
         bookId = bookListvBean.getId();
+        LogUtils.i("BookDescriptionActivity 的bookId为:" + bookId);
         title = bookListvBean.getTitle();
         String url = bookListvBean.getUrl();
+        bollowstatus = bookListvBean.getBollowstatus();
+        again = intent.getBooleanExtra("again", false);
         //加载静态界面
         wbBookDetail.loadUrl(url);
 
@@ -94,11 +99,11 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     @Override
     public void getBookDetailSucc(BookDetailBean detailBean) {
         if (detailBean != null) {
-            if(detailBean.getFavorstatus()==1){
+            if (detailBean.getFavorstatus() == 1) {
                 showToast("收藏");
-            }else if(detailBean.getFavorstatus()==0){
+            } else if (detailBean.getFavorstatus() == 0) {
                 showToast("取消收藏");
-            }else{
+            } else {
                 showToast("其他");
             }
         }
@@ -114,26 +119,32 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
         switch (view.getId()) {
             case R.id.tv_share:
                 // sharePopWindow();
-                showShare("测试", "智慧后勤", "http://www.baidu.com", "http://casemeet.oss-cn-beijing.aliyuncs.com/2017080214260236353118.png");
+                //showShare("测试", "智慧后勤", "http://www.baidu.com", "http://casemeet.oss-cn-beijing.aliyuncs.com/2017080214260236353118.png");
                 break;
             case R.id.tv_collect:
                 getPresenter().getData(bookId);
                 break;
             case R.id.tv_now_borrowing://立即借阅
-                Intent intent = new Intent(this, BorrowOrderActivity.class);
-                intent.putExtra("bookids",bookId);
-                intent.putExtra("bookName",title);
-                startActivity(intent);
+                if (bollowstatus == 1) {
+
+                        Intent intent = new Intent(this, BorrowOrderActivity.class);
+                        intent.putExtra("bookId", bookId + "");
+                        intent.putExtra("bookName", title);
+                        startActivity(intent);
+                        finish();
+                } else {
+                    showToast("此书已经被借阅,请选择其它书籍");
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SystemClock.sleep(2000);
+                            finish();
+                        }
+                    }).start();
+                }
                 break;
         }
     }
-
-   /* private void sharePopWindow() {
-        //实例化SelectPicPopupWindow
-        SharePopupWindow menuWindow = new SharePopupWindow(BookDescriptionActivity.this, this);
-        //显示窗口
-        menuWindow.showAtLocation(BookDescriptionActivity.this.findViewById(R.id.activity_book_description), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
-    }*/
 
     private void showShare(String titles, String content, String currenturl,
                            String imgurl) {

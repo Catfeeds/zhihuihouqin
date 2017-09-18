@@ -37,14 +37,21 @@ public interface NetUrl {
     //干洗店
     String dryCleanerHome="appuser/service/getServiceInfo";
     String orderDryCleaner="appuser/tgxdfwclothestype/findClothesTypeList";
+    String DryOrderCommit="appuser/tgxdfworder/generateOrder";
+    String DryOreder="appuser/tgxdfworder/findOrderList";
+    String getDryCancelList="appuser/tgxdfworder/findReasonList";
+    String commitDryCancelOrder="appuser/tgxdfworder/orderCancel";
+    String commitDryComment="appuser/tgxdfworder/addComment";
     //图书
     String libraryIndex="appuser/tsjyfw/getTopPicture";
     String libraryHome ="appuser/tsjyfw/indexbooklist";
     String recommandBook="appuser/tsjyfw/recommand";
     String bookdetail="appuser/tsjyfw/getbookdetail";
     String jieyue="appuser/tsjyfw/bookorder";
+    String jieyuetime="appuser/tsjyfw/gettime";
     String searchCategory="appuser/tsjyfw/gettypelist";
     String searchBookList="appuser/tsjyfw/getbooklist";
+    String bookOrderList="appuser/tsjyfw/orderlist";
     //工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";

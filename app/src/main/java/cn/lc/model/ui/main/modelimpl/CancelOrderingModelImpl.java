@@ -20,9 +20,23 @@ public class CancelOrderingModelImpl implements CancelOrderingModel {
     }
 
     @Override
+    public Observable getDryCancelList() {
+        Log.e("CancelOrderingModelImpl", "请求数据-->getDryCancelList");
+        Observable observer = RetrofitUtils.getInstance().getDryCancelList();
+        return observer;
+    }
+
+    @Override
     public Observable cancelOrder(int oid, int[] reasonIds, String reasonContent) {
         Log.e("CancelOrderingModelImpl", "请求数据-->ReasonList");
         Observable observer = RetrofitUtils.getInstance().cancelOrder(oid, reasonIds, reasonContent);
+        return observer;
+    }
+
+    @Override
+    public Observable cancelDryOrder(int oid, String reasonIds, String reasonContent) {
+        Log.e("CancelOrderingModelImpl", "请求数据-->ReasonList");
+        Observable observer = RetrofitUtils.getInstance().commitDryCancel(oid, reasonIds, reasonContent);
         return observer;
     }
 }

@@ -58,8 +58,6 @@ public class SelectTimePop extends PopupWindow {
             }
         });
 
-        CommonUtil.openSoftKeyboard(context);
-
         //设置SelectPicPopupWindow的View
         this.setContentView(view);
         //设置SelectPicPopupWindow弹出窗体的宽

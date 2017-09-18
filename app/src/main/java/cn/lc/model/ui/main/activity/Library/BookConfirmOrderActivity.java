@@ -16,6 +16,7 @@ import cn.lc.model.R;
 import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.activity.Base2Activity;
 import cn.lc.model.ui.main.bean.JieYueBean;
@@ -42,11 +43,10 @@ public class BookConfirmOrderActivity extends Base2Activity {
     LinearLayout activityBookConfirmOrder;
     @BindView(R.id.tv_again)
     TextView tvAgain;
-    private List<String> books;
-    private List<String> bookName1;
-    private String time;
     private String realName;
     private String mobile;
+    private String time1;
+    private String[] bookNames;
 
     @Override
     protected void initLayout() {
@@ -59,28 +59,42 @@ public class BookConfirmOrderActivity extends Base2Activity {
         initTitle();
         Intent intent = getIntent();
         String bookId = intent.getStringExtra("bookId");
+        LogUtils.i("bookId:为:"+bookId);
         String bookName = intent.getStringExtra("bookName");
-        time = intent.getStringExtra("time");
+        String time = intent.getStringExtra("time");
+        if(time!=null){
+            SharedPrefHelper.getInstance().saveTime(time);
+        }
         realName = SharedPrefHelper.getInstance().getRealName();
         mobile = SharedPrefHelper.getInstance().getMobile();
         tvName.setText(realName);
         tvPhoneNum.setText(mobile);
-        tvTakeBookTime.setText(time);
-        books = new ArrayList<>();
-        List<String> bookid = new ArrayList<>();
-        books.add(bookName);
-        bookid.add(bookId);
-        SoftApplication.saveBookName(books);
-        SoftApplication.saveBookId(bookid);
-        bookName1 = SoftApplication.getBookName();
-        for (int i = 0; i < bookName1.size(); i++) {
-            if (bookName1 != null && bookName1.size() > 0) {
-                View view = View.inflate(this, R.layout.book_name_item, null);
-                TextView name = (TextView) view.findViewById(R.id.book_name);
-                name.setText(bookName1.get(i));
-                llBookContainer.addView(view);
-
+        time1 = SharedPrefHelper.getInstance().getTime();
+        tvTakeBookTime.setText(time1);
+        String bookName2 = SharedPrefHelper.getInstance().getBookName();
+        if(bookName2!=null){
+            if(bookName2.equals("")){
+                SharedPrefHelper.getInstance().saveBookName(bookName);
+            }else{
+                SharedPrefHelper.getInstance().saveBookName(bookName2+","+bookName);
             }
+        }
+        String bookId2 = SharedPrefHelper.getInstance().getBookId();
+        if(bookId2!=null){
+            if(bookId2.equals("")){
+                SharedPrefHelper.getInstance().saveBookId(bookId);
+            }else{
+                SharedPrefHelper.getInstance().saveBookId(bookId2+","+bookId);
+            }
+        }
+
+        String bookName3 = SharedPrefHelper.getInstance().getBookName();
+        bookNames = bookName3.split(",");
+        for (int i = 0; i < bookNames.length; i++) {
+            View view = View.inflate(this, R.layout.book_name_item, null);
+            TextView name = (TextView) view.findViewById(R.id.book_name);
+            name.setText(bookNames[i]);
+            llBookContainer.addView(view);
         }
     }
 
@@ -93,10 +107,12 @@ public class BookConfirmOrderActivity extends Base2Activity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_again:
-                if (bookName1.size() <= 3) {
+
+                if(bookNames.length<3){
                     Intent intent = new Intent(this, LibraryActivity.class);
+                    intent.putExtra("again",true);
                     startActivity(intent);
-                } else {
+                }else {
                     showToast("单次最多可以借三本书");
                 }
                 break;
@@ -107,13 +123,9 @@ public class BookConfirmOrderActivity extends Base2Activity {
     }
 
     public void getData() {
-        List<String> bookIds = SoftApplication.getBookId();
-        String str = "";
-        for (String id : bookIds) {
-            str += id + ",";
-        }
-        str = str.substring(0, str.length() - 1);
-        Observable observable = RetrofitUtils.getInstance().jieYueBook(time, realName, mobile, str);
+        String bookId = SharedPrefHelper.getInstance().getBookId();
+        String time=SharedPrefHelper.getInstance().getTime();
+        Observable observable = RetrofitUtils.getInstance().jieYueBook(time, realName, mobile, bookId);
         showProgressDialog();
         observable.subscribe(new Subscriber<JieYueBean>() {
 
@@ -130,9 +142,15 @@ public class BookConfirmOrderActivity extends Base2Activity {
 
             @Override
             public void onNext(JieYueBean jieYueBean) {
+                SharedPrefHelper.getInstance().saveBookName(null);
+                SharedPrefHelper.getInstance().saveBookId(null);
+                SharedPrefHelper.getInstance().saveTime(null);
                 if(jieYueBean.getErrCode()==0){
                     Intent intent = new Intent(BookConfirmOrderActivity.this, JieYueSuccActivity.class);
                     startActivity(intent);
+                    finish();
+                }else{
+                    LogUtils.i("问题:"+jieYueBean.getMsg());
                 }
             }
         });

@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_item"
+    android:padding="@dimen/standard_padding"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <RadioButton
-        android:id="@+id/radio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:button="@drawable/radio_check_button"
-        android:gravity="center_horizontal|center_vertical"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" />
-
-    <TextView
-        android:id="@+id/tv_reason"
+    <CheckBox
+        android:id="@+id/cb_select"
+        android:text="select"
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/tv_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" />
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>

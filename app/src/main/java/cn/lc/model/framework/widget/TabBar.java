@@ -129,22 +129,22 @@ public class TabBar extends LinearLayout implements View.OnClickListener {
             case 0:
                 resetColors();
                 ivTab1.setImageResource(R.drawable.home_select);
-                tvTab1.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
+                tvTab1.setTextColor(ContextCompat.getColor(ct,R.color.tv_bottom));
                 break;
             case 1:
                 resetColors();
                 ivTab2.setImageResource(R.drawable.treasure_chest_select);
-                tvTab2.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
+                tvTab2.setTextColor(ContextCompat.getColor(ct,R.color.tv_bottom));
                 break;
             case 2:
                 resetColors();
                 ivTab3.setImageResource(R.drawable.message_select);
-                tvTab3.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
+                tvTab3.setTextColor(ContextCompat.getColor(ct,R.color.tv_bottom));
                 break;
             case 3:
                 resetColors();
                 ivTab4.setImageResource(R.drawable.me_select);
-                tvTab4.setTextColor(ContextCompat.getColor(ct,R.color.tv_red));
+                tvTab4.setTextColor(ContextCompat.getColor(ct,R.color.tv_bottom));
                 break;
         }
     }

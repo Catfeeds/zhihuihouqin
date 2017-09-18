@@ -29,6 +29,7 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
     }
     public void setData(List<OrderDryCleanBean.PageBean.ListBean> data) {
         this.lists = data;
+        notifyDataSetChanged();
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,7 +53,7 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.tv_yiwu)
         TextView tvYiwu;
         @BindView(R.id.tv_money1)
@@ -63,17 +64,13 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
         TextView tvCount1;
         @BindView(R.id.iv_add1)
         ImageView ivAdd1;
-        private  int count;
+        private  int count=0;
+        private OrderDryCleanBean.PageBean.ListBean listBean;
+         private int mPosition;
 
-        ViewHolder(View view) {
+         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            count = Integer.parseInt(tvCount1.getText().toString().trim());
-            if (count > 0) {
-                ivMinus1.setEnabled(true);
-            } else {
-                ivMinus1.setEnabled(false);
-            }
             ivAdd1.setOnClickListener(this);
             ivMinus1.setOnClickListener(this);
         }
@@ -83,10 +80,22 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
 
             switch (v.getId()) {
                 case R.id.iv_add1:
+                    count=listBean.getCount();
                     count++;
+                    if(addListener!=null){
+                        addListener.addClick(count,mPosition);
+                    }
                     break;
                 case R.id.iv_minus1:
-                    count--;
+                    count=listBean.getCount();
+                    if(count<=0){
+                        count=0;
+                    }else{
+                        count--;
+                    }
+                    if(minusListener!=null){
+                        minusListener.minusClick(count,mPosition);
+                    }
                     break;
             }
             tvCount1.setText(count + "");
@@ -94,10 +103,29 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
 
 
         public void setData(OrderDryCleanBean.PageBean.ListBean listBean, int position) {
+
+            this.mPosition =position;
             if(listBean!=null){
+                this.listBean=listBean;
                 tvYiwu.setText(listBean.getName());
                 tvMoney1.setText("￥"+listBean.getPrice());
             }
         }
+    }
+    private OnAddClickListener addListener;
+    private OnMinusClickListener minusListener;
+
+    public void setAddListener(OnAddClickListener addListener) {
+        this.addListener = addListener;
+    }
+    public void setMinusListener(OnMinusClickListener minusListener) {
+        this.minusListener = minusListener;
+    }
+
+    public interface OnAddClickListener{
+        void addClick(int count ,int position);
+    }
+    public interface OnMinusClickListener{
+        void minusClick(int count ,int position);
     }
 }

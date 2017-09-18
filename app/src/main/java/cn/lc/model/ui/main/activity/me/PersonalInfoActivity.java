@@ -39,9 +39,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.contant.Constants;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.login.activity.PositionActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import mvp.cn.util.LogUtil;
 
 public class PersonalInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -127,7 +129,6 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                 String state = Environment.getExternalStorageState();// 获取内存卡可用状态
                 if (state.equals(Environment.MEDIA_MOUNTED)) {
                     // 内存卡状态可用
-
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
                         //申请开启摄像机权限
@@ -203,6 +204,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                     // 两种方式 获取拍好的图片
                     if (data.getData() != null || data.getExtras() != null) { // 防止没有返回结果
                         Uri uri = data.getData();
+                        LogUtils.i("拍照获取uri:"+uri);
                         if (uri != null) {
                             this.photo = BitmapFactory.decodeFile(uri.getPath()); // 拿到图片
                         }
@@ -235,7 +237,7 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
                                     // 相片的完整路径
                                     this.picPath = file.getPath();
                                     //ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-                                    civHeader.setImageBitmap(this.photo);
+                                    civHeader.setImageBitmap(photo);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 } finally {

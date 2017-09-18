@@ -50,6 +50,7 @@ public class LibraryActivity extends Base2Activity {
     @BindView(R.id.activity_library)
     RelativeLayout activityLibrary;
     private List<Fragment> fragments;
+    private boolean again;
 
     @Override
     protected void initLayout() {
@@ -60,11 +61,13 @@ public class LibraryActivity extends Base2Activity {
     @Override
     protected void initView() {
         getPicData();
+        again = getIntent().getBooleanExtra("again", false);
         fragments = new ArrayList<>();
-        fragments.add(new LatestFragment());
-        fragments.add(new HottestFragment());
+        fragments.add(LatestFragment.getInstance(again));
+        fragments.add(HottestFragment.getInstance(again));
         initTitle();
         initPager();
+
     }
 
     private void initPager() {
@@ -87,8 +90,13 @@ public class LibraryActivity extends Base2Activity {
                 startActivity(intent1);
                 break;
             case R.id.civ_recommend:
-                Intent intent = new Intent(this, ReaderRecommendActivity.class);
-                startActivity(intent);
+                if(again){
+                    Intent intent11=new Intent(this,BookConfirmOrderActivity.class);
+                    startActivity(intent11);
+                }else{
+                    Intent intent = new Intent(this, ReaderRecommendActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
 

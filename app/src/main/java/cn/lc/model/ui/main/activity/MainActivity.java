@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TabBar;
@@ -23,11 +25,11 @@ import cn.lc.model.ui.main.view.MainView;
 
 public class MainActivity extends BaseActivity<MainModel, MainView, MainPresenter> implements MainView {
 
+
     @BindView(R.id.m_frameLayout)
     FrameLayout mFrameLayout;
     @BindView(R.id.m_bottom)
     TabBar mBottom;
-
     private List<Fragment> fragments = new ArrayList<>();
 
     @Override
@@ -84,6 +86,4 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
     public void getData() {
         getPresenter().getData();
     }
-
-
 }

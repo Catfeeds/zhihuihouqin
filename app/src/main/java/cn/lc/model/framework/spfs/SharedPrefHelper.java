@@ -184,4 +184,24 @@ public class SharedPrefHelper {
     public boolean isRememberPassWord() {
         return sharedPreferences.getBoolean("rememberPw", false);
     }
+
+    public void saveTime(String time) {
+        sharedPreferences.edit().putString("time",time).commit();
+    }
+    public String getTime(){
+        return sharedPreferences.getString("time","");
+    }
+    public void saveBookName(String bookName){
+        sharedPreferences.edit().putString("bookName",bookName).commit();
+    }
+    public String getBookName() {
+        return sharedPreferences.getString("bookName","");
+    }
+
+    public void saveBookId(String bookId) {
+        sharedPreferences.edit().putString("bookId",bookId).commit();
+    }
+    public String getBookId(){
+        return sharedPreferences.getString("bookId","");
+    }
 }

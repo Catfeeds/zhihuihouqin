@@ -107,6 +107,15 @@ public class OrderDryCleanBean {
             private int id;
             private String name;
             private int price;
+            private int count;
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
 
             public int getId() {
                 return id;

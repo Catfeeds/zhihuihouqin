@@ -46,11 +46,23 @@ public class HottestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeVi
         bookRvAdapter = new BookRvAdapter(getActivity());
         rvBook.setAdapter(bookRvAdapter);
     }
+    public static HottestFragment getInstance(boolean again){
+        HottestFragment hottestFragment = new HottestFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("again",again);
+        hottestFragment.setArguments(bundle);
+        return hottestFragment;
+    }
     @Override
     public void getLibraryHomeSucc(LibraryHomeBean homeBean) {
         if(homeBean!=null){
             List<BooklistBean> booklist = homeBean.getBooklist();
-            bookRvAdapter.setData(booklist);
+            boolean again=false;
+            Bundle arguments = getArguments();
+            if(arguments!=null){
+                 again = arguments.getBoolean("again");
+            }
+            bookRvAdapter.setData(booklist,again);
         }
     }
 

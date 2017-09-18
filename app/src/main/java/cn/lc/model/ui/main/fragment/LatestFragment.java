@@ -46,6 +46,13 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeVie
         bookRvAdapter = new BookRvAdapter(getActivity());
         rvBook.setAdapter(bookRvAdapter);
     }
+    public static  LatestFragment getInstance(boolean again){
+        LatestFragment latestFragment = new LatestFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("again",again);
+        latestFragment.setArguments(bundle);
+        return latestFragment;
+    }
     @Override
     public LibraryHomePresenter createPresenter() {
         return new LibraryHomePresenter();
@@ -55,7 +62,12 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeVie
     public void getLibraryHomeSucc(LibraryHomeBean homeBean) {
         if(homeBean!=null){
             List<BooklistBean> booklist = homeBean.getBooklist();
-            bookRvAdapter.setData(booklist);
+            Bundle bundle = getArguments();
+            boolean again=false;
+            if(bundle!=null){
+                 again = bundle.getBoolean("again");
+            }
+            bookRvAdapter.setData(booklist,again);
         }
     }
 

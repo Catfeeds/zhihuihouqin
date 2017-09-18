@@ -4,10 +4,16 @@
     android:id="@+id/activity_dry_clean_reserve_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     <cn.lc.model.framework.widget.TitleBar
         android:id="@+id/more_health_consult_title"
         android:layout_width="match_parent"
@@ -75,13 +81,29 @@
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/iv_send_time"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/turn_right"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:textSize="@dimen/sp_small"
+                    android:textColor="@color/tv_black"
+                    android:text="saffsf"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv_send_time"
+                    android:layout_gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/turn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </RelativeLayout>
         <View
             android:layout_width="match_parent"
@@ -113,11 +135,13 @@
             style="@style/tvStyle_tv_black"
             android:padding="@dimen/standard_padding"
             android:layout_height="wrap_content" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/gray_lighter"/>
+            android:background="@color/gray_lighter"
+            android:id="@+id/view3" />
     </LinearLayout>
     <LinearLayout
         android:layout_alignParentBottom="true"

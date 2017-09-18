@@ -719,7 +719,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.jieYueBook(paramsMap));
     }
     /**
-     * 图书借阅
+     * 图书类别搜索
      */
     public static Observable getSearchCategory() {
         Map<String, Object> paramsMap = new HashMap<>();
@@ -732,6 +732,21 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getSearchCategory(paramsMap));
+    }
+    /**
+     * 图书借阅
+     */
+    public static Observable getJieyueTime() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        Log.e("getJieyueTime","---》bookDetail");
+        try {
+            Map<String, String> tempMap = new HashMap();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.jieYueTime(paramsMap));
     }
     /**
      * 获取图书列表
@@ -750,6 +765,22 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getSearchBookList(paramsMap));
+    }
+    /**
+     * 获取图书订单列表
+     */
+    public static Observable bookOrderList(String typeid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        Log.e("bookOrderList","---》bookDetail");
+        try {
+            Map<String, String> tempMap = new HashMap();
+            tempMap.put("type",typeid);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.bookOrderList(paramsMap));
     }
 
     /**
@@ -874,6 +905,100 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.orderDryClean(paramsMap));
+    }/**
+     * 提交预约
+     *
+     * @return
+     */
+    public static Observable dryOrderCommit(String mobile ,String expectarrivaItme,
+                                String clothList) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("mobile", mobile);
+            tempMap.put("expectarrivaItme", expectarrivaItme);
+            tempMap.put("clothList", clothList);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.dryOrderCommit(paramsMap));
+    }
+    /**
+     * 查看干洗订单
+     *
+     * @return
+     */
+    public static Observable checkDryOrder(int orderStatus,int page,int limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("orderStatus", orderStatus+"");
+            tempMap.put("page", page+"");
+            tempMap.put("limit", limit+"");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.checkDryOrder(paramsMap));
+    }
+    /**
+     * 获取干洗取消列表
+     *
+     * @return
+     */
+    public static Observable getDryCancelList() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getDryCancelList(paramsMap));
+    }
+    /**
+     * 获取干洗取消列表
+     *
+     * @return
+     */
+    public static Observable commitDryCancel(int old,String reasonIds,String reasonContent) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("oid",old+"");
+            tempMap.put("reasonIds",reasonIds);
+            tempMap.put("reasonContent",reasonContent);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.commitDryCancelOrder(paramsMap));
+    }
+    /**
+     * 干洗评论
+     *
+     * @return
+     */
+    public static Observable dryToComment(int oid, double stars, String content, String isAnonymous, File imgFile) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("oid",oid+"");
+            tempMap.put("stars",stars+"");
+            tempMap.put("content",content);
+            tempMap.put("isAnonymous",isAnonymous);
+            //TODO: 2017/9/16 0016 需要添加图片文件
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.commitDryComment(paramsMap));
     }
 
     /**
@@ -933,7 +1058,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
-     * 获取取消订单原因
+     * 提交
      *
      * @return
      */
@@ -948,7 +1073,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.cancelOrder(paramsMap, reasonIds));
+        return getObservable(api.cancelOrder(paramsMap));
     }
 
     /**

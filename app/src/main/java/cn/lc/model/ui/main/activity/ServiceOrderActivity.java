@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,13 +18,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
+import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.ui.main.adapter.MyPagerAdapter;
+import cn.lc.model.ui.main.fragment.BookFragment;
 import cn.lc.model.ui.main.fragment.CancleFragment;
 import cn.lc.model.ui.main.fragment.FinishFragment;
 import cn.lc.model.ui.main.fragment.OverOrderFragment;
@@ -48,19 +52,38 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
 
     private List<Fragment> fragments;
     private PopupWindow popupWindow;
+    private List<String> states;
+    private int from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_order);
         ButterKnife.bind(this);
+        Intent intent = getIntent();
+        from = intent.getIntExtra("from",-1);
+        int index = intent.getIntExtra("index", 0);
+        String state = intent.getStringExtra("state");
+        String[] arr=state.split(",");
+        states = Arrays.asList(arr);
         fragments = new ArrayList<>();
-        fragments.add(new WaitOrderFragment());
-        fragments.add(new OverOrderFragment());
-        fragments.add(new FinishFragment());
-        fragments.add(new WaitCommentFragment());
-        fragments.add(new CancleFragment());
+        switch (from){
+            case Constants.DRYCLEANER://干洗店
+                fragments.add(WaitOrderFragment.getIntance(1));
+                fragments.add(WaitOrderFragment.getIntance(2));
+                fragments.add(WaitOrderFragment.getIntance(3));
+                fragments.add(WaitOrderFragment.getIntance(4));
+                fragments.add(WaitOrderFragment.getIntance(5));
+                break;
+            case Constants.BOOK:
+                fragments.add(BookFragment.getInstance(0));
+                fragments.add(BookFragment.getInstance(1));
+                fragments.add(BookFragment.getInstance(2));
+                fragments.add(BookFragment.getInstance(3));
+                fragments.add(BookFragment.getInstance(4));
+        }
         initViewpager();
+        viewPager.setCurrentItem(index);
         showPoppupwindow();
     }
 
@@ -117,7 +140,7 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
         viewPager.setAdapter(pagerAdapter);
         tablayout.setupWithViewPager(viewPager);
         //
-        pagerAdapter.setFragments(fragments);
+        pagerAdapter.setFragments(fragments,states);
     }
 
     @OnClick({R.id.back, R.id.ll_title})

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dry_to_comment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+<cn.lc.model.framework.widget.TitleBar
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <TextView
+        android:id="@+id/tv_dry"
+        android:textSize="@dimen/sp_big"
+        android:padding="@dimen/standard_padding"
+        android:textColor="@color/tv_black"
+        android:text="干洗店"
+        android:background="@color/gray_trans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_manyidu"
+            android:text="非常满意"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RatingBar
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/rating_bar"
+            android:numStars="5"
+            android:rating="3.5"
+            style="@style/Base.Widget.AppCompat.RatingBar"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <EditText
+        android:id="@+id/et_write_comment"
+        android:hint="亲,你的评价对其他人帮助很大哦"
+        android:textSize="@dimen/sp_common"
+        android:textColorHint="@color/tv_gray"
+        android:textColor="@color/tv_black"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/take"
+        android:layout_marginLeft="30dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray_trans"
+        android:layout_weight="1">
+        <RadioButton
+            android:id="@+id/rb_niming"
+            android:text="匿名评价"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_commit"
+        android:text="提交"
+        android:gravity="center"
+        android:background="#0099FF"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_bigger"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+</RelativeLayout>

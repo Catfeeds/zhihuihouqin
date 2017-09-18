@@ -47,6 +47,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="查找"
+                android:padding="@dimen/standard_padding"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
@@ -63,6 +64,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/gray_lighter" />
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/ll_type"
@@ -86,100 +90,30 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:numColumns="3"></GridView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
-            <!--<TextView
-                android:id="@+id/tv_child"
-                android:text="儿童文学"
-                style="@style/tvStyle_tv_blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray_light"/>
-            <TextView
-                android:id="@+id/tv_shehui"
-                android:text="社会科学"
-                style="@style/tvStyle_tv_blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray_light"/>
-            <TextView
-                android:id="@+id/tv_tushu"
-                android:text="历史图书"
-                style="@style/tvStyle_tv_blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />-->
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-            <!--<TextView
-                android:id="@+id/tv_shengwu"
-                android:text="生物科技"
-                style="@style/tvStyle_tv_blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray_light"/>
-            <TextView
-                android:id="@+id/tv_junshi"
-                android:text="军事科学"
-                style="@style/tvStyle_tv_blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray_light"/>
-            <TextView
-                android:id="@+id/tv_wenxue"
-                android:text="中国文学"
-                style="@style/tvStyle_tv_blue"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />-->
-        </LinearLayout>
     </LinearLayout>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
+    <LinearLayout
+        android:id="@+id/ll_search_list"
         android:visibility="gone"
-        app:tabIndicatorColor="@color/tv_red"
-        app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/tv_red"
-        app:tabTextAppearance="@dimen/sp_common"
-        app:tabTextColor="@color/tv_black" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_book"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-    <!-- <android.support.v7.widget.RecyclerView
-         android:id="@+id/rv_search_result"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         />-->
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            app:tabSelectedTextColor="@color/tv_red"
+            app:tabIndicatorColor="@color/tv_red"
+            app:tabIndicatorHeight="2dp"
+            app:tabTextColor="@color/tv_black"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray_lighter"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+</FrameLayout>
 </LinearLayout>

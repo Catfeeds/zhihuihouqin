@@ -13,16 +13,20 @@ import java.util.List;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments=new ArrayList<>();
-    private String[] titles={"已预约","服务中","已完成","待评价","已取消"};
+    private List<String> titles=new ArrayList<>();
 
-    public void setFragments(List<Fragment> fragments) {
+    public void setFragments(List<Fragment> fragments, List<String> states) {
         this.fragments = fragments;
+        this.titles=states;
         notifyDataSetChanged();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        if(titles!=null&&titles.size()>0){
+          return titles.get(position);
+        }
+        return null;
     }
 
     public MyPagerAdapter(FragmentManager fm) {

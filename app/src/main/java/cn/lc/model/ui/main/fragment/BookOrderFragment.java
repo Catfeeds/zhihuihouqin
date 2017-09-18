@@ -56,7 +56,7 @@ public class BookOrderFragment extends BaseFragment<BookUpAwayModel,BookUpAwayVi
     @Override
     public void getBookListSucc(SearchBookListBean booklistBean) {
         if(booklistBean!=null){
-            bookRvAdapter.setData(booklistBean.getBooklist());
+            bookRvAdapter.setData(booklistBean.getBooklist(),false);
         }
     }
 

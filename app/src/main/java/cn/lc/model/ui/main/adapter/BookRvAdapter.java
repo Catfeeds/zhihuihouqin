@@ -29,6 +29,7 @@ import cn.lc.model.ui.main.bean.LibraryHomeBean;
 public class BookRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<BooklistBean> data=new ArrayList<>();
+    private boolean again;
 
     public BookRvAdapter(Context context) {
         this.mContext=context;
@@ -57,8 +58,9 @@ public class BookRvAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public void setData(List<BooklistBean> data) {
+    public void setData(List<BooklistBean> data,boolean again) {
         this.data = data;
+        this.again=again;
         notifyDataSetChanged();
     }
 
@@ -89,6 +91,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent=new Intent(mContext,BookDescriptionActivity.class);
                     intent.putExtra("bookListvBean",bookListvBean);
+                    intent.putExtra("again",again);
                     mContext.startActivity(intent);
                 }
             });

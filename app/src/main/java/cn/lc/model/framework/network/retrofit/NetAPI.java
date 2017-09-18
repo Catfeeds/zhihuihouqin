@@ -18,6 +18,8 @@ import cn.lc.model.ui.main.bean.BarberDetailBean;
 import cn.lc.model.ui.main.bean.BarberListBean;
 import cn.lc.model.ui.main.bean.BarberWorkListBean;
 import cn.lc.model.ui.main.bean.BookDetailBean;
+import cn.lc.model.ui.main.bean.BookOrderListBean;
+import cn.lc.model.ui.main.bean.CheckDryOrderBean;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.ComplainDetailBean;
 import cn.lc.model.ui.main.bean.ComplainHistoryBean;
@@ -28,6 +30,7 @@ import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.bean.InformationClazzBean;
 import cn.lc.model.ui.main.bean.JieYueBean;
+import cn.lc.model.ui.main.bean.JieYueTimeBean;
 import cn.lc.model.ui.main.bean.LabellingBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.bean.LibraryPicBean;
@@ -171,6 +174,10 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.jieyue)
     Observable<JieYueBean> jieYueBook(@FieldMap Map<String, Object> map);
+    //图书借阅时间
+    @FormUrlEncoded
+    @POST(NetUrl.jieyuetime)
+    Observable<JieYueTimeBean> jieYueTime(@FieldMap Map<String, Object> map);
     //查询类别
     @FormUrlEncoded
     @POST(NetUrl.searchCategory)
@@ -179,6 +186,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.searchBookList)
     Observable<SearchBookListBean> getSearchBookList(@FieldMap Map<String, Object> map);
+    //查询图书订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.bookOrderList)
+    Observable<BookOrderListBean> bookOrderList(@FieldMap Map<String, Object> map);
+
 
     //店铺
     @FormUrlEncoded
@@ -213,6 +225,27 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.orderDryCleaner)
     Observable<OrderDryCleanBean> orderDryClean(@FieldMap Map<String, Object> map);
+    //提交预约
+    @FormUrlEncoded
+    @POST(NetUrl.DryOrderCommit)
+    Observable<JieYueBean> dryOrderCommit(@FieldMap Map<String, Object> map);
+    //查看干洗订单
+    @FormUrlEncoded
+    @POST(NetUrl.DryOreder)
+    Observable<CheckDryOrderBean> checkDryOrder(@FieldMap Map<String, Object> map);
+    //获取取消原因列表
+    @FormUrlEncoded
+    @POST(NetUrl.getDryCancelList)
+    Observable<ReasonBean> getDryCancelList(@FieldMap Map<String, Object> map);
+    //提交并删除订单
+    @FormUrlEncoded
+    @POST(NetUrl.commitDryCancelOrder)
+    Observable<CollectBean> commitDryCancelOrder(@FieldMap Map<String, Object> map);
+
+    //提交评论
+    @FormUrlEncoded
+    @POST(NetUrl.commitDryComment)
+    Observable<CollectBean> commitDryComment(@FieldMap Map<String, Object> map);
 
     //生成工作餐订单
     @FormUrlEncoded
@@ -252,7 +285,7 @@ public interface NetAPI {
     //取消工作餐订单
     @FormUrlEncoded
     @POST(NetUrl.cancelOrder)
-    Observable<CollectBean> cancelOrder(@FieldMap Map<String, Object> map, @Query("linked[]") int[] linked);
+    Observable<CollectBean> cancelOrder(@FieldMap Map<String, Object> map);
 
     //获取营养套餐列表
     @FormUrlEncoded
