@@ -9,7 +9,7 @@
         style="@style/tvStyle_black_bigger"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:text="个人中心" />
+        android:text="@string/personal_center" />
 
     <ScrollView
         android:layout_width="match_parent"
