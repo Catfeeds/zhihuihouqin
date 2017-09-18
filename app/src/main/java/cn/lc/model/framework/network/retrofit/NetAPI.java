@@ -46,6 +46,7 @@ import cn.lc.model.ui.main.bean.SelectTimeBean;
 import cn.lc.model.ui.main.bean.ServiceBean;
 import cn.lc.model.ui.main.bean.ShopBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
+import cn.lc.model.ui.main.bean.VegetableBean;
 import cn.lc.model.ui.main.bean.WuyeHomeBean;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -348,13 +349,18 @@ public interface NetAPI {
     @POST(NetUrl.updataInformationClass)
     Observable<CollectBean> updataInformationClass(@FieldMap Map<String, Object> map);
 
-    // 上传图片
-    @Multipart
-    @POST(NetUrl.submitComplain)
-    Observable<CollectBean> UpImage(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-//    Observable<CollectBean> UpImage(@Part Map<String, RequestBody> paramsMap, @PartMap List<MultipartBody.Part> albumPhoto);
     // 拜访人员
     @FormUrlEncoded
     @POST(NetUrl.baifang)
     Observable<ActivityPostBean> postBaiFangInfo(@FieldMap Map<String, Object> map);
+
+    // 获取净菜食物列表
+    @FormUrlEncoded
+    @POST(NetUrl.getVegetableData)
+    Observable<VegetableBean> getVegetableData(@FieldMap Map<String, Object> map);
+
+    // 提交净菜订单
+    @FormUrlEncoded
+    @POST(NetUrl.submitVegetableOrder)
+    Observable<CollectBean> submitVegetableOrder(@FieldMap Map<String, Object> map);
 }

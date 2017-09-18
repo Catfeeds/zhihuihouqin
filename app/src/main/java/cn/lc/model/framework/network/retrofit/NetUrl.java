@@ -80,5 +80,14 @@ public interface NetUrl {
     //拜访人员
     String baifang="appuser/user/addVisitLog";
 
+    // 净菜预订
+    String getVegetableData = "appuser/tdcfwfood/findFoodList"; // 获取食物列表
+    String getVegetableTime = "appuser/tdcfworder/getFoodTimeList"; // 获取取餐时间
+    String submitVegetableOrder = "appuser/tdcfworder/generateOrder"; // 提交净菜订单
+    String findVegetableOrderList = "appuser/tdcfworder/findOrderList"; // 查询净菜订单
+    String getVegetableDetail = "appuser/tdcfworder/getOrderDetail"; // 获取净菜订单详情
+    String getVegetableReason = "appuser/tdcfwordercancelreason/findReasonList"; // 获取取消原因列表
+    String cancelVegetableOrder = "appuser/tdcfworder/orderCancel"; // 取消订单
+    String vegetableComment = "appuser/tdcfworder/addComment"; // 添加评论
 
 }

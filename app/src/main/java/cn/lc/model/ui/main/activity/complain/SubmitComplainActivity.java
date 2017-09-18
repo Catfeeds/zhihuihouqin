@@ -1,6 +1,7 @@
 package cn.lc.model.ui.main.activity.complain;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import com.suke.widget.SwitchButton;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,9 +76,10 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
     private AddPhotoPop pop;
 
 
-    private String imageLocation = Environment.getExternalStorageDirectory().getPath() + "/wisdowLogistics/";
+    private String imageLocation = Environment.getExternalStorageDirectory().getPath();
     private String imageName = "complainImage.jpg";
-    Uri imageUri = Uri.parse(imageLocation + DateUtil.getCurrentDateTimeyyyyMMddHHmmss() + imageName);//The Uri to store the big bitmap
+    //    Uri imageUri;//The Uri to store the big bitmap
+    String imageUri = "";
     Uri takePhoto;
 
     @Override
@@ -142,16 +145,37 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
 
                 case TAKE_PHOTO_ALBUM:// 相册
                     if (data != null) {
-                        cropImageUri(data.getData());
+                        String[] proj = {MediaStore.Images.Media.DATA};
+
+                        //好像是android多媒体数据库的封装接口，具体的看Android文档
+                        Cursor cursor = managedQuery(data.getData(), proj, null, null, null);
+                        //按我个人理解 这个是获得用户选择的图片的索引值
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        //将光标移至开头 ，这个很重要，不小心很容易引起越界
+                        cursor.moveToFirst();
+                        //最后根据索引值获取图片路径
+                        String path = cursor.getString(column_index);
+                        LogUtils.d("返回的图片地址：" + path);
+                        paths.add(0, path);
+                        imageAdapter.notifyDataSetChanged();
+//                        cropImageUri(data.getData());
                     }
                     break;
 
                 case CROP_PHOTO:// 裁剪
-                    LogUtils.d("image地址：" + imageUri.toString());
-                    if (imageUri != null) {
-                        paths.add(0, imageUri.toString());
-                        imageAdapter.notifyDataSetChanged();
+                    if (data == null) {
+                        return;
                     }
+//                    Bundle extras = data.getExtras();
+//                    if (extras != null) {
+//                        Bitmap photo = extras.getParcelable("data");
+//                        //图片路径
+//                        urlpath = FileUtilcll.saveFile(PhotoShoot.this, "temphead.jpg", photo);
+//                    }
+//                    if (imageUri != null) {
+//                        paths.add(0, imageUri.toString());
+//                        imageAdapter.notifyDataSetChanged();
+//                    }
                     break;
             }
         }
@@ -175,6 +199,47 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
                 break;
 
         }
+    }
+
+    /**
+     * 相机拍照
+     */
+    private void takePhotoCamera() {
+        pop.dismiss();
+        File file = new File(imageLocation);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        takePhoto = Uri.parse(imageLocation + DateUtil.shortyyyyMMdd.format(new Date()) + imageName);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//action is capture
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, takePhoto);
+        startActivityForResult(intent, TAKE_PHOTO_CAMERA);
+    }
+
+    /**
+     * 相册选取
+     */
+    private void takePhotoAlbum() {
+        pop.dismiss();
+//        imageUri = Uri.parse(imageLocation + DateUtil.shortyyyyMMdd.format(new Date()) + imageName);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, TAKE_PHOTO_ALBUM);
+    }
+
+    // 裁图
+    private void cropImageUri(Uri uri) {
+        imageUri = imageLocation + DateUtil.shortyyyyMMdd.format(new Date()) + imageName;
+        LogUtils.d("uri :" + uri.toString() + "  imageUri:" + imageUri);
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("outputX", "outputX");
+        intent.putExtra("outputY", "outputX");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        startActivityForResult(intent, CROP_PHOTO);
     }
 
     private void submitComplain() {
@@ -218,45 +283,6 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
     @Override
     public SubmitComplainPresenter createPresenter() {
         return new SubmitComplainPresenter();
-    }
-
-    /**
-     * 相机拍照
-     */
-    private void takePhotoCamera() {
-        pop.dismiss();
-        File file = new File(imageLocation);
-        if (!file.exists()) {
-            file.mkdir();
-        }
-        takePhoto = Uri.parse(imageLocation + DateUtil.getCurrentDateTimeyyyyMMddHHmmss() + imageName);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//action is capture
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, takePhoto);
-        startActivityForResult(intent, TAKE_PHOTO_CAMERA);
-    }
-
-    /**
-     * 相册选取
-     */
-    private void takePhotoAlbum() {
-        pop.dismiss();
-
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intent, TAKE_PHOTO_ALBUM);
-    }
-
-    private void cropImageUri(Uri uri) {
-        LogUtils.d("uri :" + uri.toString() + "  imageUri:" + imageUri.toString());
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("outputX", "outputX");
-        intent.putExtra("outputY", "outputX");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        intent.putExtra("return-data", false);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        startActivityForResult(intent, CROP_PHOTO);
     }
 
 }

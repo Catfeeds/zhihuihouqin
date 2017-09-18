@@ -56,14 +56,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.activity.MainActivity">
-
-            <!--
-             <intent-filter>
+            <!-- <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
+             </intent-filter>-->
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -89,29 +86,28 @@
             <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
             <intent-filter>
                 <data android:scheme="line.1477692153" />
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!-- 微信分享回调 -->
+       <!--  微信分享回调-->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
+
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity android:name=".ui.main.activity.GuideActivity">
 
-            <!--
-             <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
+             </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.login.activity.LoginActivity"
@@ -239,11 +235,15 @@
             android:name=".ui.main.activity.complain.ComplainHistoryDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.message.InformationActivity"
+            android:name=".ui.main.activity.information.InformationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.message.InformationModuleManagerActivity"
+            android:name=".ui.main.activity.information.InformationModuleManagerActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.information.SearchInformationActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".ui.main.activity.Library.JieYueSuccActivity" />
         <activity android:name=".ui.main.activity.Library.BookSearchActivity" />
         <activity
@@ -262,6 +262,7 @@
         <activity android:name=".ui.main.activity.me.AcountSaftActivity" />
         <activity android:name=".ui.main.activity.ordering.CancelOrderingActivity" />
         <activity android:name=".ui.main.activity.DryCleaners.DryToCommentAct"></activity>
+        <activity android:name=".ui.main.activity.me.AcountSaftActivity"></activity>
     </application>
 
 </manifest>

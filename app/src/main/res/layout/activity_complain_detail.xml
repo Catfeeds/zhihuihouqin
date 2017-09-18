@@ -20,11 +20,18 @@
         android:layout_height="@dimen/title_height"
         android:background="@color/white" />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/title_bar"
+        android:background="@color/gray_lighter" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_reply"
-        android:layout_below="@id/title_bar">
+        android:layout_below="@id/view">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +41,7 @@
             <cn.lc.model.framework.widget.NoSlidingListView
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
             </cn.lc.model.framework.widget.NoSlidingListView>
 

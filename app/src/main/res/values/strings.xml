@@ -133,4 +133,14 @@
     <string name="address">送货地址</string>
     <string name="arrive_time">期望送达时间</string>
     <string name="personal_center">个人中心</string>
+    <string name="comment_message">评论消息</string>
+    <string name="system_message">系统消息</string>
+    <string name="pay_up_message">缴费通知</string>
+    <string name="audit_message">审核状态</string>
+    <string name="active_message">活动通知</string>
+    <string name="order_message">订单通知</string>
+    <string name="complain_message">意见投诉</string>
+    <string name="message">消息</string>
+    <string name="already_read">已读</string>
+    <string name="now_reserve">立即预定</string>
 </resources>

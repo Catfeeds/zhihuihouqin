@@ -10,7 +10,7 @@ import rx.Observable;
 
 public interface ComplainReplyModel extends MvpModel {
 
-    Observable getComplainReply(int id);
+    Observable getComplainReply(int id, int page);
 
     Observable feedbackMessage(int id, String content);
 

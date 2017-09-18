@@ -12,8 +12,8 @@ import rx.Observable;
 public class ComplainReplyModelImpl implements ComplainReplyModel {
 
     @Override
-    public Observable getComplainReply(int id) {
-        Observable observable = RetrofitUtils.getInstance().getComplainReply(id);
+    public Observable getComplainReply(int id, int page) {
+        Observable observable = RetrofitUtils.getInstance().getComplainReply(id, page);
         return observable;
     }
 

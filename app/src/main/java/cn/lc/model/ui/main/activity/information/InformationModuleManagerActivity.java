@@ -1,16 +1,14 @@
-package cn.lc.model.ui.main.activity.message;
+package cn.lc.model.ui.main.activity.information;
 
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
-import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.NoSlidingGridView;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.InformationModuleAdapter;
@@ -22,7 +20,7 @@ import cn.lc.model.ui.main.presenter.InformationModulePresenter;
 import cn.lc.model.ui.main.view.InformationModuleView;
 
 /**
- * 类描述：
+ * 类描述：信息公告模块管理页面
  * 作者：Shixhe On 2017/9/12 0012
  */
 public class InformationModuleManagerActivity extends BaseActivity<InformationModuleModel, InformationModuleView, InformationModulePresenter> implements InformationModuleView {
@@ -62,9 +60,12 @@ public class InformationModuleManagerActivity extends BaseActivity<InformationMo
         titleBar.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int[] ids = new int[myData.size()];
+                int[] ids = new int[myData.size() - 1];
                 for (int i = 0; i < myData.size(); i++) {
-                    ids[i] = myData.get(i).getId();
+                    if (i == 0) {
+                        continue;
+                    }
+                    ids[i - 1] = myData.get(i).getId();
                 }
                 getPresenter().updataInformationModule(ids);
             }
@@ -113,6 +114,10 @@ public class InformationModuleManagerActivity extends BaseActivity<InformationMo
         if (bean.getNoticeTypeList() == null)
             return;
         myData.clear();
+        InformationClazzBean.NoticeTypeListEntity entity = new InformationClazzBean.NoticeTypeListEntity();
+        entity.setId(10000);
+        entity.setName("推荐");
+        myData.add(entity);
         myData.addAll(bean.getNoticeTypeList());
         adapterMy.notifyDataSetChanged();
         getPresenter().getAllInformationClass(0);
@@ -124,18 +129,20 @@ public class InformationModuleManagerActivity extends BaseActivity<InformationMo
             return;
         otherData.clear();
         otherData.addAll(bean.getNoticeTypeList());
-        Iterator<InformationClazzBean.NoticeTypeListEntity> iterator = otherData.iterator();
-        LogUtils.d("otherData 前: " + otherData.size());
-        while (iterator.hasNext()) {
-            InformationClazzBean.NoticeTypeListEntity entity = iterator.next();
+        List<Integer> position = new ArrayList<>();
+        for (int i = 0; i < otherData.size(); i++) {
             for (int j = 0; j < myData.size(); j++) {
-                if (entity.getId() == myData.get(j).getId()) {
-                    LogUtils.d("当前J：" + j);
-                    otherData.remove(entity);
+                if (otherData.get(i).getId() == myData.get(j).getId()) {
+                    position.add(i);
                 }
             }
         }
-        LogUtils.d("otherData 后: " + otherData.size());
+        int num = 0;
+        for (int i = 0; i < position.size(); i++) {
+            otherData.remove(position.get(i) - num);
+            num++;
+        }
+
         adapterOther.notifyDataSetChanged();
     }
 

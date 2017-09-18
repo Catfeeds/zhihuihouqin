@@ -22,6 +22,7 @@ public class SubmitComplainPresenter extends MvpRxPresenter<SubmitComplainModel,
     // 提交意见投诉
     public void submitComplainSucc(int id, String complaintContent, String suggestContent, int anonymous, ArrayList<String> paths) {
         getView().showProgressDialog();
+        paths.remove(paths.size() - 1);
         Observable request = getModel().submitComplain(id, complaintContent, suggestContent, anonymous, paths);
         getNetWork(request, new Subscriber<CollectBean>() {
             @Override

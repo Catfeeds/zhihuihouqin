@@ -34,7 +34,7 @@ public class ComplainHistoryActivity extends BaseActivity<ComplainHistoryModel, 
     private ComplainHistoryAdapter adapter;
     private List<ComplainHistoryBean.PageEntity.ListEntity> data;
     private int page = 1;
-    private int pageCount = 10;
+    private int pageCount = 20;
 
     @Override
     public void setContentLayout() {
@@ -48,7 +48,7 @@ public class ComplainHistoryActivity extends BaseActivity<ComplainHistoryModel, 
         titleBar.setBack(true);
         titleBar.setTitle("反馈历史");
         getPresenter().getComplainHistoryData(page, pageCount);
-
+//        recycleView.setLoadingMoreProgressStyle(ProgressStyle.BallPulse);
         recycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -69,17 +69,22 @@ public class ComplainHistoryActivity extends BaseActivity<ComplainHistoryModel, 
         if (bean == null || bean.getPage() == null || bean.getPage().getList() == null) {
             return;
         }
-        if (page == 1) {
-            data.clear();
-            recycleView.refreshComplete();
-        } else {
-            recycleView.loadMoreComplete();
-        }
+//        if (page == 1) {
+//            data.clear();
+//            recycleView.refreshComplete();
+//        } else {
+//            recycleView.loadMoreComplete();
+//        }
         data.addAll(bean.getPage().getList());
         if (adapter == null) {
             adapter = new ComplainHistoryAdapter(this, data);
-            recycleView.setLayoutManager(new LinearLayoutManager(this));
+            //设置recycleView布局
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            //设置纵向
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recycleView.setLayoutManager(linearLayoutManager);
             recycleView.setAdapter(adapter);
+            recycleView.setPullRefreshEnabled(true);
         } else {
             adapter.notifyDataSetChanged();
         }

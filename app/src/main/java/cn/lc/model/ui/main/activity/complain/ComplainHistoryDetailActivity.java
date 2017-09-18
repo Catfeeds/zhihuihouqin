@@ -49,6 +49,7 @@ public class ComplainHistoryDetailActivity extends BaseActivity<ComplainDetailMo
         titleBar.setBack(true);
         titleBar.setTitle("反馈详情");
         id = getIntent().getIntExtra("ID", 0);
+//        id = 1;
         getPresenter().getComplainDetail(id);
     }
 
@@ -63,14 +64,10 @@ public class ComplainHistoryDetailActivity extends BaseActivity<ComplainDetailMo
 
     @Override
     public void getComplainDetail(ComplainDetailBean bean) {
-        if (adapter == null) {
-            if (bean.getComplaint() == null || bean.getComplaint().getImgs() == null)
-                return;
-            adapter = new ComplainImageAdapter(this, bean.getComplaint().getImgs());
-            listView.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
+        if (bean.getComplaint() == null || bean.getComplaint().getImgs() == null)
+            return;
+        adapter = new ComplainImageAdapter(this, bean.getComplaint().getImgs());
+        listView.setAdapter(adapter);
         labelling.setText("投诉标签：" + bean.getComplaint().getTagName());
         content.setText("投诉内容：" + bean.getComplaint().getComplaintContent());
         suggest.setText("建议：" + bean.getComplaint().getSuggestContent());

@@ -1,9 +1,11 @@
-package cn.lc.model.ui.main.activity.message;
+package cn.lc.model.ui.main.activity.information;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TitleBar;
@@ -42,7 +45,7 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
     @BindView(R.id.add_module)
     ImageView add_module;
 
-//    private int id;
+    //    private int id;
     private List<String> className;
 
     private List<Fragment> fragments;
@@ -75,6 +78,7 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
         if (log == 1) {
             className.clear();
             fragments.clear();
+//            clearCacheFragments();
         }
         className.add("推荐");
 
@@ -83,7 +87,6 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
         InformationFragment fragmentOne = new InformationFragment();
         fragmentOne.setArguments(b);
         fragments.add(fragmentOne);
-
         for (int i = 0; i < bean.getNoticeTypeList().size(); i++) {
             className.add(bean.getNoticeTypeList().get(i).getName());
             Bundle bundle = new Bundle();
@@ -94,9 +97,9 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
             fragments.add(fragment);
         }
         adapter = new InformationAdapter(getSupportFragmentManager(), className);
+        adapter.setFragments(fragments);
         viewPager.setAdapter(adapter);
         tabBook.setupWithViewPager(viewPager);
-        adapter.setFragments(fragments);
 
         add_module.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +107,26 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
                 startActivityForResult(new Intent(InformationActivity.this, InformationModuleManagerActivity.class), REQUEST_MODULE);
             }
         });
+    }
+
+    private void clearCacheFragments() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            for (Fragment fragment : fragments) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.remove(fragment);
+                transaction.commit();
+            }
+        }
+
+    }
+
+    @OnClick({R.id.search})
+    public void onViewClicked(View view) {
+        if (view.getId() == R.id.search) {
+            startActivity(new Intent(InformationActivity.this, SearchInformationActivity.class));
+        }
     }
 
     @Override

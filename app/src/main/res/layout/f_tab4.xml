@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <TextView
@@ -14,6 +15,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:scrollbars="none">
 
         <LinearLayout
@@ -38,12 +40,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/white">
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginBottom="8dp"
                             android:layout_alignParentBottom="true"
-                            android:background="@color/gray_lighter"/>
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/gray_lighter" />
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -57,76 +60,87 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:orientation="horizontal"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:id="@+id/ll_my_packge"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical"
                             android:gravity="center"
-                            android:layout_height="wrap_content">
+                            android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/partner_luffy"
                                 android:layout_width="50dp"
-                                android:layout_height="50dp" />
+                                android:layout_height="50dp"
+                                android:src="@drawable/partner_luffy" />
+
                             <TextView
-                                android:text="我的钱包"
-                                android:layout_marginTop="5dp"
-                                android:textSize="@dimen/sp_small"
-                                android:textColor="@color/tv_black"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="我的钱包"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
                         </LinearLayout>
+
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="16dp"
-                            android:background="@color/gray_lighter"/>
+                            android:background="@color/gray_lighter" />
+
                         <LinearLayout
                             android:id="@+id/ll_my_collect"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical"
                             android:gravity="center"
-                            android:layout_height="wrap_content">
+                            android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/partner_luffy"
                                 android:layout_width="50dp"
-                                android:layout_height="50dp" />
+                                android:layout_height="50dp"
+                                android:src="@drawable/partner_luffy" />
+
                             <TextView
-                                android:text="我的收藏"
-                                android:layout_marginTop="5dp"
-                                android:textSize="@dimen/sp_small"
-                                android:textColor="@color/tv_black"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="我的收藏"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
                         </LinearLayout>
+
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="16dp"
-                            android:background="@color/gray_lighter"/>
+                            android:background="@color/gray_lighter" />
+
                         <LinearLayout
                             android:id="@+id/ll_personal_auth"
                             android:layout_width="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical"
                             android:gravity="center"
-                            android:layout_height="wrap_content">
+                            android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/partner_luffy"
                                 android:layout_width="50dp"
-                                android:layout_height="50dp" />
+                                android:layout_height="50dp"
+                                android:src="@drawable/partner_luffy" />
+
                             <TextView
-                                android:text="个人认证"
-                                android:layout_marginTop="5dp"
-                                android:textSize="@dimen/sp_small"
-                                android:textColor="@color/tv_black"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="个人认证"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -150,14 +164,14 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/civ_header"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="叫越不小杨" />
+                    android:text="叫越不小杨"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_bigger" />
 
                 <TextView
                     android:id="@+id/tv_auth"
@@ -170,44 +184,50 @@
                     android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_order_service"
-                android:padding="@dimen/standard_padding"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:padding="@dimen/standard_padding">
+
                 <ImageView
                     android:id="@+id/iv_img1"
-                    android:src="@mipmap/ic_launcher"
                     android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_launcher" />
+
                 <TextView
-                    android:text="订单服务"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@+id/iv_img1"
-                    android:layout_centerVertical="true"
+                    android:text="订单服务"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sp_common" />
+
                 <ImageView
                     android:id="@+id/iv_group1"
-                    android:src="@drawable/group_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@drawable/group_down" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_lighter"/>
+                android:background="@color/gray_lighter" />
             <!--订单服务的子目录-->
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_order_service_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -226,12 +246,14 @@
                             android:id="@+id/rl_turn1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <ImageView
                                 android:id="@+id/iv_child_img1"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="8dp"
                                 android:src="@mipmap/ic_launcher" />
+
                             <TextView
                                 android:id="@+id/tv_child_name1"
                                 android:layout_width="wrap_content"
@@ -315,6 +337,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -424,6 +447,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -533,6 +557,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -642,6 +667,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -751,6 +777,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -860,6 +887,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -969,7 +997,8 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-              <android.support.v7.widget.CardView
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
@@ -1035,6 +1064,7 @@
                                 android:text="已预约"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
+
                             <TextView
                                 android:id="@+id/tv_service8"
                                 android:layout_width="0dp"
@@ -1077,113 +1107,116 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-                 <android.support.v7.widget.CardView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginBottom="4dp"
-                     android:layout_marginLeft="8dp"
-                     android:layout_marginRight="8dp"
-                     android:layout_marginTop="4dp"
-                     app:cardCornerRadius="8dp">
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:orientation="vertical">
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    app:cardCornerRadius="8dp">
 
-                         <RelativeLayout
-                             android:id="@+id/rl_turn9"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                             <ImageView
-                                 android:id="@+id/iv_child_img9"
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:layout_marginLeft="8dp"
-                                 android:src="@mipmap/ic_launcher" />
+                        <RelativeLayout
+                            android:id="@+id/rl_turn9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                             <TextView
-                                 android:id="@+id/tv_child_name9"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_centerVertical="true"
-                                 android:layout_marginLeft="8dp"
-                                 android:layout_toRightOf="@+id/iv_child_img9"
-                                 android:text="图书订单"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_common" />
+                            <ImageView
+                                android:id="@+id/iv_child_img9"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="8dp"
+                                android:src="@mipmap/ic_launcher" />
 
-                             <ImageView
-                                 android:id="@+id/iv_child9"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_alignParentRight="true"
-                                 android:layout_centerVertical="true"
-                                 android:src="@drawable/turn_right" />
-                         </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_child_name9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_toRightOf="@+id/iv_child_img9"
+                                android:text="图书订单"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_common" />
 
-                         <View
-                             android:layout_width="match_parent"
-                             android:layout_height="1dp"
-                             android:background="@color/gray_lighter" />
+                            <ImageView
+                                android:id="@+id/iv_child9"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/turn_right" />
+                        </RelativeLayout>
 
-                         <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="40dp"
-                             android:gravity="center"
-                             android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_lighter" />
 
-                             <TextView
-                                 android:id="@+id/tv_yuding9"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已预定"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                             <TextView
-                                 android:id="@+id/tv_jieyue9"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已借阅"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
+                            <TextView
+                                android:id="@+id/tv_yuding9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已预定"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
 
-                             <TextView
-                                 android:id="@+id/tv_guihuan9"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已归还"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
-                             <TextView
-                                 android:id="@+id/tv_pingjia9"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="待评价"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
-                             <TextView
-                                 android:id="@+id/tv_cancle9"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已取消"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
-                         </LinearLayout>
-                     </LinearLayout>
-                 </android.support.v7.widget.CardView>
+                            <TextView
+                                android:id="@+id/tv_jieyue9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已借阅"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <TextView
+                                android:id="@+id/tv_guihuan9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已归还"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <TextView
+                                android:id="@+id/tv_pingjia9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="待评价"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <TextView
+                                android:id="@+id/tv_cancle9"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已取消"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
                 <!--   <android.support.v7.widget.CardView
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
@@ -1295,71 +1328,79 @@
                  </android.support.v7.widget.CardView>-->
 
 
-
-
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_laifang_person"
-                android:padding="@dimen/standard_padding"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:padding="@dimen/standard_padding">
+
                 <ImageView
                     android:id="@+id/iv_img2"
-                    android:src="@mipmap/ic_launcher"
                     android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_launcher" />
+
                 <TextView
-                    android:text="来访人员"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@+id/iv_img2"
-                    android:layout_centerVertical="true"
+                    android:text="来访人员"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sp_common" />
+
                 <ImageView
                     android:id="@+id/iv_group2"
-                    android:src="@drawable/turn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@drawable/turn_right" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_lighter"/>
+                android:background="@color/gray_lighter" />
+
             <RelativeLayout
                 android:id="@+id/rl_setting"
-                android:padding="@dimen/standard_padding"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:padding="@dimen/standard_padding">
+
                 <ImageView
                     android:id="@+id/iv_img3"
-                    android:src="@mipmap/ic_launcher"
                     android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:src="@mipmap/ic_launcher" />
+
                 <TextView
-                    android:text="设置"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@+id/iv_img3"
-                    android:layout_centerVertical="true"
+                    android:text="设置"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sp_common" />
+
                 <ImageView
                     android:id="@+id/iv_group3"
-                    android:src="@drawable/turn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@drawable/turn_right" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/gray_lighter"/>
+                android:layout_height="1px"
+                android:background="@color/gray_lighter" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

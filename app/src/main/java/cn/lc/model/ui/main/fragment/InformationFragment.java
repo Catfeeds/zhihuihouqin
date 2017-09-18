@@ -12,6 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.adapter.HomeNsrlv1Adapter;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.model.InformationModel;
@@ -79,15 +80,27 @@ public class InformationFragment extends BaseFragment<InformationModel, Informat
 
     @Override
     public void getInformationSucc(InformationBean bean) {
+        LogUtils.d("1");
         if (bean == null || bean.getPage() == null || bean.getPage().getList() == null)
             return;
-        if (bean.getPage().getTotalPage() <= page)
+        LogUtils.d("2");
+        if (bean.getPage().getTotalPage() <= page) {
+            LogUtils.d("3");
             recycleView.setLoadingMoreEnabled(false);
-        else
+        } else {
+            LogUtils.d("4");
             recycleView.setLoadingMoreEnabled(true);
-        if (page == 1)
+        }
+        if (page == 1) {
+            LogUtils.d("5");
             data.clear();
+            recycleView.refreshComplete();
+        } else {
+            LogUtils.d("6");
+            recycleView.loadMoreComplete();
+        }
         data.addAll(bean.getPage().getList());
+        LogUtils.d("7");
         adapter.notifyDataSetChanged();
     }
 

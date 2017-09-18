@@ -4,16 +4,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.lc.model.framework.widget.TitleBar
-        android:id="@+id/message_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="#2000" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/message"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_bigger_20" />
+
+        <TextView
+            android:id="@+id/already_read"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:padding="5dp"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_bigger"
+            android:text="@string/already_read" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#1000" />
+        android:background="@color/gray_line" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,248 +46,410 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/system"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
+                <RelativeLayout
+                    android:id="@+id/rl_system"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <LinearLayout
+                    <ImageView
+                        android:id="@+id/img_system"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
+
+                    <TextView
+                        android:id="@+id/system_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/img_system"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_system"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/rl_system"
+                    android:text="@string/system_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="系统消息"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_system_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="系统消息说明"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/msg_system_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_alignLeft="@id/msg_system"
+                    android:layout_below="@id/msg_system"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/rl_system"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="评论消息"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_comment_msg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="xxx评论了你的动态"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
+            <RelativeLayout
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/ll_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
+
+                    <TextView
+                        android:id="@+id/comment_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/img_comment"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ll_comment"
+                    android:text="@string/comment_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="缴费通知"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_pay_notify"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="你的缴费成功了"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/msg_comment_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_alignLeft="@id/msg_comment"
+                    android:layout_below="@id/msg_comment"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ll_comment"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="审核状态"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_audit_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="你的审核已经通过"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
+            <RelativeLayout
+                android:id="@+id/pay_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/ll_pay_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_pay_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
+
+                    <TextView
+                        android:id="@+id/pay_up_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/img_pay_up"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_pay_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ll_pay_up"
+                    android:text="@string/pay_up_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="系统消息"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tv_activity_notify"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="系统消息说明"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/msg_pay_up_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_alignLeft="@id/msg_pay_up"
+                    android:layout_below="@id/msg_pay_up"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ll_pay_up"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="订单通知"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_order_notify"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="你的订单已被接单"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    android:src="@mipmap/ic_launcher" />
+            <RelativeLayout
+                android:id="@+id/audit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/ll_audit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_audit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
+
+                    <TextView
+                        android:id="@+id/audit_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/img_audit"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_audit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ll_audit"
+                    android:text="@string/audit_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
 
-                    <TextView
+                <TextView
+                    android:id="@+id/msg_audit_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/msg_audit"
+                    android:layout_below="@id/msg_audit"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ll_audit"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <RelativeLayout
+                android:id="@+id/active"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/ll_active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_active"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="意见投诉"
-                        android:textColor="#a000"
-                        android:textSize="18sp" />
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
 
                     <TextView
-                        android:id="@+id/tv_Complaints"
+                        android:id="@+id/active_bubble"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="投诉成功"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_alignRight="@id/img_active"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ll_active"
+                    android:text="@string/active_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
+
+                <TextView
+                    android:id="@+id/msg_active_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/msg_active"
+                    android:layout_below="@id/msg_active"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ll_active"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <RelativeLayout
+                android:id="@+id/order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/ll_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
+
+                    <TextView
+                        android:id="@+id/order_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/img_order"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ll_order"
+                    android:text="@string/order_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
+
+                <TextView
+                    android:id="@+id/msg_order_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/msg_order"
+                    android:layout_below="@id/msg_order"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ll_order"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_light" />
+
+            <RelativeLayout
+                android:id="@+id/complain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/ll_complain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_complain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:src="@drawable/destruction" />
+
+                    <TextView
+                        android:id="@+id/complain_bubble"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/img_complain"
+                        android:background="@drawable/bg_red_bubble"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_smaller"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/msg_complain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ll_complain"
+                    android:text="@string/complain_message"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
+
+                <TextView
+                    android:id="@+id/msg_complain_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/msg_complain"
+                    android:layout_below="@id/msg_complain"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/ll_complain"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/gray_line" />
 
             <cn.lc.model.ui.mywidget.NoSlideRecyclerView
                 android:id="@+id/rv_msg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
 
         </LinearLayout>
     </ScrollView>

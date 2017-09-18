@@ -18,9 +18,9 @@ import rx.Subscriber;
 
 public class ComplainReplyPresenter extends MvpRxPresenter<ComplainReplyModel, ComplainReplyView> {
 
-    public void getComplainReply(int id) {
+    public void getComplainReply(int id, int page) {
         getView().showProgressDialog();
-        Observable request = getModel().getComplainReply(id);
+        Observable request = getModel().getComplainReply(id, page);
         getNetWork(request, new Subscriber<ComplainReplyBean>() {
 
             @Override

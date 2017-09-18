@@ -63,7 +63,11 @@ public class InformationModuleAdapter extends BaseAdapter {
         holder.module.setText(data.get(position).getName());
 
         if (type == 1) { // 我的
-            holder.img.setVisibility(View.VISIBLE);
+            if (data.get(position).getId() != 10000) {
+                holder.img.setVisibility(View.VISIBLE);
+            } else {
+                holder.img.setVisibility(View.GONE);
+            }
             holder.img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

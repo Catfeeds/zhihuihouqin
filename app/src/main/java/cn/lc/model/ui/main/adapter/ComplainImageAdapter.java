@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
-import cn.lc.model.framework.imageload.GlideLoading;
+import cn.lc.model.framework.utils.LogUtils;
 
 /**
  * 类描述：
@@ -55,7 +57,9 @@ public class ComplainImageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position), holder.image);
+        LogUtils.d("position:" + position + "  内容： " + data.get(position));
+        Glide.with(context).load(data.get(position)).placeholder(R.drawable.add_photo).into(holder.image);
+//        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position), holder.image);
 
         return convertView;
     }

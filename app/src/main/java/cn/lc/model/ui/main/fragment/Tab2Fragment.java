@@ -19,7 +19,7 @@ import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
 import cn.lc.model.framework.widget.NoSlidingGridView;
 import cn.lc.model.ui.main.activity.complain.SubmitComplainActivity;
-import cn.lc.model.ui.main.activity.message.InformationActivity;
+import cn.lc.model.ui.main.activity.information.InformationActivity;
 import cn.lc.model.ui.main.activity.nutritionalmeal.NutritionActivity;
 import cn.lc.model.ui.main.activity.ordering.OrderingActivity;
 import cn.lc.model.ui.main.adapter.AllGrideAdapter;

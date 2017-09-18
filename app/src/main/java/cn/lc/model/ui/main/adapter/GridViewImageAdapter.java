@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
+import mvp.cn.util.ToastUtil;
 
 /**
  * 类描述：
@@ -68,6 +69,12 @@ public class GridViewImageAdapter extends BaseAdapter {
             });
         } else {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(context, paths.get(position), holder.image);
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showToast(context, "点击图片了！");
+                }
+            });
         }
 
         return convertView;
