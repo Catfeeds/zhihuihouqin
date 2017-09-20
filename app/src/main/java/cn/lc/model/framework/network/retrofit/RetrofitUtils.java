@@ -989,6 +989,130 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.commitDryComment(paramsMap));
     }
+    /**
+     * 办公首页
+     *
+     * @return
+     */
+    public static Observable officeIndex() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getOfficeIndex(paramsMap));
+    }
+    /**
+     * 办公商品类别
+     *
+     * @return
+     */
+    public static Observable getSpCategory(String categoryOneId,
+                                           String page,String limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("categoryOneId",categoryOneId);
+            tempMap.put("page",page);
+            tempMap.put("limit",limit);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getProductCategory(paramsMap));
+    }
+    /**
+     * 商品详情
+     *
+     * @return
+     */
+    public static Observable getSpDetail(String productId) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("productId",productId);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getSpDetail(paramsMap));
+    }
+    /**
+     * 商品所有评价
+     *
+     * @return
+     */
+    public static Observable getSpAllCommentCount(String productId) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("productId",productId);
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getSpAllCommentCount(paramsMap));
+    }
+    /**
+     * 商品所有评价
+     *
+     * @return
+     */
+    public static Observable getSpAllComment(String productId,String commentType ,String page,String limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("productId",productId);
+            tempMap.put("commentType",commentType);
+            tempMap.put("page",page);
+            tempMap.put("limit",limit);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getSpAllComment(paramsMap));
+    }
+    /**
+     * 商品购物车信息
+     *
+     * @return
+     */
+    public static Observable getSpShopCarInfo(String productId) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("productId",productId);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getShopCarInfo(paramsMap));
+    }
+    /**
+     * 购物车
+     *
+     * @return
+     */
+    public static Observable shopCar(String skuid,String count) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("skuid",skuid);
+            tempMap.put("count",count);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getShopCarInfo(paramsMap));
+    }
 
     /**
      * 生成订餐订单

@@ -64,7 +64,7 @@ public class DryCleanReserveInfoPresenter extends MvpRxPresenter<DryCleanReserve
             @Override
             public void onNext(JieYueBean o) {
                 if(o.getErrCode()==0){
-                    getView().commitSucc();
+                    getView().commitSucc(o);
                 }else{
                     getView().showToast(o.getMsg());
                 }

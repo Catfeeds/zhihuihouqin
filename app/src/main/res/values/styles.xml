@@ -104,5 +104,8 @@
         <item name="android:windowExitAnimation">@anim/exit</item>
     </style>
 
->>>>>>> Stashed changes
+    <style name="AnimationDialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_exit</item>
+    </style>
 </resources>

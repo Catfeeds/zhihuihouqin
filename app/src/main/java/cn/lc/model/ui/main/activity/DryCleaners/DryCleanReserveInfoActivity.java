@@ -40,6 +40,7 @@ import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.activity.Base2Activity;
 import cn.lc.model.ui.main.adapter.DryCleanersLvAdapter;
+import cn.lc.model.ui.main.bean.JieYueBean;
 import cn.lc.model.ui.main.bean.OrderDryCleanBean;
 import cn.lc.model.ui.main.model.DryCleanReserveInfoModel;
 import cn.lc.model.ui.main.modelimpl.DryCleanReserveInfoModelImpl;
@@ -102,7 +103,6 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
         etPhoneNum.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         getData(1+"",limit,false);
-//        CommonUtil.closeSoftKeyboard(this,etPhoneNum);
     }
     private void getListSucc(List<OrderDryCleanBean.PageBean.ListBean> list,boolean getMore) {
         if(list!=null){
@@ -117,7 +117,6 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                 @Override
                 public void addClick(int count, int position) {
                     listAll.get(position).setCount(count);
-
                     sum = 0;
                     for (int i = 0; i < listAll.size(); i++) {
                         sum +=listAll.get(i).getCount();
@@ -168,7 +167,6 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                     showToast("您没有下单,请下单后在提交");
                     return;
                 }
-                //getPresenter().getCommitResult(mobile,time,json);
                 Intent intent = new Intent(this, ConfirmDryCleanOrderActivity.class);
                 intent.putExtra("mobile",mobile);
                 intent.putExtra("time",time);
@@ -230,7 +228,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     }
 
     @Override
-    public void commitSucc() {
+    public void commitSucc(JieYueBean commitBean) {
 
     }
 

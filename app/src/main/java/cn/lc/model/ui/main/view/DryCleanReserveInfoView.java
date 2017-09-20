@@ -1,6 +1,7 @@
 package cn.lc.model.ui.main.view;
 
 import cn.lc.model.ui.main.bean.CollectBean;
+import cn.lc.model.ui.main.bean.JieYueBean;
 import cn.lc.model.ui.main.bean.OrderDryCleanBean;
 import mvp.cn.common.MvpView;
 
@@ -11,6 +12,6 @@ import mvp.cn.common.MvpView;
 public interface DryCleanReserveInfoView extends MvpView{
 
 void OrderDryCleaner(OrderDryCleanBean cleanBean,boolean getMore);
-    void commitSucc();
+    void commitSucc(JieYueBean jieyueBean);
 
 }

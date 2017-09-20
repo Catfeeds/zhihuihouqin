@@ -10,15 +10,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
+import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.imageload.GlideLoading;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.NoSlidingGridView;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.HomeAdapter;
+import cn.lc.model.ui.main.adapter.OfficeIndexAdapter;
 import cn.lc.model.ui.main.adapter.OfficeSpAdapter;
+import cn.lc.model.ui.main.bean.OfficeIndexBean;
+import cn.lc.model.ui.main.model.OfficeIndexModel;
+import cn.lc.model.ui.main.modelimpl.OfficeIndexModelImpl;
+import cn.lc.model.ui.main.presenter.OfficeIndexPresenter;
+import cn.lc.model.ui.main.view.OfficeIndexView;
 
-public class OfficeSuppliesActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel,OfficeIndexView,OfficeIndexPresenter> implements AdapterView.OnItemClickListener,OfficeIndexView {
 
 
     @BindView(R.id.office_supplies_title)
@@ -32,28 +44,31 @@ public class OfficeSuppliesActivity extends AppCompatActivity implements Adapter
     @BindView(R.id.nsgv_sp)
     NoSlidingGridView nsgvSp;
 
-    private String[] des = {"文件储存", "电脑耗材", "纸制品", "财务用品",
-            "生活用品", "办公用品", "桌面用品", "书写工具"};
-    // TODO: 2017/8/29 0029 图片需要更换
-    private int[] photos = {R.drawable.health_service,
-            R.drawable.property_maintenance,
-            R.drawable.library,
-            R.drawable.enrollment,
-            R.drawable.reserva_haircut,
-            R.drawable.dry_cleaners,
-            R.drawable.office_supplies,
-            R.drawable.more};
-    private HomeAdapter homeAdapter;
     private OfficeSpAdapter officeSpAdapter;
+    private OfficeIndexAdapter indexAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public OfficeIndexPresenter createPresenter() {
+        return new OfficeIndexPresenter();
+    }
+
+    @Override
+    public OfficeIndexModel createModel() {
+        return new OfficeIndexModelImpl();
+    }
+
+    @Override
+    public void setContentLayout() {
         setContentView(R.layout.activity_office_supplies);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
         initTitle();
         initnsgvOffice();
         initNsgvSp();
+        getPresenter().getIndexInfo();
     }
 
     private void initNsgvSp() {
@@ -62,8 +77,8 @@ public class OfficeSuppliesActivity extends AppCompatActivity implements Adapter
     }
 
     private void initnsgvOffice() {
-        homeAdapter = new HomeAdapter(this, des, photos);
-        nsgvOffice.setAdapter(homeAdapter);
+        indexAdapter = new OfficeIndexAdapter(this);
+        nsgvOffice.setAdapter(indexAdapter);
         nsgvOffice.setOnItemClickListener(this);
     }
 
@@ -77,5 +92,21 @@ public class OfficeSuppliesActivity extends AppCompatActivity implements Adapter
         Intent intent = new Intent(this,OfficeCategoryActivity.class);
         intent.putExtra("position",position);
         startActivity(intent);
+    }
+
+    @Override
+    public void getIndexInfo(OfficeIndexBean bean) {
+        if(bean.getErrCode()==0){
+            if(bean!=null){
+                GlideLoading.getInstance().loadImgUrlNyImgLoader(this,bean.getTopphoto(),ivOfficeBigPic);
+                List<OfficeIndexBean.CategoryListBean> categoryList = bean.getCategoryList();
+                Collections.reverse(categoryList);
+                indexAdapter.setData(categoryList);
+                List<OfficeIndexBean.NewProductListBean> newProductList = bean.getNewProductList();
+                officeSpAdapter.setData(newProductList);
+            }
+        }else{
+            LogUtils.i("获取办公首页出现为题:"+bean.getMsg());
+        }
     }
 }

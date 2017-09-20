@@ -40,8 +40,6 @@ public class AddPhotoPop extends PopupWindow {
         camera.setOnClickListener(click);
         album.setOnClickListener(click);
 
-        CommonUtil.openSoftKeyboard(context);
-
         //设置SelectPicPopupWindow的View
         this.setContentView(view);
         //设置SelectPicPopupWindow弹出窗体的宽

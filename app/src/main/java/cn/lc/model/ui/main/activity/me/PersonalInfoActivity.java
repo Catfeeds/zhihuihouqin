@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -32,7 +33,9 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,10 +45,12 @@ import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.login.activity.PositionActivity;
+import cn.lc.model.ui.mywidget.ImageSelect;
+import cn.lc.model.ui.mywidget.StringListDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mvp.cn.util.LogUtil;
 
-public class PersonalInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class PersonalInfoActivity extends AppCompatActivity  {
 
 
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -82,7 +87,6 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
     RelativeLayout rlPosition;
     @BindView(R.id.activity_personal_info)
     LinearLayout activityPersonalInfo;
-    private BottomSheetDialog dialog;
     private Bitmap photo;
     private String picPath;
 
@@ -99,17 +103,33 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_header:
-                dialog = new BottomSheetDialog(this, R.style.bottomdialog);
+                final StringListDialog dialog = new StringListDialog(this, R.style.dialog_style);
+                List<String> itemList = new ArrayList<String>();
+                itemList.add("相机拍摄");
+                itemList.add("手机相册");
+                itemList.add("取消");
+                dialog.setData(itemList);
+                dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        switch (position) {
+                            case 0:// 拍照上传
+                                doTakePhoto();
+                                dialog.dismiss();
+                                break;
+                            case 1:// 从gallery选择
+                                doPickPhotoFromGallery();
+                                dialog.dismiss();
+                                break;
+                            case 2:// 取消
+                                dialog.dismiss();
+                                break;
+                        }
+                    }
+                });
                 dialog.show();
-                View view1 = View.inflate(this, R.layout.header, null);
-                LinearLayout llContainer = (LinearLayout) view1.findViewById(R.id.ll_container);
-                CardView xiangji = (CardView) view1.findViewById(R.id.cv_xiangji);
-                CardView photo = (CardView) view1.findViewById(R.id.cv_photo);
-                CardView cancle = (CardView) view1.findViewById(R.id.cv_cancle);
-                xiangji.setOnClickListener(this);
-                photo.setOnClickListener(this);
-                cancle.setOnClickListener(this);
-                dialog.setContentView(view1);
                 break;
             case R.id.rl_sex:
                 Intent intent = new Intent(this, SexActivity.class);
@@ -122,44 +142,35 @@ public class PersonalInfoActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cv_xiangji:
-                String state = Environment.getExternalStorageState();// 获取内存卡可用状态
-                if (state.equals(Environment.MEDIA_MOUNTED)) {
-                    // 内存卡状态可用
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        //申请开启摄像机权限
-                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                                CAMERA_REQUEST_CODE);//自定义的code
-                    } else {
-                        init();
-                    }
+    private void doPickPhotoFromGallery() {
+        // 打开本地相册
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //申请开启摄像机权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    READ_REQUEST_CODE);//自定义的code
+        } else {
+            initPhoto();
+        }
+    }
 
-                } else {
-                    // 不可用
-                    Toast.makeText(this, "内存不可用", Toast.LENGTH_LONG)
-                            .show();
-                }
-                dialog.dismiss();
-                break;
-            case R.id.cv_photo:
-                // 打开本地相册
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    //申请开启摄像机权限
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            READ_REQUEST_CODE);//自定义的code
-                } else {
-                    initPhoto();
-                }
-                dialog.dismiss();
-                break;
-            case R.id.cv_cancle:
-                dialog.dismiss();
-                break;
+    private void doTakePhoto() {
+        String state = Environment.getExternalStorageState();// 获取内存卡可用状态
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            // 内存卡状态可用
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                //申请开启摄像机权限
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                        CAMERA_REQUEST_CODE);//自定义的code
+            } else {
+                init();
+            }
+
+        } else {
+            // 不可用
+            Toast.makeText(this, "内存不可用", Toast.LENGTH_LONG)
+                    .show();
         }
     }
 

@@ -4,9 +4,6 @@
     android:id="@+id/activity_dry_clean_reserve_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -91,7 +88,7 @@
                     android:id="@+id/tv_time"
                     android:textSize="@dimen/sp_small"
                     android:textColor="@color/tv_black"
-                    android:text="saffsf"
+                    android:text="2017-9-18 9:30"
                     android:layout_marginRight="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

@@ -52,6 +52,15 @@ public interface NetUrl {
     String searchCategory="appuser/tsjyfw/gettypelist";
     String searchBookList="appuser/tsjyfw/getbooklist";
     String bookOrderList="appuser/tsjyfw/orderlist";
+
+    //办公用品
+    String officeIndex="appuser/bgypfwproduct/index";
+    String productCategory="appuser/bgypfwproduct/findProductList";
+    String spDetail="appuser/bgypfwproduct/findProductDetail";
+    String spAllComment="appuser/bgypfwproduct/findCommentList";
+    String spAllCommentCount="appuser/bgypfwproduct/findCommentRate";
+    String shopCarInfo="appuser/bgypfwskuid/findSkuList";
+    String shopCar="appuser/bgypfwcart/addToCart";
     //工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";

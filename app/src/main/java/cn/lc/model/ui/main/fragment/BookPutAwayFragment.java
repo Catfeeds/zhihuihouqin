@@ -38,14 +38,6 @@ public class BookPutAwayFragment extends BaseFragment2 {
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
-
-    /*   public static BookPutAwayFragment getInstant(SearchBookListBean bookList) {
-           BookPutAwayFragment bookPutAwayFragment = new BookPutAwayFragment();
-           Bundle bundle = new Bundle();
-           bundle.putSerializable("BooklistBean", bookList);
-           bookPutAwayFragment.setArguments(bundle);
-           return bookPutAwayFragment;
-       }*/
     public static BookPutAwayFragment getInstant(String s, int typeId, int i) {
         BookPutAwayFragment bookPutAwayFragment = new BookPutAwayFragment();
         Bundle bundle = new Bundle();
@@ -62,14 +54,7 @@ public class BookPutAwayFragment extends BaseFragment2 {
         rvBookList.setAdapter(bookRvAdapter);
         Bundle bundle = getArguments();
         Log.e("bundle", "唯恐吗");
-       /* if (bundle != null) {
-            SearchBookListBean booklistBean = (SearchBookListBean) bundle.getSerializable("BooklistBean");
-            List<BooklistBean> booklist = booklistBean.getBooklist();
-            if (booklist != null && booklist.size() > 0) {
-                bookRvAdapter.setData(booklist,false);
-                Log.e("boolist的数量:",booklist.size()+"");
-            }
-        }*/
+
         if (bundle != null) {
             String keyword = bundle.getString("keyword");
             int typeId = bundle.getInt("typeId");
@@ -77,9 +62,7 @@ public class BookPutAwayFragment extends BaseFragment2 {
             getData(keyword, typeId, order);
 
         }
-
     }
-
     private void getData(String keyword, int typeId, int order) {
         Observable observable = RetrofitUtils.getInstance().getSearchBookList(keyword, typeId + "", order + "");
         showProgressDialog();

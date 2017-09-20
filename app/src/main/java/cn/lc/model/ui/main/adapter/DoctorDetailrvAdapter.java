@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
-import cn.lc.model.ui.main.bean.BarberDetailBean;
+
 import cn.lc.model.ui.main.bean.CommentlistBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,9 +41,10 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         if(data!=null){
-            CommentlistBean commentlistBean = data.get(position);
-            viewHolder.setData(commentlistBean);
+            CommentlistBean commentListBean = data.get(position);
+            viewHolder.setData(commentListBean);
         }
+
     }
 
     @Override
@@ -79,7 +80,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
 
          public void setData(CommentlistBean commentlistBean) {
              GlideLoading.getInstance().loadImgUrlNyImgLoader(context,
-                     commentlistBean.getImgs(),civUserPhoto);
+                     commentlistBean.getPhoto(),civUserPhoto);
              tvUserName.setText(commentlistBean.getRealname());
              userRatingBar.setRating((float) commentlistBean.getScore());
              tvTime.setText(commentlistBean.getCreatetime());

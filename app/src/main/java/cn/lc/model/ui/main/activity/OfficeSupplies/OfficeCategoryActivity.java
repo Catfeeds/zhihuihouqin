@@ -1,72 +1,93 @@
 package cn.lc.model.ui.main.activity.OfficeSupplies;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import java.util.Arrays;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
+import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
-import cn.lc.model.ui.main.adapter.CategoryAdapter;
 import cn.lc.model.ui.main.adapter.IndecatorAdapter;
 import cn.lc.model.ui.main.adapter.OfficeSpAdapter;
+import cn.lc.model.ui.main.adapter.SpCategoryAdapter;
+import cn.lc.model.ui.main.bean.OfficeIndexBean;
+import cn.lc.model.ui.main.bean.ProductCategoryBean;
+import cn.lc.model.ui.main.fragment.SpCategoryFragment;
+import cn.lc.model.ui.main.model.ProductCategoryModel;
+import cn.lc.model.ui.main.presenter.ProductCategoryPresenter;
+import cn.lc.model.ui.main.view.ProductCategoryView;
 
-public class OfficeCategoryActivity extends AppCompatActivity {
+public class OfficeCategoryActivity extends AppCompatActivity{
 
     @BindView(R.id.sp_category_title)
     TitleBar titleBar;
-    @BindView(R.id.indector)
-    RecyclerView indector;
-    @BindView(R.id.category_list)
-    RecyclerView categoryList;
-    @BindView(R.id.sp_grid)
-    GridView spGrid;
+    @BindView(R.id.tab_category)
+    TabLayout tabCategory;
+    @BindView(R.id.vp_page)
+    ViewPager vpPage;
     @BindView(R.id.activity_office_category)
     LinearLayout activityOfficeCategory;
-    private List<String> category= Arrays.asList(
-            "文件储存","电脑耗材","纸制品","财务用品",
-            "生活用品","办公用品","桌面用品","书写工具");
     private int position;
+    private IndecatorAdapter indecatorAdapter;
+    private List<Fragment> fragments;
+    private SpCategoryAdapter categoryAdapter;
+    private List<OfficeIndexBean.CategoryListBean> list;
+    private ArrayList<String> categorys;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_office_category);
         ButterKnife.bind(this);
-        position = getIntent().getIntExtra("position", 0);
+        initView();
+    }
+    public void initView() {
+        Intent intent = getIntent();
+        position = intent.getIntExtra("position", 0);
         initTitle();
-        initIndecator();
-        initCategory();
-        intiSpList();
+        initPager();
+        vpPage.setCurrentItem(position);
+        fragments = new ArrayList<>();
+        String json = intent.getStringExtra("json");
+        Gson gson = new Gson();
+        list = gson.fromJson
+                (json, new TypeToken<List<OfficeIndexBean.CategoryListBean>>() {
+        }.getType());
+        LogUtils.i("list ==="+list);
+        categorys = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            OfficeIndexBean.CategoryListBean categoryListBean = list.get(i);
+            if(categoryListBean!=null){
+                String cname = categoryListBean.getCname();
+                int id = categoryListBean.getId();
+                LogUtils.i(cname+"=="+id);
+                categorys.add(cname);
+                fragments.add(SpCategoryFragment.getInstance(id));
+            }
+        }
+        categoryAdapter.setData(fragments,categorys);
+
     }
 
-    private void intiSpList() {
-        OfficeSpAdapter officeSpAdapter = new OfficeSpAdapter(this);
-        spGrid.setAdapter(officeSpAdapter);
-    }
-
-    private void initCategory() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        categoryList.setLayoutManager(manager);
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this,category);
-        categoryList.setAdapter(categoryAdapter);
-        categoryAdapter.setSelected(position);
-        categoryAdapter.notifyDataSetChanged();
-    }
-
-    private void initIndecator() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        indector.setLayoutManager(manager);
-        IndecatorAdapter indecatorAdapter = new IndecatorAdapter(this);
-        indector.setAdapter(indecatorAdapter);
+    private void initPager() {
+        categoryAdapter = new SpCategoryAdapter(getSupportFragmentManager());
+        vpPage.setAdapter(categoryAdapter);
+        tabCategory.setupWithViewPager(vpPage);
     }
 
     private void initTitle() {

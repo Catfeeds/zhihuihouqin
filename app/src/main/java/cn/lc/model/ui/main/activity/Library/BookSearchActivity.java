@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -96,8 +98,10 @@ public class BookSearchActivity extends Base2Activity {
         }
     }
 
+
     //对软键盘回车键进行监听
     private void setKeyListen() {
+
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -110,7 +114,7 @@ public class BookSearchActivity extends Base2Activity {
                         fmPagerAdapter.setFragments(fragments, tabs);
                     }
                 }
-                return false;
+                return true;
             }
         });
     }

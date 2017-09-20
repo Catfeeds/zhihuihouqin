@@ -36,8 +36,10 @@ import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.bean.LibraryPicBean;
 import cn.lc.model.ui.main.bean.MoreListBean;
 import cn.lc.model.ui.main.bean.NutritionBean;
+import cn.lc.model.ui.main.bean.OfficeIndexBean;
 import cn.lc.model.ui.main.bean.OrderDryCleanBean;
 import cn.lc.model.ui.main.bean.PreOrderBean;
+import cn.lc.model.ui.main.bean.ProductCategoryBean;
 import cn.lc.model.ui.main.bean.ReasonBean;
 import cn.lc.model.ui.main.bean.RecommandBookBean;
 import cn.lc.model.ui.main.bean.SearchBookListBean;
@@ -45,6 +47,10 @@ import cn.lc.model.ui.main.bean.SearchCategoryBean;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
 import cn.lc.model.ui.main.bean.ServiceBean;
 import cn.lc.model.ui.main.bean.ShopBean;
+import cn.lc.model.ui.main.bean.ShopCarInfoBean;
+import cn.lc.model.ui.main.bean.SpAllCommentBean;
+import cn.lc.model.ui.main.bean.SpAllCommentCountBean;
+import cn.lc.model.ui.main.bean.SpDetailBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
 import cn.lc.model.ui.main.bean.VegetableBean;
 import cn.lc.model.ui.main.bean.WuyeHomeBean;
@@ -247,6 +253,41 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.commitDryComment)
     Observable<CollectBean> commitDryComment(@FieldMap Map<String, Object> map);
+
+    //办公用品首页
+    @FormUrlEncoded
+    @POST(NetUrl.officeIndex)
+    Observable<OfficeIndexBean> getOfficeIndex(@FieldMap Map<String, Object> map);
+
+    //办公用品类别
+    @FormUrlEncoded
+    @POST(NetUrl.productCategory)
+    Observable<ProductCategoryBean> getProductCategory(@FieldMap Map<String, Object> map);
+
+    //商品详情
+    @FormUrlEncoded
+    @POST(NetUrl.spDetail)
+    Observable<SpDetailBean> getSpDetail(@FieldMap Map<String, Object> map);
+
+    //商品评价
+    @FormUrlEncoded
+    @POST(NetUrl.spAllCommentCount)
+    Observable<SpAllCommentCountBean> getSpAllCommentCount(@FieldMap Map<String, Object> map);
+
+    //商品评价
+    @FormUrlEncoded
+    @POST(NetUrl.spAllComment)
+    Observable<SpAllCommentBean> getSpAllComment(@FieldMap Map<String, Object> map);
+
+    //商品购物车信息
+    @FormUrlEncoded
+    @POST(NetUrl.shopCarInfo)
+    Observable<ShopCarInfoBean> getShopCarInfo(@FieldMap Map<String, Object> map);
+
+    //购物车
+    @FormUrlEncoded
+    @POST(NetUrl.shopCar)
+    Observable<ActivityPostBean> shopCar(@FieldMap Map<String, Object> map);
 
     //生成工作餐订单
     @FormUrlEncoded

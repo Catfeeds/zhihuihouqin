@@ -6,6 +6,7 @@
 
 
     <!--字体颜色-->
+    <color name="tv_yellow">#FF5111</color>
     <color name="tv_black">#333333</color>
     <color name="tv_black_light">#424647</color>
     <color name="tv_white">#FFFFFF</color>
@@ -16,6 +17,7 @@
     <color name="tv_red">#F95759</color>
     <color name="tv_bottom">#84D5FB</color>
 
+    <color name="bg_category">#0099FF</color>
     <color name="bg_next">#d0efd0</color>
     <color name="bg_color">#0B8BAE</color>
     <color name="black">#000000</color>
