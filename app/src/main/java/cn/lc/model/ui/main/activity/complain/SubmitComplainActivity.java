@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.suke.widget.SwitchButton;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -76,11 +77,9 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
     private AddPhotoPop pop;
 
 
-    private String imageLocation = Environment.getExternalStorageDirectory().getPath();
-    private String imageName = "complainImage.jpg";
-    //    Uri imageUri;//The Uri to store the big bitmap
-    String imageUri = "";
-    Uri takePhoto;
+    private String imageLocation = Environment.getExternalStorageDirectory().getPath() + "/file/";
+    private String imageName = "_complain.jpg";
+    String imageUri;
 
     @Override
     public void setContentLayout() {
@@ -140,7 +139,11 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
         } else {
             switch (requestCode) {
                 case TAKE_PHOTO_CAMERA:// 相机
-                    cropImageUri(takePhoto);
+//                    cropImageUri(takePhoto);
+                    if (null != imageUri) {
+                        paths.add(0, imageUri);
+                        imageAdapter.notifyDataSetChanged();
+                    }
                     break;
 
                 case TAKE_PHOTO_ALBUM:// 相册
@@ -166,16 +169,6 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
                     if (data == null) {
                         return;
                     }
-//                    Bundle extras = data.getExtras();
-//                    if (extras != null) {
-//                        Bitmap photo = extras.getParcelable("data");
-//                        //图片路径
-//                        urlpath = FileUtilcll.saveFile(PhotoShoot.this, "temphead.jpg", photo);
-//                    }
-//                    if (imageUri != null) {
-//                        paths.add(0, imageUri.toString());
-//                        imageAdapter.notifyDataSetChanged();
-//                    }
                     break;
             }
         }
@@ -206,13 +199,25 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
      */
     private void takePhotoCamera() {
         pop.dismiss();
-        File file = new File(imageLocation);
-        if (!file.exists()) {
-            file.mkdir();
+        imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
+        File file = new File(imageUri);
+        File file1 = new File(imageLocation);
+        if (!file1.exists()) {
+            file1.mkdirs();
         }
-        takePhoto = Uri.parse(imageLocation + DateUtil.shortyyyyMMdd.format(new Date()) + imageName);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//action is capture
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, takePhoto);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        LogUtils.d("imageUri:" + imageUri);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri uri = Uri.fromFile(new File(imageUri));
+        //为拍摄的图片指定一个存储的路径
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, TAKE_PHOTO_CAMERA);
     }
 
@@ -221,7 +226,7 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
      */
     private void takePhotoAlbum() {
         pop.dismiss();
-//        imageUri = Uri.parse(imageLocation + DateUtil.shortyyyyMMdd.format(new Date()) + imageName);
+//        imageUri = Uri.parse(imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName);
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
@@ -229,7 +234,7 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
 
     // 裁图
     private void cropImageUri(Uri uri) {
-        imageUri = imageLocation + DateUtil.shortyyyyMMdd.format(new Date()) + imageName;
+        imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
         LogUtils.d("uri :" + uri.toString() + "  imageUri:" + imageUri);
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
@@ -259,6 +264,9 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
             return;
         }
 //        int isAnonymity = anonymity.isChecked() ? 1 : 0;
+        for (int i = 0; i < paths.size(); i++) {
+            LogUtils.d("图片路径是：" + paths.get(i));
+        }
         getPresenter().submitComplainSucc(labellingID, content.getText().toString(),
                 suggest.getText().toString(), anonymity.isChecked() ? 1 : 0, paths);
 

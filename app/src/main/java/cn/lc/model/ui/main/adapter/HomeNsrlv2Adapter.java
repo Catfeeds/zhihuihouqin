@@ -31,7 +31,7 @@ public class HomeNsrlv2Adapter extends RecyclerView.Adapter {
         return 3;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_content_des)
         TextView tvContentDes;
         @BindView(R.id.tv_secondrv_time)

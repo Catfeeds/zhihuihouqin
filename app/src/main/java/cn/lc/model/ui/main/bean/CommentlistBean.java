@@ -9,13 +9,13 @@ public class CommentlistBean {
     private String content;
     private String createtime;
     private int doctorid;
-    private Object id;
+    private int id;
     private String imgs;
     private int orderid;
     private String photo;
     private String realname;
     private double score;
-    private Object servicescore;
+    private int servicescore;
     private int uid;
 
     public int getAnonymous() {
@@ -48,14 +48,6 @@ public class CommentlistBean {
 
     public void setDoctorid(int doctorid) {
         this.doctorid = doctorid;
-    }
-
-    public Object getId() {
-        return id;
-    }
-
-    public void setId(Object id) {
-        this.id = id;
     }
 
     public String getImgs() {
@@ -98,19 +90,27 @@ public class CommentlistBean {
         this.score = score;
     }
 
-    public Object getServicescore() {
-        return servicescore;
-    }
-
-    public void setServicescore(Object servicescore) {
-        this.servicescore = servicescore;
-    }
-
     public int getUid() {
         return uid;
     }
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getServicescore() {
+        return servicescore;
+    }
+
+    public void setServicescore(int servicescore) {
+        this.servicescore = servicescore;
     }
 }

@@ -12,7 +12,6 @@ import android.widget.PopupWindow;
 import cn.lc.model.R;
 import cn.lc.model.ui.main.adapter.SelectTimeAdapter;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
-import mvp.cn.util.CommonUtil;
 
 /**
  * 类描述：
@@ -45,7 +44,7 @@ public class SelectTimePop extends PopupWindow {
         am.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listene.onClick(data.getAmList().get(position).getId(), data.getAmList().get(position).getTimeStr());
+                listene.onClick(data.getAmList().get(position).getId(), data.getAmList().get(position).getTimeStr(), true);
                 dismiss();
             }
         });
@@ -53,7 +52,7 @@ public class SelectTimePop extends PopupWindow {
         pm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listene.onClick(data.getPmList().get(position).getId(), data.getPmList().get(position).getTimeStr());
+                listene.onClick(data.getPmList().get(position).getId(), data.getPmList().get(position).getTimeStr(), false);
                 dismiss();
             }
         });
@@ -91,7 +90,7 @@ public class SelectTimePop extends PopupWindow {
     }
 
     public interface OnSelectClick {
-        void onClick(int id, String time);
+        void onClick(int id, String time, boolean isAm);
     }
 
 }

@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.suke.widget.SwitchButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +23,7 @@ import cn.lc.model.framework.widget.NoSlidingGridView;
 import cn.lc.model.ui.main.adapter.DoctorDetailGrideAdapter;
 import cn.lc.model.ui.main.adapter.DoctorDetailrvAdapter;
 import cn.lc.model.ui.main.bean.CollectBean;
+import cn.lc.model.ui.main.bean.CommentlistBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
 import cn.lc.model.ui.main.bean.DoctorListBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
@@ -66,6 +70,7 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel, Doctor
     private DoctorListBean.DoctorlistBean doctorDetailBean;
     private DoctorDetailGrideAdapter grideAdapter;
     private DoctorDetailrvAdapter detailrvAdapter;
+    private List<CommentlistBean> data;
 
 
     @Override
@@ -86,6 +91,7 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel, Doctor
 
     @Override
     public void initView() {
+        data = new ArrayList<>();
         doctorDetailBean = (DoctorListBean.DoctorlistBean) getIntent().getSerializableExtra("listBean");
         setDoctorDetail(doctorDetailBean);
         getPresenter().getData(doctorDetailBean.getDoctorid());
@@ -112,7 +118,9 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel, Doctor
     @Override
     public void getUserCommentListSucc(UserCommentBean userCommentBean) {
         if(userCommentBean!=null){
-            detailrvAdapter.setData(userCommentBean.getCommentlist());
+            data.addAll(userCommentBean.getCommentlist());
+            detailrvAdapter.notifyDataSetChanged();
+//            detailrvAdapter.setData(userCommentBean.getCommentlist());
         }else{
             Log.e("userCommentBean","为空了");
         }
@@ -134,7 +142,7 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel, Doctor
 
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        detailrvAdapter = new DoctorDetailrvAdapter(this);
+        detailrvAdapter = new DoctorDetailrvAdapter(this, data);
         recyclerView.setAdapter(detailrvAdapter);
     }
 

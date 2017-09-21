@@ -141,7 +141,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
 
     private static List<MultipartBody.Part> getImgList(ArrayList<String> paths, String s) {
         List<MultipartBody.Part> parts = new ArrayList<>();
-
+        LogUtils.d("文件长度：" + paths.size());
         for (int i = 0; i < paths.size(); i++) {
             //这里采用的Compressor图片压缩
             LogUtils.d("图片地址：" + paths.get(i));
@@ -451,7 +451,6 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      */
     public static Observable getMoreList(int page, int limit, String keywords) {
         Map<String, Object> paramsMap = new HashMap<>();
-        Log.e("getCommentList", "---》home");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
             tempMap.put("page", page + "");
@@ -466,13 +465,12 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
-     * 获取医生详情里的用户评论列表
+     * 获取医生评论列表
      *
      * @return
      */
     public static Observable getUserCommentList(int doctorId, int page, int limit) {
         Map<String, Object> paramsMap = new HashMap<>();
-        Log.e("getUserCommentList", "---》home");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
             tempMap.put("doctorid", doctorId + "");
@@ -484,6 +482,61 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getUserCommentList(paramsMap));
+    }
+
+
+    /**
+     * 获取专家详情
+     */
+    public static Observable getExpertDetail() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getExpertDetail(paramsMap));
+    }
+
+    /**
+     * 获取专家评论列表
+     *
+     * @return
+     */
+    public static Observable getExpertComment(int expertId, int page, int limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        Log.e("getUserCommentList", "---》home");
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            tempMap.put("doctorid", expertId + "");
+            tempMap.put("page", page + "");
+            tempMap.put("limit", limit + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getExpertComment(paramsMap));
+    }
+
+
+    /**
+     * 专家下单
+     */
+    public static Observable submitExpertOrder(int id, int timeId) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("doctorid", id + "");
+            tempMap.put("scheduleid", timeId + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.submitExpertOrder(paramsMap));
     }
 
     /**
@@ -724,7 +777,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      */
     public static Observable getJieyueTime() {
         Map<String, Object> paramsMap = new HashMap<>();
-        Log.e("getJieyueTime","---》bookDetail");
+        Log.e("getJieyueTime", "---》bookDetail");
         try {
             Map<String, String> tempMap = new HashMap();
             addParam(paramsMap, tempMap);
@@ -734,6 +787,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.jieYueTime(paramsMap));
     }
+
     /**
      * 获取图书列表
      */
@@ -752,15 +806,16 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getSearchBookList(paramsMap));
     }
+
     /**
      * 获取图书订单列表
      */
     public static Observable bookOrderList(String typeid) {
         Map<String, Object> paramsMap = new HashMap<>();
-        Log.e("bookOrderList","---》bookDetail");
+        Log.e("bookOrderList", "---》bookDetail");
         try {
             Map<String, String> tempMap = new HashMap();
-            tempMap.put("type",typeid);
+            tempMap.put("type", typeid);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -894,13 +949,15 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.orderDryClean(paramsMap));
-    }/**
+    }
+
+    /**
      * 提交预约
      *
      * @return
      */
-    public static Observable dryOrderCommit(String mobile ,String expectarrivaItme,
-                                String clothList) {
+    public static Observable dryOrderCommit(String mobile, String expectarrivaItme,
+                                            String clothList) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -914,18 +971,19 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.dryOrderCommit(paramsMap));
     }
+
     /**
      * 查看干洗订单
      *
      * @return
      */
-    public static Observable checkDryOrder(int orderStatus,int page,int limit) {
+    public static Observable checkDryOrder(int orderStatus, int page, int limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("orderStatus", orderStatus+"");
-            tempMap.put("page", page+"");
-            tempMap.put("limit", limit+"");
+            tempMap.put("orderStatus", orderStatus + "");
+            tempMap.put("page", page + "");
+            tempMap.put("limit", limit + "");
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -933,6 +991,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.checkDryOrder(paramsMap));
     }
+
     /**
      * 获取干洗取消列表
      *
@@ -949,18 +1008,19 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getDryCancelList(paramsMap));
     }
+
     /**
      * 获取干洗取消列表
      *
      * @return
      */
-    public static Observable commitDryCancel(int old,String reasonIds,String reasonContent) {
+    public static Observable commitDryCancel(int old, String reasonIds, String reasonContent) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("oid",old+"");
-            tempMap.put("reasonIds",reasonIds);
-            tempMap.put("reasonContent",reasonContent);
+            tempMap.put("oid", old + "");
+            tempMap.put("reasonIds", reasonIds);
+            tempMap.put("reasonContent", reasonContent);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -968,6 +1028,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.commitDryCancelOrder(paramsMap));
     }
+
     /**
      * 干洗评论
      *
@@ -977,10 +1038,10 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("oid",oid+"");
-            tempMap.put("stars",stars+"");
-            tempMap.put("content",content);
-            tempMap.put("isAnonymous",isAnonymous);
+            tempMap.put("oid", oid + "");
+            tempMap.put("stars", stars + "");
+            tempMap.put("content", content);
+            tempMap.put("isAnonymous", isAnonymous);
             //TODO: 2017/9/16 0016 需要添加图片文件
             addParam(paramsMap, tempMap);
 
@@ -1537,14 +1598,11 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
-     *  提交净菜订单
+     * 提交净菜订单
      */
     public static Observable submitVegetableOrder(HashMap<String, String> tempMap) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-//            Map<String, String> tempMap = new HashMap<>();
-//            tempMap.put("keyword", keyword);
-//            tempMap.put("page", page + "");
             tempMap.put("limit", 20 + "");
             addParam(paramsMap, tempMap);
 
@@ -1552,6 +1610,21 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.submitVegetableOrder(paramsMap));
+    }
+
+    /**
+     * 获取取餐时间
+     */
+    public static Observable getVegetableSelectTime() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getVegetableTime(paramsMap));
     }
 
 }

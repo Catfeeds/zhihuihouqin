@@ -16,9 +16,9 @@ import rx.Subscriber;
 
 public class VegetableMainPresenter extends MvpRxPresenter<VegetableMainModel, VegetableMainView> {
 
-    public void getVegetableData(int id, String keyword) {
+    public void getVegetableData(int page, String keyword) {
         getView().showProgressDialog();
-        Observable request = getModel().getVegetableData(id, keyword);
+        Observable request = getModel().getVegetableData(page, keyword);
         getNetWork(request, new Subscriber<VegetableBean>() {
 
             @Override

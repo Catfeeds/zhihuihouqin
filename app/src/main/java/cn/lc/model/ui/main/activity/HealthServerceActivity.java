@@ -1,16 +1,9 @@
 package cn.lc.model.ui.main.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,14 +21,18 @@ import cn.lc.model.ui.main.model.HealthServerceModel;
 import cn.lc.model.ui.main.modelimpl.HealthServerceModelImpl;
 import cn.lc.model.ui.main.presenter.HealthServercePresenter;
 import cn.lc.model.ui.main.view.HealthServerceView;
-import cn.lc.model.ui.mywidget.NoSlideRecyclerView;
+import cn.lc.model.ui.mywidget.NoScrollLinearLayoutManager;
+
+//import android.support.v7.widget.DividerItemDecoration;
 
 
 /**
+ * 医疗服务主页面
  * Created by 我的电脑 on 2017/8/15 0015.
  */
 
-public class HealthServerceActivity extends BaseActivity<HealthServerceModel,HealthServerceView,HealthServercePresenter> implements HealthServerceView {
+public class HealthServerceActivity extends BaseActivity<HealthServerceModel, HealthServerceView, HealthServercePresenter> implements HealthServerceView {
+
     @BindView(R.id.heath_serverce_title)
     TitleBar titleBar;
     @BindView(R.id.iv_serverce)
@@ -45,19 +42,10 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel,Hea
     @BindView(R.id.tv_more)
     TextView tvMore;
     @BindView(R.id.rv_serverce)
-    NoSlideRecyclerView rvServerce;
+    RecyclerView rvServerce;
+
     private HealthServiceGridAdapter gridAdapter;
     private HealthServiceRvAdapter rvAdapter;
-
-    @Override
-    public HealthServercePresenter createPresenter() {
-        return new HealthServercePresenter();
-    }
-
-    @Override
-    public HealthServerceModel createModel() {
-        return new HealthServerceModelImpl();
-    }
 
     @Override
     public void setContentLayout() {
@@ -73,15 +61,15 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel,Hea
         initRecycler();
         clickMore();
     }
+
     @Override
     public void success(HealthServerceHomeBean hshomeBean) {
-        Log.e("hshomeBean",hshomeBean.getPicture());
-        if(hshomeBean!=null){
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(this,hshomeBean.getPicture(),ivServerce);
-            rvAdapter.setData(hshomeBean.getInfolist());
+        if (hshomeBean != null) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(this, hshomeBean.getPicture(), ivServerce);
+            rvAdapter.setData(hshomeBean.getInfolist(), 1);
         }
-
     }
+
     private void clickMore() {
         tvMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,9 +81,8 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel,Hea
     }
 
     private void initRecycler() {
-        // rvServerce.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        rvServerce.setLayoutManager(new LinearLayoutManager(this));
         rvAdapter = new HealthServiceRvAdapter(this);
+        rvServerce.setLayoutManager(new NoScrollLinearLayoutManager(this));
         rvServerce.setAdapter(rvAdapter);
     }
 
@@ -110,8 +97,10 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel,Hea
                         Intent intent = new Intent(HealthServerceActivity.this, RegistrationActivity.class);
                         startActivity(intent);
                         break;
+
                     case 1://健康档案
                         break;
+
                     case 2://专家坐诊
                         Intent intent3 = new Intent(HealthServerceActivity.this, ExpertsVisitActivity.class);
                         startActivity(intent3);
@@ -122,10 +111,18 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel,Hea
     }
 
     private void initTitle() {
-        titleBar.setBack(true);
         titleBar.setTitle("医疗服务");
-
+        titleBar.setBack(true);
     }
 
+    @Override
+    public HealthServercePresenter createPresenter() {
+        return new HealthServercePresenter();
+    }
+
+    @Override
+    public HealthServerceModel createModel() {
+        return new HealthServerceModelImpl();
+    }
 
 }

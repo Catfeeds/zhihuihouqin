@@ -103,7 +103,7 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
 //        ToastUtil.showToast(this, "请求成功!" + bean.toString());
         pop = new SelectTimePop(OrderingActivity.this, bean, new SelectTimePop.OnSelectClick() {
             @Override
-            public void onClick(int id, String time) {
+            public void onClick(int id, String time, boolean isAm) {
                 timeId = id;
                 tv_time.setText(time);
             }

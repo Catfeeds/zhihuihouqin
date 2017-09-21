@@ -20,7 +20,10 @@ public interface NetUrl {
     String doctorList="appuser/ylfw/doctorlist";
     String doctorDetail="appuser/ylfw/schedules";
     String more="appuser/healthyinfo/list";
-    String userCommentList="appuser/ylfw/getcomment";
+    String userCommentList="appuser/ylfw/getcomment";// 医生评论
+    String expertDetail = "appuser/ylfw/expertdetail"; // 专家详情
+    String expertComment = "appuser/ylfw/getexpertcomment"; // 专家评论
+    String expertOreder = "appuser/ylfw/addexpertOrder"; // 专家下单
     //物业维修
     String wuyeHome="appuser/lffw/preorder";
     String activityHome="appuser/tdhdfw/index";

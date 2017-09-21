@@ -23,7 +23,9 @@
             android:layout_width="240dp"
             android:layout_height="40dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/shap_search_text"></RelativeLayout>
+            android:background="@drawable/shap_search_text">
+
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="18dp"
@@ -108,7 +110,6 @@
                     android:layout_marginTop="10dp"
                     android:numColumns="4" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,7 +135,7 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
-                <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/nsrlv1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -164,7 +165,7 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
-                <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/nsrlv2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -194,7 +195,7 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
-                <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/nsrlv3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

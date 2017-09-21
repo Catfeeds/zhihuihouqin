@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -49,7 +49,7 @@ import cn.lc.model.ui.main.model.Tab1Model;
 import cn.lc.model.ui.main.modelimpl.Tab1ModelImpl;
 import cn.lc.model.ui.main.presenter.Tab1Presenter;
 import cn.lc.model.ui.main.view.Tab1View;
-import cn.lc.model.ui.mywidget.NoSlideRecyclerView;
+import cn.lc.model.ui.mywidget.NoScrollLinearLayoutManager;
 import cn.lc.model.zxing.android.CaptureActivity;
 
 /**
@@ -75,13 +75,14 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
     SmartRefreshLayout refreshLayout;
     Unbinder unbinder;
     @BindView(R.id.nsrlv1)
-    NoSlideRecyclerView nsrlv1;
+    RecyclerView nsrlv1;
     @BindView(R.id.nsrlv2)
-    NoSlideRecyclerView nsrlv2;
+    RecyclerView nsrlv2;
     @BindView(R.id.nsrlv3)
-    NoSlideRecyclerView nsrlv3;
+    RecyclerView nsrlv3;
     @BindView(R.id.rl_search)
     RelativeLayout search;//关键词搜索
+
     private String[] des = {"医疗服务", "物业维修", "图书馆", "活动报名",
             "预约理发", "干洗店", "办公用品", "更多"};
 
@@ -125,19 +126,19 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
     @Override
     public void initView(View v) {
         ButterKnife.bind(this, v);
-        nsrlv1.setLayoutManager(new LinearLayoutManager(getActivity()));
         HomeNsrlv1Adapter homeNsrlv1Adapter = new HomeNsrlv1Adapter();
+        nsrlv1.setLayoutManager(new NoScrollLinearLayoutManager(getActivity()));
         nsrlv1.setAdapter(homeNsrlv1Adapter);
 
-        nsrlv2.setLayoutManager(new LinearLayoutManager(getActivity()));
         HomeNsrlv2Adapter homeNsr2v1Adapter = new HomeNsrlv2Adapter();
+        nsrlv2.setLayoutManager(new NoScrollLinearLayoutManager(getActivity()));
         nsrlv2.setAdapter(homeNsr2v1Adapter);
 
-        nsrlv3.setLayoutManager(new LinearLayoutManager(getActivity()));
         HomeNsrlv3Adapter homeNsrlv3Adapter = new HomeNsrlv3Adapter(getActivity());
+        nsrlv3.setLayoutManager(new NoScrollLinearLayoutManager(getActivity()));
         nsrlv3.setAdapter(homeNsrlv3Adapter);
 
-        HomeAdapter homeAdapter = new HomeAdapter(getActivity(),des,photos);
+        HomeAdapter homeAdapter = new HomeAdapter(getActivity(), des, photos);
         gridViewCatogary.setAdapter(homeAdapter);
         //设置刷新
         setRefresh();
@@ -145,7 +146,7 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
         setGridItemClick();
         //初始化轮播图
         initSliderLayout();
-        sv.smoothScrollTo(0,20);
+        sv.smoothScrollTo(0, 20);
         sv.setFocusable(true);
 
     }
@@ -266,7 +267,7 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
                     //申请开启摄像机权限
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
                             CAMERA_REQUEST_CODE);//自定义的code
-                }else{
+                } else {
                     init();
                 }
                 break;
@@ -274,18 +275,20 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
                 break;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == CAMERA_REQUEST_CODE){
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //执行扫描
                 init();
-            }else{
+            } else {
                 Toast.makeText(getActivity(), "您已拒绝了访问的权限", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
     private void init() {
         Intent intent = new Intent(getActivity(),
                 CaptureActivity.class);

@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +23,7 @@ import cn.lc.model.ui.main.adapter.BarberProductAdapter;
 import cn.lc.model.ui.main.adapter.DoctorDetailrvAdapter;
 import cn.lc.model.ui.main.bean.BarberDetailBean;
 import cn.lc.model.ui.main.bean.BarberListBean;
+import cn.lc.model.ui.main.bean.CommentlistBean;
 import cn.lc.model.ui.main.model.BarberDetailModel;
 import cn.lc.model.ui.main.modelimpl.BarberDetailModelImpl;
 import cn.lc.model.ui.main.presenter.BarberDetailPresenter;
@@ -75,6 +79,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     private String address;
     private BarberListBean.BarberlistBean barberlistBean;
     private DoctorDetailrvAdapter rvAdapter;
+    private List<CommentlistBean> data;
     private String shopName;
     private BarberProductAdapter barberProductAdapter;
     private BarberDetailBean detailBean;
@@ -120,7 +125,9 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             tvBarberJieshaoContent.setText(detailBean.getBrief());
             tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
             barberProductAdapter.setData(detailBean.getWorklist());
-            rvAdapter.setData(detailBean.getCommentlist());
+            data.addAll(detailBean.getCommentlist());
+            rvAdapter.notifyDataSetChanged();
+//            rvAdapter.setData(detailBean.getCommentlist());
         }
         if (barberlistBean != null) {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, barberlistBean.getPhoto(), civBarberHeaderPhoto);
@@ -135,8 +142,9 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     }
 
     private void initRecycler() {
+        data = new ArrayList<>();
         nsrvUserComment.setLayoutManager(new LinearLayoutManager(this));
-        rvAdapter = new DoctorDetailrvAdapter(this);
+        rvAdapter = new DoctorDetailrvAdapter(this, data);
         nsrvUserComment.setAdapter(rvAdapter);
     }
 

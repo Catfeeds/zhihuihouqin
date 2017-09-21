@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/standard_padding"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
-
 
         <ImageView
             android:id="@+id/iv_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
@@ -29,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="温习党训活动"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,19 +60,19 @@
 
                 <TextView
                     android:id="@+id/phone"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="电话：135****7895" />
+                    android:text="电话：135****7895"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:id="@+id/iv_call_phone"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
                     android:src="@drawable/phone" />
             </RelativeLayout>
 
@@ -79,27 +80,37 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="3dp">
 
         <TextView
             android:id="@+id/tv_thridrv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="时间：2017-05-16 12:00-14:00" />
+            android:text="时间：2017-05-16 12:00-14:00"
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_sign_up"
-            android:padding="5dp"
-            android:gravity="center"
-            android:textSize="@dimen/sp_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/sign_up"
+            android:gravity="center"
+            android:padding="5dp"
             android:text="报名（15/50）"
-            android:textColor="#fff" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_small" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
 </LinearLayout>

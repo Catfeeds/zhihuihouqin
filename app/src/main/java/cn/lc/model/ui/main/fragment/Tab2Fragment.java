@@ -22,6 +22,7 @@ import cn.lc.model.ui.main.activity.complain.SubmitComplainActivity;
 import cn.lc.model.ui.main.activity.information.InformationActivity;
 import cn.lc.model.ui.main.activity.nutritionalmeal.NutritionActivity;
 import cn.lc.model.ui.main.activity.ordering.OrderingActivity;
+import cn.lc.model.ui.main.activity.vegetable.VegetableMainActivity;
 import cn.lc.model.ui.main.adapter.AllGrideAdapter;
 import cn.lc.model.ui.main.model.Tab2Model;
 import cn.lc.model.ui.main.presenter.Tab2Presenter;
@@ -157,6 +158,9 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
                             switch (position) {
                                 case 1:// 营养套餐
                                     startActivity(new Intent(getActivity(), NutritionActivity.class));
+                                    break;
+                                case 5:// 净菜预订
+                                    startActivity(new Intent(getActivity(), VegetableMainActivity.class));
                                     break;
                                 case 6:// 工作餐预订
                                     startActivity(new Intent(getActivity(), OrderingActivity.class));

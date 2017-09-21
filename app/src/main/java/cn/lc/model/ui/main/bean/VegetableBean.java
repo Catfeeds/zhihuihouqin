@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * 作者：Shixhe On 2017/9/15 0015
  */
 
-public class VegetableBean {
+public class VegetableBean implements Serializable {
 
     private PageEntity page;
     private int errCode;
@@ -37,7 +38,7 @@ public class VegetableBean {
         this.msg = msg;
     }
 
-    public static class PageEntity {
+    public static class PageEntity implements Serializable {
 
         private int currPage;
         private int pageSize;
@@ -85,7 +86,7 @@ public class VegetableBean {
             this.list = list;
         }
 
-        public static class ListEntity {
+        public static class ListEntity implements Serializable {
 
             private String createtime;
             private int id;
@@ -96,6 +97,7 @@ public class VegetableBean {
             private int remain;
             private int totalcount;
             private int uploaduid;
+            private int number;
 
             public String getCreatetime() {
                 return createtime;
@@ -167,6 +169,14 @@ public class VegetableBean {
 
             public void setUploaduid(int uploaduid) {
                 this.uploaduid = uploaduid;
+            }
+
+            public int getNumber() {
+                return number;
+            }
+
+            public void setNumber(int number) {
+                this.number = number;
             }
         }
     }

@@ -10,6 +10,7 @@ public class InfolistBean {
     private String source;
     private String title;
     private String url;
+    private String imgs;
 
     public String getCreatetime() {
         return createtime;
@@ -51,4 +52,11 @@ public class InfolistBean {
         this.url = url;
     }
 
+    public String getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(String imgs) {
+        this.imgs = imgs;
+    }
 }

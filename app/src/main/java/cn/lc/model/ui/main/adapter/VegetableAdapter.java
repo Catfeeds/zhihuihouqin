@@ -13,7 +13,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
+import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.ui.main.bean.VegetableBean;
+import mvp.cn.util.ToastUtil;
 
 /**
  * 类描述：
@@ -23,6 +25,8 @@ public class VegetableAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private List<VegetableBean.PageEntity.ListEntity> data;
+    private OnAddClickListener addClickListener;
+    private OnMinusClickListener minusClickListener;
 
     public VegetableAdapter(Context context, List<VegetableBean.PageEntity.ListEntity> data) {
         this.context = context;
@@ -36,8 +40,51 @@ public class VegetableAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolder h = (ViewHolder) holder;
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        final ViewHolder h = (ViewHolder) holder;
+        final VegetableBean.PageEntity.ListEntity entity = data.get(position);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, entity.getImg(), h.image);
+        h.title.setText(entity.getName());
+        h.content.setText(entity.getOriginal());
+        h.price.setText("¥" + entity.getPrice());
+        h.num.setText(entity.getRemain() + "/" + entity.getTotalcount());
+        if (entity.getNumber() == 0) {
+            h.number.setVisibility(View.GONE);
+            h.minus.setVisibility(View.GONE);
+        } else {
+            h.number.setVisibility(View.VISIBLE);
+            h.minus.setVisibility(View.VISIBLE);
+        }
+
+        h.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num = entity.getNumber() + 1;
+                if (entity.getNumber() >= data.get(position).getRemain()) {
+                    ToastUtil.showToast(context, "该菜品已点最大数量！");
+                    return;
+                }
+                if (addClickListener != null)
+                    addClickListener.onAddClick(position, num);
+                h.number.setText(num + "");
+                h.number.setVisibility(View.VISIBLE);
+                h.minus.setVisibility(View.VISIBLE);
+            }
+        });
+
+        h.minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int num = entity.getNumber() - 1 <= 0 ? 0 : entity.getNumber() - 1;
+                if (num == 0) {
+                    h.number.setVisibility(View.GONE);
+                    h.minus.setVisibility(View.GONE);
+                }
+                if (minusClickListener != null)
+                    minusClickListener.onMinusClick(position, num);
+                h.number.setText(num + "");
+            }
+        });
 
     }
 
@@ -45,7 +92,6 @@ public class VegetableAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return data.size();
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image)
@@ -69,5 +115,21 @@ public class VegetableAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public void setOnAddClickListener(OnAddClickListener addClickListener) {
+        this.addClickListener = addClickListener;
+    }
+
+    public interface OnAddClickListener {
+        void onAddClick(int position, int num);
+    }
+
+    public void setOnMinusClickListener(OnMinusClickListener minusClickListener) {
+        this.minusClickListener = minusClickListener;
+    }
+
+    public interface OnMinusClickListener {
+        void onMinusClick(int position, int num);
     }
 }

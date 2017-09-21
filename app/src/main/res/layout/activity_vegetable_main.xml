@@ -11,9 +11,9 @@
 
         <cn.lc.model.framework.widget.TitleBar
             android:id="@+id/title_bar"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"/>
+            android:layout_height="@dimen/title_height"
+            android:background="@color/white" />
 
         <ImageView
             android:id="@+id/search"
@@ -22,7 +22,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:padding="3dp"
+            android:padding="5dp"
             android:src="@drawable/search" />
 
     </RelativeLayout>
@@ -71,8 +71,9 @@
             android:id="@+id/price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="¥0"
             android:textColor="@color/red"
             android:textSize="@dimen/sp_bigger" />
 
@@ -81,10 +82,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/blue"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/now_reserve"
-            android:textColor="@color/white" />
+            android:minWidth="100dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="去结算"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_small" />
 
     </LinearLayout>
 

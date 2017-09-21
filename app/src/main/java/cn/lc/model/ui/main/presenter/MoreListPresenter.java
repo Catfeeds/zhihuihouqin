@@ -2,14 +2,10 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.MoreListBean;
-import cn.lc.model.ui.main.model.CollectModel;
 import cn.lc.model.ui.main.model.MoreListModel;
-import cn.lc.model.ui.main.view.CollectView;
 import cn.lc.model.ui.main.view.MoreListView;
 import mvp.cn.rx.MvpRxPresenter;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -19,9 +15,9 @@ import rx.Subscriber;
 
 public class MoreListPresenter extends MvpRxPresenter<MoreListModel, MoreListView> {
 
-    public void getData(int page,int limit,String s) {
+    public void getData(int page, int limit, String s) {
         getView().showProgressDialog();
-        Observable login = getModel().getData(page,limit,s);
+        Observable login = getModel().getData(page, limit, s);
         getNetWork(login, new Subscriber<MoreListBean>() {
             @Override
             public void onCompleted() {
@@ -30,14 +26,14 @@ public class MoreListPresenter extends MvpRxPresenter<MoreListModel, MoreListVie
 
             @Override
             public void onError(Throwable e) {
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(MoreListBean moreListBean) {
-                if(moreListBean.getErrCode()==0){
+                if (moreListBean.getErrCode() == 0) {
                     getView().getMoreList(moreListBean);
-                }else{
+                } else {
                     getView().showToast(moreListBean.getMsg());
                 }
             }

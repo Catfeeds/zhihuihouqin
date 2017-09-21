@@ -9,7 +9,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
 import cn.lc.model.ui.main.activity.message.SystemMessageActivity;
@@ -72,7 +71,7 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
     @BindView(R.id.rv_msg)
     NoSlideRecyclerView rvMsg;
 
-    Unbinder unbinder;
+//    Unbinder unbinder;
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
@@ -83,10 +82,9 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
     public void initView(View v) {
         ButterKnife.bind(this, v);
         initTitle();
-
     }
 
-    @OnClick({R.id.complain_history})
+    @OnClick({R.id.already_read, R.id.system, R.id.comment, R.id.pay_up, R.id.audit, R.id.active, R.id.order, R.id.complain})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.already_read: //  已读
@@ -140,6 +138,6 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+//        unbinder.unbind();
     }
 }

@@ -26,6 +26,9 @@ import cn.lc.model.ui.main.bean.ComplainHistoryBean;
 import cn.lc.model.ui.main.bean.ComplainReplyBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
 import cn.lc.model.ui.main.bean.DoctorListBean;
+import cn.lc.model.ui.main.bean.ExpertCommentBean;
+import cn.lc.model.ui.main.bean.ExpertDetailBean;
+import cn.lc.model.ui.main.bean.ExpertOrderBean;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.bean.InformationClazzBean;
@@ -38,6 +41,7 @@ import cn.lc.model.ui.main.bean.MoreListBean;
 import cn.lc.model.ui.main.bean.NutritionBean;
 import cn.lc.model.ui.main.bean.OfficeIndexBean;
 import cn.lc.model.ui.main.bean.OrderDryCleanBean;
+import cn.lc.model.ui.main.bean.PayBean;
 import cn.lc.model.ui.main.bean.PreOrderBean;
 import cn.lc.model.ui.main.bean.ProductCategoryBean;
 import cn.lc.model.ui.main.bean.ReasonBean;
@@ -62,7 +66,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -135,6 +138,21 @@ public interface NetAPI {
     @POST(NetUrl.userCommentList)
     Observable<UserCommentBean> getUserCommentList(@FieldMap Map<String, Object> map);
 
+    // 获取专家详情
+    @FormUrlEncoded
+    @POST(NetUrl.expertDetail)
+    Observable<ExpertDetailBean> getExpertDetail(@FieldMap Map<String, Object> map);
+
+    // 获得专家评论列表
+    @FormUrlEncoded
+    @POST(NetUrl.expertComment)
+    Observable<ExpertCommentBean> getExpertComment(@FieldMap Map<String, Object> map);
+
+    // 专家下单
+    @FormUrlEncoded
+    @POST(NetUrl.expertOreder)
+    Observable<ExpertOrderBean> submitExpertOrder(@FieldMap Map<String, Object> map);
+
     //物业首页
     /*@FormUrlEncoded
     @POST(NetUrl.wuyeHome)
@@ -142,18 +160,22 @@ public interface NetAPI {
     @Multipart
     @POST(NetUrl.wuyeHome)
     Observable<WuyeHomeBean> getWuyeHomeInfo(@PartMap() Map<String, RequestBody> map, @Part List<MultipartBody.Part> partList);
+
     //活动首页
     @FormUrlEncoded
     @POST(NetUrl.activityHome)
     Observable<ActivityHomeBean> getActivityHome(@FieldMap Map<String, Object> map);
+
     //活动发布
     @FormUrlEncoded
     @POST(NetUrl.activityPost)
     Observable<ActivityPostBean> postActivity(@FieldMap Map<String, Object> map);
+
     //活动包名
     @FormUrlEncoded
     @POST(NetUrl.activitySign)
     Observable<ActivitySignBean> getActivitySign(@FieldMap Map<String, Object> map);
+
     //活动报名列表
     @FormUrlEncoded
     @POST(NetUrl.activityList)
@@ -163,6 +185,7 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.libraryHome)
     Observable<LibraryHomeBean> getLibraryHomeData(@FieldMap Map<String, Object> map);
+
     //图书首页
     @FormUrlEncoded
     @POST(NetUrl.libraryIndex)
@@ -177,22 +200,27 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.bookdetail)
     Observable<BookDetailBean> getBookDetailResult(@FieldMap Map<String, Object> map);
+
     //图书借阅
     @FormUrlEncoded
     @POST(NetUrl.jieyue)
     Observable<JieYueBean> jieYueBook(@FieldMap Map<String, Object> map);
+
     //图书借阅时间
     @FormUrlEncoded
     @POST(NetUrl.jieyuetime)
     Observable<JieYueTimeBean> jieYueTime(@FieldMap Map<String, Object> map);
+
     //查询类别
     @FormUrlEncoded
     @POST(NetUrl.searchCategory)
     Observable<SearchCategoryBean> getSearchCategory(@FieldMap Map<String, Object> map);
+
     //查询书列表
     @FormUrlEncoded
     @POST(NetUrl.searchBookList)
     Observable<SearchBookListBean> getSearchBookList(@FieldMap Map<String, Object> map);
+
     //查询图书订单列表
     @FormUrlEncoded
     @POST(NetUrl.bookOrderList)
@@ -228,22 +256,27 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.dryCleanerHome)
     Observable<ServiceBean> getDryCleanerHomeInfo(@FieldMap Map<String, Object> map);
+
     //预约干洗
     @FormUrlEncoded
     @POST(NetUrl.orderDryCleaner)
     Observable<OrderDryCleanBean> orderDryClean(@FieldMap Map<String, Object> map);
+
     //提交预约
     @FormUrlEncoded
     @POST(NetUrl.DryOrderCommit)
     Observable<JieYueBean> dryOrderCommit(@FieldMap Map<String, Object> map);
+
     //查看干洗订单
     @FormUrlEncoded
     @POST(NetUrl.DryOreder)
     Observable<CheckDryOrderBean> checkDryOrder(@FieldMap Map<String, Object> map);
+
     //获取取消原因列表
     @FormUrlEncoded
     @POST(NetUrl.getDryCancelList)
     Observable<ReasonBean> getDryCancelList(@FieldMap Map<String, Object> map);
+
     //提交并删除订单
     @FormUrlEncoded
     @POST(NetUrl.commitDryCancelOrder)
@@ -403,5 +436,10 @@ public interface NetAPI {
     // 提交净菜订单
     @FormUrlEncoded
     @POST(NetUrl.submitVegetableOrder)
-    Observable<CollectBean> submitVegetableOrder(@FieldMap Map<String, Object> map);
+    Observable<PayBean> submitVegetableOrder(@FieldMap Map<String, Object> map);
+
+    // 获取净菜取餐时间
+    @FormUrlEncoded
+    @POST(NetUrl.getVegetableTime)
+    Observable<SelectTimeBean> getVegetableTime(@FieldMap Map<String, Object> map);
 }

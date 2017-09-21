@@ -2,58 +2,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
     android:orientation="horizontal">
-<de.hdodenhof.circleimageview.CircleImageView
-    android:layout_width="60dp"
-    android:id="@+id/civ_user_photo"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="12dp"
-    android:src="@drawable/partner_luffy"
-    android:layout_height="80dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_user_photo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="12dp" />
+
     <LinearLayout
-        android:layout_marginLeft="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_marginTop="12dp"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_user_name"
-                android:text="莉莉"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_bigger"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/sp_big" />
+
             <TextView
                 android:id="@+id/tv_time"
-                android:text="2017.02.08"
-                android:textSize="@dimen/sp_small"
-                android:layout_marginRight="8dp"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:textSize="@dimen/sp_small" />
+        </LinearLayout>
+
         <RatingBar
             android:id="@+id/user_ratingBar"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressTint="@color/yellow"
-            android:theme="@style/RatingBar"
+            android:layout_marginTop="3dp"
             android:progressBackgroundTint="@color/gray"
+            android:progressTint="@color/yellow"
             android:secondaryProgressTint="@color/gray"
-            android:rating="3"/>
+            android:theme="@style/RatingBar" />
+
         <TextView
             android:id="@+id/tv_evaluate"
-            android:text="张医生德艺双馨，态度非常好，非常推荐"
             android:layout_width="match_parent"
-            android:textSize="@dimen/sp_small"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="3dp"
             android:textColor="@color/tv_black"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 </LinearLayout>

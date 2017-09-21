@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
-
+import cn.lc.model.framework.utils.OtherUtils;
 import cn.lc.model.ui.main.bean.CommentlistBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,11 +25,25 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<CommentlistBean> data=new ArrayList<>();
+    private List<CommentlistBean> data;
+    private int mType;
+
+    public DoctorDetailrvAdapter(Context context, List<CommentlistBean> data) {
+        this.context = context;
+        this.data = data;
+    }
+
+    public DoctorDetailrvAdapter(Context context, List<CommentlistBean> data, int type) {
+        this.context = context;
+        this.data = data;
+        mType = type;
+    }
 
     public DoctorDetailrvAdapter(Context context) {
+        data = new ArrayList<>();
         this.context = context;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,19 +54,15 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        if(data!=null){
-            CommentlistBean commentListBean = data.get(position);
-            viewHolder.setData(commentListBean);
-        }
-
+        CommentlistBean commentlistBean = data.get(position);
+        viewHolder.setData(commentlistBean);
     }
 
     @Override
     public int getItemCount() {
-        if(data!=null){
-            return data.size();
-        }
-        return 0;
+        if (mType == 1)
+            return data.size() > 4 ? 4 : data.size();
+        return data.size();
     }
 
     public void setData(List<CommentlistBean> data) {
@@ -60,8 +70,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-
-     class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.civ_user_photo)
         CircleImageView civUserPhoto;
         @BindView(R.id.tv_user_name)
@@ -78,13 +87,13 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-         public void setData(CommentlistBean commentlistBean) {
-             GlideLoading.getInstance().loadImgUrlNyImgLoader(context,
-                     commentlistBean.getPhoto(),civUserPhoto);
-             tvUserName.setText(commentlistBean.getRealname());
-             userRatingBar.setRating((float) commentlistBean.getScore());
-             tvTime.setText(commentlistBean.getCreatetime());
-             tvEvaluate.setText(commentlistBean.getContent());
-         }
-     }
+        public void setData(CommentlistBean commentlistBean) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, commentlistBean.getImgs(), civUserPhoto);
+            tvUserName.setText(commentlistBean.getRealname());
+            userRatingBar.setRating((float) commentlistBean.getScore());
+            OtherUtils.ratingBarColor(userRatingBar);
+            tvTime.setText(commentlistBean.getCreatetime());
+            tvEvaluate.setText(commentlistBean.getContent());
+        }
+    }
 }

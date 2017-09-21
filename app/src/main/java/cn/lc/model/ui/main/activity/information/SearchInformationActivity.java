@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.adapter.HomeNsrlv1Adapter;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.model.InformationModel;
@@ -94,8 +95,8 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
                 }
                 page = 1;
                 content = etSearch.getText().toString().trim();
+                LogUtils.d("搜索键！！！");
                 getData();
-//                getPresenter().getInformation(0, 0, etSearch.getText().toString().trim(), 1);
                 return true;
             }
             return false;

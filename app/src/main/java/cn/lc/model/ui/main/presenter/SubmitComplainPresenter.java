@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.LabellingBean;
 import cn.lc.model.ui.main.model.SubmitComplainModel;
@@ -23,6 +24,7 @@ public class SubmitComplainPresenter extends MvpRxPresenter<SubmitComplainModel,
     public void submitComplainSucc(int id, String complaintContent, String suggestContent, int anonymous, ArrayList<String> paths) {
         getView().showProgressDialog();
         paths.remove(paths.size() - 1);
+        LogUtils.d("文件长度：" + paths.size());
         Observable request = getModel().submitComplain(id, complaintContent, suggestContent, anonymous, paths);
         getNetWork(request, new Subscriber<CollectBean>() {
             @Override

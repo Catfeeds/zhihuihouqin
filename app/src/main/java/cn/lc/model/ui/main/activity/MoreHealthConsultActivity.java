@@ -1,9 +1,7 @@
 package cn.lc.model.ui.main.activity;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -26,6 +24,9 @@ import cn.lc.model.ui.main.modelimpl.MoreListModelImpl;
 import cn.lc.model.ui.main.presenter.MoreListPresenter;
 import cn.lc.model.ui.main.view.MoreListView;
 
+/**
+ * 健康咨询更多页面
+ */
 public class MoreHealthConsultActivity extends BaseActivity<MoreListModel, MoreListView, MoreListPresenter> implements MoreListView {
 
     @BindView(R.id.rv_more_health_consult)
@@ -35,19 +36,8 @@ public class MoreHealthConsultActivity extends BaseActivity<MoreListModel, MoreL
     @BindView(R.id.iv_more_health_consult_search)
     ImageView ivMoreHealthConsultSearch;
     private HealthServiceRvAdapter rvAdapter;
-    private int currPage;
-    private List<InfolistBean> datas = new ArrayList<>();
-    private Handler handler = new Handler();
-
-    @Override
-    public MoreListPresenter createPresenter() {
-        return new MoreListPresenter();
-    }
-
-    @Override
-    public MoreListModel createModel() {
-        return new MoreListModelImpl();
-    }
+    private int currPage = 1;
+    private List<InfolistBean> data = new ArrayList<>();
 
     @Override
     public void setContentLayout() {
@@ -57,9 +47,9 @@ public class MoreHealthConsultActivity extends BaseActivity<MoreListModel, MoreL
 
     @Override
     public void initView() {
-        getPresenter().getData(1, 10, "");
         initTitle();
         initRecycler();
+        getPresenter().getData(currPage, 20, "");
     }
 
     private void initTitle() {
@@ -73,40 +63,49 @@ public class MoreHealthConsultActivity extends BaseActivity<MoreListModel, MoreL
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        ;
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 // TODO: 2017/9/5 0005 刷新的时候存在问题
                 currPage = 1;
-                datas.clear();
-                getPresenter().getData(currPage, 10, "");
-                recyclerView.refreshComplete();
-                //refresh data here
+                getPresenter().getData(currPage, 20, "");
             }
 
             @Override
             public void onLoadMore() {
                 currPage++;
-                getPresenter().getData(currPage, 10, "");
-                recyclerView.loadMoreComplete();
-                //加载更多
+                getPresenter().getData(currPage, 20, "");
             }
         });
-        //getPresenter().HotAct(currPage+"","10","");
     }
 
     @OnClick(R.id.iv_more_health_consult_search)
     public void onViewClicked() {
         Intent intent = new Intent(this, HealthSearchActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void getMoreList(MoreListBean moreListBean) {
-        Log.e("moreListBean===", moreListBean + "");
-        if (moreListBean != null) {
-            datas.addAll(moreListBean.getInfolist());
-            rvAdapter.setData(datas);
+        if (moreListBean.getInfolist() == null)
+            return;
+        if (currPage == 1) {
+            data.clear();
+            recyclerView.refreshComplete();
+        } else {
+            recyclerView.loadMoreComplete();
         }
+        data.addAll(moreListBean.getInfolist());
+        rvAdapter.setData(data);
+    }
+
+    @Override
+    public MoreListPresenter createPresenter() {
+        return new MoreListPresenter();
+    }
+
+    @Override
+    public MoreListModel createModel() {
+        return new MoreListModelImpl();
     }
 }

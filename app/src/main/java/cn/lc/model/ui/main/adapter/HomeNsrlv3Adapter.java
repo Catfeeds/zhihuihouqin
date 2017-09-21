@@ -84,7 +84,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ActivityDetailActivity.class);
-                    intent.putExtra("activitylistBean",activitylistBean);
+                    intent.putExtra("activitylistBean", activitylistBean);
                     mContext.startActivity(intent);
                 }
             });
@@ -98,13 +98,13 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
 
         private void callPhone() {
             String phone = activitylistBean.getAContactMobile();
-            Log.e("phone =",phone);
+            Log.e("phone =", phone);
             CallPhoneUtils.call(ivCalPhone, phone, mContext);
         }
 
         public void setData(ActivityHomeBean.ActivitylistBean activitylistBean, int position) {
             if (activitylistBean != null) {
-                this.activitylistBean=activitylistBean;
+                this.activitylistBean = activitylistBean;
                 tvThridrvContent.setText(activitylistBean.getATitle());
                 tvLocation.setText(activitylistBean.getAPlace());
                 String aContactMobile = activitylistBean.getAContactMobile();

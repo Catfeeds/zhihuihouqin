@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,8 +20,8 @@ import cn.lc.model.R;
  */
 public class AllGrideAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> types=new ArrayList<>();
-    private List<Integer> photos=new ArrayList<>();
+    private List<String> types = new ArrayList<>();
+    private List<Integer> photos = new ArrayList<>();
 
     public AllGrideAdapter(Context context, List<String> myApps, List<Integer> myAppPhotos) {
         this.mContext = context;
@@ -54,15 +53,15 @@ public class AllGrideAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
-        if(convertView==null){
+        ViewHolder viewHolder;
+        if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.f_tab2_gride_item, parent, false);
-            viewHolder =new ViewHolder(convertView);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.setData(types.get(position),photos.get(position));
+        viewHolder.setData(types.get(position), photos.get(position));
 
         return convertView;
     }

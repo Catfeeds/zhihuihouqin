@@ -8,13 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
-import cn.lc.model.framework.imageload.GlideLoading;
-import cn.lc.model.ui.main.fragment.Tab1Fragment;
 
 
 /**
@@ -26,14 +22,13 @@ public class HomeAdapter extends BaseAdapter {
 
     private final String[] mDes;
     private final int[] mPhoto;
-    private  Context mContext;
+    private Context mContext;
 
 
-    public HomeAdapter(Context context,String[] des,int[] photos) {
-        this.mContext=context;
-        this.mDes=des;
-        this.mPhoto=photos;
-
+    public HomeAdapter(Context context, String[] des, int[] photos) {
+        this.mContext = context;
+        this.mDes = des;
+        this.mPhoto = photos;
     }
 
     @Override
@@ -65,7 +60,7 @@ public class HomeAdapter extends BaseAdapter {
         return convertView;
     }
 
-     class ViewHolder {
+    class ViewHolder {
         @BindView(R.id.iv_iv_grid_item)
         ImageView ivIvGridItem;
         @BindView(R.id.tv_grid_item)

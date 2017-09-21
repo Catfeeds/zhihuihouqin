@@ -15,10 +15,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
+import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.ui.main.activity.HealthConsultDetailActivity;
-import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
 import cn.lc.model.ui.main.bean.InfolistBean;
-import cn.lc.model.ui.main.bean.MoreListBean;
 
 /**
  * Created by 我的电脑 on 2017/8/15 0015.
@@ -26,10 +25,17 @@ import cn.lc.model.ui.main.bean.MoreListBean;
 public class HealthServiceRvAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<InfolistBean> data = new ArrayList<>();
+    private List<InfolistBean> data;
+    private int mType = 0;
 
     public HealthServiceRvAdapter(Context context) {
+        data = new ArrayList<>();
         this.context = context;
+    }
+
+    public HealthServiceRvAdapter(Context context, List<InfolistBean> data) {
+        this.context = context;
+        this.data = data;
     }
 
     public void setData(List<InfolistBean> data) {
@@ -37,6 +43,11 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void setData(List<InfolistBean> data, int type) {
+        this.data = data;
+        mType = type;
+        notifyDataSetChanged();
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,28 +58,22 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-
         if (data != null) {
             viewHolder.setData(data.get(position));
-
         }
     }
 
     @Override
     public int getItemCount() {
-        if (data != null) {
-            return data.size();
-        }
-        return 0;
-
-
+        if (mType != 0)
+            return data.size() > 4 ? 4 : data.size();
+        return data.size();
     }
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_health_service_item)
+        @BindView(R.id.header)
         ImageView ivHealthServiceItem;
-        @BindView(R.id.tv_health_service_title)
+        @BindView(R.id.title)
         TextView tvHealthServiceTitle;
         @BindView(R.id.tv_time)
         TextView tvTime;
@@ -93,9 +98,7 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
 
         public void setData(InfolistBean infolistBean) {
             this.infolistBean = infolistBean;
-            /*GlideLoading.getInstance().loadImgUrlNyImgLoader(
-                    context,infolistBean.getPhoto,ivHealthServiceItem
-            );*/
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, infolistBean.getImgs(), ivHealthServiceItem);
             tvHealthServiceTitle.setText(infolistBean.getTitle());
             tvTime.setText(infolistBean.getCreatetime());
             tvBumen.setText(infolistBean.getSource());

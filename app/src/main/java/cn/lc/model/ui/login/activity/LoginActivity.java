@@ -81,7 +81,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         LogUtils.d("账号：" + SharedPrefHelper.getInstance().getPhoneNumber() + "密码：" + SharedPrefHelper.getInstance().getPassword());
         etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         etPsw.setText(SharedPrefHelper.getInstance().getPassword());
-
+        etPsw.requestFocus();//获取焦点 光标出现
+        etPsw.setSelection(SharedPrefHelper.getInstance().getPassword().length());
         lCbRemenberPwd.setChecked(SharedPrefHelper.getInstance().isRememberPassWord());
 
     }
