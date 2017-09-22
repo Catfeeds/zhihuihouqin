@@ -1,6 +1,6 @@
 package cn.lc.model.ui.main.activity;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TabBar;
@@ -22,9 +21,11 @@ import cn.lc.model.ui.main.model.MainModel;
 import cn.lc.model.ui.main.modelimpl.MainModelImpl;
 import cn.lc.model.ui.main.presenter.MainPresenter;
 import cn.lc.model.ui.main.view.MainView;
+import mvp.cn.util.ToastUtil;
 
 public class MainActivity extends BaseActivity<MainModel, MainView, MainPresenter> implements MainView {
 
+    private static final int SCANNING_CODE = 1001;
 
     @BindView(R.id.m_frameLayout)
     FrameLayout mFrameLayout;
@@ -71,6 +72,22 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.m_frameLayout, f);
         ft.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+
+        } else {
+            // 扫描二维码/条码回传
+            if (requestCode == SCANNING_CODE) {
+                if (data != null) {
+                    String content = data.getStringExtra("Result");
+                    ToastUtil.showToast(MainActivity.this, "扫描结果： " + content);
+                }
+            }
+        }
     }
 
     @Override

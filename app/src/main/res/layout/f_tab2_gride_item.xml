@@ -6,22 +6,22 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_app_logo"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" />
 
         <ImageView
             android:id="@+id/iv_add_or_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="20dp"
+            android:padding="3dp"
             android:src="@drawable/delete_app"
             android:visibility="gone" />
 
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="4dp"
+        android:text="服务服务服务"
         android:textColor="@color/tv_black"
         android:textSize="@dimen/sp_small" />
 </LinearLayout>

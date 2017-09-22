@@ -24,7 +24,9 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,31 +34,27 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
+import cn.lc.model.framework.utils.ServiceIntentUtils;
 import cn.lc.model.framework.widget.NoSlidingGridView;
-import cn.lc.model.ui.main.activity.ActivityRegistration.ActivityRegistrationActivity;
-import cn.lc.model.ui.main.activity.DryCleaners.DryCleanersActivity;
-import cn.lc.model.ui.main.activity.HealthServerceActivity;
-import cn.lc.model.ui.main.activity.Library.LibraryActivity;
-import cn.lc.model.ui.main.activity.MoreActivity;
-import cn.lc.model.ui.main.activity.OfficeSupplies.OfficeSuppliesActivity;
-import cn.lc.model.ui.main.activity.OrderCutHearActivity;
-import cn.lc.model.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import cn.lc.model.ui.main.adapter.HomeAdapter;
 import cn.lc.model.ui.main.adapter.HomeNsrlv1Adapter;
 import cn.lc.model.ui.main.adapter.HomeNsrlv2Adapter;
 import cn.lc.model.ui.main.adapter.HomeNsrlv3Adapter;
-import cn.lc.model.ui.main.model.Tab1Model;
-import cn.lc.model.ui.main.modelimpl.Tab1ModelImpl;
-import cn.lc.model.ui.main.presenter.Tab1Presenter;
-import cn.lc.model.ui.main.view.Tab1View;
+import cn.lc.model.ui.main.bean.ActivityHomeBean;
+import cn.lc.model.ui.main.bean.HomePageBean;
+import cn.lc.model.ui.main.bean.InformationBean;
+import cn.lc.model.ui.main.model.HomePageModel;
+import cn.lc.model.ui.main.modelimpl.HomePageModelImpl;
+import cn.lc.model.ui.main.presenter.HomePagePresenter;
+import cn.lc.model.ui.main.view.HomePageView;
 import cn.lc.model.ui.mywidget.NoScrollLinearLayoutManager;
 import cn.lc.model.zxing.android.CaptureActivity;
 
 /**
  * Created by hh on 2016/5/18.
  */
-public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presenter> {
-    private static final int SCANNING_CODE = 1;
+public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, HomePagePresenter> implements HomePageView {
+    private static final int SCANNING_CODE = 1001;
     private static final int CAMERA_REQUEST_CODE = 10;
     @BindView(R.id.iv_two_dimension_code)
     ImageView ivTwoDimensionCode;
@@ -95,118 +93,79 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
             R.drawable.office_supplies,
             R.drawable.more};
 
+    private List<HomePageBean.ServiceListEntity> serviceData; // 服务
+//    private List<HomePageBean.CarouselListEntity> roastingData; // 轮播图
+    private List<ActivityHomeBean.ActivitylistBean> activeData; // 活动
+    private List<InformationBean.PageEntity.ListEntity> informationData; // 公告
+    private List<HomePageBean.BxwxOrderList> bxData; // 报修
 
-    /*@BindView(R.id.iv_two_dimension_code)
-    ImageView ivTwoDimensionCode;
-    @BindView(R.id.iv_search)
-    ImageView ivSearch;
-    @BindView(R.id.rv_home)
-    RecyclerView rvHome;
-    @BindView(R.id.id_swipe)
-    SmartRefreshLayout refreshLayout;
-    Unbinder unbinder;
-    private HomeAdapter homeAdapter;*/
+    private HomeNsrlv1Adapter adapter1;
+    private HomeNsrlv2Adapter adapter2;
+    private HomeNsrlv3Adapter adapter3;
+    private HomeAdapter homeAdapter;
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
         setContentView(R.layout.f_tab_1);
     }
 
-
-    @Override
-    public Tab1Presenter createPresenter() {
-        return new Tab1Presenter();
-    }
-
-    @Override
-    public Tab1Model createModel() {
-        return new Tab1ModelImpl();
-    }
-
     @Override
     public void initView(View v) {
         ButterKnife.bind(this, v);
-        HomeNsrlv1Adapter homeNsrlv1Adapter = new HomeNsrlv1Adapter();
+
+        serviceData = new ArrayList<>();
+//        roastingData = new ArrayList<>();
+        activeData = new ArrayList<>();
+        informationData = new ArrayList<>();
+        bxData = new ArrayList<>();
+
+        // 公告
+        adapter1 = new HomeNsrlv1Adapter(getActivity(), informationData);
         nsrlv1.setLayoutManager(new NoScrollLinearLayoutManager(getActivity()));
-        nsrlv1.setAdapter(homeNsrlv1Adapter);
+        nsrlv1.setAdapter(adapter1);
 
-        HomeNsrlv2Adapter homeNsr2v1Adapter = new HomeNsrlv2Adapter();
+        // 报修
+        adapter2 = new HomeNsrlv2Adapter(getActivity(), bxData);
         nsrlv2.setLayoutManager(new NoScrollLinearLayoutManager(getActivity()));
-        nsrlv2.setAdapter(homeNsr2v1Adapter);
+        nsrlv2.setAdapter(adapter2);
 
-        HomeNsrlv3Adapter homeNsrlv3Adapter = new HomeNsrlv3Adapter(getActivity());
+        // 活动
+        adapter3 = new HomeNsrlv3Adapter(getActivity(), activeData);
         nsrlv3.setLayoutManager(new NoScrollLinearLayoutManager(getActivity()));
-        nsrlv3.setAdapter(homeNsrlv3Adapter);
+        nsrlv3.setAdapter(adapter3);
 
-        HomeAdapter homeAdapter = new HomeAdapter(getActivity(), des, photos);
+        // 服务
+        homeAdapter = new HomeAdapter(getActivity(), serviceData);
         gridViewCatogary.setAdapter(homeAdapter);
+
         //设置刷新
         setRefresh();
+
         //设置grid的条目点击
-        setGridItemClick();
-        //初始化轮播图
-        initSliderLayout();
-        sv.smoothScrollTo(0, 20);
-        sv.setFocusable(true);
-
-    }
-
-    private void initSliderLayout() {
-        HashMap<String, String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-
-        for (String desc : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .description(desc)
-                    .image(url_maps.get(desc));
-            sliderLayout.addSlider(textSliderView);
-        }
-    }
-
-    private void setGridItemClick() {
         gridViewCatogary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0://医疗服务
-                        Intent intent = new Intent(getActivity(), HealthServerceActivity.class);
-                        getActivity().startActivity(intent);
-                        break;
-                    case 1://物业维修
-                        Intent intent1 = new Intent(getActivity(), PropertyAintenanceActivity.class);
-                        getActivity().startActivity(intent1);
-                        break;
-                    case 2://图书借阅
-                        Intent intent2 = new Intent(getActivity(), LibraryActivity.class);
-                        getActivity().startActivity(intent2);
-                        break;
-                    case 3://团队活动
-                        Intent intent3 = new Intent(getActivity(), ActivityRegistrationActivity.class);
-                        getActivity().startActivity(intent3);
-                        break;
-                    case 4://预约理发
-                        Intent intent4 = new Intent(getActivity(), OrderCutHearActivity.class);
-                        getActivity().startActivity(intent4);
-                        break;
-                    case 5://干洗店
-                        Intent intent5 = new Intent(getActivity(), DryCleanersActivity.class);
-                        getActivity().startActivity(intent5);
-                        break;
-                    case 6://办公用品
-                        Intent intent6 = new Intent(getActivity(), OfficeSuppliesActivity.class);
-                        getActivity().startActivity(intent6);
-                        break;
-                    case 7://更多
-                        Intent intent8 = new Intent(getActivity(), MoreActivity.class);
-                        getActivity().startActivity(intent8);
-                        break;
+                if (ServiceIntentUtils.goService(serviceData.get(position).getId())==null){
+                    return;
                 }
+                startActivity(new Intent(getActivity(), ServiceIntentUtils.goService(serviceData.get(position).getId())));
             }
         });
+        sv.smoothScrollTo(0, 20);
+        sv.setFocusable(true);
+        getPresenter().getHomePageData();
+    }
+
+    // 轮播图数据
+    private void initSliderLayout(HashMap<String, String> map) {
+        sliderLayout.removeAllSliders();
+        for (String desc : map.keySet()) {
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            textSliderView
+                    .description(desc)
+                    .image(map.get(desc));
+            sliderLayout.addSlider(textSliderView);
+        }
     }
 
     private void setRefresh() {
@@ -218,45 +177,60 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 // TODO: 2017/8/14 0014 加载更多
+                getPresenter().getHomePageData();
                 refreshlayout.finishRefresh(2000);
             }
 
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 // TODO: 2017/8/14 0014 下拉刷新
+                getPresenter().getHomePageData();
                 refreshlayout.finishRefresh(2000);
             }
         });
     }
 
-
-   /* public void initBanner() {
-        sib
-                .setIndicatorWidth(6)
-                .setIndicatorHeight(6)
-                .setIndicatorGap(12)
-                .setIndicatorCornerRadius(3.5f)
-                .setSelectAnimClass(ZoomInEnter.class)
-                .setSource(imgList)
-                .startScroll();
-
-    }*/
-
     @Override
     public void onResume() {
         super.onResume();
-//        if (imgList.size() != 0)
-//            sib.startScroll();
-//        notice.start(3000, 3000);
     }
-
 
     @Override
-    public void onPause() {
-        super.onPause();
-
+    public void getHomePageSucc(HomePageBean bean) {
+        if (bean.getCarouselList() != null) {
+            // TODO 轮播图数据
+            HashMap<String, String> map = new HashMap<>();
+            for (int i = 0; i < bean.getCarouselList().size(); i++) {
+                map.put("", bean.getCarouselList().get(i).getImgs());
+            }
+            initSliderLayout(map);
+        }
+        if (bean.getServiceList() != null) {
+            // TODO 填充服务数据
+            serviceData.clear();
+            serviceData.addAll(bean.getServiceList());
+            HomePageBean.ServiceListEntity entity = new HomePageBean.ServiceListEntity();
+            entity.setId(10001);
+            serviceData.add(entity);
+            homeAdapter.notifyDataSetChanged();
+        }
+        if (bean.getNoticeList() != null) {
+            // TODO 公告
+            informationData.clear();
+            informationData.addAll(bean.getNoticeList());
+            adapter1.notifyDataSetChanged();
+        }
+        if (bean.getBxwxOrderList() != null) {
+            bxData.clear();
+            bxData.addAll(bean.getBxwxOrderList());
+            adapter2.notifyDataSetChanged();
+        }
+        if (bean.getActivityList() != null) {
+            activeData.clear();
+            activeData.addAll(bean.getActivityList());
+            adapter3.notifyDataSetChanged();
+        }
     }
-
 
     @OnClick({R.id.iv_two_dimension_code, R.id.iv_search})
     public void onViewClicked(View view) {
@@ -289,26 +263,19 @@ public class Tab1Fragment extends BaseFragment<Tab1Model, Tab1View, Tab1Presente
         }
     }
 
+    // 跳转二维码扫描
     private void init() {
-        Intent intent = new Intent(getActivity(),
-                CaptureActivity.class);
+        Intent intent = new Intent(getActivity(), CaptureActivity.class);
         startActivityForResult(intent, SCANNING_CODE);
-
     }
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        super.onActivityResult(requestCode, resultCode, data);
-        // 扫描二维码/条码回传
-        if (requestCode == SCANNING_CODE && resultCode == RESULT_OK) {
-            if (data != null) {
+    @Override
+    public HomePageModel createModel() {
+        return new HomePageModelImpl();
+    }
 
-                String content = data.getStringExtra("codedContent");
-                Bitmap bitmap = data.getParcelableExtra("codedBitmap");
-
-                tvScanningResult.setText("扫描结果： " + content);
-
-            }
-        }
-    }*/
+    @Override
+    public HomePagePresenter createPresenter() {
+        return new HomePagePresenter();
+    }
 }

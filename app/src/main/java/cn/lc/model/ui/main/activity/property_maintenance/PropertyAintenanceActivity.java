@@ -1,20 +1,13 @@
 package cn.lc.model.ui.main.activity.property_maintenance;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +21,7 @@ import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.widget.NoSlidingGridView;
 import cn.lc.model.framework.widget.TitleBar;
-import cn.lc.model.ui.main.adapter.ProertyAddPicAdapter;
+import cn.lc.model.ui.main.adapter.GridViewImageAdapter;
 import cn.lc.model.ui.main.adapter.WeixiuAdapter;
 import cn.lc.model.ui.main.bean.WuyeHomeBean;
 import cn.lc.model.ui.main.model.WuyeHomeModel;
@@ -57,11 +50,11 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     /*@BindView(R.id.iv_up_photo)
     ImageView ivUpPhoto;*/
     @BindView(R.id.gv_addPhoto)
-    GridView gvAddPhoto;
+    NoSlidingGridView gvAddPhoto;
     @BindView(R.id.tv_now_posted)
     TextView tvNowPosted;
     @BindView(R.id.rl_time)
-    RelativeLayout rlTime;
+    LinearLayout rlTime;
     @BindView(R.id.tv_yuyue_time)
     TextView tvYuyueTime;
     private List<String> lists = Arrays.asList(
@@ -72,18 +65,9 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     private int selectPosition;
     private String realName;
     private String address;
-    private ProertyAddPicAdapter picAdapter;
+//    private ProertyAddPicAdapter picAdapter;
+    private GridViewImageAdapter imageAdapter;
     private List<String> pics;
-
-    @Override
-    public WuyeHomePresenter createPresenter() {
-        return new WuyeHomePresenter();
-    }
-
-    @Override
-    public WuyeHomeModel createModel() {
-        return new WuyeHomeModelImpl();
-    }
 
     @Override
     public void setContentLayout() {
@@ -103,18 +87,15 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         initAddPhotoGrid();
         pics = new ArrayList<>();
         pics.add("addPhoto");
-
     }
 
     private void initAddPhotoGrid() {
-        picAdapter = new ProertyAddPicAdapter(this);
-        gvAddPhoto.setAdapter(picAdapter);
-        picAdapter.setListener(new ProertyAddPicAdapter.OnClickListener() {
+        imageAdapter = new GridViewImageAdapter(this, pics, new GridViewImageAdapter.OnAddPhotoClickListener() {
             @Override
-            public void addPhotoClick() {
-               //打开
+            public void onClick() {
+                //打开
                 final StringListDialog dialog = new StringListDialog(PropertyAintenanceActivity.this, R.style.dialog_style);
-                List<String> itemList = new ArrayList<String>();
+                List<String> itemList = new ArrayList<>();
                 itemList.add("相机拍摄");
                 itemList.add("手机相册");
                 itemList.add("取消");
@@ -142,6 +123,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                 dialog.show();
             }
         });
+        gvAddPhoto.setAdapter(imageAdapter);
     }
 
     private void initGrid() {
@@ -167,7 +149,6 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                 doPost();
                 break;
         }
-
     }
 
     @Override
@@ -204,6 +185,16 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         if (wuyeHomeBean.getErrCode() == 0) {
             showToast("发布成功");
         }
+    }
+
+    @Override
+    public WuyeHomePresenter createPresenter() {
+        return new WuyeHomePresenter();
+    }
+
+    @Override
+    public WuyeHomeModel createModel() {
+        return new WuyeHomeModelImpl();
     }
 
 }

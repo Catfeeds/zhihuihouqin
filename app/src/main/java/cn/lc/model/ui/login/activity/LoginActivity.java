@@ -2,11 +2,14 @@ package cn.lc.model.ui.login.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +23,6 @@ import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.manager.UIManager;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.utils.LogUtils;
-import cn.lc.model.framework.widget.EditTextWithDel;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.home.bean.LoginBean;
 import cn.lc.model.ui.login.model.LoginModel;
@@ -45,11 +47,13 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
     @BindView(R.id.et_uname)
-    EditTextWithDel etUname;
+    EditText etUname;
     @BindView(R.id.iv_all_cancle)
     ImageView allCancle;
+    @BindView(R.id.clear_pass_word)
+    ImageView clearPassWord;
     @BindView(R.id.et_psw)
-    EditTextWithDel etPsw;
+    EditText etPsw;
     @BindView(R.id.l_tv_register)
     TextView lTvRegister;
     @BindView(R.id.l_tv_findPsw)
@@ -84,7 +88,47 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         etPsw.requestFocus();//获取焦点 光标出现
         etPsw.setSelection(SharedPrefHelper.getInstance().getPassword().length());
         lCbRemenberPwd.setChecked(SharedPrefHelper.getInstance().isRememberPassWord());
+        etUname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() > 0) {
+                    allCancle.setVisibility(View.VISIBLE);
+                } else {
+                    allCancle.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etPsw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() > 0) {
+                    clearPassWord.setVisibility(View.VISIBLE);
+                } else {
+                    clearPassWord.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initTitle() {
@@ -107,6 +151,9 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         switch (view.getId()) {
             case R.id.iv_all_cancle:
                 etUname.setText("");
+                break;
+            case R.id.clear_pass_word:
+                etPsw.setText("");
                 break;
             case R.id.l_tv_register:
                 turnToRegist();

@@ -27,7 +27,6 @@
             android:id="@+id/tv_secondrv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
             android:text="2017-04-11" />
     </LinearLayout>
 

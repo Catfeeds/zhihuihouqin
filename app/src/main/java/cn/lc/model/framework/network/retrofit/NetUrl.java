@@ -6,6 +6,10 @@ package cn.lc.model.framework.network.retrofit;
 
 public interface NetUrl {
 
+    // 首页
+    String homePage = "appuser/index";
+
+    //
     String signup="appuser/user/login?";
     String captcha="appuser/user/getCaptcha?";
     String regist="appuser/user/register?";
@@ -105,5 +109,9 @@ public interface NetUrl {
     String getVegetableReason = "appuser/tdcfwordercancelreason/findReasonList"; // 获取取消原因列表
     String cancelVegetableOrder = "appuser/tdcfworder/orderCancel"; // 取消订单
     String vegetableComment = "appuser/tdcfworder/addComment"; // 添加评论
+
+    // 服务
+    String getMyService = "appuser/service/findUserService";
+    String submitMyService = "appuser/service/updateUserService";
 
 }

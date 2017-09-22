@@ -27,10 +27,16 @@ import mvp.cn.util.CallPhoneUtils;
 
 public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<ActivityHomeBean.ActivitylistBean> data = new ArrayList<>();
+    private List<ActivityHomeBean.ActivitylistBean> data;
+
+    public HomeNsrlv3Adapter(Context mContext, List<ActivityHomeBean.ActivitylistBean> data) {
+        this.mContext = mContext;
+        this.data = data;
+    }
 
     public HomeNsrlv3Adapter(Context mContext) {
         this.mContext = mContext;
+        data = new ArrayList<>();
     }
 
     @Override
@@ -49,10 +55,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (data != null) {
-            return data.size();
-        }
-        return 0;
+        return data.size();
     }
 
     public void setData(List<ActivityHomeBean.ActivitylistBean> data) {
@@ -109,9 +112,9 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                 tvLocation.setText(activitylistBean.getAPlace());
                 String aContactMobile = activitylistBean.getAContactMobile();
                 String str = aContactMobile.substring(0, 3) + "****" + aContactMobile.substring(7, aContactMobile.length());
-                phone.setText("电话: " + str);
-                tvThridrvTime.setText("时间: " + activitylistBean.getACreateTime());
-                tvSignUp.setText("包名(" + activitylistBean.getASignCount() / activitylistBean.getATotal() + ")");
+                phone.setText("电话：" + str);
+                tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
+                tvSignUp.setText("报名(" + activitylistBean.getASignCount() + "/" + activitylistBean.getATotal() + ")");
                 GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, activitylistBean.getAImg(), ivPhoto);
             }
         }

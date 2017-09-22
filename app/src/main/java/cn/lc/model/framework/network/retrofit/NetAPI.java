@@ -31,6 +31,7 @@ import cn.lc.model.ui.main.bean.ExpertDetailBean;
 import cn.lc.model.ui.main.bean.ExpertOrderBean;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
 import cn.lc.model.ui.main.bean.HistoryPostBean;
+import cn.lc.model.ui.main.bean.HomePageBean;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.bean.InformationClazzBean;
 import cn.lc.model.ui.main.bean.JieYueBean;
@@ -51,6 +52,7 @@ import cn.lc.model.ui.main.bean.SearchBookListBean;
 import cn.lc.model.ui.main.bean.SearchCategoryBean;
 import cn.lc.model.ui.main.bean.SelectTimeBean;
 import cn.lc.model.ui.main.bean.ServiceBean;
+import cn.lc.model.ui.main.bean.ServiceMyBean;
 import cn.lc.model.ui.main.bean.ShopBean;
 import cn.lc.model.ui.main.bean.ShopCarInfoBean;
 import cn.lc.model.ui.main.bean.SpAllCommentBean;
@@ -110,6 +112,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.submitAuth)
     Observable<SubmitAuthBean> submitAuth(@FieldMap Map<String, Object> map);
+
+    // 首页数据
+    @FormUrlEncoded
+    @POST(NetUrl.homePage)
+    Observable<HomePageBean> homePageData(@FieldMap Map<String, Object> map);
 
     //医疗首页
     @FormUrlEncoded
@@ -465,4 +472,15 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.getVegetableTime)
     Observable<SelectTimeBean> getVegetableTime(@FieldMap Map<String, Object> map);
+
+    // 获取我的服务
+    @FormUrlEncoded
+    @POST(NetUrl.getMyService)
+    Observable<ServiceMyBean> getMyService(@FieldMap Map<String, Object> map);
+
+    // 更改我的服务
+    @FormUrlEncoded
+    @POST(NetUrl.submitMyService)
+    Observable<CollectBean> submitMyService(@FieldMap Map<String, Object> map);
+
 }

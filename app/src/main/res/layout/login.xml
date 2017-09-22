@@ -9,11 +9,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height">
+
         <cn.lc.model.framework.widget.TitleBar
             android:id="@+id/login_title"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"/>
+            android:layout_height="@dimen/title_height"
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/l_tv_register"
@@ -24,40 +25,41 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:text="注册" />
+
         <View
-            android:layout_below="@+id/login_title"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#2000"/>
+            android:layout_below="@+id/login_title"
+            android:background="#2000" />
 
-       <!--
-        <ImageView
-            android:id="@+id/iv_back"
-            style="@style/tvStyle_white_small"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:src="@mipmap/back" />
+        <!--
+         <ImageView
+             android:id="@+id/iv_back"
+             style="@style/tvStyle_white_small"
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
+             android:layout_centerVertical="true"
+             android:paddingLeft="10dp"
+             android:paddingRight="10dp"
+             android:src="@mipmap/back" />
 
 
-        <TextView
-            style="@style/tvStyle_white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="登录" />
+         <TextView
+             style="@style/tvStyle_white"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerInParent="true"
+             android:text="登录" />
 
-        <TextView
-            android:id="@+id/l_tv_register"
-            style="@style/tvStyle_white_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="注册" />-->
+         <TextView
+             android:id="@+id/l_tv_register"
+             style="@style/tvStyle_white_small"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_centerVertical="true"
+             android:layout_marginRight="10dp"
+             android:text="注册" />-->
     </RelativeLayout>
 
 
@@ -71,11 +73,11 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_common"
-        android:background="@drawable/shape_rec_text"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_rec_text">
 
         <ImageView
             android:id="@+id/iv_phone"
@@ -85,12 +87,26 @@
             android:layout_marginLeft="8dp"
             android:src="@drawable/gray_phone" />
 
-        <cn.lc.model.framework.widget.EditTextWithDel
+        <ImageView
+            android:id="@+id/iv_all_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:padding="3dp"
+            android:src="@drawable/et_colse" />
+
+        <EditText
             android:id="@+id/et_uname"
             style="@style/tvStyle_white_small"
             android:layout_width="match_parent"
+            android:text=""
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@id/iv_all_cancle"
             android:layout_toRightOf="@+id/iv_phone"
             android:background="@color/transparent"
             android:ems="10"
@@ -100,38 +116,43 @@
             android:paddingLeft="10dip"
             android:textColorHint="@color/tv_gray_light" />
 
-        <ImageView
-            android:id="@+id/iv_all_cancle"
-            android:src="@drawable/et_colse"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_common"
-        android:background="@drawable/shape_rec_text"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_rec_text">
 
         <ImageView
             android:id="@+id/iv_pwd"
-            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
             android:src="@drawable/clock" />
 
-        <cn.lc.model.framework.widget.EditTextWithDel
+        <ImageView
+            android:id="@+id/clear_pass_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:padding="3dp"
+            android:src="@drawable/et_colse" />
+
+        <EditText
             android:id="@+id/et_psw"
             style="@style/tvStyle_white_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@id/clear_pass_word"
             android:layout_toRightOf="@+id/iv_pwd"
             android:background="@color/transparent"
             android:ems="10"
@@ -141,12 +162,6 @@
             android:paddingLeft="10dip"
             android:textColorHint="@color/tv_gray_light" />
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white" />
     </RelativeLayout>
 
 
@@ -156,9 +171,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/shape_login"
         android:gravity="center"
         android:text="登录" />

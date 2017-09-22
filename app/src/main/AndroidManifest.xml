@@ -56,9 +56,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.activity.MainActivity">
-
-            <!--
-             <intent-filter>
+            <!-- <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
@@ -271,6 +269,7 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.ShopCarActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpConfirmOrderAct" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct"></activity>
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct" />
         <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity" />
         <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity" />

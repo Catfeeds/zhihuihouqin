@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_registration2"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <cn.lc.model.framework.widget.TitleBar
         android:id="@+id/activity_title"
         android:layout_width="match_parent"
@@ -16,21 +17,24 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#2000" />
+
     <ImageView
         android:id="@+id/iv_big_pic"
-        android:src="@drawable/partner_luffy"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="180dp" />
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/partner_luffy" />
+
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/tv_activity_posted"
-        android:text="活动发布"
         style="@style/tvStyle_blue_bigger"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_height" />
+        android:layout_height="@dimen/bottom_height"
+        android:text="活动发布" />
 </LinearLayout>

@@ -28,10 +28,12 @@ public class ProertyAddPicAdapter extends BaseAdapter {
     public ProertyAddPicAdapter(Context context) {
         this.mContext = context;
     }
-    public void setData(List<String> list){
-        this.pics=list;
+
+    public void setData(List<String> list) {
+        this.pics = list;
         notifyDataSetChanged();
     }
+
     @Override
     public int getCount() {
         if (pics != null && pics.size() > 0) {
@@ -55,58 +57,60 @@ public class ProertyAddPicAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
+        ViewHolder viewHolder = null;
         if (convertView == null) {
             LayoutInflater from = LayoutInflater.from(mContext);
             convertView = from.inflate(R.layout.proerty_add_pic_item, parent, false);
-            viewHolder=new ViewHolder(convertView);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(pics!=null&&pics.size()>0){
-            viewHolder.setData(pics.get(position),position);
+        if (pics != null && pics.size() > 0) {
+            viewHolder.setData(pics.get(position), position);
         }
         return convertView;
     }
 
-     class ViewHolder {
+    class ViewHolder {
         @BindView(R.id.iv_up_photo)
         ImageView ivUpPhoto;
-         private String path;
-         private int mPosition;
+        private String path;
+        private int mPosition;
 
-         ViewHolder(View view) {
+        ViewHolder(View view) {
             ButterKnife.bind(this, view);
-             if("addPhoto".equals(path)){
-                 ivUpPhoto.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                         if(listener!=null){
-                             listener.addPhotoClick();
-                         }
-                     }
-                 });
-             }
+            if ("addPhoto".equals(path)) {
+                ivUpPhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            listener.addPhotoClick();
+                        }
+                    }
+                });
+            }
 
         }
-         public void setData(String s, int position) {
-             this.path=s;
-             this.mPosition=position;
-            if(!TextUtils.isEmpty(s)){
-                GlideLoading.getInstance().loadImgUrlHeader(mContext,s,ivUpPhoto);
-            }else{
+
+        public void setData(String s, int position) {
+            this.path = s;
+            this.mPosition = position;
+            if (!TextUtils.isEmpty(s)) {
+                GlideLoading.getInstance().loadImgUrlHeader(mContext, s, ivUpPhoto);
+            } else {
                 LogUtils.i("图片的路径为空");
             }
-         }
-     }
+        }
+    }
+
     private OnClickListener listener;
 
     public void setListener(OnClickListener listener) {
         this.listener = listener;
     }
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void addPhotoClick();
     }
 }

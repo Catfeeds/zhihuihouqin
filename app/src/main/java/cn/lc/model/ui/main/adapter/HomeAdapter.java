@@ -8,9 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
+import cn.lc.model.framework.imageload.GlideLoading;
+import cn.lc.model.framework.utils.ServiceIntentUtils;
+import cn.lc.model.ui.main.bean.HomePageBean;
 
 
 /**
@@ -19,36 +24,32 @@ import cn.lc.model.R;
 
 public class HomeAdapter extends BaseAdapter {
 
-
-    private final String[] mDes;
-    private final int[] mPhoto;
     private Context mContext;
+    private List<HomePageBean.ServiceListEntity> data;
 
-
-    public HomeAdapter(Context context, String[] des, int[] photos) {
+    public HomeAdapter(Context context, List<HomePageBean.ServiceListEntity> data) {
         this.mContext = context;
-        this.mDes = des;
-        this.mPhoto = photos;
+        this.data = data;
     }
 
     @Override
     public int getCount() {
-        return 8;
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_grid_item, parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -56,7 +57,16 @@ public class HomeAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.setData(mDes, position);
+        if (data.get(position).getId() == 10001) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, R.drawable.more, viewHolder.ivIvGridItem);
+            viewHolder.tvGridItem.setText("更多");
+        } else {
+            viewHolder.tvGridItem.setText(data.get(position).getName());
+//            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, data.get(position).getSmallimg(), viewHolder.ivIvGridItem);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,
+                    ServiceIntentUtils.serviceImageData.get(data.get(position).getId() - 1), viewHolder.ivIvGridItem);
+        }
+
         return convertView;
     }
 
@@ -70,9 +80,5 @@ public class HomeAdapter extends BaseAdapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(String[] des, int position) {
-            tvGridItem.setText(des[position]);
-            ivIvGridItem.setImageResource(mPhoto[position]);
-        }
     }
 }

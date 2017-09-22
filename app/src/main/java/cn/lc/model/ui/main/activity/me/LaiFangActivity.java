@@ -30,10 +30,12 @@ import cn.lc.model.ui.main.wheelView.WheelView;
 import rx.Observable;
 import rx.Subscriber;
 
+import static cn.lc.model.R.id.laifang_title;
+
 public class LaiFangActivity extends Base2Activity {
 
     private static final int LAIFANGSHIYOUREQUEST = 10;
-    @BindView(R.id.laifang_title)
+    @BindView(laifang_title)
     TitleBar laifangTitle;
     @BindView(R.id.view)
     View view;
@@ -90,7 +92,8 @@ public class LaiFangActivity extends Base2Activity {
 
     @Override
     protected void initView() {
-
+        laifangTitle.setBack(true);
+        laifangTitle.setTitle("来访人员");
     }
 
     @OnClick({R.id.tv_commit, R.id.tv_shengfen, R.id.rl_laifangshiyou, R.id.rl_revice_time, R.id.rl_likai_time, R.id.rb_once, R.id.rb_a_week, R.id.rb_bangeyue, R.id.rb_long, R.id.rl_car_type, R.id.activity_lai_fang})

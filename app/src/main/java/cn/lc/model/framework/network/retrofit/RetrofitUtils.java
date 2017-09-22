@@ -7,8 +7,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-import org.json.JSONArray;
-
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -75,16 +73,10 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         LogUtils.d("biz", biz);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
-        LogUtils.d("时间戳请求参数：" + timestamp);
         LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
-        //LogUtils.d("时间戳请求参数：" + timestamp);
-        Log.e("token==", SharedPrefHelper.getInstance().getToken() + "测试");
         if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
-            //LogUtils.d("getToken请求参数：" + SharedPrefHelper.getInstance().getToken());
             paramsMap.put(TOKEN, SharedPrefHelper.getInstance().getToken());
-
         } else {
-            //LogUtil.log(SharedPrefHelper.getInstance().getyouke() + "");
             if (SharedPrefHelper.getInstance().getyouke()) {
                 paramsMap.put(TOKEN, "0");
             } else {
@@ -93,10 +85,33 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         try {
             String sign = getSign(biz, timestamp, "zxcadsadwa@2321$");
             LogUtils.d("sign:" + sign);
-            Log.e("sign戳请求参数：", sign);
             paramsMap.put("sign", sign);
-            //   LogUtils.d("sign戳请求参数：" + getSign(device,biz, timestamp));
 
+        } catch (UnsupportedEncodingException e) {
+            Log.e("sign异常", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void addParams(Map<String, Object> paramsMap, Map<String, Object> tempMap) {
+        Gson gson = new Gson();
+        String biz = gson.toJson(tempMap);
+        paramsMap.put("biz", biz);
+        LogUtils.d("biz", biz);
+        String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
+        paramsMap.put("timestamp", timestamp);
+        if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
+            paramsMap.put(TOKEN, SharedPrefHelper.getInstance().getToken());
+
+        } else {
+            if (SharedPrefHelper.getInstance().getyouke()) {
+                paramsMap.put(TOKEN, "0");
+            } else {
+            }
+        }
+        try {
+            String sign = getSign(biz, timestamp, "zxcadsadwa@2321$");
+            paramsMap.put("sign", sign);
         } catch (UnsupportedEncodingException e) {
             Log.e("sign异常", e.getMessage());
             e.printStackTrace();
@@ -326,6 +341,21 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.bindPhone(paramsMap));
+    }
+
+    /**
+     *  首页数据
+     */
+    public static Observable homePageData() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.homePageData(paramsMap));
     }
 
     /**
@@ -1623,13 +1653,13 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     public static Observable editMyInformationClass(int[] ids) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<>();
-            JSONArray json = new JSONArray();
-            for (int i = 0; i < ids.length; i++) {
-                json.put(ids[i]);
-            }
-            tempMap.put("typeIdList", json.toString());
-            addParam(paramsMap, tempMap);
+            Map<String, Object> tempMap = new HashMap<>();
+//            JSONArray json = new JSONArray();
+//            for (int i = 0; i < ids.length; i++) {
+//                json.put(ids[i]);
+//            }
+            tempMap.put("typeIdList", ids);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1705,6 +1735,41 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getVegetableTime(paramsMap));
+    }
+
+    /**
+     * 获取我的服务
+     */
+    public static Observable getMyService() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getMyService(paramsMap));
+    }
+
+    /**
+     * 更改我的服务
+     */
+    public static Observable submitMyService(int[] serviceID) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+//            JSONArray json = new JSONArray();
+//            for (int i = 0; i < serviceID.length; i++) {
+//                json.put(serviceID[i]);
+//            }
+            tempMap.put("serviceidList", serviceID);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.submitMyService(paramsMap));
     }
 
 }
