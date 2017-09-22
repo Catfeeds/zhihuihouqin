@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.view;
 
+import cn.lc.model.ui.main.bean.ActivityPostBean;
 import cn.lc.model.ui.main.bean.AddressBean;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.ShopCarInfoBean;
@@ -16,5 +17,6 @@ public interface SpDetailView extends MvpView {
     void getSpDetailSucc(SpDetailBean bean);
     void getCollectResult(CollectBean bean);
     void getShopCarInfo(ShopCarInfoBean bean);
+    void getShopCar(ActivityPostBean bean);
 
 }

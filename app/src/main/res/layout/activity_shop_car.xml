@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/iv_store_select"
                 android:visibility="gone"
-                android:src="@drawable/unselected"
+                android:src="@drawable/selected"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
             <TextView
@@ -40,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
 
             android:id="@+id/recycler"
@@ -63,7 +64,7 @@
             <ImageView
                 android:id="@+id/iv_select_all"
                 android:visibility="gone"
-                android:src="@drawable/unselected"
+                android:src="@drawable/selected"
                 android:layout_marginLeft="@dimen/standard_padding"
                 android:layout_gravity="center_vertical"
                 android:layout_width="30dp"

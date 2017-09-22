@@ -1,21 +1,11 @@
 package cn.lc.model.ui.main.activity.OfficeSupplies;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -31,10 +21,9 @@ import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.SimpleImageBanner;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.framework.widget.bean.BannerItem;
-import cn.lc.model.ui.main.activity.ordering.AddAddressActivity;
 import cn.lc.model.ui.main.activity.ordering.AddressManagerActivity;
-import cn.lc.model.ui.main.adapter.DoctorDetailrvAdapter;
 import cn.lc.model.ui.main.adapter.OfficeSpDetailrvAdapter;
+import cn.lc.model.ui.main.bean.ActivityPostBean;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.ShopCarInfoBean;
 import cn.lc.model.ui.main.bean.SpDetailBean;
@@ -42,15 +31,12 @@ import cn.lc.model.ui.main.model.SpDetailModel;
 import cn.lc.model.ui.main.modelimpl.SpDetailModelImpl;
 import cn.lc.model.ui.main.presenter.SpDetailPresenter;
 import cn.lc.model.ui.main.view.SpDetailView;
-import cn.lc.model.ui.mywidget.FlowLayout;
 import cn.lc.model.ui.mywidget.ShopCarDialog;
-import mvp.cn.util.DensityUtil;
 import mvp.cn.util.LogUtil;
-import mvp.cn.util.ScreenUtils;
 import mvp.cn.util.ToastUtil;
 
 
-public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,SpDetailPresenter> implements SpDetailView {
+public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, SpDetailPresenter> implements SpDetailView {
 
     private static final int ADDRESSREQUEST = 1;
     @BindView(R.id.sp_detail_title)
@@ -74,11 +60,15 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
     private TextView tvComment;
     private TextView tvCommnetRate;
     private ImageView dot;
-    private int position;
+    public  int position;
     private OfficeSpDetailrvAdapter detailrvAdapter;
     private int id;
     private int index;
     private ShopCarDialog shopCarDialog;
+    private int mPositon;
+    private List<ShopCarInfoBean.SkuListBean> skuList;
+    private int mCount;
+    private ShopCarInfoBean shopCarInfoBean;
 
     @Override
     public SpDetailPresenter createPresenter() {
@@ -99,12 +89,14 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
     @Override
     public void initView() {
         Intent intent = getIntent();
-        id = intent.getIntExtra("id",-1);
+        id = intent.getIntExtra("id", -1);
         position = intent.getIntExtra("position", -1);
         intiTitle();
         intiRecycler();
-        getPresenter().getSpDetail(id+"");
+        getPresenter().getSpDetail(id + "");
+        getPresenter().getShopCarInfo(id + "");
     }
+
     private void intiRecycler() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -120,12 +112,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
         tvComment = (TextView) header.findViewById(R.id.tv_comment);
         tvCommnetRate = (TextView) header.findViewById(R.id.tv_comment_rate);
         dot = (ImageView) header.findViewById(R.id.iv_three_dot);
-        LinearLayout more= (LinearLayout) header.findViewById(R.id.ll_more_comment);
+        LinearLayout more = (LinearLayout) header.findViewById(R.id.ll_more_comment);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SpDetailActivity.this, SpAllCommentActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -133,8 +125,8 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpDetailActivity.this,AddressManagerActivity.class);
-                startActivityForResult(intent,ADDRESSREQUEST);
+                Intent intent = new Intent(SpDetailActivity.this, AddressManagerActivity.class);
+                startActivityForResult(intent, ADDRESSREQUEST);
             }
         });
         spDetailRv.addHeaderView(header);
@@ -153,11 +145,11 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
             case R.id.tv_share:
                 break;
             case R.id.tv_collect:
-                getPresenter().getCollectInfo(11,id);
+                getPresenter().getCollectInfo(11, id);
                 break;
             case R.id.tv_add_car:
+
                 showPop();
-                getPresenter().getShopCarInfo(id+"");
                 break;
             case R.id.tv_now_buy:
                 showPop();
@@ -166,20 +158,40 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
     }
 
     private void showPop() {
-
         shopCarDialog = new ShopCarDialog(this, R.style.dialog_style);
         shopCarDialog.show();
+        if (shopCarInfoBean != null) {
+            skuList = shopCarInfoBean.getSkuList();
+            if (skuList != null && skuList.size() > 0) {
+                shopCarDialog.setData(skuList);
+                //点击加入到购物车
+                shopCarDialog.setListener(new ShopCarDialog.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(int count, int id,int position) {
+                        mPositon=position;
+                        mCount=count;
+                        if(count>0){
+                            getPresenter().shopCar(id+"", count+"");
+                        }else{
+                        }
+
+                    }
+                });
+            }
+        } else {
+            LogUtils.i("bean 为null");
+        }
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode!=RESULT_OK){
-            return ;
-        }else{
-            if(requestCode==ADDRESSREQUEST){
-                if(data!=null){
+        if (resultCode != RESULT_OK) {
+            return;
+        } else {
+            if (requestCode == ADDRESSREQUEST) {
+                if (data != null) {
                     String addressName = data.getStringExtra("Name");
                     tvAddress.setText(addressName);
                 }
@@ -189,19 +201,19 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
 
     @Override
     public void getSpDetailSucc(SpDetailBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             SpDetailBean.ProductBean product = bean.getProduct();
             id = product.getId();
-            tvComment.setText("评论("+bean.getCommentTotal()+")");
-            tvCommnetRate.setText(bean.getRateGood()+"");
+            tvComment.setText("评论(" + bean.getCommentTotal() + ")");
+            tvCommnetRate.setText(bean.getRateGood() + "");
             //设置评论列表
             detailrvAdapter.setData(bean.getCommentList());
-            if(product!=null){
+            if (product != null) {
                 tvSpCategory.setText(product.getProductname());
-                tvSpPrice.setText("￥"+product.getPrice());
+                tvSpPrice.setText("￥" + product.getPrice());
                 //tvAddress.setText("送至:"+product.get);
                 //获取轮播图
-                List<?> imgList =  product.getImgList();
+                List<?> imgList = product.getImgList();
                 if (imgList.size() > 0) {
                     ArrayList<BannerItem> list = new ArrayList<>();
                     for (int i = 0; i < imgList.size(); i++) {
@@ -227,12 +239,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
 
     @Override
     public void getCollectResult(CollectBean bean) {
-        if(bean!=null){
-            if(bean.getStatus()==1){
+        if (bean != null) {
+            if (bean.getStatus() == 1) {
                 showToast("收藏");
-            }else if(bean.getStatus()==0){
+            } else if (bean.getStatus() == 0) {
                 showToast("取消收藏");
-            }else{
+            } else {
                 LogUtils.i("没有收藏成功");
             }
         }
@@ -240,20 +252,20 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel,SpDetailView,Sp
 
     @Override
     public void getShopCarInfo(ShopCarInfoBean bean) {
+        this.shopCarInfoBean=bean;
+
+    }
+
+    @Override
+    public void getShopCar(ActivityPostBean bean) {
         if(bean!=null){
-            List<ShopCarInfoBean.SkuListBean> skuList = bean.getSkuList();
-            if(skuList!=null&&skuList.size()>0){
-                shopCarDialog.setData(skuList);
-                shopCarDialog.setListener(new ShopCarDialog.OnItemClickListener() {
-                    @Override
-                    public void onItemClickListener(int count, int index) {
-                        Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
+            Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
+            /*ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
+            intent.putExtra("count",mCount);
+            intent.putExtra("skuListInfo",skuListBean);*/
+            startActivity(intent);
         }else{
-            LogUtils.i("bean 为null");
+            LogUtils.i(bean.getMsg());
         }
     }
 }

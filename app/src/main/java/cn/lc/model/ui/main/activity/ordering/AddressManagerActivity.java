@@ -40,7 +40,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
     private List<AddressBean.AddressListEntity> data;
 
     private int addressId = 0;
-    private String userName;
+    private String mAddress;
 
     @Override
     public AddressPresenter createPresenter() {
@@ -61,7 +61,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
     @Override
     public void initView() {
         addressId = getIntent().getIntExtra("ID", 0);
-        userName = getIntent().getStringExtra("addressName");
+        mAddress = getIntent().getStringExtra("addressName");
         data = new ArrayList<>();
         adapter = new AddressAdapter(this, data);
         listView.setAdapter(adapter);
@@ -80,9 +80,9 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
 
         adapter.setOnSelectClickListener(new AddressAdapter.OnSelectClickListener() {
             @Override
-            public void onClick(int id, String name) {
+            public void onClick(int id, String address) {
                 addressId = id;
-                userName = name;
+                mAddress = address;
             }
         });
         getPresenter().getAddress();
@@ -100,7 +100,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
             case R.id.back:
                 Intent intent1 = new Intent();
                 intent1.putExtra("ID", addressId);
-                intent1.putExtra("Name", userName);
+                intent1.putExtra("Address", mAddress);
                 setResult(RESULT_OK, intent1);
                 finish();
                 break;

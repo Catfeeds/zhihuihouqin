@@ -4,6 +4,7 @@ import android.util.Log;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.utils.LogUtils;
+import cn.lc.model.ui.main.bean.ActivityPostBean;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.ShopCarInfoBean;
 import cn.lc.model.ui.main.bean.SpDetailBean;
@@ -94,6 +95,33 @@ public class SpDetailPresenter extends MvpRxPresenter<SpDetailModel, SpDetailVie
                     getView().getShopCarInfo(bean);
                 }else{
                     LogUtils.i(bean.getMsg());
+                }
+            }
+        });
+    }
+    public void shopCar(String s,String count) {
+        getView().showProgressDialog();
+        Observable request = getModel().shopCar(s,count);
+        getNetWork(request, new Subscriber<ActivityPostBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(ActivityPostBean bean) {
+                if (bean.getErrCode() == 0) {
+                    getView().getShopCar(bean);
+                } else {
+                    getView().showToast(bean.getMsg());
                 }
             }
         });

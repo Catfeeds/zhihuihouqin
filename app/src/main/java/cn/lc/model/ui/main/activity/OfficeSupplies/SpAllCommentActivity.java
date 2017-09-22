@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
+import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.SpCommentTopAdapter;
 import cn.lc.model.ui.main.bean.SpAllCommentCountBean;
@@ -96,12 +97,13 @@ public class SpAllCommentActivity extends BaseActivity<SpCommentCountModel, SpCo
 
     @Override
     public void getCommentSucc(SpAllCommentCountBean bean) {
+        LogUtils.i("bean========="+bean);
         if (bean != null) {
             int total = bean.getTotal();
             num.add(total + "");
-            num.add(bean.getGoodPersent());
-            num.add(bean.getMiddlePersent());
-            num.add(bean.getBadPersent());
+            num.add(bean.getGoodNum()+"");
+            num.add(bean.getMiddleNum()+"");
+            num.add(bean.getBadNum()+"");
             topAdapter.setData(names, num);
         }
         topAdapter.setListener(new SpCommentTopAdapter.OnClickListener() {

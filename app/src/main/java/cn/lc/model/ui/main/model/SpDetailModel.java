@@ -13,6 +13,7 @@ public interface SpDetailModel extends MvpModel {
     Observable getData(String s);
     Observable collect(int s,int s1);
     Observable getShopCarInfo(String id);
+    Observable shopCar(String s,String count);
 
 
 }

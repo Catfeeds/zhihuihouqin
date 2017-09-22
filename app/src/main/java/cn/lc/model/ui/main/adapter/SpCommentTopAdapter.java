@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
+import cn.lc.model.framework.utils.LogUtils;
 
 /**
  * Created by 我的电脑 on 2017/9/19 0019.
@@ -52,6 +53,7 @@ public class SpCommentTopAdapter extends RecyclerView.Adapter {
     }
 
     public void setData(List<String> names, List<String> num) {
+        LogUtils.i("num==="+num);
         this.name=names;
         this.nums=num;
         notifyDataSetChanged();
@@ -91,7 +93,8 @@ public class SpCommentTopAdapter extends RecyclerView.Adapter {
             tvCommentType.setText(s);
             tvCommentCount.setText(s1);
         }
-    }
+
+     }
     private OnClickListener listener;
 
     public void setListener(OnClickListener listener) {

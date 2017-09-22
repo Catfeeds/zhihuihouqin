@@ -1,24 +1,27 @@
 package cn.lc.model.ui.main.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 我的电脑 on 2017/9/19 0019.
  */
 
-public class SpAllCommentCountBean {
+public class SpAllCommentCountBean implements Serializable{
+
 
     /**
      * total : 1
-     * goodPersent : 0.0%
-     * badPersent : 100.0%
-     * middlePersent : 0.0%
+     * goodNum : 1
+     * badNum : 0
+     * middleNum : 0
      * errCode : 0
      * msg : success
      */
 
     private int total;
-    private String goodPersent;
-    private String badPersent;
-    private String middlePersent;
+    private String goodNum;
+    private String badNum;
+    private String middleNum;
     private int errCode;
     private String msg;
 
@@ -30,28 +33,28 @@ public class SpAllCommentCountBean {
         this.total = total;
     }
 
-    public String getGoodPersent() {
-        return goodPersent;
+    public String getGoodNum() {
+        return goodNum;
     }
 
-    public void setGoodPersent(String goodPersent) {
-        this.goodPersent = goodPersent;
+    public void setGoodNum(String goodNum) {
+        this.goodNum = goodNum;
     }
 
-    public String getBadPersent() {
-        return badPersent;
+    public String getBadNum() {
+        return badNum;
     }
 
-    public void setBadPersent(String badPersent) {
-        this.badPersent = badPersent;
+    public void setBadNum(String badNum) {
+        this.badNum = badNum;
     }
 
-    public String getMiddlePersent() {
-        return middlePersent;
+    public String getMiddleNum() {
+        return middleNum;
     }
 
-    public void setMiddlePersent(String middlePersent) {
-        this.middlePersent = middlePersent;
+    public void setMiddleNum(String middleNum) {
+        this.middleNum = middleNum;
     }
 
     public int getErrCode() {

@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ public class ShopCarInfoBean {
         this.skuList = skuList;
     }
 
-    public static class SkuListBean {
+    public static class SkuListBean implements Serializable{
         /**
          * cataName : 颜色分类
          * createtime : 2017-08-18 16:23:41

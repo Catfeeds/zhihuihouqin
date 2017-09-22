@@ -30,4 +30,10 @@ public class SpDetailModelImpl implements SpDetailModel {
         Observable observable = RetrofitUtils.getInstance().getSpShopCarInfo(id);
         return observable;
     }
+
+    @Override
+    public Observable shopCar(String s, String count) {
+        Observable observable = RetrofitUtils.getInstance().shopCar(s,count);
+        return observable;
+    }
 }

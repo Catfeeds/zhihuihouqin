@@ -8,8 +8,8 @@ import rx.Observable;
  * 作者：Shixhe On 2017/9/4 0004
  */
 
-public interface ShopCarModel extends MvpModel {
+public interface HistoryPostModel extends MvpModel {
 
-    Observable shopCar(String s,String count);
+    Observable getData(String page,String limit);
 
 }

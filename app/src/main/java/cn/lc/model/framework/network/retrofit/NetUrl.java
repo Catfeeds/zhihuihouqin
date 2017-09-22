@@ -64,6 +64,10 @@ public interface NetUrl {
     String spAllCommentCount="appuser/bgypfwproduct/findCommentRate";
     String shopCarInfo="appuser/bgypfwskuid/findSkuList";
     String shopCar="appuser/bgypfwcart/addToCart";
+    String checkShopCar="appuser/bgypfwcart/findUserCart";
+    String spOrder="appuser/bgypfworder/generateOrder";
+    String postNeed="appuser/bgypfwapplyproduct/generateOrder";
+    String requested="appuser/bgypfwapplyproduct/findApplyList";
     //工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";

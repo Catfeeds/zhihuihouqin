@@ -98,7 +98,7 @@ public class AddressAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     selectPosition = mPosition;
                     if (listen != null)
-                        listen.onClick(data.get(selectPosition).getId(), data.get(selectPosition).getRealname());
+                        listen.onClick(data.get(selectPosition).getId(), data.get(selectPosition).getAddress());
                     notifyDataSetChanged();
                 }
             });
@@ -124,7 +124,7 @@ public class AddressAdapter extends BaseAdapter {
     }
 
     public interface OnSelectClickListener {
-        void onClick(int id, String name);
+        void onClick(int id, String address);
     }
 
     public void setOnSelectClickListener(OnSelectClickListener listener) {

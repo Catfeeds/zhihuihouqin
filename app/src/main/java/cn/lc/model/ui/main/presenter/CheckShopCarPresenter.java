@@ -3,11 +3,9 @@ package cn.lc.model.ui.main.presenter;
 import android.util.Log;
 
 import cn.lc.model.ui.main.bean.ActivityPostBean;
-import cn.lc.model.ui.main.bean.AddressBean;
-import cn.lc.model.ui.main.model.AddressModel;
-import cn.lc.model.ui.main.model.ShopCarModel;
-import cn.lc.model.ui.main.view.AddressView;
-import cn.lc.model.ui.main.view.ShopCarView;
+import cn.lc.model.ui.main.bean.SpCheckShopCarBean;
+import cn.lc.model.ui.main.model.CheckShopCarModel;
+import cn.lc.model.ui.main.view.CheckShopCarView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -17,12 +15,12 @@ import rx.Subscriber;
  * 作者：Shixhe On 2017/9/7 0007
  */
 
-public class ShopCarPresenter extends MvpRxPresenter<ShopCarModel, ShopCarView> {
+public class CheckShopCarPresenter extends MvpRxPresenter<CheckShopCarModel, CheckShopCarView> {
 
-    public void shopCar(String s,String count) {
+    public void checkShopCar() {
         getView().showProgressDialog();
-        Observable request = getModel().shopCar(s,count);
-        getNetWork(request, new Subscriber<ActivityPostBean>() {
+        Observable request = getModel().checkShopCar();
+        getNetWork(request, new Subscriber<SpCheckShopCarBean>() {
 
             @Override
             public void onCompleted() {
@@ -32,13 +30,14 @@ public class ShopCarPresenter extends MvpRxPresenter<ShopCarModel, ShopCarView> 
 
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 Log.e("Throwable", e.getMessage());
             }
 
             @Override
-            public void onNext(ActivityPostBean bean) {
+            public void onNext(SpCheckShopCarBean bean) {
                 if (bean.getErrCode() == 0) {
-                    getView().shopCar(bean);
+                    getView().checkShopCar(bean);
                 } else {
                     getView().showToast(bean.getMsg());
                 }

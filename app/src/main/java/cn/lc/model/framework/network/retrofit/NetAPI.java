@@ -30,6 +30,7 @@ import cn.lc.model.ui.main.bean.ExpertCommentBean;
 import cn.lc.model.ui.main.bean.ExpertDetailBean;
 import cn.lc.model.ui.main.bean.ExpertOrderBean;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
+import cn.lc.model.ui.main.bean.HistoryPostBean;
 import cn.lc.model.ui.main.bean.InformationBean;
 import cn.lc.model.ui.main.bean.InformationClazzBean;
 import cn.lc.model.ui.main.bean.JieYueBean;
@@ -54,7 +55,9 @@ import cn.lc.model.ui.main.bean.ShopBean;
 import cn.lc.model.ui.main.bean.ShopCarInfoBean;
 import cn.lc.model.ui.main.bean.SpAllCommentBean;
 import cn.lc.model.ui.main.bean.SpAllCommentCountBean;
+import cn.lc.model.ui.main.bean.SpCheckShopCarBean;
 import cn.lc.model.ui.main.bean.SpDetailBean;
+import cn.lc.model.ui.main.bean.SpOrderBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
 import cn.lc.model.ui.main.bean.VegetableBean;
 import cn.lc.model.ui.main.bean.WuyeHomeBean;
@@ -317,10 +320,30 @@ public interface NetAPI {
     @POST(NetUrl.shopCarInfo)
     Observable<ShopCarInfoBean> getShopCarInfo(@FieldMap Map<String, Object> map);
 
-    //购物车
+    //加入购物车
     @FormUrlEncoded
     @POST(NetUrl.shopCar)
     Observable<ActivityPostBean> shopCar(@FieldMap Map<String, Object> map);
+
+    //查看购物车
+    @FormUrlEncoded
+    @POST(NetUrl.checkShopCar)
+    Observable<SpCheckShopCarBean> checkShopCar(@FieldMap Map<String, Object> map);
+
+    //生成订单
+    @FormUrlEncoded
+    @POST(NetUrl.spOrder)
+    Observable<SpOrderBean> getSpOrder(@FieldMap Map<String, Object> map);
+
+    //发布需求
+    @FormUrlEncoded
+    @POST(NetUrl.postNeed)
+    Observable<ActivityPostBean> postNeed(@FieldMap Map<String, Object> map);
+
+    //历史需求
+    @FormUrlEncoded
+    @POST(NetUrl.requested)
+    Observable<HistoryPostBean> historyPostNeed(@FieldMap Map<String, Object> map);
 
     //生成工作餐订单
     @FormUrlEncoded

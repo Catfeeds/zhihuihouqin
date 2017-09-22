@@ -1157,7 +1157,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.getShopCarInfo(paramsMap));
     }
     /**
-     * 购物车
+     * 加入购物车
      *
      * @return
      */
@@ -1172,7 +1172,87 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.getShopCarInfo(paramsMap));
+        return getObservable(api.shopCar(paramsMap));
+    }
+    /**
+     * 查看购物车
+     *
+     * @return
+     */
+    public static Observable checkShopCar() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.checkShopCar(paramsMap));
+    }
+    /**
+     * 商品订单
+     *
+     * @return
+     */
+    public static Observable spOrder(String addressid,String expectedTime,String remark,String productList,
+                                     String skuid,String count) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("addressid",addressid);
+            tempMap.put("expectedTime",expectedTime);
+            tempMap.put("remark",remark);
+            tempMap.put("productList",productList);
+            tempMap.put("skuid",skuid);
+            tempMap.put("count",count);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getSpOrder(paramsMap));
+    }
+    /**
+     * 发布商品
+     * @return
+     */
+
+    public static Observable post(String realname,String mobile,String remark,String productName,
+                                     String count) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("realname",realname);
+            tempMap.put("mobile",mobile);
+            tempMap.put("remark",remark);
+            tempMap.put("productName",productName);
+            tempMap.put("count",count);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.postNeed(paramsMap));
+    }
+    /**
+     * 历史发布
+     * @return
+     */
+
+    public static Observable historyPost(String page,String limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("page",page);
+            tempMap.put("limit",limit);
+
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.historyPostNeed(paramsMap));
     }
 
     /**

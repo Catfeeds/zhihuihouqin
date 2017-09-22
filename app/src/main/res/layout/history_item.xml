@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="horizontal">
+        <TextView
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text="商品名称:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sp_name"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text=""
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_count"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text="商品数量:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sp_count"
+            android:layout_toRightOf="@id/tv_count"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text=""
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_state"
+            android:textSize="@dimen/sp_big"
+            android:textColor="@color/tv_black"
+            android:text="审核中"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="12dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text="提交时间:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_commit_time"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text=""
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+</LinearLayout>

@@ -26,7 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp">
 
             <LinearLayout
                 android:id="@+id/ll_user_info"
@@ -40,6 +43,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="有才"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_common" />
+                <TextView
+                    android:id="@+id/tv_sex"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="先生"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
 
@@ -76,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="34dp"
-                android:text="地址"
+                android:text="送至："
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_common" />
         </LinearLayout>
@@ -89,7 +100,7 @@
         <RelativeLayout
             android:id="@+id/rl_expect_time"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
+            android:layout_height="60dp">
 
             <View
                 android:layout_width="4dp"
@@ -128,7 +139,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:background="@color/gray_lighter" />
+            android:background="@color/gray_trans" />
         <LinearLayout
             android:layout_width="match_parent"
             android:padding="16dp"
@@ -176,7 +187,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/gray_lighter"/>
+            android:background="@color/gray_trans"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -208,7 +219,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@color/gray_lighter"/>
+            android:background="@color/gray_trans"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:padding="16dp"
@@ -232,7 +243,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/gray_lighter"/>
+            android:background="@color/gray_trans"/>
 
     </LinearLayout>
 

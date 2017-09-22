@@ -63,8 +63,9 @@ public class ShopCarDialog extends Dialog {
     TextView tvConfirm;
     private Context ct;
     private int count;
-    private int position;
     private List<ShopCarInfoBean.SkuListBean> itemList;
+    private int cid;
+    private int position;
 
 
     public ShopCarDialog(Context context, int theme) {
@@ -74,7 +75,6 @@ public class ShopCarDialog extends Dialog {
     }
 
     private void initView() {
-        //View contentView = View.inflate(ct, R.layout.img_flow, null);
         View contentView = View.inflate(ct, R.layout.dialog_shop_car, null);
         ButterKnife.bind(this, contentView);
 
@@ -91,49 +91,51 @@ public class ShopCarDialog extends Dialog {
         getWindow().setWindowAnimations(R.style.AnimationDialog);
 
     }
-    public void clickPosition(int position){
-        this.position=position;
-
-    }
     public void setData(final List<ShopCarInfoBean.SkuListBean> itemList) {
         this.itemList = itemList;
         for (int i = 0; i < itemList.size(); i++) {
-            final TextView textView = new TextView(ct);
+            final TextView textView =  new TextView(ct);
             textView.setText(itemList.get(i).getSkuname());
             textView.setTextColor(Color.parseColor("#333333"));
             textView.setGravity(Gravity.CENTER);
             textView.setTextSize(14);
             textView.setBackgroundColor(Color.parseColor("#F6F5F5"));
             textView.setPadding(DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 8));
-            final int index = i;
-            textView.setOnClickListener(new View.OnClickListener() {
+            flowLayout.addView(textView);
+            flowLayout.getChildAt(0).performClick();
+        }
+
+        for (int j = 0; j < flowLayout.getChildCount(); j++) {
+            final int index=j;
+            flowLayout.getChildAt(j).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String s = textView.getText().toString();
-
+                    String s = ((TextView) flowLayout.getChildAt(index)).getText().toString();
                     ShopCarInfoBean.SkuListBean skuListBean = itemList.get(index);
+                    int id = skuListBean.getId();//库存id
+                    cid = id;
                     GlideLoading.getInstance().loadImgUrlNyImgLoader(ct,
                             skuListBean.getMainimg(),ivPic);
                     price.setText("￥"+skuListBean.getPrice());
                     tvKucun.setText("库存"+skuListBean.getStore()+"件");
-//                    clickPosition(index)
-                    for (int j = 0; j < itemList.size(); j++) {
-                        if(index==j){
-                            ToastUtil.showToast(ct,"索引："+index+"内容：" );
-                            flowLayout.getChildAt(index).setBackgroundColor(Color.parseColor("#FF5111"));
-                            ((TextView) flowLayout.getChildAt(index)).setTextColor(Color.parseColor("#ffffff"));
+                   int in=index;
+                    position=in;
+                    for (int i = 0; i < flowLayout.getChildCount(); i++) {
+                        if(i==in){
+                            ((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#FF5111"));
+                            ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#ffffff"));
                         }else{
-                            flowLayout.getChildAt(index).setBackgroundColor(Color.parseColor("#F6F5F5"));
-                            ((TextView) flowLayout.getChildAt(index)).setTextColor(Color.parseColor("#333333"));
+                            ((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#F6F5F5"));
+                            ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#333333"));
                         }
                     }
-
                 }
             });
-            flowLayout.addView(textView);
-            flowLayout.getChildAt(0).performClick();
         }
+        flowLayout.getChildAt(0).performClick();
+
     }
+
 
     private OnItemClickListener listener;
 
@@ -154,9 +156,9 @@ public class ShopCarDialog extends Dialog {
                 doAdd();
                 break;
             case R.id.tv_confirm:
-               if(listener!=null){
-                   listener.onItemClickListener(count,position);
-               }
+             if(listener!=null){
+                 listener.onItemClickListener(count,cid,position);
+             }
                 dismiss();
                 break;
         }
@@ -177,7 +179,7 @@ public class ShopCarDialog extends Dialog {
     }
 
     public interface OnItemClickListener {
-        void onItemClickListener(int count,int index);
+        void onItemClickListener(int count,int id,int position);
     }
 
     private boolean isPopShowing = false;
