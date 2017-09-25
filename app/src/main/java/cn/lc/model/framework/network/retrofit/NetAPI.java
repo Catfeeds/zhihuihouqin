@@ -39,6 +39,8 @@ import cn.lc.model.ui.main.bean.JieYueTimeBean;
 import cn.lc.model.ui.main.bean.LabellingBean;
 import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.bean.LibraryPicBean;
+import cn.lc.model.ui.main.bean.MessageBean;
+import cn.lc.model.ui.main.bean.MessageListBean;
 import cn.lc.model.ui.main.bean.MoreListBean;
 import cn.lc.model.ui.main.bean.NutritionBean;
 import cn.lc.model.ui.main.bean.OfficeIndexBean;
@@ -482,5 +484,15 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.submitMyService)
     Observable<CollectBean> submitMyService(@FieldMap Map<String, Object> map);
+
+    // 获取消息tab
+    @FormUrlEncoded
+    @POST(NetUrl.getMessage)
+    Observable<MessageBean> getMessage(@FieldMap Map<String, Object> map);
+
+    // 获取消息列表
+    @FormUrlEncoded
+    @POST(NetUrl.getMessageList)
+    Observable<MessageListBean> getMessageList(@FieldMap Map<String, Object> map);
 
 }

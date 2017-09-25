@@ -259,7 +259,8 @@
         <activity android:name=".ui.main.activity.me.PersonalInfoActivity" />
         <activity android:name=".ui.main.activity.me.SexActivity" />
         <activity android:name=".ui.main.activity.me.MyCollectActivity" />
-        <activity android:name=".ui.main.activity.me.SettingAct" />
+        <activity android:name=".ui.main.activity.me.SettingActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.main.activity.me.AboutUsActivity" />
         <activity android:name=".ui.main.activity.me.VersionActivity" />
         <activity android:name=".ui.main.activity.me.MsgSettingActivity" />
@@ -269,7 +270,6 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.ShopCarActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpConfirmOrderAct" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct"></activity>
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct" />
         <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity" />
         <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity" />
@@ -285,7 +285,35 @@
         <activity
             android:name=".ui.main.activity.OfficeSupplies.HistoryActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.CheckHistoryPostItemAct"></activity>
+        <activity android:name=".ui.main.activity.OfficeSupplies.CheckHistoryPostItemAct" />
+        <activity
+            android:name=".ui.main.activity.message.SystemMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.PayUpMessageActivity"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.OrderMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.ComplainMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.CommentMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.AuditMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.ActiveMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.MessageDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.message.PayUpMessageDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

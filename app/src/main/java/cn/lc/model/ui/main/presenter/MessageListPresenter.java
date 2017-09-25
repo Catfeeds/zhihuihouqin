@@ -2,9 +2,9 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.MessageBean;
-import cn.lc.model.ui.main.model.Tab3Model;
-import cn.lc.model.ui.main.view.Tab3View;
+import cn.lc.model.ui.main.bean.MessageListBean;
+import cn.lc.model.ui.main.model.MessageListModel;
+import cn.lc.model.ui.main.view.MessageListView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -13,12 +13,12 @@ import rx.Subscriber;
  * Created by hh on 2017/5/12.
  */
 
-public class Tab3Presenter extends MvpRxPresenter<Tab3Model, Tab3View> {
+public class MessageListPresenter extends MvpRxPresenter<MessageListModel, MessageListView> {
 
 
-    public void getData() {
-        Observable request = getModel().getData();
-        getNetWork(request, new Subscriber<MessageBean>() {
+    public void getMessageList(int messageType, int page) {
+        Observable request = getModel().getMessageListSucc(messageType, page);
+        getNetWork(request, new Subscriber<MessageListBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -31,12 +31,10 @@ public class Tab3Presenter extends MvpRxPresenter<Tab3Model, Tab3View> {
             }
 
             @Override
-            public void onNext(MessageBean bean) {
-                Log.e("errorCode", bean.getErrCode() + "");
+            public void onNext(MessageListBean bean) {
                 if (bean.getErrCode() == 0) {
-                    getView().getDataSucc(bean);
+                    getView().getMessageListSucc(bean);
                 } else {
-                    Log.e("getMsg", bean.getMsg());
                     getView().showToast(bean.getMsg());
                 }
             }

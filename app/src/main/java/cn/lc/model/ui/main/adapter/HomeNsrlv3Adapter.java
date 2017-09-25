@@ -111,7 +111,11 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                 tvThridrvContent.setText(activitylistBean.getATitle());
                 tvLocation.setText(activitylistBean.getAPlace());
                 String aContactMobile = activitylistBean.getAContactMobile();
-                String str = aContactMobile.substring(0, 3) + "****" + aContactMobile.substring(7, aContactMobile.length());
+                String str;
+                if (aContactMobile.length() > 7)
+                    str = aContactMobile.substring(0, 3) + "****" + aContactMobile.substring(7, aContactMobile.length());
+                else
+                    str = aContactMobile;
                 phone.setText("电话：" + str);
                 tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
                 tvSignUp.setText("报名(" + activitylistBean.getASignCount() + "/" + activitylistBean.getATotal() + ")");

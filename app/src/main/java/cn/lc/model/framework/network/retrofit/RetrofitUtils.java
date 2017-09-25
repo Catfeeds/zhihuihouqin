@@ -344,7 +344,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
-     *  首页数据
+     * 首页数据
      */
     public static Observable homePageData() {
         Map<String, Object> paramsMap = new HashMap<>();
@@ -1080,6 +1080,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.commitDryComment(paramsMap));
     }
+
     /**
      * 办公首页
      *
@@ -1096,19 +1097,20 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getOfficeIndex(paramsMap));
     }
+
     /**
      * 办公商品类别
      *
      * @return
      */
     public static Observable getSpCategory(String categoryOneId,
-                                           String page,String limit) {
+                                           String page, String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("categoryOneId",categoryOneId);
-            tempMap.put("page",page);
-            tempMap.put("limit",limit);
+            tempMap.put("categoryOneId", categoryOneId);
+            tempMap.put("page", page);
+            tempMap.put("limit", limit);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1116,6 +1118,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getProductCategory(paramsMap));
     }
+
     /**
      * 商品详情
      *
@@ -1125,7 +1128,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("productId",productId);
+            tempMap.put("productId", productId);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1133,6 +1136,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getSpDetail(paramsMap));
     }
+
     /**
      * 商品所有评价
      *
@@ -1142,26 +1146,27 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("productId",productId);
+            tempMap.put("productId", productId);
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return getObservable(api.getSpAllCommentCount(paramsMap));
     }
+
     /**
      * 商品所有评价
      *
      * @return
      */
-    public static Observable getSpAllComment(String productId,String commentType ,String page,String limit) {
+    public static Observable getSpAllComment(String productId, String commentType, String page, String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("productId",productId);
-            tempMap.put("commentType",commentType);
-            tempMap.put("page",page);
-            tempMap.put("limit",limit);
+            tempMap.put("productId", productId);
+            tempMap.put("commentType", commentType);
+            tempMap.put("page", page);
+            tempMap.put("limit", limit);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1169,6 +1174,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getSpAllComment(paramsMap));
     }
+
     /**
      * 商品购物车信息
      *
@@ -1178,7 +1184,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("productId",productId);
+            tempMap.put("productId", productId);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1186,17 +1192,18 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getShopCarInfo(paramsMap));
     }
+
     /**
      * 加入购物车
      *
      * @return
      */
-    public static Observable shopCar(String skuid,String count) {
+    public static Observable shopCar(String skuid, String count) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("skuid",skuid);
-            tempMap.put("count",count);
+            tempMap.put("skuid", skuid);
+            tempMap.put("count", count);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1204,6 +1211,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.shopCar(paramsMap));
     }
+
     /**
      * 查看购物车
      *
@@ -1220,22 +1228,23 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.checkShopCar(paramsMap));
     }
+
     /**
      * 商品订单
      *
      * @return
      */
-    public static Observable spOrder(String addressid,String expectedTime,String remark,String productList,
-                                     String skuid,String count) {
+    public static Observable spOrder(String addressid, String expectedTime, String remark, String productList,
+                                     String skuid, String count) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("addressid",addressid);
-            tempMap.put("expectedTime",expectedTime);
-            tempMap.put("remark",remark);
-            tempMap.put("productList",productList);
-            tempMap.put("skuid",skuid);
-            tempMap.put("count",count);
+            tempMap.put("addressid", addressid);
+            tempMap.put("expectedTime", expectedTime);
+            tempMap.put("remark", remark);
+            tempMap.put("productList", productList);
+            tempMap.put("skuid", skuid);
+            tempMap.put("count", count);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1243,21 +1252,23 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getSpOrder(paramsMap));
     }
+
     /**
      * 发布商品
+     *
      * @return
      */
 
-    public static Observable post(String realname,String mobile,String remark,String productName,
-                                     String count) {
+    public static Observable post(String realname, String mobile, String remark, String productName,
+                                  String count) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("realname",realname);
-            tempMap.put("mobile",mobile);
-            tempMap.put("remark",remark);
-            tempMap.put("productName",productName);
-            tempMap.put("count",count);
+            tempMap.put("realname", realname);
+            tempMap.put("mobile", mobile);
+            tempMap.put("remark", remark);
+            tempMap.put("productName", productName);
+            tempMap.put("count", count);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1265,17 +1276,19 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.postNeed(paramsMap));
     }
+
     /**
      * 历史发布
+     *
      * @return
      */
 
-    public static Observable historyPost(String page,String limit) {
+    public static Observable historyPost(String page, String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("page",page);
-            tempMap.put("limit",limit);
+            tempMap.put("page", page);
+            tempMap.put("limit", limit);
 
             addParam(paramsMap, tempMap);
 
@@ -1737,6 +1750,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.getVegetableTime(paramsMap));
     }
 
+    /*------------------------------------------服务管理----------------------------------------------*/
+
     /**
      * 获取我的服务
      */
@@ -1770,6 +1785,39 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.submitMyService(paramsMap));
+    }
+
+    /*------------------------------------------消息Tab----------------------------------------------*/
+
+    /**
+     * 获取消息tab
+     */
+    public static Observable getMessage() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getMessage(paramsMap));
+    }
+
+    /**
+     * 获取消息列表
+     */
+    public static Observable getMessageList(int messageType, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("messagetype", messageType);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getMessageList(paramsMap));
     }
 
 }

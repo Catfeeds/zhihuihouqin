@@ -7,7 +7,8 @@ import rx.Observable;
  * Created by hh on 2017/5/12.
  */
 
-public interface Tab3Model extends MvpModel{
+public interface Tab3Model extends MvpModel {
+
     Observable getData();
 
     Observable login(String s, String s1);

@@ -27,7 +27,7 @@
             android:layout_marginRight="12dp"
             android:padding="5dp"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger"
+            android:textSize="@dimen/sp_big"
             android:text="@string/already_read" />
 
     </RelativeLayout>
@@ -38,6 +38,7 @@
         android:background="@color/gray_line" />
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -443,8 +444,8 @@
                 android:layout_height="5dp"
                 android:background="@color/gray_line" />
 
-            <cn.lc.model.ui.mywidget.NoSlideRecyclerView
-                android:id="@+id/rv_msg"
+            <cn.lc.model.framework.widget.NoSlidingListView
+                android:id="@+id/recycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

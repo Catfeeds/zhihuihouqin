@@ -11,24 +11,25 @@ import java.util.List;
 import butterknife.BindView;
 import cn.lc.model.R;
 import cn.lc.model.framework.widget.TitleBar;
-import cn.lc.model.ui.main.adapter.SystemMessageAdapter;
+import cn.lc.model.ui.main.adapter.PayUpMessageAdapter;
 import cn.lc.model.ui.main.bean.MessageListBean;
+import cn.lc.model.ui.main.bean.PayUpMessageBean;
 
 /**
- * 类描述：系统消息
+ * 类描述：缴费消息
  * 作者：Shixhe On 2017/9/15 0015
  */
-public class SystemMessageActivity extends MessageActivity {
+public class PayUpMessageActivity extends MessageActivity {
 
     @BindView(R.id.recycleView)
     XRecyclerView recycleView;
     @BindView(R.id.title_bar)
     TitleBar titleBar;
 
-    private SystemMessageAdapter adapter;
-    private List<MessageListBean.PageEntity.ListEntity> data;
+    private PayUpMessageAdapter adapter;
+    private List<PayUpMessageBean.PageEntity.ListEntity> data;
     private int page = 1;
-    private int messageType = 1; // 消息类型 请求接口做为参数
+    private int messageType = 3; // 消息类型 请求接口做为参数
 
     @Override
     public void setContentLayout() {
@@ -37,10 +38,10 @@ public class SystemMessageActivity extends MessageActivity {
 
     @Override
     public void initView() {
-        titleBar.setTitle("系统消息");
+        titleBar.setTitle("缴费消息");
         titleBar.setBack(true);
         data = new ArrayList<>();
-        adapter = new SystemMessageAdapter(this, data);
+        adapter = new PayUpMessageAdapter(this, data);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         recycleView.setAdapter(adapter);
         getPresenter().getMessageList(messageType, page);
@@ -58,15 +59,15 @@ public class SystemMessageActivity extends MessageActivity {
             }
         });
 
-        adapter.setOnItemClickListener(new SystemMessageAdapter.OnItemClickListener() {
-
+        adapter.setOnItemClickListener(new PayUpMessageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(SystemMessageActivity.this, MessageDetailActivity.class);
+                Intent intent = new Intent(PayUpMessageActivity.this, PayUpMessageDetailActivity.class);
                 intent.putExtra("Data", data.get(position));
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -80,7 +81,7 @@ public class SystemMessageActivity extends MessageActivity {
         } else {
             recycleView.loadMoreComplete();
         }
-        data.addAll(bean.getPage().getList());
+//        data.addAll(bean.getPage().getList());
         adapter.notifyDataSetChanged();
     }
 }

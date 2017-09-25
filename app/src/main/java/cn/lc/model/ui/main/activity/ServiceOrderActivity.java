@@ -28,10 +28,6 @@ import cn.lc.model.R;
 import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.ui.main.adapter.MyPagerAdapter;
 import cn.lc.model.ui.main.fragment.BookFragment;
-import cn.lc.model.ui.main.fragment.CancleFragment;
-import cn.lc.model.ui.main.fragment.FinishFragment;
-import cn.lc.model.ui.main.fragment.OverOrderFragment;
-import cn.lc.model.ui.main.fragment.WaitCommentFragment;
 import cn.lc.model.ui.main.fragment.WaitOrderFragment;
 
 public class ServiceOrderActivity extends AppCompatActivity implements View.OnClickListener {
@@ -69,11 +65,11 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
         fragments = new ArrayList<>();
         switch (from){
             case Constants.DRYCLEANER://干洗店
-                fragments.add(WaitOrderFragment.getIntance(1));
-                fragments.add(WaitOrderFragment.getIntance(2));
-                fragments.add(WaitOrderFragment.getIntance(3));
-                fragments.add(WaitOrderFragment.getIntance(4));
-                fragments.add(WaitOrderFragment.getIntance(5));
+                fragments.add(WaitOrderFragment.getInstance(1));
+                fragments.add(WaitOrderFragment.getInstance(2));
+                fragments.add(WaitOrderFragment.getInstance(3));
+                fragments.add(WaitOrderFragment.getInstance(4));
+                fragments.add(WaitOrderFragment.getInstance(5));
                 break;
             case Constants.BOOK:
                 fragments.add(BookFragment.getInstance(0));
@@ -129,8 +125,6 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                         ivUpOrDown.setImageResource(R.drawable.drawer_arrow_up);
                     }
                 });
-
-
             }
         });
     }

@@ -25,6 +25,7 @@ import cn.lc.model.ui.main.model.MoreServiceModel;
 import cn.lc.model.ui.main.modelimpl.MoreServiceModelImpl;
 import cn.lc.model.ui.main.presenter.MoreServicePresenter;
 import cn.lc.model.ui.main.view.MoreServiceView;
+import mvp.cn.util.ToastUtil;
 
 public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView, MoreServicePresenter> implements MoreServiceView {
 
@@ -318,6 +319,13 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
         }
     }
 
+    private void beyondMost() {
+        if (myData.size() == 7) {
+            ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+            return;
+        }
+    }
+
     private void initGrid() {
         gridAdapter = new AllGrideAdapter(this, myData);
         gvApp.setAdapter(gridAdapter);
@@ -399,6 +407,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter1.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(foodData.get(position).getId());
                             bean.setIsAdd(2);
@@ -417,6 +429,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter2.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(lifeData.get(position).getId());
                             bean.setIsAdd(2);
@@ -434,6 +450,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter3.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(assetData.get(position).getId());
                             bean.setIsAdd(2);
@@ -451,6 +471,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter4.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(officeData.get(position).getId());
                             bean.setIsAdd(2);
@@ -468,6 +492,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter5.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(financialData.get(position).getId());
                             bean.setIsAdd(2);
@@ -485,6 +513,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter6.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(propertyData.get(position).getId());
                             bean.setIsAdd(2);
@@ -502,6 +534,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter7.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(healthData.get(position).getId());
                             bean.setIsAdd(2);
@@ -519,6 +555,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter8.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(outInData.get(position).getId());
                             bean.setIsAdd(2);
@@ -536,6 +576,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
                     gridAdapter9.setOnAddServiceListener(new AllGrideAdapter.OnAddServiceListener() {
                         @Override
                         public void onAddClick(int position) {
+                            if (myData.size() == 7) {
+                                ToastUtil.showToast(MoreActivity.this, "最多添加7种服务！");
+                                return;
+                            }
                             ServiceDataBean bean = new ServiceDataBean();
                             bean.setId(instantData.get(position).getId());
                             bean.setIsAdd(2);

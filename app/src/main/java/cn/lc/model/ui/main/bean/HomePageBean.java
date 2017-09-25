@@ -84,7 +84,7 @@ public class HomePageBean {
         private int menditem;
         private int orderId;
         private int orderchange;
-        private int ordercode;
+        private String ordercode;
         private int orderstatus;
         private String serviceplace;
         private int uid;
@@ -163,11 +163,11 @@ public class HomePageBean {
             this.orderchange = orderchange;
         }
 
-        public int getOrdercode() {
+        public String getOrdercode() {
             return ordercode;
         }
 
-        public void setOrdercode(int ordercode) {
+        public void setOrdercode(String ordercode) {
             this.ordercode = ordercode;
         }
 

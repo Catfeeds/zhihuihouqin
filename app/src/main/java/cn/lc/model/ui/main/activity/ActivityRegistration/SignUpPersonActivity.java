@@ -30,9 +30,9 @@ public class SignUpPersonActivity extends AppCompatActivity {
     }
 
     private void showMessage() {
-        tvName.setText("姓名："+"");
-        tvPhone.setText("电话："+"");
-        tvMinzu.setText("民族："+"");
+        tvName.setText("姓名：" + getIntent().getStringExtra("name"));
+        tvPhone.setText("电话：" + getIntent().getStringExtra("phone"));
+        tvMinzu.setText("民族：" + "");
     }
 
     private void initTitle() {

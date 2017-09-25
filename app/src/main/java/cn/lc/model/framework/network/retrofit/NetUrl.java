@@ -114,4 +114,8 @@ public interface NetUrl {
     String getMyService = "appuser/service/findUserService";
     String submitMyService = "appuser/service/updateUserService";
 
+    // 消息
+    String getMessage = "appuser/message/messagePage";
+    String getMessageList = "appuser/message/findUserMessage";
+
 }

@@ -2,13 +2,8 @@ package cn.lc.model.ui.main.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -28,12 +23,10 @@ import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.activity.ordering.CancelOrderingActivity;
 import cn.lc.model.ui.main.adapter.DryCleanAdapter;
-import cn.lc.model.ui.main.adapter.WaitOrderAdapter;
 import cn.lc.model.ui.main.bean.CheckDryOrderBean;
 import cn.lc.model.ui.main.bean.NotifyChange;
 import cn.lc.model.ui.mywidget.AlertDialog;
 import mvp.cn.util.CallPhoneUtils;
-import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -45,16 +38,17 @@ public class WaitOrderFragment extends BaseFragment2 {
     XRecyclerView recyclerView;
     Unbinder unbinder;
     private DryCleanAdapter dryCleanAdapter;
-    int limit=10;
-    private int page=1;
-    private List<CheckDryOrderBean.PageBean.ListBean> listAll=new ArrayList();
+    int limit = 10;
+    private int page = 1;
+    private List<CheckDryOrderBean.PageBean.ListBean> listAll = new ArrayList();
     private List<CheckDryOrderBean.PageBean.ListBean> list;
     private int state;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
-        getData(state, page,limit,true);
+        getData(state, page, limit, true);
     }
+
     @Override
     public View setLayout() {
         View view = View.inflate(getActivity(), R.layout.fragment_wait_order, null);
@@ -72,13 +66,13 @@ public class WaitOrderFragment extends BaseFragment2 {
     private void setClick() {
         dryCleanAdapter.setListener(new DryCleanAdapter.OnClickListener() {
             @Override
-            public void onClickListener(int state,int position) {
-                switch (state){
+            public void onClickListener(int state, int position) {
+                switch (state) {
                     case 1:
-                      showAlertDialog("是否取消订单",state,position);
+                        showAlertDialog("是否取消订单", state, position);
                         break;
                     case 2:
-                        showAlertDialog("是否拨打服务电话",state,position);
+                        showAlertDialog("是否拨打服务电话", state, position);
                         break;
                     case 3:
                         break;
@@ -92,7 +86,7 @@ public class WaitOrderFragment extends BaseFragment2 {
         });
     }
 
-    private void showAlertDialog(String s, final int state, final int position) {
+    private void showAlertDialog(String s, final int state, int position) {
         new AlertDialog(getActivity()).builder()
                 .setBigMsg(s)
                 .setPositiveButton("是", new View.OnClickListener() {
@@ -100,19 +94,19 @@ public class WaitOrderFragment extends BaseFragment2 {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                         intent.putExtra("from", Constants.DRYCANCEL);
-                        if(list!=null&&list.size()>0){
+                        if (list != null && list.size() > 0) {
                             CheckDryOrderBean.PageBean.ListBean listBean = list.get(state - 1);
-                            if(listBean!=null){
-                                if(state==1){
+                            if (listBean != null) {
+                                if (state == 1) {
                                     int id = listBean.getId();
-                                    intent.putExtra("OrderingID",id);
+                                    intent.putExtra("OrderingID", id);
                                     startActivity(intent);
-                                }else if(state==2){
-                                    //todo 应该是服务电话
+                                } else if (state == 2) {
+                                    //TODO 应该是服务电话
                                     String mobile = listBean.getMobile();
-                                    CallPhoneUtils.callPhone(mobile,getActivity());
+                                    CallPhoneUtils.callPhone(mobile, getActivity());
                                 }
-                            }else{
+                            } else {
                                 LogUtils.i("listBean为空了");
 
                             }
@@ -128,13 +122,14 @@ public class WaitOrderFragment extends BaseFragment2 {
                 }).show();
     }
 
-    public static WaitOrderFragment getIntance(int i){
+    public static WaitOrderFragment getInstance(int i) {
         WaitOrderFragment waitOrderFragment = new WaitOrderFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("from",i);
+        bundle.putInt("from", i);
         waitOrderFragment.setArguments(bundle);
         return waitOrderFragment;
     }
+
     private void initRecycler() {
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
@@ -146,35 +141,18 @@ public class WaitOrderFragment extends BaseFragment2 {
             @Override
             public void onRefresh() {
                 page = 1;
-                getData(state, page,limit,true);
+                getData(state, page, limit, true);
                 recyclerView.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getData(state, page,limit,false);
+                getData(state, page, limit, false);
                 recyclerView.loadMoreComplete();
             }
         });
-        switch (state){
-            case 1:
-                getData(1,1,limit,true);
-                break;
-            case 2:
-                getData(2,1,limit,true);
-                break;
-            case 3:
-                getData(3,1,limit,true);
-                break;
-            case 4:
-                getData(4,1,limit,true);
-                break;
-            case 5:
-                getData(5,1,limit,true);
-                break;
-        }
-
+        getData(state, 1, limit, true);
     }
 
     @Override
@@ -190,7 +168,7 @@ public class WaitOrderFragment extends BaseFragment2 {
         observable.subscribe(new Subscriber<CheckDryOrderBean>() {
             @Override
             public void onCompleted() {
-            dismissProgressDialog();
+                dismissProgressDialog();
             }
 
             @Override
@@ -201,13 +179,13 @@ public class WaitOrderFragment extends BaseFragment2 {
 
             @Override
             public void onNext(CheckDryOrderBean orderBean) {
-                if(orderBean.getErrCode()==0){
+                if (orderBean.getErrCode() == 0) {
                     list = orderBean.getPage().getList();
-                    if(isRefresh==true){
+                    if (isRefresh == true) {
                         listAll.clear();
                     }
                     listAll.addAll(list);
-                    dryCleanAdapter.setData(listAll,state);
+                    dryCleanAdapter.setData(listAll, state);
                 }
             }
         });

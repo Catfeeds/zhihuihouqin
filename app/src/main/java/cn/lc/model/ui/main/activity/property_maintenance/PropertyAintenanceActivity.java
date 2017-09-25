@@ -84,9 +84,9 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         etPhoneNum.setSelection(mobile.length());
         initTitle();
         initGrid();
-        initAddPhotoGrid();
         pics = new ArrayList<>();
         pics.add("addPhoto");
+        initAddPhotoGrid();
     }
 
     private void initAddPhotoGrid() {

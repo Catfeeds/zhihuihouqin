@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.view;
 
+import cn.lc.model.ui.main.bean.MessageBean;
 import mvp.cn.common.MvpView;
 
 /**
@@ -7,5 +8,5 @@ import mvp.cn.common.MvpView;
  */
 
 public interface Tab3View extends MvpView{
-
+    void getDataSucc(MessageBean bean);
 }

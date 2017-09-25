@@ -4,57 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_all"
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:drawableRight="@drawable/turn_right"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="温馨提示：什么玩意"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_line" />
-
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="8dp"
-            android:minHeight="56dp"
-            android:text="“上帝，为什么你不去救那个人，难道他没有向……"
-            android:textSize="@dimen/sp_small" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="6dp"
-            android:text="2016年3月29日 14:48:09"
-            android:textColor="@color/tv_gray"
-            android:textSize="@dimen/sp_big" />
-
-    </LinearLayout>
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/gray_line" />
+        android:background="@color/gray_lighter" />
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 </LinearLayout>

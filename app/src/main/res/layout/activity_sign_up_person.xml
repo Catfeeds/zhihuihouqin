@@ -2,52 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_sign_up_person"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <cn.lc.model.framework.widget.TitleBar
         android:id="@+id/activity_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/white" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginTop="2dp"
+        android:layout_weight="1"
         android:background="@color/gray_lighter"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_name"
-            android:text="姓名：张三"
-            android:background="@color/white"
-            android:textSize="@dimen/sp_big"
-
-            android:textColor="@color/tv_black"
-            android:padding="@dimen/standard_padding"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
-            android:layout_height="50dp" />
+            android:padding="@dimen/standard_padding"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
         <TextView
             android:id="@+id/tv_phone"
-            android:text="电话：1234567890"
-            android:background="@color/white"
-            android:textSize="@dimen/sp_big"
-            android:textColor="@color/tv_black"
-            android:padding="@dimen/standard_padding"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
-            android:layout_height="50dp"/>
+            android:padding="@dimen/standard_padding"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
         <TextView
             android:id="@+id/tv_minzu"
-            android:text="民族：汉族"
-            android:background="@color/white"
-            android:textSize="@dimen/sp_big"
-            android:textColor="@color/tv_black"
-            android:padding="@dimen/standard_padding"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
-            android:layout_height="50dp" />
+            android:padding="@dimen/standard_padding"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
 
     </LinearLayout>
 </LinearLayout>
