@@ -29,10 +29,10 @@ public interface NetUrl {
     String expertComment = "appuser/ylfw/getexpertcomment"; // 专家评论
     String expertOreder = "appuser/ylfw/addexpertOrder"; // 专家下单
     //物业维修
-    String wuyeHome="appuser/lffw/preorder";
-    String activityHome="appuser/tdhdfw/index";
+    String wuyeHome="appuser/bxwx/addOrder";
     //活动
     String activitySign="appuser/tdhdfw/sign";
+    String activityHome="appuser/tdhdfw/index";
     String activityList="appuser/tdhdfw/detail";
     String activityPost="appuser/tdhdfw/pubactivity";
     //理发师
@@ -72,6 +72,7 @@ public interface NetUrl {
     String spOrder="appuser/bgypfworder/generateOrder";
     String postNeed="appuser/bgypfwapplyproduct/generateOrder";
     String requested="appuser/bgypfwapplyproduct/findApplyList";
+    String cancelItem="appuser/bgypfwcart/deleteCartItems";
     //工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";

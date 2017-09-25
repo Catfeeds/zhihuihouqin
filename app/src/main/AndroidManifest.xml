@@ -171,13 +171,15 @@
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.SignUpPersonActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.FillInfoActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityPostedActivity" />
+        <activity
+            android:name=".ui.main.activity.ActivityRegistration.ActivityPostedActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.main.activity.ActivityRegistration.PostedNotesActivity" />
         <activity android:name=".ui.login.activity.RegistStepOneActivity" />
         <activity android:name=".ui.main.activity.DryCleaners.DryCleanersActivity" />
         <activity
             android:name=".ui.main.activity.DryCleaners.DryCleanReserveInfoActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity" />
         <activity android:name=".ui.main.activity.DryCleaners.SubmitResultActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSuppliesActivity" />
@@ -270,6 +272,7 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.ShopCarActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpConfirmOrderAct" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct"></activity>
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct" />
         <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity" />
         <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity" />
@@ -314,6 +317,8 @@
         <activity
             android:name=".ui.main.activity.message.PayUpMessageDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.CheckHistoryPostItemAct" />
+        <activity android:name=".ui.main.activity.property_maintenance.ProPerrtyPostSuccAct"></activity>
     </application>
 
 </manifest>

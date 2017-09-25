@@ -4,23 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <cn.lc.model.framework.widget.TitleBar
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_lighter" />
-
         <LinearLayout
             android:id="@+id/ll_address"
             android:layout_width="match_parent"
@@ -140,50 +141,11 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:background="@color/gray_trans" />
-        <LinearLayout
+        <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+            android:id="@+id/rv_order_item"
             android:layout_width="match_parent"
-            android:padding="16dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/iv_pic"
-                android:scaleType="centerCrop"
-                android:src="@drawable/partner_luffy"
-                android:layout_width="70dp"
-                android:layout_height="70dp" />
-            <TextView
-                android:id="@+id/tv_des"
-                android:text="描述"
-                android:layout_marginLeft="16dp"
-                android:textSize="@dimen/sp_common"
-                android:textColor="@color/tv_black"
-                android:layout_marginBottom="2dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-            <RelativeLayout
-                android:layout_width="30dp"
-                android:layout_height="70dp">
-                <TextView
-                    android:id="@+id/tv_count"
-                    android:text="0"
-                    android:layout_alignParentRight="true"
-                    android:textSize="@dimen/sp_common"
-                    android:textColor="@color/tv_black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/tv_sum"
-                    android:text="$12"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:textSize="@dimen/sp_common"
-                    android:textColor="@color/tv_red"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
-            </RelativeLayout>
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -202,6 +164,7 @@
                 android:id="@+id/ll_write_other"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
+                android:gravity="center_vertical"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
@@ -246,6 +209,7 @@
             android:background="@color/gray_trans"/>
 
     </LinearLayout>
+    </ScrollView>
 
 
     <LinearLayout
@@ -261,7 +225,7 @@
             android:layout_weight="2"
             android:background="#999999"
             android:gravity="center_vertical"
-            android:text="实付款￥12"
+            android:text="实付款￥0"
             android:textColor="@color/tv_white"
             android:textSize="@dimen/sp_bigger" />
 

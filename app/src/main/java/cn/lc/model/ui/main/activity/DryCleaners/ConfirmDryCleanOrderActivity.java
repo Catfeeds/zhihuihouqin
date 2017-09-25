@@ -2,7 +2,6 @@ package cn.lc.model.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -22,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
+import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.activity.Base2Activity;
@@ -42,17 +42,18 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
     @BindView(R.id.tv_phone_num)
     TextView tvPhoneNum;
     @BindView(R.id.rl_phone)
-    RelativeLayout rlPhone;
-    @BindView(R.id.tv_user_phone)
-    TextView tvUserPhone;
+    LinearLayout rlPhone;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
     @BindView(R.id.lv_order_info)
     ListView lvOrderInfo;
-    @BindView(R.id.activity_confirm_dry_clean_order)
-    LinearLayout activityConfirmDryCleanOrder;
     @BindView(R.id.tv_sum)
     TextView tvSum;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.activity_confirm_dry_clean_order)
+    LinearLayout activityConfirmDryCleanOrder;
+
     private List<OrderDryCleanBean.PageBean.ListBean> list;
     private String time;
     private String mobile;
@@ -73,32 +74,36 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         mobile = intent.getStringExtra("mobile");
         time = intent.getStringExtra("time");
         json = intent.getStringExtra("json");
+        String realName =  SharedPrefHelper.getInstance().getRealName();
         Gson gson = new Gson();
         list = gson.fromJson(json, new TypeToken<List<OrderDryCleanBean.PageBean.ListBean>>() {
         }.getType());
-        int counts=0;
+        int counts = 0;
         for (int i = 0; i < list.size(); i++) {
-            counts+=list.get(i).getCount();
+            counts += list.get(i).getCount();
         }
-        if(counts!=0){
+        if (counts != 0) {
             orderAdapter.setList(list);
         }
-        int sum=0;
+        int sum = 0;
         for (int i = 0; i < list.size(); i++) {
-            sum+=list.get(i).getCount()*list.get(i).getPrice();
+            sum += list.get(i).getCount() * list.get(i).getPrice();
         }
-        tvSum.setText("￥"+sum);
+        tvUserName.setText(realName);
+        tvPhoneNum.setText(mobile);
+        tvTime.setText(time);
+        tvSum.setText("￥" + sum);
     }
 
-    private void commit(String json) {
+    private void commit() {
         JSONArray json1 = new JSONArray();
         for (int i = 0; i < list.size(); i++) {
             JSONObject object = new JSONObject();
             try {
                 object.put("clothestypeid", list.get(i).getId());
                 object.put("count", list.get(i).getCount());
-                object.put("name",list.get(i).getName());
-                object.put("price",list.get(i).getPrice());
+                object.put("name", list.get(i).getName());
+                object.put("price", list.get(i).getPrice());
                 json1.put(object);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -121,10 +126,10 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
 
             @Override
             public void onNext(JieYueBean o) {
-                if(o.getErrCode()==0){
-                    Intent intent=new Intent(ConfirmDryCleanOrderActivity.this,SubmitResultActivity.class);
+                if (o.getErrCode() == 0) {
+                    Intent intent = new Intent(ConfirmDryCleanOrderActivity.this, SubmitResultActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
 
                 }
             }
@@ -143,7 +148,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
 
     @OnClick(R.id.tv_submit)
     public void onViewClicked() {
-        commit(json);
+        commit();
 
     }
 }

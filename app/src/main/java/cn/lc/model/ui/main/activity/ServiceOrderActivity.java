@@ -71,12 +71,16 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                 fragments.add(WaitOrderFragment.getInstance(4));
                 fragments.add(WaitOrderFragment.getInstance(5));
                 break;
-            case Constants.BOOK:
+            case Constants.BOOK://图书馆
                 fragments.add(BookFragment.getInstance(0));
                 fragments.add(BookFragment.getInstance(1));
                 fragments.add(BookFragment.getInstance(2));
                 fragments.add(BookFragment.getInstance(3));
                 fragments.add(BookFragment.getInstance(4));
+                break;
+            case Constants.PROPERRY://物业维修
+                break;
+
         }
         initViewpager();
         viewPager.setCurrentItem(index);

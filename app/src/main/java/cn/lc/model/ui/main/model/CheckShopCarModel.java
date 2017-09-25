@@ -11,5 +11,6 @@ import rx.Observable;
 public interface CheckShopCarModel extends MvpModel {
 
     Observable checkShopCar();
+    Observable cancelItem(int[] arr);
 
 }

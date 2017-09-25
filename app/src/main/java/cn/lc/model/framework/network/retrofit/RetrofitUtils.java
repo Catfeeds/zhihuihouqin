@@ -154,7 +154,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
 
-    private static List<MultipartBody.Part> getImgList(ArrayList<String> paths, String s) {
+    private static List<MultipartBody.Part> getImgList(List<String> paths, String s) {
         List<MultipartBody.Part> parts = new ArrayList<>();
         LogUtils.d("文件长度：" + paths.size());
         for (int i = 0; i < paths.size(); i++) {
@@ -574,24 +574,25 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable getWuyeHomeInfo(int menditem, String username, int mobile,
-                                             String invitetime, String serviceplace, String mendcontent, File files) {
-        Map<String, Object> paramsMap = new HashMap<>();
+    public static Observable getWuyeHomeInfo(int menditem, String username, String mobile,
+                                             String invitetime, String serviceplace, String mendcontent, List<String> files) {
+        Map<String, RequestBody> paramsMap = new HashMap<>();
         Log.e("getUserCommentList", "---》home");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
             tempMap.put("menditem", menditem + "");
             tempMap.put("username", username);
-            tempMap.put("mobile", mobile + "");
+            tempMap.put("mobile", mobile);
             tempMap.put("invitetime", invitetime);
             tempMap.put("serviceplace", serviceplace);
             tempMap.put("mendcontent", mendcontent);
-            addParam(paramsMap, tempMap);
+//            addParam(paramsMap, tempMap);
+            getRequestBody(paramsMap,tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.getUserCommentList(paramsMap));
+        return getObservable(api.getWuyeHomeInfo(paramsMap,getImgList(files,"files")));
     }
 
     /**
@@ -621,9 +622,9 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      */
 
     public static Observable postActivity(String aContactMobile, String aContent, String aPlace
-            , String aSponsor, String aTime, String aTitle, String aTotal, File photos, File imgs, String aRealname,
+            , String aSponsor, String aTime, String aTitle, String aTotal, List<String> photos, List<String> imgs, String aRealname,
                                           String aNaion) {
-        Map<String, Object> paramsMap = new HashMap<>();
+        Map<String, RequestBody> paramsMap = new HashMap<>();
         Log.e("postActivity", "---》home");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
@@ -633,16 +634,18 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("aTime", aTime);
             tempMap.put("aTitle", aTitle);
             tempMap.put("aTotal", aTotal);
+            tempMap.put("aSponsor",aSponsor);
             //图片文件上传
 
             tempMap.put("aRealname", aRealname);
             tempMap.put("aNaion", aNaion);
-            addParam(paramsMap, tempMap);
+            //addParam(paramsMap, tempMap);
+            getRequestBody(paramsMap ,tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.postActivity(paramsMap));
+        return getObservable(api.postActivity(paramsMap,getImgList(photos,"photos"),getImgList(imgs,"imgs")));
     }
 
     /**
@@ -1253,6 +1256,24 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.getSpOrder(paramsMap));
     }
 
+    /**
+     * 删除订单选项
+     *
+     * @return
+     */
+    public static Observable cancelItem(int[] arr) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("ids",arr);
+
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelItem(paramsMap));
+    }
     /**
      * 发布商品
      *

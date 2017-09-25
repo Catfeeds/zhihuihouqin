@@ -1,107 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_shop_car"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <cn.lc.model.framework.widget.TitleBar
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"/>
+            android:layout_height="@dimen/title_height" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/gray_lighter"/>
+            android:background="@color/gray_lighter" />
+
         <LinearLayout
-            android:padding="@dimen/standard_padding"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/gray_trans"
-            android:layout_height="wrap_content" >
+            android:padding="@dimen/standard_padding">
+
             <ImageView
                 android:id="@+id/iv_store_select"
-                android:visibility="gone"
-                android:src="@drawable/selected"
                 android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:src="@drawable/selected" />
+
             <TextView
                 android:id="@+id/store"
-                android:layout_marginLeft="@dimen/standard_padding"
-                android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big"
-                android:text="机关超市"
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/standard_padding"
+                android:text="机关超市"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_big" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
 
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
 
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:layout_weight="5"
             android:background="#999999"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/iv_select_all"
-                android:visibility="gone"
-                android:src="@drawable/selected"
-                android:layout_marginLeft="@dimen/standard_padding"
-                android:layout_gravity="center_vertical"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-            <TextView
-                android:text="全选"
-                android:textSize="@dimen/sp_common"
-                android:textColor="@color/tv_white"
-                android:layout_marginLeft="8dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_select_all"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:text="合计:"
-                android:textSize="@dimen/sp_bigger"
-                android:textColor="@color/tv_white"
-                android:layout_marginLeft="16dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_select_all"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/standard_padding"
+                    android:src="@drawable/selected"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="全选"
+                    android:textColor="@color/tv_white"
+                    android:textSize="@dimen/sp_common" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_sum"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_sum"
-                android:text="0.0"
-                android:textSize="@dimen/sp_bigger"
-                android:textColor="@color/tv_white"
-                android:layout_marginLeft="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="合计:"
+                    android:textColor="@color/tv_white"
+                    android:textSize="@dimen/sp_bigger" />
+
+                <TextView
+                    android:id="@+id/tv_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="0.0"
+                    android:textColor="@color/tv_white"
+                    android:textSize="@dimen/sp_bigger" />
+            </LinearLayout>
+
         </LinearLayout>
+
         <TextView
             android:id="@+id/tv_clearing"
-            android:textColor="@color/tv_white"
-            android:textSize="@dimen/sp_bigger"
-            android:text="去结算(0)"
-            android:gravity="center"
-            android:background="#2EA7E0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:background="#2EA7E0"
+            android:gravity="center"
+            android:text="去结算(0)"
+            android:textColor="@color/tv_white"
+            android:textSize="@dimen/sp_bigger" />
     </LinearLayout>
 
 </LinearLayout>

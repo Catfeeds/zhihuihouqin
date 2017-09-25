@@ -35,6 +35,15 @@ public class OfficeSpPayAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_office_sp_pay);
         ButterKnife.bind(this);
+        initTitle();
+        Intent intent = new Intent();
+        String money = intent.getStringExtra("money");
+        tvBalance.setText("￥"+money);
+    }
+
+    private void initTitle() {
+        title.setBack(true);
+        title.setTitle("支付");
     }
 
     @OnClick({R.id.ll_select_public, R.id.bt_pay})

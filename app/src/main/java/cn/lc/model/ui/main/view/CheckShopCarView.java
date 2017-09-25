@@ -13,5 +13,6 @@ import mvp.cn.common.MvpView;
 public interface CheckShopCarView extends MvpView {
 
     void checkShopCar(SpCheckShopCarBean bean);
+    void cancelSucc(ActivityPostBean bean);
 
 }

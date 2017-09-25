@@ -60,7 +60,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     private TextView tvComment;
     private TextView tvCommnetRate;
     private ImageView dot;
-    public  int position;
+    public int position;
     private OfficeSpDetailrvAdapter detailrvAdapter;
     private int id;
     private int index;
@@ -69,6 +69,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     private List<ShopCarInfoBean.SkuListBean> skuList;
     private int mCount;
     private ShopCarInfoBean shopCarInfoBean;
+    private boolean mIsAddShopCar;
 
     @Override
     public SpDetailPresenter createPresenter() {
@@ -121,7 +122,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 startActivity(intent);
             }
         });
-        //悬着地址
+        //选择地址
         dot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,16 +149,16 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 getPresenter().getCollectInfo(11, id);
                 break;
             case R.id.tv_add_car:
-
-                showPop();
+                showPop(true);
                 break;
             case R.id.tv_now_buy:
-                showPop();
+                showPop(false);
                 break;
         }
     }
 
-    private void showPop() {
+    private void showPop(boolean isAddShopCar) {
+        this.mIsAddShopCar = isAddShopCar;
         shopCarDialog = new ShopCarDialog(this, R.style.dialog_style);
         shopCarDialog.show();
         if (shopCarInfoBean != null) {
@@ -167,14 +168,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 //点击加入到购物车
                 shopCarDialog.setListener(new ShopCarDialog.OnItemClickListener() {
                     @Override
-                    public void onItemClickListener(int count, int id,int position) {
-                        mPositon=position;
-                        mCount=count;
-                        if(count>0){
-                            getPresenter().shopCar(id+"", count+"");
-                        }else{
+                    public void onItemClickListener(int count, int id, int position) {
+                        mPositon = position;
+                        mCount = count;
+                        if (count > 0) {
+                            getPresenter().shopCar(id + "", count + "");
                         }
-
                     }
                 });
             }
@@ -252,19 +251,30 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
 
     @Override
     public void getShopCarInfo(ShopCarInfoBean bean) {
-        this.shopCarInfoBean=bean;
+        this.shopCarInfoBean = bean;
 
     }
 
     @Override
     public void getShopCar(ActivityPostBean bean) {
-        if(bean!=null){
-            Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
-            /*ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
-            intent.putExtra("count",mCount);
-            intent.putExtra("skuListInfo",skuListBean);*/
-            startActivity(intent);
-        }else{
+        if (bean != null) {
+            if (mIsAddShopCar == true) {
+                Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, OfficeSpConfirmOrderAct.class);
+                intent.putExtra("count", mCount);
+                intent.putExtra("from","nowpay");
+                List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();
+                ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
+                int price = skuListBean.getPrice();
+                intent.putExtra("price",price);
+                intent.putExtra("position", mPositon);
+                intent.putExtra("skuListBean",skuListBean);
+                startActivity(intent);
+            }
+
+        } else {
             LogUtils.i(bean.getMsg());
         }
     }

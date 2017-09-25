@@ -1,6 +1,7 @@
 package cn.lc.model.ui.main.model;
 
 import java.io.File;
+import java.util.List;
 
 import mvp.cn.rx.MvpModel;
 import rx.Observable;
@@ -10,7 +11,7 @@ import rx.Observable;
  */
 
 public interface WuyeHomeModel extends MvpModel{
-    Observable getData(int menditem,String username,int mobile,
-                       String invitetime,String serviceplace,String mendcontent,File files);
+    Observable getData(int menditem,String username,String mobile,
+                       String invitetime,String serviceplace,String mendcontent,List<String> files);
 
 }

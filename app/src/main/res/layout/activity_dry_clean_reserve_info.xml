@@ -18,77 +18,89 @@
         android:layout_height="?actionBarSize" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1000" />
-        <RelativeLayout
-            android:padding="@dimen/standard_padding"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter" />
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
             <TextView
                 android:text="姓名"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_small"
+                android:textSize="@dimen/sp_common"
+                android:padding="12dp"
                 android:layout_centerVertical="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_user_name"
-                android:layout_marginLeft="70dp"
                 android:layout_centerVertical="true"
                 android:background="@null"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:padding="12dp"
+                android:gravity="right"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_lighter"/>
-        <RelativeLayout
-            android:padding="@dimen/standard_padding"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
             <TextView
                 android:text="手机号"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small"
+                android:padding="12dp"
                 android:layout_centerVertical="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/et_phone_num"
-                android:layout_marginLeft="70dp"
+                android:gravity="right"
                 android:layout_centerVertical="true"
                 android:background="@null"
-                android:layout_width="wrap_content"
+                android:textSize="@dimen/sp_common"
+                android:textColor="@color/tv_black"
+                android:textColorHint="@color/gray_light"
+                android:padding="12dp"
+                android:hint="请输入手机号"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_lighter"/>
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:id="@+id/rl_set_time"
-            android:padding="@dimen/standard_padding"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
             <TextView
                 android:text="预计送达时间"
+                android:padding="12dp"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_small"
+                android:textSize="@dimen/sp_common"
                 android:layout_centerVertical="true"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/ll_select_time"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:orientation="horizontal"
-                android:layout_centerVertical="true"
+                android:padding="12dp"
                 android:layout_alignParentRight="true">
                 <TextView
                     android:id="@+id/tv_time"
-                    android:textSize="@dimen/sp_small"
+                    android:textSize="@dimen/sp_common"
                     android:textColor="@color/tv_black"
-                    android:text="2017-9-18 9:30"
+                    android:text=""
                     android:layout_marginRight="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -101,7 +113,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -110,7 +122,7 @@
             android:text="衣服类型"
             android:textSize="@dimen/sp_big"
             android:textColor="@color/tv_black"
-            android:padding="@dimen/standard_padding"
+            android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <View

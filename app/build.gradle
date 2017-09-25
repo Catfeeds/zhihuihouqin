@@ -67,5 +67,7 @@ dependencies {
 //    compile files('libs/ShareSDK-Wechat-Moments-3.0.2.jar')
     //图片压缩
     compile 'id.zelory:compressor:1.0.4'
+    //6.0权限
+    compile 'com.lovedise:permissiongen:0.0.6'
 
 }

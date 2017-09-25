@@ -3,6 +3,7 @@ package cn.lc.model.ui.main.modelimpl;
 import android.util.Log;
 
 import java.io.File;
+import java.util.List;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.ui.main.model.MoreListModel;
@@ -16,8 +17,8 @@ import rx.Observable;
 public class WuyeHomeModelImpl implements WuyeHomeModel {
 
     @Override
-    public Observable getData(int menditem,String username,int mobile,
-                              String invitetime,String serviceplace,String mendcontent,File files) {
+    public Observable getData(int menditem,String username,String mobile,
+                              String invitetime,String serviceplace,String mendcontent,List<String> files) {
         Log.e("MoreListModelImpl","请求数据-->login");
         Observable observer = RetrofitUtils.getInstance().getWuyeHomeInfo(
                 menditem,username,mobile,invitetime,serviceplace,mendcontent,files);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_pro_perrty_post_succ"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.lc.model.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter"/>
+    <ImageView
+        android:id="@+id/iv_submit_or_pay"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/selected"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <TextView
+        android:id="@+id/tv_submit_success"
+        android:text="发布成功"
+        android:textSize="22sp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_check_order"
+        android:text="查看订单"
+        android:textSize="20sp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:background="@drawable/shap_check_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_book_submit_des"
+        android:visibility="gone"
+        android:text="感谢您的体骄傲，我方将以最快时间为您来采购，买后会以消息或短息方式提示您，感谢你的申请。"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -151,7 +151,7 @@ public class SpCheckShopCarBean {
             private Object secondcataid;
             private String skuname;
             private Object status;
-            private Object store;
+            private int store;
 
             public String getCataName() {
                 return cataName;
@@ -233,11 +233,11 @@ public class SpCheckShopCarBean {
                 this.status = status;
             }
 
-            public Object getStore() {
+            public int getStore() {
                 return store;
             }
 
-            public void setStore(Object store) {
+            public void setStore(int store) {
                 this.store = store;
             }
         }

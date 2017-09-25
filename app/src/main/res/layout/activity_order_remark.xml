@@ -25,10 +25,11 @@
         <EditText
             android:id="@+id/et_scanner"
             android:padding="12dp"
+            android:gravity="top"
             android:background="@null"
             android:hint="请输入订单备注..."
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <TextView

@@ -92,7 +92,7 @@ public class HistoryAdapter extends RecyclerView.Adapter {
             this.listBean =listBean;
             if(listBean!=null){
                 tvSpName.setText(listBean.getProductname());
-                tvCount.setText(listBean.getProductcount()+"个");
+                tvSpCount.setText(listBean.getProductcount()+"个");
                 tvCommitTime.setText(listBean.getCreatetime());
                 status = listBean.getStatus();
                 switch (status){

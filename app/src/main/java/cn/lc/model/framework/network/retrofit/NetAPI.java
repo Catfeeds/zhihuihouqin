@@ -166,12 +166,9 @@ public interface NetAPI {
     Observable<ExpertOrderBean> submitExpertOrder(@FieldMap Map<String, Object> map);
 
     //物业首页
-    /*@FormUrlEncoded
-    @POST(NetUrl.wuyeHome)
-    Observable<WuyeHomeBean> getWuyeHomeInfo(@FieldMap Map<String,Object> map);*/
     @Multipart
     @POST(NetUrl.wuyeHome)
-    Observable<WuyeHomeBean> getWuyeHomeInfo(@PartMap() Map<String, RequestBody> map, @Part List<MultipartBody.Part> partList);
+    Observable<ActivityPostBean> getWuyeHomeInfo(@PartMap() Map<String, RequestBody> map, @Part List<MultipartBody.Part> partList);
 
     //活动首页
     @FormUrlEncoded
@@ -179,9 +176,10 @@ public interface NetAPI {
     Observable<ActivityHomeBean> getActivityHome(@FieldMap Map<String, Object> map);
 
     //活动发布
-    @FormUrlEncoded
+    @Multipart
     @POST(NetUrl.activityPost)
-    Observable<ActivityPostBean> postActivity(@FieldMap Map<String, Object> map);
+    Observable<ActivityPostBean> postActivity(@PartMap() Map<String, RequestBody> paramsMap,
+      @Part List<MultipartBody.Part> albumPhoto,@Part List<MultipartBody.Part> albumPhotos);
 
     //活动包名
     @FormUrlEncoded
@@ -343,6 +341,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.spOrder)
     Observable<SpOrderBean> getSpOrder(@FieldMap Map<String, Object> map);
+
+    //删除订单项
+    @FormUrlEncoded
+    @POST(NetUrl.cancelItem)
+    Observable<ActivityPostBean> cancelItem(@FieldMap Map<String, Object> map);
 
     //发布需求
     @FormUrlEncoded

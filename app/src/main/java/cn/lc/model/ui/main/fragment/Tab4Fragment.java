@@ -220,12 +220,6 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
         return new Tab4Presenter();
     }
 
-  /*  @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }*/
-
     @OnClick({R.id.ll_my_packge, R.id.ll_my_collect, R.id.ll_personal_auth, R.id.civ_header,
             R.id.rl_order_service, R.id.rl_turn1, R.id.tv_daijiedan1, R.id.tv_jiedan1, R.id.tv_finish1,
             R.id.tv_pingjia1, R.id.tv_cancle1, R.id.rl_turn2, R.id.tv_daijiedan2, R.id.tv_jiedan2,

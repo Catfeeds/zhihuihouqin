@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.ui.main.bean.SpCheckShopCarBean;
+import mvp.cn.util.ToastUtil;
 
 /**
  * Created by 我的电脑 on 2017/9/20 0020.
@@ -24,7 +25,7 @@ import cn.lc.model.ui.main.bean.SpCheckShopCarBean;
 public class ShopCarListAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<SpCheckShopCarBean.CartItemsBean> data = new ArrayList<>();
-    private boolean isSelect=true;
+    private boolean isSelect = true;
     private boolean isSelectAll;
 
     public ShopCarListAdapter(Context mContext) {
@@ -39,13 +40,82 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        if (data != null) {
+        /*if (data != null) {
             viewHolder.setData(data.get(position), position,isSelect);
-        }
-    }
+        }*/
+        if (data != null) {
+            final SpCheckShopCarBean.CartItemsBean cartItemsBean = data.get(position);
+            if (cartItemsBean != null) {
+                int count = cartItemsBean.getCount();
+                //this.count=count;
+                SpCheckShopCarBean.CartItemsBean.SkuBean sku = cartItemsBean.getSku();
+                String mainimg = sku.getMainimg();//图片
+                int price = sku.getPrice();
+                String skuname = sku.getSkuname();
+                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, mainimg, viewHolder.ivPic);
+                viewHolder.tvCount.setText(count + "");
+                viewHolder.tvDes.setText(skuname);
+              /*  if (isSelectAll) {
+                    cartItemsBean.setSeclect(true);
+                } else {
+                    cartItemsBean.setSeclect(isSelect);
+                }*/
+                if (cartItemsBean.isSeclect()) {
+                    viewHolder.ivItemSelect.setImageResource(R.drawable.selected);
+                } else {
+                    viewHolder.ivItemSelect.setImageResource(R.drawable.unselected);
+                }
+            }
+        //数量增加
+        viewHolder.tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = cartItemsBean.getCount();
+                count++;
+                int store = cartItemsBean.getSku().getStore();
+                if(count<store){
+                    cartItemsBean.setCount(count);
+                }else{
+                    ToastUtil.showToast(mContext,"库存量剩余"+store+"个");
+                }
+                if(listener!=null){
+                    listener.onCliickListener();
+                }
+                notifyDataSetChanged();
+            }
+        });
+            //减少
+        viewHolder.tvMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = cartItemsBean.getCount();
+                if(count<=0){
+                    count=0;
+                }else{
+                    count--;
+                }
+                cartItemsBean.setCount(count);
+                if (listener != null) {
+                    listener.onCliickListener();
+                }
+                notifyDataSetChanged();
+            }
+        });
+            viewHolder.ivItemSelect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    cartItemsBean.setSeclect(!cartItemsBean.isSeclect());
+                    notifyDataSetChanged();
+                    if(listener!=null){
+                        listener.onCliickListener();
+                    }
+                }
+            });
+    }
+    }
     @Override
     public int getItemCount() {
         if (data != null && data.size() > 0) {
@@ -58,12 +128,25 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
         this.data = data;
         notifyDataSetChanged();
     }
-    public void selectAll(){
 
+    public void selectAll() {
+        if(data!=null){
+            for (int i = 0; i < data.size(); i++) {
+                SpCheckShopCarBean.CartItemsBean cartItemsBean = data.get(i);
+                cartItemsBean.setSeclect(true);
+            }
+        }
         notifyDataSetChanged();
     }
-
-    private int seclectPosition;
+    public void unSelectAll() {
+        if(data!=null){
+            for (int i = 0; i < data.size(); i++) {
+                SpCheckShopCarBean.CartItemsBean cartItemsBean = data.get(i);
+                cartItemsBean.setSeclect(false);
+            }
+        }
+        notifyDataSetChanged();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_item_select)
@@ -78,96 +161,21 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
         TextView tvCount;
         @BindView(R.id.tv_add)
         TextView tvAdd;
-        int count ;
-        private int mPosition;
-        private SpCheckShopCarBean.CartItemsBean cartItemsBean;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            doAdd();
-            doMinus();
-            select();
         }
 
-        private void select() {
-            ivItemSelect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    seclectPosition=mPosition;
-                    boolean seclect = data.get(seclectPosition).isSeclect();
-                    if(seclect==true){
-                        ivItemSelect.setImageResource(R.drawable.unselected);
-                    }else{
-                        ivItemSelect.setImageResource(R.drawable.selected);
-                    }
-                    seclect=!seclect;
-                    data.get(seclectPosition).setSeclect(seclect);
-                    notifyDataSetChanged();
-                }
-            });
-        }
-
-        private void doMinus() {
-            tvMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (count <= 0) {
-                        count = 0;
-                    } else {
-                        count--;
-                    }
-                    cartItemsBean.setCount(count);
-                    tvCount.setText(count+"");
-                    if(listener!=null){
-                        listener.onCliickListener(count,mPosition);
-                    }
-                }
-            });
-
-        }
-
-        private void doAdd() {
-            tvAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    count++;
-                    cartItemsBean.setCount(count);
-                    tvCount.setText(count+"");
-                    if(listener!=null){
-                        listener.onCliickListener(count,mPosition);
-                    }
-                }
-            });
-        }
-        public void setData(SpCheckShopCarBean.CartItemsBean cartItemsBean, int position,boolean isSelect) {
-            this.cartItemsBean=cartItemsBean;
-            this.mPosition = position;
-            if (cartItemsBean != null) {
-                int count = cartItemsBean.getCount();
-                this.count=count;
-                SpCheckShopCarBean.CartItemsBean.SkuBean sku = cartItemsBean.getSku();
-                String mainimg = sku.getMainimg();//图片
-                int price = sku.getPrice();
-                String skuname = sku.getSkuname();
-                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, mainimg, ivPic);
-                tvCount.setText(count+"");
-                tvDes.setText(skuname);
-                if(isSelectAll){
-                    cartItemsBean.setSeclect(true);
-                }else{
-                    cartItemsBean.setSeclect(isSelect);
-                }
-            }
-        }
     }
+
     private OnClickListener listener;
 
     public void setListener(OnClickListener listener) {
         this.listener = listener;
     }
 
-    public interface OnClickListener{
-        void onCliickListener(int count,int index);
+    public interface OnClickListener {
+        void onCliickListener();
     }
 }

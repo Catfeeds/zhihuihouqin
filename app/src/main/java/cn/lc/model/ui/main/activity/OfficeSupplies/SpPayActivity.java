@@ -40,6 +40,9 @@ public class SpPayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sp_pay);
         ButterKnife.bind(this);
         initTitle();
+        Intent intent = new Intent();
+        String money = intent.getStringExtra("money");
+        tvNeedPay.setText("￥"+money);
     }
 
     private void initTitle() {

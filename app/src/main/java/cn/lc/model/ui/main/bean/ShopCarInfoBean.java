@@ -44,7 +44,7 @@ public class ShopCarInfoBean {
     }
 
     public static class SkuListBean implements Serializable{
-        /**
+      /*  *
          * cataName : 颜色分类
          * createtime : 2017-08-18 16:23:41
          * firstcataid : 1
@@ -55,8 +55,8 @@ public class ShopCarInfoBean {
          * secondcataid : null
          * skuname : 小尺寸多用夹(蓝色)
          * status : 1
-         * store : 46
-         */
+         * store : 46*/
+
 
         private String cataName;
         private String createtime;

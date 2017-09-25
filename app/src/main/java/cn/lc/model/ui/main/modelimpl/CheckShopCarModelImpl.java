@@ -16,4 +16,10 @@ public class CheckShopCarModelImpl implements CheckShopCarModel {
         Observable observable = RetrofitUtils.getInstance().checkShopCar();
         return observable;
     }
+
+    @Override
+    public Observable cancelItem(int[] arr) {
+        Observable observable = RetrofitUtils.getInstance().cancelItem(arr);
+        return observable;
+    }
 }

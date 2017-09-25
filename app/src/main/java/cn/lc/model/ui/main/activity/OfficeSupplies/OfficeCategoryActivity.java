@@ -60,8 +60,8 @@ public class OfficeCategoryActivity extends AppCompatActivity{
         Intent intent = getIntent();
         position = intent.getIntExtra("position", 0);
         initTitle();
+
         initPager();
-        vpPage.setCurrentItem(position);
         fragments = new ArrayList<>();
         String json = intent.getStringExtra("json");
         Gson gson = new Gson();
@@ -81,6 +81,8 @@ public class OfficeCategoryActivity extends AppCompatActivity{
             }
         }
         categoryAdapter.setData(fragments,categorys);
+        vpPage.setCurrentItem(position);
+        vpPage.setOffscreenPageLimit(4);
 
     }
 

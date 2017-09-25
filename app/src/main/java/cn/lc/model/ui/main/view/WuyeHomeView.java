@@ -1,5 +1,6 @@
 package cn.lc.model.ui.main.view;
 
+import cn.lc.model.ui.main.bean.ActivityPostBean;
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.WuyeHomeBean;
 import mvp.cn.common.MvpView;
@@ -10,6 +11,6 @@ import mvp.cn.common.MvpView;
 
 public interface WuyeHomeView extends MvpView{
 
-void getWuyeHomeResult(WuyeHomeBean wuyeHomeBean);
+void getWuyeHomeResult(ActivityPostBean bean);
 
 }
