@@ -3,11 +3,8 @@ package cn.lc.model.ui.main.presenter;
 import android.util.Log;
 
 import cn.lc.model.ui.main.bean.BarberDetailBean;
-import cn.lc.model.ui.main.bean.BarberListBean;
 import cn.lc.model.ui.main.model.BarberDetailModel;
-import cn.lc.model.ui.main.model.BarberListModel;
 import cn.lc.model.ui.main.view.BarberDetailView;
-import cn.lc.model.ui.main.view.BarberListView;
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
 import rx.Observable;

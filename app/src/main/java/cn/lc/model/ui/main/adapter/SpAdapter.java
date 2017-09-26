@@ -18,7 +18,6 @@ import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.activity.OfficeSupplies.SpDetailActivity;
-import cn.lc.model.ui.main.bean.OfficeIndexBean;
 import cn.lc.model.ui.main.bean.ProductCategoryBean;
 
 /**

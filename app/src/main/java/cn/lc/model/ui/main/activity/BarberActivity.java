@@ -3,7 +3,6 @@ package cn.lc.model.ui.main.activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.BarberAdapter;
 import cn.lc.model.ui.main.bean.BarberListBean;
-import cn.lc.model.ui.main.bean.ShopBean;
 import cn.lc.model.ui.main.model.BarberListModel;
 import cn.lc.model.ui.main.modelimpl.BarberListModelImpl;
 import cn.lc.model.ui.main.presenter.BarberListPresenter;

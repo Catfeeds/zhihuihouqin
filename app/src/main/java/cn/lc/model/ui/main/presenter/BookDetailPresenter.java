@@ -2,14 +2,10 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.BarberDetailBean;
 import cn.lc.model.ui.main.bean.BookDetailBean;
-import cn.lc.model.ui.main.model.BarberDetailModel;
 import cn.lc.model.ui.main.model.BookDetailModel;
-import cn.lc.model.ui.main.view.BarberDetailView;
 import cn.lc.model.ui.main.view.BookDetailView;
 import mvp.cn.rx.MvpRxPresenter;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 import rx.Subscriber;
 

@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,7 +11,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
-import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.activity.Library.JieYueSuccActivity;

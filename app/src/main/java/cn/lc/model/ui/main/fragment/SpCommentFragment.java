@@ -2,9 +2,7 @@ package cn.lc.model.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -12,12 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;
 import cn.lc.model.ui.main.adapter.OfficeSpCommentAdapter;
-import cn.lc.model.ui.main.adapter.OfficeSpDetailrvAdapter;
 import cn.lc.model.ui.main.bean.SpAllCommentBean;
 import cn.lc.model.ui.main.model.SpAllCommentModel;
 import cn.lc.model.ui.main.modelimpl.SpAllCommentModelImpl;

@@ -3,9 +3,7 @@ package cn.lc.model.ui.main.modelimpl;
 import android.util.Log;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.main.model.MainModel;
 import cn.lc.model.ui.main.model.ShopModel;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 
 /**

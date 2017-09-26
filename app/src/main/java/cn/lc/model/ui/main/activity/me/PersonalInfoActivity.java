@@ -12,19 +12,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,10 +38,8 @@ import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.login.activity.PositionActivity;
-import cn.lc.model.ui.mywidget.ImageSelect;
 import cn.lc.model.ui.mywidget.StringListDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
-import mvp.cn.util.LogUtil;
 
 public class PersonalInfoActivity extends AppCompatActivity  {
 

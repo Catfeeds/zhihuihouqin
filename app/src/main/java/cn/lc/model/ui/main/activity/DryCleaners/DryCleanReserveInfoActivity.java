@@ -1,30 +1,16 @@
 package cn.lc.model.ui.main.activity.DryCleaners;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +20,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
-import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
-import cn.lc.model.ui.main.activity.Base2Activity;
 import cn.lc.model.ui.main.adapter.DryCleanersLvAdapter;
 import cn.lc.model.ui.main.bean.JieYueBean;
 import cn.lc.model.ui.main.bean.OrderDryCleanBean;
@@ -46,14 +30,8 @@ import cn.lc.model.ui.main.model.DryCleanReserveInfoModel;
 import cn.lc.model.ui.main.modelimpl.DryCleanReserveInfoModelImpl;
 import cn.lc.model.ui.main.presenter.DryCleanReserveInfoPresenter;
 import cn.lc.model.ui.main.view.DryCleanReserveInfoView;
-import cn.lc.model.ui.main.wheelView.OnWheelScrollListener;
-import cn.lc.model.ui.main.wheelView.WheelView;
-import cn.lc.model.ui.main.wheelView.adapter.ArrayWheelAdapter;
-import cn.lc.model.ui.main.wheelView.adapter.NumericWheelAdapter;
 import cn.lc.model.ui.mywidget.CenterTimeDialog;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
-import rx.Subscriber;
 
 public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInfoModel,
         DryCleanReserveInfoView,DryCleanReserveInfoPresenter> implements DryCleanReserveInfoView {

@@ -3,7 +3,6 @@ package cn.lc.model.ui.main.activity.me;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +18,7 @@ import cn.lc.model.R;
 import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.utils.DataClearUtils;
 import cn.lc.model.framework.widget.TitleBar;
-import cn.lc.model.ui.login.activity.IdentityActivity;
-import cn.lc.model.ui.login.activity.RegistSuccessActivity;
+import cn.lc.model.ui.login.activity.LoginActivity;
 import cn.lc.model.ui.main.activity.Base2Activity;
 import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.StringUtil;
@@ -116,7 +114,9 @@ public class SettingAct extends Base2Activity {
                 startActivity(intent6);
                 break;
             case R.id.bt_out_login:
-                Intent intent7 = new Intent();
+                Intent intent7 = new Intent(SettingAct.this, LoginActivity.class);
+                intent7.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent7);
                 break;
         }

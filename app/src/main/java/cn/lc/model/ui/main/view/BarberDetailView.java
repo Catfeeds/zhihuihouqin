@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.view;
 
 import cn.lc.model.ui.main.bean.BarberDetailBean;
-import cn.lc.model.ui.main.bean.BarberListBean;
 import mvp.cn.common.MvpView;
 
 /**

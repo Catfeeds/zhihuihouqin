@@ -2,12 +2,8 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.login.model.PositionListModel;
 import cn.lc.model.ui.main.bean.ActivityPostBean;
-import cn.lc.model.ui.main.bean.AddressBean;
-import cn.lc.model.ui.main.model.AddressModel;
 import cn.lc.model.ui.main.model.PostNeedModel;
-import cn.lc.model.ui.main.view.AddressView;
 import cn.lc.model.ui.main.view.PostNeedView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;

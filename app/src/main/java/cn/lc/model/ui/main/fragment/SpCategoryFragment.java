@@ -2,17 +2,13 @@ package cn.lc.model.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseFragment;

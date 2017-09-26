@@ -156,8 +156,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_header"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     android:src="@drawable/partner_luffy" />
@@ -166,7 +166,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/civ_header"
+                    android:layout_below="@id/civ_header"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:text="叫越不小杨"
@@ -177,7 +177,7 @@
                     android:id="@+id/tv_auth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_name"
+                    android:layout_below="@id/tv_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:text="认证完成"
@@ -205,7 +205,7 @@
                     android:layout_toRightOf="@+id/iv_img1"
                     android:text="订单服务"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
+                    android:textSize="@dimen/sp_big" />
 
                 <ImageView
                     android:id="@+id/iv_group1"
@@ -1351,7 +1351,7 @@
                     android:layout_toRightOf="@+id/iv_img2"
                     android:text="来访人员"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
+                    android:textSize="@dimen/sp_big" />
 
                 <ImageView
                     android:id="@+id/iv_group2"
@@ -1387,7 +1387,7 @@
                     android:layout_toRightOf="@+id/iv_img3"
                     android:text="设置"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
+                    android:textSize="@dimen/sp_big" />
 
                 <ImageView
                     android:id="@+id/iv_group3"

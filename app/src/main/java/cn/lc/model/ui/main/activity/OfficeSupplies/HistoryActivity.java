@@ -1,9 +1,6 @@
 package cn.lc.model.ui.main.activity.OfficeSupplies;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -22,7 +19,6 @@ import cn.lc.model.ui.main.model.HistoryPostModel;
 import cn.lc.model.ui.main.modelimpl.HistoryPostModelImpl;
 import cn.lc.model.ui.main.presenter.HistoryPostPresenter;
 import cn.lc.model.ui.main.view.HistoryPostView;
-import okhttp3.internal.tls.TrustRootIndex;
 
 public class HistoryActivity extends BaseActivity<HistoryPostModel,HistoryPostView,HistoryPostPresenter> implements HistoryPostView {
 

@@ -1,6 +1,5 @@
 package cn.lc.model.ui.main.view;
 
-import cn.lc.model.ui.main.bean.BooklistBean;
 import cn.lc.model.ui.main.bean.SearchBookListBean;
 import mvp.cn.common.MvpView;
 

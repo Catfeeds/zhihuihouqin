@@ -4,8 +4,6 @@ package cn.lc.model.framework.spfs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.List;
-
 import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.ui.home.bean.LoginBean;
 

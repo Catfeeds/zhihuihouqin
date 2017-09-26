@@ -1,9 +1,5 @@
 package cn.lc.model.ui.main.activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.GridView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -22,8 +18,6 @@ import cn.lc.model.ui.main.model.BarberPoductListModel;
 import cn.lc.model.ui.main.modelimpl.BarberProductListModelImpl;
 import cn.lc.model.ui.main.presenter.BarberProductListPresenter;
 import cn.lc.model.ui.main.view.BarberProductListView;
-
-import static android.R.attr.id;
 
 public class BarberMoreProductActivity extends BaseActivity<BarberPoductListModel,BarberProductListView,BarberProductListPresenter> implements BarberProductListView  {
 

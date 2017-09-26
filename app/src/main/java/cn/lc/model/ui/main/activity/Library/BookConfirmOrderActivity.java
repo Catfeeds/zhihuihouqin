@@ -6,14 +6,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
-import cn.lc.model.framework.application.SoftApplication;
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.spfs.SharedPrefHelper;
 import cn.lc.model.framework.utils.LogUtils;

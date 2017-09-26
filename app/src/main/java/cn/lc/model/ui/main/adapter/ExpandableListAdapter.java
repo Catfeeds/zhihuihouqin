@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.lc.model.R;
-import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.ui.main.bean.PreOrderBean;
 
 /**

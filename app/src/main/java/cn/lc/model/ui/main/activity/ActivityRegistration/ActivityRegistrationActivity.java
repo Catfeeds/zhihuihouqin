@@ -1,13 +1,9 @@
 package cn.lc.model.ui.main.activity.ActivityRegistration;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.lc.model.R;
-import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.widget.CustomerDialog;

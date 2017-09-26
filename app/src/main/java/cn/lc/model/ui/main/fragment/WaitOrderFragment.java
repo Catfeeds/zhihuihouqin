@@ -38,9 +38,9 @@ public class WaitOrderFragment extends BaseFragment2 {
     XRecyclerView recyclerView;
     Unbinder unbinder;
     private DryCleanAdapter dryCleanAdapter;
-    int limit = 10;
+    int limit = 20;
     private int page = 1;
-    private List<CheckDryOrderBean.PageBean.ListBean> listAll = new ArrayList();
+    private List<CheckDryOrderBean.PageBean.ListBean> listAll;
     private List<CheckDryOrderBean.PageBean.ListBean> list;
     private int state;
 
@@ -131,6 +131,8 @@ public class WaitOrderFragment extends BaseFragment2 {
     }
 
     private void initRecycler() {
+        list = new ArrayList<>();
+        listAll = new ArrayList();
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

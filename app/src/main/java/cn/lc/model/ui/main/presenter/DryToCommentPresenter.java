@@ -5,9 +5,7 @@ import android.util.Log;
 import java.io.File;
 
 import cn.lc.model.ui.main.bean.CollectBean;
-import cn.lc.model.ui.main.model.CollectModel;
 import cn.lc.model.ui.main.model.DryToCommentModel;
-import cn.lc.model.ui.main.view.CollectView;
 import cn.lc.model.ui.main.view.DryToCommentView;
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;

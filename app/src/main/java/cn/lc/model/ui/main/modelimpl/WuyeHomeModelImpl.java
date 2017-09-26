@@ -2,11 +2,9 @@ package cn.lc.model.ui.main.modelimpl;
 
 import android.util.Log;
 
-import java.io.File;
 import java.util.List;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.main.model.MoreListModel;
 import cn.lc.model.ui.main.model.WuyeHomeModel;
 import rx.Observable;
 

@@ -42,7 +42,6 @@ import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.activity.Base2Activity;
 import cn.lc.model.ui.main.adapter.ActivityPostMulitPicAdapter;
-import cn.lc.model.ui.main.adapter.GridViewImageAdapter;
 import cn.lc.model.ui.main.bean.ActivityPostBean;
 import cn.lc.model.ui.mywidget.BottomTimeDialog;
 import cn.lc.model.ui.mywidget.StringListDialog;

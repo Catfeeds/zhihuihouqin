@@ -64,7 +64,6 @@ import cn.lc.model.ui.main.bean.SpDetailBean;
 import cn.lc.model.ui.main.bean.SpOrderBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
 import cn.lc.model.ui.main.bean.VegetableBean;
-import cn.lc.model.ui.main.bean.WuyeHomeBean;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.FieldMap;

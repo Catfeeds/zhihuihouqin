@@ -12,7 +12,6 @@ import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.widget.TitleBar;
-import cn.lc.model.ui.main.activity.SubmitSuccessActivity;
 import cn.lc.model.ui.main.bean.RecommandBookBean;
 import cn.lc.model.ui.main.model.RecommandBookModel;
 import cn.lc.model.ui.main.modelimpl.RecommandVBookModelImpl;

@@ -2,14 +2,10 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.BooklistBean;
 import cn.lc.model.ui.main.bean.SearchBookListBean;
 import cn.lc.model.ui.main.model.BookUpAwayModel;
-import cn.lc.model.ui.main.model.Tab1Model;
 import cn.lc.model.ui.main.view.BookUpAwayView;
-import cn.lc.model.ui.main.view.Tab1View;
 import mvp.cn.rx.MvpRxPresenter;
-import mvp.cn.util.LogUtil;
 import rx.Subscriber;
 
 /**

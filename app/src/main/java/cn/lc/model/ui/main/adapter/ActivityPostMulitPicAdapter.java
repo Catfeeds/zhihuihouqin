@@ -16,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
-import mvp.cn.util.ToastUtil;
 
 /**
  * Created by 我的电脑 on 2017/9/25 0025.

@@ -2,16 +2,13 @@ package cn.lc.model.ui.main.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.lc.model.R;
@@ -33,6 +30,31 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by hh on 2016/5/18.
  */
 public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presenter> implements Tab4View {
+
+    // 我的报修 标题
+    private static final String orderRepairs = "待接单,已接单,已完成,待评价,已取消";
+    // 办公用品 标题
+    private static final String orderOfficeSupplies = "已下单,配送中,已完成,待评价,已取消";
+    // 我的订餐 标题
+    private static final String orderFood = "待接单,已接单,已完成,待评价,已取消";
+    // 理发订单 标题
+    private static final String orderHaircuts = "已预约,服务中,已完成,待评价,已取消";
+    // 订水订单 标题
+    private static final String orderWater = "已下单,配送中,已完成,待评价,已取消";
+    // 医疗订单 标题
+    private static final String orderMedical = "已预约,已接单,服务中,已完成,待评价";
+    // 专家坐诊 标题
+    private static final String orderExperts = "已预约,已接单,服务中,已完成,待评价";
+    //  洗衣店 标题
+    private static final String orderDryCleaner = "已预约,服务中,已完成,已评价,已取消";
+    // 图书订单 标题
+    private static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
+
+
+    // 净菜订单 标题
+    private static final String orderVegetable = "已预约,服务中,已完成,已评价,已取消";
+    //   标题
+    private static final String order = "已预约,服务中,已完成,已评价,已取消";
 
     Unbinder unbinder;
     @BindView(R.id.iv_bg)
@@ -230,27 +252,31 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.tv_cancle5, R.id.rl_turn6, R.id.tv_daijiedan6, R.id.tv_jiedan6, R.id.tv_finish6,
             R.id.tv_pingjia6, R.id.tv_cancle6, R.id.rl_turn7, R.id.tv_daijiedan7, R.id.tv_jiedan7,
             R.id.tv_service7, R.id.tv_finish7, R.id.tv_daipingjia7, R.id.rl_laifang_person,
-            R.id.rl_setting,R.id.rl_turn8,R.id.tv_yuyue8,R.id.tv_service8,R.id.tv_finish8,R.id.tv_pingjia8,R.id.tv_cancle8,
-            R.id.rl_turn9,R.id.tv_yuding9,R.id.tv_jieyue9,R.id.tv_guihuan9,R.id.tv_pingjia9,R.id.tv_cancle9})
+            R.id.rl_setting, R.id.rl_turn8, R.id.tv_yuyue8, R.id.tv_service8, R.id.tv_finish8, R.id.tv_pingjia8, R.id.tv_cancle8,
+            R.id.rl_turn9, R.id.tv_yuding9, R.id.tv_jieyue9, R.id.tv_guihuan9, R.id.tv_pingjia9, R.id.tv_cancle9})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_my_packge:
                 break;
+
             case R.id.ll_my_collect:
                 Intent intent2 = new Intent(getActivity(), MyCollectActivity.class);
                 startActivity(intent2);
                 break;
+
             case R.id.ll_personal_auth:
                 Intent intent3 = new Intent(getActivity(), IdentityActivity.class);
                 startActivity(intent3);
                 break;
-            case R.id.civ_header:
+
+            case R.id.civ_header: // 个人信息
                 Intent intent1 = new Intent(getActivity(), PersonalInfoActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.rl_order_service:
+
+            case R.id.rl_order_service: // 订单服务
                 isOpen = !isOpen;
-                if (isOpen == true) {
+                if (isOpen) {
                     ivGroup1.setImageResource(R.drawable.group_up);
                     llOrderServiceContainer.setVisibility(View.VISIBLE);
                 } else {
@@ -258,6 +284,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                     llOrderServiceContainer.setVisibility(View.GONE);
                 }
                 break;
+
             case R.id.rl_turn1://我的报修
                 break;
             case R.id.tv_daijiedan1:
@@ -342,72 +369,79 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 break;
             case R.id.tv_daipingjia7:
                 break;
-            case R.id.rl_turn8:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",0);
-                intent5.putExtra("from", Constants.DRYCLEANER);
-                intent5.putExtra("state","已预约,服务中,已完成,已评价,已取消");
-                startActivity(intent5);
+
+            case R.id.rl_turn8: // 洗衣店
+                goServiceActivity(0, Constants.DRYCLEANER, orderDryCleaner);
                 break;
+
             case R.id.tv_yuyue8:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",0);
-                intent5.putExtra("from", Constants.DRYCLEANER);
-                intent5.putExtra("state","已预约,服务中,已完成,已评价,已取消");
-                startActivity(intent5);
+                goServiceActivity(0, Constants.DRYCLEANER, orderDryCleaner);
                 break;
+
             case R.id.tv_service8:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",1);
-                intent5.putExtra("from", Constants.DRYCLEANER);
-                intent5.putExtra("state","已预约,服务中,已完成,已评价,已取消");
-                startActivity(intent5);
+                goServiceActivity(1, Constants.DRYCLEANER, orderDryCleaner);
                 break;
+
             case R.id.tv_finish8:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",2);
-                intent5.putExtra("from", Constants.DRYCLEANER);
-                intent5.putExtra("state","已预约,服务中,已完成,已评价,已取消");
-                startActivity(intent5);
+                goServiceActivity(2, Constants.DRYCLEANER, orderDryCleaner);
                 break;
+
             case R.id.tv_pingjia8:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",3);
-                intent5.putExtra("from", Constants.DRYCLEANER);
-                intent5.putExtra("state","已预约,服务中,已完成,已评价,已取消");
-                startActivity(intent5);
+                goServiceActivity(3, Constants.DRYCLEANER, orderDryCleaner);
                 break;
+
             case R.id.tv_cancle8:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",4);
-                intent5.putExtra("from", Constants.DRYCLEANER);
-                intent5.putExtra("state","已预约,服务中,已完成,已评价,已取消");
-                startActivity(intent5);
-            case R.id.rl_turn9:
-                intent5 = new Intent(getActivity(), ServiceOrderActivity.class);
-                intent5.putExtra("index",0);
-                intent5.putExtra("from", Constants.BOOK);
-                intent5.putExtra("state","已预约,已借阅,已归还,待评价,已取消");
-                startActivity(intent5);
+                goServiceActivity(4, Constants.DRYCLEANER, orderDryCleaner);
                 break;
+
+            case R.id.rl_turn9: // 图书借阅
+                goServiceActivity(0, Constants.BOOK, orderBook);
+                break;
+
             case R.id.tv_yuding9:
+                goServiceActivity(0, Constants.BOOK, orderBook);
                 break;
+
             case R.id.tv_jieyue9:
+                goServiceActivity(1, Constants.BOOK, orderBook);
                 break;
+
             case R.id.tv_guihuan9:
+                goServiceActivity(2, Constants.BOOK, orderBook);
                 break;
+
             case R.id.tv_pingjia9:
+                goServiceActivity(3, Constants.BOOK, orderBook);
                 break;
+
             case R.id.tv_cancle9:
+                goServiceActivity(4, Constants.BOOK, orderBook);
                 break;
+
             case R.id.rl_laifang_person:
                 Intent intent = new Intent(getActivity(), LaiFangActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.rl_setting:
                 Intent intent4 = new Intent(getActivity(), SettingAct.class);
                 startActivity(intent4);
                 break;
         }
+    }
+
+    /**
+     * 跳转到ServiceOrder页面
+     *
+     * @param index 脚标
+     * @param from  类别
+     * @param state 上方标签
+     */
+    private void goServiceActivity(int index, int from, String state) {
+        Intent intent = new Intent(getActivity(), ServiceOrderActivity.class);
+        intent.putExtra("index", index);
+        intent.putExtra("from", from);
+        intent.putExtra("state", state);
+        startActivity(intent);
     }
 }

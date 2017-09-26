@@ -2,15 +2,10 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import java.io.File;
 import java.util.List;
 
 import cn.lc.model.ui.main.bean.ActivityPostBean;
-import cn.lc.model.ui.main.bean.CollectBean;
-import cn.lc.model.ui.main.bean.WuyeHomeBean;
-import cn.lc.model.ui.main.model.CollectModel;
 import cn.lc.model.ui.main.model.WuyeHomeModel;
-import cn.lc.model.ui.main.view.CollectView;
 import cn.lc.model.ui.main.view.WuyeHomeView;
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;

@@ -2,13 +2,7 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import java.util.List;
-
-import cn.lc.model.ui.home.bean.LoginBean;
-import cn.lc.model.ui.login.model.LoginModel;
-import cn.lc.model.ui.login.view.LoginView;
 import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
-import cn.lc.model.ui.main.bean.InfolistBean;
 import cn.lc.model.ui.main.model.HealthServerceModel;
 import cn.lc.model.ui.main.view.HealthServerceView;
 import mvp.cn.rx.MvpRxPresenter;

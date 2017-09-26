@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.modelimpl;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.main.model.AddressModel;
 import cn.lc.model.ui.main.model.HistoryPostModel;
 import rx.Observable;
 

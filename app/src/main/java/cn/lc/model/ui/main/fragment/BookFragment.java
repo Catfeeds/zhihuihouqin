@@ -1,14 +1,10 @@
 package cn.lc.model.ui.main.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.lc.model.R;
-import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.framework.utils.LogUtils;
-import cn.lc.model.ui.main.activity.ordering.CancelOrderingActivity;
 import cn.lc.model.ui.main.adapter.BookOrderAdapter;
-import cn.lc.model.ui.main.adapter.DryCleanAdapter;
 import cn.lc.model.ui.main.bean.BookOrderListBean;
-import cn.lc.model.ui.main.bean.CheckDryOrderBean;
 import cn.lc.model.ui.mywidget.AlertDialog;
-import mvp.cn.util.CallPhoneUtils;
 import rx.Observable;
 import rx.Subscriber;
 

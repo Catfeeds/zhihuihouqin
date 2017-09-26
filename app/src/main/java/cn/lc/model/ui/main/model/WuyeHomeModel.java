@@ -1,6 +1,5 @@
 package cn.lc.model.ui.main.model;
 
-import java.io.File;
 import java.util.List;
 
 import mvp.cn.rx.MvpModel;

@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.view;
 
 import cn.lc.model.ui.main.bean.ActivityPostBean;
-import cn.lc.model.ui.main.bean.AddressBean;
 import cn.lc.model.ui.main.bean.SpCheckShopCarBean;
 import mvp.cn.common.MvpView;
 

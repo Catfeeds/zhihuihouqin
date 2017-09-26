@@ -1,6 +1,5 @@
 package cn.lc.model.ui.main.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

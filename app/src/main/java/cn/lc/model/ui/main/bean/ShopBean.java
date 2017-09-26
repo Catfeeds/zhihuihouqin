@@ -1,8 +1,5 @@
 package cn.lc.model.ui.main.bean;
 
-import android.os.Parcelable;
-
-import java.io.Serializable;
 import java.util.List;
 
 /**

@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.modelimpl;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.main.model.BarberListModel;
 import cn.lc.model.ui.main.model.BarberPoductListModel;
 import mvp.cn.util.LogUtil;
 import rx.Observable;

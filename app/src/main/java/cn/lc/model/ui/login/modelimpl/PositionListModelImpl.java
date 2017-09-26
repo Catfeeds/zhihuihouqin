@@ -4,8 +4,6 @@ import android.util.Log;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.ui.login.model.PositionListModel;
-import cn.lc.model.ui.login.model.RegistStep1Model;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 
 /**

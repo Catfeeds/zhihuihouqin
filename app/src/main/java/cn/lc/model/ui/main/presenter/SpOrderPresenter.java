@@ -2,11 +2,8 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.AddressBean;
 import cn.lc.model.ui.main.bean.SpOrderBean;
-import cn.lc.model.ui.main.model.AddressModel;
 import cn.lc.model.ui.main.model.SpOrderModel;
-import cn.lc.model.ui.main.view.AddressView;
 import cn.lc.model.ui.main.view.SpOrderView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;

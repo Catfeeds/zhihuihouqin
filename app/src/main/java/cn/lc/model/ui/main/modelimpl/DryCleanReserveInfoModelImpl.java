@@ -3,7 +3,6 @@ package cn.lc.model.ui.main.modelimpl;
 import android.util.Log;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.main.model.CollectModel;
 import cn.lc.model.ui.main.model.DryCleanReserveInfoModel;
 import rx.Observable;
 

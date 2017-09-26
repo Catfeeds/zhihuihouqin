@@ -1,6 +1,5 @@
 package cn.lc.model.ui.main.view;
 
-import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.JieYueBean;
 import cn.lc.model.ui.main.bean.OrderDryCleanBean;
 import mvp.cn.common.MvpView;

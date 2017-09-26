@@ -2,9 +2,7 @@ package cn.lc.model.ui.login.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;

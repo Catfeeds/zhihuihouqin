@@ -2,31 +2,19 @@ package cn.lc.model.ui.mywidget;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.lc.model.R;
-import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.framework.utils.LogUtils;
-import cn.lc.model.ui.main.bean.ShopCarInfoBean;
 import cn.lc.model.ui.main.wheelView.OnWheelScrollListener;
 import cn.lc.model.ui.main.wheelView.WheelView;
 import cn.lc.model.ui.main.wheelView.adapter.NumericWheelAdapter;
-import mvp.cn.util.DensityUtil;
-import mvp.cn.util.LogUtil;
 import mvp.cn.util.ScreenUtils;
 
 public class BottomTimeDialog extends Dialog implements View.OnClickListener {

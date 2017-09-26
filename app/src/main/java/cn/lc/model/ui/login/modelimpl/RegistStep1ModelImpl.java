@@ -3,7 +3,6 @@ package cn.lc.model.ui.login.modelimpl;
 import android.util.Log;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.login.model.LoginModel;
 import cn.lc.model.ui.login.model.RegistStep1Model;
 import mvp.cn.util.LogUtil;
 import rx.Observable;

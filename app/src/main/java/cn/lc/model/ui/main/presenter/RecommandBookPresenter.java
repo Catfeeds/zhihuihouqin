@@ -2,14 +2,10 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.LibraryHomeBean;
 import cn.lc.model.ui.main.bean.RecommandBookBean;
-import cn.lc.model.ui.main.model.LibraryHomeModel;
 import cn.lc.model.ui.main.model.RecommandBookModel;
-import cn.lc.model.ui.main.view.LibraryHomeView;
 import cn.lc.model.ui.main.view.RecommandBookView;
 import mvp.cn.rx.MvpRxPresenter;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 import rx.Subscriber;
 

@@ -4,7 +4,6 @@ import android.util.Log;
 
 import cn.lc.model.ui.main.bean.ShopBean;
 import cn.lc.model.ui.main.model.ShopModel;
-import cn.lc.model.ui.main.view.MainView;
 import cn.lc.model.ui.main.view.ShopView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;

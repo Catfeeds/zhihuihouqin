@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.lc.model.R;
-import cn.lc.model.ui.main.adapter.SelectTimeAdapter;
 import cn.lc.model.ui.main.adapter.TimeSelectAdapter;
 import cn.lc.model.ui.main.bean.JieYueTimeBean;
-import mvp.cn.util.CommonUtil;
 
 /**
  * Created by 我的电脑 on 2017/9/15 0015.

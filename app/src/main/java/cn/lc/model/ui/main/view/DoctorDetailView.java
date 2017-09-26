@@ -2,7 +2,6 @@ package cn.lc.model.ui.main.view;
 
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
-import cn.lc.model.ui.main.bean.DoctorListBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
 import mvp.cn.common.MvpView;
 

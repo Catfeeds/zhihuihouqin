@@ -16,7 +16,6 @@ import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.ui.main.bean.SpAllCommentBean;
-import cn.lc.model.ui.main.bean.SpDetailBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**

@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ import butterknife.OnClick;
 import cn.lc.model.R;
 import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.ui.main.bean.CollectBean;
-import cn.lc.model.ui.main.bean.HealthServerceHomeBean;
 import cn.lc.model.ui.main.model.CollectModel;
 import cn.lc.model.ui.main.modelimpl.CollectModelImpl;
 import cn.lc.model.ui.main.presenter.CollectPresenter;

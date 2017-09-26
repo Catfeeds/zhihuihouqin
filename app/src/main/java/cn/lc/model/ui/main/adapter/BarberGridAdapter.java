@@ -8,14 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
 import cn.lc.model.ui.main.bean.PreOrderBean;
-import retrofit2.http.POST;
 
 /**
  * Created by 我的电脑 on 2017/8/22 0022.

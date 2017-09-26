@@ -4,12 +4,9 @@ import android.util.Log;
 
 import cn.lc.model.ui.main.bean.CollectBean;
 import cn.lc.model.ui.main.bean.DoctorDetailBean;
-import cn.lc.model.ui.main.bean.DoctorListBean;
 import cn.lc.model.ui.main.bean.UserCommentBean;
 import cn.lc.model.ui.main.model.DoctorDetailModel;
-import cn.lc.model.ui.main.model.DoctorListModel;
 import cn.lc.model.ui.main.view.DoctorDetailView;
-import cn.lc.model.ui.main.view.DoctorListView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;

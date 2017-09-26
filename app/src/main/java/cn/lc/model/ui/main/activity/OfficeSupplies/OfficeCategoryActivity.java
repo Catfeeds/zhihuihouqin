@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
@@ -19,18 +18,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
-import cn.lc.model.framework.base.BaseActivity;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.IndecatorAdapter;
-import cn.lc.model.ui.main.adapter.OfficeSpAdapter;
 import cn.lc.model.ui.main.adapter.SpCategoryAdapter;
 import cn.lc.model.ui.main.bean.OfficeIndexBean;
-import cn.lc.model.ui.main.bean.ProductCategoryBean;
 import cn.lc.model.ui.main.fragment.SpCategoryFragment;
-import cn.lc.model.ui.main.model.ProductCategoryModel;
-import cn.lc.model.ui.main.presenter.ProductCategoryPresenter;
-import cn.lc.model.ui.main.view.ProductCategoryView;
 
 public class OfficeCategoryActivity extends AppCompatActivity{
 

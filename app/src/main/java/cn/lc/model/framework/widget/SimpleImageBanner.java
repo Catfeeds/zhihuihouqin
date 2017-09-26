@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.flyco.banner.widget.Banner.BaseIndicatorBanner;
 
 import cn.lc.model.R;
-import cn.lc.model.framework.imageload.GlideLoading;
 import cn.lc.model.framework.widget.bean.BannerItem;
 
 

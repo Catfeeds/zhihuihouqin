@@ -3,7 +3,6 @@ package cn.lc.model.ui.main.activity.me;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
@@ -32,8 +31,8 @@ public class MyCollectActivity extends AppCompatActivity {
     ViewPager vpCollect;
     @BindView(R.id.activity_my_collect)
     LinearLayout activityMyCollect;
-    private List<String> tabs= Arrays.asList("公告","办公用品","作品","图书","医生",
-            "专家","活动","发型师");
+    private List<String> tabs = Arrays.asList("公告", "办公用品", "作品", "图书", "医生",
+            "专家", "活动", "发型师");
     private List<Fragment> fragments;
 
     @Override
@@ -63,7 +62,7 @@ public class MyCollectActivity extends AppCompatActivity {
         title.setBack(true);
         FmPagerAdapter pagerAdapter = new FmPagerAdapter(getSupportFragmentManager());
         vpCollect.setAdapter(pagerAdapter);
-        pagerAdapter.setFragments(fragments,tabs);
+        pagerAdapter.setFragments(fragments, tabs);
     }
 
     @OnClick(R.id.tv_bianji)

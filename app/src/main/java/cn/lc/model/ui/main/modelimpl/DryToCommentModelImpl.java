@@ -1,11 +1,8 @@
 package cn.lc.model.ui.main.modelimpl;
 
-import android.util.Log;
-
 import java.io.File;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
-import cn.lc.model.ui.main.model.CancelOrderingModel;
 import cn.lc.model.ui.main.model.DryToCommentModel;
 import rx.Observable;
 

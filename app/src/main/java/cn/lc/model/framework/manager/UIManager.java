@@ -4,13 +4,7 @@ package cn.lc.model.framework.manager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.widget.Toast;
-
-import java.io.File;
 
 public class UIManager {
 

@@ -1,7 +1,6 @@
 package cn.lc.model.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;

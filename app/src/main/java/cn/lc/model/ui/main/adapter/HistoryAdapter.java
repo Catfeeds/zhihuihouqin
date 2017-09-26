@@ -15,10 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lc.model.R;
-import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.framework.utils.LogUtils;
 import cn.lc.model.ui.main.activity.OfficeSupplies.CheckHistoryPostItemAct;
-import cn.lc.model.ui.main.activity.OfficeSupplies.PostNeedActivity;
 import cn.lc.model.ui.main.bean.HistoryPostBean;
 
 /**

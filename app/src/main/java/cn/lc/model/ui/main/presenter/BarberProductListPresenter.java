@@ -2,11 +2,8 @@ package cn.lc.model.ui.main.presenter;
 
 import android.util.Log;
 
-import cn.lc.model.ui.main.bean.BarberListBean;
 import cn.lc.model.ui.main.bean.BarberWorkListBean;
-import cn.lc.model.ui.main.model.BarberListModel;
 import cn.lc.model.ui.main.model.BarberPoductListModel;
-import cn.lc.model.ui.main.view.BarberListView;
 import cn.lc.model.ui.main.view.BarberProductListView;
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;

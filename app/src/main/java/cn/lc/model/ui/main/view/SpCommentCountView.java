@@ -1,6 +1,5 @@
 package cn.lc.model.ui.main.view;
 
-import cn.lc.model.ui.main.bean.AddressBean;
 import cn.lc.model.ui.main.bean.SpAllCommentCountBean;
 import mvp.cn.common.MvpView;
 

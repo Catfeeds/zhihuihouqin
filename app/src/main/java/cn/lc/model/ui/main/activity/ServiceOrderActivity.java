@@ -1,21 +1,16 @@
 package cn.lc.model.ui.main.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +24,7 @@ import cn.lc.model.framework.contant.Constants;
 import cn.lc.model.ui.main.adapter.MyPagerAdapter;
 import cn.lc.model.ui.main.fragment.BookFragment;
 import cn.lc.model.ui.main.fragment.WaitOrderFragment;
+import cn.lc.model.ui.mywidget.OrderPop;
 
 public class ServiceOrderActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,12 +40,15 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
     TabLayout tablayout;
     @BindView(R.id.service_orider_viewpager)
     ViewPager viewPager;
-    private boolean isOpen = false;
+    @BindView(R.id.view)
+    View view;
 
     private List<Fragment> fragments;
     private PopupWindow popupWindow;
     private List<String> states;
     private int from;
+
+    private OrderPop pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +56,13 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_service_order);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        from = intent.getIntExtra("from",-1);
+        from = intent.getIntExtra("from", -1);
         int index = intent.getIntExtra("index", 0);
         String state = intent.getStringExtra("state");
-        String[] arr=state.split(",");
+        String[] arr = state.split(",");
         states = Arrays.asList(arr);
         fragments = new ArrayList<>();
-        switch (from){
+        switch (from) {
             case Constants.DRYCLEANER://干洗店
                 fragments.add(WaitOrderFragment.getInstance(1));
                 fragments.add(WaitOrderFragment.getInstance(2));
@@ -88,47 +87,20 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void showPoppupwindow() {
+
+        pop = new OrderPop(ServiceOrderActivity.this);
         llTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("isOpen", isOpen + "");
+                pop.showAsDropDown(view, 0, 0);
                 ivUpOrDown.setImageResource(R.drawable.drawer_arrow_down);
-                View popupView = View.inflate(ServiceOrderActivity.this, R.layout.layout_popup_window, null);
-                TextView tvPublicMaintain = (TextView) popupView.findViewById(R.id.tv_office_supplies);
-                TextView clearVegetables = (TextView) popupView.findViewById(R.id.tv_clear_vegetables);
-                TextView orderWater = (TextView) popupView.findViewById(R.id.tv_order_water);
-                TextView workmeal = (TextView) popupView.findViewById(R.id.tv_work_meal);
-                TextView healthService = (TextView) popupView.findViewById(R.id.tv_health_service);
-                TextView cutHair = (TextView) popupView.findViewById(R.id.tv_cut_hair);
-                TextView dryCleaner = (TextView) popupView.findViewById(R.id.tv_dry_cleaner);
-                TextView expertsVisit = (TextView) popupView.findViewById(R.id.tv_experts_visit);
-                TextView bookOrder = (TextView) popupView.findViewById(R.id.tv_book_order);
-                tvPublicMaintain.setOnClickListener(ServiceOrderActivity.this);
-                clearVegetables.setOnClickListener(ServiceOrderActivity.this);
-                orderWater.setOnClickListener(ServiceOrderActivity.this);
-                workmeal.setOnClickListener(ServiceOrderActivity.this);
-                healthService.setOnClickListener(ServiceOrderActivity.this);
-                cutHair.setOnClickListener(ServiceOrderActivity.this);
-                dryCleaner.setOnClickListener(ServiceOrderActivity.this);
-                expertsVisit.setOnClickListener(ServiceOrderActivity.this);
-                bookOrder.setOnClickListener(ServiceOrderActivity.this);
-                popupWindow = new PopupWindow(popupView,
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                popupWindow.setAnimationStyle(R.style.Popupwindow_animation);
-                //让冒泡窗体可以获取焦点
-                popupWindow.setFocusable(true);
-                //给冒泡窗体提供一个透明的背景
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            }
+        });
 
-                //2.指定冒泡窗体的显示位置
-                popupWindow.showAsDropDown(rlTitle, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        ivUpOrDown.setImageResource(R.drawable.drawer_arrow_up);
-                    }
-                });
+        pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                ivUpOrDown.setImageResource(R.drawable.drawer_arrow_up);
             }
         });
     }
@@ -138,7 +110,7 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
         viewPager.setAdapter(pagerAdapter);
         tablayout.setupWithViewPager(viewPager);
         //
-        pagerAdapter.setFragments(fragments,states);
+        pagerAdapter.setFragments(fragments, states);
     }
 
     @OnClick({R.id.back, R.id.ll_title})

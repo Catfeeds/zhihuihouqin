@@ -1,13 +1,7 @@
 package cn.lc.model.ui.main.activity.ActivityRegistration;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;

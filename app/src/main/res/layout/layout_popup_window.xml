@@ -1,92 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/transparent"
     android:clickable="true"
-    android:padding="16dp"
     android:orientation="vertical">
 
-<TextView
-    android:text="维修订单"
-    style="@style/textstyle"
-     />
-    <TextView
-        android:id="@+id/tv_public_maintain"
-        android:text="公共维修"
-        style="@style/shaptextstyle"
-        android:layout_width="100dp"
-      />
-    <TextView
-        android:text="购物订单"
-        style="@style/textstyle"
-        />
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="12dp">
+
         <TextView
-            android:id="@+id/tv_office_supplies"
-            android:text="办公用品"
-            style="@style/shaptextstyle"
-            />
+            style="@style/textstyle"
+            android:text="维修订单" />
+
         <TextView
-            android:id="@+id/tv_clear_vegetables"
-            android:text="净菜"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_public_maintain"
             style="@style/shaptextstyle"
-            />
+            android:layout_width="wrap_content"
+            android:minWidth="100dp"
+            android:text="公共维修" />
+
         <TextView
-            android:id="@+id/tv_order_water"
-            android:text="订水"
-            android:layout_alignParentRight="true"
+            style="@style/textstyle"
+            android:text="购物订单" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_office_supplies"
+                style="@style/shaptextstyle"
+                android:minWidth="100dp"
+                android:text="办公用品" />
+
+            <TextView
+                android:id="@+id/tv_clear_vegetables"
+                style="@style/shaptextstyle"
+                android:layout_centerHorizontal="true"
+                android:minWidth="100dp"
+                android:text="净菜" />
+
+            <TextView
+                android:id="@+id/tv_order_water"
+                style="@style/shaptextstyle"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="订水" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_work_meal"
             style="@style/shaptextstyle"
-            />
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/tv_work_meal"
-        android:text="工作餐"
-        style="@style/shaptextstyle"
-        android:layout_marginTop="20dp"
-        android:layout_width="100dp"
-        />
-    <TextView
-        android:text="服务订单"
-        style="@style/textstyle"
-        />
-    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:minWidth="100dp"
+            android:text="工作餐" />
+
+        <TextView
+            style="@style/textstyle"
+            android:text="服务订单" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_health_service"
+                style="@style/shaptextstyle"
+                android:minWidth="100dp"
+                android:text="医疗服务" />
+
+            <TextView
+                android:id="@+id/tv_cut_hair"
+                style="@style/shaptextstyle"
+                android:layout_centerHorizontal="true"
+                android:minWidth="100dp"
+                android:text="理发" />
+
+            <TextView
+                android:id="@+id/tv_dry_cleaner"
+                style="@style/shaptextstyle"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="干洗店" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_experts_visit"
+                style="@style/shaptextstyle"
+                android:minWidth="100dp"
+                android:text="专家坐诊" />
+
+            <TextView
+                android:id="@+id/tv_book_order"
+                style="@style/shaptextstyle"
+                android:layout_centerHorizontal="true"
+                android:minWidth="100dp"
+                android:text="图书订单" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--<View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_health_service"
-            android:text="医疗服务"
-            style="@style/shaptextstyle"
-            />
-        <TextView
-            android:id="@+id/tv_cut_hair"
-            android:text="理发"
-            android:layout_centerHorizontal="true"
-            style="@style/shaptextstyle"
-            />
-        <TextView
-            android:id="@+id/tv_dry_cleaner"
-            android:text="干洗店"
-            android:layout_alignParentRight="true"
-            style="@style/shaptextstyle"
-            />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_experts_visit"
-            android:text="专家坐诊"
-            style="@style/shaptextstyle"
-            />
-        <TextView
-            android:id="@+id/tv_book_order"
-            android:text="图书订单"
-            android:layout_centerHorizontal="true"
-            style="@style/shaptextstyle"
-            />
-    </RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/transparent" />-->
+
 </LinearLayout>

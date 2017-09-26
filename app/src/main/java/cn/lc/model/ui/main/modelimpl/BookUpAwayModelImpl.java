@@ -4,8 +4,6 @@ import android.util.Log;
 
 import cn.lc.model.framework.network.retrofit.RetrofitUtils;
 import cn.lc.model.ui.main.model.BookUpAwayModel;
-import cn.lc.model.ui.main.model.Tab1Model;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 
 /**
