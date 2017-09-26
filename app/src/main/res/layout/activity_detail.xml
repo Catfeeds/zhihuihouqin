@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--<cn.lc.model.framework.widget.TitleBar
+        <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/activity_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
-            android:background="@color/white" />-->
+            android:background="@color/white" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -208,7 +208,7 @@
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />
 
-            <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                 android:id="@+id/nsrv_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

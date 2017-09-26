@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -30,7 +30,7 @@
                 android:layout_height="180dp"
                 android:scaleType="centerCrop" />
 
-            <cn.lc.model.framework.widget.NoSlidingGridView
+            <com.moe.wl.framework.widget.NoSlidingGridView
                 android:id="@+id/serverce_gridview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

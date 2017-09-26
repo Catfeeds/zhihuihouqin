@@ -43,7 +43,7 @@
         android:orientation="horizontal">
 
 
-        <cn.lc.model.ui.main.wheelView.WheelView
+        <com.moe.wl.ui.main.wheelView.WheelView
             android:id="@+id/wl_ymd"
             android:layout_width="wrap_content"
             android:layout_height="300dp"
@@ -51,28 +51,28 @@
             android:layout_weight="1" />
 
 
-        <cn.lc.model.ui.main.wheelView.WheelView
+        <com.moe.wl.ui.main.wheelView.WheelView
             android:id="@+id/wl_week"
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
-        <cn.lc.model.ui.main.wheelView.WheelView
+        <com.moe.wl.ui.main.wheelView.WheelView
             android:id="@+id/wl_sx"
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
-        <cn.lc.model.ui.main.wheelView.WheelView
+        <com.moe.wl.ui.main.wheelView.WheelView
             android:id="@+id/wl_hour"
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
-        <cn.lc.model.ui.main.wheelView.WheelView
+        <com.moe.wl.ui.main.wheelView.WheelView
             android:id="@+id/wl_min"
             android:layout_width="wrap_content"
             android:layout_height="300dp"

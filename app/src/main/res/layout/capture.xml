@@ -9,7 +9,7 @@
         android:layout_height="match_parent" />
 
     <!-- 扫描取景框 -->
-    <cn.lc.model.zxing.view.ViewfinderView
+    <com.moe.wl.zxing.view.ViewfinderView
         android:id="@+id/viewfinder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -36,7 +36,7 @@
             android:text="扫一扫"/>
         
     </RelativeLayout>-->
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/qr_code_title"
         android:layout_width="match_parent"
         android:background="#fff"

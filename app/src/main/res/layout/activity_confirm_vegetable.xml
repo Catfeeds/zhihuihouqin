@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
@@ -207,7 +207,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray_line" />
 
-            <cn.lc.model.framework.widget.NoSlidingListView
+            <com.moe.wl.framework.widget.NoSlidingListView
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                 android:dividerHeight="1px"
                 android:listSelector="@null">
 
-            </cn.lc.model.framework.widget.NoSlidingListView>
+            </com.moe.wl.framework.widget.NoSlidingListView>
 
             <View
                 android:layout_width="match_parent"

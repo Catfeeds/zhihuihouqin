@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <cn.lc.model.ui.mywidget.SquareLayout
+    <com.moe.wl.ui.mywidget.SquareLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="3dp">
@@ -15,6 +15,6 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
-    </cn.lc.model.ui.mywidget.SquareLayout>
+    </com.moe.wl.ui.mywidget.SquareLayout>
 
 </LinearLayout>

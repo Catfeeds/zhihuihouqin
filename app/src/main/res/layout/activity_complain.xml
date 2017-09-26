@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <cn.lc.model.framework.widget.TitleBar
+        <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
@@ -86,7 +86,7 @@
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/sp_big" />
 
-                    <cn.lc.model.framework.widget.NoSlidingGridView
+                    <com.moe.wl.framework.widget.NoSlidingGridView
                         android:id="@+id/grid_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp">
 
-                    </cn.lc.model.framework.widget.NoSlidingGridView>
+                    </com.moe.wl.framework.widget.NoSlidingGridView>
                 </LinearLayout>
             </LinearLayout>
 
@@ -124,13 +124,13 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 
-                <cn.lc.model.framework.widget.NoSlidingGridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/labelling"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="4">
 
-                </cn.lc.model.framework.widget.NoSlidingGridView>
+                </com.moe.wl.framework.widget.NoSlidingGridView>
 
                 <!--<TextView
                     android:id="@+id/pub"

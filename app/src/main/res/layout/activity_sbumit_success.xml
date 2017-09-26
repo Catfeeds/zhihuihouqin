@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="cn.lc.model.ui.main.activity.SubmitSuccessActivity">
-    <cn.lc.model.framework.widget.TitleBar
+    tools:context="cn.moe.wl.com.moe.wl.ui.main.activity.SubmitSuccessActivity">
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
         android:background="#1000"

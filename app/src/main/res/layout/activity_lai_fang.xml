@@ -3,7 +3,7 @@
     android:id="@+id/activity_lai_fang"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/laifang_title"
         android:background="@color/white"
         android:layout_width="match_parent"

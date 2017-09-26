@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp" />
 
-                <!--<cn.lc.model.framework.widget.SimpleImageBanner
+                <!--<com.lc.model.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
@@ -107,7 +107,7 @@
                     banner:bb_textSize="13.5sp" />-->
                 <!--分类-->
 
-                <cn.lc.model.framework.widget.NoSlidingGridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/gridView_catogary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

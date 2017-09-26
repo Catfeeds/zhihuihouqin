@@ -93,7 +93,7 @@
                 android:textSize="@dimen/sp_common"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <cn.lc.model.ui.mywidget.FlowLayout
+            <com.moe.wl.ui.mywidget.FlowLayout
                 android:id="@+id/flow_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

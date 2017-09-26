@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>
-    <cn.lc.model.framework.widget.NoSlidingGridView
+    <com.moe.wl.framework.widget.NoSlidingGridView
         android:id="@+id/nsgv_f_tab_2"
         android:numColumns="4"
         android:padding="8dp"

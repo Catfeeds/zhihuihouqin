@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
@@ -16,13 +16,13 @@
         android:layout_height="1px"
         android:background="@color/gray_lighter" />
 
-    <cn.lc.model.framework.widget.SimpleImageBanner
+    <com.moe.wl.framework.widget.SimpleImageBanner
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="@color/white">
 
-    </cn.lc.model.framework.widget.SimpleImageBanner>
+    </com.moe.wl.framework.widget.SimpleImageBanner>
 
     <View
         android:layout_width="match_parent"
@@ -86,12 +86,12 @@
                 android:layout_height="6dp"
                 android:background="@color/gray_lighter" />
 
-            <cn.lc.model.ui.mywidget.CalculateHeightViewPager
+            <com.moe.wl.ui.mywidget.CalculateHeightViewPager
                 android:id="@+id/today_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </cn.lc.model.ui.mywidget.CalculateHeightViewPager>
+            </com.moe.wl.ui.mywidget.CalculateHeightViewPager>
 
             <LinearLayout
                 android:layout_width="match_parent"

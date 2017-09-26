@@ -6,19 +6,19 @@
     android:background="@color/black"
     android:orientation="vertical">
 
-    <cn.lc.model.ui.main.wheelView.WheelView
+    <com.moe.wl.ui.main.wheelView.WheelView
         android:id="@+id/wv1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <cn.lc.model.ui.main.wheelView.WheelView
+    <com.moe.wl.ui.main.wheelView.WheelView
         android:id="@+id/wv2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <cn.lc.model.ui.main.wheelView.WheelView
+    <com.moe.wl.ui.main.wheelView.WheelView
         android:id="@+id/wv3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

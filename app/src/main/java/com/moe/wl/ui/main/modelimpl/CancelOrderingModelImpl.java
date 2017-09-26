@@ -1,0 +1,42 @@
+package com.moe.wl.ui.main.modelimpl;
+
+import android.util.Log;
+
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.ui.main.model.CancelOrderingModel;
+import rx.Observable;
+
+/**
+ * 类描述：
+ * 作者：Shixhe On 2017/9/4 0004
+ */
+
+public class CancelOrderingModelImpl implements CancelOrderingModel {
+    @Override
+    public Observable getReasonList() {
+        Log.e("CancelOrderingModelImpl", "请求数据-->ReasonList");
+        Observable observer = RetrofitUtils.getInstance().getReason();
+        return observer;
+    }
+
+    @Override
+    public Observable getDryCancelList() {
+        Log.e("CancelOrderingModelImpl", "请求数据-->getDryCancelList");
+        Observable observer = RetrofitUtils.getInstance().getDryCancelList();
+        return observer;
+    }
+
+    @Override
+    public Observable cancelOrder(int oid, int[] reasonIds, String reasonContent) {
+        Log.e("CancelOrderingModelImpl", "请求数据-->ReasonList");
+        Observable observer = RetrofitUtils.getInstance().cancelOrder(oid, reasonIds, reasonContent);
+        return observer;
+    }
+
+    @Override
+    public Observable cancelDryOrder(int oid, String reasonIds, String reasonContent) {
+        Log.e("CancelOrderingModelImpl", "请求数据-->ReasonList");
+        Observable observer = RetrofitUtils.getInstance().commitDryCancel(oid, reasonIds, reasonContent);
+        return observer;
+    }
+}

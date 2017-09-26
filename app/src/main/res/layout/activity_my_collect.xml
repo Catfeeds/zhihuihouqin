@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height">
 
-        <cn.lc.model.framework.widget.TitleBar
+        <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

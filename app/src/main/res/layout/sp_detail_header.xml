@@ -10,7 +10,7 @@
         android:layout_height="1dp"
         android:background="@color/gray_lighter"/>
 
-    <cn.lc.model.framework.widget.SimpleImageBanner
+    <com.moe.wl.framework.widget.SimpleImageBanner
         android:id="@+id/h_banner_viewPager"
         android:layout_width="match_parent"
         android:layout_height="200dp"

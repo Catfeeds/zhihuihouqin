@@ -151,7 +151,7 @@
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <cn.lc.model.framework.widget.NoSlidingGridView
+    <com.moe.wl.framework.widget.NoSlidingGridView
         android:background="#1000"
         android:gravity="center_horizontal"
         android:id="@+id/nsgv_doc_detail"
@@ -215,7 +215,7 @@
             android:textSize="@dimen/sp_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+        <com.moe.wl.ui.mywidget.NoSlideRecyclerView
             android:id="@+id/nsrlv_doc_tetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

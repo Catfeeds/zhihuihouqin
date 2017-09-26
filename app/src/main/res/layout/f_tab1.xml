@@ -88,7 +88,7 @@
 
                 <!--轮播图-->
 
-                <cn.lc.model.framework.widget.SimpleImageBanner
+                <com.moe.wl.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -117,7 +117,7 @@
                     banner:bb_textSize="13.5sp" />
                 <!--分类-->
 
-                <cn.lc.model.framework.widget.NoSlidingGridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/gridView_catogary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:src="@mipmap/ic_launcher" />
 
-                    <cn.lc.model.ui.mywidget.NoticeView
+                    <com.moe.wl.ui.mywidget.NoticeView
                         android:id="@+id/notice"
                         style="@style/tvStyle_gray"
                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                 </LinearLayout>
 
 
-                <cn.lc.model.framework.widget.HorizontialListView
+                <com.moe.wl.framework.widget.HorizontialListView
                     android:id="@+id/listView_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="140dp" />
@@ -228,7 +228,7 @@
                 </LinearLayout>
 
 
-                <cn.lc.model.framework.widget.HorizontialListView
+                <com.moe.wl.framework.widget.HorizontialListView
                     android:id="@+id/listView_meal"
                     android:layout_width="wrap_content"
                     android:layout_height="120dp" />
@@ -271,7 +271,7 @@
                 </LinearLayout>
 
 
-                <cn.lc.model.framework.widget.NoSlidingGridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/gridView_love"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -321,7 +321,7 @@
                         android:src="@mipmap/arrow_right" />
                 </LinearLayout>
 
-                <cn.lc.model.framework.widget.NoSlidingListView
+                <com.moe.wl.framework.widget.NoSlidingListView
                     android:id="@+id/listView_news"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

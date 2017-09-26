@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/dry_cleaners_title"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:layout_height="2dp"
         android:background="#2000"/>
     <!--轮播图占位-->
-    <cn.lc.model.framework.widget.SimpleImageBanner
+    <com.moe.wl.framework.widget.SimpleImageBanner
         android:id="@+id/h_banner_viewPager"
         android:layout_width="match_parent"
         android:layout_height="160dp"

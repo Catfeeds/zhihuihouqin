@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <cn.lc.model.framework.widget.TitleBar
+    <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/reserve_info_title"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
-            <cn.lc.model.framework.widget.NoSlidingGridView
+            <com.moe.wl.framework.widget.NoSlidingGridView
                 android:id="@+id/nsgv_zuopin"
                 android:layout_width="match_parent"
                 android:numColumns="2"
@@ -199,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_light"/>
-            <cn.lc.model.ui.mywidget.NoSlideRecyclerView
+            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                 android:id="@+id/nsrv_user_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

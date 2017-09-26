@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <cn.lc.model.framework.widget.TitleBar
+        <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/office_supplies_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
@@ -39,7 +39,7 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/partner_luffy" />
 
-                <cn.lc.model.framework.widget.NoSlidingGridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/nsgv_office"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                     android:background="@color/white"
                     android:text="最新上架" />
 
-                <cn.lc.model.framework.widget.NoSlidingGridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/nsgv_sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

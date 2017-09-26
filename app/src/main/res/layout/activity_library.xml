@@ -9,7 +9,7 @@
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height">
-        <cn.lc.model.framework.widget.TitleBar
+        <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/more_health_consult_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"/>
