@@ -13,12 +13,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#2000"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_light"/>
+        android:background="@color/gray_lighter"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,18 +24,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <RelativeLayout
-                android:padding="10dp"
+                android:padding="@dimen/standard_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_barber_header_photo"
                     android:src="@drawable/partner_luffy"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
                 <LinearLayout
                     android:layout_toRightOf="@+id/civ_barber_header_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
                     <TextView
@@ -60,7 +55,7 @@
                         <TextView
                             android:id="@+id/tv_chenghao"
                             android:text="称号:大师 "
-                            android:textSize="@dimen/sp_small"
+                            android:textSize="@dimen/sp_common"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                            />
@@ -69,12 +64,12 @@
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
                             android:layout_height="12dp"
-                            android:background="#2000"
+                            android:background="@color/gray_lighter"
                             />
                         <TextView
                             android:id="@+id/tv_barber_shop"
                             android:text="木北造型亚运村店"
-                            android:textSize="@dimen/sp_small"
+                            android:textSize="@dimen/sp_common"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                            />
@@ -84,11 +79,11 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                android:background="@color/gray_light"/>
+                android:background="@color/gray_trans"/>
             <TextView
                 android:id="@+id/tv_barber_address"
-                android:padding="10dp"
-                android:textSize="@dimen/sp_small"
+                android:padding="@dimen/standard_padding"
+                android:textSize="@dimen/sp_common"
                 android:textColor="@color/tv_black"
                 android:text="地址：北京市大屯路"
                 android:layout_width="match_parent"
@@ -96,14 +91,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_light"/>
+                android:background="@color/gray_lighter"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="@dimen/standard_padding">
                 <TextView
                     android:id="@+id/tv_barber_phone"
-                    android:textSize="@dimen/sp_small"
+                    android:textSize="@dimen/sp_common"
                     android:textColor="@color/tv_black"
                     android:text="电话：13521884756"
                     android:layout_centerVertical="true"
@@ -120,24 +115,24 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_light"/>
+                android:background="@color/gray_lighter"/>
             <TextView
                 android:id="@+id/tv_barber_jieshao"
-                android:textSize="@dimen/sp_small"
+                android:textSize="@dimen/sp_common"
                 android:textColor="@color/tv_black"
                 android:text="理发师简介："
-                android:padding="10dp"
+                android:padding="@dimen/standard_padding"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_barber_jieshao_content"
-                android:textSize="@dimen/sp_small"
+                android:textSize="@dimen/sp_common"
                 android:textColor="@color/tv_black"
                 android:text="理发师简介内容理发师简介内容理发师简介内容理发师简介内容理发师简介内容"
                 android:maxLines="4"
-                android:padding="5dp"
+                android:padding="8dp"
                 android:background="@drawable/shape_rec_gury"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -150,12 +145,12 @@
                 android:background="@color/gray_lighter"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:padding="10dp"
+                android:padding="@dimen/standard_padding"
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="作品（203）"
                     android:id="@+id/tv_zuopin_num"
-                    android:textSize="@dimen/sp_small"
+                    android:textSize="@dimen/sp_common"
                     android:textColor="@color/tv_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -163,6 +158,7 @@
                     android:id="@+id/tv_more_zuopin"
                     android:text="更多"
                     android:layout_alignParentRight="true"
+                    android:textSize="@dimen/sp_common"
                     android:drawableRight="@drawable/turn_right"
                     android:textColor="@color/tv_gray_light"
                     android:layout_width="wrap_content"
@@ -177,15 +173,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_light"/>
+                android:background="@color/gray_lighter"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:padding="10dp"
+                android:padding="@dimen/standard_padding"
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="用户评价（2）"
                     android:id="@+id/tv_comment_num"
-                    android:textSize="@dimen/sp_small"
+                    android:textSize="@dimen/sp_common"
                     android:textColor="@color/tv_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -210,13 +206,13 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:background="@color/gray_light"/>
+                android:background="@color/gray_trans"/>
         </LinearLayout>
     </ScrollView>
 <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="@color/gray_light"/>
+    android:background="@color/gray_lighter"/>
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="50dp"
@@ -235,7 +231,7 @@
         android:id="@+id/zixun"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:textSize="@dimen/sp_small"
+        android:textSize="@dimen/sp_common"
         android:text="咨询"
         android:gravity="center"
         android:textColor="@color/tv_black"

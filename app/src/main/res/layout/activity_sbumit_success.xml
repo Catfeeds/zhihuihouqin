@@ -40,12 +40,4 @@
         android:background="@drawable/shap_check_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_book_submit_des"
-        android:visibility="gone"
-        android:text="感谢您的体骄傲，我方将以最快时间为您来采购，买后会以消息或短息方式提示您，感谢你的申请。"
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_small"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>

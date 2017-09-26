@@ -1563,6 +1563,36 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.deleteAddress(paramsMap));
     }
+    /**
+     * 查询水类型
+     */
+    public static Observable queryWaterType() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.queryWaterType(paramsMap));
+    }
+    /**
+     * 查询水列表
+     */
+    public static Observable queryWaterList(int categoryId,int page,int limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("categoryId",categoryId+"");
+            tempMap.put("page",page+"");
+            tempMap.put("limit",limit+"");
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.queryWaterList(paramsMap));
+    }
 
     /**
      * 获取投诉详情

@@ -48,6 +48,8 @@ import cn.lc.model.ui.main.bean.OrderDryCleanBean;
 import cn.lc.model.ui.main.bean.PayBean;
 import cn.lc.model.ui.main.bean.PreOrderBean;
 import cn.lc.model.ui.main.bean.ProductCategoryBean;
+import cn.lc.model.ui.main.bean.QueryWaterListBean;
+import cn.lc.model.ui.main.bean.QueryWaterTypeBean;
 import cn.lc.model.ui.main.bean.ReasonBean;
 import cn.lc.model.ui.main.bean.RecommandBookBean;
 import cn.lc.model.ui.main.bean.SearchBookListBean;
@@ -410,6 +412,15 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.getNutritionData)
     Observable<NutritionBean> getNutritionBanner(@FieldMap Map<String, Object> map);
+
+    //查询水类型
+    @FormUrlEncoded
+    @POST(NetUrl.orderWater)
+    Observable<QueryWaterTypeBean> queryWaterType(@FieldMap Map<String, Object> map);
+    //查询水列表
+    @FormUrlEncoded
+    @POST(NetUrl.queryWater)
+    Observable<QueryWaterListBean> queryWaterList(@FieldMap Map<String, Object> map);
 
     // 提交意见投诉
 //    @FormUrlEncoded

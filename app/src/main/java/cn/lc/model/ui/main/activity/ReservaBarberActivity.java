@@ -28,6 +28,7 @@ import cn.lc.model.framework.widget.TitleBar;
 import cn.lc.model.ui.main.adapter.BarberGridAdapter;
 import cn.lc.model.ui.main.adapter.BarberRvAdapter;
 import cn.lc.model.ui.main.adapter.ExpandableListAdapter;
+import cn.lc.model.ui.main.adapter.OrderTimeAdapter;
 import cn.lc.model.ui.main.bean.BarberListBean;
 import cn.lc.model.ui.main.bean.PreOrderBean;
 import cn.lc.model.ui.main.model.PreOderBarberModel;
@@ -35,6 +36,7 @@ import cn.lc.model.ui.main.modelimpl.PreOrderBarberModelImpl;
 import cn.lc.model.ui.main.presenter.PreOrderBarberPresenter;
 import cn.lc.model.ui.main.view.PreOrderBarberView;
 import de.hdodenhof.circleimageview.CircleImageView;
+import mvp.cn.util.DateUtils;
 
 public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreOrderBarberView, PreOrderBarberPresenter> implements PreOrderBarberView {
     private static final int MAX_NUM = 100;
@@ -226,10 +228,16 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     }
 
     private void initRecycler() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(
+       /* recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
         BarberRvAdapter rvAdapter = new BarberRvAdapter();
-        recyclerView.setAdapter(rvAdapter);
+        recyclerView.setAdapter(rvAdapter);*/
+
+        OrderTimeAdapter orderTimeAdapter = new OrderTimeAdapter(this);
+        recyclerView.setAdapter(orderTimeAdapter);
+        List<String> week = DateUtils.get7week();
+        List<String> date = DateUtils.get7date();
+        orderTimeAdapter.setData(week,date);
     }
 
     private void initTitle() {

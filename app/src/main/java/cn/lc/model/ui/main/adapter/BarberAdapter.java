@@ -122,7 +122,7 @@ public class BarberAdapter extends RecyclerView.Adapter {
 
                 int tatalcount = barberlistBean.getTatalcount();
                 int remaincount = barberlistBean.getRemaincount();
-                tvPercent.setText(tatalcount - remaincount + "/" + tatalcount);
+                tvPercent.setText(remaincount + "/" + tatalcount);
             }
             if (address != null) {
                 tvBarberAddress.setText(address);

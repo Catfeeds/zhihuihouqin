@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_order_water_service"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+<cn.lc.model.framework.widget.TitleBar
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_type"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            ></android.support.v7.widget.RecyclerView>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray_lighter"/>
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_marginLeft="@dimen/standard_padding"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text="共几份"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="@dimen/standard_padding"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:text="总金额:"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sum"
+            android:layout_marginLeft="@dimen/standard_padding"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_red"
+            android:text="$2"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_now_order"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="立即预定"
+            android:background="#0099FF"
+            android:textSize="@dimen/sp_common"
+            android:gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

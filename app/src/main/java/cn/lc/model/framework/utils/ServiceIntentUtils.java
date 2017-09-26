@@ -14,6 +14,7 @@ import cn.lc.model.ui.main.activity.OrderCutHearActivity;
 import cn.lc.model.ui.main.activity.complain.SubmitComplainActivity;
 import cn.lc.model.ui.main.activity.information.InformationActivity;
 import cn.lc.model.ui.main.activity.nutritionalmeal.NutritionActivity;
+import cn.lc.model.ui.main.activity.orderWater.orderWaterServiceActivity;
 import cn.lc.model.ui.main.activity.ordering.OrderingActivity;
 import cn.lc.model.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import cn.lc.model.ui.main.activity.vegetable.VegetableMainActivity;
@@ -96,7 +97,7 @@ public class ServiceIntentUtils {
 
             case 10: //10	订水服务
 
-                break;
+               return orderWaterServiceActivity.class;
             case 11: //11	托管班
 
                 break;

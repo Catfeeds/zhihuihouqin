@@ -78,6 +78,10 @@ public interface NetUrl {
     String orderReason = "appuser/dcfwgzcorder/findReasonList";
     String cancelOrder = "appuser/dcfwgzcorder/orderCancel";
     String getTime = "appuser/dcfwgzcorder/getFoodTimeList";
+
+    //订水
+    String orderWater="appuser/dsfwgoods/findCategoryList";
+    String queryWater="appuser/dsfwgoods/findGoodsList";
     // 地址管理
     String getAddress = "appuser/address/findUserAddressList";
     String addAddress = "appuser/address/addAddress";

@@ -1,43 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+
+
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/barber_header"
-        android:src="@drawable/partner_luffy"
         android:layout_width="60dp"
-        android:layout_height="80dp" />
+        android:layout_height="80dp"
+        android:src="@drawable/partner_luffy" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1">
+
             <TextView
                 android:id="@+id/tv_barber_name"
-                android:textSize="@dimen/sp_big"
-                android:textColor="#c000"
-                android:text="阿妹"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="阿妹"
+                android:textColor="#c000"
+                android:textSize="@dimen/sp_big" />
+
             <TextView
                 android:id="@+id/tv_now_reserva"
-                android:textSize="@dimen/sp_small"
-                android:textColor="#1aa6e7"
-                android:text="立即预约"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape_barber_reserva_text"
                 android:gravity="center"
-                android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/shape_barber_reserva_text"
+                android:paddingTop="3dp"
+                android:text="立即预约"
+                android:textColor="#1aa6e7"
+                android:textSize="@dimen/sp_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:progressBackgroundTint="@color/gray"
+                android:progressTint="@color/yellow"
+                android:rating="5"
+                android:secondaryProgressTint="@color/gray"
+                android:theme="@style/RatingBar" />
+
+            <TextView
+                android:id="@+id/tv_star_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/ratingBar"
+                android:text="4.9分"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -46,52 +89,30 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1">
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_centerVertical="true"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:progressTint="@color/yellow"
-                    android:theme="@style/RatingBar"
-                    android:progressBackgroundTint="@color/gray"
-                    android:secondaryProgressTint="@color/gray"
-                    android:rating="5"/>
-                <TextView
-                    android:id="@+id/tv_star_num"
-                    android:text="4.9分"
-                    android:textColor="@color/tv_black"
-                    android:layout_toRightOf="@+id/ratingBar"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/sp_small"
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
             <TextView
                 android:id="@+id/tv_barber_address"
-                android:text="地址:教育部业务楼右侧100米"
-                android:textSize="@dimen/sp_small"
-                android:textColor="@color/tv_black"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="地址:教育部业务楼右侧100米"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
+
             <TextView
                 android:id="@+id/tv_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:textSize="@dimen/sp_small"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
                 android:text="07/17"
                 android:textColor="@color/tv_black"
-                android:paddingLeft="5dp"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/sp_small" />
         </RelativeLayout>
     </LinearLayout>
-
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter"/>
 </LinearLayout>

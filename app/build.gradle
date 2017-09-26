@@ -6,6 +6,10 @@ android {
     aaptOptions.useNewCruncher = false
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
     defaultConfig {
         applicationId "cn.lc.model"
         minSdkVersion rootProject.ext.minSdkVersion
