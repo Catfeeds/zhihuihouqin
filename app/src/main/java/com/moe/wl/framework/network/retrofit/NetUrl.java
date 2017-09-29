@@ -24,31 +24,44 @@ public interface NetUrl {
     String doctorList="appuser/ylfw/doctorlist";
     String doctorDetail="appuser/ylfw/schedules";
     String more="appuser/healthyinfo/list";
-    String userCommentList="appuser/ylfw/getcomment";// 医生评论
+    String medicalOrderList = "appuser/ylfw/orderlist"; // 医疗订单列表
+    String expertOrderList = "appuser/ylfw/expertorderlist"; // 专家订单列表
+    String userCommentList="appuser/ylfw/getcomment"; // 医生评论
     String expertDetail = "appuser/ylfw/expertdetail"; // 专家详情
     String expertComment = "appuser/ylfw/getexpertcomment"; // 专家评论
-    String expertOreder = "appuser/ylfw/addexpertOrder"; // 专家下单
+    String expertOrder = "appuser/ylfw/addexpertOrder"; // 专家下单
+    String cancelMedicalOrder = "appuser/ylfw/cancelorder"; // 取消医疗订单
+    String cancelExpertsOrder = "appuser/ylfw/cancelexpertorder"; // 取消专家订单
+
     //物业维修
     String wuyeHome="appuser/bxwx/addOrder";
+    String repairsOrderList = "appuser/bxwx/orderlist"; // 报修订单列表
+    String cancelRepairsOrder = "appuser/bxwx/cancelorder";
+
     //活动
     String activitySign="appuser/tdhdfw/sign";
     String activityHome="appuser/tdhdfw/index";
     String activityList="appuser/tdhdfw/detail";
     String activityPost="appuser/tdhdfw/pubactivity";
+
     //理发师
     String shop="appuser/lffw/toindex";
     String barberList="appuser/lffw/barberlist";
     String barberDetail="appuser/lffw/barberdetail";
     String barberworklist="appuser/lffw/barberworklist";
     String preorder="appuser/lffw/preorder";
+    String hairCutOrderList = "appuser/lffw/orderlist"; // 理发订单列表
+    String cancelHairCutOrder = "appuser/lffw/cancelorder";
+
     //干洗店
     String dryCleanerHome="appuser/service/getServiceInfo";
     String orderDryCleaner="appuser/tgxdfwclothestype/findClothesTypeList";
     String DryOrderCommit="appuser/tgxdfworder/generateOrder";
-    String DryOreder="appuser/tgxdfworder/findOrderList";
-    String getDryCancelList="appuser/tgxdfworder/findReasonList";
+    String DryOrder ="appuser/tgxdfworder/findOrderList";
     String commitDryCancelOrder="appuser/tgxdfworder/orderCancel";
     String commitDryComment="appuser/tgxdfworder/addComment";
+    String cancelDryOrder ="appuser/tgxdfworder/findReasonList";
+
     //图书
     String libraryIndex="appuser/tsjyfw/getTopPicture";
     String libraryHome ="appuser/tsjyfw/indexbooklist";
@@ -59,6 +72,7 @@ public interface NetUrl {
     String searchCategory="appuser/tsjyfw/gettypelist";
     String searchBookList="appuser/tsjyfw/getbooklist";
     String bookOrderList="appuser/tsjyfw/orderlist";
+    String cancelBookOrder = "appuser/tsjyfw/cancelorder";
 
     //办公用品
     String officeIndex="appuser/bgypfwproduct/index";
@@ -72,23 +86,32 @@ public interface NetUrl {
     String spOrder="appuser/bgypfworder/generateOrder";
     String postNeed="appuser/bgypfwapplyproduct/generateOrder";
     String requested="appuser/bgypfwapplyproduct/findApplyList";
-    String cancelItem="appuser/bgypfwcart/deleteCartItems";
+    String deleteItem ="appuser/bgypfwcart/deleteCartItems";
+    String officeOrderList = "appuser/bgypfworder/findOrderList"; // 办公用品订单列表
+    String cancelOfficeOrder = "appuser/bgypfworder/orderCancel";
+
     //工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";
-    String cancelOrder = "appuser/dcfwgzcorder/orderCancel";
     String getTime = "appuser/dcfwgzcorder/getFoodTimeList";
+    String mealOrderList = "appuser/tdcfworder/findOrderList"; // 订餐订单列表
+    String cancelMealOrder = "appuser/dcfwgzcorder/orderCancel";
 
     //订水
     String orderWater="appuser/dsfwgoods/findCategoryList";
     String queryWater="appuser/dsfwgoods/findGoodsList";
+    String waterOrderList = "appuser/tdcfworder/findOrderList";
+    String cancelWaterOrder = "appuser/dsfworder/orderCancel";
+
     // 地址管理
     String getAddress = "appuser/address/findUserAddressList";
     String addAddress = "appuser/address/addAddress";
     String editAddress = "appuser/address/updateAddress";
     String deleteAddress = "appuser/address/deleteAddress";
+
     // 营养套餐
     String getNutritionData = "appuser/tyytcmeal/findMealList";
+
     // 意见投诉
     String submitComplain = "appuser/jyfwcomplaint/commitComplanit";
     String getLabelling = "appuser/jyfwcomplaint/findComplanitTag";
@@ -109,15 +132,16 @@ public interface NetUrl {
     String getVegetableData = "appuser/tdcfwfood/findFoodList"; // 获取食物列表
     String getVegetableTime = "appuser/tdcfworder/getFoodTimeList"; // 获取取餐时间
     String submitVegetableOrder = "appuser/tdcfworder/generateOrder"; // 提交净菜订单
-    String findVegetableOrderList = "appuser/tdcfworder/findOrderList"; // 查询净菜订单
+    String vegetableOrderList = "appuser/tdcfworder/findOrderList"; // 净菜订单列表
     String getVegetableDetail = "appuser/tdcfworder/getOrderDetail"; // 获取净菜订单详情
     String getVegetableReason = "appuser/tdcfwordercancelreason/findReasonList"; // 获取取消原因列表
-    String cancelVegetableOrder = "appuser/tdcfworder/orderCancel"; // 取消订单
     String vegetableComment = "appuser/tdcfworder/addComment"; // 添加评论
+    String cancelVegetableOrder = "appuser/tdcfworder/orderCancel"; // 取消净菜订单
 
     // 服务
     String getMyService = "appuser/service/findUserService";
     String submitMyService = "appuser/service/updateUserService";
+    String getCancelReason = "appuser/service/getCancelReason";
 
     // 消息
     String getMessage = "appuser/message/messagePage";

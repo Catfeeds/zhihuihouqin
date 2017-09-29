@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.DryCleaners.DryToCommentAct;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
@@ -18,9 +19,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
+ * 干洗订单列表adapter
  * Created by 我的电脑 on 2017/9/14 0014.
  */
 

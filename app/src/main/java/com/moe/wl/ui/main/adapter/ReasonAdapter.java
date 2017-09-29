@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
+import com.moe.wl.R;
+import com.moe.wl.ui.main.bean.ReasonBean;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.ui.main.bean.ReasonBean;
 
 /**
  * 类描述：
@@ -21,10 +22,10 @@ import com.moe.wl.ui.main.bean.ReasonBean;
 public class ReasonAdapter extends BaseAdapter {
 
     private Context context;
-    private List<ReasonBean.ReasonListEntity> data;
+    private List<ReasonBean.ServicereasonlistEntity> data;
     private OnSelectItemListener listener;
 
-    public ReasonAdapter(Context context, List<ReasonBean.ReasonListEntity> data) {
+    public ReasonAdapter(Context context, List<ReasonBean.ServicereasonlistEntity> data) {
         this.context = context;
         this.data = data;
     }
@@ -54,16 +55,16 @@ public class ReasonAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if(data!=null){
-            holder.setData(data.get(position),position);
+        if (data != null) {
+            holder.setData(data.get(position), position);
         }
 
         return convertView;
     }
 
     class ViewHolder {
-      @BindView(R.id.cb_select)
-      CheckBox checkBox;
+        @BindView(R.id.cb_select)
+        CheckBox checkBox;
         private int mPosition;
 
         ViewHolder(View view) {
@@ -72,18 +73,18 @@ public class ReasonAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     boolean checked = checkBox.isChecked();
-                    if(listener!=null){
-                        listener.onSelect(data.get(mPosition).getId(),checked);
+                    if (listener != null) {
+                        listener.onSelect(data.get(mPosition).getId(), data.get(mPosition).getReason(), checked);
                     }
                 }
             });
 
         }
 
-        public void setData(ReasonBean.ReasonListEntity reasonListEntity, int position) {
-            this.mPosition=position;
-            if(reasonListEntity!=null){
-                checkBox.setText(reasonListEntity.getContent());
+        public void setData(ReasonBean.ServicereasonlistEntity reasonListEntity, int position) {
+            this.mPosition = position;
+            if (reasonListEntity != null) {
+                checkBox.setText(reasonListEntity.getReason());
             }
         }
     }
@@ -93,6 +94,6 @@ public class ReasonAdapter extends BaseAdapter {
     }
 
     public interface OnSelectItemListener {
-        void onSelect(int id, boolean isSelect);
+        void onSelect(int id, String content, boolean isSelect);
     }
 }

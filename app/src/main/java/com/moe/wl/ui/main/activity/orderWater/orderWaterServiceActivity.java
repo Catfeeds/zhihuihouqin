@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
+import com.moe.wl.ui.main.adapter.WaterAdapter;
 import com.moe.wl.ui.main.adapter.OrderWaterTypeAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,7 +26,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.main.bean.OrderWaterSumAndcount;
 import com.moe.wl.ui.main.bean.QueryWaterTypeBean;
-import com.moe.wl.ui.main.fragment.OrderWaterFragment;
+import com.moe.wl.ui.main.fragment.WaterFragment;
 import com.moe.wl.ui.main.model.OrderHomeModel;
 import com.moe.wl.ui.main.modelimpl.OrderHomeModelImpl;
 import com.moe.wl.ui.main.presenter.OrderHomePresenter;
@@ -49,7 +49,7 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
     @BindView(R.id.activity_order_water_service)
     LinearLayout activityOrderWaterService;
     private OrderWaterTypeAdapter typeAdapter;
-    private OrderWaterAdapter waterAdapter;
+    private WaterAdapter waterAdapter;
     private List<Fragment> fragments;
 
     @Override
@@ -113,7 +113,7 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
                     QueryWaterTypeBean.CategoryListBean categoryListBean = categoryList.get(i);
                     if(categoryListBean!=null){
                         int id = categoryListBean.getId();
-                        fragments.add(OrderWaterFragment.getInstance(id));
+                        fragments.add(WaterFragment.getInstance(id));
                     }
                 }
             }

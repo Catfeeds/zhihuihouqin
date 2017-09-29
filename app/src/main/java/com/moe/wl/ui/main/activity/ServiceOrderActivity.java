@@ -12,9 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.adapter.MyPagerAdapter;
-import com.moe.wl.ui.main.fragment.BookFragment;
+import com.moe.wl.ui.main.fragment.OrderBookFragment;
+import com.moe.wl.ui.main.fragment.OrderDryFragment;
+import com.moe.wl.ui.main.fragment.OrderExpertFragment;
+import com.moe.wl.ui.main.fragment.OrderHairCutFragment;
+import com.moe.wl.ui.main.fragment.OrderMealFragment;
+import com.moe.wl.ui.main.fragment.OrderMedicalFragment;
+import com.moe.wl.ui.main.fragment.OrderOfficeFragment;
+import com.moe.wl.ui.main.fragment.OrderRepairFragment;
+import com.moe.wl.ui.main.fragment.OrderVegetableFragment;
+import com.moe.wl.ui.main.fragment.OrderWaterFragment;
+import com.moe.wl.ui.mywidget.OrderPop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +34,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-
-import com.moe.wl.ui.main.fragment.WaitOrderFragment;
-import com.moe.wl.ui.mywidget.OrderPop;
 
 public class ServiceOrderActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,7 +53,7 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
     View view;
 
     private List<Fragment> fragments;
-    private PopupWindow popupWindow;
+//    private PopupWindow popupWindow;
     private List<String> states;
     private int from;
 
@@ -65,23 +72,83 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
         states = Arrays.asList(arr);
         fragments = new ArrayList<>();
         switch (from) {
-            case Constants.DRYCLEANER://干洗店
-                fragments.add(WaitOrderFragment.getInstance(1));
-                fragments.add(WaitOrderFragment.getInstance(2));
-                fragments.add(WaitOrderFragment.getInstance(3));
-                fragments.add(WaitOrderFragment.getInstance(4));
-                fragments.add(WaitOrderFragment.getInstance(5));
-                break;
-            case Constants.BOOK://图书馆
-                fragments.add(BookFragment.getInstance(0));
-                fragments.add(BookFragment.getInstance(1));
-                fragments.add(BookFragment.getInstance(2));
-                fragments.add(BookFragment.getInstance(3));
-                fragments.add(BookFragment.getInstance(4));
-                break;
-            case Constants.PROPERRY://物业维修
+            case Constants.PROPERRY:// 物业维修
+                fragments.add(OrderRepairFragment.getInstance(0));
+                fragments.add(OrderRepairFragment.getInstance(1));
+                fragments.add(OrderRepairFragment.getInstance(2));
+                fragments.add(OrderRepairFragment.getInstance(3));
+                fragments.add(OrderRepairFragment.getInstance(4));
                 break;
 
+            case Constants.OFFICESUPPLIES:// 办公用品
+                fragments.add(OrderOfficeFragment.getInstance(0));
+                fragments.add(OrderOfficeFragment.getInstance(1));
+                fragments.add(OrderOfficeFragment.getInstance(2));
+                fragments.add(OrderOfficeFragment.getInstance(3));
+                fragments.add(OrderOfficeFragment.getInstance(4));
+                break;
+
+            case Constants.ORDERMEAL:// 订餐订单
+                fragments.add(OrderMealFragment.getInstance(0));
+                fragments.add(OrderMealFragment.getInstance(2));
+                fragments.add(OrderMealFragment.getInstance(3));
+                fragments.add(OrderMealFragment.getInstance(4));
+                break;
+
+            case Constants.HAIRCUTS:// 理发订单
+                fragments.add(OrderHairCutFragment.getInstance(0));
+                fragments.add(OrderHairCutFragment.getInstance(1));
+                fragments.add(OrderHairCutFragment.getInstance(2));
+                fragments.add(OrderHairCutFragment.getInstance(3));
+                fragments.add(OrderHairCutFragment.getInstance(4));
+                break;
+
+            case Constants.ORDERWATER:// 订水订单
+                fragments.add(OrderWaterFragment.getInstance(0));
+                fragments.add(OrderWaterFragment.getInstance(1));
+                fragments.add(OrderWaterFragment.getInstance(2));
+                fragments.add(OrderWaterFragment.getInstance(3));
+                fragments.add(OrderWaterFragment.getInstance(4));
+                break;
+
+            case Constants.MEDICAL:// 医疗订单
+                fragments.add(OrderMedicalFragment.getInstance(0));
+                fragments.add(OrderMedicalFragment.getInstance(1));
+                fragments.add(OrderMedicalFragment.getInstance(2));
+                fragments.add(OrderMedicalFragment.getInstance(3));
+                fragments.add(OrderMedicalFragment.getInstance(4));
+                break;
+
+            case Constants.EXPERTS:// 专家坐诊
+                fragments.add(OrderExpertFragment.getInstance(0));
+                fragments.add(OrderExpertFragment.getInstance(1));
+                fragments.add(OrderExpertFragment.getInstance(2));
+                fragments.add(OrderExpertFragment.getInstance(3));
+                fragments.add(OrderExpertFragment.getInstance(4));
+                break;
+
+            case Constants.DRYCLEANER://干洗店
+                fragments.add(OrderDryFragment.getInstance(1));
+                fragments.add(OrderDryFragment.getInstance(2));
+                fragments.add(OrderDryFragment.getInstance(3));
+                fragments.add(OrderDryFragment.getInstance(4));
+                fragments.add(OrderDryFragment.getInstance(5));
+                break;
+
+            case Constants.BOOK: // 图书馆
+                fragments.add(OrderBookFragment.getInstance(0));
+                fragments.add(OrderBookFragment.getInstance(1));
+                fragments.add(OrderBookFragment.getInstance(2));
+                fragments.add(OrderBookFragment.getInstance(3));
+                fragments.add(OrderBookFragment.getInstance(4));
+                break;
+
+            case Constants.VEGETABLE: // 净菜
+                fragments.add(OrderVegetableFragment.getInstance(0));
+                fragments.add(OrderVegetableFragment.getInstance(2));
+                fragments.add(OrderVegetableFragment.getInstance(3));
+                fragments.add(OrderVegetableFragment.getInstance(4));
+                break;
         }
         initViewpager();
         viewPager.setCurrentItem(index);
@@ -89,7 +156,6 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void showPoppupwindow() {
-
         pop = new OrderPop(ServiceOrderActivity.this);
         llTitle.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,6 +5,7 @@ import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.ReasonBean;
 import com.moe.wl.ui.main.model.CancelOrderingModel;
 import com.moe.wl.ui.main.view.CancelOrderingView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -18,36 +19,9 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
 
 
     // 获取取消订单原因
-    public void getReasonList() {
+    public void getReasonList(int serviceType) {
         getView().showProgressDialog();
-        Observable request = getModel().getReasonList();
-        getNetWork(request, new Subscriber<ReasonBean>() {
-            @Override
-            public void onCompleted() {
-                getView().dismissProgressDialog();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                LogUtils.d("Throwable", e.getMessage());
-                getView().dismissProgressDialog();
-            }
-
-            @Override
-            public void onNext(ReasonBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getReasonList(bean);
-                } else {
-                    getView().showToast(bean.getMsg());
-                }
-            }
-        });
-    }
-
-    // 获取取消干洗订单原因
-    public void getDryCancelList() {
-        getView().showProgressDialog();
-        Observable request = getModel().getDryCancelList();
+        Observable request = getModel().getCancelReason(serviceType);
         getNetWork(request, new Subscriber<ReasonBean>() {
             @Override
             public void onCompleted() {
@@ -72,11 +46,11 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
     }
 
 
-    // 取消订单
-    public void cancelOrdering(int id, int[] reason, String content) {
+    // 取消报修订单
+    public void cancelRepairsOrder(int old, String content) {
+        Observable observable = getModel().cancelRepairOrder(old, content);
         getView().showProgressDialog();
-        Observable request = getModel().cancelOrder(id, reason, content);
-        getNetWork(request, new Subscriber<CollectBean>() {
+        observable.subscribe(new Subscriber<CollectBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -84,22 +58,185 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.d("Throwable", e.getMessage());
                 getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
             }
 
             @Override
-            public void onNext(CollectBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().cancelOrder(bean);
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    LogUtils.i(o.getMsg());
                 }
             }
         });
     }
 
-    public void commitDryCancelOrder(int old, String s, String s1) {
+    // 取消办公用品订单
+    public void cancelOfficeOrder(int old, int[] s, String s1) {
+        Observable observable = getModel().cancelOfficeOrder(old, s, s1);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消订餐订单
+    public void cancelMealOrder(int old, int[] s, String s1) {
+        Observable observable = getModel().cancelMealOrder(old, s, s1);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消理发订单
+    public void cancelHaircutsOrder(int old, String content) {
+        Observable observable = getModel().cancelHaircutsOrder(old, content);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消订水订单
+    public void cancelWaterOrder(int old, int[] s, String s1) {
+        Observable observable = getModel().cancelWaterOrder(old, s, s1);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消医疗订单
+    public void cancelMedicalOrder(int old, String content) {
+        Observable observable = getModel().cancelMedicalOrder(old, content);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消专家订单
+    public void cancelExpertsOrder(int old, String content) {
+        Observable observable = getModel().cancelExpertsOrder(old, content);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消干洗订单
+    public void cancelDryOrder(int old, int[] s, String s1) {
         Observable observable = getModel().cancelDryOrder(old, s, s1);
         getView().showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
@@ -116,9 +253,36 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
 
             @Override
             public void onNext(CollectBean o) {
-                if(o.getErrCode()==0){
+                if (o.getErrCode() == 0) {
                     getView().cancelOrder(o);
-                }else{
+                } else {
+                    LogUtils.i(o.getMsg());
+                }
+            }
+        });
+    }
+
+    // 取消图书订单
+    public void cancelBookOrder(int old, String content) {
+        Observable observable = getModel().cancelBookOrder(old, content);
+        getView().showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                LogUtils.i("提交删除订单出现问题");
+            }
+
+            @Override
+            public void onNext(CollectBean o) {
+                if (o.getErrCode() == 0) {
+                    getView().cancelOrder(o);
+                } else {
                     LogUtils.i(o.getMsg());
                 }
             }

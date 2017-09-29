@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.network.AppConstants;
+import com.moe.wl.framework.network.ServerConstants;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 
 import java.io.File;
@@ -18,9 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import com.moe.wl.framework.network.ServerConstants;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
 
 import id.zelory.compressor.Compressor;
 import mvp.cn.util.DateUtil;
@@ -588,12 +587,12 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("serviceplace", serviceplace);
             tempMap.put("mendcontent", mendcontent);
 //            addParam(paramsMap, tempMap);
-            getRequestBody(paramsMap,tempMap);
+            getRequestBody(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.getWuyeHomeInfo(paramsMap,getImgList(files,"files")));
+        return getObservable(api.getWuyeHomeInfo(paramsMap, getImgList(files, "files")));
     }
 
     /**
@@ -635,18 +634,18 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("aTime", aTime);
             tempMap.put("aTitle", aTitle);
             tempMap.put("aTotal", aTotal);
-            tempMap.put("aSponsor",aSponsor);
+            tempMap.put("aSponsor", aSponsor);
             //图片文件上传
 
             tempMap.put("aRealname", aRealname);
             tempMap.put("aNaion", aNaion);
             //addParam(paramsMap, tempMap);
-            getRequestBody(paramsMap ,tempMap);
+            getRequestBody(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.postActivity(paramsMap,getImgList(photos,"photos"),getImgList(imgs,"imgs")));
+        return getObservable(api.postActivity(paramsMap, getImgList(photos, "photos"), getImgList(imgs, "imgs")));
     }
 
     /**
@@ -844,13 +843,15 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 获取图书订单列表
      */
-    public static Observable bookOrderList(String typeid) {
+    public static Observable bookOrderList(String typeId, int page, int limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("bookOrderList", "---》bookDetail");
         try {
-            Map<String, String> tempMap = new HashMap();
-            tempMap.put("type", typeid);
-            addParam(paramsMap, tempMap);
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", typeId);
+            tempMap.put("page", page);
+            tempMap.put("limit", limit);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1031,7 +1032,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable getDryCancelList() {
+    /*public static Observable getDryCancelList() {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -1041,21 +1042,21 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getDryCancelList(paramsMap));
-    }
+    }*/
 
     /**
      * 获取干洗取消列表
      *
      * @return
      */
-    public static Observable commitDryCancel(int old, String reasonIds, String reasonContent) {
+    public static Observable cancelDryCancel(int old, int[] reasonIds, String reasonContent) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<>();
+            Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("oid", old + "");
             tempMap.put("reasonIds", reasonIds);
             tempMap.put("reasonContent", reasonContent);
-            addParam(paramsMap, tempMap);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1266,7 +1267,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("ids",arr);
+            tempMap.put("ids", arr);
 
             addParams(paramsMap, tempMap);
 
@@ -1275,6 +1276,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.cancelItem(paramsMap));
     }
+
     /**
      * 发布商品
      *
@@ -1374,25 +1376,6 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getReason(paramsMap));
-    }
-
-    /**
-     * 提交
-     *
-     * @return
-     */
-    public static Observable cancelOrder(int oid, int[] reasonIds, String reasonContent) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("oid", oid + "");
-            tempMap.put("reasonContent", reasonContent);
-            addParam(paramsMap, tempMap);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelOrder(paramsMap));
     }
 
     /**
@@ -1564,6 +1547,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.deleteAddress(paramsMap));
     }
+
     /**
      * 查询水类型
      */
@@ -1578,16 +1562,17 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.queryWaterType(paramsMap));
     }
+
     /**
      * 查询水列表
      */
-    public static Observable queryWaterList(int categoryId,int page,int limit) {
+    public static Observable queryWaterList(int categoryId, int page, int limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("categoryId",categoryId+"");
-            tempMap.put("page",page+"");
-            tempMap.put("limit",limit+"");
+            tempMap.put("categoryId", categoryId + "");
+            tempMap.put("page", page + "");
+            tempMap.put("limit", limit + "");
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1872,4 +1857,330 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.getMessageList(paramsMap));
     }
 
+     /*--------------------------------------------取消各种订单----------------------------------------------*/
+
+    /**
+     * 获取取消订单原因
+     */
+    public static Observable getCancelReason(int serviceType) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("serviceType", serviceType);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getCancelReason(paramsMap));
+    }
+
+    /**
+     * 取消报修订单
+     */
+    public static Observable cancelRepairOrder(int orderid, String cancelreason) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            tempMap.put("cancelreason", cancelreason);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelRepairsOrder(paramsMap));
+    }
+
+    /**
+     * 取消办公用品订单
+     */
+    public static Observable cancelOfficeOrder(int oid, int[] reasonIds, String reasonContent) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            tempMap.put("reasonIds", reasonIds);
+            tempMap.put("reasonContent", reasonContent);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelOfficeOrder(paramsMap));
+    }
+
+    /**
+     * 取消订餐订单
+     */
+    public static Observable cancelMealOrder(int oid, int[] reasonIds, String reasonContent) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            tempMap.put("reasonIds", reasonIds);
+            tempMap.put("reasonContent", reasonContent);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelMealOrder(paramsMap));
+    }
+
+    /**
+     * 取消理发订单
+     */
+    public static Observable cancelHaircutsOrder(int orderid, String cancelreason) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            tempMap.put("cancelreason", cancelreason);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelHairCutOrder(paramsMap));
+    }
+
+    /**
+     * 取消订水订单
+     */
+    public static Observable cancelWaterOrder(int oid, int[] reasonIds, String reasonContent) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            tempMap.put("reasonIds", reasonIds);
+            tempMap.put("reasonContent", reasonContent);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelWaterOrder(paramsMap));
+    }
+
+    /**
+     * 取消医疗订单
+     */
+    public static Observable cancelMedicalOrder(int orderid, String cancelreason) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            tempMap.put("cancelreason", cancelreason);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelMedicalOrder(paramsMap));
+    }
+
+    /**
+     * 取消专家坐诊订单
+     */
+    public static Observable cancelExpertsOrder(int orderid, String cancelreason) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            tempMap.put("cancelreason", cancelreason);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelExpertsOrder(paramsMap));
+    }
+
+    /**
+     * 取消图书订单
+     */
+    public static Observable cancelBookOrder(int orderid, String cancelreason) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            tempMap.put("cancelreason", cancelreason);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelBookOrder(paramsMap));
+    }
+
+    /**
+     * 取消净菜订单
+     */
+    public static Observable cancelVegetableOrder(int oid, int[] reasonIds, String reasonContent) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            tempMap.put("reasonIds", reasonIds);
+            tempMap.put("reasonContent", reasonContent);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.cancelVegetableOrder(paramsMap));
+    }
+
+    /*--------------------------------------------各种订单----------------------------------------------*/
+
+    /**
+     * 查看报修订单
+     * 1:待接单，2： 已接单，3：已完成，4:待评价，5：已取消
+     * @return
+     */
+    public static Observable getRepairOrder(int type, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", type);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.repairsOrderList(paramsMap));
+    }
+
+    /**
+     * 查看办公用品订单
+     * 订单状态 1: 已预约，2配送中3：已完成，4：待评价，5：已取消
+     * @return
+     */
+    public static Observable getOfficeOrder(int orderStatus, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderStatus", orderStatus);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.officeOrderList(paramsMap));
+    }
+
+    /**
+     * 查看医疗订单
+     * 订单状态 1:已预约 ，2： 服务中（用户到店，医生点击），3：已完成（包含待评价和已评价），4：待评价，5：已取消
+     * @return
+     */
+    public static Observable getMedicalOrder(int type, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", type);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.medicalOrderList(paramsMap));
+    }
+
+    /**
+     * 查看专家订单
+     * 订单状态 1:已预约 ，2： 服务中（用户到店，医生点击），3：已完成（包含待评价和已评价），4：待评价，5：已取消
+     * @return
+     */
+    public static Observable getExpertOrder(int type, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", type);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.expertOrderList(paramsMap));
+    }
+
+    /**
+     * 查看理发订单
+     * 订单状态 1: 已预约，2：服务中，3：已完成，4：待评价，5：已取消
+     * @return
+     */
+    public static Observable getHairCutOrder(int type, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", type);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.hairCutOrderList(paramsMap));
+    }
+
+    /**
+     * 查看订餐订单
+     * 订单状态 1: 已预约 3：已完成，4：待评价，5：已取消
+     * @return
+     */
+    public static Observable getMealOrder(int orderStatus, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderStatus", orderStatus);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.mealOrderList(paramsMap));
+    }
+
+    /**
+     * 查看订水订单
+     *
+     * @return
+     */
+    public static Observable getWaterOrder(int type, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", type);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.waterOrderList(paramsMap));
+    }
+
+    /**
+     * 查看净菜订单
+     * 订单状态 1: 已预约，3：已完成，4：待评价，5：已取消
+     * @return
+     */
+    public static Observable getVegetableOrder(int orderStatus, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderStatus", orderStatus);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.vegetableOrderList(paramsMap));
+    }
 }

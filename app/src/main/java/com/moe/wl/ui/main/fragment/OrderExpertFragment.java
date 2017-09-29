@@ -6,13 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.adapter.DryCleanAdapter;
-import com.moe.wl.ui.main.bean.CheckDryOrderBean;
+import com.moe.wl.ui.main.adapter.OrderExpertAdapter;
 import com.moe.wl.ui.main.bean.NotifyChange;
+import com.moe.wl.ui.main.bean.OrderExpertBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,28 +26,37 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.moe.wl.R;
-import mvp.cn.util.CallPhoneUtils;
 import rx.Observable;
 import rx.Subscriber;
 
 /**
+ * 专家坐诊订单Fragment
  * Created by 我的电脑 on 2017/8/17 0017.
  */
-public class WaitOrderFragment extends BaseFragment2 {
+public class OrderExpertFragment extends BaseFragment2 {
+
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
+
     Unbinder unbinder;
-    private DryCleanAdapter dryCleanAdapter;
-    int limit = 20;
+    private OrderExpertAdapter adapter;
     private int page = 1;
-    private List<CheckDryOrderBean.PageBean.ListBean> listAll;
-    private List<CheckDryOrderBean.PageBean.ListBean> list;
+    private List<OrderExpertBean.OrderlistEntity> data;
     private int state;
+
+    private int serviceType = 14;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
-        getData(state, page, limit, true);
+        getData();
+    }
+
+    public static OrderExpertFragment getInstance(int i) {
+        OrderExpertFragment fragment = new OrderExpertFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("from", i);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -64,50 +74,61 @@ public class WaitOrderFragment extends BaseFragment2 {
     }
 
     private void setClick() {
-        dryCleanAdapter.setListener(new DryCleanAdapter.OnClickListener() {
+        adapter.setOnClickListener(new OrderExpertAdapter.OnClickListener() {
             @Override
-            public void onClickListener(int state, int position) {
-                switch (state) {
-                    case 1:
-                        showAlertDialog("是否取消订单", state, position);
+            public void onClick(int type, int position) {
+                switch (type) {
+                    case 0: // 取消订单
+                        showAlertDialog("是否取消订单", position);
                         break;
-                    case 2:
-                        showAlertDialog("是否拨打服务电话", state, position);
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5://删除
 
+                    case 1: // 待定
+//                        showAlertDialog("是否拨打服务电话", position);
+                        break;
+
+                    case 2: // 评价
+                        break;
+
+                    case 3: // 评价
+                        break;
+
+                    case 4: // 删除订单
                         break;
                 }
             }
         });
+
     }
 
-    private void showAlertDialog(String s, final int state, int position) {
+    private void showAlertDialog(String s, final int position) {
         new AlertDialog(getActivity()).builder()
-                .setBigMsg(s)
+//                .setBigMsg(s)
+                .setMsg(s)
                 .setPositiveButton("是", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.DRYCANCEL);
-                        if (list != null && list.size() > 0) {
-                            CheckDryOrderBean.PageBean.ListBean listBean = list.get(state - 1);
-                            if (listBean != null) {
-                                if (state == 1) {
-                                    int id = listBean.getId();
-                                    intent.putExtra("OrderingID", id);
-                                    startActivity(intent);
-                                } else if (state == 2) {
-                                    //TODO 应该是服务电话
-                                    String mobile = listBean.getMobile();
-                                    CallPhoneUtils.callPhone(mobile, getActivity());
-                                }
-                            } else {
-                                LogUtils.i("listBean为空了");
+                        intent.putExtra("from", Constants.EXPERTS);
+                        if (data.size() >= position) {
+                            OrderExpertBean.OrderlistEntity listBean = data.get(position);
+                            if (state == 0) {
+                                // TODO 取消理发订单
+                                int id = listBean.getId();
+                                LogUtils.d("id:" + id + "  position:" + position);
+                                intent.putExtra("OrderingID", id);
+                                intent.putExtra("ServiceType", serviceType);
+                                startActivity(intent);
+                            } else if (state == 1) {
+                                // TODO 完成理发服务
+
+                            } else if (state == 2) {
+                                // TODO 再次预约
+
+                            } else if (state == 3) {
+                                // TODO 评价
+
+                            } else if (state == 4) {
+                                // TODO 删除
 
                             }
                         }
@@ -122,39 +143,27 @@ public class WaitOrderFragment extends BaseFragment2 {
                 }).show();
     }
 
-    public static WaitOrderFragment getInstance(int i) {
-        WaitOrderFragment waitOrderFragment = new WaitOrderFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("from", i);
-        waitOrderFragment.setArguments(bundle);
-        return waitOrderFragment;
-    }
-
     private void initRecycler() {
-        list = new ArrayList<>();
-        listAll = new ArrayList();
+        data = new ArrayList<>();
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //WaitOrderAdapter waitOrderAdapter = new WaitOrderAdapter(getActivity());
-        dryCleanAdapter = new DryCleanAdapter(getActivity());
-        recyclerView.setAdapter(dryCleanAdapter);
+        adapter = new OrderExpertAdapter(getActivity(), data, state);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 page = 1;
-                getData(state, page, limit, true);
-                recyclerView.refreshComplete();
+                getData();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getData(state, page, limit, false);
-                recyclerView.loadMoreComplete();
+                getData();
             }
         });
-        getData(state, 1, limit, true);
+        getData();
     }
 
     @Override
@@ -164,10 +173,10 @@ public class WaitOrderFragment extends BaseFragment2 {
         EventBus.getDefault().unregister(this);
     }
 
-    public void getData(final int state, int page, int limit, final boolean isRefresh) {
-        Observable observable = RetrofitUtils.getInstance().checkDryOrder(state, page, limit);
+    public void getData() {
+        Observable observable = RetrofitUtils.getInstance().getExpertOrder(state + 1, page);
         showProgressDialog();
-        observable.subscribe(new Subscriber<CheckDryOrderBean>() {
+        observable.subscribe(new Subscriber<OrderExpertBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -180,14 +189,16 @@ public class WaitOrderFragment extends BaseFragment2 {
             }
 
             @Override
-            public void onNext(CheckDryOrderBean orderBean) {
+            public void onNext(OrderExpertBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    list = orderBean.getPage().getList();
-                    if (isRefresh == true) {
-                        listAll.clear();
+                    if (page == 1) {
+                        data.clear();
+                        recyclerView.refreshComplete();
+                    } else {
+                        recyclerView.loadMoreComplete();
                     }
-                    listAll.addAll(list);
-                    dryCleanAdapter.setData(listAll, state);
+                    data.addAll(orderBean.getOrderlist());
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

@@ -1,10 +1,5 @@
 package com.moe.wl.framework.network.retrofit;
 
-import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
-
-import java.util.List;
-import java.util.Map;
-
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
 import com.moe.wl.ui.login.bean.CaptchaBean;
@@ -47,6 +42,14 @@ import com.moe.wl.ui.main.bean.MoreListBean;
 import com.moe.wl.ui.main.bean.NutritionBean;
 import com.moe.wl.ui.main.bean.OfficeIndexBean;
 import com.moe.wl.ui.main.bean.OrderDryCleanBean;
+import com.moe.wl.ui.main.bean.OrderExpertBean;
+import com.moe.wl.ui.main.bean.OrderHairCutBean;
+import com.moe.wl.ui.main.bean.OrderMealBean;
+import com.moe.wl.ui.main.bean.OrderMedicalBean;
+import com.moe.wl.ui.main.bean.OrderOfficeBean;
+import com.moe.wl.ui.main.bean.OrderRepairBean;
+import com.moe.wl.ui.main.bean.OrderVegetableBean;
+import com.moe.wl.ui.main.bean.OrderWaterBean;
 import com.moe.wl.ui.main.bean.PayBean;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 import com.moe.wl.ui.main.bean.ProductCategoryBean;
@@ -62,11 +65,16 @@ import com.moe.wl.ui.main.bean.ServiceMyBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.bean.ShopCarInfoBean;
 import com.moe.wl.ui.main.bean.SpAllCommentBean;
+import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
 import com.moe.wl.ui.main.bean.SpCheckShopCarBean;
 import com.moe.wl.ui.main.bean.SpDetailBean;
 import com.moe.wl.ui.main.bean.SpOrderBean;
 import com.moe.wl.ui.main.bean.UserCommentBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
+
+import java.util.List;
+import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.FieldMap;
@@ -164,7 +172,7 @@ public interface NetAPI {
 
     // 专家下单
     @FormUrlEncoded
-    @POST(NetUrl.expertOreder)
+    @POST(NetUrl.expertOrder)
     Observable<ExpertOrderBean> submitExpertOrder(@FieldMap Map<String, Object> map);
 
     //物业首页
@@ -281,12 +289,12 @@ public interface NetAPI {
 
     //查看干洗订单
     @FormUrlEncoded
-    @POST(NetUrl.DryOreder)
+    @POST(NetUrl.DryOrder)
     Observable<CheckDryOrderBean> checkDryOrder(@FieldMap Map<String, Object> map);
 
     //获取取消原因列表
     @FormUrlEncoded
-    @POST(NetUrl.getDryCancelList)
+    @POST(NetUrl.cancelDryOrder)
     Observable<ReasonBean> getDryCancelList(@FieldMap Map<String, Object> map);
 
     //提交并删除订单
@@ -346,7 +354,7 @@ public interface NetAPI {
 
     //删除订单项
     @FormUrlEncoded
-    @POST(NetUrl.cancelItem)
+    @POST(NetUrl.deleteItem)
     Observable<ActivityPostBean> cancelItem(@FieldMap Map<String, Object> map);
 
     //发布需求
@@ -396,8 +404,8 @@ public interface NetAPI {
 
     //取消工作餐订单
     @FormUrlEncoded
-    @POST(NetUrl.cancelOrder)
-    Observable<CollectBean> cancelOrder(@FieldMap Map<String, Object> map);
+    @POST(NetUrl.cancelMealOrder)
+    Observable<CollectBean> cancelMealOrder(@FieldMap Map<String, Object> map);
 
     //获取营养套餐列表
     @FormUrlEncoded
@@ -418,6 +426,7 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.orderWater)
     Observable<QueryWaterTypeBean> queryWaterType(@FieldMap Map<String, Object> map);
+
     //查询水列表
     @FormUrlEncoded
     @POST(NetUrl.queryWater)
@@ -508,5 +517,93 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.getMessageList)
     Observable<MessageListBean> getMessageList(@FieldMap Map<String, Object> map);
+
+    // 取消医疗订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelMedicalOrder)
+    Observable<CollectBean> cancelMedicalOrder(@FieldMap Map<String, Object> map);
+
+    // 取消专家订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelExpertsOrder)
+    Observable<CollectBean> cancelExpertsOrder(@FieldMap Map<String, Object> map);
+
+    // 取消报修订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelRepairsOrder)
+    Observable<CollectBean> cancelRepairsOrder(@FieldMap Map<String, Object> map);
+
+    // 取消剪发订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelHairCutOrder)
+    Observable<CollectBean> cancelHairCutOrder(@FieldMap Map<String, Object> map);
+
+    // 取消图书订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelBookOrder)
+    Observable<CollectBean> cancelBookOrder(@FieldMap Map<String, Object> map);
+
+    // 取消办公用品订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelOfficeOrder)
+    Observable<CollectBean> cancelOfficeOrder(@FieldMap Map<String, Object> map);
+
+    // 取消订水订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelWaterOrder)
+    Observable<CollectBean> cancelWaterOrder(@FieldMap Map<String, Object> map);
+
+    // 取消净菜订单
+    @FormUrlEncoded
+    @POST(NetUrl.cancelVegetableOrder)
+    Observable<CollectBean> cancelVegetableOrder(@FieldMap Map<String, Object> map);
+
+    // 获取取消订单原因
+    @FormUrlEncoded
+    @POST(NetUrl.getCancelReason)
+    Observable<ReasonBean> getCancelReason(@FieldMap Map<String, Object> map);
+
+    /*----------------------------------获取各种订单列表-------------------------------------*/
+
+    // 医疗订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.medicalOrderList)
+    Observable<OrderMedicalBean> medicalOrderList(@FieldMap Map<String, Object> map);
+
+    // 专家订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.expertOrderList)
+    Observable<OrderExpertBean> expertOrderList(@FieldMap Map<String, Object> map);
+
+    // 报修订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.repairsOrderList)
+    Observable<OrderRepairBean> repairsOrderList(@FieldMap Map<String, Object> map);
+
+    // 理发订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.hairCutOrderList)
+    Observable<OrderHairCutBean> hairCutOrderList(@FieldMap Map<String, Object> map);
+
+    // 办公用品订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.officeOrderList)
+    Observable<OrderOfficeBean> officeOrderList(@FieldMap Map<String, Object> map);
+
+    // 订餐订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.mealOrderList)
+    Observable<OrderMealBean> mealOrderList(@FieldMap Map<String, Object> map);
+
+    // 订水订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.waterOrderList)
+    Observable<OrderWaterBean> waterOrderList(@FieldMap Map<String, Object> map);
+
+    // 净菜订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.vegetableOrderList)
+    Observable<OrderVegetableBean> vegetableOrderList(@FieldMap Map<String, Object> map);
+
 
 }

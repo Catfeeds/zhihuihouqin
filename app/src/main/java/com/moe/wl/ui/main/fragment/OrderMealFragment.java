@@ -11,9 +11,9 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
+import com.moe.wl.ui.main.adapter.OrderMealAdapter;
 import com.moe.wl.ui.main.bean.NotifyChange;
-import com.moe.wl.ui.main.bean.OrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderMealBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,38 +26,29 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import mvp.cn.util.CallPhoneUtils;
 import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 订水订单Fragment
+ * 我的订餐订单Fragment
  * Created by 我的电脑 on 2017/8/17 0017.
  */
-public class OrderWaterFragment extends BaseFragment2 {
+public class OrderMealFragment extends BaseFragment2 {
 
-    private List<OrderWaterBean.PageEntity.ListEntity> data;
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
 
     Unbinder unbinder;
-    private OrderWaterAdapter adapter;
+    private OrderMealAdapter adapter;
     private int page = 1;
+    private List<OrderMealBean.PageEntity.ListEntity> data;
     private int state;
 
-    private int serviceType = 18;
+    private int serviceType = 15;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
-    }
-
-    public static OrderWaterFragment getInstance(int i) {
-        OrderWaterFragment waitOrderFragment = new OrderWaterFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("from", i);
-        waitOrderFragment.setArguments(bundle);
-        return waitOrderFragment;
     }
 
     @Override
@@ -68,6 +59,14 @@ public class OrderWaterFragment extends BaseFragment2 {
         return view;
     }
 
+    public static OrderMealFragment getInstance(int i) {
+        OrderMealFragment waitOrderFragment = new OrderMealFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("from", i);
+        waitOrderFragment.setArguments(bundle);
+        return waitOrderFragment;
+    }
+
     @Override
     public void initView() {
         initRecycler();
@@ -75,7 +74,7 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     private void setClick() {
-        adapter.setOnClickListener(new OrderWaterAdapter.OnClickListener() {
+        adapter.setOnClickListener(new OrderMealAdapter.OnClickListener() {
             @Override
             public void onClick(int type, int position) {
                 switch (type) {
@@ -83,11 +82,8 @@ public class OrderWaterFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", state, position);
                         break;
 
-                    case 1: // 联系配送人员
-                        showAlertDialog("是否拨打服务电话", state, position);
-                        break;
+                    case 2: // 再次预订
 
-                    case 2: // 再来一单
                         break;
 
                     case 3: // 评价
@@ -107,18 +103,14 @@ public class OrderWaterFragment extends BaseFragment2 {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.ORDERWATER);
+                        intent.putExtra("from", Constants.ORDERMEAL);
                         if (data != null && data.size() > 0) {
-                            OrderWaterBean.PageEntity.ListEntity listBean = data.get(position);
-                            if (state == 0) {
-                                int id = listBean.getId(); // 订单id
+                            OrderMealBean.PageEntity.ListEntity listBean = data.get(position);
+                            if (state == 0) { // 取消订单
+                                int id = listBean.getId();
                                 intent.putExtra("OrderingID", id);
                                 intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
-                            } else if (state == 1) {
-                                //TODO 服务电话
-                                String mobile = listBean.getMobile(); // 手机号
-                                CallPhoneUtils.callPhone(mobile, getActivity());
                             }
                         }
                     }
@@ -126,6 +118,7 @@ public class OrderWaterFragment extends BaseFragment2 {
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                     }
                 }).show();
     }
@@ -135,7 +128,7 @@ public class OrderWaterFragment extends BaseFragment2 {
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new OrderWaterAdapter(getActivity(), data, state);
+        adapter = new OrderMealAdapter(getActivity(), data, state);
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -161,9 +154,9 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     public void getData() {
-        Observable observable = RetrofitUtils.getInstance().getWaterOrder(state + 1, page);
+        Observable observable = RetrofitUtils.getInstance().getMealOrder(state + 1, page);
         showProgressDialog();
-        observable.subscribe(new Subscriber<OrderWaterBean>() {
+        observable.subscribe(new Subscriber<OrderMealBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -176,7 +169,7 @@ public class OrderWaterFragment extends BaseFragment2 {
             }
 
             @Override
-            public void onNext(OrderWaterBean orderBean) {
+            public void onNext(OrderMealBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

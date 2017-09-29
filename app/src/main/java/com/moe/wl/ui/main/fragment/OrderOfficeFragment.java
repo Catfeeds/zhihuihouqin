@@ -11,9 +11,9 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
+import com.moe.wl.ui.main.adapter.OrderOfficeAdapter;
 import com.moe.wl.ui.main.bean.NotifyChange;
-import com.moe.wl.ui.main.bean.OrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderOfficeBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,29 +31,29 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 订水订单Fragment
+ * 报修订单Fragment
  * Created by 我的电脑 on 2017/8/17 0017.
  */
-public class OrderWaterFragment extends BaseFragment2 {
+public class OrderOfficeFragment extends BaseFragment2 {
 
-    private List<OrderWaterBean.PageEntity.ListEntity> data;
+    private List<OrderOfficeBean.PageEntity.ListEntity> data;
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
 
     Unbinder unbinder;
-    private OrderWaterAdapter adapter;
+    private OrderOfficeAdapter adapter;
     private int page = 1;
     private int state;
 
-    private int serviceType = 18;
+    private int serviceType = 8;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
     }
 
-    public static OrderWaterFragment getInstance(int i) {
-        OrderWaterFragment waitOrderFragment = new OrderWaterFragment();
+    public static OrderOfficeFragment getInstance(int i) {
+        OrderOfficeFragment waitOrderFragment = new OrderOfficeFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("from", i);
         waitOrderFragment.setArguments(bundle);
@@ -75,7 +75,7 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     private void setClick() {
-        adapter.setOnClickListener(new OrderWaterAdapter.OnClickListener() {
+        adapter.setOnClickListener(new OrderOfficeAdapter.OnClickListener() {
             @Override
             public void onClick(int type, int position) {
                 switch (type) {
@@ -107,9 +107,9 @@ public class OrderWaterFragment extends BaseFragment2 {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.ORDERWATER);
+                        intent.putExtra("from", Constants.OFFICESUPPLIES);
                         if (data != null && data.size() > 0) {
-                            OrderWaterBean.PageEntity.ListEntity listBean = data.get(position);
+                            OrderOfficeBean.PageEntity.ListEntity listBean = data.get(position);
                             if (state == 0) {
                                 int id = listBean.getId(); // 订单id
                                 intent.putExtra("OrderingID", id);
@@ -135,7 +135,7 @@ public class OrderWaterFragment extends BaseFragment2 {
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new OrderWaterAdapter(getActivity(), data, state);
+        adapter = new OrderOfficeAdapter(getActivity(), data, state);
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -161,9 +161,9 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     public void getData() {
-        Observable observable = RetrofitUtils.getInstance().getWaterOrder(state + 1, page);
+        Observable observable = RetrofitUtils.getInstance().getOfficeOrder(state + 1, page);
         showProgressDialog();
-        observable.subscribe(new Subscriber<OrderWaterBean>() {
+        observable.subscribe(new Subscriber<OrderOfficeBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -176,7 +176,7 @@ public class OrderWaterFragment extends BaseFragment2 {
             }
 
             @Override
-            public void onNext(OrderWaterBean orderBean) {
+            public void onNext(OrderOfficeBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

@@ -11,9 +11,9 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
+import com.moe.wl.ui.main.adapter.OrderMedicalAdapter;
 import com.moe.wl.ui.main.bean.NotifyChange;
-import com.moe.wl.ui.main.bean.OrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderMedicalBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,38 +26,37 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import mvp.cn.util.CallPhoneUtils;
 import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 订水订单Fragment
+ * 医疗订单Fragment
  * Created by 我的电脑 on 2017/8/17 0017.
  */
-public class OrderWaterFragment extends BaseFragment2 {
+public class OrderMedicalFragment extends BaseFragment2 {
 
-    private List<OrderWaterBean.PageEntity.ListEntity> data;
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
 
     Unbinder unbinder;
-    private OrderWaterAdapter adapter;
+    private OrderMedicalAdapter adapter;
     private int page = 1;
+    private List<OrderMedicalBean.OrderlistEntity> data;
     private int state;
 
-    private int serviceType = 18;
+    private int serviceType = 2;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
     }
 
-    public static OrderWaterFragment getInstance(int i) {
-        OrderWaterFragment waitOrderFragment = new OrderWaterFragment();
+    public static OrderMedicalFragment getInstance(int i) {
+        OrderMedicalFragment fragment = new OrderMedicalFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("from", i);
-        waitOrderFragment.setArguments(bundle);
-        return waitOrderFragment;
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -75,19 +74,19 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     private void setClick() {
-        adapter.setOnClickListener(new OrderWaterAdapter.OnClickListener() {
+        adapter.setOnClickListener(new OrderMedicalAdapter.OnClickListener() {
             @Override
             public void onClick(int type, int position) {
                 switch (type) {
                     case 0: // 取消订单
-                        showAlertDialog("是否取消订单", state, position);
+                        showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 1: // 联系配送人员
-                        showAlertDialog("是否拨打服务电话", state, position);
+                    case 1: // 待定
+//                        showAlertDialog("是否拨打服务电话", position);
                         break;
 
-                    case 2: // 再来一单
+                    case 2: // 评价
                         break;
 
                     case 3: // 评价
@@ -98,34 +97,48 @@ public class OrderWaterFragment extends BaseFragment2 {
                 }
             }
         });
+
     }
 
-    private void showAlertDialog(String s, final int state, final int position) {
+    private void showAlertDialog(String s, final int position) {
         new AlertDialog(getActivity()).builder()
-                .setBigMsg(s)
+//                .setBigMsg(s)
+                .setMsg(s)
                 .setPositiveButton("是", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.ORDERWATER);
-                        if (data != null && data.size() > 0) {
-                            OrderWaterBean.PageEntity.ListEntity listBean = data.get(position);
+                        intent.putExtra("from", Constants.MEDICAL);
+                        if (data.size() >= position) {
+                            OrderMedicalBean.OrderlistEntity listBean = data.get(position);
                             if (state == 0) {
-                                int id = listBean.getId(); // 订单id
+                                // TODO 取消理发订单
+                                int id = listBean.getId();
+                                LogUtils.d("id:" + id + "  position:" + position);
                                 intent.putExtra("OrderingID", id);
                                 intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
-                                //TODO 服务电话
-                                String mobile = listBean.getMobile(); // 手机号
-                                CallPhoneUtils.callPhone(mobile, getActivity());
+                                // TODO 完成理发服务
+
+                            } else if (state == 2) {
+                                // TODO 再次预约
+
+                            } else if (state == 3) {
+                                // TODO 评价
+
+                            } else if (state == 4) {
+                                // TODO 删除
+
                             }
                         }
+
                     }
                 })
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                     }
                 }).show();
     }
@@ -135,7 +148,7 @@ public class OrderWaterFragment extends BaseFragment2 {
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new OrderWaterAdapter(getActivity(), data, state);
+        adapter = new OrderMedicalAdapter(getActivity(), data, state);
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -161,9 +174,9 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     public void getData() {
-        Observable observable = RetrofitUtils.getInstance().getWaterOrder(state + 1, page);
+        Observable observable = RetrofitUtils.getInstance().getMedicalOrder(state + 1, page);
         showProgressDialog();
-        observable.subscribe(new Subscriber<OrderWaterBean>() {
+        observable.subscribe(new Subscriber<OrderMedicalBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -176,7 +189,7 @@ public class OrderWaterFragment extends BaseFragment2 {
             }
 
             @Override
-            public void onNext(OrderWaterBean orderBean) {
+            public void onNext(OrderMedicalBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();
@@ -184,7 +197,7 @@ public class OrderWaterFragment extends BaseFragment2 {
                     } else {
                         recyclerView.loadMoreComplete();
                     }
-                    data.addAll(orderBean.getPage().getList());
+                    data.addAll(orderBean.getOrderlist());
                     adapter.notifyDataSetChanged();
                 }
             }

@@ -11,9 +11,9 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
+import com.moe.wl.ui.main.adapter.DryCleanAdapter;
+import com.moe.wl.ui.main.bean.CheckDryOrderBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
-import com.moe.wl.ui.main.bean.OrderWaterBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,33 +31,25 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 订水订单Fragment
+ * 干洗订单Fragment
  * Created by 我的电脑 on 2017/8/17 0017.
  */
-public class OrderWaterFragment extends BaseFragment2 {
-
-    private List<OrderWaterBean.PageEntity.ListEntity> data;
+public class OrderDryFragment extends BaseFragment2 {
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
-
     Unbinder unbinder;
-    private OrderWaterAdapter adapter;
+    private DryCleanAdapter dryCleanAdapter;
+    private int limit = 20;
     private int page = 1;
+    private List<CheckDryOrderBean.PageBean.ListBean> listAll;
+    private List<CheckDryOrderBean.PageBean.ListBean> list;
     private int state;
 
-    private int serviceType = 18;
+    private int serviceType = 7;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
-        getData();
-    }
-
-    public static OrderWaterFragment getInstance(int i) {
-        OrderWaterFragment waitOrderFragment = new OrderWaterFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("from", i);
-        waitOrderFragment.setArguments(bundle);
-        return waitOrderFragment;
+        getData(state, page, limit, true);
     }
 
     @Override
@@ -75,25 +67,22 @@ public class OrderWaterFragment extends BaseFragment2 {
     }
 
     private void setClick() {
-        adapter.setOnClickListener(new OrderWaterAdapter.OnClickListener() {
+        dryCleanAdapter.setListener(new DryCleanAdapter.OnClickListener() {
             @Override
-            public void onClick(int type, int position) {
-                switch (type) {
-                    case 0: // 取消订单
+            public void onClickListener(int state, int position) {
+                switch (state) {
+                    case 1:
                         showAlertDialog("是否取消订单", state, position);
                         break;
-
-                    case 1: // 联系配送人员
+                    case 2:
                         showAlertDialog("是否拨打服务电话", state, position);
                         break;
-
-                    case 2: // 再来一单
+                    case 3:
                         break;
-
-                    case 3: // 评价
+                    case 4:
                         break;
+                    case 5://删除
 
-                    case 4: // 删除订单
                         break;
                 }
             }
@@ -107,50 +96,64 @@ public class OrderWaterFragment extends BaseFragment2 {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.ORDERWATER);
-                        if (data != null && data.size() > 0) {
-                            OrderWaterBean.PageEntity.ListEntity listBean = data.get(position);
-                            if (state == 0) {
-                                int id = listBean.getId(); // 订单id
-                                intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
-                                startActivity(intent);
-                            } else if (state == 1) {
-                                //TODO 服务电话
-                                String mobile = listBean.getMobile(); // 手机号
-                                CallPhoneUtils.callPhone(mobile, getActivity());
+                        intent.putExtra("from", Constants.DRYCLEANER);
+                        if (list != null && list.size() > 0) {
+                            CheckDryOrderBean.PageBean.ListBean listBean = list.get(position);
+                            if (listBean != null) {
+                                if (state == 1) {
+                                    int id = listBean.getId();
+                                    intent.putExtra("OrderingID", id);
+                                    intent.putExtra("ServiceType", serviceType);
+                                    startActivity(intent);
+                                } else if (state == 2) {
+                                    //TODO 应该是服务电话
+                                    String mobile = listBean.getMobile();
+                                    CallPhoneUtils.callPhone(mobile, getActivity());
+                                }
                             }
                         }
+
                     }
                 })
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                     }
                 }).show();
     }
 
+    public static OrderDryFragment getInstance(int i) {
+        OrderDryFragment orderDryFragment = new OrderDryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("from", i);
+        orderDryFragment.setArguments(bundle);
+        return orderDryFragment;
+    }
+
     private void initRecycler() {
-        data = new ArrayList<>();
+        list = new ArrayList<>();
+        listAll = new ArrayList<>();
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new OrderWaterAdapter(getActivity(), data, state);
-        recyclerView.setAdapter(adapter);
+        //WaitOrderAdapter waitOrderAdapter = new WaitOrderAdapter(getActivity());
+        dryCleanAdapter = new DryCleanAdapter(getActivity());
+        recyclerView.setAdapter(dryCleanAdapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 page = 1;
-                getData();
+                getData(state, page, limit, true);
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getData();
+                getData(state, page, limit, false);
             }
         });
-        getData();
+        getData(state, 1, limit, true);
     }
 
     @Override
@@ -160,10 +163,10 @@ public class OrderWaterFragment extends BaseFragment2 {
         EventBus.getDefault().unregister(this);
     }
 
-    public void getData() {
-        Observable observable = RetrofitUtils.getInstance().getWaterOrder(state + 1, page);
+    public void getData(final int state, int page, int limit, final boolean isRefresh) {
+        Observable observable = RetrofitUtils.getInstance().checkDryOrder(state, page, limit);
         showProgressDialog();
-        observable.subscribe(new Subscriber<OrderWaterBean>() {
+        observable.subscribe(new Subscriber<CheckDryOrderBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -176,16 +179,17 @@ public class OrderWaterFragment extends BaseFragment2 {
             }
 
             @Override
-            public void onNext(OrderWaterBean orderBean) {
+            public void onNext(CheckDryOrderBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    if (page == 1) {
-                        data.clear();
+                    list = orderBean.getPage().getList();
+                    if (isRefresh) {
+                        listAll.clear();
                         recyclerView.refreshComplete();
                     } else {
                         recyclerView.loadMoreComplete();
                     }
-                    data.addAll(orderBean.getPage().getList());
-                    adapter.notifyDataSetChanged();
+                    listAll.addAll(list);
+                    dryCleanAdapter.setData(listAll, state);
                 }
             }
         });

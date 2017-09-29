@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.bean.OrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderOfficeBean;
 
 import java.util.List;
 
@@ -22,15 +22,15 @@ import butterknife.ButterKnife;
  * 作者：Shixhe On 2017/9/27 0027
  */
 
-public class OrderWaterAdapter extends RecyclerView.Adapter {
+public class OrderOfficeAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<OrderWaterBean.PageEntity.ListEntity> data;
+    private List<OrderOfficeBean.PageEntity.ListEntity> data;
     private int state;
     private OnClickListener listener;
 
 
-    public OrderWaterAdapter(Context context, List<OrderWaterBean.PageEntity.ListEntity> data, int state) {
+    public OrderOfficeAdapter(Context context, List<OrderOfficeBean.PageEntity.ListEntity> data, int state) {
         this.context = context;
         this.data = data;
         this.state = state;
@@ -38,27 +38,27 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_order_water, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_order_office, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
-        holder.orderNumber.setText("订单号：" + data.get(position).getOrdercode());
-        if (data.get(position).getDetailList().size() != 0) {
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getDetailList().get(0).getGoods().getImg(), holder.image);
-            holder.name.setText(data.get(position).getDetailList().get(0).getGoods().getName()); // 商品名称
-            holder.number.setText("x" + data.get(position).getDetailList().get(0).getCount());  // 商品数量
-        }
-        holder.price.setText("¥" + data.get(position).getTotalprice());
+
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getOrderDetailList().get(0).getSku().getMainimg(), holder.image);
+        holder.orderNumber.setText("订单号：" + data.get(position).getCode());
+//        holder.name.setText(data.get(position).getRemark());
+//        holder.mass.setText(data.get(position).getRemark());
+//        holder.number.setText(data.get(position).getRemark());
+        holder.price.setText("¥");
 
         switch (state) {
             case 0:
                 holder.order1.setText("取消订单");
                 break;
             case 1:
-                holder.order1.setText("联系商家");
+                holder.order1.setText("拨打电话");
                 break;
             case 2:
                 holder.order1.setText("评价");
@@ -86,13 +86,23 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public interface OnClickListener {
+        void onClick(int type, int position);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.order_number)
         TextView orderNumber;
         @BindView(R.id.image)
         ImageView image;
         @BindView(R.id.name)
         TextView name;
+        @BindView(R.id.mass)
+        TextView mass;
         @BindView(R.id.number)
         TextView number;
         @BindView(R.id.price)
@@ -105,13 +115,4 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }
-
-    public interface OnClickListener {
-        void onClick(int type, int position);
-    }
-
-    public void setOnClickListener(OnClickListener listener) {
-        this.listener = listener;
-    }
-
 }
