@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.moe.wl.R;
 
+import com.moe.wl.ui.main.bean.BarberDetailBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -77,12 +79,23 @@ private List<ShopBean.BarberlistBean> mBarberList=new ArrayList<>();
         TextView tvBarberName;
         @BindView(R.id.tv_position)
         TextView tvPosition;
+         private ShopBean.BarberlistBean barberlistBean;
 
-        ViewHolder(View view) {
+         ViewHolder(View view) {
             ButterKnife.bind(this, view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, BarberDetailBean.class);
+                    // TODO: 2017/9/28 0028 传递参数
+
+                    context.startActivity(intent);
+                }
+            });
         }
 
         public void setData(ShopBean.BarberlistBean barberlistBean) {
+            this.barberlistBean=barberlistBean;
             if(barberlistBean!=null){
                 tvBarberName.setText(barberlistBean.getName());
                 tvPosition.setText(barberlistBean.getPositionName());

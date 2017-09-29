@@ -34,6 +34,8 @@ import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
 import com.moe.wl.ui.main.bean.BarberListBean;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 import com.moe.wl.ui.main.view.PreOrderBarberView;
+import com.moe.wl.ui.mywidget.NoScrollExpandableListView;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import mvp.cn.util.DateUtils;
 
@@ -71,20 +73,10 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     View viewAfter;
     @BindView(R.id.nsgv_barber)
     NoSlidingGridView nsgvBarber;
-    @BindView(R.id.tv_xijianchui)
-    TextView tvXijianchui;
-    @BindView(R.id.iv_gou1)
-    ImageView ivGou1;
-    @BindView(R.id.tv_xichui)
-    TextView tvXichui;
-    @BindView(R.id.iv_gou2)
-    ImageView ivGou2;
     @BindView(R.id.e_list)
-    ExpandableListView eList;
+    NoScrollExpandableListView eList;
     @BindView(R.id.ll_huli_list)
     LinearLayout llHuliList;
-    @BindView(R.id.tv_need_pay)
-    TextView tvNeedPay;
     @BindView(R.id.et_scanner)
     EditText etScanner;
     @BindView(R.id.word_num)
@@ -98,9 +90,6 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     @BindView(R.id.activity_reserva_barber)
     LinearLayout activityReservaBarber;
 
-    private boolean tfIsShow = false;
-    private boolean rfIsShow = false;
-    private boolean hlIsShow = false;
     private BarberGridAdapter gridAdapter;
     List<String> afterTime = Arrays.asList(
             "17:30", "18:00", "18:30", "19:00", "19:30",
@@ -133,7 +122,10 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     public void initView() {
         barberlistBean = (BarberListBean.BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
-        getPresenter().getData(barberlistBean.getId());
+        getPresenter().getData(barberlistBean.getId());//预约信息数据加载
+        //初始化金额和服务数量
+        tvSumService.setText("共"+0+"项服务 合计：");
+        tvHowMuch.setText("￥"+0);
         initBarberInfo();
         //设置上午默认被点击
         initgride();
@@ -141,17 +133,14 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         initTitle();
         initRecycler();
         setListener();
+        //备注字数监听
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
@@ -189,9 +178,30 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     @Override
     public void getBarberInfo(PreOrderBean preOrderBean) {
         if (preOrderBean != null) {
-            List<PreOrderBean.ItemlistBeanX> itemlist = preOrderBean.getItemlist();
+            //理发类型数据
+            final List<PreOrderBean.ItemlistBeanX> itemlist = preOrderBean.getItemlist();
             ExpandableListAdapter adapter = new ExpandableListAdapter(this, itemlist);
             eList.setAdapter(adapter);
+            adapter.setListener(new ExpandableListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener() {
+                    int sum=0;
+                    int count=0;
+                    for (int i = 0; i < itemlist.size(); i++) {
+                        PreOrderBean.ItemlistBeanX itemlistBeanX = itemlist.get(i);
+                        List<PreOrderBean.ItemlistBeanX.ItemlistBean> itemlist1 = itemlistBeanX.getItemlist();
+                        for (int j = 0; j < itemlist1.size(); j++) {
+                            if(itemlist1.get(j).isSelect()){
+                                sum+=itemlist1.get(j).getPrice();
+                                count++;
+                            }
+                        }
+                    }
+                    //设置支付总额,服务数量
+                    tvSumService.setText("共"+count+"项服务 合计：");
+                    tvHowMuch.setText("￥"+sum);
+                }
+            });
 
             List<PreOrderBean.TimelistBean> timelist = preOrderBean.getTimelist();
             for (int i = 0; i < timelist.size(); i++) {
@@ -208,24 +218,23 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                     gridAdapter.setData(schedulelist);
                 }
             }
-//
         }else{
             showToast("PreOrderBean这个bean为空");
         }
     }
-
+    //初始化理发师信息
     private void initBarberInfo() {
         tvBarberName.setText(barberlistBean.getName());
         tvBarberChengwei.setText(barberlistBean.getPositionName());
         tvShopName.setText(address);
     }
 
-
+    //预约时间
     private void initgride() {
         gridAdapter = new BarberGridAdapter();
         nsgvBarber.setAdapter(gridAdapter);
     }
-
+    //顶部日期
     private void initRecycler() {
        /* recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
@@ -244,7 +253,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         titleBar.setTitle("发型师");
     }
 
-    @OnClick({R.id.ll_morning, R.id.ll_afternoon, R.id.iv_gou1, R.id.iv_gou2, R.id.tb_regist})
+    @OnClick({R.id.ll_morning, R.id.ll_afternoon, R.id.tb_regist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_morning:
@@ -265,42 +274,6 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                 viewAfter.setBackgroundColor(Color.parseColor("#0000aa"));
                 //gridAdapter.setTime(afterTime);
                 break;
-            case R.id.iv_gou1:
-                break;
-            case R.id.iv_gou2:
-                break;
-           /* case R.id.rl_tangfa:
-                tfIsShow = !tfIsShow;
-                if (tfIsShow) {
-                    ivUpordown1.setImageResource(R.drawable.drawer_arrow_up);
-                    llTangfaList.setVisibility(View.VISIBLE);
-                } else {
-                    ivUpordown1.setImageResource(R.drawable.drawer_arrow_down);
-                    llTangfaList.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.rl_ranfa:
-                rfIsShow = !rfIsShow;
-                if (rfIsShow) {
-                    ivUpordown2.setImageResource(R.drawable.drawer_arrow_up);
-                    llRanfaList.setVisibility(View.VISIBLE);
-                } else {
-                    ivUpordown2.setImageResource(R.drawable.drawer_arrow_down);
-                    llRanfaList.setVisibility(View.GONE);
-                }
-
-                break;*/
-            /*case R.id.rl_huli:
-                hlIsShow = !hlIsShow;
-                if (hlIsShow) {
-                    ivUpordown3.setImageResource(R.drawable.drawer_arrow_up);
-                    llHuliList.setVisibility(View.VISIBLE);
-                } else {
-                    ivUpordown3.setImageResource(R.drawable.drawer_arrow_down);
-                    llHuliList.setVisibility(View.GONE);
-                }
-
-                break;*/
             case R.id.tb_regist:
                 Intent intent = new Intent(this, PayFiveJiaoActivity.class);
                 // TODO: 2017/8/22 0022 携带支付信息
@@ -309,19 +282,4 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-
-
- /*   @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }*/
 }

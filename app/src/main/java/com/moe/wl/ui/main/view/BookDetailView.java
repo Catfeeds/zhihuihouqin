@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.view;
 
 import com.moe.wl.ui.main.bean.BookDetailBean;
+import com.moe.wl.ui.main.bean.CollectBean;
 
 import mvp.cn.common.MvpView;
 
@@ -10,6 +11,6 @@ import mvp.cn.common.MvpView;
 
 public interface BookDetailView extends MvpView{
 
-void getBookDetailSucc(BookDetailBean detailBean);
+void collectSucc(CollectBean detailBean);
 
 }

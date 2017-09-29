@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
@@ -45,12 +47,17 @@ import com.moe.wl.ui.main.adapter.ActivityPostMulitPicAdapter;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.StringListDialog;
+
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
+import mvp.cn.util.DateUtil;
 import rx.Observable;
 import rx.Subscriber;
 
 public class ActivityPostedActivity extends Base2Activity implements View.OnClickListener {
-    private static final int CAMERA_REQUEST_CODE = 1;
-    private static final int READ_REQUEST_CODE = 2;
+    private static final int TAKE_PHOTO_CAMERA = 10001;
+    private static final int TAKE_PHOTO_ALBUM = 10002;
     @BindView(R.id.activity_title)
     TitleBar titleBar;
     @BindView(R.id.iv_posted_des)
@@ -88,14 +95,16 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
     @BindView(R.id.activity_posted)
     LinearLayout activityPosted;
 
-
+    private String imageLocation = Environment.getExternalStorageDirectory().getPath() + "/file/";
+    private String imageName = "_complain.jpg";
     private BottomSheetDialog dialog;
     private Bitmap photo;
     private String picPath;
     private boolean isOne;
     private ActivityPostMulitPicAdapter picAdapter;
-    private List<String> picPaths;
-    private List<String> photo1;
+    private String imageUri;
+    private ArrayList<String> paths;
+    private ArrayList<String> pics;
 
     @Override
     protected void initLayout() {
@@ -106,22 +115,24 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
 
     @Override
     protected void initView() {
-        photo1 = new ArrayList<>();
-        picPaths = new ArrayList<>();
+        //单张图片的集合
+        paths=new ArrayList<>();
+        //多张图片的集合
+        pics = new ArrayList<>();
+        pics.add("addPhoto");
         initTitle();
         initGrlid();
-        picPaths.add(0, "pic");
-        picAdapter.setData(picPaths);
     }
 
     private void initGrlid() {
         picAdapter = new ActivityPostMulitPicAdapter(this);
         //GridViewImageAdapter gridViewImageAdapter = new GridViewImageAdapter();
         gvDetailPic.setAdapter(picAdapter);
+        picAdapter.setData(pics);
         picAdapter.setListener(new ActivityPostMulitPicAdapter.OnAddPhotoClickListener() {
             @Override
             public void onClick(int position) {
-                if(position==picPaths.size()-1){
+                if(position==pics.size()-1){
                     isOne = false;
                     showButtomDialog();
                 }
@@ -145,10 +156,6 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
                 isOne = true;
                 showButtomDialog();
                 break;
-         /*   case R.id.add_multiphoto:
-                isOne = false;
-                showButtomDialog();
-                break;*/
             case R.id.rl_time:
                 //底部弹出框
                 showPop();
@@ -164,7 +171,7 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
                 String zhubanfang = etZhubanfang.getText().toString().trim();
                 String theme = etTheme.getText().toString().trim();
                 checkIsNull(phone, content, address, zhubanfang, time, theme, limit, name, minzu);
-                postActivity(phone, content, address, zhubanfang, time, theme, limit, photo1, picPaths, name, minzu);
+                postActivity(phone, content, address, zhubanfang, time, theme, limit, paths, pics, name, minzu);
                 break;
         }
     }
@@ -209,68 +216,113 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
         dialog.show();
     }
 
-    private void doPickPhotoFromGallery() {
-        // 打开本地相册
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            //申请开启摄像机权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    READ_REQUEST_CODE);//自定义的code
-        } else {
-            initPhoto();
-        }
-    }
-
+    /**
+     * 相机拍照
+     */
     private void doTakePhoto() {
-        String state = Environment.getExternalStorageState();// 获取内存卡可用状态
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            // 内存卡状态可用
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //申请开启摄像机权限
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                        CAMERA_REQUEST_CODE);//自定义的code
-            } else {
-                init();
-            }
-
-        } else {
-            // 不可用
-            Toast.makeText(this, "内存不可用", Toast.LENGTH_LONG)
-                    .show();
-        }
+        PermissionGen.with(this)
+                .addRequestCode(100)
+                .permissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
+                .request();
     }
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //开启照相机
-                init();
-            } else {
-                Toast.makeText(this, "您已拒绝了访问的权限", Toast.LENGTH_SHORT).show();
-            }
-        } else if (requestCode == READ_REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //
-                initPhoto();
-            } else {
-                Toast.makeText(this, "您已拒绝了访问的权限", Toast.LENGTH_SHORT).show();
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+    @PermissionSuccess(requestCode = 100)
+    public void doSomething(){
+        imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
+        File file = new File(imageUri);
+        File file1 = new File(imageLocation);
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+        LogUtils.d("imageUri:" + imageUri);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri uri = Uri.fromFile(new File(imageUri));
+        //为拍摄的图片指定一个存储的路径
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, TAKE_PHOTO_CAMERA);
+        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
     }
-
-    public void init() {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(intent, 1);
+    @PermissionFail(requestCode = 100)
+    public void doFailSomething(){
+        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
+    /**
+     * 相册选取
+     */
+    private void doPickPhotoFromGallery() {
+        PermissionGen.with(this)
+                .addRequestCode(200)
+                .permissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .request();
+    }
+    @PermissionSuccess(requestCode = 200)
+    public void getPhotoSucc(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, TAKE_PHOTO_ALBUM);
+    }
+    @PermissionFail(requestCode = 200)
+    public void getPhotoFialed(){
+        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            LogUtils.d("requestCode : " + requestCode + "resultCode : " + resultCode);
+        } else {
+            switch (requestCode) {
 
-    public void initPhoto() {
-        Intent i = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // 设定结果返回
-        startActivityForResult(i, 2);
+                case TAKE_PHOTO_CAMERA:// 相机
+                    if (null != imageUri) {
+                        if(isOne){
+                            paths.clear();
+                            paths.add(imageUri);
+                            GlideLoading.getInstance().loadImgUrlNyImgLoader(this,imageUri,addPhoto);
+                        }else{
+                            pics.add(0, imageUri);
+                            picAdapter.setData(pics);
+                        }
+                    }
+                    break;
+                case TAKE_PHOTO_ALBUM:// 相册
+                    if (data != null) {
+                        String[] proj = {MediaStore.Images.Media.DATA};
+                        //好像是android多媒体数据库的封装接口，具体的看Android文档
+                        Cursor cursor = managedQuery(data.getData(), proj, null, null, null);
+                        //按我个人理解 这个是获得用户选择的图片的索引值
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        //将光标移至开头 ，这个很重要，不小心很容易引起越界
+                        cursor.moveToFirst();
+                        //最后根据索引值获取图片路径
+                        String path = cursor.getString(column_index);
+                        LogUtils.d("返回的图片地址：" + path);
+                        if(isOne){
+                            paths.clear();
+                            paths.add(path);
+                            GlideLoading.getInstance().loadImgUrlNyImgLoader(this,path,addPhoto);
+                        }else{
+                            pics.add(0, path);
+                            picAdapter.setData(pics);
+                        }
+                    }
+                    break;
+            }
+        }
     }
 
     //时间选择器
@@ -283,12 +335,12 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
                 tvTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
             }
         });
-
     }
 
     private void postActivity(String aContactMobile, String aContent, String aPlace
             , String aSponsor, String aTime, String aTitle, String aTotal, List<String> photos, List<String> imgs, String aRealname,
                               String aNaion) {
+        imgs.remove(imgs.size()-1);//将最后一个图片从集合中清除
         Observable observable = RetrofitUtils.getInstance().postActivity(aContactMobile, aContent, aPlace, aSponsor, aTime, aTitle,
                 aTotal, photos, imgs, aRealname, aNaion);
         showProgressDialog();
@@ -297,7 +349,6 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
             public void onCompleted() {
                 dismissProgressDialog();
             }
-
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
@@ -334,7 +385,7 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
         }
     }
 
-    @Override
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
@@ -442,6 +493,6 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
                     break;
             }
         }
-    }
+    }*/
 
 }

@@ -8,27 +8,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberProductAdapter;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
 import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 import com.moe.wl.ui.main.model.BarberDetailModel;
 import com.moe.wl.ui.main.modelimpl.BarberDetailModelImpl;
 import com.moe.wl.ui.main.presenter.BarberDetailPresenter;
 import com.moe.wl.ui.main.view.BarberDetailView;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mvp.cn.util.CallPhoneUtils;
 
@@ -36,6 +39,7 @@ import mvp.cn.util.CallPhoneUtils;
 public class BarberDetailActivity extends BaseActivity<BarberDetailModel, BarberDetailView, BarberDetailPresenter> implements BarberDetailView {
 
     private static final int CALL_PHONE_REQUEST_CODE = 10;
+    private static final int Type=7;
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
     @BindView(R.id.civ_barber_header_photo)
@@ -83,6 +87,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     private String shopName;
     private BarberProductAdapter barberProductAdapter;
     private BarberDetailBean detailBean;
+    private int id;
 
     @Override
     public BarberDetailPresenter createPresenter() {
@@ -107,11 +112,13 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         address = extras.getString("address");
         shopName = extras.getString("shopName");
         barberlistBean = (BarberListBean.BarberlistBean) extras.getSerializable("barberlistBean");
+        id = barberlistBean.getId();
         System.out.println("理发师详情" + barberlistBean);
         if (barberlistBean != null) {
             getPresenter().getData(barberlistBean.getId());
 
         }
+
         initTitle();
         initGrid();
         initRecycler();
@@ -125,19 +132,36 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             tvBarberJieshaoContent.setText(detailBean.getBrief());
             tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
             barberProductAdapter.setData(detailBean.getWorklist());
+            LogUtils.i("worklist===" + detailBean.getWorklist().size());
             data.addAll(detailBean.getCommentlist());
             rvAdapter.notifyDataSetChanged();
-//            rvAdapter.setData(detailBean.getCommentlist());
+            rvAdapter.setData(detailBean.getCommentlist());
+            //初始化收藏状太
+            if(detailBean.getFavorstatus()==0){
+                ivCollect.setImageResource(R.mipmap.tab3_y);
+            }else{
+                ivCollect.setImageResource(R.mipmap.tab1_n);
+            }
         }
         if (barberlistBean != null) {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, barberlistBean.getPhoto(), civBarberHeaderPhoto);
             tvBarberName.setText(barberlistBean.getName());
-            tvChenghao.setText("号称:" + barberlistBean.getPositionName());
+            tvChenghao.setText("号称: " + barberlistBean.getPositionName());
             tvBarberShop.setText(shopName);
-            tvBarberAddress.setText("地址:" + address);
-            tvBarberPhone.setText("电话:" + barberlistBean.getMobile());
+            tvBarberAddress.setText("地址: " + address);
+            tvBarberPhone.setText("电话: " + barberlistBean.getMobile());
+        }
+    }
 
-
+    @Override
+    public void collectSucc(CollectBean listBean) {
+        LogUtils.i("CollectBean=="+listBean.getStatus());
+        if(listBean.getStatus()==0){//
+            ivCollect.setImageResource(R.mipmap.tab3_y);
+            showToast("取消收藏");
+        }else{
+            ivCollect.setImageResource(R.mipmap.tab1_n);
+            showToast("收藏成功");
         }
     }
 
@@ -148,6 +172,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         nsrvUserComment.setAdapter(rvAdapter);
     }
 
+    //详情作品列表
     private void initGrid() {
         barberProductAdapter = new BarberProductAdapter(this);
         nsgvZuopin.setAdapter(barberProductAdapter);
@@ -168,28 +193,30 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
                 startActivity(intent2);
                 break;
             case R.id.iv_call_barber_phone:
-                CallPhoneUtils.call(ivCallBarberPhone, barberlistBean.getMobile(), this);
+                CallPhoneUtils.callPhone(barberlistBean.getMobile(), this);
                 break;
             case R.id.tv_more_zuopin:
                 Intent intent = new Intent(this, BarberMoreProductActivity.class);
-                //intent.putExtra("detailBean", detailBean);
-                if(detailBean!=null){
-                    int id = detailBean.getWorklist().get(1).getId();
-                    intent.putExtra("id",id);
-                }
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
             case R.id.tv_more_comment:
                 Intent intent1 = new Intent(this, MoreUSerCommentActivity.class);
-                // TODO: 2017/8/22 0022 需要传递bean
-//                intent1.putExtra()
+                intent1.putExtra("id",id);
                 startActivity(intent1);
                 break;
-            case R.id.iv_collect:
+            case R.id.iv_collect://收藏
+                getPresenter().collect(Type,id);
                 break;
             case R.id.zixun:
+                Intent intent3 = new Intent(this, ConsultActivity.class);
+                intent3.putExtra("barberid", id);
+                startActivity(intent3);
                 break;
             case R.id.tv_now_order:
+                Intent intent4=new Intent(this,ReservaBarberActivity.class);
+
+                startActivity(intent4);
                 break;
         }
     }

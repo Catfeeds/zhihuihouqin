@@ -53,6 +53,8 @@ public class PayFiveJiaoActivity extends AppCompatActivity {
     RelativeLayout rlDaijinquanPay;
     @BindView(R.id.activity_pay_five_jiao)
     LinearLayout activityPayFiveJiao;
+    @BindView(R.id.tv_need_pay)
+    TextView tvNeedPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,12 @@ public class PayFiveJiaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pay_five_jiao);
         ButterKnife.bind(this);
         initTitle();
+        initData();
+    }
+
+    private void initData() {
+        int pay = getIntent().getIntExtra("pay", 0);
+        tvNeedPay.setText("￥"+pay);
     }
 
     private void initTitle() {

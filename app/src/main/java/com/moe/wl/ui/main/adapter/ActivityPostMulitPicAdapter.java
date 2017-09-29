@@ -51,7 +51,7 @@ public class ActivityPostMulitPicAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mulitpic_item,
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_view_image,
                     parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
@@ -70,7 +70,7 @@ public class ActivityPostMulitPicAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        @BindView(R.id.iv_item)
+        @BindView(R.id.image)
         ImageView ivItem;
         private String data;
 
@@ -80,7 +80,7 @@ public class ActivityPostMulitPicAdapter extends BaseAdapter {
 
         public void setData(String data, final int position) {
             this.data = data;
-            if (data.equals("pic")) {
+            if (data.equals("addPhoto")) {
                 Glide.with(mContext).load(R.drawable.add_photo).into(ivItem);
                 ivItem.setOnClickListener(new View.OnClickListener() {
                     @Override

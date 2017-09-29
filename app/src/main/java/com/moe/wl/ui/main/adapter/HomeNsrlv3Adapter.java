@@ -103,7 +103,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
         private void callPhone() {
             String phone = activitylistBean.getAContactMobile();
             Log.e("phone =", phone);
-            CallPhoneUtils.call(ivCalPhone, phone, mContext);
+            CallPhoneUtils.callPhone(phone,mContext);
         }
 
         public void setData(ActivityHomeBean.ActivitylistBean activitylistBean, int position) {

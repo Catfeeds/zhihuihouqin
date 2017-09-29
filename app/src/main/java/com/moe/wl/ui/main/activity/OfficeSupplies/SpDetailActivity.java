@@ -201,6 +201,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     @Override
     public void getSpDetailSucc(SpDetailBean bean) {
         if (bean != null) {
+            int favorNum = bean.getFavorNum();
+            if(favorNum==0){
+                tvCollect.setText("收藏");
+            }else{
+                tvCollect.setText("取消收藏");
+            }
             SpDetailBean.ProductBean product = bean.getProduct();
             id = product.getId();
             tvComment.setText("评论(" + bean.getCommentTotal() + ")");
@@ -238,14 +244,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
 
     @Override
     public void getCollectResult(CollectBean bean) {
-        if (bean != null) {
-            if (bean.getStatus() == 1) {
-                showToast("收藏");
-            } else if (bean.getStatus() == 0) {
-                showToast("取消收藏");
-            } else {
-                LogUtils.i("没有收藏成功");
-            }
+        if(bean.getStatus()==0){
+            tvCollect.setText("收藏");
+            showToast("取消收藏");
+        }else{
+            tvCollect.setText("取消收藏");
+            showToast("收藏成功");
         }
     }
 

@@ -181,7 +181,7 @@
             android:textSize="@dimen/sp_big" />
 
         <TextView
-            android:id="@+id/barber"
+            android:id="@+id/tv_barber_num"
             android:textSize="@dimen/sp_small"
             android:textColor="@color/gray"
             android:layout_width="match_parent"

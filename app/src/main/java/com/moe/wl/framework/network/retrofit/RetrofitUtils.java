@@ -12,6 +12,8 @@ import com.moe.wl.framework.network.ServerConstants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 
+import org.json.JSONArray;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -636,10 +638,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("aTotal", aTotal);
             tempMap.put("aSponsor", aSponsor);
             //图片文件上传
-
             tempMap.put("aRealname", aRealname);
             tempMap.put("aNaion", aNaion);
-            //addParam(paramsMap, tempMap);
             getRequestBody(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -764,6 +764,24 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getBookDetailResult(paramsMap));
+    }
+    /**
+     * 图书收藏
+     *
+     * @return
+     */
+    public static Observable bookCollect(int type,int entityid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            tempMap.put("type", type + "");
+            tempMap.put("entityid", entityid + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.bookCollect(paramsMap));
     }
 
     /**
@@ -902,7 +920,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("id", id + "");
+            tempMap.put("barberid", id + "");
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -948,7 +966,74 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getbarberInfo(paramsMap));
     }
+    /**
+     * 咨询理发师
+     *
+     * @return
+     */
+    public static Observable consultBarber(int id) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("barberid", id + "");
+            addParam(paramsMap, tempMap);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getConsultInfo(paramsMap));
+    }
+    /**
+     * 发送消息
+     *
+     * @return
+     */
+    public static Observable sendMessage(int barberid,String content) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("barberid", barberid + "");
+            tempMap.put("content", content);
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.sendMessage(paramsMap));
+    }
+    /**
+     * 理发师作品详情信息
+     *
+     * @return
+     */
+    public static Observable getBarberProductDetail(int workid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("workid", workid + "");
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getDetail(paramsMap));
+    }
+    /**
+     * 理发师更多评论
+     *
+     * @return
+     */
+    public static Observable getBarberMoreComment(int id,int page,int limit) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("barberid",id + "");
+            tempMap.put("page",page + "");
+            tempMap.put("limit",limit + "");
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getBarberMoreComment(paramsMap));
+    }
     /**
      * 干洗店首页
      *
@@ -1578,6 +1663,41 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.queryWaterList(paramsMap));
+    }
+
+    /**
+     * 获取送水时间
+     */
+    public static Observable getOrderWaterTime() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getOrderWaterTime(paramsMap));
+    }
+
+    /**
+     * 生成订水订单
+     */
+    public static Observable generateOrder(String realname, String mobile, int addressId, String sendTime,
+                                           Object[] arr, String remark) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("realname", realname);
+            tempMap.put("mobile", mobile);
+            tempMap.put("addressId", addressId + "");
+            tempMap.put("sendTime", sendTime);
+            tempMap.put("goodsList", arr);
+            tempMap.put("remark", remark);
+            addParams(paramsMap,tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.generateOrder(paramsMap));
     }
 
     /**

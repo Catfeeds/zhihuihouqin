@@ -1,5 +1,15 @@
 package com.moe.wl.framework.network.retrofit;
 
+import com.moe.wl.ui.main.bean.BarberProductDetailBean;
+import com.moe.wl.ui.main.bean.ConsultBarberBean;
+import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
+import com.moe.wl.ui.main.bean.SendMessageBean;
+import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
+
+import java.util.List;
+import java.util.Map;
+
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
 import com.moe.wl.ui.login.bean.CaptchaBean;
@@ -75,6 +85,8 @@ import com.moe.wl.ui.main.bean.VegetableBean;
 import java.util.List;
 import java.util.Map;
 
+import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.FieldMap;
@@ -137,7 +149,7 @@ public interface NetAPI {
 
     //健康资讯收藏
     @FormUrlEncoded
-    @POST(NetUrl.healthServiceHome)
+    @POST(NetUrl.healthInfoCollect)
     Observable<CollectBean> getCollectResult(@FieldMap Map<String, Object> map);
 
     //获取更多资讯列表
@@ -221,6 +233,11 @@ public interface NetAPI {
     @POST(NetUrl.bookdetail)
     Observable<BookDetailBean> getBookDetailResult(@FieldMap Map<String, Object> map);
 
+    //图书收藏
+    @FormUrlEncoded
+    @POST(NetUrl.healthInfoCollect)
+    Observable<CollectBean> bookCollect(@FieldMap Map<String, Object> map);
+
     //图书借阅
     @FormUrlEncoded
     @POST(NetUrl.jieyue)
@@ -271,6 +288,26 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.preorder)
     Observable<PreOrderBean> getbarberInfo(@FieldMap Map<String, Object> map);
+
+    //咨询理发师
+    @FormUrlEncoded
+    @POST(NetUrl.consult)
+    Observable<ConsultBarberBean> getConsultInfo(@FieldMap Map<String, Object> map);
+
+    //发送消息
+    @FormUrlEncoded
+    @POST(NetUrl.sendMessage)
+    Observable<SendMessageBean> sendMessage(@FieldMap Map<String, Object> map);
+
+    //理发师作品详情
+    @FormUrlEncoded
+    @POST(NetUrl.barberProductDetail)
+    Observable<BarberProductDetailBean> getDetail(@FieldMap Map<String, Object> map);
+
+    //理发师更多评论
+    @FormUrlEncoded
+    @POST(NetUrl.barberMoreComment)
+    Observable<BarberMoreCommentBean> getBarberMoreComment(@FieldMap Map<String, Object> map);
 
     //干洗店
     @FormUrlEncoded
@@ -431,6 +468,17 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.queryWater)
     Observable<QueryWaterListBean> queryWaterList(@FieldMap Map<String, Object> map);
+
+    //获得订水时间
+    @FormUrlEncoded
+    @POST(NetUrl.getOrderTime)
+    Observable<OrderWaterTimeBean> getOrderWaterTime(@FieldMap Map<String, Object> map);
+    //Observable<SelectTimeBean> getOrderWaterTime(@FieldMap Map<String, Object> map);
+
+    //提交订单
+    @FormUrlEncoded
+    @POST(NetUrl.generateOrder)
+    Observable<GenerateOrderWaterBean> generateOrder(@FieldMap Map<String, Object> map);
 
     // 提交意见投诉
 //    @FormUrlEncoded

@@ -1,24 +1,31 @@
 package com.moe.wl.ui.main.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.bean.BarberProductDetailBean;
+import com.moe.wl.ui.main.bean.CollectBean;
+import com.moe.wl.ui.main.model.HairStyleDetailModel;
+import com.moe.wl.ui.main.modelimpl.HairStyleDetailModelImpl;
+import com.moe.wl.ui.main.presenter.HairStyleDetailPresenter;
+import com.moe.wl.ui.main.view.HairStyleDetailView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 
-public class HairStyleDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
+        HairStyleDetailView, HairStyleDetailPresenter> implements HairStyleDetailView {
 
     @BindView(R.id.more_product_title)
     TitleBar titleBar;
@@ -30,73 +37,77 @@ public class HairStyleDetailActivity extends AppCompatActivity implements View.O
     TextView tvHowMuch;
     @BindView(R.id.tv_hair_style_des)
     TextView tvHairStyleDes;
-    @BindView(R.id.tv_share)
-    TextView tvShare;
-    @BindView(R.id.tv_collect)
-    TextView tvCollect;
     @BindView(R.id.activity_hair_style_detail)
     RelativeLayout activityHairStyleDetail;
     private BottomSheetDialog dialog;
+    private int favorstatus;
+    private int workid;
+    private static final int Type=7;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public HairStyleDetailPresenter createPresenter() {
+        return new HairStyleDetailPresenter();
+    }
+
+    @Override
+    public HairStyleDetailModel createModel() {
+        return new HairStyleDetailModelImpl();
+    }
+    @Override
+    public void setContentLayout() {
         setContentView(R.layout.activity_hair_style_detail);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
         initTitle();
+        Intent intent = getIntent();
+        int workid =intent .getIntExtra("workid", -1);
+        String img = intent.getStringExtra("img");
+        String name = intent.getStringExtra("name");
+        int price = intent.getIntExtra("price", 0);
+        String brief = intent.getStringExtra("brief");
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this,img,ivHairStyle);
+        tvHairStyleName.setText("名称："+name);
+        tvHowMuch.setText("价格：￥"+price);
+        tvHairStyleDes.setText(brief);
+        getPresenter().getdata(workid);
     }
 
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("发行详情");
-    }
-
-    @OnClick({R.id.tv_share, R.id.tv_collect})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_share:
-                showBottomDialog();
-                break;
-            case R.id.tv_collect:
-                // TODO: 2017/8/23 0023 还未完成
-                showToast("还没写");
-                break;
+        if(favorstatus==0){
+            titleBar.setTitleRight("收藏");
+        }else{
+            titleBar.setTitleRight("取消收藏");
         }
-    }
 
-    private void showBottomDialog() {
-        dialog = new BottomSheetDialog(this, R.style.bottomSheet_dialog_animation);
-       // View view = View.inflate(this, R.layout.bottom_share, null);
-        View view = LayoutInflater.from(this).inflate(R.layout.bottom_share, null);
-        LinearLayout llFrendsCircle= (LinearLayout) view.findViewById(R.id.ll_frends_circle);
-        LinearLayout llWeixinFriend= (LinearLayout) view.findViewById(R.id.ll_weixin_frends);
-        LinearLayout llQQ= (LinearLayout) view.findViewById(R.id.ll_qq);
-        llFrendsCircle.setOnClickListener(this);
-        llWeixinFriend.setOnClickListener(this);
-        llQQ.setOnClickListener(this);
-        dialog.setContentView(view);
-        dialog.show();
+        titleBar.setOnRightclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               getPresenter().collect(Type,workid);
+            }
+        });
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.ll_frends_circle:
-                dialog.dismiss();
-                showToast("分享到朋友圈");
-                break;
-            case R.id.ll_weixin_frends:
-                dialog.dismiss();
-                showToast("分享给微信好友");
-                break;
-            case R.id.ll_qq:
-                dialog.dismiss();
-                showToast("分享到qq");
-                break;
-        }
+    public void getDataSucc(BarberProductDetailBean bean) {
+        workid = bean.getWorkid();
+        favorstatus = bean.getFavorstatus();//0为收藏  1已收藏
     }
-
-    private void showToast(String content) {
-        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    @Override
+    public void collectSucc(CollectBean bean) {
+        LogUtils.i("collect state:=="+bean.getStatus());
+        if(bean.getStatus()==0){
+            titleBar.setTitleRight("收藏");
+            showToast("取消收藏");
+        }else if(bean.getStatus()==1){
+            titleBar.setTitleRight("取消收藏");
+            showToast("收藏成功");
+        }else{
+            showToast("未知异常");
+        }
     }
 }

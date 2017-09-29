@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_need_pay"
             android:layout_centerVertical="true"
             android:textSize="@dimen/sp_small"
             android:textColor="@color/tv_red"

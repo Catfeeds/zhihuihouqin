@@ -4,6 +4,7 @@ import android.widget.GridView;
 
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberProductAdapter;
+import com.moe.wl.ui.main.bean.WorklistBean;
 import com.moe.wl.ui.main.view.BarberProductListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -67,7 +68,7 @@ public class BarberMoreProductActivity extends BaseActivity<BarberPoductListMode
     @Override
     public void getBarberListSucc(BarberWorkListBean listBean) {
         if(listBean!=null){
-            List<BarberWorkListBean.WorklistBean> worklist = listBean.getWorklist();
+            List<WorklistBean> worklist = listBean.getWorklist();
             barberProductAdapter.setMoreData(worklist);
         }
     }

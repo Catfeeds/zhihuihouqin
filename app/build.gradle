@@ -17,6 +17,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     dexOptions {
         jumboMode true
@@ -80,5 +81,7 @@ dependencies {
     compile 'id.zelory:compressor:1.0.4'
     //6.0权限
     compile 'com.lovedise:permissiongen:0.0.6'
+    //分包
+    compile 'com.android.support:multidex:1.0.0'
 
 }

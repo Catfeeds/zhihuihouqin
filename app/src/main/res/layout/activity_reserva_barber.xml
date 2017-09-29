@@ -22,7 +22,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
-
                 <ImageView
                     android:id="@+id/iv_barber_background"
                     android:layout_width="match_parent"
@@ -212,78 +211,11 @@
                     android:textSize="@dimen/sp_smaller" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="洗剪吹"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
-
-                <TextView
-                    android:id="@+id/tv_xijianchui"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="30dp"
-                    android:layout_toLeftOf="@+id/iv_gou1"
-                    android:text="￥30"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
-
-                <ImageView
-                    android:id="@+id/iv_gou1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/unselected" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="洗吹"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
-
-                <TextView
-                    android:id="@+id/tv_xichui"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="30dp"
-                    android:layout_toLeftOf="@+id/iv_gou2"
-                    android:text="￥25"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
-
-                <ImageView
-                    android:id="@+id/iv_gou2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/unselected" />
-            </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="#1000" />
-            <ExpandableListView
+            <com.moe.wl.ui.mywidget.NoScrollExpandableListView
                 android:id="@+id/e_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -306,12 +238,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"></LinearLayout>
 
-            <View
+            <!--<View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:background="@color/gray_lighter" />
+                android:background="@color/gray_lighter" />-->
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/standard_padding">
@@ -333,7 +265,7 @@
                     android:text="￥78"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <View
                 android:layout_width="match_parent"
@@ -403,7 +335,9 @@
                 <EditText
                     android:id="@+id/et_scanner"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:textColorHint="@color/gray_light"
                     android:background="@color/transparent"
                     android:hint="你想对你的设计师说..."
                     android:textSize="@dimen/sp_common" />
@@ -419,7 +353,6 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
             </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="30dp"

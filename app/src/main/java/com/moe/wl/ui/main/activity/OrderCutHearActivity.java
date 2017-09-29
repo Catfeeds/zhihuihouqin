@@ -21,13 +21,15 @@ import com.moe.wl.ui.main.modelimpl.ShopModelImpl;
 import com.moe.wl.ui.main.presenter.ShopPresenter;
 import com.moe.wl.ui.main.view.ShopView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.StringUtil;
 
-public class OrderCutHearActivity extends BaseActivity<ShopModel,ShopView,ShopPresenter>implements ShopView {
+public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, ShopPresenter> implements ShopView {
 
     @BindView(R.id.more_health_consult_title)
     TitleBar titleBar;
@@ -43,8 +45,8 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel,ShopView,ShopPr
     TextView tvPhone;
     @BindView(R.id.rv_hot_phone)
     ImageView rvHotPhone;
-    @BindView(R.id.barber)
-    TextView barber;
+    @BindView(R.id.tv_barber_num)
+    TextView tvBarberNum;
     @BindView(R.id.shop_grid)
     GridView shopGrid;
     @BindView(R.id.tv_now_order)
@@ -81,19 +83,22 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel,ShopView,ShopPr
 
     @Override
     public void getShopInfo(ShopBean shopBean) {
-        this.shopBean=shopBean;
+        this.shopBean = shopBean;
         System.out.println("shopBean = " + shopBean);
-        if(shopBean!=null){
+        if (shopBean != null) {
             shopName.setText(shopBean.getTradename());
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(this,shopBean.getPicture(),ivCutHearLogo);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(this, shopBean.getPicture(), ivCutHearLogo);
             tvAddress.setText(shopBean.getPlace());
             tvWorkTime.setText(shopBean.getBusinesshour());
             tvPhone.setText(shopBean.getMobile());
-            adapter.setData(shopBean.getBarberlist());
-        }else{
+            List<ShopBean.BarberlistBean> barberlist = shopBean.getBarberlist();
+            tvBarberNum.setText("全部" + barberlist.size() + "位理发师");
+            adapter.setData(barberlist);
+        } else {
             showToast(shopBean.getMsg());
         }
     }
+
     private void initGrid() {
         adapter = new CutHearAdapter(this);
         shopGrid.setAdapter(adapter);
@@ -104,16 +109,19 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel,ShopView,ShopPr
         titleBar.setTitle("店铺");
     }
 
-    @OnClick({R.id.barber, R.id.tv_now_order,R.id.ll_call})
+    @OnClick({R.id.tv_barber_num, R.id.tv_now_order, R.id.ll_call})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.barber:
+            case R.id.tv_barber_num:
                 Intent intent = new Intent(this, BarberActivity.class);
-                intent.putExtra("address",shopBean.getPlace());
-                intent.putExtra("shopName",shopBean.getTradename());
+                intent.putExtra("address", shopBean.getPlace());
+                intent.putExtra("shopName", shopBean.getTradename());
                 startActivity(intent);
                 break;
             case R.id.tv_now_order:
+                Intent intent1 = new Intent(this, NowReservaBarberActivity.class);
+                // TODO: 2017/9/28 0028
+                startActivity(intent1);
                 break;
             case R.id.ll_call:
                 final String phone = tvPhone.getText().toString().trim();

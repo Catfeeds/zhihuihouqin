@@ -20,7 +20,7 @@ public interface NetUrl {
 
     //医疗
     String healthServiceHome="appuser/ylfw/ylfwindex";
-    String healthInfoCollect="zhihuihouqin-api/appuser/tfavor/addFavor";
+    String healthInfoCollect="appuser/tfavor/addFavor";
     String doctorList="appuser/ylfw/doctorlist";
     String doctorDetail="appuser/ylfw/schedules";
     String more="appuser/healthyinfo/list";
@@ -53,6 +53,10 @@ public interface NetUrl {
     String hairCutOrderList = "appuser/lffw/orderlist"; // 理发订单列表
     String cancelHairCutOrder = "appuser/lffw/cancelorder";
 
+    String consult="appuser/lffw/noticelist";
+    String sendMessage="appuser/lffw/addnotice";
+    String barberProductDetail="appuser/lffw/barberworkdetail";
+    String barberMoreComment="appuser/lffw/getcomment";
     //干洗店
     String dryCleanerHome="appuser/service/getServiceInfo";
     String orderDryCleaner="appuser/tgxdfwclothestype/findClothesTypeList";
@@ -100,6 +104,8 @@ public interface NetUrl {
     //订水
     String orderWater="appuser/dsfwgoods/findCategoryList";
     String queryWater="appuser/dsfwgoods/findGoodsList";
+    String getOrderTime="appuser/dsfworder/sendTimeList";
+    String generateOrder ="appuser/dsfworder/generateOrder";
     String waterOrderList = "appuser/tdcfworder/findOrderList";
     String cancelWaterOrder = "appuser/dsfworder/orderCancel";
 

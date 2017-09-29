@@ -30,7 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="@color/gray_lighter"/>
     <TextView
         android:id="@+id/tv_activity_posted"
         style="@style/tvStyle_blue_bigger"

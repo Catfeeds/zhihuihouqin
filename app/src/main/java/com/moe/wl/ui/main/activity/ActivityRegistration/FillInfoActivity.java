@@ -52,7 +52,7 @@ public class FillInfoActivity extends Base2Activity {
     private void initData() {
         etPhone.setText(phone);
         etPhone.setSelection(etPhone.length());
-        tvName.setText(name);
+        tvName.setText("姓名: "+name);
 
     }
 

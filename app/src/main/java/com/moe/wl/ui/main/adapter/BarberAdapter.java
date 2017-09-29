@@ -98,9 +98,11 @@ public class BarberAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, BarberDetailActivity.class);
+                    /*intent.putExtra("shopName",shopName);
+                    intent.putExtra("address",address);
+                    intent.putExtra("barberlistBean",barberlistBean);*/
                     Bundle bundle = new Bundle();
                     if (shopName != null) {
-
                         bundle.putString("shopName", shopName);
                     }
                     if(address!=null){

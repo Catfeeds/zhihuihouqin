@@ -10,4 +10,5 @@ import rx.Observable;
 public interface BarberDetailModel extends MvpModel{
 
     Observable getData(int id);
+    Observable collect(int type,int i);
 }

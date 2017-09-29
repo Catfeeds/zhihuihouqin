@@ -1,128 +1,194 @@
 package com.moe.wl.ui.main.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.WaterAdapter;
-import com.moe.wl.ui.main.bean.OrderWaterSumAndcount;
-import com.moe.wl.ui.main.bean.QueryWaterListBean;
-import com.moe.wl.ui.main.model.QueryWaterListModel;
-import com.moe.wl.ui.main.modelimpl.QueryWaterListModelImpl;
-import com.moe.wl.ui.main.presenter.QueryWaterListPresenter;
-import com.moe.wl.ui.main.view.QueryWaterListView;
+import com.moe.wl.ui.main.bean.NotifyChange;
+import com.moe.wl.ui.main.bean.OrderWaterBean;
+import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import mvp.cn.util.CallPhoneUtils;
+import rx.Observable;
+import rx.Subscriber;
+
 
 /**
- * Created by 我的电脑 on 2017/9/26 0026.
+ * 订水订单Fragment
+ * Created by 我的电脑 on 2017/8/17 0017.
  */
+public class WaterFragment extends BaseFragment2 {
 
-public class WaterFragment extends BaseFragment<QueryWaterListModel, QueryWaterListView,
-        QueryWaterListPresenter> implements QueryWaterListView {
-    @BindView(R.id.rv_water)
-    XRecyclerView rvWater;
-    private WaterAdapter waterAdapter;
+    private List<OrderWaterBean.PageEntity.ListEntity> data;
+    @BindView(R.id.rv_wait_order_fragment)
+    XRecyclerView recyclerView;
+
+    Unbinder unbinder;
+    private WaterAdapter adapter;
     private int page = 1;
-    private int limit = 10;
-    private boolean isRefresh;
-    private int id;
-    private List<QueryWaterListBean.PageBean.ListBean> mList;
+    private int state;
 
-    @Override
-    public void setContentLayout(Bundle savedInstanceState) {
-        setContentView(R.layout.order_list);
+    private int serviceType = 18;
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        getData();
     }
 
-    @Override
-    public void initView(View v) {
-        mList = new ArrayList<>();
-        initWaterRecycler();
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            id = bundle.getInt("id");
-            getPresenter().queryWaterType(id, page, limit);
-        }
-    }
-
-    public static WaterFragment getInstance(int id) {
+    public static WaterFragment getInstance(int i) {
         WaterFragment fragment = new WaterFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
+        bundle.putInt("from", i);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    private void initWaterRecycler() {
-        rvWater.setLayoutManager(new LinearLayoutManager(getActivity()));
-        waterAdapter = new WaterAdapter(getActivity());
-        rvWater.setAdapter(waterAdapter);
-        rvWater.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        rvWater.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        rvWater.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override
-            public void onRefresh() {
-                isRefresh = true;
-                page = 1;
-                getPresenter().queryWaterType(id, page, limit);
-                rvWater.refreshComplete();
-            }
+    @Override
+    public View setLayout() {
+        View view = View.inflate(getActivity(), R.layout.fragment_wait_order, null);
+        unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
+        return view;
+    }
 
+    @Override
+    public void initView() {
+        initRecycler();
+        setClick();
+    }
+
+    private void setClick() {
+        adapter.setOnClickListener(new WaterAdapter.OnClickListener() {
             @Override
-            public void onLoadMore() {
-                isRefresh = false;
-                page++;
-                getPresenter().queryWaterType(id, page, limit);
-                rvWater.loadMoreComplete();
+            public void onClick(int type, int position) {
+                switch (type) {
+                    case 0: // 取消订单
+                        showAlertDialog("是否取消订单", state, position);
+                        break;
+
+                    case 1: // 联系配送人员
+                        showAlertDialog("是否拨打服务电话", state, position);
+                        break;
+
+                    case 2: // 再来一单
+                        break;
+
+                    case 3: // 评价
+                        break;
+
+                    case 4: // 删除订单
+                        break;
+                }
             }
         });
     }
 
-    @Override
-    public void queryWaterListSucc(QueryWaterListBean bean) {
-        if (bean != null) {
-            final List<QueryWaterListBean.PageBean.ListBean> list = bean.getPage().getList();
-            if (isRefresh) {
-                mList.clear();
-            }
-            mList.addAll(list);
-            waterAdapter.setData(mList);
-            waterAdapter.setListener(new WaterAdapter.OnClickListener() {
-                int count = 0;
-                int sum = 0;
-
-                @Override
-                public void onClickListener() {
-                    for (int i = 0; i < list.size(); i++) {
-                        QueryWaterListBean.PageBean.ListBean listBean = list.get(i);
-                        int count1 = listBean.getCount();
-                        int price = listBean.getPrice();
-                        sum += count1 * price;
-                        count += count1;
+    private void showAlertDialog(String s, final int state, final int position) {
+        new AlertDialog(getActivity()).builder()
+                .setBigMsg(s)
+                .setPositiveButton("是", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
+                        intent.putExtra("from", Constants.ORDERWATER);
+                        if (data != null && data.size() > 0) {
+                            OrderWaterBean.PageEntity.ListEntity listBean = data.get(position);
+                            if (state == 0) {
+                                int id = listBean.getId(); // 订单id
+                                intent.putExtra("OrderingID", id);
+                                intent.putExtra("ServiceType", serviceType);
+                                startActivity(intent);
+                            } else if (state == 1) {
+                                //TODO 服务电话
+                                String mobile = listBean.getMobile(); // 手机号
+                                CallPhoneUtils.callPhone(mobile, getActivity());
+                            }
+                        }
                     }
-                    EventBus.getDefault().post(new OrderWaterSumAndcount(count, sum));
+                })
+                .setNegativeButton("否", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                }).show();
+    }
+
+    private void initRecycler() {
+        data = new ArrayList<>();
+        Bundle arguments = getArguments();
+        state = arguments.getInt("from");
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new WaterAdapter(getActivity(), data, state);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                getData();
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                getData();
+            }
+        });
+        getData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void getData() {
+        Observable observable = RetrofitUtils.getInstance().getWaterOrder(state + 1, page);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<OrderWaterBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.i("获取订单出现问题");
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(OrderWaterBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    if (page == 1) {
+                        data.clear();
+                        recyclerView.refreshComplete();
+                    } else {
+                        recyclerView.loadMoreComplete();
+                    }
+                    data.addAll(orderBean.getPage().getList());
+                    adapter.notifyDataSetChanged();
                 }
-            });
-        }
+            }
+        });
     }
-
-    @Override
-    public QueryWaterListModel createModel() {
-        return new QueryWaterListModelImpl();
-    }
-
-    @Override
-    public QueryWaterListPresenter createPresenter() {
-        return new QueryWaterListPresenter();
-    }
-
 }

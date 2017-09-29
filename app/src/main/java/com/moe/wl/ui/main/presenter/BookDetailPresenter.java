@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.presenter;
 import android.util.Log;
 
 import com.moe.wl.ui.main.bean.BookDetailBean;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.view.BookDetailView;
 import com.moe.wl.ui.main.model.BookDetailModel;
 
@@ -16,11 +17,11 @@ import rx.Subscriber;
 
 public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDetailView> {
 
-    public void getData(int id) {
+    public void getData(int type,int id) {
         getView().showProgressDialog();
         Log.e("BookDetailPresenter","发出请求");
-        Observable login = getModel().getData(id);
-        getNetWork(login, new Subscriber<BookDetailBean>() {
+        Observable login = getModel().getData(type,id);
+        getNetWork(login, new Subscriber<CollectBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -32,9 +33,9 @@ public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDet
             }
 
             @Override
-            public void onNext(BookDetailBean listBean) {
+            public void onNext(CollectBean listBean) {
                 if(listBean.getErrCode()==0){
-                    getView().getBookDetailSucc(listBean);
+                    getView().collectSucc(listBean);
                 }else{
                     getView().showToast(listBean.getMsg());
                 }

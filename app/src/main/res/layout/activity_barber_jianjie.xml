@@ -16,14 +16,12 @@
         android:background="#2000"/>
     <TextView
         android:id="@+id/tv_jianjie_content"
-        android:textSize="@dimen/sp_small"
+        android:textSize="@dimen/sp_big"
         android:textColor="@color/tv_black"
-        android:text="jianjiecontent"
+        android:text=""
+        android:lineSpacingExtra="3dp"
         android:layout_margin="10dp"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:paddingBottom="20dp"
+       android:padding="@dimen/standard_padding"
         android:background="@drawable/shape_rec_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

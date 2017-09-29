@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 
 /**
@@ -21,21 +22,20 @@ import com.moe.wl.ui.main.bean.PreOrderBean;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<PreOrderBean.ItemlistBeanX> mItemlist;
+    private boolean select;
 
     public ExpandableListAdapter(Context context, List<PreOrderBean.ItemlistBeanX> itemlist) {
         this.mContext = context;
         this.mItemlist = itemlist;
     }
-
-
     /**
      * 获取一级标签总数
      */
     @Override
     public int getGroupCount() {
+        LogUtils.i("mItemlist的数量："+mItemlist.size());
         return mItemlist.size();
     }
-
     /**
      * 获取一级标签下二级标签的总数
      */
@@ -57,7 +57,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        //return child_text_array[groupPosition][childPosition];
         return mItemlist.get(groupPosition).getItemlist().get(childPosition);
     }
 
@@ -110,16 +109,34 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
      * 对一级标签下的二级标签进行设置
      */
     @Override
-    public View getChildView(int groupPosition, int childPosition,
+    public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        convertView = (RelativeLayout) RelativeLayout.inflate(mContext,
+        convertView = (LinearLayout) LinearLayout.inflate(mContext,
                 R.layout.item_child_layout, null);
         TextView tvChildName = (TextView) convertView.findViewById(R.id.tv_child_name);
         TextView tvChilePrice = (TextView) convertView.findViewById(R.id.tv_child_price);
         ImageView ivCheck = (ImageView) convertView.findViewById(R.id.iv_check);
-        List<PreOrderBean.ItemlistBeanX.ItemlistBean> childItemlist = mItemlist.get(groupPosition).getItemlist();
+        final List<PreOrderBean.ItemlistBeanX.ItemlistBean> childItemlist = mItemlist.get(groupPosition).getItemlist();
+
         tvChildName.setText(childItemlist.get(childPosition).getName());
-        tvChilePrice.setText(childItemlist.get(childPosition).getPrice());
+        tvChilePrice.setText(childItemlist.get(childPosition).getPrice()+"");
+        boolean select = childItemlist.get(childPosition).isSelect();
+        if(select){
+            ivCheck.setImageResource(R.drawable.selected);
+        }else{
+            ivCheck.setImageResource(R.drawable.unselected);
+        }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean select = childItemlist.get(childPosition).isSelect();
+                childItemlist.get(childPosition).setSelect(!select);
+                notifyDataSetChanged();
+                if(listener!=null){
+                    listener.onItemClickListener();
+                }
+            }
+        });
         return convertView;
     }
 
@@ -128,6 +145,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
      */
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
+
         return true;
+    }
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClickListener();
     }
 }

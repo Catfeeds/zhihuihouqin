@@ -18,4 +18,11 @@ public class BarberDetailModelImpl implements BarberDetailModel {
         Observable observer = RetrofitUtils.getInstance().getBarberDetail(id);
         return observer ;
     }
+
+    @Override
+    public Observable collect(int type, int i) {
+        LogUtil.log("BarberDetailModelImpl-->collect");
+        Observable observer = RetrofitUtils.getInstance().getHealthInfoColect(type,i);
+        return observer ;
+    }
 }

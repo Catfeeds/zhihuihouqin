@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_order_info"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/all_sp_comment_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:text="@string/name"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:text=""
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/alertdialog_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:text="@string/phone_number"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:textColor="@color/tv_black"
+            android:textColorHint="@color/gray_light"
+            android:textSize="@dimen/sp_big" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/alertdialog_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:text="@string/address"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp_big" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/turn_right" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_arrive_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:text="@string/arrive_time"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp_big" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/turn_right" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/gray_trans"
+        android:layout_weight="1">
+        <LinearLayout
+            android:background="@drawable/shape_remark"
+            android:layout_margin="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_remark"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_big"
+                android:hint="备注"
+                android:padding="8dp"
+                android:gravity="top"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <TextView
+        android:id="@+id/confirm"
+        android:textSize="@dimen/sp_bigger"
+        android:textColor="@color/tv_black"
+        android:text="确定"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+</LinearLayout>

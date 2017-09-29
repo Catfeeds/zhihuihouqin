@@ -17,9 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.moe.wl.R;
 
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.HairStyleDetailActivity;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
 import com.moe.wl.ui.main.bean.BarberWorkListBean;
+import com.moe.wl.ui.main.bean.WorklistBean;
 
 /**
  * Created by 我的电脑 on 2017/8/22 0022.
@@ -27,7 +29,8 @@ import com.moe.wl.ui.main.bean.BarberWorkListBean;
 
 public class BarberProductAdapter extends BaseAdapter {
     private  Context mContext;
-    private List<BarberDetailBean.WorklistBean> data=new ArrayList<>();
+    private List<WorklistBean> data=new ArrayList<>();
+    private int id;
 
     public BarberProductAdapter(Context context) {
         this.mContext=context;
@@ -36,7 +39,7 @@ public class BarberProductAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if(data!=null){
-            data.size();
+            return data.size();
         }
         return 0;
     }
@@ -53,26 +56,30 @@ public class BarberProductAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
+        ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.barber_product_grid_item, null);
-            viewHolder=new ViewHolder(convertView);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        BarberDetailBean.WorklistBean worklistBean = data.get(position);
+        WorklistBean worklistBean = data.get(position);
+
+
         viewHolder.setData(worklistBean);
+
         return convertView;
     }
 
-    public void setData(List<BarberDetailBean.WorklistBean> data) {
+    public void setData(List<WorklistBean> data) {
         this.data = data;
+        LogUtils.i("data:=="+data.size());
         notifyDataSetChanged();
     }
 
-    public void setMoreData(List<BarberWorkListBean.WorklistBean> moreData) {
-        //this.data = moreData;
+    public void setMoreData(List<WorklistBean> moreData) {
+        this.data = moreData;
         notifyDataSetChanged();
     }
 
@@ -83,6 +90,7 @@ public class BarberProductAdapter extends BaseAdapter {
         TextView tvProductDes;
         @BindView(R.id.tv_money)
         TextView tvMoney;
+        private WorklistBean data;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -90,17 +98,23 @@ public class BarberProductAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, HairStyleDetailActivity.class);
+                    intent.putExtra("workid", id);
+                    intent.putExtra("img",data.getDetailimg());
+                    intent.putExtra("price",data.getPrice());
+                    intent.putExtra("name",data.getName());
+                    intent.putExtra("brief",data.getBrief());
                     mContext.startActivity(intent);
                 }
             });
         }
 
-        public void setData(BarberDetailBean.WorklistBean worklistBean) {
-            if(worklistBean!=null){
-                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,worklistBean.getDetailimg(),ivProductPhoto);
+        public void setData(WorklistBean worklistBean) {
+            this.data = worklistBean;
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, worklistBean.getDetailimg(),ivProductPhoto);
             tvProductDes.setText(worklistBean.getName());
-                tvMoney.setText("￥"+worklistBean.getPrice());
-            }
+            LogUtils.i("worklistbean===" + worklistBean.getName() + "   " + worklistBean.getPrice());
+            tvMoney.setText("￥" + worklistBean.getPrice());
+            id = worklistBean.getId();
         }
     }
 }

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/partner_luffy" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/tv_sp_des"

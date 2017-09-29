@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ShopBean  {
 
+
     /**
      * msg : success
      * tradename : null
@@ -24,8 +25,6 @@ public class ShopBean  {
     private int errCode;
     private String mobile;
     private String place;
-
-
     private String businesshour;
     private String picture;
     private List<BarberlistBean> barberlist;

@@ -24,7 +24,6 @@ public class ShopPresenter extends MvpRxPresenter<ShopModel, ShopView> {
             public void onCompleted() {
 
             }
-
             @Override
             public void onError(Throwable e) {
                 Log.e("错误", e.getMessage());

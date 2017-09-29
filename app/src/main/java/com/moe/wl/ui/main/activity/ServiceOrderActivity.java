@@ -24,7 +24,7 @@ import com.moe.wl.ui.main.fragment.OrderMedicalFragment;
 import com.moe.wl.ui.main.fragment.OrderOfficeFragment;
 import com.moe.wl.ui.main.fragment.OrderRepairFragment;
 import com.moe.wl.ui.main.fragment.OrderVegetableFragment;
-import com.moe.wl.ui.main.fragment.OrderWaterFragment;
+import com.moe.wl.ui.main.fragment.WaterFragment;
 import com.moe.wl.ui.mywidget.OrderPop;
 
 import java.util.ArrayList;
@@ -104,11 +104,11 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                 break;
 
             case Constants.ORDERWATER:// 订水订单
-                fragments.add(OrderWaterFragment.getInstance(0));
-                fragments.add(OrderWaterFragment.getInstance(1));
-                fragments.add(OrderWaterFragment.getInstance(2));
-                fragments.add(OrderWaterFragment.getInstance(3));
-                fragments.add(OrderWaterFragment.getInstance(4));
+                fragments.add(WaterFragment.getInstance(0));
+                fragments.add(WaterFragment.getInstance(1));
+                fragments.add(WaterFragment.getInstance(2));
+                fragments.add(WaterFragment.getInstance(3));
+                fragments.add(WaterFragment.getInstance(4));
                 break;
 
             case Constants.MEDICAL:// 医疗订单

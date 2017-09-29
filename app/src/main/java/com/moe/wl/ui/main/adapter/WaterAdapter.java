@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.bean.OrderWaterBean;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 
 import java.util.ArrayList;
@@ -23,113 +24,93 @@ import butterknife.ButterKnife;
  */
 
 public class WaterAdapter extends RecyclerView.Adapter {
-    private Context mContext;
-    private List<QueryWaterListBean.PageBean.ListBean> data=new ArrayList<>();
+    private Context context;
+    private List<OrderWaterBean.PageEntity.ListEntity> data;
+    private int state;
+    private OnClickListener listener;
 
-    public WaterAdapter(Context mContext) {
-        this.mContext = mContext;
+
+    public WaterAdapter(Context context, List<OrderWaterBean.PageEntity.ListEntity> data, int state) {
+        this.context = context;
+        this.data = data;
+        this.state = state;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater from = LayoutInflater.from(parent.getContext());
-        View view = from.inflate(R.layout.order_water_item, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_order_water, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder,  int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
-        final int mPosition=position;
-        if (data != null && data.size() > 0) {
-            final QueryWaterListBean.PageBean.ListBean listBean = data.get(position);
-            viewHolder.setData(listBean);
-            viewHolder.ivAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int count = listBean.getCount();
-                    count++;
-                    listBean.setCount(count);
-                    notifyItemChanged(mPosition);
-                    if(listener!=null){
-                        listener.onClickListener();
-                    }
-                }
-            });
-            viewHolder.ivMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int count = listBean.getCount();
-                    if(count>0){
-                        count--;
-                    }else{
-                        count=0;
-                    }
-                    listBean.setCount(count);
-                    notifyItemChanged(mPosition);
-                    if(listener!=null){
-                        listener.onClickListener();
-                    }
-                }
-            });
+    public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
+        ViewHolder holder = (ViewHolder) holders;
+        holder.orderNumber.setText("订单号：" + data.get(position).getOrdercode());
+        if (data.get(position).getDetailList().size() != 0) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getDetailList().get(0).getGoods().getImg(), holder.image);
+            holder.name.setText(data.get(position).getDetailList().get(0).getGoods().getName()); // 商品名称
+            holder.number.setText("x" + data.get(position).getDetailList().get(0).getCount());  // 商品数量
         }
+        holder.price.setText("￥" + data.get(position).getTotalprice());
+
+        switch (state) {
+            case 0:
+                holder.order1.setText("取消订单");
+                break;
+            case 1:
+                holder.order1.setText("联系商家");
+                break;
+            case 2:
+                holder.order1.setText("评价");
+                break;
+            case 3:
+                holder.order1.setText("评价");
+                break;
+            case 4:
+                holder.order1.setText("删除订单");
+                break;
+        }
+
+        holder.order1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null)
+                    listener.onClick(state, position);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        if(data!=null&&data.size()>0){
-            return data.size();
-        }
-        return 0;
+        return data.size();
     }
 
-    public void setData(List<QueryWaterListBean.PageBean.ListBean> data) {
-        this.data = data;
-        notifyDataSetChanged();
-    }
-
-     class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.iv_item)
-        ImageView ivItem;
-        @BindView(R.id.tv_water_name)
-        TextView tvWaterName;
-        @BindView(R.id.tv_how_much)
-        TextView tvHowMuch;
-        @BindView(R.id.iv_minus)
-        ImageView ivMinus;
-        @BindView(R.id.tv_count)
-        TextView tvCount;
-        @BindView(R.id.iv_add)
-        ImageView ivAdd;
-        private QueryWaterListBean.PageBean.ListBean data;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.order_number)
+        TextView orderNumber;
+        @BindView(R.id.image)
+        ImageView image;
+        @BindView(R.id.name)
+        TextView name;
+        @BindView(R.id.number)
+        TextView number;
+        @BindView(R.id.price)
+        TextView price;
+        @BindView(R.id.order_1)
+        TextView order1;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
-
-        public void setData(QueryWaterListBean.PageBean.ListBean data) {
-            this.data = data;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,data.getImg(),ivItem);
-            tvWaterName.setText(data.getName());
-            tvHowMuch.setText("￥"+data.getPrice());
-            int count = data.getCount();
-            if(count>0){
-                ivMinus.setVisibility(View.VISIBLE);
-                tvCount.setVisibility(View.VISIBLE);
-            }else{
-                ivMinus.setVisibility(View.GONE);
-                tvCount.setVisibility(View.GONE);
-            }
-        }
     }
-    private OnClickListener listener;
 
-    public void setListener(OnClickListener listener) {
+    public interface OnClickListener {
+        void onClick(int type, int position);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
         this.listener = listener;
-    }
-
-    public interface OnClickListener{
-        void onClickListener();
     }
 }

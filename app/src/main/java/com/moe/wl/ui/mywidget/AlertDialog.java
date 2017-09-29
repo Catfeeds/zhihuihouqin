@@ -94,7 +94,7 @@ public class AlertDialog {
 			txt_msg.setText("内容");
 		} else {
 			txt_msg.setText(msg+"");
-			txt_msg.setTextSize(DensityUtil.dip2px(context,16));
+			txt_msg.setTextSize(18);
 		}
 		return this;
 	}

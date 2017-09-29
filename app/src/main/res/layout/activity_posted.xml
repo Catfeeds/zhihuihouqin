@@ -136,7 +136,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
-                android:background="@color/gray_lighter" />
+                android:background="@color/gray_trans" />
 
             <View
                 android:layout_width="match_parent"
@@ -309,8 +309,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="4dp"
+                android:background="@color/gray_trans" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -342,8 +342,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:layout_alignParentBottom="true"
                     android:orientation="vertical"
                     android:padding="@dimen/standard_padding">
@@ -357,12 +358,10 @@
 
                     <ImageView
                         android:id="@+id/add_photo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:paddingTop="4dp"
+                        android:layout_margin="4dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:scaleType="fitXY"
                         android:src="@drawable/add_photo" />
                 </LinearLayout>
 
@@ -372,8 +371,8 @@
                     android:layout_alignParentBottom="true"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/standard_padding"
-                    android:paddingRight="@dimen/standard_padding"
-                    android:paddingLeft="@dimen/standard_padding">
+                    android:paddingLeft="@dimen/standard_padding"
+                    android:paddingRight="@dimen/standard_padding">
 
                     <TextView
                         android:layout_width="wrap_content"

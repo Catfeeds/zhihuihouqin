@@ -263,6 +263,15 @@ public class PreOrderBean {
             private String name;
             private int price;
             private int typeid;
+            private boolean isSelect;
+
+            public boolean isSelect() {
+                return isSelect;
+            }
+
+            public void setSelect(boolean select) {
+                isSelect = select;
+            }
 
             public String getCreatetime() {
                 return createtime;

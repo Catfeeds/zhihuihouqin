@@ -9,5 +9,5 @@ import rx.Observable;
 
 public interface BookDetailModel extends MvpModel{
 
-    Observable getData(int bookId);
+    Observable getData(int type,int bookId);
 }
