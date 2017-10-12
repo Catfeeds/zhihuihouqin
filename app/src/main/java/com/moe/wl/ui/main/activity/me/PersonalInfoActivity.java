@@ -1,68 +1,80 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.Manifest;
-
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.moe.wl.framework.contant.Constants;
+import com.bumptech.glide.Glide;
+import com.moe.wl.R;
+import com.moe.wl.framework.application.SoftApplication;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.activity.PositionActivity;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.ChangeUserInfo;
+import com.moe.wl.ui.main.bean.UpLoadHeaderBean;
+import com.moe.wl.ui.main.bean.UserInfoBean;
+import com.moe.wl.ui.main.model.UserInfoModel;
+import com.moe.wl.ui.main.modelimpl.UserInfoModelImpl;
+import com.moe.wl.ui.main.presenter.UserInfoPresenter;
+import com.moe.wl.ui.main.view.UserInfoView;
 import com.moe.wl.ui.mywidget.StringListDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import de.hdodenhof.circleimageview.CircleImageView;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
-public class PersonalInfoActivity extends AppCompatActivity  {
+public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoView, UserInfoPresenter> implements UserInfoView {
 
 
-    private static final int CAMERA_REQUEST_CODE = 1;
-    private static final int READ_REQUEST_CODE = 2;
     private static final int SEXREQUESTCODE = 3;
     private static final int POSITIONREQUESTCODE = 4;
     @BindView(R.id.personal_info_titlebar)
     TitleBar titleBar;
-    @BindView(R.id.civ_header)
-    CircleImageView civHeader;
+    CircleImageView iv_header;
     @BindView(R.id.rl_header)
     RelativeLayout rlHeader;
-    @BindView(R.id.et_nicheng)
-    EditText etNicheng;
+    @BindView(R.id.tv_nicheng)
+    EditText tvNicheng;
     @BindView(R.id.ll_nicheng)
     LinearLayout llNicheng;
-    @BindView(R.id.et_phone)
-    EditText etPhone;
+    @BindView(R.id.tv_phone)
+    EditText tvPhone;
     @BindView(R.id.ll_phone)
     LinearLayout llPhone;
+    @BindView(R.id.et_build_num)
+    EditText etBuildNum;
+    @BindView(R.id.ll_buildnum)
+    LinearLayout llBuildnum;
     @BindView(R.id.et_room_num)
     EditText etRoomNum;
     @BindView(R.id.ll_roomnum)
@@ -75,20 +87,129 @@ public class PersonalInfoActivity extends AppCompatActivity  {
     TextView tvSex;
     @BindView(R.id.rl_sex)
     RelativeLayout rlSex;
+    @BindView(R.id.tv_position)
+    TextView tvPosition;
     @BindView(R.id.rl_position)
     RelativeLayout rlPosition;
+    @BindView(R.id.tv_id)
+    TextView tvId;
     @BindView(R.id.activity_personal_info)
     LinearLayout activityPersonalInfo;
-    private Bitmap photo;
-    private String picPath;
+
+
+    private boolean isEdit = false;
+    private int positionId;
+    private String sex;
+    private int sexid;
+    private Bitmap mBitmap;
+    protected static final int CHOOSE_PICTURE = 0;
+    protected static final int TAKE_PICTURE = 1;
+    protected static Uri tempUri;
+    private static final int CROP_SMALL_PICTURE = 2;
+    private final String IMG_TEMP_FILE = SoftApplication.getInstance().getFilesDir().getAbsolutePath() + "/ImageHead" + ".png";
+    private File mFile;
+    private String url;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public UserInfoPresenter createPresenter() {
+        return new UserInfoPresenter();
+    }
+
+    @Override
+    public UserInfoModel createModel() {
+        return new UserInfoModelImpl();
+    }
+
+    @Override
+    public void setContentLayout() {
         setContentView(R.layout.activity_personal_info);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
+        iv_header = (CircleImageView) findViewById(R.id.iv_header);
         titleBar.setBack(true);
+        //此file用来保存剪裁后的头像图片
+        mFile = new File(IMG_TEMP_FILE);
         titleBar.setTitle("个人信息");
+        titleBar.setTitleRight("编辑");
+        titleBar.setOnRightclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isEdit = !isEdit;
+                if (isEdit) {//可编辑
+                    tvNicheng.setFocusableInTouchMode(true);
+                    tvNicheng.setFocusable(true);
+                    tvNicheng.requestFocus();
+                    tvPhone.setFocusableInTouchMode(true);
+                    tvPhone.setFocusable(true);
+                    tvPhone.requestFocus();
+                    etOfficePhone.setFocusableInTouchMode(true);
+                    etOfficePhone.setFocusable(true);
+                    etOfficePhone.requestFocus();
+                    etBuildNum.setFocusableInTouchMode(true);
+                    etBuildNum.setFocusable(true);
+                    etBuildNum.requestFocus();
+                    etRoomNum.setFocusableInTouchMode(true);
+                    etRoomNum.setFocusable(true);
+                    etRoomNum.requestFocus();
+                    rlSex.setClickable(true);
+                    rlPosition.setClickable(true);
+                    rlHeader.setClickable(true);
+
+                    titleBar.setTitleRight("完成");
+
+                } else {//不可编辑
+                    tvNicheng.setFocusable(false);
+                    tvNicheng.setFocusableInTouchMode(false);
+
+                    tvPhone.setFocusable(false);
+                    tvPhone.setFocusableInTouchMode(false);
+
+                    etOfficePhone.setFocusable(false);
+                    etOfficePhone.setFocusableInTouchMode(false);
+
+                    etBuildNum.setFocusable(false);
+                    etBuildNum.setFocusableInTouchMode(false);
+
+                    etRoomNum.setFocusable(false);
+                    etRoomNum.setFocusableInTouchMode(false);
+                    rlSex.setClickable(false);
+                    rlPosition.setClickable(false);
+                    rlHeader.setClickable(false);
+
+                    titleBar.setTitleRight("编辑");
+                    //修改用户信息
+                    /*用户信息检测*/
+                    userInfoCheck();
+
+                }
+            }
+        });
+        //获取用户信息
+        getPresenter().getUserInfo();
+
+    }
+
+    private void userInfoCheck() {
+        String sex = tvSex.getText().toString();
+        if ("男".equals(sex)) {
+            sexid = 1;
+        } else {
+            sexid = 0;
+        }
+        String nickname = tvNicheng.getText().toString();
+        String phone = tvPhone.getText().toString();
+        String tel = etOfficePhone.getText().toString();
+        String buildNum = etBuildNum.getText().toString();
+        String roomNum = etRoomNum.getText().toString();
+        if (TextUtils.isEmpty(nickname) || TextUtils.isEmpty(tel) || TextUtils.isEmpty(phone) ||
+                TextUtils.isEmpty(buildNum) || TextUtils.isEmpty(roomNum)) {
+            showToast("请将个人信息填写完整");
+            return;
+        }
+        getPresenter().changeUserInfo(sexid, nickname, url, positionId, tel, roomNum, phone, buildNum);
     }
 
     @OnClick({R.id.rl_header, R.id.rl_sex, R.id.rl_position})
@@ -105,7 +226,6 @@ public class PersonalInfoActivity extends AppCompatActivity  {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                         switch (position) {
                             case 0:// 拍照上传
                                 doTakePhoto();
@@ -125,180 +245,224 @@ public class PersonalInfoActivity extends AppCompatActivity  {
                 break;
             case R.id.rl_sex:
                 Intent intent = new Intent(this, SexActivity.class);
-                startActivityForResult(intent,SEXREQUESTCODE);
+                startActivityForResult(intent, SEXREQUESTCODE);
                 break;
             case R.id.rl_position:
-                Intent intent1=new Intent(this,PositionActivity.class);
-                startActivityForResult(intent1,POSITIONREQUESTCODE);
+                Intent intent1 = new Intent(this, PositionActivity.class);
+                startActivityForResult(intent1, POSITIONREQUESTCODE);
                 break;
         }
     }
 
     private void doPickPhotoFromGallery() {
-        // 打开本地相册
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            //申请开启摄像机权限
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    READ_REQUEST_CODE);//自定义的code
-        } else {
-            initPhoto();
-        }
+        PermissionGen.with(this)
+                .addRequestCode(200)
+                .permissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .request();
     }
 
     private void doTakePhoto() {
-        String state = Environment.getExternalStorageState();// 获取内存卡可用状态
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            // 内存卡状态可用
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-                //申请开启摄像机权限
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                        CAMERA_REQUEST_CODE);//自定义的code
-            } else {
-                init();
-            }
+        PermissionGen.with(this)
+                .addRequestCode(100)
+                .permissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA)
+                .request();
 
-        } else {
-            // 不可用
-            Toast.makeText(this, "内存不可用", Toast.LENGTH_LONG)
-                    .show();
-        }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //开启照相机
-                init();
-            } else {
-                Toast.makeText(this, "您已拒绝了访问的权限", Toast.LENGTH_SHORT).show();
-            }
-        }else if(requestCode==READ_REQUEST_CODE){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //
-                initPhoto();
-            } else {
-                Toast.makeText(this, "您已拒绝了访问的权限", Toast.LENGTH_SHORT).show();
-            }
-        }
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
-    public void init() {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(intent, 1);
+    @PermissionSuccess(requestCode = 100)
+    public void doSomething() {
+        Intent openCameraIntent = new Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE);
+        tempUri = Uri.fromFile(new File(Environment
+                .getExternalStorageDirectory(), "temp_image.jpg"));
+        // 将拍照所得的相片保存到SD卡根目录
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
     }
 
-    public void initPhoto() {
-        Intent i = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // 设定结果返回
-        startActivityForResult(i, 2);
+    @PermissionSuccess(requestCode = 200)
+    public void doSomething2() {
+        Intent openAlbumIntent = new Intent(
+                Intent.ACTION_GET_CONTENT);
+        openAlbumIntent.setType("image/*");
+        //用startActivityForResult方法，待会儿重写onActivityResult()方法，拿到图片做裁剪操作
+        startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
+        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionFail(requestCode = 100)
+    public void doFailSomething() {
+        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionFail(requestCode = 200)
+    public void doFailSomething2() {
+        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case 1:
-                    if(resultCode==RESULT_OK)
-                    // 两种方式 获取拍好的图片
-                    if (data.getData() != null || data.getExtras() != null) { // 防止没有返回结果
-                        Uri uri = data.getData();
-                        LogUtils.i("拍照获取uri:"+uri);
-                        if (uri != null) {
-                            this.photo = BitmapFactory.decodeFile(uri.getPath()); // 拿到图片
-                        }
-                        if (photo == null) {
-                            Bundle bundle = data.getExtras();
-                            if (bundle != null) {
-                                photo = (Bitmap) bundle.get("data");
-                                FileOutputStream fileOutputStream = null;
-                                try {
-                                    // 获取 SD 卡根目录 生成图片并
-                                    String saveDir = Environment
-                                            .getExternalStorageDirectory()
-                                            + "/dhj_Photos";
-                                    // 新建目录
-                                    File dir = new File(saveDir);
-                                    if (!dir.exists())
-                                        dir.mkdir();
-                                    // 生成文件名
-                                    SimpleDateFormat t = new SimpleDateFormat(
-                                            "yyyyMMddssSSS");
-                                    String filename = "MT" + (t.format(new Date()))
-                                            + ".jpg";
-                                    // 新建文件
-                                    File file = new File(saveDir, filename);
-                                    // 打开文件输出流
-                                    fileOutputStream = new FileOutputStream(file);
-                                    // 生成图片文件
-                                    this.photo.compress(Bitmap.CompressFormat.JPEG,
-                                            100, fileOutputStream);
-                                    // 相片的完整路径
-                                    this.picPath = file.getPath();
-                                    //ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-                                    civHeader.setImageBitmap(photo);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    if (fileOutputStream != null) {
-                                        try {
-                                            fileOutputStream.close();
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-                                Toast.makeText(getApplicationContext(), "获取到了",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "找不到图片",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                case TAKE_PICTURE:
+                    cutImage(tempUri); // 对图片进行裁剪处理
+                    break;
+                case CHOOSE_PICTURE:
+                    cutImage(data.getData()); // 对图片进行裁剪处理
+                    break;
+                case CROP_SMALL_PICTURE:
+                    if (data != null) {
+                        setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
                     }
                     break;
-                case 2: {
-                    //打开相册并选择照片，这个方式选择单张
-                    // 获取返回的数据，这里是android自定义的Uri地址
-                    Uri selectedImage = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    // 获取选择照片的数据视图
-                    Cursor cursor = getContentResolver().query(selectedImage,
-                            filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    // 从数据视图中获取已选择图片的路径
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    cursor.close();
-                    // 将图片显示到界面上
-                    //ImageView imageView = (ImageView) findViewById(R.id.imageView1);
-                    civHeader.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                    break;
-                }
                 case SEXREQUESTCODE:
-                    if(resultCode== Constants.SELECTSEX){
-                        if(data!=null){
-                            String sex = data.getStringExtra("sex");
-                            tvSex.setText(sex);
-                        }
+                    if (data != null) {
+                        sex = data.getStringExtra("sex");
+                        tvSex.setText(sex);
                     }
                     break;
                 case POSITIONREQUESTCODE:
-                    if(resultCode==RESULT_OK){
-                        if(data!=null){
-                            String position = data.getStringExtra("position");
-
-                        }
+                    if (data != null) {
+                        positionId = data.getIntExtra("positionId", 0);
+                        String position = data.getStringExtra("position");
+                        tvPosition.setText(position);
                     }
                     break;
-                default:
-                    break;
             }
+        }
+    }
+
+    /**
+     * 裁剪图片方法实现
+     */
+    protected void cutImage(Uri uri) {
+        if (uri == null) {
+            Log.i("alanjet", "The uri is not exist.");
+        }
+        tempUri = uri;
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        //com.android.camera.action.CROP这个action是用来裁剪图片用的
+        intent.setDataAndType(uri, "image/*");
+        // 设置裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, CROP_SMALL_PICTURE);
+    }
+
+    /**
+     * 保存裁剪之后的图片数据
+     */
+    protected void setImageToView(Intent data) {
+        Bundle extras = data.getExtras();
+        if (extras != null) {
+            mBitmap = extras.getParcelable("data");
+            LogUtils.i("mbitmap===" + mBitmap);
+            //保存裁剪图片
+            saveBitmap(mBitmap);
+            iv_header.setImageBitmap(mBitmap);//显示图片
+            //上传头像到服务器
+            getPresenter().upLoadHeader(mFile);
+        } else {
+            LogUtils.i("这里为空");
+        }
+    }
+
+    /**
+     * @param bitmap 需要保存的图片
+     */
+    private void saveBitmap(Bitmap bitmap) {
+        FileOutputStream fout = null;
+        try {
+            if (mFile.exists()) {
+                mFile.delete();
+            }
+            mFile.createNewFile();
+            fout = new FileOutputStream(mFile);
+            //将图片保存之后的质量
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fout);
+            fout.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fout != null) {
+                    fout.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //获取用户信息，设置信息
+    @Override
+    public void getUserInfoSucc(UserInfoBean bean) {
+        if (bean != null) {
+            UserInfoBean.UserinfoBean userinfo = bean.getUserinfo();
+            if (userinfo.getSex() == 1) {
+                tvSex.setText("男");
+            } else {
+                tvSex.setText("女");
+            }
+            url=userinfo.getPhoto();
+            Glide.with(this).load(url).into(iv_header);
+            tvNicheng.setText(userinfo.getNickname());
+            tvId.setText(userinfo.getId() + "");
+            etOfficePhone.setText(userinfo.getTel());
+            etRoomNum.setText(userinfo.getRoomnum() + "");
+            tvPhone.setText(userinfo.getMobile());
+            tvPosition.setText(userinfo.getPosition());
+            etBuildNum.setText(userinfo.getBuildnum());
+            //通知头像和昵称发生变化
+            EventBus.getDefault().post(new ChangeUserInfo(url,userinfo.getNickname()));
+        }
+
+    }
+
+    //修改用户信息结果
+    @Override
+    public void getChangeResult(ActivityPostBean bean) {
+        if (bean != null) {
+            if (bean.getErrCode() == 0) {
+                showToast("修改信息成功");
+                String nickName = tvNicheng.getText().toString().trim();
+                //通知头像和昵称发生变化
+                EventBus.getDefault().post(new ChangeUserInfo(url,nickName));
+            } else {
+                showToast("修改信息失败了");
+            }
+        }
+    }
+
+    //上传头像的结果处理
+    @Override
+    public void upLoadHeaderResult(UpLoadHeaderBean bean) {
+        if (bean.getErrCode() == 0) {
+            showToast("上传头像成功了");
+            url = bean.getUrl();
+            //提交头像成功,缓存头像并保存
+            File file = mFile.getAbsoluteFile();
+            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            iv_header.setImageBitmap(bitmap);
+        } else {
+            showToast("上传头像失败了");
         }
     }
 }

@@ -1,7 +1,11 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -9,16 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
@@ -26,7 +26,14 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.activity.Library.JieYueSuccActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
-import com.moe.wl.ui.main.wheelView.WheelView;
+import com.moe.wl.ui.mywidget.CenterTimeDialog;
+
+import java.util.Arrays;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -35,7 +42,8 @@ import static com.moe.wl.R.id.laifang_title;
 public class LaiFangActivity extends Base2Activity {
 
     private static final int LAIFANGSHIYOUREQUEST = 10;
-    @BindView(laifang_title)
+
+    @BindView(R.id.laifang_title)
     TitleBar laifangTitle;
     @BindView(R.id.view)
     View view;
@@ -47,8 +55,12 @@ public class LaiFangActivity extends Base2Activity {
     EditText etRoomNum;
     @BindView(R.id.rl_laifangshiyou)
     RelativeLayout rlLaifangshiyou;
+    @BindView(R.id.arrave_time)
+    TextView arraveTime;
     @BindView(R.id.rl_revice_time)
     RelativeLayout rlReviceTime;
+    @BindView(R.id.leave_time)
+    TextView leaveTime;
     @BindView(R.id.rl_likai_time)
     RelativeLayout rlLikaiTime;
     @BindView(R.id.rb_once)
@@ -59,10 +71,14 @@ public class LaiFangActivity extends Base2Activity {
     RadioButton rbBangeyue;
     @BindView(R.id.rb_long)
     RadioButton rbLong;
-    @BindView(R.id.tv_car_type)
-    TextView tvCarType;
+    @BindView(R.id.RG)
+    RadioGroup rg;
+    @BindView(R.id.textView)
+    TextView textView;
+    @BindView(R.id.et_car_type)
+    EditText etCarType;
     @BindView(R.id.rl_car_type)
-    RelativeLayout rlCarType;
+    LinearLayout rlCarType;
     @BindView(R.id.tv_shengfen)
     TextView tvShengfen;
     @BindView(R.id.et_chepaihao)
@@ -70,7 +86,8 @@ public class LaiFangActivity extends Base2Activity {
     @BindView(R.id.tv_commit)
     TextView tvCommit;
     @BindView(R.id.activity_lai_fang)
-    RelativeLayout activityLaiFang;
+    LinearLayout activityLaiFang;
+
     private String str;
     private List<String> lists = Arrays.asList("京", "津", "冀", "晋", "蒙", "辽",
             "吉", "黑", "沪", "苏", "浙", "皖"
@@ -83,6 +100,9 @@ public class LaiFangActivity extends Base2Activity {
             , "M", "N", "O", "P", "Q", "R", "X"
             , "Y", "Z");
     private String shiyou;
+    private CenterTimeDialog dialog;
+    private int MAX_NUM = 5;
+    private int visitperiod;
 
     @Override
     protected void initLayout() {
@@ -94,9 +114,46 @@ public class LaiFangActivity extends Base2Activity {
     protected void initView() {
         laifangTitle.setBack(true);
         laifangTitle.setTitle("来访人员");
+        //来访时间
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (rbOnce.getId() == checkedId) {
+                    visitperiod = 1;
+                } else if (rbAWeek.getId() == checkedId) {
+                    visitperiod = 2;
+                } else if (rbBangeyue.getId() == checkedId) {
+                    visitperiod = 3;
+                } else if (rbLong.getId() == checkedId) {
+                    visitperiod = 4;
+                }
+            }
+        });
+        //车牌号字数的监听
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
+                if (s.length() > MAX_NUM) {
+                    s.delete(MAX_NUM, s.length());
+                }
+            }
+        };
+        etChepaihao.addTextChangedListener(watcher);
+
+
     }
 
-    @OnClick({R.id.tv_commit, R.id.tv_shengfen, R.id.rl_laifangshiyou, R.id.rl_revice_time, R.id.rl_likai_time, R.id.rb_once, R.id.rb_a_week, R.id.rb_bangeyue, R.id.rb_long, R.id.rl_car_type, R.id.activity_lai_fang})
+    @OnClick({R.id.tv_commit, R.id.tv_shengfen, R.id.rl_laifangshiyou, R.id.rl_revice_time, R.id.rl_likai_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_commit:
@@ -110,22 +167,10 @@ public class LaiFangActivity extends Base2Activity {
                 startActivityForResult(intent, LAIFANGSHIYOUREQUEST);
                 break;
             case R.id.rl_revice_time:
-                showTime();
+                showTime(true);
                 break;
             case R.id.rl_likai_time:
-                showTime();
-                break;
-            case R.id.rb_once:
-                break;
-            case R.id.rb_a_week:
-                break;
-            case R.id.rb_bangeyue:
-                break;
-            case R.id.rb_long:
-                break;
-            case R.id.rl_car_type:
-                break;
-            case R.id.activity_lai_fang:
+                showTime(false);
                 break;
         }
     }
@@ -136,10 +181,25 @@ public class LaiFangActivity extends Base2Activity {
         String roomunm = etRoomNum.getText().toString().trim();
         String shengfen = tvShengfen.getText().toString().trim();
         String chepaihao = etChepaihao.getText().toString().trim();
+        String arriveTime = arraveTime.getText().toString().trim();
+        String tvleaveTime = leaveTime.getText().toString().trim();
+        String carType = etCarType.getText().toString().trim();
+
         String str = shengfen + chepaihao;
-//        if(!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(mobile)&&!TextUtils.isEmpty(roomunm)&&
-//                !TextUtils.isEmpty(shengfen)&&!TextUtils.isEmpty(shiyou)&&!TextUtils.isEmpty())
-        Observable observable = RetrofitUtils.getInstance().postBaifagnInfo(username, mobile, roomunm, shiyou, "", "", "", "", str);
+
+        String telRegex = "[1][358]\\d{9}";
+
+        if(!mobile.matches(telRegex)){
+            showToast("请输入正确的手机号");
+            return ;
+        }
+        if(TextUtils.isEmpty(username)||TextUtils.isEmpty(arriveTime)||TextUtils.isEmpty(roomunm)||
+                TextUtils.isEmpty(shengfen)||TextUtils.isEmpty(shiyou)||TextUtils.isEmpty(tvleaveTime)||
+                TextUtils.isEmpty(carType)){
+            showToast("请将信息填写完整");
+            return ;
+        }
+        Observable observable = RetrofitUtils.getInstance().postBaifagnInfo(username, mobile, roomunm, shiyou, arriveTime, tvleaveTime, visitperiod+"", carType, str);
         showProgressDialog();
         observable.subscribe(new Subscriber<ActivityPostBean>() {
             @Override
@@ -150,33 +210,37 @@ public class LaiFangActivity extends Base2Activity {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
-                Log.e("提交拜访信息失败",e.getMessage());
+                Log.e("提交拜访信息失败", e.getMessage());
             }
 
             @Override
             public void onNext(ActivityPostBean postBean) {
-                if(postBean.getErrCode()==0){
-                    Intent intent =new Intent(LaiFangActivity.this, JieYueSuccActivity.class);
-                    intent.putExtra("from",2);
+                if (postBean.getErrCode() == 0) {
+                    Intent intent = new Intent(LaiFangActivity.this, JieYueSuccActivity.class);
+                    intent.putExtra("from", 2);
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     showToast(postBean.getMsg());
                 }
             }
         });
     }
 
-    // TODO: 2017/9/11 0011 没有完成
-    private void showTime() {
-        final AlertDialog dlg = new AlertDialog.Builder(this).create();
-        dlg.show();
-        Window window = dlg.getWindow();
-        window.setContentView(R.layout.time_wheel);
-        WheelView wv1 = (WheelView) window.findViewById(R.id.wv1);
-        //NumericWheelAdapter numericWheelAdapter1=new NumericWheelAdapter(this,1950, norYear);
-        WheelView wv2 = (WheelView) window.findViewById(R.id.wv2);
-        WheelView wv3 = (WheelView) window.findViewById(R.id.wv3);
+    private void showTime(final boolean isArrive) {
+        dialog = new CenterTimeDialog(this, R.style.dialog_style);
+        dialog.show();
+        dialog.setListener2(new CenterTimeDialog.OnConfirmClickListener() {
+            @Override
+            public void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5) {
+                if (isArrive) {
+                    arraveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                } else {
+                    leaveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                }
+
+            }
+        });
     }
 
     private void showShengFenDialog() {

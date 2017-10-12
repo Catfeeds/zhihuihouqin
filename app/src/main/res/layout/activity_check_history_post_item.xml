@@ -171,11 +171,12 @@
                 android:textColor="@color/tv_black"
                 android:layout_marginLeft="8dp"
                 android:background="@null"
+                android:gravity="top"
                 android:layout_marginRight="8dp"
                 android:hint="请输入你想要的商品详细内容..."
                 android:textColorHint="@color/tv_gray_light"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </LinearLayout>

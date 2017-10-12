@@ -15,19 +15,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
+
                 <ImageView
                     android:id="@+id/iv_barber_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/partner_luffy"
                     android:src="#1caca1a1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#a0ffffff" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -52,7 +60,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="啊小"
-                            android:textColor="@color/white"
+                            android:textColor="@color/tv_gray"
                             android:textSize="@dimen/sp_bigger" />
 
                         <LinearLayout
@@ -92,7 +100,7 @@
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                 android:id="@+id/rv_reserva_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -102,7 +110,7 @@
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -158,7 +166,7 @@
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_common" />
                 </LinearLayout>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -215,6 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="#1000" />
+
             <com.moe.wl.ui.mywidget.NoScrollExpandableListView
                 android:id="@+id/e_list"
                 android:layout_width="match_parent"
@@ -230,13 +239,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/gray_lighter"/>
+                android:background="@color/gray_lighter" />
+
             <LinearLayout
                 android:id="@+id/ll_huli_list"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"
+                android:visibility="gone"></LinearLayout>
 
             <!--<View
                 android:layout_width="match_parent"
@@ -336,10 +346,10 @@
                     android:id="@+id/et_scanner"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="top"
-                    android:textColorHint="@color/gray_light"
                     android:background="@color/transparent"
+                    android:gravity="top"
                     android:hint="你想对你的设计师说..."
+                    android:textColorHint="@color/gray_light"
                     android:textSize="@dimen/sp_common" />
 
                 <TextView
@@ -353,6 +363,7 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="30dp"

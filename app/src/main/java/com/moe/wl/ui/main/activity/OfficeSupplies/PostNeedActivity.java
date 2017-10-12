@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -99,7 +100,12 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
         String remark = etWrite.getText().toString().trim();
         String spName = etSpName.getText().toString().trim();
         String spCount = etSpCount.getText().toString().trim();
-        getPresenter().post(realName,phone,remark,spName,spCount);
+        if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||
+                TextUtils.isEmpty(spCount)){
+            showToast("请将信息填写完整");
+        }else{
+            getPresenter().post(realName,phone,remark,spName,spCount);
+        }
     }
 
     @Override

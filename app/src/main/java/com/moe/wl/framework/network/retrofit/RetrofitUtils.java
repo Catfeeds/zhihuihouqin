@@ -155,6 +155,22 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
     }
 
+    private static MultipartBody.Part getHeaderImg(File file,String s) {
+
+            File file1 = new Compressor.Builder(SoftApplication.softApplication)
+                    .setMaxWidth(720)
+                    .setMaxHeight(1080)
+                    .setQuality(80)
+                    .setCompressFormat(Bitmap.CompressFormat.PNG)
+                    .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                    .build()
+                    .compressToFile(file);
+
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file1);
+            MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
+        return part;
+    }
 
     private static List<MultipartBody.Part> getImgList(List<String> paths, String s) {
         List<MultipartBody.Part> parts = new ArrayList<>();
@@ -162,6 +178,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         for (int i = 0; i < paths.size(); i++) {
             //这里采用的Compressor图片压缩
             LogUtils.d("图片地址：" + paths.get(i));
+            File files=new File(paths.get(i));
+            LogUtils.i(files.length()+"");
             File file = new Compressor.Builder(SoftApplication.softApplication)
                     .setMaxWidth(720)
                     .setMaxHeight(1080)
@@ -170,7 +188,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
                     .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_PICTURES).getAbsolutePath())
                     .build()
-                    .compressToFile(new File(paths.get(i)));
+                    .compressToFile(files);
+//                    .compressToFile(new File(paths.get(i)));
 
             RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
@@ -380,7 +399,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      */
     public static Observable submitAuth(String name, String mobile,
                                         String idCard, int positionid, String roomId, String officetel,
-                                        String cartypeId, String precarCode, String suffixcarCode) {
+                                        String cartypeId, String precarCode, String suffixcarCode,
+                                        String buildnum,String departid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
@@ -393,6 +413,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("cartypeId", cartypeId);
             tempMap.put("precarCode", precarCode);
             tempMap.put("suffixcarCode", suffixcarCode);
+            tempMap.put("buildnum", buildnum);
+            tempMap.put("departid", departid);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -648,6 +670,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.postActivity(paramsMap, getImgList(photos, "photos"), getImgList(imgs, "imgs")));
     }
 
+
     /**
      * 活动报名
      *
@@ -686,6 +709,24 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getActivitySignList(paramsMap));
+    }
+    /**
+     * 活动用户详情
+     *
+     * @return
+     */
+    public static Observable getActivityUserDetail(int signmemberid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        Log.e("getActivitySignList", "---》home");
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            tempMap.put("signmemberid", signmemberid + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getActivityUserDetail(paramsMap));
     }
 
     /**
@@ -1754,6 +1795,15 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 拜访人员
      */
+    /*username	是	string	访问人姓名
+mobile	是	string	电话
+roomnum	是	string	访问房间号
+reason	是	string	拜访原因
+expertarrivaltime	是	string	到访时间2017-09-09 11：11
+expertleavetime	是	string	离开时间2017-09-09 11：11
+visitperiod	是	number	周期 1: 一次，2：一星期，3：半个月，4：长期
+cartype	是	string	车类型
+carcode	是	string	车牌号*/
     public static Observable postBaifagnInfo(String username, String mobile, String roomnum, String reason,
                                              String expertarrivaltime, String expertleavetime, String
                                                      visitperiod, String cartype, String carcode) {
@@ -1774,7 +1824,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.getInformationClass(paramsMap));
+        return getObservable(api.postBaiFangInfo(paramsMap));
     }
 
     /*------------------------------------------信息公告----------------------------------------------*/
@@ -2303,4 +2353,142 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.vegetableOrderList(paramsMap));
     }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    public static Observable getUserInfo() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getUserInfo(paramsMap));
+    }
+
+    /**
+     * 修改用户信息
+     * @return
+     */
+    public static Observable changeUserInfo(int sex,String nickname,String photo,int positionid,
+                                            String tel,String roomnum,String mobile,String buildNum) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("sex",sex+"");
+            tempMap.put("nickname",nickname);
+            tempMap.put("photo",photo);
+            tempMap.put("positionid",positionid+"");
+            tempMap.put("tel",tel);
+            tempMap.put("roomnum",roomnum);
+            tempMap.put("mobile",mobile);
+            tempMap.put("buildNum",buildNum);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.changeUserInfo(paramsMap));
+    }
+    /**
+     * 钱包信息
+     * @return
+     */
+    public static Observable findUserWallet() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findUserWallet(paramsMap));
+    }
+    /**
+     * 充值
+     * @return
+     */
+    public static Observable findChargeOrder() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findChargeOrder(paramsMap));
+    }
+    /**
+     * 是否有交易密码
+     * @return
+     */
+    public static Observable hasPaypass() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.hasPaypass(paramsMap));
+    }
+    /**
+     * 验证旧支付密码
+     * @return
+     */
+    public static Observable checkOldPassword(String pwd) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            Md5Util.getMD5(pwd);
+            tempMap.put("paypass",pwd);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.checkOldPassword(paramsMap));
+    }
+    /**
+     * 修改支付密码
+     * @return
+     */
+    public static Observable modifyCode(String pwd) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            Md5Util.getMD5(pwd);
+            tempMap.put("code",pwd);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.modifyCode(paramsMap));
+    }
+    /**
+     * 修改用户信息
+     * @return
+     */
+    public static Observable upLoadHeader(File file) {
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        Log.e("postActivity", "---》home");
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            getRequestBody(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.upLoadHeader(paramsMap, getHeaderImg(file,"file")));
+    }
+
 }

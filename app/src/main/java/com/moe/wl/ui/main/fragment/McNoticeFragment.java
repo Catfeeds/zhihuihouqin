@@ -13,6 +13,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.moe.wl.R;
+import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
+import com.moe.wl.ui.main.adapter.InformationAdapter;
 
 /**
  * Created by 我的电脑 on 2017/9/11 0011.
@@ -34,7 +36,8 @@ public class McNoticeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         rvCollect.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        HomeNsrlv1Adapter adapter=new HomeNsrlv1Adapter();
+        rvCollect.setAdapter(adapter);
     }
 
     public View initView() {

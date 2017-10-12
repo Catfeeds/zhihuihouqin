@@ -133,6 +133,24 @@ public class DateUtils {
         }
         return weeksList;
     }
+    /**
+     * 获取今天往后一周的集合
+     */
+    public static List<String> get3week() {
+        String week = "";
+        List<String> weeksList = new ArrayList<String>();
+        List<String> dateList = get3date();
+        for (String s : dateList) {
+            if (s.equals(StringData())) {
+                week = "今天";
+            }
+            else {
+                week = getWeek(s);
+            }
+            weeksList.add(week);
+        }
+        return weeksList;
+    }
 
     public static List<String> get7date() {
         List<String> dates = new ArrayList<String>();
@@ -143,6 +161,22 @@ public class DateUtils {
         String date = sim.format(c.getTime());
         dates.add(date);
         for (int i = 0; i < 6; i++) {
+            c.add(java.util.Calendar.DAY_OF_MONTH, 1);
+            date = sim.format(c.getTime());
+            dates.add(date);
+        }
+        return dates;
+    }
+    //获取三天
+    public static List<String> get3date() {
+        List<String> dates = new ArrayList<String>();
+        final Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        java.text.SimpleDateFormat sim = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd");
+        String date = sim.format(c.getTime());
+        dates.add(date);
+        for (int i = 0; i < 2; i++) {
             c.add(java.util.Calendar.DAY_OF_MONTH, 1);
             date = sim.format(c.getTime());
             dates.add(date);

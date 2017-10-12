@@ -195,6 +195,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
             address = etServiceAddress.getText().toString().trim();
         }
         String mendcontent = etBaoxiuDetail.getText().toString().trim();
+        pics.remove(pics.size()-1);
         // 发布传入图片文件
          getPresenter().getData(selectPosition,realName,mobile,invitetime,address,mendcontent,pics);
     }

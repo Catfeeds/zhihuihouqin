@@ -124,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:hint="请输入商品数量"
+                android:inputType="number"
                 android:background="@null"
                 android:padding="12dp"
                 android:gravity="right"

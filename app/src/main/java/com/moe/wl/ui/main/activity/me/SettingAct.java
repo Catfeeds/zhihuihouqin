@@ -91,6 +91,7 @@ public class SettingAct extends Base2Activity {
         switch (view.getId()) {
             case R.id.rl_account_saft:
                 Intent intent = new Intent(this, AcountSaftActivity.class);
+                intent.putExtra("from",Constants.ACCOUNT_SAFT);
                 startActivity(intent);
                 break;
             case R.id.rl_msg_setting:

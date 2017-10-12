@@ -13,9 +13,9 @@ import rx.Observable;
 public class AuthModelImpl implements AuthModel {
 
     @Override
-    public Observable submitAuth(String name, String mobile, String idCard, int positionid, String roomId, String officetel, String cartypeId, String precarCode, String suffixcarCode) {
+    public Observable submitAuth(String name, String mobile, String idCard, int positionid, String roomId, String officetel, String cartypeId, String precarCode, String suffixcarCode,String buildnum,String departid) {
         Log.e("AuthModelImpl","--->获取了数据");
-        Observable observer = RetrofitUtils.getInstance().submitAuth(name,mobile,idCard,positionid,roomId,officetel,cartypeId,precarCode,suffixcarCode);
+        Observable observer = RetrofitUtils.getInstance().submitAuth(name,mobile,idCard,positionid,roomId,officetel,cartypeId,precarCode,suffixcarCode,buildnum,departid);
         return observer ;
     }
 }

@@ -1,7 +1,9 @@
 package com.moe.wl.framework.network.retrofit;
 
+import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
 import com.moe.wl.ui.main.bean.BarberProductDetailBean;
 import com.moe.wl.ui.main.bean.ConsultBarberBean;
+import com.moe.wl.ui.main.bean.FindChargeOrderBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.SendMessageBean;
@@ -79,7 +81,10 @@ import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
 import com.moe.wl.ui.main.bean.SpCheckShopCarBean;
 import com.moe.wl.ui.main.bean.SpDetailBean;
 import com.moe.wl.ui.main.bean.SpOrderBean;
+import com.moe.wl.ui.main.bean.UpLoadHeaderBean;
 import com.moe.wl.ui.main.bean.UserCommentBean;
+import com.moe.wl.ui.main.bean.UserInfoBean;
+import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 
 import java.util.List;
@@ -212,6 +217,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.activityList)
     Observable<ActivitySignListBean> getActivitySignList(@FieldMap Map<String, Object> map);
+
+    //活动报名列表
+    @FormUrlEncoded
+    @POST(NetUrl.memberdetail)
+    Observable<ActivityUserDetailBean> getActivityUserDetail(@FieldMap Map<String, Object> map);
 
     //图书首页
     @FormUrlEncoded
@@ -653,5 +663,42 @@ public interface NetAPI {
     @POST(NetUrl.vegetableOrderList)
     Observable<OrderVegetableBean> vegetableOrderList(@FieldMap Map<String, Object> map);
 
+    //获取个人信息
+    @FormUrlEncoded
+    @POST(NetUrl.getUserInfo)
+    Observable<UserInfoBean> getUserInfo(@FieldMap Map<String, Object> map);
 
+    //修改用户信息
+    @FormUrlEncoded
+    @POST(NetUrl.changeUserInfo)
+    Observable<ActivityPostBean> changeUserInfo(@FieldMap Map<String, Object> map);
+
+    //我的钱包信息
+    @FormUrlEncoded
+    @POST(NetUrl.findUserWallet)
+    Observable<UserWalletBean> findUserWallet(@FieldMap Map<String, Object> map);
+    //充值记录
+    @FormUrlEncoded
+    @POST(NetUrl.findChargeOrder)
+    Observable<FindChargeOrderBean> findChargeOrder(@FieldMap Map<String, Object> map);
+
+    //是否有交易密码
+    @FormUrlEncoded
+    @POST(NetUrl.hasPaypass)
+    Observable<ActivityPostBean> hasPaypass(@FieldMap Map<String, Object> map);
+
+    //验证旧支付密码
+    @FormUrlEncoded
+    @POST(NetUrl.checkOldPassword)
+    Observable<ActivityPostBean> checkOldPassword(@FieldMap Map<String, Object> map);
+
+    //修改支付密码
+    @FormUrlEncoded
+    @POST(NetUrl.modifyCode)
+    Observable<ActivityPostBean> modifyCode(@FieldMap Map<String, Object> map);
+
+    //修改头像
+    @Multipart
+    @POST(NetUrl.upLoadHeader)
+    Observable<UpLoadHeaderBean> upLoadHeader(@PartMap() Map<String, RequestBody> paramsMap, @Part MultipartBody.Part albumPhoto);
 }

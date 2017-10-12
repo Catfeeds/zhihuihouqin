@@ -2,7 +2,9 @@ package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -58,6 +60,10 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     RelativeLayout activityIdentity;
     @BindView(R.id.tv_shengfen)
     TextView tvShengfen;
+    @BindView(R.id.et_build_num)
+    EditText etBuildNum;
+    @BindView(R.id.et_department_num)
+    EditText etDepartmentNum;
     private int positionId;
     private String name;
     private String phone;
@@ -78,6 +84,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
             , "M", "N", "O", "P", "Q", "R", "X"
             , "Y", "Z");
     private String preCarCode;
+    private int MAX_NUM=5;
 
     @Override
     public AuthPresenter createPresenter() {
@@ -97,6 +104,23 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
 
     @Override
     public void initView() {
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
+                if (s.length() > MAX_NUM) {
+                    s.delete(MAX_NUM, s.length());
+                }
+            }
+        };
+        etChepaihao.addTextChangedListener(watcher);
+
 
     }
 
@@ -121,18 +145,27 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 carType = etCarType.getText().toString().trim();
                 chePaiHao = etChepaihao.getText().toString().trim();
                 preCarCode = tvShengfen.getText().toString().trim();
+                String buildNum = etBuildNum.getText().toString().trim();
+                String departmentNum = etDepartmentNum.getText().toString().trim();
+                String telRegex = "[1][358]\\d{9}";
+
+                if(!phone.matches(telRegex)){
+                    showToast("请输入正确的手机号");
+                    return ;
+                }
                 Log.e("info",name+"=="+identityNum+"=="+positionId+"=="+roomNum+"=="+officePhone+"=="+carType+"=="
                 +preCarCode+"=="+chePaiHao);
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
                         || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(carType) ||
-                        TextUtils.isEmpty(preCarCode) || TextUtils.isEmpty(chePaiHao)) {
+                        TextUtils.isEmpty(preCarCode) || TextUtils.isEmpty(chePaiHao)||
+                        TextUtils.isEmpty(buildNum)||TextUtils.isEmpty(departmentNum)) {
                     showToast("请将信息填写完整");
                     return;
                 } else if (!isPhoneChecked(phone)) {
                     return;
                 } else {
                     getPresenter().getData(name, phone, identityNum, positionId, roomNum,
-                            officePhone, carType, preCarCode, chePaiHao);
+                            officePhone, carType, preCarCode, chePaiHao,buildNum,departmentNum);
                     break;
                 }
         }

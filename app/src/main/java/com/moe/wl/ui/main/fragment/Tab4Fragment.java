@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
@@ -17,12 +18,18 @@ import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
 import com.moe.wl.ui.main.activity.me.LaiFangActivity;
 import com.moe.wl.ui.main.activity.me.MyCollectActivity;
+import com.moe.wl.ui.main.activity.me.MyPurseActivity;
 import com.moe.wl.ui.main.activity.me.PersonalInfoActivity;
 import com.moe.wl.ui.main.activity.me.SettingAct;
+import com.moe.wl.ui.main.bean.ChangeUserInfo;
 import com.moe.wl.ui.main.model.Tab4Model;
 import com.moe.wl.ui.main.modelimpl.Tab4ModelImpl;
 import com.moe.wl.ui.main.presenter.Tab4Presenter;
 import com.moe.wl.ui.main.view.Tab4View;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -246,7 +253,24 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     @Override
     public void initView(View v) {
     }
+    //更改头像和昵称
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangeUserInfo event) {
+        Glide.with(getActivity()).load(event.getUrl()).into(civHeader);
+        tvName.setText(event.getNickName());
+        };
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public Tab4Model createModel() {
         return new Tab4ModelImpl();
@@ -274,8 +298,9 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_my_packge:
+                Intent intent=new Intent(getActivity(),MyPurseActivity.class);
+                startActivity(intent);
                 break;
-
             case R.id.ll_my_collect:
                 Intent intent2 = new Intent(getActivity(), MyCollectActivity.class);
                 startActivity(intent2);
@@ -493,8 +518,8 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 break;
 
             case R.id.rl_laifang_person: // 来访
-                Intent intent = new Intent(getActivity(), LaiFangActivity.class);
-                startActivity(intent);
+                Intent intent5 = new Intent(getActivity(), LaiFangActivity.class);
+                startActivity(intent5);
                 break;
 
             case R.id.rl_setting: // 设置

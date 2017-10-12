@@ -75,10 +75,7 @@ public class SignUpPersonAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, SignUpPersonActivity.class);
-                    intent.putExtra("name", memberlistBean.getAsUsername());
-                    intent.putExtra("phone", memberlistBean.getAsMebile());
-                    // TODO: 2017/9/7 0007 没有民族字段
-                    //bundle.putString("minzu",memberlistBean.get());
+                    intent.putExtra("id",memberlistBean.getAsId());
                     mContext.startActivity(intent);
                 }
             });

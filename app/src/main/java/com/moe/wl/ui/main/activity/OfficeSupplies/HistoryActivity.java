@@ -72,7 +72,7 @@ public class HistoryActivity extends BaseActivity<HistoryPostModel,HistoryPostVi
                 isRefresh = true;
                 page=1;
                 getPresenter().getHistoryPostInfo(page+"",limit+"");
-                rvHostory.refreshComplete();
+
             }
 
             @Override
@@ -80,7 +80,7 @@ public class HistoryActivity extends BaseActivity<HistoryPostModel,HistoryPostVi
                 isRefresh=false;
                 page++;
                 getPresenter().getHistoryPostInfo(page+"",limit+"");
-                rvHostory.loadMoreComplete();
+
             }
         });
     }
@@ -96,6 +96,9 @@ public class HistoryActivity extends BaseActivity<HistoryPostModel,HistoryPostVi
             List<HistoryPostBean.PageBean.ListBean> list = bean.getPage().getList();
             if(isRefresh==true){
                 mAllList.clear();
+                rvHostory.refreshComplete();
+            }else{
+                rvHostory.loadMoreComplete();
             }
             mAllList.addAll(list);
             historyAdapter.setData(mAllList);

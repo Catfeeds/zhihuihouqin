@@ -14,6 +14,10 @@ public class Constants {
     public static final int SHIYOU = 11;
     public static final int SELECTSEX = 11;
     public static final String DRYCANCEL = "drycancel";// 干洗
+    public static final int ACCOUNT_SAFT = 1;//帐号安全
+    public static final int CHANGE_PWD = 2;//修改支付密码
+    public static final int FORGET_PWD = 3;//忘记支付密码
+    public static final int SET_PWD = 4;//设置密码
     public static int checkHistoryNeedItem = 7;
     public static String YIJIANFANKUI = "yijianfankui";
 

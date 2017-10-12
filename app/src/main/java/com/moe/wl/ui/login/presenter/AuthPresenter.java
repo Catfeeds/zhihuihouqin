@@ -18,11 +18,13 @@ public class AuthPresenter extends MvpRxPresenter<AuthModel, AuthView> {
 
 
     public void getData(String name, String mobile, String idCard, int positionid, String roomId,
-                        String officetel, String cartypeId, String precarCode, final String suffixcarCode) {
+                        String officetel, String cartypeId, String precarCode, final String suffixcarCode,String buildnum,String departid) {
         LogUtil.log("MainPresenter发出请求");
         getView().showProgressDialog();
         // TODO: 2017/9/5 0005 需要后端修改cartypeId
-        getModel().submitAuth(name, mobile, idCard, positionid, roomId, officetel, cartypeId, precarCode, suffixcarCode).subscribe(new Subscriber<SubmitAuthBean>() {
+        getModel().submitAuth(name, mobile, idCard, positionid, roomId, officetel, cartypeId,
+                precarCode, suffixcarCode,buildnum,departid)
+                .subscribe(new Subscriber<SubmitAuthBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();

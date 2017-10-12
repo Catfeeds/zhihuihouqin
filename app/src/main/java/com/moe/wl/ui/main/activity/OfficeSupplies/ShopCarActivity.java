@@ -51,9 +51,10 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
     LinearLayout llSum;
     private boolean isEdit = false;
     private boolean isSelectAll;
-    private boolean isStoreSelect;
+    private boolean isStoreSelect=false;
     private ShopCarListAdapter listAdapter;
     private List<SpCheckShopCarBean.CartItemsBean> cartItems;
+    private int mCount;
 
     @Override
     public CheckShopCarPresenter createPresenter() {
@@ -92,35 +93,35 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
                 sum+=count1*price;
             }
         }
+        mCount = count;
         tvSum.setText("￥"+sum);
         tvClearing.setText("去结算("+count+")");
     }
 
     private void doStoreClick() {
-
+        isStoreSelect=!isStoreSelect;
         if (isStoreSelect) {
-            isStoreSelect=false;
-            listAdapter.unSelectAll();
-        } else {
-            isStoreSelect=true;
             listAdapter.selectAll();
+        } else {
+            listAdapter.unSelectAll();
         }
         changeSelectback();
     }
 
     //点击是否全选
     private void doSelectAll() {
+        isSelectAll = !isSelectAll;
         if (isSelectAll) {
             ivSelectAll.setVisibility(View.VISIBLE);
-            isStoreSelect=false;
+            isStoreSelect=true;
             listAdapter.selectAll();
         } else {
             ivSelectAll.setVisibility(View.GONE);
-            isStoreSelect=true;
+            isStoreSelect=false;
             listAdapter.unSelectAll();
         }
         changeSelectback();
-        isSelectAll = !isSelectAll;
+
     }
 
     private void initRecycler() {
@@ -133,29 +134,28 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
         title.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isEdit == false) {
-                    isEdit = true;
+                isEdit=!isEdit;
+                if (isEdit) {
                     title.setTitleRight("完成");
                     tvClearing.setText("删除");
                     llSum.setVisibility(View.GONE);
-                    ivSelectAll.setVisibility(View.VISIBLE);
-                    isStoreSelect=true;
+//                    ivSelectAll.setVisibility(View.VISIBLE);
+//                    isStoreSelect=true;
 //                    listAdapter.selectAll();
                 } else {
-                    isEdit = false;
                     title.setTitleRight("编辑");
-                    tvClearing.setText("去结算(0)");
+                    tvClearing.setText("去结算("+mCount+")");
                     llSum.setVisibility(View.VISIBLE);
-                    ivSelectAll.setVisibility(View.GONE);
-                    isStoreSelect=false;
+//                    ivSelectAll.setVisibility(View.GONE);
+//                    isStoreSelect=false;
                 }
-                changeSelectback();
+//                changeSelectback();
             }
         });
     }
 
     private void changeSelectback() {
-        if (isStoreSelect==true) {
+        if (isStoreSelect) {
             ivStoreSelect.setBackgroundResource(R.drawable.selected);
         } else {
             ivStoreSelect.setBackgroundResource(R.drawable.unselected);
@@ -180,7 +180,7 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
                 initData();
                 break;
             case R.id.tv_clearing:
-                if (isEdit == false) {
+                if (!isEdit ) {
                     Intent intent = new Intent(this, OfficeSpConfirmOrderAct.class);
                     List<SpCheckShopCarBean.CartItemsBean> list=new ArrayList<>();
                     for (int i = 0; i < cartItems.size(); i++) {
@@ -193,7 +193,11 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
                     String json = gson.toJson(list);
                     intent.putExtra("json",json);
                     intent.putExtra("from","shopCar");
-                    startActivity(intent);
+                    if(list.size()>0){
+                        startActivity(intent);
+                    }else{
+                        showToast("你还没有选择结算的商品");
+                    }
                 } else {
                     List<Integer> list=new ArrayList<>();
                     for (int i = 0; i <cartItems.size() ; i++) {

@@ -1,5 +1,7 @@
 package com.moe.wl.ui.main.activity.Library;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -15,8 +18,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.Base2Activity;
+import com.moe.wl.ui.main.adapter.BookRvAdapter;
+import com.moe.wl.ui.main.adapter.FmPagerAdapter;
 import com.moe.wl.ui.main.adapter.SearchCategoryAdapter;
+import com.moe.wl.ui.main.bean.SearchBookListBean;
+import com.moe.wl.ui.main.bean.SearchCategoryBean;
+import com.moe.wl.ui.main.fragment.BookPutAwayFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,18 +36,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.ui.main.adapter.BookRvAdapter;
-import com.moe.wl.ui.main.adapter.FmPagerAdapter;
-import com.moe.wl.ui.main.bean.SearchBookListBean;
-import com.moe.wl.ui.main.bean.SearchCategoryBean;
-import com.moe.wl.ui.main.fragment.BookPutAwayFragment;
 import rx.Observable;
 import rx.Subscriber;
 
 public class BookSearchActivity extends Base2Activity {
-
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -80,7 +83,8 @@ public class BookSearchActivity extends Base2Activity {
         fmPagerAdapter = new FmPagerAdapter(getSupportFragmentManager());
         vpBook.setAdapter(fmPagerAdapter);
         tab.setupWithViewPager(vpBook);
-        etSearch.setImeOptions(EditorInfo.IME_ACTION_SEND);
+//        etSearch.setImeOptions(EditorInfo.IME_ACTION_SEND);
+//        etSearch.setOnKeyListener(onKeyListener);
         setKeyListen();
     }
 
@@ -96,22 +100,31 @@ public class BookSearchActivity extends Base2Activity {
         }
     }
 
-
     //对软键盘回车键进行监听
     private void setKeyListen() {
 
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                fragments.clear();
+                //*隐藏软键盘*//
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                }
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     String search = etSearch.getText().toString().trim();
                     if (!TextUtils.isEmpty(search)) {
+                        LogUtils.d("搜索键！！！");
+                        llType.setVisibility(View.GONE);
+                        llSearchList.setVisibility(View.VISIBLE);
                         for (int i = 0; i < 3; i++) {
-                            fragments.add(BookPutAwayFragment.getInstant(search,-1,i));
+                            fragments.add(BookPutAwayFragment.getInstant(search, 0, i));
                         }
                         fmPagerAdapter.setFragments(fragments, tabs);
                     }
                 }
+
                 return true;
             }
         });
@@ -160,7 +173,7 @@ public class BookSearchActivity extends Base2Activity {
                     llType.setVisibility(View.GONE);
                     llSearchList.setVisibility(View.VISIBLE);
                     for (int i = 0; i < 3; i++) {
-                        fragments.add(BookPutAwayFragment.getInstant("",typeId,i));
+                        fragments.add(BookPutAwayFragment.getInstant("", typeId, i));
                     }
                     fmPagerAdapter.setFragments(fragments, tabs);
                 }
@@ -225,7 +238,7 @@ public class BookSearchActivity extends Base2Activity {
             public void onNext(SearchBookListBean bookListBean) {
                 if (bookListBean.getErrCode() == 0) {
                     if (bookListBean.getBooklist().size() > 0) {
-                       llSearchList.setVisibility(View.VISIBLE);
+                        llSearchList.setVisibility(View.VISIBLE);
                         gvCategory.setVisibility(View.GONE);
 
                     } else {
@@ -237,4 +250,5 @@ public class BookSearchActivity extends Base2Activity {
             }
         });
     }
+
 }

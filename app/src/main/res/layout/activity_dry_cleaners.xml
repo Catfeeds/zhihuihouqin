@@ -15,7 +15,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#2000"/>
+        android:background="@color/gray_lighter"/>
     <!--轮播图占位-->
     <com.moe.wl.framework.widget.SimpleImageBanner
         android:id="@+id/h_banner_viewPager"

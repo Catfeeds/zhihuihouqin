@@ -203,7 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="客服电话" />
+            android:text="版本信息" />
 
         <LinearLayout
             android:layout_width="wrap_content"

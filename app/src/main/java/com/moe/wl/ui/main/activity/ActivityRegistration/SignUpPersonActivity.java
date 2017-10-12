@@ -1,16 +1,23 @@
 package com.moe.wl.ui.main.activity.ActivityRegistration;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
+import com.moe.wl.ui.main.model.SignUpPersonModel;
+import com.moe.wl.ui.main.modelimpl.SignUpPersonModelImpl;
+import com.moe.wl.ui.main.presenter.SignUpPersonPresenter;
+import com.moe.wl.ui.main.view.SignUpPersonView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignUpPersonActivity extends AppCompatActivity {
+public class SignUpPersonActivity extends BaseActivity<SignUpPersonModel,SignUpPersonView,SignUpPersonPresenter> implements SignUpPersonView {
 
     @BindView(R.id.activity_title)
     TitleBar titleBar;
@@ -22,22 +29,39 @@ public class SignUpPersonActivity extends AppCompatActivity {
     TextView tvMinzu;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public SignUpPersonPresenter createPresenter() {
+        return new SignUpPersonPresenter();
+    }
+
+    @Override
+    public SignUpPersonModel createModel() {
+        return new SignUpPersonModelImpl();
+    }
+
+    @Override
+    public void setContentLayout() {
         setContentView(R.layout.activity_sign_up_person);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("id",0);
+        getPresenter().getData(id);
         initTitle();
-        showMessage();
     }
-
-    private void showMessage() {
-        tvName.setText("姓名：" + getIntent().getStringExtra("name"));
-        tvPhone.setText("电话：" + getIntent().getStringExtra("phone"));
-        tvMinzu.setText("民族：" + "");
-    }
-
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("报名人信息");
+    }
+
+    @Override
+    public void getUserDetailSucc(ActivityUserDetailBean bean) {
+        if(bean!=null){
+            tvName.setText("姓名：" +bean.getUsername());
+            tvPhone.setText("电话：" +bean.getMobile());
+            tvMinzu.setText("民族：" + bean.getNation());
+        }
     }
 }

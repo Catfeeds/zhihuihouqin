@@ -92,8 +92,8 @@ public class WeixiuAdapter extends BaseAdapter {
             this.mPosition = position;
             tvBarberGridItem.setText(s);
             if (selectPosition == position) {
-                tvBarberGridItem.setBackgroundColor(Color.parseColor("#cccccc"));
-                tvBarberGridItem.setTextColor(Color.parseColor("#F95759"));
+                tvBarberGridItem.setBackgroundColor(Color.parseColor("#0099FF"));
+                tvBarberGridItem.setTextColor(Color.WHITE);
             } else {
                 tvBarberGridItem.setBackgroundColor(Color.WHITE);
                 tvBarberGridItem.setTextColor(Color.parseColor("#333333"));

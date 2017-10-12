@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="新对话消息提醒"
             android:layout_centerVertical="true"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_common" />
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="新资讯消息提醒"
             android:layout_centerVertical="true"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_common" />

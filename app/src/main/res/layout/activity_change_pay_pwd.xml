@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_change_pay_pwd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_lighter" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/gray_trans">
+        <TextView
+            android:id="@+id/tv_change_des"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_gray"
+            android:text="请输入旧的支付密码,以验证身份"
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:layout_height="wrap_content" />
+        <com.moe.wl.ui.mywidget.gridpasswordview.GridPasswordView
+            android:id="@+id/pswView"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_height="50dp"
+            app:gpvTextColor="#2196F3"
+            app:gpvTextSize="25sp"
+            app:gpvLineColor="#2196F3"
+            app:gpvLineWidth="1dp"
+            app:gpvGridColor="#ffffff"
+            app:gpvPasswordLength="6"
+            app:gpvPasswordTransformation="$"
+            app:gpvPasswordType="numberPassword"/>
+        <TextView
+            android:id="@+id/tv_finish"
+            android:text="完成"
+            android:padding="16dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:background="@drawable/shape_commit_white"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:textSize="@dimen/sp_bigger_20"
+            android:textColor="@color/tv_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

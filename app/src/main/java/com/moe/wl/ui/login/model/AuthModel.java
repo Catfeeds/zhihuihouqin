@@ -10,5 +10,5 @@ import rx.Observable;
 public interface AuthModel extends MvpModel{
     Observable submitAuth(String name, String mobile,
                           String idCard, int positionid, String roomId, String officetel,
-                          String cartypeId, String precarCode, String suffixcarCode);
+                          String cartypeId, String precarCode, String suffixcarCode,String buildnum,String departid);
 }

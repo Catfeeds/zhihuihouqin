@@ -43,6 +43,7 @@ public interface NetUrl {
     String activityHome="appuser/tdhdfw/index";
     String activityList="appuser/tdhdfw/detail";
     String activityPost="appuser/tdhdfw/pubactivity";
+    String memberdetail="appuser/tdhdfw/memberdetail";
 
     //理发师
     String shop="appuser/lffw/toindex";
@@ -152,5 +153,15 @@ public interface NetUrl {
     // 消息
     String getMessage = "appuser/message/messagePage";
     String getMessageList = "appuser/message/findUserMessage";
+    //个人信息
+    String getUserInfo="appuser/user/getUserinfo";
+    String changeUserInfo="appuser/user/modifyUserinfo";
+    String upLoadHeader="appuser/user/uploadPhoto";
 
+    //我的钱包
+    String findUserWallet ="appuser/wallet/findUserWallet";
+    String findChargeOrder="appuser/wallet/findChargeOrder";
+    String hasPaypass="appuser/wallet/hasPaypass";//是否有商品交易密码
+    String checkOldPassword="appuser/wallet/checkOldPassword";
+    String modifyCode="appuser/wallet/modifyCode";
 }

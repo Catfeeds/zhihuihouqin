@@ -299,6 +299,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="90dp"
+                    android:inputType="number"
                     android:background="@null"
                     android:gravity="right"
                     android:hint="请输入人数限制"

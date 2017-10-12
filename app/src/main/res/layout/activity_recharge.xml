@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recharge"
+    android:orientation="vertical"
+    android:background="@color/gray_trans"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<com.moe.wl.framework.widget.TitleBar
+    android:id="@+id/title"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_lighter"/>
+    <TextView
+        android:text="充值金额"
+        android:textSize="@dimen/sp_bigger_20"
+        android:textColor="@color/black"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_commit_white"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_scanner_amount"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:hint="请输入充值金额"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/sp_big"
+            android:textColor="@color/tv_black"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:text="充值越多,返利越多"
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/tv_black"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_confirm_pay"
+        android:text="确定"
+        android:textSize="@dimen/sp_bigger_20"
+        android:textColor="@color/white"
+        android:padding="@dimen/standard_padding"
+        android:gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_confirm_yellow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

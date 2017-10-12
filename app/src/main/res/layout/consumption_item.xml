@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/standard_padding"
+    android:orientation="vertical">
+<de.hdodenhof.circleimageview.CircleImageView
+    android:id="@+id/civ_logo"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:src="@drawable/logo"/>
+    <TextView
+        android:id="@+id/tv_xiaohao"
+        android:layout_width="wrap_content"
+        android:text="消耗统计"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/sp_big"
+        android:textColor="@color/tv_black"
+        android:layout_height="wrap_content" />
+</LinearLayout>

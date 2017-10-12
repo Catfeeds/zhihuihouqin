@@ -30,6 +30,7 @@ public class SexActivity extends AppCompatActivity {
     RelativeLayout rlGirl;
     @BindView(R.id.activity_sex)
     LinearLayout activitySex;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,26 +51,28 @@ public class SexActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.rl_man:
                 selectManOrGirl(true);
+                finish();
                 break;
             case R.id.rl_girl:
                 selectManOrGirl(false);
+                finish();
                 break;
         }
     }
 
     private void selectManOrGirl(boolean selectMan) {
-        Intent intent = new Intent();
+        intent = new Intent();
         if(selectMan){
             ivSelectMan.setVisibility(View.VISIBLE);
             ivSelectGirl.setVisibility(View.GONE);
             intent.putExtra("sex","男");
-            setResult(Constants.SELECTSEX,intent);
+            setResult(RESULT_OK, intent);
         }else{
             ivSelectMan.setVisibility(View.GONE);
             ivSelectGirl.setVisibility(View.VISIBLE);
             intent.putExtra("sex","女");
-            setResult(Constants.SELECTSEX,intent);
+            setResult(RESULT_OK, intent);
         }
-        finish();
+
     }
 }

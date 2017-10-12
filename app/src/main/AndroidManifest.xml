@@ -47,6 +47,10 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 照相机,相册 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".framework.application.SoftApplication"
@@ -147,8 +151,9 @@
         <activity
             android:name=".ui.main.activity.BarberActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.main.activity.ReservaBarberActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.main.activity.ReservaBarberActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- 二维码 -->
         <activity
@@ -203,13 +208,14 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity" />
         <activity
             android:name=".ui.login.activity.IdentityActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.login.activity.PositionActivity" />
         <activity android:name=".ui.login.activity.AuthSuccessActivity" />
         <activity android:name=".ui.main.activity.HealthSearchActivity" />
         <activity
             android:name=".ui.main.activity.ordering.OrderingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".ui.main.activity.ordering.OrderingSuccessActivity"
             android:screenOrientation="portrait" />
@@ -259,10 +265,10 @@
         <activity android:name=".ui.main.activity.Library.BookSearchActivity" />
         <activity
             android:name=".ui.main.activity.me.LaiFangActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.main.activity.me.LaifangshiyouActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.main.activity.me.PersonalInfoActivity" />
         <activity android:name=".ui.main.activity.me.SexActivity" />
         <activity android:name=".ui.main.activity.me.MyCollectActivity" />
@@ -273,8 +279,9 @@
         <activity android:name=".ui.main.activity.me.VersionActivity" />
         <activity android:name=".ui.main.activity.me.MsgSettingActivity" />
         <activity android:name=".ui.main.activity.me.AcountSaftActivity" />
-        <activity android:name=".ui.main.activity.ordering.CancelOrderingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.main.activity.ordering.CancelOrderingActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.main.activity.DryCleaners.DryToCommentAct" />
         <activity android:name=".ui.main.activity.OfficeSupplies.ShopCarActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpConfirmOrderAct" />
@@ -331,7 +338,16 @@
         <activity android:name=".ui.main.activity.orderWater.OrderInfoActivity" />
         <activity android:name=".ui.main.activity.orderWater.ConfirmOrderActivity" />
         <activity android:name=".ui.main.activity.orderWater.PersonalPayActivity" />
-        <activity android:name=".ui.main.activity.ConsultActivity"></activity>
+        <activity android:name=".ui.main.activity.ConsultActivity" />
+        <activity android:name=".ui.main.activity.EnergyAndemissions.EnergySavingActivity" />
+        <activity android:name=".ui.main.activity.RoomReservation.RoomReservationActivity" />
+        <activity android:name=".ui.main.activity.NowReservaBarberActivity" />
+        <activity android:name=".ui.main.activity.me.MyPurseActivity" />
+        <activity android:name=".ui.main.activity.me.RechargeActivity" />
+        <activity android:name=".ui.main.activity.me.RechargeRecordActivity" />
+        <activity android:name=".ui.main.activity.me.PwdManageMentActivity" />
+        <activity android:name=".ui.main.activity.me.ChangePayPwdActivity" />
+        <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity"></activity>
     </application>
 
 </manifest>

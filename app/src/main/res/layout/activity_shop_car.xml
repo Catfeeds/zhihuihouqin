@@ -31,7 +31,7 @@
                 android:id="@+id/iv_store_select"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/selected" />
+                android:background="@drawable/unselected" />
 
             <TextView
                 android:id="@+id/store"
