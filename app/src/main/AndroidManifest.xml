@@ -387,6 +387,17 @@
         <activity
             android:name=".ui.main.activity.me.OrderMealDetailActivity"
             android:screenOrientation="portrait" />
+
+        <!--办公室预订模块-->
+        <activity
+            android:name=".ui.home.activity.office.OfficeListActivity"
+            android:screenOrientation="portrait" />
+
+        <!--节能减排模块-->
+        <activity
+            android:name=".ui.home.activity.saving.SavingActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
