@@ -14,6 +14,8 @@ import com.moe.wl.ui.main.modelimpl.RechargeModelImpl;
 import com.moe.wl.ui.main.presenter.RechargePresenter;
 import com.moe.wl.ui.main.view.RechargeView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -65,9 +67,8 @@ public class RechargeRecordActivity extends BaseActivity<RechargeModel,RechargeV
     @Override
     public void rechargeResult(FindChargeOrderBean bean) {
         if (bean != null) {
-//            FindChargeOrderBean.PageBean page = bean.getPage();
-//            List<FindChargeOrderBean.PageBean.ListBean> list = page.getList();
-//            adapter.setData(list);
+            List<FindChargeOrderBean.ListBean> list = bean.getList();
+            adapter.setData(list);
         }
     }
 }

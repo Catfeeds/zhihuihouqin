@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
 import com.moe.wl.ui.main.adapter.InformationAdapter;
@@ -22,7 +24,7 @@ import com.moe.wl.ui.main.adapter.InformationAdapter;
 
 public class McNoticeFragment extends Fragment {
     @BindView(R.id.rv_collect)
-    RecyclerView rvCollect;
+    XRecyclerView rvCollect;
     Unbinder unbinder;
 
     @Nullable

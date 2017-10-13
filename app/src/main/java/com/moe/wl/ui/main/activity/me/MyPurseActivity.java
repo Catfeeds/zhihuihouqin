@@ -65,15 +65,20 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
         title.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent=new Intent(MyPurseActivity.this,PayDetailActivity.class);
+                Intent intent=new Intent(MyPurseActivity.this,PayDetailActivity.class);
+                startActivity(intent);
             }
         });
 
     }
 
-    @OnClick({ R.id.ll_recharge, R.id.ll_passward_management})
+    @OnClick({ R.id.iv_wen ,R.id.ll_recharge, R.id.ll_passward_management})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_wen:
+                Intent intent2=new Intent(this,BalanceExplainActivity.class);
+                startActivity(intent2);
+                break;
             case R.id.ll_recharge:
                 Intent intent=new Intent(this,RechargeActivity.class);
                 startActivity(intent);

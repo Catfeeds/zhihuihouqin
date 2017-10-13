@@ -51,8 +51,8 @@ public class MyCollectActivity extends AppCompatActivity {
 
     private void initFragment() {
         fragments = new ArrayList<>();
-     /*   fragments.add(new McNoticeFragment());
-        fragments.add(new McOfficeFragment());
+       fragments.add(new McNoticeFragment());
+     /*    fragments.add(new McOfficeFragment());
         fragments.add(new McWorksFragment());
         fragments.add(new McBookFragment());
         fragments.add(new McDoctorFragment());

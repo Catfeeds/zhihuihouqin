@@ -4,7 +4,9 @@ import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
 import com.moe.wl.ui.main.bean.BarberProductDetailBean;
 import com.moe.wl.ui.main.bean.ConsultBarberBean;
 import com.moe.wl.ui.main.bean.FindChargeOrderBean;
+import com.moe.wl.ui.main.bean.FindWalletLogBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
+import com.moe.wl.ui.main.bean.MyCollectBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.SendMessageBean;
 import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
@@ -97,12 +99,16 @@ import com.moe.wl.ui.main.bean.SpDetailBean;
 import com.moe.wl.ui.main.bean.SpOrderBean;
 import com.moe.wl.ui.main.bean.UpLoadHeaderBean;
 import com.moe.wl.ui.main.bean.UserCommentBean;
+import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 
 import java.util.List;
 import java.util.Map;
+
+import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
+import com.moe.wl.ui.main.bean.WalletOrderBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -819,6 +825,11 @@ public interface NetAPI {
     @POST(NetUrl.orderDryDetail)
     Observable<OrderDryClearDetailBean> orderDryDetail(@FieldMap Map<String, Object> map);
 
+    //我的收藏
+    @FormUrlEncoded
+    @POST(NetUrl.addFavor)
+    Observable<MyCollectBean> addFavor(@FieldMap Map<String, Object> map);
+
     //修改用户信息
     @FormUrlEncoded
     @POST(NetUrl.changeUserInfo)
@@ -828,10 +839,26 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.findUserWallet)
     Observable<UserWalletBean> findUserWallet(@FieldMap Map<String, Object> map);
+
+    //明细
+    @FormUrlEncoded
+    @POST(NetUrl.findWalletLog)
+    Observable<FindWalletLogBean> findWalletLog(@FieldMap Map<String, Object> map);
+
+    //生成充值订单
+    @FormUrlEncoded
+    @POST(NetUrl.generateChargeWalletOrder)
+    Observable<WalletOrderBean> generateChargeWalletOrder(@FieldMap Map<String, Object> map);
+
     //充值记录
     @FormUrlEncoded
     @POST(NetUrl.findChargeOrder)
     Observable<FindChargeOrderBean> findChargeOrder(@FieldMap Map<String, Object> map);
+
+    //查询押金
+    @FormUrlEncoded
+    @POST(NetUrl.getUserDeposit)
+    Observable<UserDepositBean> getUserDeposit(@FieldMap Map<String, Object> map);
 
     //是否有交易密码
     @FormUrlEncoded

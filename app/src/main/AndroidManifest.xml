@@ -198,6 +198,7 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpConfirmOrderActivity" />
         <activity
             android:name=".ui.main.activity.OfficeSupplies.OrderRemarkActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -348,6 +349,10 @@
         <activity android:name=".ui.main.activity.me.RechargeRecordActivity" />
         <activity android:name=".ui.main.activity.me.PwdManageMentActivity" />
         <activity android:name=".ui.main.activity.me.ChangePayPwdActivity" />
+        <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity" />
+        <activity android:name=".ui.main.activity.me.PayDetailActivity" />
+        <activity android:name=".ui.main.activity.me.MyDeposit" />
+        <activity android:name=".ui.main.activity.me.BalanceExplainActivity"></activity>
         <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity"></activity>
         <activity
             android:name=".ui.main.activity.orderWater.OrderInfoActivity"

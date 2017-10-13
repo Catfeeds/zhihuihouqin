@@ -2696,6 +2696,24 @@ carcode	是	string	车牌号*/
     }
 
     /**
+     * 我的收藏
+     *
+     * @return
+     */
+    public static Observable addFavor(int type) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("type", type + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.addFavor(paramsMap));
+    }
+
+    /**
      * 修改用户信息
      *
      * @return
@@ -2739,7 +2757,44 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 充值
+     * 明细
+     *
+     * @return
+     */
+    public static Observable findWalletLog() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findWalletLog(paramsMap));
+    }
+
+    /**
+     * 生成充值订单
+     *
+     * @return
+     */
+    public static Observable generateChargeWalletOrder(double money, int paytype, int ordertype) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("money", money + "");
+            tempMap.put("paytype", paytype + "");
+            tempMap.put("ordertype", ordertype + "");
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.generateChargeWalletOrder(paramsMap));
+    }
+
+    /**
+     * 充值记录
      *
      * @return
      */
@@ -2753,6 +2808,23 @@ carcode	是	string	车牌号*/
             e.printStackTrace();
         }
         return getObservable(api.findChargeOrder(paramsMap));
+    }
+
+    /**
+     * 充值记录
+     *
+     * @return
+     */
+    public static Observable getUserDeposit() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getUserDeposit(paramsMap));
     }
 
     /**

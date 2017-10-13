@@ -183,9 +183,14 @@ public interface NetUrl {
     String changeUserInfo="appuser/user/modifyUserinfo";
     String upLoadHeader="appuser/user/uploadPhoto";
 
+    //我的收藏
+    String addFavor="appuser/tfavor/addFavor";
     //我的钱包
     String findUserWallet ="appuser/wallet/findUserWallet";
     String findChargeOrder="appuser/wallet/findChargeOrder";
+    String getUserDeposit="appuser/wallet/getUserDeposit";
+    String generateChargeWalletOrder="appuser/wallet/generateChargeWalletOrder";//生成充值订单
+    String findWalletLog="appuser/pay/findWalletLog";//明细
     String hasPaypass="appuser/wallet/hasPaypass";//是否有商品交易密码
     String checkOldPassword="appuser/wallet/checkOldPassword";
     String modifyCode="appuser/wallet/modifyCode";
