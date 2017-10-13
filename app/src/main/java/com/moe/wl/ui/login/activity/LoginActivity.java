@@ -7,12 +7,12 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
@@ -30,7 +30,6 @@ import com.moe.wl.ui.main.activity.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.CrcUtil;
 
@@ -61,17 +60,15 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     TextView lTvFindPsw;
     @BindView(R.id.l_cb_remenberPwd)
     CheckBox lCbRemenberPwd;
-    @BindView(R.id.bt_login)
-    Button btLogin;
     @BindView(R.id.l_iv_wecat)
     TextView lIvWecat;
     @BindView(R.id.l_iv_weibo)
     TextView lIvWeibo;
     @BindView(R.id.l_iv_qq)
     TextView lIvQq;
+
     private String mobile;
     private String pwd;
-
 
     @Override
     public void setContentLayout() {
@@ -86,7 +83,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         LogUtils.d("账号：" + SharedPrefHelper.getInstance().getPhoneNumber() + "密码：" + SharedPrefHelper.getInstance().getPassword());
         etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         etPsw.setText(SharedPrefHelper.getInstance().getPassword());
-        etPsw.requestFocus();//获取焦点 光标出现
+        etPsw.requestFocus(); // 获取焦点 光标出现
         etPsw.setSelection(SharedPrefHelper.getInstance().getPassword().length());
         lCbRemenberPwd.setChecked(SharedPrefHelper.getInstance().isRememberPassWord());
         etUname.addTextChangedListener(new TextWatcher() {
@@ -147,7 +144,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         return new LoginModelImpl();
     }
 
-    @OnClick({R.id.iv_all_cancle, R.id.l_tv_register, R.id.l_tv_findPsw, R.id.bt_login, R.id.l_iv_wecat, R.id.l_iv_weibo, R.id.l_iv_qq})
+    @OnClick({R.id.iv_all_cancle, R.id.clear_pass_word, R.id.l_tv_register, R.id.l_tv_findPsw,
+            R.id.bt_login, R.id.l_iv_wecat, R.id.l_iv_weibo, R.id.l_iv_qq})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_all_cancle:

@@ -6,28 +6,27 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.manager.UIManager;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
+import com.moe.wl.ui.login.bean.CaptchaBean;
+import com.moe.wl.ui.login.model.RegistStep1Model;
 import com.moe.wl.ui.login.modelimpl.RegistStep1ModelImpl;
 import com.moe.wl.ui.login.presenter.RegistStep1Presenter;
+import com.moe.wl.ui.login.view.RegistStep1View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.login.bean.CaptchaBean;
-import com.moe.wl.ui.login.model.RegistStep1Model;
-import com.moe.wl.ui.login.view.RegistStep1View;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
@@ -51,7 +50,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     @BindView(R.id.rl_code)
     RelativeLayout rlCode;
     @BindView(R.id.btn_getcode)
-    Button btnGetcode;
+    TextView btnGetcode;
     @BindView(R.id.checkbox)
     CheckBox checkbox;
     @BindView(R.id.tv_agreen)
@@ -131,7 +130,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         }
     }
 
-    @OnClick({R.id.btn_getcode, R.id.tv_agreen, R.id.tv_next_step})
+    @OnClick({R.id.btn_getcode, R.id.tv_agreen, R.id.tv_next_step, R.id.iv_uname})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_getcode:
@@ -142,6 +141,9 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
                 break;
             case R.id.tv_next_step:
                 doNext();
+                break;
+            case R.id.iv_uname:
+                etPhone.setText("");
                 break;
         }
     }
@@ -165,7 +167,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             showToast("请阅读并同意服务协议");
             return;
         }
-        if (!mCaptcha.equals(captcha)) {
+        if (mCaptcha==null || !mCaptcha.equals(captcha)) {
             showToast("验证码不正确");
             return;
         }

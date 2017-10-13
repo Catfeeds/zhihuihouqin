@@ -12,6 +12,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderMealAdapter;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.OrderMealBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -41,7 +42,7 @@ public class OrderMealFragment extends BaseFragment2 {
     Unbinder unbinder;
     private OrderMealAdapter adapter;
     private int page = 1;
-    private List<OrderMealBean.PageEntity.ListEntity> data;
+    private List<OrderMealBean.ListEntity> data;
     private int state;
 
     private int serviceType = 15;
@@ -90,6 +91,7 @@ public class OrderMealFragment extends BaseFragment2 {
                         break;
 
                     case 4: // 删除订单
+                        showAlertDialog("是否删除订单", state, position);
                         break;
                 }
             }
@@ -105,12 +107,15 @@ public class OrderMealFragment extends BaseFragment2 {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                         intent.putExtra("from", Constants.ORDERMEAL);
                         if (data != null && data.size() > 0) {
-                            OrderMealBean.PageEntity.ListEntity listBean = data.get(position);
+                            OrderMealBean.ListEntity listBean = data.get(position);
                             if (state == 0) { // 取消订单
                                 int id = listBean.getId();
                                 intent.putExtra("OrderingID", id);
                                 intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
+                            } else if (state == 4) {
+                                // 删除订单
+                                deleteOrder(listBean.getId());
                             }
                         }
                     }
@@ -177,10 +182,36 @@ public class OrderMealFragment extends BaseFragment2 {
                     } else {
                         recyclerView.loadMoreComplete();
                     }
-                    data.addAll(orderBean.getPage().getList());
+                    data.addAll(orderBean.getList());
                     adapter.notifyDataSetChanged();
                 }
             }
         });
     }
+
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteMealOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
+                }
+            }
+        });
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,19 +8,11 @@ import java.util.List;
  * 作者：Shixhe On 2017/9/28 0028
  */
 
-public class OrderExpertBean {
+public class OrderExpertBean implements Serializable {
 
-    private String msg;
     private int errCode;
+    private String msg;
     private List<OrderlistEntity> orderlist;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public int getErrCode() {
         return errCode;
@@ -27,6 +20,14 @@ public class OrderExpertBean {
 
     public void setErrCode(int errCode) {
         this.errCode = errCode;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public List<OrderlistEntity> getOrderlist() {
@@ -37,14 +38,16 @@ public class OrderExpertBean {
         this.orderlist = orderlist;
     }
 
-    public static class OrderlistEntity {
+    public static class OrderlistEntity implements Serializable {
 
         private int changes;
         private String createtime;
-        private String doctor;
+        private Object doctor;
         private int doctorid;
+        private int ghpaystatus;
         private int id;
         private String ordercode;
+        private int paystatus;
         private String photo;
         private String realname;
         private int remind;
@@ -68,11 +71,11 @@ public class OrderExpertBean {
             this.createtime = createtime;
         }
 
-        public String getDoctor() {
+        public Object getDoctor() {
             return doctor;
         }
 
-        public void setDoctor(String doctor) {
+        public void setDoctor(Object doctor) {
             this.doctor = doctor;
         }
 
@@ -82,6 +85,14 @@ public class OrderExpertBean {
 
         public void setDoctorid(int doctorid) {
             this.doctorid = doctorid;
+        }
+
+        public int getGhpaystatus() {
+            return ghpaystatus;
+        }
+
+        public void setGhpaystatus(int ghpaystatus) {
+            this.ghpaystatus = ghpaystatus;
         }
 
         public int getId() {
@@ -98,6 +109,14 @@ public class OrderExpertBean {
 
         public void setOrdercode(String ordercode) {
             this.ordercode = ordercode;
+        }
+
+        public int getPaystatus() {
+            return paystatus;
+        }
+
+        public void setPaystatus(int paystatus) {
+            this.paystatus = paystatus;
         }
 
         public String getPhoto() {

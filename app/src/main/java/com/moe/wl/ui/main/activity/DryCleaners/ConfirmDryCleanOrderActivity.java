@@ -8,10 +8,15 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.moe.wl.R;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
+import com.moe.wl.ui.main.adapter.ConfirmDryCleanOrderAdapter;
+import com.moe.wl.ui.main.bean.ClothBean;
 import com.moe.wl.ui.main.bean.JieYueBean;
-import com.moe.wl.ui.main.bean.OrderDryCleanBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,12 +27,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.adapter.ConfirmDryCleanOrderAdapter;
-
 import rx.Observable;
 import rx.Subscriber;
 
@@ -54,7 +53,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
     @BindView(R.id.activity_confirm_dry_clean_order)
     LinearLayout activityConfirmDryCleanOrder;
 
-    private List<OrderDryCleanBean.PageBean.ListBean> list;
+    private List<ClothBean.PageEntity.ListEntity> list;
     private String time;
     private String mobile;
     private ConfirmDryCleanOrderAdapter orderAdapter;
@@ -76,7 +75,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         json = intent.getStringExtra("json");
         String realName =  SharedPrefHelper.getInstance().getRealName();
         Gson gson = new Gson();
-        list = gson.fromJson(json, new TypeToken<List<OrderDryCleanBean.PageBean.ListBean>>() {
+        list = gson.fromJson(json, new TypeToken<List<ClothBean.PageEntity.ListEntity>>() {
         }.getType());
         int counts = 0;
         for (int i = 0; i < list.size(); i++) {

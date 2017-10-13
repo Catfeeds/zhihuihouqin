@@ -10,8 +10,10 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.activity.me.OrderCommentActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.WaterAdapter;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.OrderWaterBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -37,7 +39,7 @@ import rx.Subscriber;
  */
 public class WaterFragment extends BaseFragment2 {
 
-    private List<OrderWaterBean.PageEntity.ListEntity> data;
+    private List<OrderWaterBean.ListEntity> data;
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
 
@@ -81,20 +83,25 @@ public class WaterFragment extends BaseFragment2 {
             public void onClick(int type, int position) {
                 switch (type) {
                     case 0: // 取消订单
-                        showAlertDialog("是否取消订单", state, position);
+                        showAlertDialog("是否取消订单", type, position);
                         break;
 
                     case 1: // 联系配送人员
-                        showAlertDialog("是否拨打服务电话", state, position);
+                        showAlertDialog("是否拨打服务电话", type, position);
                         break;
 
                     case 2: // 再来一单
+
                         break;
 
                     case 3: // 评价
+                        Intent intent = new Intent(getActivity(), OrderCommentActivity.class);
+                        intent.putExtra("OrderID", data.get(position).getId());
+                        startActivity(intent);
                         break;
 
                     case 4: // 删除订单
+                        showAlertDialog("是否删除订单", type, position);
                         break;
                 }
             }
@@ -110,16 +117,20 @@ public class WaterFragment extends BaseFragment2 {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                         intent.putExtra("from", Constants.ORDERWATER);
                         if (data != null && data.size() > 0) {
-                            OrderWaterBean.PageEntity.ListEntity listBean = data.get(position);
+                            OrderWaterBean.ListEntity listBean = data.get(position);
                             if (state == 0) {
+                                // 取消订单
                                 int id = listBean.getId(); // 订单id
                                 intent.putExtra("OrderingID", id);
                                 intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
-                                //TODO 服务电话
-                                String mobile = listBean.getMobile(); // 手机号
+                                // TODO 服务电话
+                                String mobile = listBean.getServiceMobile(); // 手机号
                                 CallPhoneUtils.callPhone(mobile, getActivity());
+                            } else if (state == 4) {
+                                // 删除订单
+                                deleteOrder(listBean.getId());
                             }
                         }
                     }
@@ -161,6 +172,7 @@ public class WaterFragment extends BaseFragment2 {
         EventBus.getDefault().unregister(this);
     }
 
+    // 获取数据
     public void getData() {
         Observable observable = RetrofitUtils.getInstance().getWaterOrder(state + 1, page);
         showProgressDialog();
@@ -172,7 +184,7 @@ public class WaterFragment extends BaseFragment2 {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.i("获取订单出现问题");
+                LogUtils.d("获取订单出现问题");
                 dismissProgressDialog();
             }
 
@@ -185,10 +197,36 @@ public class WaterFragment extends BaseFragment2 {
                     } else {
                         recyclerView.loadMoreComplete();
                     }
-                    data.addAll(orderBean.getPage().getList());
+                    data.addAll(orderBean.getList());
                     adapter.notifyDataSetChanged();
                 }
             }
         });
     }
+
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteWaterOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
+                }
+            }
+        });
+    }
+
 }

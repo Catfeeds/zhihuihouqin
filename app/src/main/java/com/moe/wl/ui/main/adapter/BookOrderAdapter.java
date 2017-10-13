@@ -1,14 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.activity.me.OrderBookDetailActivity;
 import com.moe.wl.ui.main.bean.BookOrderListBean;
 
 import java.util.ArrayList;
@@ -16,7 +20,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
  * Created by 我的电脑 on 2017/9/15 0015.
@@ -75,6 +78,8 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
         TextView tvToComment;
         @BindView(R.id.tv_all)
         TextView tvAll;
+        @BindView(R.id.item)
+        LinearLayout item;
         private int mPosition;
         private int state;
 
@@ -83,7 +88,7 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(BookOrderListBean.OrderlistBean orderlistBean, int position, int state) {
+        public void setData(BookOrderListBean.OrderlistBean orderlistBean, final int position, int state) {
             this.mPosition = position;
             this.state = state;
             if (orderlistBean != null) {
@@ -106,57 +111,42 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
                     tvToComment.setVisibility(View.GONE);
                     tvAll.setOnClickListener(this);
                     break;
+
                 case 2:
                     tvAll.setText("已归还");
                     tvToComment.setVisibility(View.VISIBLE);
                     tvToComment.setOnClickListener(this);
                     tvAll.setOnClickListener(this);
                     break;
+
                 case 3:
                     tvAll.setText("待评价");
                     tvToComment.setVisibility(View.GONE);
                     tvAll.setOnClickListener(this);
-
                     break;
+
                 case 4:
                     tvAll.setText("已取消");
                     tvToComment.setVisibility(View.VISIBLE);
                     tvAll.setOnClickListener(this);
                     tvToComment.setOnClickListener(this);
                     break;
-
             }
+
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, OrderBookDetailActivity.class);
+                    intent.putExtra("Data", mList.get(position));
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         @Override
         public void onClick(View v) {
-            switch (mState){
-                case 0:
-                    if(listener!=null){
-                        listener.onClickListener(0,mPosition);
-                    }
-                    break;
-
-                case 1:
-                    if(listener!=null){
-                        listener.onClickListener(1,mPosition);
-                    }
-                    break;
-                case 2:
-                    if(listener!=null){
-                        listener.onClickListener(2,mPosition);
-                    }
-                    break;
-                case 3:
-                    if(listener!=null){
-                        listener.onClickListener(3,mPosition);
-                    }
-                    break;
-                case 4:
-                    if(listener!=null){
-                        listener.onClickListener(4,mPosition);
-                    }
-                    break;
+            if (listener != null) {
+                listener.onClickListener(mState, mPosition);
             }
         }
     }

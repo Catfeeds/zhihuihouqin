@@ -12,6 +12,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderVegetableAdapter;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -36,7 +37,7 @@ import rx.Subscriber;
  */
 public class OrderVegetableFragment extends BaseFragment2 {
 
-    private List<OrderVegetableBean.PageEntity.ListEntity> data;
+    private List<OrderVegetableBean.ListEntity> data;
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
 
@@ -94,6 +95,7 @@ public class OrderVegetableFragment extends BaseFragment2 {
                         break;
 
                     case 4: // 删除订单
+                        showAlertDialog("是否删除订单", state, position);
                         break;
                 }
             }
@@ -109,7 +111,7 @@ public class OrderVegetableFragment extends BaseFragment2 {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                         intent.putExtra("from", Constants.VEGETABLE);
                         if (data != null && data.size() > 0) {
-                            OrderVegetableBean.PageEntity.ListEntity listBean = data.get(position);
+                            OrderVegetableBean.ListEntity listBean = data.get(position);
                             if (state == 0) {
                                 int id = listBean.getId(); // 订单id
                                 intent.putExtra("OrderingID", id);
@@ -117,8 +119,11 @@ public class OrderVegetableFragment extends BaseFragment2 {
                                 startActivity(intent);
                             } else if (state == 1) {
                                 //TODO 服务电话
-                                String mobile = listBean.getMobile(); // 手机号
+                                String mobile = listBean.getServiceMobile(); // 手机号
                                 CallPhoneUtils.callPhone(mobile, getActivity());
+                            } else if (state == 4) {
+                                // 删除订单
+                                deleteOrder(listBean.getId());
                             }
                         }
                     }
@@ -184,8 +189,33 @@ public class OrderVegetableFragment extends BaseFragment2 {
                     } else {
                         recyclerView.loadMoreComplete();
                     }
-                    data.addAll(orderBean.getPage().getList());
+                    data.addAll(orderBean.getList());
                     adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteVegetableOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
                 }
             }
         });

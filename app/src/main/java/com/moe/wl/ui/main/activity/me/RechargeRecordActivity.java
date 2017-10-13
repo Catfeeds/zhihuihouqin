@@ -1,7 +1,5 @@
 package com.moe.wl.ui.main.activity.me;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.LinearLayout;
 
@@ -16,8 +14,6 @@ import com.moe.wl.ui.main.modelimpl.RechargeModelImpl;
 import com.moe.wl.ui.main.presenter.RechargePresenter;
 import com.moe.wl.ui.main.view.RechargeView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,7 +26,6 @@ public class RechargeRecordActivity extends BaseActivity<RechargeModel,RechargeV
     @BindView(R.id.activity_recharge_record)
     LinearLayout activityRechargeRecord;
     private RechargeRecordAdapter adapter;
-
 
     @Override
     public RechargePresenter createPresenter() {
@@ -56,8 +51,8 @@ public class RechargeRecordActivity extends BaseActivity<RechargeModel,RechargeV
 
     private void initRecycler() {
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RechargeRecordAdapter(this);
-        recycler.setAdapter(adapter);
+//        adapter = new RechargeRecordAdapter(this);
+//        recycler.setAdapter(adapter);
     }
 
     private void initTitle() {
@@ -70,9 +65,9 @@ public class RechargeRecordActivity extends BaseActivity<RechargeModel,RechargeV
     @Override
     public void rechargeResult(FindChargeOrderBean bean) {
         if (bean != null) {
-            FindChargeOrderBean.PageBean page = bean.getPage();
-            List<FindChargeOrderBean.PageBean.ListBean> list = page.getList();
-            adapter.setData(list);
+//            FindChargeOrderBean.PageBean page = bean.getPage();
+//            List<FindChargeOrderBean.PageBean.ListBean> list = page.getList();
+//            adapter.setData(list);
         }
     }
 }

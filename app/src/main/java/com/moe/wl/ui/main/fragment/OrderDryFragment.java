@@ -13,6 +13,7 @@ import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.DryCleanAdapter;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
@@ -41,15 +42,15 @@ public class OrderDryFragment extends BaseFragment2 {
     private DryCleanAdapter dryCleanAdapter;
     private int limit = 20;
     private int page = 1;
-    private List<CheckDryOrderBean.PageBean.ListBean> listAll;
-    private List<CheckDryOrderBean.PageBean.ListBean> list;
+    private List<CheckDryOrderBean.ListEntity> listAll;
+    private List<CheckDryOrderBean.ListEntity> list;
     private int state;
 
     private int serviceType = 7;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
-        getData(state, page, limit, true);
+        getData();
     }
 
     @Override
@@ -82,7 +83,7 @@ public class OrderDryFragment extends BaseFragment2 {
                     case 4:
                         break;
                     case 5://删除
-
+                        showAlertDialog("是否删除订单", state, position);
                         break;
                 }
             }
@@ -98,7 +99,7 @@ public class OrderDryFragment extends BaseFragment2 {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                         intent.putExtra("from", Constants.DRYCLEANER);
                         if (list != null && list.size() > 0) {
-                            CheckDryOrderBean.PageBean.ListBean listBean = list.get(position);
+                            CheckDryOrderBean.ListEntity listBean = list.get(position);
                             if (listBean != null) {
                                 if (state == 1) {
                                     int id = listBean.getId();
@@ -107,8 +108,11 @@ public class OrderDryFragment extends BaseFragment2 {
                                     startActivity(intent);
                                 } else if (state == 2) {
                                     //TODO 应该是服务电话
-                                    String mobile = listBean.getMobile();
+                                    String mobile = listBean.getServiceMobile();
                                     CallPhoneUtils.callPhone(mobile, getActivity());
+                                } else if (state == 4) {
+                                    // 删除订单
+                                    deleteOrder(listBean.getId());
                                 }
                             }
                         }
@@ -144,16 +148,16 @@ public class OrderDryFragment extends BaseFragment2 {
             @Override
             public void onRefresh() {
                 page = 1;
-                getData(state, page, limit, true);
+                getData();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getData(state, page, limit, false);
+                getData();
             }
         });
-        getData(state, 1, limit, true);
+        getData();
     }
 
     @Override
@@ -163,7 +167,7 @@ public class OrderDryFragment extends BaseFragment2 {
         EventBus.getDefault().unregister(this);
     }
 
-    public void getData(final int state, int page, int limit, final boolean isRefresh) {
+    public void getData() {
         Observable observable = RetrofitUtils.getInstance().checkDryOrder(state, page, limit);
         showProgressDialog();
         observable.subscribe(new Subscriber<CheckDryOrderBean>() {
@@ -174,15 +178,15 @@ public class OrderDryFragment extends BaseFragment2 {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.i("获取订单出现问题");
+                LogUtils.i("获取订单出现问题    "  + e.toString());
                 dismissProgressDialog();
             }
 
             @Override
             public void onNext(CheckDryOrderBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    list = orderBean.getPage().getList();
-                    if (isRefresh) {
+                    list = orderBean.getList();
+                    if (page == 1) {
                         listAll.clear();
                         recyclerView.refreshComplete();
                     } else {
@@ -194,4 +198,30 @@ public class OrderDryFragment extends BaseFragment2 {
             }
         });
     }
+
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteDryOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
+                }
+            }
+        });
+    }
+
 }

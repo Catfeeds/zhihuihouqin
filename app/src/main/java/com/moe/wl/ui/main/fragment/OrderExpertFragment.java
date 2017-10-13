@@ -12,6 +12,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderExpertAdapter;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.OrderExpertBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -93,6 +94,7 @@ public class OrderExpertFragment extends BaseFragment2 {
                         break;
 
                     case 4: // 删除订单
+                        showAlertDialog("是否删除订单", position);
                         break;
                 }
             }
@@ -121,15 +123,9 @@ public class OrderExpertFragment extends BaseFragment2 {
                             } else if (state == 1) {
                                 // TODO 完成理发服务
 
-                            } else if (state == 2) {
-                                // TODO 再次预约
-
-                            } else if (state == 3) {
-                                // TODO 评价
-
                             } else if (state == 4) {
                                 // TODO 删除
-
+                                deleteOrder(listBean.getId());
                             }
                         }
 
@@ -199,6 +195,32 @@ public class OrderExpertFragment extends BaseFragment2 {
                     }
                     data.addAll(orderBean.getOrderlist());
                     adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteExpertsOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
                 }
             }
         });

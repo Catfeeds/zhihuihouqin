@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 
 public class DryCleanAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<CheckDryOrderBean.PageBean.ListBean> mList = new ArrayList<>();
+    private List<CheckDryOrderBean.ListEntity> mList = new ArrayList<>();
     private int mState = 1;
 
 
@@ -46,7 +46,7 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         if (mList != null && mList.size() > 0) {
-            CheckDryOrderBean.PageBean.ListBean listBean = mList.get(position);
+            CheckDryOrderBean.ListEntity listBean = mList.get(position);
             viewHolder.setData(listBean, position, mState);
         }
     }
@@ -59,7 +59,7 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public void setData(List<CheckDryOrderBean.PageBean.ListBean> list, int state) {
+    public void setData(List<CheckDryOrderBean.ListEntity> list, int state) {
         this.mList = list;
         this.mState = state;
         notifyDataSetChanged();
@@ -85,21 +85,21 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(CheckDryOrderBean.PageBean.ListBean listBean, int position, int state) {
+        public void setData(CheckDryOrderBean.ListEntity listBean, int position, int state) {
             llDryType.removeAllViews();//每次刷新时都要移除条目,重新赋值
             if (listBean != null) {
                 this.mPosition = position;
-                tvOrderNum.setText("订单号: " + listBean.getCode());
+                tvOrderNum.setText("订单号: " + listBean.getOrdercode());
                 tvPaystate.setText("支付状态: " + listBean.getPayStatus());
-                tvTime.setText("下单时间: " + listBean.getExpectarrivaltime());
-                List<CheckDryOrderBean.PageBean.ListBean.DetailListBean> detailList = listBean.getDetailList();
+                tvTime.setText("下单时间: " + listBean.getCreatetime());
+                List<CheckDryOrderBean.ListEntity.ClothesListEntity> detailList = listBean.getClothesList();
                 if (detailList != null && detailList.size() > 0) {
                     for (int i = 0; i < detailList.size(); i++) {
                         View view = View.inflate(mContext, R.layout.dry_order_item, null);
                         TextView name = (TextView) view.findViewById(R.id.tv_yiwu_name1);
                         TextView count = (TextView) view.findViewById(R.id.tv_count);
                         int count1 = detailList.get(i).getCount();
-                        String clothName = detailList.get(i).getClothName() + "";
+                        String clothName = detailList.get(i).getClothesName() + "";
                         name.setText(clothName);
                         count.setText("x" + count1);
                         llDryType.addView(view);

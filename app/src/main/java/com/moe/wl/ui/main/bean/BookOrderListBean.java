@@ -1,12 +1,13 @@
 package com.moe.wl.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by 我的电脑 on 2017/9/15 0015.
  */
 
-public class BookOrderListBean {
+public class BookOrderListBean implements Serializable {
 
     /**
      * msg : success
@@ -42,7 +43,7 @@ public class BookOrderListBean {
         this.orderlist = orderlist;
     }
 
-    public static class OrderlistBean {
+    public static class OrderlistBean implements Serializable {
         /**
          * author : 2
          * createtime : 2017-08-25 18:41

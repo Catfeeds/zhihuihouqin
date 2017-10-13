@@ -1,16 +1,22 @@
 package com.moe.wl.ui.main.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.BookOrderAdapter;
 import com.moe.wl.ui.main.bean.BookOrderListBean;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +43,8 @@ public class OrderBookFragment extends BaseFragment2 {
     //    List listAll = new ArrayList<>();
     private BookOrderAdapter bookOrderAdapter;
     private List<BookOrderListBean.OrderlistBean> orderList;
+
+    private int serviceType = 3;
 
     @Override
     public View setLayout() {
@@ -66,9 +74,11 @@ public class OrderBookFragment extends BaseFragment2 {
                         showAlertDialog("是否拨打服务电话", state, position);
                         break;
                     case 3:
+
                         break;
-
-
+                    case 4:
+                        showAlertDialog("是否删除订单", state, position);
+                        break;
                 }
             }
         });
@@ -94,21 +104,21 @@ public class OrderBookFragment extends BaseFragment2 {
             @Override
             public void onRefresh() {
                 page = 1;
-                getData(state);
+                getData();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getData(state);
+                getData();
             }
         });
 
-        getData(state);
+        getData();
     }
 
-    public void getData(int typeId) {
-        Observable observable = RetrofitUtils.getInstance().bookOrderList(typeId + 1 + "", page, limit);
+    public void getData() {
+        Observable observable = RetrofitUtils.getInstance().bookOrderList(state + 1 + "", page, limit);
         showProgressDialog();
         observable.subscribe(new Subscriber<BookOrderListBean>() {
             @Override
@@ -131,11 +141,9 @@ public class OrderBookFragment extends BaseFragment2 {
                     recyclerView.loadMoreComplete();
                 }
                 if (orderBean.getErrCode() == 0) {
-                    LogUtils.d("获取数据成功");
                     orderList = orderBean.getOrderlist();
                     bookOrderAdapter.setData(orderList, state);
                 } else {
-                    LogUtils.d("BookOrderListBean结果出现问题");
                     ToastUtil.showToast(getActivity(), orderBean.getMsg());
                 }
             }
@@ -148,25 +156,26 @@ public class OrderBookFragment extends BaseFragment2 {
                 .setPositiveButton("是", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.ORDERWATER);
-                        if(list!=null&&list.size()>0){
-                            CheckDryOrderBean.PageBean.ListBean listBean = list.get(state - 1);
-                            if(listBean!=null){
-                                if(state==1){
-                                    int id = listBean.getId();
-                                    intent.putExtra("OrderingID",id);
+                        if (orderList != null && orderList.size() > 0) {
+                            BookOrderListBean.OrderlistBean listBean = orderList.get(position);
+                            if (listBean != null) {
+                                if (state == 0) {
+                                    Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
+                                    intent.putExtra("from", Constants.BOOK);
+                                    intent.putExtra("ServiceType", serviceType);
+                                    intent.putExtra("OrderingID", listBean.getOrderid());
                                     startActivity(intent);
-                                }else if(state==2){
-                                    //todo 应该是服务电话
-                                    String mobile = listBean.getMobile();
-                                    CallPhoneUtils.callPhone(mobile,getActivity());
+                                } else if (state == 1) {
+//                                    String mobile = listBean.get;
+//                                    CallPhoneUtils.callPhone(mobile, getActivity());
+                                } else if (state == 4) {
+                                    // 删除订单
+                                    deleteOrder(listBean.getOrderid());
                                 }
-                            }else{
-                                LogUtils.i("listBean为空了");
-
+                            } else {
+                                LogUtils.d("listBean为空了");
                             }
-                        }*/
+                        }
 
                     }
                 })
@@ -178,10 +187,35 @@ public class OrderBookFragment extends BaseFragment2 {
                 }).show();
     }
 
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteBookOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
+                }
+            }
+        });
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        //EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 }

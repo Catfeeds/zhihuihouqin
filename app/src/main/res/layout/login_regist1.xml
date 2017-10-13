@@ -34,29 +34,32 @@
             android:layout_centerVertical="true"
             android:src="@drawable/gray_phone" />
 
-        <EditText
-            android:id="@+id/et_phone"
-            style="@style/tvStyle_tv_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/iv1"
-            android:background="@color/transparent"
-            android:ems="10"
-            android:gravity="left"
-            android:hint="手机号码"
-            android:inputType="number"
-            android:paddingLeft="10dip"
-            android:textColorHint="@color/tv_gray" />
-
         <ImageView
             android:id="@+id/iv_uname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="4dp"
             android:src="@drawable/close" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@id/iv_uname"
+            android:layout_toRightOf="@+id/iv1"
+            android:background="@color/transparent"
+            android:gravity="left"
+            android:hint="手机号码"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/tv_gray"
+            android:textSize="@dimen/sp_small" />
+
     </RelativeLayout>
     <!-- 验证码 -->
     <RelativeLayout
@@ -69,11 +72,12 @@
         <RelativeLayout
             android:id="@+id/rl_code"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-
             android:background="@drawable/shape_rec_text"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp">
 
             <ImageView
                 android:id="@+id/iv2"
@@ -85,40 +89,49 @@
 
             <EditText
                 android:id="@+id/et_code"
-                style="@style/tvStyle_tv_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
                 android:layout_toRightOf="@+id/iv2"
                 android:background="@color/transparent"
-                android:ems="8"
                 android:gravity="left"
                 android:hint="验证码"
                 android:inputType="number"
+                android:maxLength="6"
+                android:minWidth="120dp"
                 android:paddingLeft="10dip"
-                android:textColorHint="@color/tv_gray" />
-
+                android:textColorHint="@color/tv_gray"
+                android:textSize="@dimen/sp_small" />
 
         </RelativeLayout>
 
-        <Button
+        <TextView
             android:id="@+id/btn_getcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@color/gray_lighter"
-            android:text="点击获取" />
+            android:background="@color/blue"
+            android:paddingBottom="12dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="12dp"
+            android:text="点击获取"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_small" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_next_step"
         style="@style/tvStyle_black_big"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/shape_login"
+        android:paddingBottom="13dp"
+        android:paddingTop="13dp"
         android:text="下一步" />
 
     <LinearLayout

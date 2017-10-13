@@ -6,38 +6,44 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="cn.moe.wl.com.moe.wl.ui.main.activity.SubmitSuccessActivity">
+    tools:context="com.moe.wl.ui.main.activity.SubmitSuccessActivity">
+
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
-        android:background="#1000"
-        android:layout_height="?actionBarSize"/>
-    <View android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="#1000" />
+
+    <View
+        android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#1000"/>
+        android:background="#1000" />
+
     <ImageView
         android:id="@+id/iv_submit_or_pay"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/selected"
         android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_height="80dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/selected" />
+
     <TextView
         android:id="@+id/tv_submit_success"
-        android:text="提交成功"
-        android:textSize="22sp"
-        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="提交成功"
+        android:textSize="22sp" />
+
     <TextView
         android:id="@+id/tv_check_order"
-        android:text="查看订单"
-        android:textSize="20sp"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="60dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:background="@drawable/shap_check_order"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/shap_check_order"
+        android:paddingBottom="8dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="8dp"
+        android:text="查看订单"
+        android:textSize="20sp" />
 </LinearLayout>

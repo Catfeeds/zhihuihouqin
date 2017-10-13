@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.bean.QueryWaterListBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.bean.QueryWaterListBean;
 
 /**
  * Created by 我的电脑 on 2017/9/26 0026.

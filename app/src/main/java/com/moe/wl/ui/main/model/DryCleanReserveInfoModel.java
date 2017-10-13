@@ -7,8 +7,9 @@ import rx.Observable;
  * Created by hh on 2017/5/12.
  */
 
-public interface DryCleanReserveInfoModel extends MvpModel{
+public interface DryCleanReserveInfoModel extends MvpModel {
     Observable getData(String page, String limit);
+
     Observable CommitData(String mobile, String expectarrivaItme,
                           String clothList);
 }

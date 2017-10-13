@@ -1,15 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.activity.me.OrderOfficeDetailActivity;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
 
 import java.util.List;
@@ -25,12 +28,12 @@ import butterknife.ButterKnife;
 public class OrderVegetableAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<OrderVegetableBean.PageEntity.ListEntity> data;
+    private List<OrderVegetableBean.ListEntity> data;
     private int state;
     private OnClickListener listener;
 
 
-    public OrderVegetableAdapter(Context context, List<OrderVegetableBean.PageEntity.ListEntity> data, int state) {
+    public OrderVegetableAdapter(Context context, List<OrderVegetableBean.ListEntity> data, int state) {
         this.context = context;
         this.data = data;
         this.state = state;
@@ -46,16 +49,10 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
         holder.orderNumber.setText("订单号：" + data.get(position).getOrdercode());
-        if (data.get(position).getDetailList().size() != 0) {
-            holder.name.setText(data.get(position).getDetailList().get(0).getFoodName());
-            GlideLoading.getInstance().loadImgUrlHeader(context, data.get(position).getDetailList().get(0).getFoodImg(), holder.image);
-            holder.content.setText(data.get(position).getDetailList().get(0).getFoodOriginal());
-        }
-        if (data.get(position).getDetailList() != null) {
-            holder.merNumber.setText("净菜套餐等" + data.get(position).getDetailList().size() + "件商品");
-        } else {
-            holder.merNumber.setText("净菜套餐等null件商品");
-        }
+        holder.name.setText(data.get(position).getFoodName());
+        GlideLoading.getInstance().loadImgUrlHeader(context, data.get(position).getFoodImg(), holder.image);
+        holder.content.setText(data.get(position).getFoodOriginal());
+//        holder.merNumber.setText("净菜套餐等" + data.get(position).get + "件商品");
 
         switch (state) {
             case 0:
@@ -77,6 +74,15 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 if (listener != null)
                     listener.onClick(state, position);
+            }
+        });
+
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderOfficeDetailActivity.class);
+                intent.putExtra("OrderID", data.get(position).getId());
+                context.startActivity(intent);
             }
         });
 
@@ -108,6 +114,8 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
         TextView content;
         @BindView(R.id.order)
         TextView order;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

@@ -25,19 +25,24 @@ import com.moe.wl.ui.main.bean.ActivitySignListBean;
 import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
 import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
+import com.moe.wl.ui.main.bean.BarberProductDetailBean;
 import com.moe.wl.ui.main.bean.BarberWorkListBean;
 import com.moe.wl.ui.main.bean.BookDetailBean;
 import com.moe.wl.ui.main.bean.BookOrderListBean;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
+import com.moe.wl.ui.main.bean.ClothBean;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.ComplainDetailBean;
 import com.moe.wl.ui.main.bean.ComplainHistoryBean;
 import com.moe.wl.ui.main.bean.ComplainReplyBean;
+import com.moe.wl.ui.main.bean.ConsultBarberBean;
 import com.moe.wl.ui.main.bean.DoctorDetailBean;
 import com.moe.wl.ui.main.bean.DoctorListBean;
 import com.moe.wl.ui.main.bean.ExpertCommentBean;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.bean.ExpertOrderBean;
+import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.HealthServerceHomeBean;
 import com.moe.wl.ui.main.bean.HistoryPostBean;
 import com.moe.wl.ui.main.bean.HomePageBean;
@@ -53,15 +58,23 @@ import com.moe.wl.ui.main.bean.MessageListBean;
 import com.moe.wl.ui.main.bean.MoreListBean;
 import com.moe.wl.ui.main.bean.NutritionBean;
 import com.moe.wl.ui.main.bean.OfficeIndexBean;
-import com.moe.wl.ui.main.bean.OrderDryCleanBean;
+import com.moe.wl.ui.main.bean.OrderDryClearDetailBean;
 import com.moe.wl.ui.main.bean.OrderExpertBean;
+import com.moe.wl.ui.main.bean.OrderExpertsDetailBean;
 import com.moe.wl.ui.main.bean.OrderHairCutBean;
 import com.moe.wl.ui.main.bean.OrderMealBean;
+import com.moe.wl.ui.main.bean.OrderMealDetailBean;
 import com.moe.wl.ui.main.bean.OrderMedicalBean;
+import com.moe.wl.ui.main.bean.OrderMedicalDetailBean;
 import com.moe.wl.ui.main.bean.OrderOfficeBean;
+import com.moe.wl.ui.main.bean.OrderOfficeDetailBean;
 import com.moe.wl.ui.main.bean.OrderRepairBean;
+import com.moe.wl.ui.main.bean.OrderRepairsDetailOneBean;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
+import com.moe.wl.ui.main.bean.OrderVegetableDetailBean;
 import com.moe.wl.ui.main.bean.OrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderWaterDetailBean;
+import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.PayBean;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 import com.moe.wl.ui.main.bean.ProductCategoryBean;
@@ -72,6 +85,7 @@ import com.moe.wl.ui.main.bean.RecommandBookBean;
 import com.moe.wl.ui.main.bean.SearchBookListBean;
 import com.moe.wl.ui.main.bean.SearchCategoryBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
+import com.moe.wl.ui.main.bean.SendMessageBean;
 import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ServiceMyBean;
 import com.moe.wl.ui.main.bean.ShopBean;
@@ -89,8 +103,6 @@ import com.moe.wl.ui.main.bean.VegetableBean;
 
 import java.util.List;
 import java.util.Map;
-
-import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -327,7 +339,7 @@ public interface NetAPI {
     //预约干洗
     @FormUrlEncoded
     @POST(NetUrl.orderDryCleaner)
-    Observable<OrderDryCleanBean> orderDryClean(@FieldMap Map<String, Object> map);
+    Observable<ClothBean> orderDryClean(@FieldMap Map<String, Object> map);
 
     //提交预约
     @FormUrlEncoded
@@ -667,6 +679,145 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.getUserInfo)
     Observable<UserInfoBean> getUserInfo(@FieldMap Map<String, Object> map);
+    /*----------------------------------删除各种订单列表-------------------------------------*/
+
+    // 删除报修订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteRepairsOrder)
+    Observable<CollectBean> deleteRepairsOrder(@FieldMap Map<String, Object> map);
+
+    // 删除办公用品订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteOfficeOrder)
+    Observable<CollectBean> deleteOfficeOrder(@FieldMap Map<String, Object> map);
+
+    // 删除工作餐订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteMealOrder)
+    Observable<CollectBean> deleteMealOrder(@FieldMap Map<String, Object> map);
+
+    // 删除理发订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteHairCutOrder)
+    Observable<CollectBean> deleteHairCutOrder(@FieldMap Map<String, Object> map);
+
+    // 删除订水订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteWaterOrder)
+    Observable<CollectBean> deleteWaterOrder(@FieldMap Map<String, Object> map);
+
+    // 删除医疗订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteMedicalOrder)
+    Observable<CollectBean> deleteMedicalOrder(@FieldMap Map<String, Object> map);
+
+    // 删除专家坐诊订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteExpertsOrder)
+    Observable<CollectBean> deleteExpertsOrder(@FieldMap Map<String, Object> map);
+
+    // 删除干洗订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteDryOrder)
+    Observable<CollectBean> deleteDryOrder(@FieldMap Map<String, Object> map);
+
+    // 删除图书订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteBookOrder)
+    Observable<CollectBean> deleteBookOrder(@FieldMap Map<String, Object> map);
+
+    // 删除净菜订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteVegetableOrder)
+    Observable<CollectBean> deleteVegetableOrder(@FieldMap Map<String, Object> map);
+
+    /*----------------------------------评论各种订单-------------------------------------*/
+
+    // 评论报修订单
+    @Multipart
+    @POST(NetUrl.commentRepairsOrder)
+    Observable<CollectBean> commentRepairsOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论办公用品订单
+    @Multipart
+    @POST(NetUrl.commentOfficeOrder)
+    Observable<CollectBean> commentOfficeOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+
+    // 评论工作餐订单
+    @Multipart
+    @POST(NetUrl.commentMealOrder)
+    Observable<CollectBean> commentMealOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论理发订单
+    @Multipart
+    @POST(NetUrl.commentHairCutOrder)
+    Observable<CollectBean> commentHairCutOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论订水订单
+    @Multipart
+    @POST(NetUrl.commentWaterOrder)
+    Observable<CollectBean> commentWaterOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论医疗订单
+    @Multipart
+    @POST(NetUrl.commentMedicalOrder)
+    Observable<CollectBean> commentMedicalOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论干洗订单
+    @Multipart
+    @POST(NetUrl.commentDryOrder)
+    Observable<CollectBean> commentDryOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论图书订单
+    @Multipart
+    @POST(NetUrl.commentBookOrder)
+    Observable<CollectBean> commentBookOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 评论净菜订单
+    @Multipart
+    @POST(NetUrl.commentVegetableOrder)
+    Observable<CollectBean> commentVegetableOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+
+    // 专家订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderExpertsDetail)
+    Observable<OrderExpertsDetailBean> orderExpertsDetail(@FieldMap Map<String, Object> map);
+
+    // 医疗订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderMedicalDetail)
+    Observable<OrderMedicalDetailBean> orderMedicalDetail(@FieldMap Map<String, Object> map);
+
+    // 办公用品订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderOfficeDetail)
+    Observable<OrderOfficeDetailBean> orderOfficeDetail(@FieldMap Map<String, Object> map);
+
+    // 净菜订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderVegetableDetail)
+    Observable<OrderVegetableDetailBean> orderVegetableDetail(@FieldMap Map<String, Object> map);
+
+    // 报修订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderRepairsDetail)
+    Observable<OrderRepairsDetailOneBean> orderRepairsDetail(@FieldMap Map<String, Object> map);
+
+    // 订水订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderWaterDetail)
+    Observable<OrderWaterDetailBean> orderWaterDetail(@FieldMap Map<String, Object> map);
+
+    // 工作餐订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderMealDetail)
+    Observable<OrderMealDetailBean> orderMealDetail(@FieldMap Map<String, Object> map);
+
+    // 干洗订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderDryDetail)
+    Observable<OrderDryClearDetailBean> orderDryDetail(@FieldMap Map<String, Object> map);
 
     //修改用户信息
     @FormUrlEncoded

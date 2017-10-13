@@ -12,6 +12,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderRepairAdapter;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.OrderRepairBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -84,7 +85,7 @@ public class OrderRepairFragment extends BaseFragment2 {
                         break;
 
                     case 1: // 拨打电话
-                        showAlertDialog("是否拨打服务电话",  position);
+                        showAlertDialog("是否拨打服务电话", position);
                         break;
 
                     case 2: // 评价
@@ -94,6 +95,7 @@ public class OrderRepairFragment extends BaseFragment2 {
                         break;
 
                     case 4: // 删除订单
+                        showAlertDialog("是否删除订单", position);
                         break;
                 }
             }
@@ -132,6 +134,9 @@ public class OrderRepairFragment extends BaseFragment2 {
                                 //TODO 服务电话
                                 String mobile = listBean.getMenderMobile();
                                 CallPhoneUtils.callPhone(mobile, getActivity());
+                            } else if (state == 4) {
+                                // 删除订单
+                                deleteOrder(listBean.getOrderId());
                             }
                         }
 
@@ -201,6 +206,31 @@ public class OrderRepairFragment extends BaseFragment2 {
                     }
                     data.addAll(orderBean.getOrderlist());
                     adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteRepairsOrder(orderID);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    page = 1;
+                    getData();
                 }
             }
         });

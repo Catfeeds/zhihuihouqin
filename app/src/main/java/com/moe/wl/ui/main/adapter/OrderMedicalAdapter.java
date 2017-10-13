@@ -1,15 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.CircleImageView;
+import com.moe.wl.ui.main.activity.me.OrderExpertDetailActivity;
 import com.moe.wl.ui.main.bean.OrderMedicalBean;
 
 import java.util.List;
@@ -18,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：报修订单Adapter
+ * 类描述：医疗订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 
@@ -29,7 +32,6 @@ public class OrderMedicalAdapter extends RecyclerView.Adapter {
     private int state;
     private OnPayClickListener payListener;
     private OnClickListener listener;
-
 
     public OrderMedicalAdapter(Context context, List<OrderMedicalBean.OrderlistEntity> data, int state) {
         this.context = context;
@@ -81,13 +83,22 @@ public class OrderMedicalAdapter extends RecyclerView.Adapter {
             }
         });
 
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderExpertDetailActivity.class);
+                intent.putExtra("OrderID", data.get(position).getId());
+                intent.putExtra("Type", 1);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
-
 
     public interface OnPayClickListener {
         void onPayClick();
@@ -122,6 +133,8 @@ public class OrderMedicalAdapter extends RecyclerView.Adapter {
         TextView payState;
         @BindView(R.id.order)
         TextView order;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

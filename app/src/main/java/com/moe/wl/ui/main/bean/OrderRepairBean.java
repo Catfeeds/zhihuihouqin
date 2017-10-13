@@ -3,7 +3,7 @@ package com.moe.wl.ui.main.bean;
 import java.util.List;
 
 /**
- * 类描述：
+ * 类描述：报修订单列表Bean
  * 作者：Shixhe On 2017/9/27 0027
  */
 
@@ -47,7 +47,7 @@ public class OrderRepairBean {
         private String menderPhoto;
         private int menderid;
         private int menditem;
-        private int orderid;
+        private int orderId;
         private int orderchange;
         private String ordercode;
         private int orderstatus;
@@ -119,11 +119,11 @@ public class OrderRepairBean {
         }
 
         public int getOrderId() {
-            return orderid;
+            return orderId;
         }
 
-        public void setOrderId(int orderid) {
-            this.orderid = orderid;
+        public void setOrderId(int orderId) {
+            this.orderId = orderId;
         }
 
         public int getOrderchange() {

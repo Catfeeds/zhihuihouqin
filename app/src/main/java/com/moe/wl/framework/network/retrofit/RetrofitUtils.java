@@ -12,8 +12,6 @@ import com.moe.wl.framework.network.ServerConstants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 
-import org.json.JSONArray;
-
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -155,20 +153,20 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
     }
 
-    private static MultipartBody.Part getHeaderImg(File file,String s) {
+    private static MultipartBody.Part getHeaderImg(File file, String s) {
 
-            File file1 = new Compressor.Builder(SoftApplication.softApplication)
-                    .setMaxWidth(720)
-                    .setMaxHeight(1080)
-                    .setQuality(80)
-                    .setCompressFormat(Bitmap.CompressFormat.PNG)
-                    .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                    .build()
-                    .compressToFile(file);
+        File file1 = new Compressor.Builder(SoftApplication.softApplication)
+                .setMaxWidth(720)
+                .setMaxHeight(1080)
+                .setQuality(80)
+                .setCompressFormat(Bitmap.CompressFormat.PNG)
+                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                .build()
+                .compressToFile(file);
 
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file1);
-            MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file1);
+        MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
         return part;
     }
 
@@ -178,8 +176,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         for (int i = 0; i < paths.size(); i++) {
             //这里采用的Compressor图片压缩
             LogUtils.d("图片地址：" + paths.get(i));
-            File files=new File(paths.get(i));
-            LogUtils.i(files.length()+"");
+            File files = new File(paths.get(i));
+            LogUtils.i(files.length() + "");
             File file = new Compressor.Builder(SoftApplication.softApplication)
                     .setMaxWidth(720)
                     .setMaxHeight(1080)
@@ -400,7 +398,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     public static Observable submitAuth(String name, String mobile,
                                         String idCard, int positionid, String roomId, String officetel,
                                         String cartypeId, String precarCode, String suffixcarCode,
-                                        String buildnum,String departid) {
+                                        String buildnum, String departid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
@@ -670,7 +668,6 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.postActivity(paramsMap, getImgList(photos, "photos"), getImgList(imgs, "imgs")));
     }
 
-
     /**
      * 活动报名
      *
@@ -710,6 +707,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getActivitySignList(paramsMap));
     }
+
     /**
      * 活动用户详情
      *
@@ -806,12 +804,13 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getBookDetailResult(paramsMap));
     }
+
     /**
      * 图书收藏
      *
      * @return
      */
-    public static Observable bookCollect(int type,int entityid) {
+    public static Observable bookCollect(int type, int entityid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
@@ -902,12 +901,12 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 获取图书订单列表
      */
-    public static Observable bookOrderList(String typeId, int page, int limit) {
+    public static Observable bookOrderList(String type, int page, int limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("bookOrderList", "---》bookDetail");
         try {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("type", typeId);
+            tempMap.put("type", type);
             tempMap.put("page", page);
             tempMap.put("limit", limit);
             addParams(paramsMap, tempMap);
@@ -1007,6 +1006,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getbarberInfo(paramsMap));
     }
+
     /**
      * 咨询理发师
      *
@@ -1024,12 +1024,13 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getConsultInfo(paramsMap));
     }
+
     /**
      * 发送消息
      *
      * @return
      */
-    public static Observable sendMessage(int barberid,String content) {
+    public static Observable sendMessage(int barberid, String content) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -1041,6 +1042,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.sendMessage(paramsMap));
     }
+
     /**
      * 理发师作品详情信息
      *
@@ -1057,24 +1059,26 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getDetail(paramsMap));
     }
+
     /**
      * 理发师更多评论
      *
      * @return
      */
-    public static Observable getBarberMoreComment(int id,int page,int limit) {
+    public static Observable getBarberMoreComment(int id, int page, int limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("barberid",id + "");
-            tempMap.put("page",page + "");
-            tempMap.put("limit",limit + "");
+            tempMap.put("barberid", id + "");
+            tempMap.put("page", page + "");
+            tempMap.put("limit", limit + "");
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return getObservable(api.getBarberMoreComment(paramsMap));
     }
+
     /**
      * 干洗店首页
      *
@@ -1734,7 +1738,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("sendTime", sendTime);
             tempMap.put("goodsList", arr);
             tempMap.put("remark", remark);
-            addParams(paramsMap,tempMap);
+            addParams(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -2197,6 +2201,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看报修订单
      * 1:待接单，2： 已接单，3：已完成，4:待评价，5：已取消
+     *
      * @return
      */
     public static Observable getRepairOrder(int type, int page) {
@@ -2217,6 +2222,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看办公用品订单
      * 订单状态 1: 已预约，2配送中3：已完成，4：待评价，5：已取消
+     *
      * @return
      */
     public static Observable getOfficeOrder(int orderStatus, int page) {
@@ -2237,6 +2243,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看医疗订单
      * 订单状态 1:已预约 ，2： 服务中（用户到店，医生点击），3：已完成（包含待评价和已评价），4：待评价，5：已取消
+     *
      * @return
      */
     public static Observable getMedicalOrder(int type, int page) {
@@ -2257,6 +2264,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看专家订单
      * 订单状态 1:已预约 ，2： 服务中（用户到店，医生点击），3：已完成（包含待评价和已评价），4：待评价，5：已取消
+     *
      * @return
      */
     public static Observable getExpertOrder(int type, int page) {
@@ -2277,6 +2285,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看理发订单
      * 订单状态 1: 已预约，2：服务中，3：已完成，4：待评价，5：已取消
+     *
      * @return
      */
     public static Observable getHairCutOrder(int type, int page) {
@@ -2297,6 +2306,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看订餐订单
      * 订单状态 1: 已预约 3：已完成，4：待评价，5：已取消
+     *
      * @return
      */
     public static Observable getMealOrder(int orderStatus, int page) {
@@ -2337,6 +2347,7 @@ carcode	是	string	车牌号*/
     /**
      * 查看净菜订单
      * 订单状态 1: 已预约，3：已完成，4：待评价，5：已取消
+     *
      * @return
      */
     public static Observable getVegetableOrder(int orderStatus, int page) {
@@ -2354,8 +2365,321 @@ carcode	是	string	车牌号*/
         return getObservable(api.vegetableOrderList(paramsMap));
     }
 
+    /*------------------------------------------删除各种订单------------------------------------------*/
+
+    /**
+     * 删除报修订单
+     */
+    public static Observable deleteRepairsOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteRepairsOrder(paramsMap));
+    }
+
+    /**
+     * 删除办公用品订单
+     */
+    public static Observable deleteOfficeOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteOfficeOrder(paramsMap));
+    }
+
+    /**
+     * 删除工作餐订单
+     */
+    public static Observable deleteMealOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteMealOrder(paramsMap));
+    }
+
+    /**
+     * 删除理发订单
+     */
+    public static Observable deleteHairCutOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteHairCutOrder(paramsMap));
+    }
+
+    /**
+     * 删除订水订单
+     */
+    public static Observable deleteWaterOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteWaterOrder(paramsMap));
+    }
+
+    /**
+     * 删除医疗订单
+     */
+    public static Observable deleteMedicalOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteMedicalOrder(paramsMap));
+    }
+
+    /**
+     * 删除专家坐诊订单
+     */
+    public static Observable deleteExpertsOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteExpertsOrder(paramsMap));
+    }
+
+    /**
+     * 删除干洗订单
+     */
+    public static Observable deleteDryOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteDryOrder(paramsMap));
+    }
+
+    /**
+     * 删除图书订单
+     */
+    public static Observable deleteBookOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteBookOrder(paramsMap));
+    }
+
+    /**
+     * 删除净菜订单
+     */
+    public static Observable deleteVegetableOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteVegetableOrder(paramsMap));
+    }
+
+    /*------------------------------------------评论各种订单------------------------------------------*/
+
+    /**
+     * 报修订单评论
+     */
+    public static Observable commentRepairsOrder(int orderid, String content, int anonymous, List<String> files) {
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid + "");
+            tempMap.put("content", content);
+            tempMap.put("anonymous", anonymous + "");
+            getRequestBody(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.commentRepairsOrder(paramsMap, getImgList(files, "files")));
+    }
+
+    /**
+     * 办公用品订单评论
+     */
+    public static Observable commentOfficeOrder(int oid, int productId, boolean stars, String content, int isAnonymous, List<String> files) {
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("oid", oid + "");
+            tempMap.put("productId", productId + "");
+            tempMap.put("stars", stars + "");
+            tempMap.put("content", content);
+            tempMap.put("isAnonymous", isAnonymous + "");
+            getRequestBody(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.commentOfficeOrder(paramsMap, getImgList(files, "files")));
+    }
+
+    /*------------------------------------------订单详情------------------------------------------*/
+
+    /**
+     * 医疗订单详情
+     */
+    public static Observable orderMedicalDetail(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderMedicalDetail(paramsMap));
+    }
+
+    /**
+     * 专家订单详情
+     */
+    public static Observable orderExpertsDetail(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderExpertsDetail(paramsMap));
+    }
+
+    /**
+     * 办公用品订单详情
+     */
+    public static Observable orderOfficeDetail(int oid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderOfficeDetail(paramsMap));
+    }
+
+    /**
+     * 净菜订单详情
+     */
+    public static Observable orderVegetableDetail(int oid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderVegetableDetail(paramsMap));
+    }
+
+    /**
+     * 报修订单详情
+     */
+    public static Observable orderRepairsDetailOne(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderRepairsDetail(paramsMap));
+    }
+
+    /**
+     * 订水订单详情
+     */
+    public static Observable orderWaterDetail(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderWaterDetail(paramsMap));
+    }
+
+    /**
+     * 工作餐订单详情
+     */
+    public static Observable orderMealDetail(int oid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderMealDetail(paramsMap));
+    }
+
+    /**
+     * 洗衣店订单详情
+     */
+    public static Observable orderDryDetail(int oid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderDryDetail(paramsMap));
+    }
+
     /**
      * 获取用户信息
+     *
      * @return
      */
     public static Observable getUserInfo() {
@@ -2373,21 +2697,22 @@ carcode	是	string	车牌号*/
 
     /**
      * 修改用户信息
+     *
      * @return
      */
-    public static Observable changeUserInfo(int sex,String nickname,String photo,int positionid,
-                                            String tel,String roomnum,String mobile,String buildNum) {
+    public static Observable changeUserInfo(int sex, String nickname, String photo, int positionid,
+                                            String tel, String roomnum, String mobile, String buildNum) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("sex",sex+"");
-            tempMap.put("nickname",nickname);
-            tempMap.put("photo",photo);
-            tempMap.put("positionid",positionid+"");
-            tempMap.put("tel",tel);
-            tempMap.put("roomnum",roomnum);
-            tempMap.put("mobile",mobile);
-            tempMap.put("buildNum",buildNum);
+            tempMap.put("sex", sex + "");
+            tempMap.put("nickname", nickname);
+            tempMap.put("photo", photo);
+            tempMap.put("positionid", positionid + "");
+            tempMap.put("tel", tel);
+            tempMap.put("roomnum", roomnum);
+            tempMap.put("mobile", mobile);
+            tempMap.put("buildNum", buildNum);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -2395,8 +2720,10 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.changeUserInfo(paramsMap));
     }
+
     /**
      * 钱包信息
+     *
      * @return
      */
     public static Observable findUserWallet() {
@@ -2410,8 +2737,10 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.findUserWallet(paramsMap));
     }
+
     /**
      * 充值
+     *
      * @return
      */
     public static Observable findChargeOrder() {
@@ -2425,8 +2754,10 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.findChargeOrder(paramsMap));
     }
+
     /**
      * 是否有交易密码
+     *
      * @return
      */
     public static Observable hasPaypass() {
@@ -2440,8 +2771,10 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.hasPaypass(paramsMap));
     }
+
     /**
      * 验证旧支付密码
+     *
      * @return
      */
     public static Observable checkOldPassword(String pwd) {
@@ -2449,7 +2782,7 @@ carcode	是	string	车牌号*/
         try {
             Map<String, String> tempMap = new HashMap<>();
             Md5Util.getMD5(pwd);
-            tempMap.put("paypass",pwd);
+            tempMap.put("paypass", pwd);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -2457,8 +2790,10 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.checkOldPassword(paramsMap));
     }
+
     /**
      * 修改支付密码
+     *
      * @return
      */
     public static Observable modifyCode(String pwd) {
@@ -2466,7 +2801,7 @@ carcode	是	string	车牌号*/
         try {
             Map<String, String> tempMap = new HashMap<>();
             Md5Util.getMD5(pwd);
-            tempMap.put("code",pwd);
+            tempMap.put("code", pwd);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -2474,8 +2809,10 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.modifyCode(paramsMap));
     }
+
     /**
      * 修改用户信息
+     *
      * @return
      */
     public static Observable upLoadHeader(File file) {
@@ -2488,7 +2825,7 @@ carcode	是	string	车牌号*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.upLoadHeader(paramsMap, getHeaderImg(file,"file")));
+        return getObservable(api.upLoadHeader(paramsMap, getHeaderImg(file, "file")));
     }
 
 }

@@ -12,10 +12,20 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.adapter.LabellingAdapter;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.LabellingBean;
+import com.moe.wl.ui.main.model.SubmitComplainModel;
+import com.moe.wl.ui.main.modelimpl.SubmitComplainModelImpl;
+import com.moe.wl.ui.main.presenter.SubmitComplainPresenter;
+import com.moe.wl.ui.main.view.SubmitComplainView;
+import com.moe.wl.ui.mywidget.AddPhotoPop;
 import com.suke.widget.SwitchButton;
 
 import java.io.File;
@@ -26,16 +36,6 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.main.bean.CollectBean;
-import com.moe.wl.ui.main.model.SubmitComplainModel;
-import com.moe.wl.ui.main.modelimpl.SubmitComplainModelImpl;
-import com.moe.wl.ui.main.presenter.SubmitComplainPresenter;
-import com.moe.wl.ui.main.view.SubmitComplainView;
-import com.moe.wl.ui.mywidget.AddPhotoPop;
 import mvp.cn.util.DateUtil;
 import mvp.cn.util.ToastUtil;
 
@@ -75,7 +75,6 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
     private ArrayList<String> paths;
     private GridViewImageAdapter imageAdapter;
     private AddPhotoPop pop;
-
 
     private String imageLocation = Environment.getExternalStorageDirectory().getPath() + "/file/";
     private String imageName = "_complain.jpg";

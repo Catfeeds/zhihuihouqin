@@ -5,7 +5,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height">
@@ -62,14 +61,12 @@
              android:text="注册" />-->
     </RelativeLayout>
 
-
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/logo" />
-
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -164,18 +161,17 @@
 
     </RelativeLayout>
 
-
-    <Button
+    <TextView
         android:id="@+id/bt_login"
         style="@style/tvStyle_black_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/shape_login"
-        android:gravity="center"
+        android:paddingBottom="13dp"
+        android:paddingTop="13dp"
         android:text="登录" />
 
     <RelativeLayout

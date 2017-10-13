@@ -1,15 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.activity.me.OrderOfficeDetailActivity;
 import com.moe.wl.ui.main.bean.OrderOfficeBean;
 
 import java.util.List;
@@ -25,12 +28,12 @@ import butterknife.ButterKnife;
 public class OrderOfficeAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<OrderOfficeBean.PageEntity.ListEntity> data;
+    private List<OrderOfficeBean.ListEntity> data;
     private int state;
     private OnClickListener listener;
 
 
-    public OrderOfficeAdapter(Context context, List<OrderOfficeBean.PageEntity.ListEntity> data, int state) {
+    public OrderOfficeAdapter(Context context, List<OrderOfficeBean.ListEntity> data, int state) {
         this.context = context;
         this.data = data;
         this.state = state;
@@ -46,12 +49,12 @@ public class OrderOfficeAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
 
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getOrderDetailList().get(0).getSku().getMainimg(), holder.image);
-        holder.orderNumber.setText("订单号：" + data.get(position).getCode());
-//        holder.name.setText(data.get(position).getRemark());
-//        holder.mass.setText(data.get(position).getRemark());
-//        holder.number.setText(data.get(position).getRemark());
-        holder.price.setText("¥");
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getImg(), holder.image);
+        holder.name.setText(data.get(position).getProductName());
+        holder.mass.setText(data.get(position).getSkuname());
+        holder.number.setText("x" + data.get(position).getCount());
+        holder.price.setText("¥" + data.get(position).getPrice());
+        holder.orderNumber.setText("订单号：" + data.get(position).getOrdercode());
 
         switch (state) {
             case 0:
@@ -76,6 +79,15 @@ public class OrderOfficeAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 if (listener != null)
                     listener.onClick(state, position);
+            }
+        });
+
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderOfficeDetailActivity.class);
+                intent.putExtra("OrderID", data.get(position).getId());
+                context.startActivity(intent);
             }
         });
 
@@ -109,6 +121,8 @@ public class OrderOfficeAdapter extends RecyclerView.Adapter {
         TextView price;
         @BindView(R.id.order_1)
         TextView order1;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

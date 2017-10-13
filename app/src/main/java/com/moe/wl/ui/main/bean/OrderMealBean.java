@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,20 +8,11 @@ import java.util.List;
  * 作者：Shixhe On 2017/9/28 0028
  */
 
-public class OrderMealBean {
+public class OrderMealBean implements Serializable {
 
-    private PageEntity page;
     private int errCode;
     private String msg;
-    private String mobile;
-
-    public PageEntity getPage() {
-        return page;
-    }
-
-    public void setPage(PageEntity page) {
-        this.page = page;
-    }
+    private List<ListEntity> list;
 
     public int getErrCode() {
         return errCode;
@@ -38,217 +30,87 @@ public class OrderMealBean {
         this.msg = msg;
     }
 
-    public String getMobile() {
-        return mobile;
+    public List<ListEntity> getList() {
+        return list;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setList(List<ListEntity> list) {
+        this.list = list;
     }
 
-    public static class PageEntity {
+    public static class ListEntity implements Serializable {
 
-        private int currPage;
-        private int pageSize;
-        private int totalCount;
-        private int totalPage;
-        private List<ListEntity> list;
+        private String createtime;
+        private int id;
+        private int count;
+        private int status;
+        private int payStatus;
+        private String sendTime;
+        private String ordercode;
+        private String serviceMobile;
 
-        public int getCurrPage() {
-            return currPage;
+        public String getCreatetime() {
+            return createtime;
         }
 
-        public void setCurrPage(int currPage) {
-            this.currPage = currPage;
+        public void setCreatetime(String createtime) {
+            this.createtime = createtime;
         }
 
-        public int getPageSize() {
-            return pageSize;
+        public int getId() {
+            return id;
         }
 
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public int getTotalCount() {
-            return totalCount;
+        public int getCount() {
+            return count;
         }
 
-        public void setTotalCount(int totalCount) {
-            this.totalCount = totalCount;
+        public void setCount(int count) {
+            this.count = count;
         }
 
-        public int getTotalPage() {
-            return totalPage;
+        public int getStatus() {
+            return status;
         }
 
-        public void setTotalPage(int totalPage) {
-            this.totalPage = totalPage;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
-        public List<ListEntity> getList() {
-            return list;
+        public int getPayStatus() {
+            return payStatus;
         }
 
-        public void setList(List<ListEntity> list) {
-            this.list = list;
+        public void setPayStatus(int payStatus) {
+            this.payStatus = payStatus;
         }
 
-        public static class ListEntity {
+        public String getSendTime() {
+            return sendTime;
+        }
 
-            private String address;
-            private int addressId;
-            private String cancelReasonids;
-            private int count;
-            private String createtime;
-            private int id;
-            private String mobile;
-            private String ordercode;
-            private int payStatus;
-            private int payType;
-            private String realname;
-            private String reasonContent;
-            private String sendTime;
-            private int sendfoodtime;
-            private int status;
-            private int totalprice;
-            private int uid;
+        public void setSendTime(String sendTime) {
+            this.sendTime = sendTime;
+        }
 
-            public String getAddress() {
-                return address;
-            }
+        public String getOrdercode() {
+            return ordercode;
+        }
 
-            public void setAddress(String address) {
-                this.address = address;
-            }
+        public void setOrdercode(String ordercode) {
+            this.ordercode = ordercode;
+        }
 
-            public int getAddressId() {
-                return addressId;
-            }
+        public String getServiceMobile() {
+            return serviceMobile;
+        }
 
-            public void setAddressId(int addressId) {
-                this.addressId = addressId;
-            }
-
-            public String getCancelReasonids() {
-                return cancelReasonids;
-            }
-
-            public void setCancelReasonids(String cancelReasonids) {
-                this.cancelReasonids = cancelReasonids;
-            }
-
-            public int getCount() {
-                return count;
-            }
-
-            public void setCount(int count) {
-                this.count = count;
-            }
-
-            public String getCreatetime() {
-                return createtime;
-            }
-
-            public void setCreatetime(String createtime) {
-                this.createtime = createtime;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getMobile() {
-                return mobile;
-            }
-
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
-            }
-
-            public String getOrdercode() {
-                return ordercode;
-            }
-
-            public void setOrdercode(String ordercode) {
-                this.ordercode = ordercode;
-            }
-
-            public int getPayStatus() {
-                return payStatus;
-            }
-
-            public void setPayStatus(int payStatus) {
-                this.payStatus = payStatus;
-            }
-
-            public int getPayType() {
-                return payType;
-            }
-
-            public void setPayType(int payType) {
-                this.payType = payType;
-            }
-
-            public String getRealname() {
-                return realname;
-            }
-
-            public void setRealname(String realname) {
-                this.realname = realname;
-            }
-
-            public String getReasonContent() {
-                return reasonContent;
-            }
-
-            public void setReasonContent(String reasonContent) {
-                this.reasonContent = reasonContent;
-            }
-
-            public String getSendTime() {
-                return sendTime;
-            }
-
-            public void setSendTime(String sendTime) {
-                this.sendTime = sendTime;
-            }
-
-            public int getSendfoodtime() {
-                return sendfoodtime;
-            }
-
-            public void setSendfoodtime(int sendfoodtime) {
-                this.sendfoodtime = sendfoodtime;
-            }
-
-            public int getStatus() {
-                return status;
-            }
-
-            public void setStatus(int status) {
-                this.status = status;
-            }
-
-            public int getTotalprice() {
-                return totalprice;
-            }
-
-            public void setTotalprice(int totalprice) {
-                this.totalprice = totalprice;
-            }
-
-            public int getUid() {
-                return uid;
-            }
-
-            public void setUid(int uid) {
-                this.uid = uid;
-            }
+        public void setServiceMobile(String serviceMobile) {
+            this.serviceMobile = serviceMobile;
         }
     }
 }

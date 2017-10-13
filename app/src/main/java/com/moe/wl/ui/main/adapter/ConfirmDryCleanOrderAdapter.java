@@ -8,31 +8,31 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.moe.wl.ui.main.bean.OrderDryCleanBean;
+import com.moe.wl.R;
+import com.moe.wl.ui.main.bean.ClothBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
  * Created by 我的电脑 on 2017/8/25 0025.
  */
 
 public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
-    private List<OrderDryCleanBean.PageBean.ListBean> mList = new ArrayList();
+    private List<ClothBean.PageEntity.ListEntity> mList = new ArrayList();
     private Context mContent;
 
     public ConfirmDryCleanOrderAdapter(Context mContent) {
         this.mContent = mContent;
     }
 
-    public void setList(List<OrderDryCleanBean.PageBean.ListBean> list) {
+    public void setList(List<ClothBean.PageEntity.ListEntity> list) {
         mList.clear();
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).getCount()!=0){
+            if (list.get(i).getCount() != 0) {
                 mList.add(list.get(i));
             }
         }
@@ -67,8 +67,8 @@ public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(mList!=null&&mList.size()>0){
-            viewHolder.setData(mList.get(position),position);
+        if (mList != null && mList.size() > 0) {
+            viewHolder.setData(mList.get(position), position);
         }
         return convertView;
     }
@@ -83,21 +83,21 @@ public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
         @BindView(R.id.tv_price)
         TextView tvPrice;
         private int mPosition;
-        private OrderDryCleanBean.PageBean.ListBean listBean;
+        private ClothBean.PageEntity.ListEntity listBean;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(OrderDryCleanBean.PageBean.ListBean listBean, int position) {
-            this.mPosition=position;
-            this.listBean=listBean;
-            if(listBean!=null){
-                if(listBean.getCount()>0){
+        public void setData(ClothBean.PageEntity.ListEntity listBean, int position) {
+            this.mPosition = position;
+            this.listBean = listBean;
+            if (listBean != null) {
+                if (listBean.getCount() > 0) {
                     tvCategory.setText(listBean.getName());
-                    tvCount.setText("x"+listBean.getCount());
-                    tvPrice.setText("￥"+listBean.getPrice());
-                }else{
+                    tvCount.setText("x" + listBean.getCount());
+                    tvPrice.setText("￥" + listBean.getPrice());
+                } else {
                     rlItem.setVisibility(View.GONE);
                 }
             }

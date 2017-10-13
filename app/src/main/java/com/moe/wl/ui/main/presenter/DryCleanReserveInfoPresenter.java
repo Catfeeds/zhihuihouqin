@@ -2,11 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.model.DryCleanReserveInfoModel;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.bean.ClothBean;
 import com.moe.wl.ui.main.bean.JieYueBean;
-import com.moe.wl.ui.main.bean.OrderDryCleanBean;
+import com.moe.wl.ui.main.model.DryCleanReserveInfoModel;
 import com.moe.wl.ui.main.view.DryCleanReserveInfoView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
 import rx.Observable;
@@ -22,7 +23,7 @@ public class DryCleanReserveInfoPresenter extends MvpRxPresenter<DryCleanReserve
         getView().showProgressDialog();
         LogUtil.log("DryCleanReserveInfoPresenter发出请求");
         Observable login = getModel().getData(page, limit);
-        getNetWork(login, new Subscriber<OrderDryCleanBean>() {
+        getNetWork(login, new Subscriber<ClothBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -34,7 +35,7 @@ public class DryCleanReserveInfoPresenter extends MvpRxPresenter<DryCleanReserve
             }
 
             @Override
-            public void onNext(OrderDryCleanBean collectBean) {
+            public void onNext(ClothBean collectBean) {
                 if (collectBean.getErrCode() == 0) {
                     getView().OrderDryCleaner(collectBean, getMore);
                 } else {

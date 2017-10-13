@@ -1,15 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.CircleImageView;
+import com.moe.wl.ui.main.activity.me.OrderExpertDetailActivity;
 import com.moe.wl.ui.main.bean.OrderExpertBean;
 
 import java.util.List;
@@ -18,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：报修订单Adapter
+ * 类描述：专家订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 
@@ -53,7 +56,7 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
         holder.reserveTime.setText("预约时间：" + data.get(position).getScheduledate());
         holder.orderTime.setText("下单时间：" + data.get(position).getCreatetime());
         holder.arriveTime.setText("预  约  号：" + data.get(position).getCreatetime());
-//        holder.payState.setText("支付状态：" + (data.get(position).getPaystatus() == 0 ? "未支付" : "已支付"));
+        holder.payState.setText("支付状态：" + (data.get(position).getPaystatus() == 0 ? "未支付" : "已支付"));
 
         switch (state) {
             case 0:
@@ -81,13 +84,22 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
             }
         });
 
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderExpertDetailActivity.class);
+                intent.putExtra("OrderID", data.get(position).getId());
+                intent.putExtra("Type", 2);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
-
 
     public interface OnPayClickListener {
         void onPayClick();
@@ -122,6 +134,8 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
         TextView payState;
         @BindView(R.id.order)
         TextView order;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

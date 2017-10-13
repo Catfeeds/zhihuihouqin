@@ -59,7 +59,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.activity.MainActivity">
+        <activity
+            android:name=".ui.main.activity.MainActivity"
+            android:launchMode="singleTask">
 
             <!--
              <intent-filter>
@@ -196,7 +198,6 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpConfirmOrderActivity" />
         <activity
             android:name=".ui.main.activity.OfficeSupplies.OrderRemarkActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -330,15 +331,15 @@
         <activity
             android:name=".ui.main.activity.message.PayUpMessageDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.property_maintenance.ProPerrtyPostSuccAct" />
-        <activity android:name=".ui.main.activity.orderWater.orderWaterServiceActivity" />
+        <activity
+            android:name=".ui.main.activity.property_maintenance.ProPerrtyPostSuccAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.orderWater.orderWaterServiceActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.me.ComplainSystemActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.orderWater.OrderInfoActivity" />
-        <activity android:name=".ui.main.activity.orderWater.ConfirmOrderActivity" />
-        <activity android:name=".ui.main.activity.orderWater.PersonalPayActivity" />
-        <activity android:name=".ui.main.activity.ConsultActivity" />
         <activity android:name=".ui.main.activity.EnergyAndemissions.EnergySavingActivity" />
         <activity android:name=".ui.main.activity.RoomReservation.RoomReservationActivity" />
         <activity android:name=".ui.main.activity.NowReservaBarberActivity" />
@@ -348,6 +349,39 @@
         <activity android:name=".ui.main.activity.me.PwdManageMentActivity" />
         <activity android:name=".ui.main.activity.me.ChangePayPwdActivity" />
         <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity"></activity>
+        <activity
+            android:name=".ui.main.activity.orderWater.OrderInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.orderWater.ConfirmOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.orderWater.PersonalPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.ConsultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderWaterDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderBookDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderOfficeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderExpertDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderHairCutDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderMealDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

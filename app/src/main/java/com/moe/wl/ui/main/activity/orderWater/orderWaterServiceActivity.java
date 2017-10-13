@@ -10,10 +10,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
 import com.moe.wl.ui.main.adapter.OrderWaterTypeAdapter;
+import com.moe.wl.ui.main.bean.OrderWaterSumAndcount;
+import com.moe.wl.ui.main.bean.QueryWaterListBean;
+import com.moe.wl.ui.main.bean.QueryWaterTypeBean;
+import com.moe.wl.ui.main.fragment.OrderWaterFragment;
+import com.moe.wl.ui.main.model.OrderHomeModel;
+import com.moe.wl.ui.main.modelimpl.OrderHomeModelImpl;
+import com.moe.wl.ui.main.presenter.OrderHomePresenter;
+import com.moe.wl.ui.main.view.OrderHomeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,25 +34,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.main.bean.OrderWaterSumAndcount;
-import com.moe.wl.ui.main.bean.QueryWaterListBean;
-import com.moe.wl.ui.main.bean.QueryWaterTypeBean;
-import com.moe.wl.ui.main.fragment.OrderWaterFragment;
-import com.moe.wl.ui.main.model.OrderHomeModel;
-import com.moe.wl.ui.main.modelimpl.OrderHomeModelImpl;
-import com.moe.wl.ui.main.presenter.OrderHomePresenter;
-import com.moe.wl.ui.main.view.OrderHomeView;
 
-public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,OrderHomeView,OrderHomePresenter> implements OrderHomeView {
+public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, OrderHomeView, OrderHomePresenter> implements OrderHomeView {
 
     @BindView(R.id.title)
     TitleBar title;
     @BindView(R.id.rv_type)
     RecyclerView rvType;
-  /*  @BindView(R.id.rv_water)
-    RecyclerView rvWater;*/
+    /*  @BindView(R.id.rv_water)
+      RecyclerView rvWater;*/
     @BindView(R.id.tv_count)
     TextView tvCount;
     @BindView(R.id.tv_sum)
@@ -75,28 +74,29 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OrderWaterSumAndcount event) {
 
         int count = 0;
-        int sum = 0 ;
+        int sum = 0;
         boolean isHave = false;
-        if (event.isAdd()){
+        if (event.isAdd()) {
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getId()==event.getId()){
+                if (list.get(i).getId() == event.getId()) {
                     isHave = true;
                     break;
                 }
             }
-            if (!isHave){
+            if (!isHave) {
                 list.add(event.getData());
             }
         } else {
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getId()==event.getId()){
+                if (list.get(i).getId() == event.getId()) {
 //                    int count1 = list.get(i).getCount();
                     int num = list.get(i).getCount();
-                    if (num<=0){
+                    if (num <= 0) {
                         list.remove(i);
                         break;
                     } else {
@@ -108,17 +108,18 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
         }
 
         for (int i = 0; i < list.size(); i++) {
-            count+=list.get(i).getCount();
-            sum+=list.get(i).getCount()*list.get(i).getPrice();
+            count += list.get(i).getCount();
+            sum += list.get(i).getCount() * list.get(i).getPrice();
         }
         countNum = count;
-        tvCount.setText("共"+ count +"份");
+        tvCount.setText("共" + count + "份");
         tvSum.setText("￥" + sum);
     }
+
     @Override
     public void initView() {
         list = new ArrayList<>();
-        listAll=new ArrayList<>();
+        listAll = new ArrayList<>();
         initTitle();
         initTypeView();
         getPresenter().queryWaterType();
@@ -138,13 +139,13 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
 
     @OnClick(R.id.tv_now_order)
     public void onViewClicked() {
-        if(countNum>0){
-            Intent intent=new Intent(this,OrderInfoActivity.class);
+        if (countNum > 0) {
+            Intent intent = new Intent(this, OrderInfoActivity.class);
             Gson gson = new Gson();
             String json = gson.toJson(list);
-            intent.putExtra("json",json);
+            intent.putExtra("json", json);
             startActivity(intent);
-        }else{
+        } else {
             showToast("你还没有选择购买");
         }
 
@@ -152,13 +153,13 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
 
     @Override
     public void queryTypeSucc(QueryWaterTypeBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             List<QueryWaterTypeBean.CategoryListBean> categoryList = bean.getCategoryList();
             typeAdapter.setData(categoryList);
-            if(categoryList!=null){
+            if (categoryList != null) {
                 for (int i = 0; i < categoryList.size(); i++) {
                     QueryWaterTypeBean.CategoryListBean categoryListBean = categoryList.get(i);
-                    if(categoryListBean!=null){
+                    if (categoryListBean != null) {
                         int id = categoryListBean.getId();
                         fragments.add(OrderWaterFragment.getInstance(id));
                     }
@@ -179,7 +180,7 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel,Order
     private void switchFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragment_container,fragment);
+        transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
     }
 

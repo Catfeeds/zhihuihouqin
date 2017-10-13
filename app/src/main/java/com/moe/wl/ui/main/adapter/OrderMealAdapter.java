@@ -1,13 +1,16 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.ui.main.activity.me.OrderMealDetailActivity;
 import com.moe.wl.ui.main.bean.OrderMealBean;
 
 import java.util.List;
@@ -16,20 +19,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：报修订单Adapter
+ * 类描述：工作餐订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 
 public class OrderMealAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<OrderMealBean.PageEntity.ListEntity> data;
+    private List<OrderMealBean.ListEntity> data;
     private OnCommentClickListener commentListener;
     private OnClickListener listener;
     private int state;
 
-
-    public OrderMealAdapter(Context context, List<OrderMealBean.PageEntity.ListEntity> data, int state) {
+    public OrderMealAdapter(Context context, List<OrderMealBean.ListEntity> data, int state) {
         this.context = context;
         this.data = data;
         this.state = state;
@@ -86,6 +88,15 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
                 }
             }
         });
+
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderMealDetailActivity.class);
+                intent.putExtra("OrderID", data.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -107,6 +118,8 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
         TextView order;
         @BindView(R.id.comment)
         TextView comment;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

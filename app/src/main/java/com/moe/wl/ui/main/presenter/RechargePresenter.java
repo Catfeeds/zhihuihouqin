@@ -1,13 +1,9 @@
 package com.moe.wl.ui.main.presenter;
 
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.FindChargeOrderBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.RechargeModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.RechargeView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -39,11 +35,11 @@ public class RechargePresenter extends MvpRxPresenter<RechargeModel, RechargeVie
 
             @Override
             public void onNext(FindChargeOrderBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().rechargeResult(bean);
-                } else {
-                    getView().showToast(bean.getMsg());
-                }
+//                if (bean.getErrCode() == 0) {
+//                    getView().rechargeResult(bean);
+//                } else {
+//                    getView().showToast(bean.getMsg());
+//                }
             }
         });
     }

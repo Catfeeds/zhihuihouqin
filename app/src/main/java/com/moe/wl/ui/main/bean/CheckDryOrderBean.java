@@ -8,23 +8,9 @@ import java.util.List;
 
 public class CheckDryOrderBean {
 
-    /**
-     * page : {"currPage":1,"list":[{"cancelReasonids":null,"code":"111502776601746","createtime":"2017-08-15 14:47:55","detailList":[{"clothName":"小皮裤","clothestypeid":2,"count":2,"createtime":"2017-08-15 13:56:41","id":2,"orderid":1,"price":30,"totalprice":60},{"clothName":"大夹克","clothestypeid":1,"count":2,"createtime":"2017-08-15 13:56:41","id":1,"orderid":1,"price":50,"totalprice":100}],"expectarrivaltime":"2017-02-21 00:22:00","id":1,"logStatus":2,"mobile":"123123123","orderDetailIds":"1,2","payStatus":0,"reasonContent":null,"status":1,"totalprice":160,"uid":1}],"pageSize":10,"totalCount":1,"totalPage":1}
-     * errCode : 0
-     * msg : success
-     */
-
-    private PageBean page;
     private int errCode;
     private String msg;
-
-    public PageBean getPage() {
-        return page;
-    }
-
-    public void setPage(PageBean page) {
-        this.page = page;
-    }
+    private List<ListEntity> list;
 
     public int getErrCode() {
         return errCode;
@@ -42,290 +28,108 @@ public class CheckDryOrderBean {
         this.msg = msg;
     }
 
-    public static class PageBean {
-        /**
-         * currPage : 1
-         * list : [{"cancelReasonids":null,"code":"111502776601746","createtime":"2017-08-15 14:47:55","detailList":[{"clothName":"小皮裤","clothestypeid":2,"count":2,"createtime":"2017-08-15 13:56:41","id":2,"orderid":1,"price":30,"totalprice":60},{"clothName":"大夹克","clothestypeid":1,"count":2,"createtime":"2017-08-15 13:56:41","id":1,"orderid":1,"price":50,"totalprice":100}],"expectarrivaltime":"2017-02-21 00:22:00","id":1,"logStatus":2,"mobile":"123123123","orderDetailIds":"1,2","payStatus":0,"reasonContent":null,"status":1,"totalprice":160,"uid":1}]
-         * pageSize : 10
-         * totalCount : 1
-         * totalPage : 1
-         */
+    public List<ListEntity> getList() {
+        return list;
+    }
 
-        private int currPage;
-        private int pageSize;
-        private int totalCount;
-        private int totalPage;
-        private List<ListBean> list;
+    public void setList(List<ListEntity> list) {
+        this.list = list;
+    }
 
-        public int getCurrPage() {
-            return currPage;
+    public static class ListEntity {
+
+        private String createtime;
+        private int id;
+        private Object payStatus;
+        private int status;
+        private String ordercode;
+        private String serviceMobile;
+        private List<ClothesListEntity> clothesList;
+
+        public String getCreatetime() {
+            return createtime;
         }
 
-        public void setCurrPage(int currPage) {
-            this.currPage = currPage;
+        public void setCreatetime(String createtime) {
+            this.createtime = createtime;
         }
 
-        public int getPageSize() {
-            return pageSize;
+        public int getId() {
+            return id;
         }
 
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public int getTotalCount() {
-            return totalCount;
+        public Object getPayStatus() {
+            return payStatus;
         }
 
-        public void setTotalCount(int totalCount) {
-            this.totalCount = totalCount;
+        public void setPayStatus(Object payStatus) {
+            this.payStatus = payStatus;
         }
 
-        public int getTotalPage() {
-            return totalPage;
+        public int getStatus() {
+            return status;
         }
 
-        public void setTotalPage(int totalPage) {
-            this.totalPage = totalPage;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
-        public List<ListBean> getList() {
-            return list;
+        public String getOrdercode() {
+            return ordercode;
         }
 
-        public void setList(List<ListBean> list) {
-            this.list = list;
+        public void setOrdercode(String ordercode) {
+            this.ordercode = ordercode;
         }
 
-        public static class ListBean {
-            /**
-             * cancelReasonids : null
-             * code : 111502776601746
-             * createtime : 2017-08-15 14:47:55
-             * detailList : [{"clothName":"小皮裤","clothestypeid":2,"count":2,"createtime":"2017-08-15 13:56:41","id":2,"orderid":1,"price":30,"totalprice":60},{"clothName":"大夹克","clothestypeid":1,"count":2,"createtime":"2017-08-15 13:56:41","id":1,"orderid":1,"price":50,"totalprice":100}]
-             * expectarrivaltime : 2017-02-21 00:22:00
-             * id : 1
-             * logStatus : 2
-             * mobile : 123123123
-             * orderDetailIds : 1,2
-             * payStatus : 0
-             * reasonContent : null
-             * status : 1
-             * totalprice : 160
-             * uid : 1
-             */
+        public String getServiceMobile() {
+            return serviceMobile;
+        }
 
-            private Object cancelReasonids;
-            private String code;
-            private String createtime;
-            private String expectarrivaltime;
-            private int id;
-            private int logStatus;
-            private String mobile;
-            private String orderDetailIds;
-            private int payStatus;
-            private Object reasonContent;
-            private int status;
-            private int totalprice;
-            private int uid;
-            private List<DetailListBean> detailList;
+        public void setServiceMobile(String serviceMobile) {
+            this.serviceMobile = serviceMobile;
+        }
 
-            public Object getCancelReasonids() {
-                return cancelReasonids;
+        public List<ClothesListEntity> getClothesList() {
+            return clothesList;
+        }
+
+        public void setClothesList(List<ClothesListEntity> clothesList) {
+            this.clothesList = clothesList;
+        }
+
+        public static class ClothesListEntity {
+
+            private int price;
+            private int count;
+            private String clothesName;
+
+            public int getPrice() {
+                return price;
             }
 
-            public void setCancelReasonids(Object cancelReasonids) {
-                this.cancelReasonids = cancelReasonids;
+            public void setPrice(int price) {
+                this.price = price;
             }
 
-            public String getCode() {
-                return code;
+            public int getCount() {
+                return count;
             }
 
-            public void setCode(String code) {
-                this.code = code;
+            public void setCount(int count) {
+                this.count = count;
             }
 
-            public String getCreatetime() {
-                return createtime;
+            public String getClothesName() {
+                return clothesName;
             }
 
-            public void setCreatetime(String createtime) {
-                this.createtime = createtime;
-            }
-
-            public String getExpectarrivaltime() {
-                return expectarrivaltime;
-            }
-
-            public void setExpectarrivaltime(String expectarrivaltime) {
-                this.expectarrivaltime = expectarrivaltime;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getLogStatus() {
-                return logStatus;
-            }
-
-            public void setLogStatus(int logStatus) {
-                this.logStatus = logStatus;
-            }
-
-            public String getMobile() {
-                return mobile;
-            }
-
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
-            }
-
-            public String getOrderDetailIds() {
-                return orderDetailIds;
-            }
-
-            public void setOrderDetailIds(String orderDetailIds) {
-                this.orderDetailIds = orderDetailIds;
-            }
-
-            public int getPayStatus() {
-                return payStatus;
-            }
-
-            public void setPayStatus(int payStatus) {
-                this.payStatus = payStatus;
-            }
-
-            public Object getReasonContent() {
-                return reasonContent;
-            }
-
-            public void setReasonContent(Object reasonContent) {
-                this.reasonContent = reasonContent;
-            }
-
-            public int getStatus() {
-                return status;
-            }
-
-            public void setStatus(int status) {
-                this.status = status;
-            }
-
-            public int getTotalprice() {
-                return totalprice;
-            }
-
-            public void setTotalprice(int totalprice) {
-                this.totalprice = totalprice;
-            }
-
-            public int getUid() {
-                return uid;
-            }
-
-            public void setUid(int uid) {
-                this.uid = uid;
-            }
-
-            public List<DetailListBean> getDetailList() {
-                return detailList;
-            }
-
-            public void setDetailList(List<DetailListBean> detailList) {
-                this.detailList = detailList;
-            }
-
-            public static class DetailListBean {
-                /**
-                 * clothName : 小皮裤
-                 * clothestypeid : 2
-                 * count : 2
-                 * createtime : 2017-08-15 13:56:41
-                 * id : 2
-                 * orderid : 1
-                 * price : 30
-                 * totalprice : 60
-                 */
-
-                private String clothName;
-                private int clothestypeid;
-                private int count;
-                private String createtime;
-                private int id;
-                private int orderid;
-                private int price;
-                private int totalprice;
-
-                public String getClothName() {
-                    return clothName;
-                }
-
-                public void setClothName(String clothName) {
-                    this.clothName = clothName;
-                }
-
-                public int getClothestypeid() {
-                    return clothestypeid;
-                }
-
-                public void setClothestypeid(int clothestypeid) {
-                    this.clothestypeid = clothestypeid;
-                }
-
-                public int getCount() {
-                    return count;
-                }
-
-                public void setCount(int count) {
-                    this.count = count;
-                }
-
-                public String getCreatetime() {
-                    return createtime;
-                }
-
-                public void setCreatetime(String createtime) {
-                    this.createtime = createtime;
-                }
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public int getOrderid() {
-                    return orderid;
-                }
-
-                public void setOrderid(int orderid) {
-                    this.orderid = orderid;
-                }
-
-                public int getPrice() {
-                    return price;
-                }
-
-                public void setPrice(int price) {
-                    this.price = price;
-                }
-
-                public int getTotalprice() {
-                    return totalprice;
-                }
-
-                public void setTotalprice(int totalprice) {
-                    this.totalprice = totalprice;
-                }
+            public void setClothesName(String clothesName) {
+                this.clothesName = clothesName;
             }
         }
     }

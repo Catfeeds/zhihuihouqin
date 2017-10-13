@@ -1,15 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.CircleImageView;
+import com.moe.wl.ui.main.activity.me.OrderHairCutDetailActivity;
 import com.moe.wl.ui.main.bean.OrderHairCutBean;
 
 import java.util.List;
@@ -85,6 +88,15 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
             }
         });
 
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderHairCutDetailActivity.class);
+                intent.putExtra("Data", data.get(position));
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -109,6 +121,8 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
         TextView order;
         @BindView(R.id.comment)
         TextView comment;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

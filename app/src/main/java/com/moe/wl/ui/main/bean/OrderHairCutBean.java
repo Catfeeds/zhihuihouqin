@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * 作者：Shixhe On 2017/9/28 0028
  */
 
-public class OrderHairCutBean {
+public class OrderHairCutBean implements Serializable {
 
     private String msg;
     private int errCode;
@@ -37,7 +38,7 @@ public class OrderHairCutBean {
         this.orderlist = orderlist;
     }
 
-    public static class OrderlistEntity {
+    public static class OrderlistEntity implements Serializable {
 
         private String addr;
         private int barberid;
