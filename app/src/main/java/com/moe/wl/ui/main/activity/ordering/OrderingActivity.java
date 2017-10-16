@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.ordering;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
@@ -47,7 +49,7 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
     @BindView(R.id.user_name)
     TextView user_name;
     @BindView(R.id.phone_number)
-    TextView phone_number;
+    EditText phone_number;
     @BindView(R.id.ll_address)
     LinearLayout ll_address;
     @BindView(R.id.ll_arrive_time)
@@ -65,12 +67,14 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
 
     private int sarahNumber = 0; // 份数
     private int price = 30; // 每份价格
-    private int addressId = 0; // 地址id
+
+    private int addressId = 0; // 地址ID
     private String addressName; // 地址名
+    private int timeId = 0; // 时间ID
+
     private String userName;
-    private String phoneNumber;
-    private int timeId = 0;
     private SelectTimePop pop;
+    private String phoneNumber;
 //    private SelectTimeBean timeBean;
 
     @Override
@@ -83,25 +87,28 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
     public void initView() {
         titleBar.setBack(true);
         titleBar.setTitle("工作餐预订");
+        titleBar.setTitleRight("固定餐");
+        titleBar.setOnRightclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OrderingActivity.this, FixedOrderActivity.class));
+            }
+        });
         userName = SharedPrefHelper.getInstance().getRealName();
         user_name.setText(userName);
         phoneNumber = SharedPrefHelper.getInstance().getPhoneNumber();
         phone_number.setText(phoneNumber);
+        phone_number.setSelection(phoneNumber.length());
     }
 
     @Override
     public void createOrderingSucc(CollectBean bean) {
-//        if (bean.getErrCode() == 2) {
-//            ToastUtil.showToast(this, "工作餐数量不足!");
-//        } else {
         startActivity(new Intent(OrderingActivity.this, OrderingSuccessActivity.class));
         finish();
-//        }
     }
 
     @Override
     public void getTime(SelectTimeBean bean) {
-//        ToastUtil.showToast(this, "请求成功!" + bean.toString());
         pop = new SelectTimePop(OrderingActivity.this, bean, new SelectTimePop.OnSelectClick() {
             @Override
             public void onClick(int id, String time, boolean isAm) {
@@ -171,18 +178,19 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
             ToastUtil.showToast(this, "工作餐份数为0");
             return;
         }
-        if (phone_number.getText().toString().trim().length() == 0 || phone_number.getText().toString().trim().length() < 11) {
+        if (!OtherUtils.phoneNumber(phone_number.getText().toString().trim())) {
             ToastUtil.showToast(this, "手机号信息不正确");
             return;
         }
-        if (addressId == 0) {
+        phoneNumber = phone_number.getText().toString().trim();
+       /* if (addressId == 0) {
             ToastUtil.showToast(this, "请选择送货地址");
             return;
         }
         if (timeId == 0) {
             ToastUtil.showToast(this, "请选择送达时间");
             return;
-        }
+        }*/
         getPresenter().getData(userName, phoneNumber, timeId, sarahNumber, addressId);
     }
 

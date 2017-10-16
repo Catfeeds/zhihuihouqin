@@ -84,5 +84,4 @@ dependencies {
     //分包
     compile 'com.android.support:multidex:1.0.0'
 
-
 }

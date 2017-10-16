@@ -1,8 +1,10 @@
 package com.moe.wl.framework.application;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDex;
 
 import com.google.gson.Gson;
 import com.moe.wl.framework.config.AppConfig;
@@ -45,6 +47,7 @@ public class SoftApplication extends QuickApplication {
 //        MobSDK.init(getApplicationContext(), "20ad34651b60e", "3e43dd44f20087c729bc6b4605d75c73");
         softApplication = this;
         refWatcher =  LeakCanary.install(this);
+
 //        MobSDK.init(this, this.getAppkey(), this.getAppSecret());
 
 //        appInfo = initAppInfo();
@@ -68,6 +71,11 @@ public class SoftApplication extends QuickApplication {
         return refWatcher;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     /**
      * 实例化AppInfo

@@ -58,9 +58,7 @@ public class ServiceIntentUtils {
             R.drawable.internal_vehicle_access, R.drawable.visit_by_visiting_vehicle,
             R.drawable.parking_guidance, R.drawable.building_entrance_guard,
             R.drawable.info_announcement, R.drawable.opinion_complaints,
-            R.drawable.enrollment, R.drawable.lost_found);
-
-
+            R.drawable.enrollment, R.drawable.lost_found, R.drawable.lost_found);
 
     /**
      * 跳转相应服务

@@ -6,17 +6,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.model.AddAddressModel;
 import com.moe.wl.ui.main.modelimpl.AddAddressModelImpl;
 import com.moe.wl.ui.main.presenter.AddAddressPresenter;
+import com.moe.wl.ui.main.view.AddAddressView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.main.view.AddAddressView;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -105,8 +106,8 @@ public class AddAddressActivity extends BaseActivity<AddAddressModel, AddAddress
             return;
         }
 
-        if (mobile.getText().toString().trim().length() == 0 || mobile.getText().toString().trim().length() < 11) {
-            ToastUtil.showToast(this, "联系电话不能为空！");
+        if (!OtherUtils.phoneNumber(mobile.getText().toString().trim())) {
+            ToastUtil.showToast(this, "手机号信息不正确");
             return;
         }
 

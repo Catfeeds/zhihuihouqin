@@ -13,9 +13,19 @@ import android.widget.RatingBar;
 public class OtherUtils {
 
     // 设置评分星星颜色
-    public static void ratingBarColor(RatingBar ratingBar){
+    public static void ratingBarColor(RatingBar ratingBar) {
         LayerDrawable drawable = (LayerDrawable) ratingBar.getProgressDrawable();
         drawable.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
     }
 
+    // 手机号正则
+    public static boolean phoneNumber(String mobile) {
+        String telRegex = "[1][358]\\d{9}";
+        if (!mobile.matches(telRegex)) {
+            LogUtils.d("不匹配！！！");
+            return false;
+        }
+        LogUtils.d("匹配！！！");
+        return true;
+    }
 }
