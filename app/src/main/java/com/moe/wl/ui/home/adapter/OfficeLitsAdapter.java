@@ -1,6 +1,7 @@
 package com.moe.wl.ui.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class OfficeLitsAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.item_office, null);
+        View view = View.inflate(context, R.layout.item_office_list, null);
         return new ViewHolder(view);
     }
 
@@ -36,20 +38,8 @@ public class OfficeLitsAdapter extends RecyclerView.Adapter {
         viewHolder.tv_subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  Intent intent = new Intent(context, BarberDetailActivity.class);
-                    *//**//*intent.putExtra("shopName",shopName);
-                intent.putExtra("address",address);
-                intent.putExtra("barberlistBean",barberlistBean);*//**//*
-                Bundle bundle = new Bundle();
-                if (shopName != null) {
-                    bundle.putString("shopName", shopName);
-                }
-                if (address != null) {
-                    bundle.putString("address", address);
-                }
-                bundle.putSerializable("barberlistBean", barberlistBean);
-                intent.putExtras(bundle);
-                context.startActivity(intent);*/
+                Intent intent = new Intent(context, OfficeDetailsActivity.class);
+                context.startActivity(intent);
             }
         });
     }

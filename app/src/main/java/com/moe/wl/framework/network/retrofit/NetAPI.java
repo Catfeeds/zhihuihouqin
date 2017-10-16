@@ -874,4 +874,10 @@ public interface NetAPI {
     @POST(NetUrl.officelist)
     Observable<OfficeListResponse> officelist(@FieldMap Map<String, Object> map);
 
+    //办公室详情
+    @FormUrlEncoded
+    @POST(NetUrl.officedetails)
+    Observable<OfficeListResponse> officedetails(@FieldMap Map<String, Object> map);
+
+
 }

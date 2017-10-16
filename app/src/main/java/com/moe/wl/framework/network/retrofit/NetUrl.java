@@ -197,5 +197,6 @@ public interface NetUrl {
 
     /*------------------------------办公室预订模块------------------------------------------------*/
     String officelist="appuser/wallet/officelist";  //办公室列表
+    String officedetails="appuser/wallet/officedetails";  //办公室详情
 
 }

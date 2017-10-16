@@ -2901,7 +2901,7 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 添加地址
+     * 办公室预订类别
      */
     public static Observable officelist() {
         Map<String, Object> paramsMap = new HashMap<>();
@@ -2915,5 +2915,19 @@ carcode	是	string	车牌号*/
         return getObservable(api.officelist(paramsMap));
     }
 
+    /**
+     * 办公室详情
+     */
+    public static Observable officedetails() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.officedetails(paramsMap));
+    }
 
 }

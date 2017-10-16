@@ -1,8 +1,8 @@
 package com.moe.wl.ui.home.presenter;
 
 import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.home.model.OfficeListModel;
-import com.moe.wl.ui.home.view.OfficeListView;
+import com.moe.wl.ui.home.model.OfficeDetailsModel;
+import com.moe.wl.ui.home.view.OfficeDetailsView;
 import com.moe.wl.ui.main.bean.CollectBean;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -14,11 +14,11 @@ import rx.Subscriber;
  * 作者：Shixhe On 2017/9/7 0007
  */
 
-public class OfficeListPresenter extends MvpRxPresenter<OfficeListModel, OfficeListView> {
+public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, OfficeDetailsView> {
 
-    public void officelist() {
+    public void officedetails() {
         getView().showProgressDialog();
-        Observable request = getModel().officelist();
+        Observable request = getModel().officedetails();
         getNetWork(request, new Subscriber<CollectBean>() {
 
             @Override
@@ -28,7 +28,6 @@ public class OfficeListPresenter extends MvpRxPresenter<OfficeListModel, OfficeL
 
             @Override
             public void onError(Throwable e) {
-                getView().showProgressDialog();
                 LogUtils.d("接口请求错误："+e);
                 getView().setData();
             }

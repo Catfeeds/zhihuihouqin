@@ -410,6 +410,9 @@
         <activity
             android:name=".ui.home.activity.office.OfficeListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.OfficeDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <!--节能减排模块-->
         <activity
