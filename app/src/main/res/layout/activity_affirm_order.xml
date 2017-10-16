@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/title_color"
         android:layout_height="@dimen/title_height">
 
         <LinearLayout
@@ -28,15 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/white"
             android:layout_centerInParent="true"
             android:text="确认订单" />
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,62 +55,78 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp"
+                android:background="@color/white">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:text="预订人"/>
                 <TextView
                     android:id="@+id/tv_people"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical|right"
                     android:paddingLeft="10dp"
                     android:text="王某人"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/white"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:text="手机号"/>
                 <TextView
                     android:id="@+id/tv_phone"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical|right"
                     android:paddingLeft="10dp"
                     android:text="1233553"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/white"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
                     android:text="预订时间"/>
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical|right"
                     android:paddingLeft="10dp"
                     android:text="王某人"/>
@@ -128,24 +142,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
-                        android:text="订单号"/>
+                        android:text="订单号："/>
                     <TextView
                         android:id="@+id/tv_order"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -153,20 +169,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
                         android:text="会议名称："/>
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -174,20 +190,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
-                        android:text="会议类型"/>
+                        android:text="会议类型："/>
                     <TextView
                         android:id="@+id/tv_type"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -195,20 +211,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
                         android:text="开始时间："/>
                     <TextView
                         android:id="@+id/tv_startTime"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -216,20 +232,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
                         android:text="结束时间："/>
                     <TextView
                         android:id="@+id/tv_endTime"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -237,20 +253,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
                         android:text="参会人数："/>
                     <TextView
                         android:id="@+id/tv_number"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -258,20 +274,20 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp"
                         android:text="参会领导："/>
                     <TextView
                         android:id="@+id/tv_leader"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:text="王某人"/>
@@ -282,12 +298,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/deepblue"/>
+                android:background="@color/divider"/>
 
             <TextView
                 android:id="@+id/tv_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="备注备注备注备注备注备注备注备注备注"/>
@@ -300,6 +319,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
+        android:background="#0099FF"
+        android:textColor="@color/white"
         android:text="提交"/>
 
 </LinearLayout>

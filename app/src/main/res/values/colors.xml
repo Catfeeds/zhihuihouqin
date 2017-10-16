@@ -59,4 +59,10 @@
     <color name="actionsheet_gray">#8F8F8F</color>
     <!--轮子-->
     <color name="province_line_border">#D0D0D0</color>
+
+    <!--页面的背景颜色-->
+    <color name="bg_page">#F2F2F2</color>
+    <!--分割线颜色-->
+    <color name="divider">#999999</color>
+
 </resources>
