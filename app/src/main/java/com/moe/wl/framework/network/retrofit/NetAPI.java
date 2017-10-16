@@ -1,21 +1,8 @@
 package com.moe.wl.framework.network.retrofit;
 
-import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
-import com.moe.wl.ui.main.bean.BarberProductDetailBean;
-import com.moe.wl.ui.main.bean.ConsultBarberBean;
-import com.moe.wl.ui.main.bean.FindChargeOrderBean;
-import com.moe.wl.ui.main.bean.FindWalletLogBean;
-import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
-import com.moe.wl.ui.main.bean.MyCollectBean;
-import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
-import com.moe.wl.ui.main.bean.SendMessageBean;
-import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
-
-import java.util.List;
-import java.util.Map;
-
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
+import com.moe.wl.ui.home.bean.OfficeListResponse;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.login.bean.RegistBean;
@@ -24,6 +11,7 @@ import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.ActivitySignBean;
 import com.moe.wl.ui.main.bean.ActivitySignListBean;
+import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
 import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
 import com.moe.wl.ui.main.bean.BarberListBean;
@@ -44,6 +32,8 @@ import com.moe.wl.ui.main.bean.DoctorListBean;
 import com.moe.wl.ui.main.bean.ExpertCommentBean;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.bean.ExpertOrderBean;
+import com.moe.wl.ui.main.bean.FindChargeOrderBean;
+import com.moe.wl.ui.main.bean.FindWalletLogBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.HealthServerceHomeBean;
 import com.moe.wl.ui.main.bean.HistoryPostBean;
@@ -58,6 +48,7 @@ import com.moe.wl.ui.main.bean.LibraryPicBean;
 import com.moe.wl.ui.main.bean.MessageBean;
 import com.moe.wl.ui.main.bean.MessageListBean;
 import com.moe.wl.ui.main.bean.MoreListBean;
+import com.moe.wl.ui.main.bean.MyCollectBean;
 import com.moe.wl.ui.main.bean.NutritionBean;
 import com.moe.wl.ui.main.bean.OfficeIndexBean;
 import com.moe.wl.ui.main.bean.OrderDryClearDetailBean;
@@ -103,12 +94,10 @@ import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
+import com.moe.wl.ui.main.bean.WalletOrderBean;
 
 import java.util.List;
 import java.util.Map;
-
-import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
-import com.moe.wl.ui.main.bean.WalletOrderBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -879,4 +868,10 @@ public interface NetAPI {
     @Multipart
     @POST(NetUrl.upLoadHeader)
     Observable<UpLoadHeaderBean> upLoadHeader(@PartMap() Map<String, RequestBody> paramsMap, @Part MultipartBody.Part albumPhoto);
+
+    //办公室预订
+    @FormUrlEncoded
+    @POST(NetUrl.officelist)
+    Observable<OfficeListResponse> officelist(@FieldMap Map<String, Object> map);
+
 }
