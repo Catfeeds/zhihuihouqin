@@ -1,1 +1,2 @@
 include ':app', ':mvp-common', ':mvp-rx', ':mvp-utils', ':third-platform'
+include ':hellocharts-library'
