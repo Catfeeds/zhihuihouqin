@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,7 +66,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="12dp"
             android:padding="5dp"
-            android:src="@drawable/bianji" />
+            android:src="@drawable/address_edit" />
 
     </LinearLayout>
 

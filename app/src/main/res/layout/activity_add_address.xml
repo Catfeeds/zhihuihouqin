@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <Button
         android:id="@+id/btn_add"
@@ -60,7 +61,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="15dp"
-            android:text="  联系人  "
+            android:text="联  系  人"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big" />
 
@@ -68,8 +69,9 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="联系人姓名"
             android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="联系人姓名"
             android:maxLines="1"
             android:textColor="@color/tv_black"
             android:textColorHint="@color/gray"
@@ -108,8 +110,9 @@
             android:id="@+id/et_mobile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="联系人电话"
             android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="联系人电话"
             android:maxLines="1"
             android:textColor="@color/tv_black"
             android:textColorHint="@color/gray"
@@ -148,8 +151,9 @@
             android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="请输入地址"
             android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入地址"
             android:maxLines="1"
             android:textColor="@color/tv_black"
             android:textColorHint="@color/gray"

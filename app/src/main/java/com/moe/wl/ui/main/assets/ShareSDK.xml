@@ -117,12 +117,12 @@
         AppSecret="64020361b8ec4c99936c0e3999a9f249"
         Enable="true" />
     
-	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false APP ID 1106449114 APP KEY xTXlgEZOTIQ3MKyz -->
 	<QQ
         Id="7"
         SortId="7"
-        AppId="100371282"
-        AppKey="aed9b0303e3ed1e27bae87c33761161d"
+        AppId="1106449114"
+        AppKey="xTXlgEZOTIQ3MKyz"
         ShareByAppClient ="true"
 		BypassApproval = "false"
         Enable="true" />

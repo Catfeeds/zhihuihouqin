@@ -151,12 +151,13 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
             R.drawable.parking_guidance, R.drawable.building_entrance_guard);
 
     private List<ServiceDataBean> instantData;
-    List<Integer> instantID = Arrays.asList(57, 58, 59, 60);
+    List<Integer> instantID = Arrays.asList(57, 58, 59, 60, 61);
     List<String> instantMessage = Arrays.asList(
-            "信息公告", "意见投诉", "活动报名", "失物招领");
+            "信息公告", "意见投诉", "活动报名", "失物招领", "节能减排");
     List<Integer> instantMessagePhotos = Arrays.asList(
             R.drawable.info_announcement, R.drawable.opinion_complaints,
-            R.drawable.enrollment, R.drawable.lost_found);
+            R.drawable.enrollment, R.drawable.lost_found, R.drawable.lost_found);
+
     private AllGrideAdapter gridAdapter;
     private AllGrideAdapter gridAdapter1;
     private AllGrideAdapter gridAdapter2;

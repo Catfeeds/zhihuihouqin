@@ -4,9 +4,10 @@
     android:id="@+id/activity_sbumit_success"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="cn.moe.wl.com.moe.wl.ui.main.activity.SubmitSuccessActivity">
+    tools:context="com.moe.wl.ui.main.activity.SubmitSuccessActivity">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:text="\t\t 您的投诉已提交，请您耐心等待\n处理结果，给您带来的不便，深表歉意"
+        android:text="\t\t 您的投诉已提交，请您耐心等待\n处理结果，给您带来的不便，深表歉意。"
         android:textColor="@color/gray"
         android:textSize="@dimen/sp_big" />
 </LinearLayout>

@@ -3,10 +3,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_lighter">
+    android:background="@color/background">
 
     <com.moe.wl.framework.widget.TitleBar
-        android:id="@+id/all_sp_comment_title"
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/white" />
@@ -20,12 +20,11 @@
         android:paddingLeft="12dp">
 
         <TextView
-            android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="12dp"
             android:paddingTop="12dp"
-            android:text="共0份"
+            android:text="总金额"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_bigger" />
 
@@ -87,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="6dp"
-                    android:src="@drawable/button_minus"
+                    android:src="@drawable/blue_minus"
                     android:visibility="gone" />
 
                 <TextView
@@ -106,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/button_add" />
+                    android:src="@drawable/blue_add" />
 
             </LinearLayout>
 
@@ -192,7 +191,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/alertdialog_line"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_address"
@@ -248,7 +248,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/alertdialog_line"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_arrive_time"
@@ -297,10 +298,131 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="20dp"
+                android:paddingTop="8dp"
+                android:text="订餐类型及期限"
+                android:textColor="@color/gray" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/gray_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="订餐类型"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_bigger" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <CheckBox
+                        android:id="@+id/lunch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/check_box_button"
+                        android:paddingLeft="8dp"
+                        android:text="午餐"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+
+                    <CheckBox
+                        android:id="@+id/dinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:button="@drawable/check_box_button"
+                        android:paddingLeft="8dp"
+                        android:text="晚餐"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/gray_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="订餐期限"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_bigger" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <CheckBox
+                        android:id="@+id/one_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/check_box_button"
+                        android:paddingLeft="8dp"
+                        android:text="一星期"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+
+                    <CheckBox
+                        android:id="@+id/two_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:button="@drawable/check_box_button"
+                        android:paddingLeft="8dp"
+                        android:text="两星期"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+
+                    <CheckBox
+                        android:id="@+id/one_mouth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:button="@drawable/check_box_button"
+                        android:paddingLeft="8dp"
+                        android:text="一个月"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

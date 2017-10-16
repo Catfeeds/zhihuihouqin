@@ -7,13 +7,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.widget.NoSlidingGridView;
@@ -22,6 +15,14 @@ import com.moe.wl.ui.main.bean.ServiceDataBean;
 import com.moe.wl.ui.main.model.Tab2Model;
 import com.moe.wl.ui.main.presenter.Tab2Presenter;
 import com.moe.wl.ui.main.view.Tab2View;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -135,12 +136,12 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
             R.drawable.parking_guidance, R.drawable.building_entrance_guard);
 
     private List<ServiceDataBean> instantData;
-    List<Integer> instantID = Arrays.asList(57, 58, 59, 60);
+    List<Integer> instantID = Arrays.asList(57, 58, 59, 60, 61);
     List<String> instantMessage = Arrays.asList(
-            "信息公告", "意见投诉", "活动报名", "失物招领");
+            "信息公告", "意见投诉", "活动报名", "失物招领", "节能减排");
     List<Integer> instantMessagePhotos = Arrays.asList(
             R.drawable.info_announcement, R.drawable.opinion_complaints,
-            R.drawable.enrollment, R.drawable.lost_found);
+            R.drawable.enrollment, R.drawable.lost_found, R.drawable.lost_found);
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {

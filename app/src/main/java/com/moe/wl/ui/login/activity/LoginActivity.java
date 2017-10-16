@@ -27,9 +27,16 @@ import com.moe.wl.ui.login.presenter.LoginPresenter;
 import com.moe.wl.ui.login.view.LoginView;
 import com.moe.wl.ui.main.activity.MainActivity;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
+import lc.cn.thirdplatform.sharesdk.login.LoginApi;
+import lc.cn.thirdplatform.sharesdk.login.OnLoginListener;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.CrcUtil;
 
@@ -165,12 +172,15 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                 break;
             case R.id.l_iv_wecat:
 //                doLoginPlatForm("3", Wechat.NAME);
+                doLoginThree(Wechat.NAME);
                 break;
             case R.id.l_iv_weibo:
 //                doLoginPlatForm("2", SinaWeibo.NAME);
+                doLoginThree(SinaWeibo.NAME);
                 break;
             case R.id.l_iv_qq:
 //                doLoginPlatForm("1", QQ.NAME);
+                doLoginThree(QQ.NAME);
                 break;
         }
     }
@@ -281,6 +291,48 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
             Log.e("msg++++", loginBean.getMsg());
             showToast(loginBean.getMsg());
         }
+    }
+
+    // 三方登录
+    private void doLoginThree(String platformName) {
+        LoginApi api = new LoginApi();
+        //设置登陆的平台后执行登陆的方法
+        api.setPlatform(platformName);
+        api.setOnLoginListener(new OnLoginListener() {
+            public boolean onLogin(String platform, HashMap<String, Object> res) {
+                // 在这个方法填写尝试的代码，返回true表示还不能登录，需要注册
+                // 此处全部给回需要注册
+                LogUtils.d("platform : " + platform);
+                int type;
+                if (QQ.NAME.equals(platform)) {
+                    // QQ 1
+                    type = 1;
+                } else if (SinaWeibo.NAME.equals(platform)) {
+                    // 微博 2
+                    type = 2;
+                } else if (Wechat.NAME.equals(platform)) {
+                    // 微信 3
+                    type = 3;
+                }
+                String id = (String) res.get("uid");
+
+
+
+                return true;
+            }
+
+            @Override
+            public boolean onRegister(Object info) {
+                return false;
+            }
+
+            @Override
+            public boolean onError() {
+                return false;
+            }
+
+        });
+        api.login(this);
     }
 
  /* *//**//*  private void doLoginRequest(final String mobile, final String md5Pwd) {
