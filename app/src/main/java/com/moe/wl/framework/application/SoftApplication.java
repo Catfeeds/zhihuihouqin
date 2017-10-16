@@ -5,6 +5,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.google.gson.Gson;
+import com.moe.wl.framework.config.AppConfig;
+import com.moe.wl.framework.config.AppInfo;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.ui.home.bean.LoginBean;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -13,10 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.moe.wl.framework.config.AppConfig;
-import com.moe.wl.framework.config.AppInfo;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.ui.home.bean.LoginBean;
 import mvp.cn.common.QuickApplication;
 import mvp.cn.util.DateUtil;
 import mvp.cn.util.NetUtil;
@@ -45,6 +45,7 @@ public class SoftApplication extends QuickApplication {
 //        MobSDK.init(getApplicationContext(), "20ad34651b60e", "3e43dd44f20087c729bc6b4605d75c73");
         softApplication = this;
         refWatcher =  LeakCanary.install(this);
+//        MobSDK.init(this, this.getAppkey(), this.getAppSecret());
 
 //        appInfo = initAppInfo();
 

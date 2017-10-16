@@ -5,12 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.main.adapter.AddressAdapter;
@@ -19,6 +13,13 @@ import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.modelimpl.AddressModelImpl;
 import com.moe.wl.ui.main.presenter.AddressPresenter;
 import com.moe.wl.ui.main.view.AddressView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -41,6 +42,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
 
     private int addressId = 0;
     private String mAddress;
+    private String name;
 
     @Override
     public AddressPresenter createPresenter() {
@@ -80,7 +82,8 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
 
         adapter.setOnSelectClickListener(new AddressAdapter.OnSelectClickListener() {
             @Override
-            public void onClick(int id, String address) {
+            public void onClick(int id, String name, String address) {
+                AddressManagerActivity.this.name = name;
                 addressId = id;
                 mAddress = address;
             }
@@ -100,6 +103,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
             case R.id.back:
                 Intent intent1 = new Intent();
                 intent1.putExtra("ID", addressId);
+                intent1.putExtra("Name", mAddress);
                 intent1.putExtra("Address", mAddress);
                 setResult(RESULT_OK, intent1);
                 finish();

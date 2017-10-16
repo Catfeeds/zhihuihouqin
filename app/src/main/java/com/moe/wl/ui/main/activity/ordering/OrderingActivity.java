@@ -7,21 +7,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.view.OrderingView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.ui.main.presenter.OrderingPresenter;
+import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
 import com.moe.wl.ui.main.model.OrderingModel;
 import com.moe.wl.ui.main.modelimpl.OrderingModelImpl;
+import com.moe.wl.ui.main.presenter.OrderingPresenter;
+import com.moe.wl.ui.main.view.OrderingView;
 import com.moe.wl.ui.mywidget.SelectTimePop;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -158,7 +158,7 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
             switch (requestCode) {
                 case REQUEST_ADDRESS:
                     addressId = data.getIntExtra("ID", 0);
-                    addressName = data.getStringExtra("Name");
+                    addressName = data.getStringExtra("Address");
                     tv_name.setText(addressName);
                     break;
             }

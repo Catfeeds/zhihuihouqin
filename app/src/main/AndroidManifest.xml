@@ -30,7 +30,6 @@
     <!-- 配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 电话权限 -->
@@ -39,16 +38,13 @@
     <!-- 否则不能监听每个状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <!-- shareSDK -->
+    <!-- shareSDK  去重 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+
     <!-- 照相机,相册 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -62,37 +58,31 @@
         <activity
             android:name=".ui.main.activity.MainActivity"
             android:launchMode="singleTask">
-
-            <!--
-             <intent-filter>
+             <!--<intent-filter>
                  <action android:name="android.intent.action.MAIN" />
-
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
+             </intent-filter>-->
         </activity>
-        <activity
+        <!--<activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
-
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            &lt;!&ndash; 调用新浪原生SDK，需要注册的回调activity &ndash;&gt;
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
+            &lt;!&ndash; 集成line客户端登录授权，需要添如下格式的过滤器 &ndash;&gt;
             <intent-filter>
                 <data android:scheme="line.1477692153" />
 
@@ -101,7 +91,37 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>-->
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <!-- ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent-->
+            <!--<intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>-->
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
+        <meta-data android:name="Mob-AppKey" android:value="您的AppKey"/>
+        <meta-data android:name="Mob-AppSecret" android:value="您的AppSecret"/>
+
+
+
+
+
+
+
         <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -198,7 +218,6 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity" />
         <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpConfirmOrderActivity" />
         <activity
             android:name=".ui.main.activity.OfficeSupplies.OrderRemarkActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -352,8 +371,7 @@
         <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity" />
         <activity android:name=".ui.main.activity.me.PayDetailActivity" />
         <activity android:name=".ui.main.activity.me.MyDeposit" />
-        <activity android:name=".ui.main.activity.me.BalanceExplainActivity"></activity>
-        <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity"></activity>
+        <activity android:name=".ui.main.activity.me.BalanceExplainActivity"/>
         <activity
             android:name=".ui.main.activity.orderWater.OrderInfoActivity"
             android:screenOrientation="portrait" />

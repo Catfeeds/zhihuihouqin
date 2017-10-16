@@ -8,10 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.moe.wl.R;
 import com.moe.wl.ui.main.bean.AddressBean;
+
+import java.util.List;
 
 /**
  * 类描述：
@@ -20,7 +20,7 @@ import com.moe.wl.ui.main.bean.AddressBean;
 public class AddressAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
-//    private AddressBean data;
+    //    private AddressBean data;
     private List<AddressBean.AddressListEntity> data;
     private OnEditClickListener listener;
     private OnSelectClickListener listen;
@@ -98,7 +98,9 @@ public class AddressAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     selectPosition = mPosition;
                     if (listen != null)
-                        listen.onClick(data.get(selectPosition).getId(), data.get(selectPosition).getAddress());
+                        listen.onClick(data.get(selectPosition).getId(),
+                                data.get(selectPosition).getRealname(),
+                                data.get(selectPosition).getAddress());
                     notifyDataSetChanged();
                 }
             });
@@ -124,7 +126,7 @@ public class AddressAdapter extends BaseAdapter {
     }
 
     public interface OnSelectClickListener {
-        void onClick(int id, String address);
+        void onClick(int id, String name, String address);
     }
 
     public void setOnSelectClickListener(OnSelectClickListener listener) {

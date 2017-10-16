@@ -1,6 +1,8 @@
 package com.moe.wl.framework.utils;
 
 import com.moe.wl.R;
+import com.moe.wl.ui.home.activity.office.OfficeListActivity;
+import com.moe.wl.ui.home.activity.saving.SavingActivity;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityRegistrationActivity;
 import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
 import com.moe.wl.ui.main.activity.HealthServerceActivity;
@@ -147,8 +149,8 @@ public class ServiceIntentUtils {
 
                 break;
             case 27: //27	会议室
+                return OfficeListActivity.class;
 
-                break;
             case 28: //28	票务服务
 
                 break;
@@ -248,6 +250,9 @@ public class ServiceIntentUtils {
             case 60: //60	失物招领
 
                 break;
+            case 61: //61	节能减排
+                return SavingActivity.class;
+
             case 10001:
                 return MoreActivity.class;
         }
