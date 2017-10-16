@@ -73,6 +73,8 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
         tabs.addTab(tabs.newTab().setText("用电"), true);//添加 Tab,默认选中
         tabs.addTab(tabs.newTab().setText("用水"), false);//添加 Tab,默认不选中
 
+        tabs.setupWithViewPager(viewpager);
+
         ElectroStatistcsFrgment f1 = new ElectroStatistcsFrgment();
         WaterStatistcsFragment f2 = new WaterStatistcsFragment();
 

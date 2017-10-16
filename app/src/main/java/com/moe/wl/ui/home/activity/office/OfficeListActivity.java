@@ -1,10 +1,9 @@
 package com.moe.wl.ui.home.activity.office;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -29,7 +28,7 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
     private TextView tv_title;
     private LinearLayout ll_right;
     private ImageView iv_icon;
-    private RecyclerView lv_content;
+    private ListView lv_content;
 
     private OfficeLitsAdapter adapter;
     private List<String> mList;
@@ -50,7 +49,7 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
         ll_right.setOnClickListener(this);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         iv_icon.setOnClickListener(this);
-        lv_content = (RecyclerView) findViewById(R.id.lv_content);
+        lv_content = (ListView) findViewById(R.id.lv_content);
 
         initData();
         getPresenter().officelist();
@@ -84,10 +83,9 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
 
         mList=new ArrayList<>();
 
-        lv_content.setLayoutManager(new LinearLayoutManager(this));
         adapter = new OfficeLitsAdapter(this);
+        adapter.setItemList(mList);
         lv_content.setAdapter(adapter);
-        adapter.setData(mList);
 
     }
 

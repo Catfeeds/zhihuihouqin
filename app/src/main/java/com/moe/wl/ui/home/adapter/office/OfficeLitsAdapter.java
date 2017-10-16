@@ -2,7 +2,6 @@ package com.moe.wl.ui.home.adapter.office;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,54 +10,41 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.moe.wl.ui.main.adapter.MyBaseAdapter;
 
 /**
  * 办公室列表
  */
-public class OfficeLitsAdapter extends RecyclerView.Adapter {
-
-    private Context context;
-    private List<String> data = new ArrayList<>();
+public class OfficeLitsAdapter extends MyBaseAdapter<String> {
 
     public OfficeLitsAdapter(Context context) {
-        this.context = context;
+        super(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_office_list, null);
-        return new ViewHolder(view);
-    }
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if (null == convertView) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_office_list, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
+        viewHolder.tv_name.setText(getItem(position));
         viewHolder.tv_subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OfficeDetailsActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(getContext(), OfficeDetailsActivity.class);
+                getContext().startActivity(intent);
             }
         });
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        if (data != null) {
-            return data.size();
-        }
-        return 0;
-    }
-
-    public void setData(List<String> data) {
-        this.data = data;
-        notifyDataSetChanged();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder{
         public View rootView;
         public ImageView iv_icon;
         public TextView tv_name;
@@ -69,7 +55,6 @@ public class OfficeLitsAdapter extends RecyclerView.Adapter {
         public TextView tv_subscribe;
 
         public ViewHolder(View rootView) {
-            super(rootView);
             this.rootView = rootView;
             this.iv_icon = (ImageView) rootView.findViewById(R.id.iv_icon);
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);

@@ -2,7 +2,11 @@ package com.moe.wl.ui.home.activity.saving;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +52,12 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     LineChartView lineChart;
     @BindView(R.id.columnChartc)
     ColumnChartView columnChartc;
+    @BindView(R.id.spinner1)
+    Spinner spinner1;
+    @BindView(R.id.spinner2)
+    Spinner spinner2;
+    @BindView(R.id.bt_end)
+    Button btEnd;
 
     private int numberOfLines = 1;
     private int maxNumberOfLines = 4;
@@ -67,6 +77,11 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
 
 
     private LineChartData data;
+
+    private List<String> spinner1List;
+    private ArrayAdapter spinner1Adapter;
+    private List<String> spinner2List;
+    private ArrayAdapter spinner2Adapter;
 
     @Override
     public ComparisonPresenter createPresenter() {
@@ -100,7 +115,47 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
 
         columnChartc.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
 
+        spinner1List = new ArrayList<String>();
+        spinner1List.add("北京");
+        spinner1List.add("上海");
+        spinner1List.add("广州");
+        spinner1List.add("深圳");
 
+        spinner2List = new ArrayList<String>();
+        spinner2List.add("北京");
+        spinner2List.add("上海");
+        spinner2List.add("广州");
+        spinner2List.add("深圳");
+
+        spinner1Adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinner1List);
+        spinner1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(spinner1Adapter);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinner2Adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinner2List);
+        spinner2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(spinner2Adapter);
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -168,7 +223,7 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
             line.setHasLines(hasLines);
             line.setHasPoints(hasPoints);
             line.setHasGradientToTransparent(hasGradientToTransparent);
-            if (pointsHaveDifferentColor){
+            if (pointsHaveDifferentColor) {
                 line.setPointColor(ChartUtils.COLORS[(i + 1) % ChartUtils.COLORS.length]);
             }
             lines.add(line);
@@ -196,12 +251,15 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     }
 
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.ll_back,R.id.bt_end})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_back:
                 finish();
+                break;
+            case R.id.bt_end:
+
                 break;
         }
     }
