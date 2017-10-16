@@ -413,6 +413,18 @@
         <activity
             android:name=".ui.home.activity.office.OfficeDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.SubscribeInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.AffirmOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.SubmitSuccActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.SubscribeDefeatedActivity"
+            android:screenOrientation="portrait" />
 
         <!--节能减排模块-->
         <activity

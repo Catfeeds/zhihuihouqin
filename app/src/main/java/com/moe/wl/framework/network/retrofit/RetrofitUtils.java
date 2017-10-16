@@ -2930,4 +2930,19 @@ carcode	是	string	车牌号*/
         return getObservable(api.officedetails(paramsMap));
     }
 
+    /**
+     * 填写预订信息
+     */
+    public static Observable subscribeInfo() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.subscribeInfo(paramsMap));
+    }
+
 }

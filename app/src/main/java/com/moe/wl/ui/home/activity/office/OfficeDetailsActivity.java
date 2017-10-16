@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.activity.office;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.moe.wl.ui.home.view.OfficeDetailsView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.ButterKnife;
 
 /**
@@ -87,9 +89,9 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
                 finish();
                 break;
             case R.id.tv_subscribe:  //预订
-                finish();
+                Intent intent = new Intent(this, SubscribeInfoActivity.class);
+                startActivity(intent);
                 break;
-
         }
     }
 
