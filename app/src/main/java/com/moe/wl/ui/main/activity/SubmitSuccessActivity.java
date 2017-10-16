@@ -27,8 +27,6 @@ public class SubmitSuccessActivity extends AppCompatActivity {
     TextView tvCheckOrder;
     @BindView(R.id.iv_submit_or_pay)
     ImageView ivSubmitOrPay;
-    @BindView(R.id.tv_book_submit_des)
-    TextView tvBookSubmitDes;
     private boolean isPay;
 
     @Override
@@ -39,6 +37,8 @@ public class SubmitSuccessActivity extends AppCompatActivity {
         initTitle();
         //设置字体加粗
         tvSubmitSuccess.setTypeface(Typeface.DEFAULT_BOLD);
+        Intent intent = getIntent();
+         isPay = intent.getBooleanExtra("isPay", false);
         processShow();
     }
 

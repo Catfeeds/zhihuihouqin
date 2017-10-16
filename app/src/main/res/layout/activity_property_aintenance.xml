@@ -8,7 +8,7 @@
         android:id="@+id/reserve_info_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/white" />
+        android:background="@color/gray_trans" />
 
     <View
         android:id="@+id/view_down"
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="个人信息"
+                android:background="@color/gray_trans"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_big" />
 
@@ -103,6 +104,7 @@
                     android:background="@null"
                     android:hint="请输入手机号"
                     android:text="13521885849"
+                    android:inputType="number"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/gray"
                     android:textSize="@dimen/sp_small" />
@@ -189,6 +191,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="服务分类"
+                android:background="@color/gray_trans"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_big" />
 

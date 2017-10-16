@@ -170,6 +170,12 @@ public interface NetUrl {
     String deleteVegetableOrder = ""; // 删除订单
     String commentVegetableOrder = "appuser/tdcfworder/addComment";  // 评论净菜订单
 
+    //餐费充值
+    String findLastCardNum="appuser/usercfczorder/findLastCardNum";//最后充值卡号
+    String findRemain="appuser/usercfczorder/findRemain";//查询余额
+    String generateChargeOrder="appuser/usercfczorder/generateChargeOrder";
+    String pay="appuser/pay";//支付
+
     // 服务
     String getMyService = "appuser/service/findUserService";
     String submitMyService = "appuser/service/updateUserService";

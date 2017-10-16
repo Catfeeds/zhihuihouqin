@@ -62,6 +62,7 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
         title.setBack(true);
         title.setTitle("我的钱包");
         title.setTitleRight("明细");
+        getPresenter().getInfo();
         title.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

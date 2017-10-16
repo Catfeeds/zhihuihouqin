@@ -100,6 +100,12 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
         String remark = etWrite.getText().toString().trim();
         String spName = etSpName.getText().toString().trim();
         String spCount = etSpCount.getText().toString().trim();
+        String telRegex = "[1][358]\\d{9}";
+
+        if(!phone.matches(telRegex)){
+            showToast("请输入正确的手机号");
+            return ;
+        }
         if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||
                 TextUtils.isEmpty(spCount)){
             showToast("请将信息填写完整");

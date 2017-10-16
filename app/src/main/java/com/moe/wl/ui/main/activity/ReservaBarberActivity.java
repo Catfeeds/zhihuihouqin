@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
@@ -270,6 +271,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
             case R.id.tb_regist:
                 Intent intent = new Intent(this, PayFiveJiaoActivity.class);
                 // TODO: 2017/8/22 0022 携带支付信息
+                intent.putExtra("from", Constants.BARBER);
                 startActivity(intent);
                 break;
         }

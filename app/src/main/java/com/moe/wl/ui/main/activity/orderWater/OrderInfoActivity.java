@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.activity.orderWater;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -136,6 +137,15 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
             case R.id.confirm:
                 String time = tvTime.getText().toString().trim();
                 String remark = etRemark.getText().toString().trim();
+                if(TextUtils.isEmpty(address)){
+                    showToast("请选择送货地址");
+                    return ;
+                }
+                if(TextUtils.isEmpty(time)){
+                    showToast("请选择期望送水的时间");
+                    return;
+                }
+                //生成订单
                 getPresenter().generateOrder(realName,phone,id,time,arr,remark);
                 break;
         }
@@ -159,8 +169,14 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
         //生成订单成功
         if(bean!=null){
             Intent intent=new Intent(this,ConfirmOrderActivity.class);
+            String ordercode = bean.getOrdercode();
+            String ordertype = bean.getOrdertype()+"";
+            intent.putExtra("ordercode",ordercode);
+            intent.putExtra("ordertype",ordertype);
             intent.putExtra("json",json);
             intent.putExtra("address",address);
+            String phone = phoneNumber.getText().toString().trim();
+            intent.putExtra("phone",phone);
             intent.putExtra("time",mTime);
             startActivity(intent);
         }else{

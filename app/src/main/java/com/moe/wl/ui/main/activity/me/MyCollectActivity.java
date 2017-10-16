@@ -51,14 +51,9 @@ public class MyCollectActivity extends AppCompatActivity {
 
     private void initFragment() {
         fragments = new ArrayList<>();
-       fragments.add(new McNoticeFragment());
-     /*    fragments.add(new McOfficeFragment());
-        fragments.add(new McWorksFragment());
-        fragments.add(new McBookFragment());
-        fragments.add(new McDoctorFragment());
-        fragments.add(new McExpertsFragment());
-        fragments.add(new McActFragment());
-        fragments.add(new McBarberFragment());*/
+        for (int i = 1; i <= 11; i++) {
+            fragments.add(McNoticeFragment.getInstance(i));
+        }
     }
 
     private void initTitle() {
@@ -73,6 +68,7 @@ public class MyCollectActivity extends AppCompatActivity {
         });
         FmPagerAdapter pagerAdapter = new FmPagerAdapter(getSupportFragmentManager());
         vpCollect.setAdapter(pagerAdapter);
+        tab.setupWithViewPager(vpCollect);
         pagerAdapter.setFragments(fragments, tabs);
     }
 

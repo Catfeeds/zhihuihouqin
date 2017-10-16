@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.view.DoctorDetailView;
 import com.suke.widget.SwitchButton;
@@ -177,6 +178,7 @@ public class DoctorDetailActivity extends BaseActivity<DoctorDetailModel, Doctor
                 break;
             case R.id.tv_now_order:
                 Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+                intent.putExtra("from", Constants.MEDICAL);
                 startActivity(intent);
                 break;
         }

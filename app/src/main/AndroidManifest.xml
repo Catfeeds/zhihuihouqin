@@ -41,10 +41,11 @@
     <!-- shareSDK  去重 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
     <!-- 照相机,相册 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -58,19 +59,27 @@
         <activity
             android:name=".ui.main.activity.MainActivity"
             android:launchMode="singleTask">
-             <!--<intent-filter>
+
+            <!--
+             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
+
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
+             </intent-filter>
+            -->
         </activity>
-        <!--<activity
+
+        <!--
+        <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <data android:scheme="tencent100371282" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -91,44 +100,48 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>-->
+        </activity>
+        -->
 
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-            <!-- ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent-->
-            <!--<intent-filter>
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!-- ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent -->
+            <!--
+            <intent-filter>
                 <data android:scheme="tencent100371282" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
+
 
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <meta-data android:name="Mob-AppKey" android:value="您的AppKey"/>
-        <meta-data android:name="Mob-AppSecret" android:value="您的AppSecret"/>
-
-
-
-
-
-
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="您的AppKey" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="您的AppSecret" />
 
         <!-- 微信分享回调 -->
-        <activity
+        <!--<activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <activity android:name=".ui.main.activity.GuideActivity">
 
             <!--
@@ -139,6 +152,7 @@
              </intent-filter>
             -->
         </activity>
+
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -371,7 +385,7 @@
         <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity" />
         <activity android:name=".ui.main.activity.me.PayDetailActivity" />
         <activity android:name=".ui.main.activity.me.MyDeposit" />
-        <activity android:name=".ui.main.activity.me.BalanceExplainActivity"/>
+        <activity android:name=".ui.main.activity.me.BalanceExplainActivity" />
         <activity
             android:name=".ui.main.activity.orderWater.OrderInfoActivity"
             android:screenOrientation="portrait" />
@@ -405,8 +419,15 @@
         <activity
             android:name=".ui.main.activity.me.OrderMealDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.MealsRecharge.MealsRechargeActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
-        <!--办公室预订模块-->
+       <!-- <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />-->
+
+        <!-- 办公室预订模块 -->
         <activity
             android:name=".ui.home.activity.office.OfficeListActivity"
             android:screenOrientation="portrait" />
@@ -426,10 +447,11 @@
             android:name=".ui.home.activity.office.SubscribeDefeatedActivity"
             android:screenOrientation="portrait" />
 
-        <!--节能减排模块-->
+        <!-- 节能减排模块 -->
         <activity
             android:name=".ui.home.activity.saving.SavingActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.activity.orderWater.PayDepositActivity"></activity>
         <activity
             android:name=".ui.home.activity.saving.InformationActivity"
             android:screenOrientation="portrait" />

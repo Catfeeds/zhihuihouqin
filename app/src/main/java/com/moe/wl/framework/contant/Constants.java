@@ -31,6 +31,7 @@ public class Constants {
     public static final int DRYCLEANER = 100008; // 洗衣店
     public static final int BOOK = 100009; // 图书订单
     public static final int VEGETABLE = 100010; // 净菜订单
+    public static final int BARBER = 100011; // 理发师
 
 }
 

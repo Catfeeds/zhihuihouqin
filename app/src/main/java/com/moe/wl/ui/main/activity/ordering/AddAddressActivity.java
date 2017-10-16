@@ -115,7 +115,12 @@ public class AddAddressActivity extends BaseActivity<AddAddressModel, AddAddress
             ToastUtil.showToast(this, "地址不能为空！");
             return;
         }
-
+        String telRegex = "[1][358]\\d{9}";
+        String phone = mobile.getText().toString().trim();
+        if(!phone.matches(telRegex)){
+            showToast("请输入正确的手机号");
+            return ;
+        }
         if (type == 1)
             getPresenter().addAddress(et_name.getText().toString().trim(), mobile.getText().toString().trim(), et_address.getText().toString().trim());
         else

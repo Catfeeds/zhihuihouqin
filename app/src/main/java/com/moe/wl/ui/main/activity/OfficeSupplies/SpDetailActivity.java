@@ -191,7 +191,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         } else {
             if (requestCode == ADDRESSREQUEST) {
                 if (data != null) {
-                    String addressName = data.getStringExtra("Name");
+                    String addressName = data.getStringExtra("Address");
                     tvAddress.setText(addressName);
                 }
             }

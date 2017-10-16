@@ -40,5 +40,6 @@ public class ProPerrtyPostSuccAct extends AppCompatActivity {
         intent.putExtra("from", Constants.PROPERRY);
         intent.putExtra("state", orderRepairs);
         startActivity(intent);
+        finish();
     }
 }

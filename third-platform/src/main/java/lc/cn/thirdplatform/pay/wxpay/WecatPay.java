@@ -18,8 +18,8 @@ public class WecatPay {
 
     private Activity ct;
     private IWXAPI api;
-
-    public static final String APP_ID = "wx4ec0b35473fa09da";
+   //wx723f038c9add02a3  appid
+    public static final String APP_ID = "wx723f038c9add02a3";
     public static final String APP_SECRET = "fdbe92e06e843b0d597d0229e04c0fad";
 
     public WecatPay(Activity act) {

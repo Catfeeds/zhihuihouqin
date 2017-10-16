@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_meals_recharge"
+    android:background="@color/gray_trans"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/gray_line" />
+    <EditText
+        android:id="@+id/et_phone"
+        android:hint="请输入餐卡号码"
+        android:background="@color/white"
+        android:padding="@dimen/standard_padding"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_bigger_20"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+    <TextView
+        android:text="充值金额"
+        android:padding="@dimen/standard_padding"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_bigger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <GridView
+        android:id="@+id/gv_recharge_amount"
+        android:background="@color/white"
+        android:numColumns="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_recharge_money"
+        android:gravity="center_vertical"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_bigger"
+        android:layout_marginBottom="40dp"
+        android:textStyle="bold"
+        android:text="50"
+        android:layout_margin="@dimen/standard_padding"
+        android:background="@drawable/shape_commit_white"
+        android:paddingLeft="@dimen/standard_padding"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_bigger"
+        android:layout_marginBottom="40dp"
+        android:textStyle="bold"
+        android:text="确认"
+        android:layout_margin="@dimen/standard_padding"
+        android:background="@drawable/shape_confirm_yellow"
+        android:paddingLeft="@dimen/standard_padding"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+    <TextView
+        android:id="@+id/tv_check_balance"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="@dimen/sp_bigger"
+        android:textColor="#0099FF"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="20dp"
+        android:text="查看余额"/>
+</LinearLayout>

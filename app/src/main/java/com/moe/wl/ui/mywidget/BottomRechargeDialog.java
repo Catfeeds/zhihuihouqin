@@ -30,6 +30,7 @@ public class BottomRechargeDialog extends Dialog implements View.OnClickListener
     TextView tvNowPay;
     private Context ct;
     private int paytype;
+    private String mAmount;
 
     public BottomRechargeDialog(Context context, int theme) {
         super(context, theme);
@@ -67,6 +68,7 @@ public class BottomRechargeDialog extends Dialog implements View.OnClickListener
     }
 
     public void setAmount(String amount) {
+        this.mAmount=amount;
         tvRecharrgeAmount.setText("￥"+amount);
     }
 
@@ -83,7 +85,7 @@ public class BottomRechargeDialog extends Dialog implements View.OnClickListener
                 break;
             case R.id.tv_now_pay:
                 if(listener!=null){
-                    listener.onConfirmClickListener(paytype);
+                    listener.onConfirmClickListener(mAmount,paytype);
                 }
                 break;
         }
@@ -122,6 +124,6 @@ public class BottomRechargeDialog extends Dialog implements View.OnClickListener
     }
 
     public interface OnConfirmClickListener {
-        void onConfirmClickListener(int paytype);
+        void onConfirmClickListener(String money,int paytype);
     }
 }

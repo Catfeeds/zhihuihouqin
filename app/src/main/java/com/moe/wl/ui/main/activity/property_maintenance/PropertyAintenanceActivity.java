@@ -173,21 +173,22 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                 break;
         }
     }
-
+    public static boolean isCellphone(String str) {
+        Pattern pattern = Pattern.compile("^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8]))\\d{8}$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
     private void doPost() {
         String invitetime = tvYuyueTime.getText().toString().trim();
-        if (TextUtils.isEmpty(mobile)) {
+        String phone = etPhoneNum.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)) {
             showToast("请输入电话号码");
             return;
         }
-        String regExp = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-        Pattern p = Pattern.compile(regExp);
-        Matcher m = p.matcher(mobile);
-        if(!m.find()){
-            showToast("您输入的手机号码有误！");
-            return;
+        if(!isCellphone(phone)){
+            showToast("请输入正确的手机号");
+            return ;
         }
-
         if (TextUtils.isEmpty(etServiceAddress.getText().toString().trim())) {
             showToast("地址不能为空");
             return;
@@ -196,6 +197,14 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         }
         String mendcontent = etBaoxiuDetail.getText().toString().trim();
         pics.remove(pics.size()-1);
+        if(TextUtils.isEmpty(mendcontent)){
+            showToast("请填写报修详情");
+            return;
+        }
+        if(pics.size()<1){
+            showToast("请上传维修图片");
+            return ;
+        }
         // 发布传入图片文件
          getPresenter().getData(selectPosition,realName,mobile,invitetime,address,mendcontent,pics);
     }
@@ -203,6 +212,14 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     @Override
     public void getWuyeHomeResult(ActivityPostBean wuyeHomeBean) {
         if (wuyeHomeBean.getErrCode() == 0) {
+            //发布成功清空填写内容
+            etPhoneNum.setText("");
+            tvYuyueTime.setText("");
+            etServiceAddress.setText("");
+            etBaoxiuDetail.setText("");
+            pics.clear();
+            pics.add("addPhoto");
+            imageAdapter.notifyDataSetChanged();
             Intent intent=new Intent(this,ProPerrtyPostSuccAct.class);
             startActivity(intent);
         }else{

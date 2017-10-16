@@ -1,12 +1,19 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moe.wl.framework.base.BaseActivity;
@@ -72,6 +79,8 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     TextView tvNowPay;
     @BindView(R.id.tv_sex)
     TextView tvSex;
+    @BindView(R.id.tv_other_need)
+     TextView tvOtherNeed;
     @BindView(R.id.activity_office_sp_confirm_order)
     LinearLayout activityOfficeSpConfirmOrder;
     private String remark;
@@ -82,6 +91,7 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     private int price;
     private String from;
     private SpOrderAdapter spOrderAdapter;
+
 
 
     @Override
@@ -176,9 +186,19 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
                 startActivityForResult(intent2, REMARKREUQESTCODE);
                 break;
             case R.id.tv_now_pay:
+                if(TextUtils.isEmpty(address)){
+                    showToast("请选择送货地址");
+                    return;
+                }
+                String time = tvTime.getText().toString().trim();
+                if(TextUtils.isEmpty(time)){
+                    showToast("请选择期望送货时间");
+                    return;
+                }
                 Intent intent = new Intent(this, SpPayActivity.class);
                 String money = tvHowMuch.getText().toString().trim();
-                intent.putExtra("money",money);
+                String[] s=money.split("￥");
+                intent.putExtra("money", s[1]);
                 startActivity(intent);
                 break;
         }
@@ -211,6 +231,7 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
             if (requestCode == REMARKREUQESTCODE) {
                 if (data != null) {
                     remark = data.getStringExtra("remark");
+                    tvOtherNeed.setText(remark);
                 }
             }
         }
@@ -220,4 +241,5 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     public void getOrderInfoSucc(SpOrderBean bean) {
 
     }
+
 }

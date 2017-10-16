@@ -17,11 +17,13 @@ import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.OfficeSupplies.OrderRemarkActivity;
+import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.SpPayActivity;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
+import com.moe.wl.ui.mywidget.AlertDialog;
 import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
@@ -69,6 +71,12 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     TextView tvHowMuch;
     @BindView(R.id.tv_now_pay)
     TextView tvNowPay;
+    @BindView(R.id.tv_other_need)
+    TextView tvOtherNeed;
+    @BindView(R.id.ll_yajin)
+    LinearLayout llYajin;
+    @BindView(R.id.tv_ya_jin)
+    TextView tvYaJIn;
     @BindView(R.id.activity_office_sp_confirm_order)
     LinearLayout activityOfficeSpConfirmOrder;
     private List<QueryWaterListBean.PageBean.ListBean> list;
@@ -76,6 +84,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private String address;
     private String remark;
     private int sum;
+    private String ordercode;
+    private String ordertype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +93,16 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sp_confirm_order);
         ButterKnife.bind(this);
         initTitle();
+        //检测是否交押金
+        // TODO: 2017/10/16 0016 还么有提供接口
+        showIsHasYajin();
         Intent intent = getIntent();
         String address = intent.getStringExtra("address");
         String time = intent.getStringExtra("time");
+        String phone = intent.getStringExtra("phone");
+        ordercode = intent.getStringExtra("ordercode");
+        ordertype = intent.getStringExtra("ordertype");
+        tvPhone.setText(phone);
         tvAddress.setText(address);
         tvTime.setText(time);
         String json = intent.getStringExtra("json");
@@ -95,6 +112,26 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 }.getType());
         initData();
         initList();
+    }
+
+    private void showIsHasYajin() {
+        AlertDialog builder = new AlertDialog(this).builder();
+        builder.setTitle("温馨提示")
+                .setMsg("您好,您订的桶装水首次下单需缴纳人民币50元押金,押金可在最后申请退还,给您带来的不便请谅解")
+                .setPositiveButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .setNegativeButton("去缴纳", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(ConfirmOrderActivity.this,PayDepositActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 
     private void initList() {
@@ -110,7 +147,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
     private void initData() {
         tvUsername.setText(SharedPrefHelper.getInstance().getRealName());
-        tvPhone.setText(SharedPrefHelper.getInstance().getPhoneNumber());
+        //tvPhone.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         String sex = SharedPrefHelper.getInstance().getSex();
         if ("男".equals(sex)) {
             tvSex.setText("先生");
@@ -139,8 +176,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 showPop();
                 break;
             case R.id.ll_write_other:
-                Intent intent = new Intent(this, OrderRemarkActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(this, RemarkActivity.class);
+                startActivityForResult(intent,REMARKREUQESTCODE);
                 break;
             case R.id.tv_now_pay:
                 showPayDialog();
@@ -158,6 +195,9 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     if (isPersonal) {//个人支付
                         Intent intent = new Intent(ConfirmOrderActivity.this, PayFiveJiaoActivity.class);
                         intent.putExtra("pay", sum);
+                        intent.putExtra("from",Constants.ORDERWATER);
+                        intent.putExtra("ordercode",ordercode);
+                        intent.putExtra("ordertype",ordertype);
                         startActivity(intent);
 
                     } else {//对公支付
@@ -195,6 +235,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             if (requestCode == REMARKREUQESTCODE) {
                 if (data != null) {
                     remark = data.getStringExtra("remark");
+                    tvOtherNeed.setText(remark);
                 }
             }
         }

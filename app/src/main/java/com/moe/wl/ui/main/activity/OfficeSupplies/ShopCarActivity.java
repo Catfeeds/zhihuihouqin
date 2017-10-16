@@ -95,6 +95,7 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
         }
         mCount = count;
         tvSum.setText("￥"+sum);
+        if(!isEdit)
         tvClearing.setText("去结算("+count+")");
     }
 

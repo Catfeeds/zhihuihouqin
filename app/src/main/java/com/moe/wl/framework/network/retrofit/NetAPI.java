@@ -1,5 +1,22 @@
 package com.moe.wl.framework.network.retrofit;
 
+import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
+import com.moe.wl.ui.main.bean.AlipayBean;
+import com.moe.wl.ui.main.bean.BarberProductDetailBean;
+import com.moe.wl.ui.main.bean.ChargeOrderBean;
+import com.moe.wl.ui.main.bean.ConsultBarberBean;
+import com.moe.wl.ui.main.bean.FindChargeOrderBean;
+import com.moe.wl.ui.main.bean.FindWalletLogBean;
+import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
+import com.moe.wl.ui.main.bean.LastCardNumBean;
+import com.moe.wl.ui.main.bean.MyCollectBean;
+import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
+import com.moe.wl.ui.main.bean.SendMessageBean;
+import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
+
+import java.util.List;
+import java.util.Map;
+
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
@@ -98,6 +115,10 @@ import com.moe.wl.ui.main.bean.WalletOrderBean;
 
 import java.util.List;
 import java.util.Map;
+
+import com.moe.wl.ui.main.bean.WalletOrderBean;
+import com.moe.wl.ui.main.bean.FindRemainBean;
+import com.moe.wl.ui.main.bean.WeixinBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -669,6 +690,35 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.vegetableOrderList)
     Observable<OrderVegetableBean> vegetableOrderList(@FieldMap Map<String, Object> map);
+
+    // 查询最后充值卡号
+    @FormUrlEncoded
+    @POST(NetUrl.findLastCardNum)
+    Observable<LastCardNumBean> findLastCardNum(@FieldMap Map<String, Object> map);
+
+    // 查询餐卡余额
+    @FormUrlEncoded
+    @POST(NetUrl.findRemain)
+    Observable<FindRemainBean> findRemain(@FieldMap Map<String, Object> map);
+
+    // 生成充值订单
+    @FormUrlEncoded
+    @POST(NetUrl.generateChargeOrder)
+    Observable<ChargeOrderBean> generateChargeOrder(@FieldMap Map<String, Object> map);
+
+    // 支付宝支付
+    @FormUrlEncoded
+    @POST(NetUrl.pay)
+    Observable<AlipayBean> alipay(@FieldMap Map<String, Object> map);
+
+    // 微信支付
+    @FormUrlEncoded
+    @POST(NetUrl.pay)
+    Observable<WeixinBean> weixinpay(@FieldMap Map<String, Object> map);
+    // 个人钱包支付
+    @FormUrlEncoded
+    @POST(NetUrl.pay)
+    Observable<ActivityPostBean> personalwalletpay(@FieldMap Map<String, Object> map);
 
     //获取个人信息
     @FormUrlEncoded

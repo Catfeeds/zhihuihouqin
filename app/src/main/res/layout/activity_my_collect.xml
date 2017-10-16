@@ -22,6 +22,10 @@
         app:tabIndicatorColor="@color/tv_red"
         app:tabMode="scrollable"
         app:tabTextColor="@color/tv_black" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_line"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_collect"

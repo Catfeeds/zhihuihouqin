@@ -81,7 +81,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
         dialog.show();
         dialog.setListener(new BottomRechargeDialog.OnConfirmClickListener() {
             @Override
-            public void onConfirmClickListener(int paytype) {
+            public void onConfirmClickListener(String money,int paytype) {
                 double amount1 = Double.parseDouble(amount);
                 getPresenter().rechargeAmount(amount1,paytype,ORDERTYPE);
             }

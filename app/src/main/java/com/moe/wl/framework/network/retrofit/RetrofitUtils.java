@@ -2678,6 +2678,84 @@ carcode	是	string	车牌号*/
     }
 
     /**
+     * 查询最后充值餐卡号
+     *
+     * @return
+     */
+    public static Observable findLastCardNum() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findLastCardNum(paramsMap));
+    }
+    /**
+     * 查询餐卡余额
+     *
+     * @return
+     */
+    public static Observable findRemain() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findRemain(paramsMap));
+    }
+    /**
+     * 生成订单
+     *
+     * @return
+     */
+    public static Observable generateChargeOrder(String money,int paytype,String cardNum) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("money",money);
+            tempMap.put("paytype",paytype+"");
+            tempMap.put("cardNum",cardNum);
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.generateChargeOrder(paramsMap));
+    }
+    /**
+     * 支付
+     *
+     * @return
+     */
+    public static Observable pay(String orderid,String ordertype,int paytype) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("ordercode",orderid);
+            tempMap.put("ordertype",ordertype);
+            tempMap.put("paytype",paytype+"");
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(paytype==1){
+            return getObservable(api.alipay(paramsMap));
+        }else if(paytype==2){
+            return getObservable(api.weixinpay(paramsMap));
+        }else if(paytype==3){
+            return getObservable(api.personalwalletpay(paramsMap));
+        }
+        else{
+            return null;
+        }
+    }
+
+    /**
      * 获取用户信息
      *
      * @return

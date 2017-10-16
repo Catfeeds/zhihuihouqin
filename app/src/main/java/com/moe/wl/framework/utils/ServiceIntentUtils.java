@@ -7,6 +7,7 @@ import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityRegistrationActi
 import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
 import com.moe.wl.ui.main.activity.HealthServerceActivity;
 import com.moe.wl.ui.main.activity.Library.LibraryActivity;
+import com.moe.wl.ui.main.activity.MealsRecharge.MealsRechargeActivity;
 import com.moe.wl.ui.main.activity.MoreActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.OfficeSuppliesActivity;
 import com.moe.wl.ui.main.activity.OrderCutHearActivity;
@@ -69,8 +70,7 @@ public class ServiceIntentUtils {
     public static Class<?> goService(int serviceId) {
         switch (serviceId) {
             case 1: // 1	餐费充值
-
-                break;
+                return MealsRechargeActivity.class;
             case 2: // 2	营养套餐
                 return NutritionActivity.class;
 

@@ -9,7 +9,7 @@
         android:id="@+id/pay_title"
         android:layout_width="match_parent"
         android:background="#1000"
-        android:layout_height="?actionBarSize" />
+        android:layout_height="@dimen/title_height" />
 
     <View
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -133,6 +134,21 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
             case R.id.tv_submit:
                 String mobile = etPhoneNum.getText().toString().trim();
                 String time = tvTime.getText().toString().trim();
+                if(TextUtils.isEmpty(mobile)){
+                    showToast("请输入电话号码");
+                    return;
+                }
+                if(TextUtils.isEmpty(time)){
+                    showToast("请选择时间");
+                    return;
+                }
+                String telRegex = "[1][358]\\d{9}";
+
+                if(!mobile.matches(telRegex)){
+                    showToast("请输入正确的手机号");
+                    return ;
+                }
+
                 Gson gson = new Gson();
                 List<ClothBean.PageEntity.ListEntity> mList = new ArrayList<>();
                 for (int i = 0; i < listAll.size(); i++) {

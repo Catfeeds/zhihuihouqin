@@ -16,7 +16,6 @@
     <color name="tv_blue">#0B8BAE</color>
     <color name="tv_red">#F95759</color>
     <color name="tv_bottom">#84D5FB</color>
-
     <color name="bg_category">#0099FF</color>
     <color name="bg_next">#d0efd0</color>
     <color name="bg_color">#0B8BAE</color>
@@ -29,6 +28,7 @@
     <color name="gray_lighter">#dddddd</color>
     <color name="gray_trans">#55dddddd</color>
     <color name="blue">#2494e4</color>
+    <color name="gress_green">#01983B</color>
     <color name="deepblue">#2F4C62</color>
     <color name="green">#36CCAE</color>
     <color name="yellow">#fdaa06</color>

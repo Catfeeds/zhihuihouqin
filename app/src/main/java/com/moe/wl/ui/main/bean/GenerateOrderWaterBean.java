@@ -19,7 +19,7 @@ public class GenerateOrderWaterBean {
     private String msg;
     private int orderid;
     private int ordertype;
-    private long ordercode;
+    private String ordercode;
     private String createtime;
 
     public int getErrCode() {
@@ -54,11 +54,11 @@ public class GenerateOrderWaterBean {
         this.ordertype = ordertype;
     }
 
-    public long getOrdercode() {
+    public String getOrdercode() {
         return ordercode;
     }
 
-    public void setOrdercode(long ordercode) {
+    public void setOrdercode(String ordercode) {
         this.ordercode = ordercode;
     }
 
