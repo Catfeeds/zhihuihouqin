@@ -2900,4 +2900,64 @@ carcode	是	string	车牌号*/
         return getObservable(api.upLoadHeader(paramsMap, getHeaderImg(file, "file")));
     }
 
+    /**
+     * 办公室预订类别
+     */
+    public static Observable officelist() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.officelist(paramsMap));
+    }
+
+    /**
+     * 办公室详情
+     */
+    public static Observable officedetails() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.officedetails(paramsMap));
+    }
+
+    /**
+     * 填写预订信息
+     */
+    public static Observable subscribeInfo() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.subscribeInfo(paramsMap));
+    }
+
+    /**
+     * 办公室预订订单信息
+     */
+    public static Observable orderinfo() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderinfo(paramsMap));
+    }
+
 }

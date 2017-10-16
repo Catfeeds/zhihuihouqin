@@ -1,47 +1,39 @@
 package com.moe.wl.ui.home.activity.office;
 
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.BarberAdapter;
-import com.moe.wl.ui.main.bean.BarberListBean;
-import com.moe.wl.ui.main.model.BarberListModel;
-import com.moe.wl.ui.main.modelimpl.BarberListModelImpl;
-import com.moe.wl.ui.main.presenter.BarberListPresenter;
-import com.moe.wl.ui.main.view.BarberListView;
+import com.moe.wl.ui.home.adapter.OfficeLitsAdapter;
+import com.moe.wl.ui.home.model.OfficeListModel;
+import com.moe.wl.ui.home.modelimpl.OfficeListModelImpl;
+import com.moe.wl.ui.home.presenter.OfficeListPresenter;
+import com.moe.wl.ui.home.view.OfficeListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 办公室列表
  */
-public class OfficeListActivity extends BaseActivity<BarberListModel, BarberListView, BarberListPresenter> implements BarberListView {
+public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeListView, OfficeListPresenter> implements View.OnClickListener,OfficeListView {
 
-    @BindView(R.id.reserve_info_title)
-    TitleBar titleBar;
-    @BindView(R.id.rv_barber)
-    RecyclerView rvBarber;
-    private BarberAdapter barberAdapter;
-    private String address;
-    private String shopName;
+    private LinearLayout ll_back;
+    private TextView tv_title;
+    private LinearLayout ll_right;
+    private ImageView iv_icon;
+    private RecyclerView lv_content;
 
+    private OfficeLitsAdapter adapter;
+    private List<String> mList;
 
-    @Override
-    public BarberListPresenter createPresenter() {
-        return new BarberListPresenter();
-    }
-
-    @Override
-    public BarberListModel createModel() {
-        return new BarberListModelImpl();
-    }
 
     @Override
     public void setContentLayout() {
@@ -51,33 +43,60 @@ public class OfficeListActivity extends BaseActivity<BarberListModel, BarberList
 
     @Override
     public void initView() {
-        getPresenter().getData();
-        Intent intent = getIntent();
-        address = intent.getStringExtra("address");
-        shopName = intent.getStringExtra("shopName");
-        System.out.println("理发师"+address+"==="+shopName);
-        initTitle();
-        initRecycler();
+        ll_back = (LinearLayout) findViewById(R.id.ll_back);
+        ll_back.setOnClickListener(this);
+        tv_title = (TextView) findViewById(R.id.tv_title);
+        ll_right = (LinearLayout) findViewById(R.id.ll_right);
+        ll_right.setOnClickListener(this);
+        iv_icon = (ImageView) findViewById(R.id.iv_icon);
+        iv_icon.setOnClickListener(this);
+        lv_content = (RecyclerView) findViewById(R.id.lv_content);
+
+        initData();
+        getPresenter().officelist();
+
     }
 
     @Override
-    public void getBarberListSucc(BarberListBean listBean) {
-        if (listBean != null) {
-            List<BarberListBean.BarberlistBean> barberlist = listBean.getBarberlist();
-            barberAdapter.setData(barberlist,address,shopName);
-        }else{
-            System.out.println("理发师"+listBean+"为空");
+    public OfficeListPresenter createPresenter() {
+        return new OfficeListPresenter();
+    }
+
+    @Override
+    public OfficeListModel createModel() {
+        return new OfficeListModelImpl();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.ll_right:  //标题右边搜索
+
+                break;
         }
     }
 
-    private void initRecycler() {
-        rvBarber.setLayoutManager(new LinearLayoutManager(this));
-        barberAdapter = new BarberAdapter(this);
-        rvBarber.setAdapter(barberAdapter);
+    private void initData() {
+
+        mList=new ArrayList<>();
+
+        lv_content.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new OfficeLitsAdapter(this);
+        lv_content.setAdapter(adapter);
+        adapter.setData(mList);
+
     }
 
-    private void initTitle() {
-        titleBar.setBack(true);
-        titleBar.setTitle("会议室预订");
+
+    @Override
+    public void setData() {
+        for (int i = 0; i < 10; i++) {
+            mList.add("办公室名称"+i);
+        }
+        adapter.notifyDataSetChanged();
     }
 }

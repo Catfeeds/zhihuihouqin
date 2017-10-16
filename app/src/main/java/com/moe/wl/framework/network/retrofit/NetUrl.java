@@ -194,4 +194,11 @@ public interface NetUrl {
     String hasPaypass="appuser/wallet/hasPaypass";//是否有商品交易密码
     String checkOldPassword="appuser/wallet/checkOldPassword";
     String modifyCode="appuser/wallet/modifyCode";
+
+    /*------------------------------办公室预订模块------------------------------------------------*/
+    String officelist="appuser/wallet/officelist";  //办公室列表
+    String officedetails="appuser/wallet/officedetails";  //办公室详情
+    String subscribeInfo="appuser/wallet/subscribeInfo";  //填写预订信息
+    String orderinfo="appuser/wallet/orderinfo";  //办公室预订订单信息
+
 }

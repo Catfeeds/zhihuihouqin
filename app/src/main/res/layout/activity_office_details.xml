@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/shape_back"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/back" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="会议室详情" />
+
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:paddingLeft="10dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shape_back"
+                android:src="@mipmap/back" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#2000"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!--轮播图-->
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/ll_slider"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="会议室名称"
+                    android:textColor="#c000"
+                    android:textSize="@dimen/sp_small" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="容纳："
+                        android:textSize="@dimen/sp_smaller" />
+
+                    <TextView
+                        android:id="@+id/tv_saturation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60人"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/sp_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开放时段："
+                        android:textSize="@dimen/sp_smaller" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全天"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/sp_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预定量："
+                        android:textSize="@dimen/sp_smaller" />
+
+                    <TextView
+                        android:id="@+id/tv_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="305次"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/sp_smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="位置："
+                        android:textSize="@dimen/sp_smaller" />
+
+                    <TextView
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="业务楼401"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/sp_smaller" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="会议室介绍"
+                android:textColor="#c000"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/sp_small" />
+            <TextView
+                android:id="@+id/tv_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍"
+                android:textColor="#c000"
+                android:textSize="@dimen/sp_small" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="会议室介绍"
+                android:textColor="#c000"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/sp_small" />
+            <com.moe.wl.framework.widget.NoSlidingGridView
+                android:id="@+id/gv_equipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="温馨提示："
+                    android:textColor="#c000"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_small" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="1.会议室设备颜色深的为不提供的装备"
+                    android:textColor="#c000"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_small" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="2.会议室预订不收取任何费用"
+                    android:textColor="#c000"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/sp_small" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_subscribe"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="立即预订"/>
+
+</LinearLayout>
