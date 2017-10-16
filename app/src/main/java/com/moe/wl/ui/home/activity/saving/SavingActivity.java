@@ -88,6 +88,9 @@ public class SavingActivity extends BaseActivity<InformationModel, InformationVi
             case R.id.ll_back:
                 finish();
                 break;
+            case R.id.ll_more:
+                startActivity(new Intent(this,InformationActivity.class));
+                break;
             case R.id.ll_statistics:
                 startActivity(new Intent(this,StatisticsActivity.class));
                 break;
