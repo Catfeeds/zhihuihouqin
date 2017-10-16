@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.home.model.AffirmOrderModel;
-import com.moe.wl.ui.home.modelimpl.AffirmOrderModelImpl;
-import com.moe.wl.ui.home.presenter.AffirmOrderPresenter;
-import com.moe.wl.ui.home.view.AffirmOrderView;
+import com.moe.wl.ui.home.model.office.AffirmOrderModel;
+import com.moe.wl.ui.home.modelimpl.office.AffirmOrderModelImpl;
+import com.moe.wl.ui.home.presenter.office.AffirmOrderPresenter;
+import com.moe.wl.ui.home.view.office.AffirmOrderView;
 
 import butterknife.ButterKnife;
 

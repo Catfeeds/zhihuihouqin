@@ -2960,4 +2960,19 @@ carcode	是	string	车牌号*/
         return getObservable(api.orderinfo(paramsMap));
     }
 
+    /**
+     * 资讯列表
+     */
+    public static Observable information() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.information(paramsMap));
+    }
+
 }

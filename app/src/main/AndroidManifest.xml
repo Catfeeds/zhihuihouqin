@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -28,6 +29,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!-- 电话权限 -->
@@ -113,6 +115,11 @@
 
         <meta-data android:name="Mob-AppKey" android:value="您的AppKey"/>
         <meta-data android:name="Mob-AppSecret" android:value="您的AppSecret"/>
+
+
+
+
+
 
 
         <!-- 微信分享回调 -->
@@ -423,8 +430,21 @@
         <activity
             android:name=".ui.home.activity.saving.SavingActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.ordering.FixedOrderActivity" />
-
+        <activity
+            android:name=".ui.home.activity.saving.InformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.saving.InfoDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.saving.StatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.saving.RankingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.saving.ComparisonActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

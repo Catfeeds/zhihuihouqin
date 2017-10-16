@@ -2,7 +2,7 @@ package com.moe.wl.framework.network.retrofit;
 
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
-import com.moe.wl.ui.home.bean.OfficeListResponse;
+import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.login.bean.RegistBean;
@@ -888,5 +888,10 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.orderinfo)
     Observable<OfficeListResponse> orderinfo(@FieldMap Map<String, Object> map);
+
+    //资讯列表
+    @FormUrlEncoded
+    @POST(NetUrl.information)
+    Observable<OfficeListResponse> information(@FieldMap Map<String, Object> map);
 
 }

@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.home.adapter.OfficeLitsAdapter;
-import com.moe.wl.ui.home.model.OfficeListModel;
-import com.moe.wl.ui.home.modelimpl.OfficeListModelImpl;
-import com.moe.wl.ui.home.presenter.OfficeListPresenter;
-import com.moe.wl.ui.home.view.OfficeListView;
+import com.moe.wl.ui.home.adapter.office.OfficeLitsAdapter;
+import com.moe.wl.ui.home.model.office.OfficeListModel;
+import com.moe.wl.ui.home.modelimpl.office.OfficeListModelImpl;
+import com.moe.wl.ui.home.presenter.office.OfficeListPresenter;
+import com.moe.wl.ui.home.view.office.OfficeListView;
 
 import java.util.ArrayList;
 import java.util.List;

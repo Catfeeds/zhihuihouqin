@@ -201,4 +201,9 @@ public interface NetUrl {
     String subscribeInfo="appuser/wallet/subscribeInfo";  //填写预订信息
     String orderinfo="appuser/wallet/orderinfo";  //办公室预订订单信息
 
+
+    /*------------------------------节能减排------------------------------------------------*/
+    String information="appuser/wallet/information";  //资讯列表
+
+
 }

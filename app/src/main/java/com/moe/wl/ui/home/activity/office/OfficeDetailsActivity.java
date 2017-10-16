@@ -9,11 +9,11 @@ import com.daimajia.slider.library.SliderLayout;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.home.adapter.OfficeEquipmentAdapter;
-import com.moe.wl.ui.home.model.OfficeDetailsModel;
-import com.moe.wl.ui.home.modelimpl.OfficeDetailsModelImpl;
-import com.moe.wl.ui.home.presenter.OfficeDetailsPresenter;
-import com.moe.wl.ui.home.view.OfficeDetailsView;
+import com.moe.wl.ui.home.adapter.office.OfficeEquipmentAdapter;
+import com.moe.wl.ui.home.model.office.OfficeDetailsModel;
+import com.moe.wl.ui.home.modelimpl.office.OfficeDetailsModelImpl;
+import com.moe.wl.ui.home.presenter.office.OfficeDetailsPresenter;
+import com.moe.wl.ui.home.view.office.OfficeDetailsView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.moe.wl.ui.home.activity.office;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -10,10 +9,10 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.home.model.SubscribeInfoModel;
-import com.moe.wl.ui.home.modelimpl.SubscribeInfoModelImpl;
-import com.moe.wl.ui.home.presenter.SubscribeInfoPresenter;
-import com.moe.wl.ui.home.view.SubscribeInfoView;
+import com.moe.wl.ui.home.model.office.SubscribeInfoModel;
+import com.moe.wl.ui.home.modelimpl.office.SubscribeInfoModelImpl;
+import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
+import com.moe.wl.ui.home.view.office.SubscribeInfoView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,10 +128,4 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

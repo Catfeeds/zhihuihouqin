@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/partner_luffy"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="资讯标题资讯标题资讯标题资讯标题资讯标题资讯标题资讯标题资讯标题"
+            android:textColor="#c000"
+            android:maxLines="2"
+            android:textSize="@dimen/sp_small" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时间"
+                android:layout_marginRight="30dp"
+                android:textSize="@dimen/sp_smaller" />
+
+            <TextView
+                android:id="@+id/tv_addreass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人防办"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="@dimen/sp_smaller" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
