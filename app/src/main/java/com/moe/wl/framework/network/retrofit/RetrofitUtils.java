@@ -2945,4 +2945,19 @@ carcode	是	string	车牌号*/
         return getObservable(api.subscribeInfo(paramsMap));
     }
 
+    /**
+     * 办公室预订订单信息
+     */
+    public static Observable orderinfo() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderinfo(paramsMap));
+    }
+
 }

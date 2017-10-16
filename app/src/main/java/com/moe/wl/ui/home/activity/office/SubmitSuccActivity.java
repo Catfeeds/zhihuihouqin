@@ -2,7 +2,6 @@ package com.moe.wl.ui.home.activity.office;
 
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -19,12 +18,11 @@ import butterknife.ButterKnife;
 public class SubmitSuccActivity extends BaseActivity<SubscribeInfoModel, SubscribeInfoView, SubscribeInfoPresenter> implements View.OnClickListener,SubscribeInfoView {
 
     private LinearLayout ll_back;
-    private TextView tv_submit;
 
 
     @Override
     public void setContentLayout() {
-        setContentView(R.layout.activity_affirm_order);
+        setContentView(R.layout.activity_submit_succ);
         ButterKnife.bind(this);
     }
 
@@ -32,8 +30,6 @@ public class SubmitSuccActivity extends BaseActivity<SubscribeInfoModel, Subscri
     public void initView() {
         ll_back = (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(this);
-        tv_submit = (TextView) findViewById(R.id.tv_submit);
-        tv_submit.setOnClickListener(this);
 
         initData();
 
@@ -55,9 +51,6 @@ public class SubmitSuccActivity extends BaseActivity<SubscribeInfoModel, Subscri
         switch (v.getId()){
             case R.id.ll_back:
                 finish();
-                break;
-            case R.id.tv_submit:
-                getPresenter().subscribeInfo();
                 break;
         }
     }

@@ -7,17 +7,17 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.home.model.SubscribeInfoModel;
-import com.moe.wl.ui.home.modelimpl.SubscribeInfoModelImpl;
-import com.moe.wl.ui.home.presenter.SubscribeInfoPresenter;
-import com.moe.wl.ui.home.view.SubscribeInfoView;
+import com.moe.wl.ui.home.model.AffirmOrderModel;
+import com.moe.wl.ui.home.modelimpl.AffirmOrderModelImpl;
+import com.moe.wl.ui.home.presenter.AffirmOrderPresenter;
+import com.moe.wl.ui.home.view.AffirmOrderView;
 
 import butterknife.ButterKnife;
 
 /**
  * 确认订单信息
  */
-public class AffirmOrderActivity extends BaseActivity<SubscribeInfoModel, SubscribeInfoView, SubscribeInfoPresenter> implements View.OnClickListener,SubscribeInfoView {
+public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOrderView, AffirmOrderPresenter> implements View.OnClickListener,AffirmOrderView {
 
     private LinearLayout ll_back;
     private TextView tv_submit;
@@ -37,17 +37,18 @@ public class AffirmOrderActivity extends BaseActivity<SubscribeInfoModel, Subscr
         tv_submit.setOnClickListener(this);
 
         initData();
+        getPresenter().orderinfo();
 
     }
 
     @Override
-    public SubscribeInfoPresenter createPresenter() {
-        return new SubscribeInfoPresenter();
+    public AffirmOrderPresenter createPresenter() {
+        return new AffirmOrderPresenter();
     }
 
     @Override
-    public SubscribeInfoModel createModel() {
-        return new SubscribeInfoModelImpl();
+    public AffirmOrderModel createModel() {
+        return new AffirmOrderModelImpl();
     }
 
 
@@ -58,7 +59,7 @@ public class AffirmOrderActivity extends BaseActivity<SubscribeInfoModel, Subscr
                 finish();
                 break;
             case R.id.tv_submit:
-                getPresenter().subscribeInfo();
+                startActivity(new Intent(this,SubmitSuccActivity.class));
                 break;
         }
     }
@@ -70,8 +71,7 @@ public class AffirmOrderActivity extends BaseActivity<SubscribeInfoModel, Subscr
 
 
     @Override
-    public void submit() {
-        startActivity(new Intent(this,SubmitSuccActivity.class));
-    }
+    public void setData() {
 
+    }
 }

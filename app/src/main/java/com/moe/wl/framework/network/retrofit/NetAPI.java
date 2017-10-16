@@ -884,4 +884,9 @@ public interface NetAPI {
     @POST(NetUrl.subscribeInfo)
     Observable<OfficeListResponse> subscribeInfo(@FieldMap Map<String, Object> map);
 
+    //办公室预订订单信息
+    @FormUrlEncoded
+    @POST(NetUrl.orderinfo)
+    Observable<OfficeListResponse> orderinfo(@FieldMap Map<String, Object> map);
+
 }
