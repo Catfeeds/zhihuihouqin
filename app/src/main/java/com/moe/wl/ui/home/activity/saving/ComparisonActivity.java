@@ -267,7 +267,15 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
                         @Override
                         public void click(String s, int pos) {
                             tvRight.setText(s);
-                            if (pos==2){
+                            if (pos==0){
+                                Intent intent=new Intent(ComparisonActivity.this,SelectDateActivity.class);
+                                intent.putExtra("type",0);
+                                startActivityForResult(intent,REQUEST_CODE);
+                            }if (pos==1){
+                                Intent intent=new Intent(ComparisonActivity.this,SelectDateActivity.class);
+                                intent.putExtra("type",1);
+                                startActivityForResult(intent,REQUEST_CODE);
+                            }else if (pos==2){
                                 startActivityForResult(new Intent(ComparisonActivity.this,CalendarActivity.class),REQUEST_CODE);
                             }
                         }

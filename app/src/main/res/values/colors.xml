@@ -70,4 +70,10 @@
     <color name="font_gray">#666666</color>
     <!--字体基本蓝色-->
     <color name="font_blue">#2EA7E0</color>
+
+
+    <!--图标颜色-->
+    <!--柱形图柱子颜色-->
+    <color name="columnChart">#50B8E8</color>
+
 </resources>

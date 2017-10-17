@@ -470,6 +470,10 @@
         <activity
             android:name=".ui.home.activity.saving.CalendarActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.home.activity.saving.SelectDateActivity"
+            android:screenOrientation="portrait" />
         <!-- 干洗店订单详情 -->
         <activity
             android:name=".ui.main.activity.me.OrderDryDetailActivity"

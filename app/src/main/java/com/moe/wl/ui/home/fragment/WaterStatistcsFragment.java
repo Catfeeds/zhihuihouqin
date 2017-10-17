@@ -115,7 +115,7 @@ public class WaterStatistcsFragment extends BaseFragment<HomePageModel, HomePage
 
             values = new ArrayList<SubcolumnValue>();
             for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 50f + 5, ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) Math.random() * 50f + 5, getResources().getColor(R.color.columnChart)));
             }
 
             columns.add(new Column(values));

@@ -108,7 +108,15 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
                         @Override
                         public void click(String s, int pos) {
                             tvRight.setText(s);
-                            if (pos==2){
+                            if (pos==0){
+                                Intent intent=new Intent(StatisticsActivity.this,SelectDateActivity.class);
+                                intent.putExtra("type",0);
+                                startActivityForResult(intent,REQUEST_CODE);
+                            }if (pos==1){
+                                Intent intent=new Intent(StatisticsActivity.this,SelectDateActivity.class);
+                                intent.putExtra("type",1);
+                                startActivityForResult(intent,REQUEST_CODE);
+                            }else if (pos==2){
                                 startActivityForResult(new Intent(StatisticsActivity.this,CalendarActivity.class),REQUEST_CODE);
                             }
                         }
@@ -131,6 +139,8 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
 
     @Override
     public void setData() {
+
+
 
     }
 
