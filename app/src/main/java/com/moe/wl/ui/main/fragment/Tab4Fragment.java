@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
 import com.moe.wl.ui.main.activity.me.LaiFangActivity;
@@ -252,13 +254,15 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
 
     @Override
     public void initView(View v) {
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), SharedPrefHelper.getInstance().getUserPhoto(), civHeader);
+        tvName.setText(SharedPrefHelper.getInstance().getNickname());
     }
     //更改头像和昵称
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeUserInfo event) {
         Glide.with(getActivity()).load(event.getUrl()).into(civHeader);
         tvName.setText(event.getNickName());
-        };
+    };
 
     @Override
     public void onStart() {
@@ -365,7 +369,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 goServiceActivity(4, Constants.OFFICESUPPLIES, orderOfficeSupplies);
                 break;
 
-            case R.id.rl_turn3://我的订餐
+            case R.id.rl_turn3:// 我的订餐
                 goServiceActivity(0, Constants.ORDERMEAL, orderFood);
                 break;
             case R.id.tv_daijiedan3:
@@ -384,7 +388,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 goServiceActivity(3, Constants.ORDERMEAL, orderFood);
                 break;
 
-            case R.id.rl_turn4://理发订单
+            case R.id.rl_turn4:// 理发订单
                 goServiceActivity(0, Constants.HAIRCUTS, orderHaircuts);
                 break;
             case R.id.tv_daijiedan4:

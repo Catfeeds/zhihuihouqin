@@ -3,29 +3,24 @@ package com.moe.wl.ui.main.activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.HealthServiceGridAdapter;
 import com.moe.wl.ui.main.adapter.HealthServiceRvAdapter;
 import com.moe.wl.ui.main.bean.HealthServerceHomeBean;
 import com.moe.wl.ui.main.model.HealthServerceModel;
+import com.moe.wl.ui.main.modelimpl.HealthServerceModelImpl;
+import com.moe.wl.ui.main.presenter.HealthServercePresenter;
+import com.moe.wl.ui.main.view.HealthServerceView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.main.modelimpl.HealthServerceModelImpl;
-import com.moe.wl.ui.main.presenter.HealthServercePresenter;
-import com.moe.wl.ui.main.view.HealthServerceView;
-
-//import android.support.v7.widget.DividerItemDecoration;
-
+import butterknife.OnClick;
 
 /**
  * 医疗服务主页面
@@ -38,14 +33,11 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
     TitleBar titleBar;
     @BindView(R.id.iv_serverce)
     ImageView ivServerce;
-    @BindView(R.id.serverce_gridview)
-    NoSlidingGridView gridView;
     @BindView(R.id.tv_more)
     TextView tvMore;
     @BindView(R.id.rv_serverce)
     RecyclerView rvServerce;
 
-    private HealthServiceGridAdapter gridAdapter;
     private HealthServiceRvAdapter rvAdapter;
 
     @Override
@@ -58,7 +50,6 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
     public void initView() {
         getPresenter().getData();
         initTitle();
-        initGridView();
         initRecycler();
         clickMore();
     }
@@ -87,28 +78,22 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
         rvServerce.setAdapter(rvAdapter);
     }
 
-    private void initGridView() {
-        gridAdapter = new HealthServiceGridAdapter(this);
-        gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0://预约挂号
-                        Intent intent = new Intent(HealthServerceActivity.this, RegistrationActivity.class);
-                        startActivity(intent);
-                        break;
+    @OnClick({R.id.appointment, R.id.archives, R.id.experts})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.appointment: // 预约挂号
+                Intent intent = new Intent(HealthServerceActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+                break;
 
-                    case 1://健康档案
-                        break;
+            case R.id.archives: // 健康档案
+                break;
 
-                    case 2://专家坐诊
-                        Intent intent3 = new Intent(HealthServerceActivity.this, ExpertsVisitActivity.class);
-                        startActivity(intent3);
-                        break;
-                }
-            }
-        });
+            case R.id.experts: // 专家坐诊
+                Intent intent3 = new Intent(HealthServerceActivity.this, ExpertsVisitActivity.class);
+                startActivity(intent3);
+                break;
+        }
     }
 
     private void initTitle() {

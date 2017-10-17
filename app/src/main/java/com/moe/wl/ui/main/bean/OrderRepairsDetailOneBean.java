@@ -7,16 +7,16 @@ package com.moe.wl.ui.main.bean;
 
 public class OrderRepairsDetailOneBean {
 
-    private String msg;
-    private int errCode;
     private DetailEntity detail;
+    private int errCode;
+    private String msg;
 
-    public String getMsg() {
-        return msg;
+    public DetailEntity getDetail() {
+        return detail;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setDetail(DetailEntity detail) {
+        this.detail = detail;
     }
 
     public int getErrCode() {
@@ -27,12 +27,12 @@ public class OrderRepairsDetailOneBean {
         this.errCode = errCode;
     }
 
-    public DetailEntity getDetail() {
-        return detail;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setDetail(DetailEntity detail) {
-        this.detail = detail;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public static class DetailEntity {

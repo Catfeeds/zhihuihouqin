@@ -15,8 +15,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
+import com.moe.wl.ui.main.adapter.WeixiuAdapter;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.RepairItmeBean;
+import com.moe.wl.ui.main.model.WuyeHomeModel;
+import com.moe.wl.ui.main.modelimpl.WuyeHomeModelImpl;
+import com.moe.wl.ui.main.presenter.WuyeHomePresenter;
+import com.moe.wl.ui.main.view.WuyeHomeView;
 import com.moe.wl.ui.mywidget.StringListDialog;
 
 import java.io.File;
@@ -31,18 +43,6 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.main.adapter.WeixiuAdapter;
-import com.moe.wl.ui.main.bean.ActivityPostBean;
-import com.moe.wl.ui.main.model.WuyeHomeModel;
-import com.moe.wl.ui.main.modelimpl.WuyeHomeModelImpl;
-import com.moe.wl.ui.main.presenter.WuyeHomePresenter;
-import com.moe.wl.ui.main.view.WuyeHomeView;
-
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
@@ -76,12 +76,13 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     private List<String> lists = Arrays.asList(
             "马桶疏通", "水电维修", "房屋维修",
             "开锁/换锁", "线路维修", "其他");
+    private List<RepairItmeBean.ItemlistEntity> data;
     private String mobile;
     private WeixiuAdapter weixiuAdapter;
-    private int selectPosition;
+    private int menditem;
     private String realName;
     private String address;
-//    private ProertyAddPicAdapter picAdapter;
+    //    private ProertyAddPicAdapter picAdapter;
     private GridViewImageAdapter imageAdapter;
     private List<String> pics;
     private static final int TAKE_PHOTO_CAMERA = 10001;
@@ -100,14 +101,14 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
 
     @Override
     public void initView() {
-        paths=new ArrayList<>();
+        paths = new ArrayList<>();
         mobile = SharedPrefHelper.getInstance().getMobile();
         realName = SharedPrefHelper.getInstance().getRealName();
         tvName.setText(realName);
         etPhoneNum.setText(mobile);
         etPhoneNum.setSelection(mobile.length());
         initTitle();
-        initGrid();
+        getPresenter().getRepairItem();
         pics = new ArrayList<>();
         pics.add("addPhoto");
         initAddPhotoGrid();
@@ -149,11 +150,18 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         gvAddPhoto.setAdapter(imageAdapter);
     }
 
-    private void initGrid() {
+    private void initGrid(RepairItmeBean bean) {
+        data = new ArrayList<>();
+        data.addAll(bean.getItemlist());
         weixiuAdapter = new WeixiuAdapter();
         nsgvServiceType.setAdapter(weixiuAdapter);
-        weixiuAdapter.setDatas(lists);
-        selectPosition = weixiuAdapter.getSelectPosition();
+        weixiuAdapter.setDatas(data);
+        weixiuAdapter.setOnclickListener(new WeixiuAdapter.OnclickListener() {
+            @Override
+            public void onClick(int id) {
+                menditem = id;
+            }
+        });
     }
 
     private void initTitle() {
@@ -173,11 +181,13 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                 break;
         }
     }
+
     public static boolean isCellphone(String str) {
         Pattern pattern = Pattern.compile("^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8]))\\d{8}$");
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+
     private void doPost() {
         String invitetime = tvYuyueTime.getText().toString().trim();
         String phone = etPhoneNum.getText().toString().trim();
@@ -185,9 +195,13 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
             showToast("请输入电话号码");
             return;
         }
-        if(!isCellphone(phone)){
+        if (!isCellphone(phone)) {
             showToast("请输入正确的手机号");
-            return ;
+            return;
+        }
+        if (menditem == 0) {
+            showToast("请选择服务分类");
+            return;
         }
         if (TextUtils.isEmpty(etServiceAddress.getText().toString().trim())) {
             showToast("地址不能为空");
@@ -196,17 +210,17 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
             address = etServiceAddress.getText().toString().trim();
         }
         String mendcontent = etBaoxiuDetail.getText().toString().trim();
-        pics.remove(pics.size()-1);
-        if(TextUtils.isEmpty(mendcontent)){
+//        pics.remove(pics.size() - 1);
+        if (TextUtils.isEmpty(mendcontent)) {
             showToast("请填写报修详情");
             return;
         }
-        if(pics.size()<1){
-            showToast("请上传维修图片");
-            return ;
-        }
+//        if (pics.size() < 1) {
+//            showToast("请上传维修图片");
+//            return;
+//        }
         // 发布传入图片文件
-         getPresenter().getData(selectPosition,realName,mobile,invitetime,address,mendcontent,pics);
+        getPresenter().getData(menditem, realName, mobile, invitetime, address, mendcontent, pics);
     }
 
     @Override
@@ -220,12 +234,18 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
             pics.clear();
             pics.add("addPhoto");
             imageAdapter.notifyDataSetChanged();
-            Intent intent=new Intent(this,ProPerrtyPostSuccAct.class);
+            Intent intent = new Intent(this, ProPerrtyPostSuccAct.class);
             startActivity(intent);
-        }else{
+        } else {
             showToast("发布失败了");
         }
     }
+
+    @Override
+    public void getRepairItemSucc(RepairItmeBean bean) {
+        initGrid(bean);
+    }
+
     /**
      * 相机拍照
      */
@@ -237,13 +257,15 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                         Manifest.permission.CAMERA)
                 .request();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                                     int[] grantResults) {
+                                           int[] grantResults) {
         PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
+
     @PermissionSuccess(requestCode = 100)
-    public void doSomething(){
+    public void doSomething() {
         imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
         File file = new File(imageUri);
         File file1 = new File(imageLocation);
@@ -265,10 +287,12 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         startActivityForResult(intent, TAKE_PHOTO_CAMERA);
         Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
     }
+
     @PermissionFail(requestCode = 100)
-    public void doFailSomething(){
+    public void doFailSomething() {
         Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
+
     /**
      * 相册选取
      */
@@ -279,16 +303,19 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .request();
     }
+
     @PermissionSuccess(requestCode = 200)
-    public void getPhotoSucc(){
+    public void getPhotoSucc() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
     }
+
     @PermissionFail(requestCode = 200)
-    public void getPhotoFialed(){
+    public void getPhotoFialed() {
         Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -327,6 +354,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
             }
         }
     }
+
     @Override
     public WuyeHomePresenter createPresenter() {
         return new WuyeHomePresenter();

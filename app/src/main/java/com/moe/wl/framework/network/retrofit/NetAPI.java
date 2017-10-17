@@ -1,22 +1,5 @@
 package com.moe.wl.framework.network.retrofit;
 
-import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
-import com.moe.wl.ui.main.bean.AlipayBean;
-import com.moe.wl.ui.main.bean.BarberProductDetailBean;
-import com.moe.wl.ui.main.bean.ChargeOrderBean;
-import com.moe.wl.ui.main.bean.ConsultBarberBean;
-import com.moe.wl.ui.main.bean.FindChargeOrderBean;
-import com.moe.wl.ui.main.bean.FindWalletLogBean;
-import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
-import com.moe.wl.ui.main.bean.LastCardNumBean;
-import com.moe.wl.ui.main.bean.MyCollectBean;
-import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
-import com.moe.wl.ui.main.bean.SendMessageBean;
-import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
-
-import java.util.List;
-import java.util.Map;
-
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
@@ -30,6 +13,7 @@ import com.moe.wl.ui.main.bean.ActivitySignBean;
 import com.moe.wl.ui.main.bean.ActivitySignListBean;
 import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
 import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
 import com.moe.wl.ui.main.bean.BarberListBean;
 import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
@@ -37,6 +21,7 @@ import com.moe.wl.ui.main.bean.BarberProductDetailBean;
 import com.moe.wl.ui.main.bean.BarberWorkListBean;
 import com.moe.wl.ui.main.bean.BookDetailBean;
 import com.moe.wl.ui.main.bean.BookOrderListBean;
+import com.moe.wl.ui.main.bean.ChargeOrderBean;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
 import com.moe.wl.ui.main.bean.ClothBean;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -50,6 +35,7 @@ import com.moe.wl.ui.main.bean.ExpertCommentBean;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.bean.ExpertOrderBean;
 import com.moe.wl.ui.main.bean.FindChargeOrderBean;
+import com.moe.wl.ui.main.bean.FindRemainBean;
 import com.moe.wl.ui.main.bean.FindWalletLogBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.HealthServerceHomeBean;
@@ -60,6 +46,7 @@ import com.moe.wl.ui.main.bean.InformationClazzBean;
 import com.moe.wl.ui.main.bean.JieYueBean;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 import com.moe.wl.ui.main.bean.LabellingBean;
+import com.moe.wl.ui.main.bean.LastCardNumBean;
 import com.moe.wl.ui.main.bean.LibraryHomeBean;
 import com.moe.wl.ui.main.bean.LibraryPicBean;
 import com.moe.wl.ui.main.bean.MessageBean;
@@ -80,6 +67,7 @@ import com.moe.wl.ui.main.bean.OrderOfficeBean;
 import com.moe.wl.ui.main.bean.OrderOfficeDetailBean;
 import com.moe.wl.ui.main.bean.OrderRepairBean;
 import com.moe.wl.ui.main.bean.OrderRepairsDetailOneBean;
+import com.moe.wl.ui.main.bean.OrderRepairsDetailTwoBean;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
 import com.moe.wl.ui.main.bean.OrderVegetableDetailBean;
 import com.moe.wl.ui.main.bean.OrderWaterBean;
@@ -92,6 +80,7 @@ import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.bean.QueryWaterTypeBean;
 import com.moe.wl.ui.main.bean.ReasonBean;
 import com.moe.wl.ui.main.bean.RecommandBookBean;
+import com.moe.wl.ui.main.bean.RepairItmeBean;
 import com.moe.wl.ui.main.bean.SearchBookListBean;
 import com.moe.wl.ui.main.bean.SearchCategoryBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
@@ -112,13 +101,10 @@ import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
+import com.moe.wl.ui.main.bean.WeixinBean;
 
 import java.util.List;
 import java.util.Map;
-
-import com.moe.wl.ui.main.bean.WalletOrderBean;
-import com.moe.wl.ui.main.bean.FindRemainBean;
-import com.moe.wl.ui.main.bean.WeixinBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -224,6 +210,11 @@ public interface NetAPI {
     @Multipart
     @POST(NetUrl.wuyeHome)
     Observable<ActivityPostBean> getWuyeHomeInfo(@PartMap() Map<String, RequestBody> map, @Part List<MultipartBody.Part> partList);
+
+    //报修分类Item
+    @FormUrlEncoded
+    @POST(NetUrl.getRepairItem)
+    Observable<RepairItmeBean> getRepairItem(@FieldMap Map<String, Object> map);
 
     //活动首页
     @FormUrlEncoded
@@ -848,6 +839,12 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.orderRepairsDetail)
     Observable<OrderRepairsDetailOneBean> orderRepairsDetail(@FieldMap Map<String, Object> map);
+
+
+    // 报修订单状态详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderRepairsDetailTwo)
+    Observable<OrderRepairsDetailTwoBean> orderRepairsDetailTwo(@FieldMap Map<String, Object> map);
 
     // 订水订单详情
     @FormUrlEncoded

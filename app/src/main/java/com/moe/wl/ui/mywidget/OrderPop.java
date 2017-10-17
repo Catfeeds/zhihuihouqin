@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
  * 类描述：
@@ -40,14 +41,28 @@ public class OrderPop extends PopupWindow {
     TextView tvExpertsVisit;
     @BindView(R.id.tv_book_order)
     TextView tvBookOrder;
+    @BindView(R.id.tv_office)
+    TextView tvOffice;
 
     private Context context;
     private View view;
 
-    public OrderPop(Context context) {
+    public OrderPop(Context context, View.OnClickListener click) {
         this.context = context;
         view = LayoutInflater.from(context).inflate(R.layout.layout_popup_window, null);
-        ButterKnife.bind(view);
+        ButterKnife.bind(this, view);
+
+        tvPublicMaintain.setOnClickListener(click);
+        tvOfficeSupplies.setOnClickListener(click);
+        tvClearVegetables.setOnClickListener(click);
+        tvOrderWater.setOnClickListener(click);
+        tvWorkMeal.setOnClickListener(click);
+        tvHealthService.setOnClickListener(click);
+        tvCutHair.setOnClickListener(click);
+        tvDryCleaner.setOnClickListener(click);
+        tvExpertsVisit.setOnClickListener(click);
+        tvBookOrder.setOnClickListener(click);
+        tvOffice.setOnClickListener(click);
 
         //设置SelectPicPopupWindow的View
         this.setContentView(view);

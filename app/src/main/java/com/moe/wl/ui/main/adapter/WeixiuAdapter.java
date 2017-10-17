@@ -8,44 +8,49 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.ui.main.bean.RepairItmeBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
  * Created by 我的电脑 on 2017/9/6 0006.
  */
 
 public class WeixiuAdapter extends BaseAdapter {
-    private List<String> datas = new ArrayList<>();
+    //    private List<String> datas = new ArrayList<>();
+    private List<RepairItmeBean.ItemlistEntity> data = new ArrayList<>();
+    private OnclickListener listener;
+//    public void setDatas(List<String> datas) {
+//        this.datas = datas;
+//        notifyDataSetChanged();keytool -v -list -keystore ***.keystoreE:\liuboyan
+//    }
 
-    public void setDatas(List<String> datas) {
-        this.datas = datas;
+    public void setDatas(List<RepairItmeBean.ItemlistEntity> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        if (datas != null) {
-            return datas.size();
-        }
-        return 0;
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
-    private int selectPosition = 0;
+    private int selectPosition = -1;
 
     public int getSelectPosition() {
         return selectPosition;
@@ -57,7 +62,7 @@ public class WeixiuAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
             viewHolder = new ViewHolder(convertView);
@@ -65,8 +70,8 @@ public class WeixiuAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (datas != null && datas.size() > 0)
-            viewHolder.setData(datas.get(position), position);
+        if (data != null && data.size() > 0)
+            viewHolder.setData(data.get(position), position);
         return convertView;
     }
 
@@ -83,14 +88,16 @@ public class WeixiuAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     selectPosition = mPosition;
+                    if (listener != null)
+                        listener.onClick(data.get(selectPosition).getId());
                     notifyDataSetChanged();
                 }
             });
         }
 
-        public void setData(String s, int position) {
+        public void setData(RepairItmeBean.ItemlistEntity entity, int position) {
             this.mPosition = position;
-            tvBarberGridItem.setText(s);
+            tvBarberGridItem.setText(entity.getName());
             if (selectPosition == position) {
                 tvBarberGridItem.setBackgroundColor(Color.parseColor("#0099FF"));
                 tvBarberGridItem.setTextColor(Color.WHITE);
@@ -98,7 +105,15 @@ public class WeixiuAdapter extends BaseAdapter {
                 tvBarberGridItem.setBackgroundColor(Color.WHITE);
                 tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
             }
-
         }
     }
+
+    public interface OnclickListener {
+        void onClick(int id);
+    }
+
+    public void setOnclickListener(OnclickListener listener) {
+        this.listener = listener;
+    }
+
 }

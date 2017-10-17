@@ -1,9 +1,13 @@
 package com.moe.wl.framework.utils;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.widget.RatingBar;
+
+import com.moe.wl.ui.main.activity.me.OrderCommentActivity;
 
 /**
  * 类描述：
@@ -27,5 +31,13 @@ public class OtherUtils {
         }
         LogUtils.d("匹配！！！");
         return true;
+    }
+
+    // 订单评论页面
+    public static void gotoComment(Context context, int orderID, int serviceType) {
+        Intent intent = new Intent(context, OrderCommentActivity.class);
+        intent.putExtra("OrderID", orderID);
+        intent.putExtra("ServiceType", serviceType);
+        context.startActivity(intent);
     }
 }

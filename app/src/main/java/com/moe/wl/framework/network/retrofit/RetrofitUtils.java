@@ -592,6 +592,25 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 物业报修Item
+     *
+     * @return
+     */
+    public static Observable getRepairItem() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        Log.e("getActivityHome", "---》home");
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("page", 1);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getRepairItem(paramsMap));
+    }
+
+    /**
      * 物业首页
      *
      * @return
@@ -2617,6 +2636,7 @@ carcode	是	string	车牌号*/
         return getObservable(api.orderVegetableDetail(paramsMap));
     }
 
+
     /**
      * 报修订单详情
      */
@@ -2630,6 +2650,21 @@ carcode	是	string	车牌号*/
             e.printStackTrace();
         }
         return getObservable(api.orderRepairsDetail(paramsMap));
+    }
+
+    /**
+     * 报修订单状态
+     */
+    public static Observable orderRepairsDetailTwo(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderRepairsDetailTwo(paramsMap));
     }
 
     /**

@@ -109,6 +109,13 @@
                 android:layout_centerHorizontal="true"
                 android:minWidth="100dp"
                 android:text="图书订单" />
+
+            <TextView
+                android:id="@+id/tv_office"
+                style="@style/shaptextstyle"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="会议室订单" />
         </RelativeLayout>
 
     </LinearLayout>

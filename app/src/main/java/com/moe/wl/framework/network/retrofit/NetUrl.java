@@ -45,6 +45,8 @@ public interface NetUrl {
     String deleteRepairsOrder = "appuser/bxwx/delorder"; // 删除订单
     String commentRepairsOrder = "appuser/bxwx/addcomment"; // 报修评论
     String orderRepairsDetail = "appuser/bxwx/orderdetail"; // 报修订单详情
+    String orderRepairsDetailTwo = "appuser/bxwx/orderstatuslist"; // 报修订单状态
+    String getRepairItem = "appuser/bxwx/towywx"; // 报修分类Item
 
     // 活动
     String activitySign="appuser/tdhdfw/sign";

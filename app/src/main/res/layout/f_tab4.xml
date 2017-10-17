@@ -59,11 +59,13 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/white"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp">
 
                         <LinearLayout
                             android:id="@+id/ll_my_packge"
@@ -159,8 +161,7 @@
                     android:layout_width="58dp"
                     android:layout_height="58dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/partner_luffy" />
+                    android:layout_marginTop="30dp" />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -169,7 +170,6 @@
                     android:layout_below="@id/civ_header"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="叫越不小杨"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_bigger" />
 
@@ -180,7 +180,6 @@
                     android:layout_below="@id/tv_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="认证完成"
                     android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </RelativeLayout>
@@ -227,14 +226,14 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_marginTop="4dp"
                     app:cardCornerRadius="8dp">
 
@@ -250,10 +249,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img1"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_my_repair" />
 
                             <TextView
                                 android:id="@+id/tv_child_name1"
@@ -282,9 +283,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_daijiedan1"
@@ -343,8 +346,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_marginTop="4dp"
                     app:cardCornerRadius="8dp">
 
@@ -360,10 +363,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img2"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_office" />
 
                             <TextView
                                 android:id="@+id/tv_child_name2"
@@ -392,9 +397,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
 
                             <TextView
                                 android:id="@+id/tv_daijiedan2"
@@ -453,8 +460,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_marginTop="4dp"
                     app:cardCornerRadius="8dp">
 
@@ -470,10 +477,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img3"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_my_meal" />
 
                             <TextView
                                 android:id="@+id/tv_child_name3"
@@ -570,10 +579,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img4"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_hair_cut" />
 
                             <TextView
                                 android:id="@+id/tv_child_name4"
@@ -602,9 +613,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_daijiedan4"
@@ -680,10 +693,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img5"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_water" />
 
                             <TextView
                                 android:id="@+id/tv_child_name5"
@@ -712,9 +727,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_daijiedan5"
@@ -790,10 +807,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img6"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_medical" />
 
                             <TextView
                                 android:id="@+id/tv_child_name6"
@@ -822,9 +841,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_daijiedan6"
@@ -900,10 +921,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img7"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_medical" />
 
                             <TextView
                                 android:id="@+id/tv_child_name7"
@@ -932,9 +955,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_daijiedan7"
@@ -1010,10 +1035,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img8"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_medical" />
 
                             <TextView
                                 android:id="@+id/tv_child_name8"
@@ -1042,9 +1069,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_yuyue8"
@@ -1120,10 +1149,12 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img9"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_medical" />
 
                             <TextView
                                 android:id="@+id/tv_child_name9"
@@ -1152,9 +1183,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_yuding9"
@@ -1230,10 +1263,12 @@
 
                             <ImageView
                                 android:id="@+id/image_vegetable"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:src="@mipmap/ic_launcher" />
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_medical" />
 
                             <TextView
                                 android:id="@+id/tv_vegetable_title"
@@ -1261,9 +1296,11 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
 
                             <TextView
                                 android:id="@+id/tv_vegetable_one"
@@ -1317,116 +1354,117 @@
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-                <!--   <android.support.v7.widget.CardView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginBottom="4dp"
-                     android:layout_marginLeft="8dp"
-                     android:layout_marginRight="8dp"
-                     android:layout_marginTop="4dp"
-                     app:cardCornerRadius="8dp">
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:orientation="vertical">
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="4dp"
+                    app:cardCornerRadius="8dp">
 
-                         <RelativeLayout
-                             android:id="@+id/rl_turn"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                             <ImageView
-                                 android:id="@+id/iv_child_img"
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:layout_marginLeft="8dp"
-                                 android:src="@mipmap/ic_launcher" />
+                        <RelativeLayout
+                            android:id="@+id/rl_turn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                             <TextView
-                                 android:id="@+id/tv_child_name"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_centerVertical="true"
-                                 android:layout_marginLeft="8dp"
-                                 android:layout_toRightOf="@+id/iv_child_img"
-                                 android:text="我的报修"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_common" />
+                            <ImageView
+                                android:id="@+id/iv_child_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_medical" />
 
-                             <ImageView
-                                 android:id="@+id/iv_child1"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_alignParentRight="true"
-                                 android:layout_centerVertical="true"
-                                 android:src="@drawable/turn_right" />
-                         </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_child_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_toRightOf="@+id/iv_child_img"
+                                android:text="会议室订单"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_common" />
 
-                         <View
-                             android:layout_width="match_parent"
-                             android:layout_height="1dp"
-                             android:background="@color/gray_lighter" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/turn_right" />
+                        </RelativeLayout>
 
-                         <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="40dp"
-                             android:gravity="center"
-                             android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_lighter" />
 
-                             <TextView
-                                 android:id="@+id/tv_daijiedan"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="待接单"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                             <TextView
-                                 android:id="@+id/tv_jiedan"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已接单"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
+                            <TextView
+                                android:id="@+id/tv_daijiedan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="待接单"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
 
-                             <TextView
-                                 android:id="@+id/tv_finish"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已完成"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
+                            <TextView
+                                android:id="@+id/tv_jiedan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已接单"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
 
-                             <TextView
-                                 android:id="@+id/tv_pingjia"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="待评价"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
+                            <TextView
+                                android:id="@+id/tv_finish"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已完成"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
 
-                             <TextView
-                                 android:id="@+id/tv_cancle"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_weight="1"
-                                 android:gravity="center"
-                                 android:text="已取消"
-                                 android:textColor="@color/tv_black"
-                                 android:textSize="@dimen/sp_small" />
-                         </LinearLayout>
-                     </LinearLayout>
-                 </android.support.v7.widget.CardView>-->
+                            <TextView
+                                android:id="@+id/tv_pingjia"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="待评价"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
 
+                            <TextView
+                                android:id="@+id/tv_cancle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已取消"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
