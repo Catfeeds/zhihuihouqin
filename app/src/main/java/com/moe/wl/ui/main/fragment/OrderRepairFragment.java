@@ -125,18 +125,18 @@ public class OrderRepairFragment extends BaseFragment2 {
                         if (data.size() >= mPosition) {
                             OrderRepairBean.OrderlistEntity listBean = data.get(mPosition);
                             if (state == 0) {
-                                int id = listBean.getOrderId();
+                                int id = listBean.getOrderid();
                                 LogUtils.d("id:" + id + "  position:" + mPosition);
                                 intent.putExtra("OrderingID", id);
                                 intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
                                 //TODO 服务电话
-                                String mobile = listBean.getMenderMobile();
+                                String mobile = listBean.getMendermobile();
                                 CallPhoneUtils.callPhone(mobile, getActivity());
                             } else if (state == 4) {
                                 // 删除订单
-                                deleteOrder(listBean.getOrderId());
+                                deleteOrder(listBean.getOrderid());
                             }
                         }
 
