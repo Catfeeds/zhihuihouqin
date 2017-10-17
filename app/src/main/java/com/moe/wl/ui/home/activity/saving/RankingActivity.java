@@ -78,6 +78,8 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
         tabs.addTab(tabs.newTab().setText("用电"), true);//添加 Tab,默认选中
         tabs.addTab(tabs.newTab().setText("用水"), false);//添加 Tab,默认不选中
 
+        tabs.setupWithViewPager(viewpager);
+
         ElectroRankingFrgment f1 = new ElectroRankingFrgment();
         WaterRankingFragment f2 = new WaterRankingFragment();
 

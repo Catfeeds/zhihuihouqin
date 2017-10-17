@@ -81,7 +81,7 @@ public class SavingActivity extends BaseActivity<InformationModel, InformationVi
     }
 
 
-    @OnClick({R.id.ll_back,R.id.ll_statistics,R.id.ll_ranking,R.id.ll_comparison})
+    @OnClick({R.id.ll_back,R.id.ll_more,R.id.ll_statistics,R.id.ll_ranking,R.id.ll_comparison})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -9,23 +9,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/title_color"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_back"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/shape_back"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/ic_title_back" />
         </LinearLayout>
 
         <TextView
@@ -33,7 +30,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/font_black"
             android:gravity="center"
             android:text="消耗排名" />
 
