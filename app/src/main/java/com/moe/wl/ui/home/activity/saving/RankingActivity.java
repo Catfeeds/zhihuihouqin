@@ -108,7 +108,7 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
                 if (popwindow==null){
                     popwindow=new MenuPopwindow(this, new String[]{"楼总量", "楼总单位面积","部门总量","部门单位面积"}, new MenuPopwindow.MyOnClick() {
                         @Override
-                        public void click(String s) {
+                        public void click(String s, int pos) {
                             tvRight.setText(s);
                         }
                     });

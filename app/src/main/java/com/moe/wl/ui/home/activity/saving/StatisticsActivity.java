@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.activity.saving;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -52,6 +53,7 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
     private List<String> list_Title;          //tab名的列表
     private MyFragmentPagerAdapter adapter;
     private MenuPopwindow popwindow;
+    private int REQUEST_CODE=1000;
 
     @Override
     public StatisticsPresenter createPresenter() {
@@ -104,8 +106,11 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
                 if (popwindow==null){
                     popwindow=new MenuPopwindow(this, new String[]{"按年查看", "按月查看","按日查看"}, new MenuPopwindow.MyOnClick() {
                         @Override
-                        public void click(String s) {
+                        public void click(String s, int pos) {
                             tvRight.setText(s);
+                            if (pos==2){
+                                startActivityForResult(new Intent(StatisticsActivity.this,CalendarActivity.class),REQUEST_CODE);
+                            }
                         }
                     });
                 }
@@ -115,6 +120,14 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQUEST_CODE && data!=null){
+            String date=data.getStringExtra("date");
+            showToast(date);
+        }
+    }
 
     @Override
     public void setData() {

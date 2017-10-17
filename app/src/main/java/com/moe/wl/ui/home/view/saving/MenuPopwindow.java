@@ -57,7 +57,7 @@ public class MenuPopwindow extends PopupWindow {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 dismiss();
                 if (click!=null){
-                    click.click(list.get(position));
+                    click.click(list.get(position),position);
                 }
             }
         });
@@ -101,7 +101,7 @@ public class MenuPopwindow extends PopupWindow {
     }
 
     public interface MyOnClick{
-        void click(String s);
+        void click(String s,int pos);
     }
 
 }

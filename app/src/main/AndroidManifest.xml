@@ -467,6 +467,9 @@
         <activity
             android:name=".ui.home.activity.saving.ComparisonActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.saving.CalendarActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
