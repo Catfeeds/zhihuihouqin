@@ -14,6 +14,7 @@ import com.moe.wl.ui.home.fragment.WaterRankingFragment;
 import com.moe.wl.ui.home.model.saving.RankingModel;
 import com.moe.wl.ui.home.modelimpl.saving.RankingModelImpl;
 import com.moe.wl.ui.home.presenter.saving.RankingPresenter;
+import com.moe.wl.ui.home.view.saving.MenuPopwindow;
 import com.moe.wl.ui.home.view.saving.RankingView;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
     private List<Fragment> list_fragment;     //fragment列表
     private List<String> list_Title;          //tab名的列表
     private MyFragmentPagerAdapter adapter;
+    private MenuPopwindow popwindow;
 
     @Override
     public RankingPresenter createPresenter() {
@@ -95,12 +97,23 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
 
     }
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.ll_back,R.id.ll_right})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_back:
                 finish();
+                break;
+            case R.id.ll_right:
+                if (popwindow==null){
+                    popwindow=new MenuPopwindow(this, new String[]{"楼总量", "楼总单位面积","部门总量","部门单位面积"}, new MenuPopwindow.MyOnClick() {
+                        @Override
+                        public void click(String s) {
+                            tvRight.setText(s);
+                        }
+                    });
+                }
+                popwindow.showPopupWindow(this,llRight);
                 break;
         }
     }

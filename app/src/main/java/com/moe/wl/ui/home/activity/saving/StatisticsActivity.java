@@ -15,6 +15,7 @@ import com.moe.wl.ui.home.fragment.WaterStatistcsFragment;
 import com.moe.wl.ui.home.model.saving.StatisticsModel;
 import com.moe.wl.ui.home.modelimpl.saving.StatisticsModelImpl;
 import com.moe.wl.ui.home.presenter.saving.StatisticsPresenter;
+import com.moe.wl.ui.home.view.saving.MenuPopwindow;
 import com.moe.wl.ui.home.view.saving.StatisticsView;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
     private List<Fragment> list_fragment;     //fragment列表
     private List<String> list_Title;          //tab名的列表
     private MyFragmentPagerAdapter adapter;
+    private MenuPopwindow popwindow;
 
     @Override
     public StatisticsPresenter createPresenter() {
@@ -91,13 +93,25 @@ public class StatisticsActivity extends BaseActivity<StatisticsModel, Statistics
     }
 
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.ll_back,R.id.ll_right})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
+            case R.id.ll_right:
+                if (popwindow==null){
+                    popwindow=new MenuPopwindow(this, new String[]{"按年查看", "按月查看","按日查看"}, new MenuPopwindow.MyOnClick() {
+                        @Override
+                        public void click(String s) {
+                            tvRight.setText(s);
+                        }
+                    });
+                }
+                popwindow.showPopupWindow(this,llRight);
+                break;
+
         }
     }
 

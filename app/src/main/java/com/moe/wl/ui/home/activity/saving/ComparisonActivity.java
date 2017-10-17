@@ -16,6 +16,7 @@ import com.moe.wl.ui.home.model.saving.ComparisonModel;
 import com.moe.wl.ui.home.modelimpl.saving.ComparisonModelImpl;
 import com.moe.wl.ui.home.presenter.saving.ComparisonPresenter;
 import com.moe.wl.ui.home.view.saving.ComparisonView;
+import com.moe.wl.ui.home.view.saving.MenuPopwindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,7 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     private ArrayAdapter spinner1Adapter;
     private List<String> spinner2List;
     private ArrayAdapter spinner2Adapter;
+    private MenuPopwindow popwindow;
 
     @Override
     public ComparisonPresenter createPresenter() {
@@ -197,8 +199,8 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
 
         ColumnChartData data = new ColumnChartData(columns);
 
-        data.setAxisXBottom(new Axis().setName("Axis X"));
-        data.setAxisYLeft(new Axis().setName("Axis Y").setHasLines(true));
+        data.setAxisXBottom(new Axis().setName("时间"));
+        data.setAxisYLeft(new Axis().setName("wh/㎡").setHasLines(true));
         return data;
 
     }
@@ -235,8 +237,8 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
             Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Axis X");
-                axisY.setName("Axis Y");
+                axisX.setName("时间");
+                axisY.setName("wh/㎡");
             }
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
@@ -251,12 +253,23 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     }
 
 
-    @OnClick({R.id.ll_back,R.id.bt_end})
+    @OnClick({R.id.ll_back,R.id.ll_right,R.id.bt_end})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_back:
                 finish();
+                break;
+            case R.id.ll_right:
+                if (popwindow==null){
+                    popwindow=new MenuPopwindow(this, new String[]{"按年查看", "按月查看","按日查看"}, new MenuPopwindow.MyOnClick() {
+                        @Override
+                        public void click(String s) {
+                            tvRight.setText(s);
+                        }
+                    });
+                }
+                popwindow.showPopupWindow(this,llRight);
                 break;
             case R.id.bt_end:
 
