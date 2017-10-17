@@ -64,6 +64,7 @@ public class InformationActivity extends BaseActivity<InformationModel, Informat
                 startActivity(new Intent(InformationActivity.this,InfoDetailsActivity.class));
             }
         });
+        getPresenter().information();
     }
 
     @OnClick({R.id.ll_back})
