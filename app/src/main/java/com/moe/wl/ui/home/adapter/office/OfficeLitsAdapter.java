@@ -33,6 +33,13 @@ public class OfficeLitsAdapter extends MyBaseAdapter<String> {
         }
 
         viewHolder.tv_name.setText(getItem(position));
+        if (position%2==0){
+            viewHolder.tv_subscribe.setText("使用中");
+            viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_red);
+        }else{
+            viewHolder.tv_subscribe.setText("可预订");
+            viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_blue);
+        }
         viewHolder.tv_subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,22 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/shape_barber_reserva_text"
-        android:layout_gravity="center_vertical"
+        android:background="@mipmap/bg_btn_transparency"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:paddingBottom="3dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:text="投影仪"
-        android:textColor="#1aa6e7"
+        android:textColor="@color/font_black"
+        android:layout_marginBottom="10dp"
         android:textSize="@dimen/sp_small" />
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -12,9 +13,9 @@ import com.moe.wl.ui.home.adapter.MyBaseAdapter;
 /**
  * 办公室设备列表
  */
-public class OfficeEquipmentAdapter extends MyBaseAdapter<String> {
+public class AffirmEquipmentAdapter extends MyBaseAdapter<String> {
 
-    public OfficeEquipmentAdapter(Context context) {
+    public AffirmEquipmentAdapter(Context context) {
         super(context);
     }
 
@@ -22,7 +23,7 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (null == convertView) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_office_equipment, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_office_affirm_equipment, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -30,11 +31,9 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<String> {
         }
 
         if (position%2==0){
-            viewHolder.tv_name.setBackgroundResource(R.mipmap.bg_btn_blue);
-            viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.white));
+            viewHolder.checkbox.setChecked(true);
         }else{
-            viewHolder.tv_name.setBackgroundResource(R.mipmap.bg_btn_transparency);
-            viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.font_black));
+            viewHolder.checkbox.setChecked(false);
         }
         viewHolder.tv_name.setText(getItem(position));
 
@@ -44,10 +43,12 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<String> {
     class ViewHolder {
         public View rootView;
         public TextView tv_name;
+        public CheckBox checkbox;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
+            this.checkbox = (CheckBox) rootView.findViewById(R.id.checkbox);
         }
 
     }

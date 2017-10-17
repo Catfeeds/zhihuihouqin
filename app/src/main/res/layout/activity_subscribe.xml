@@ -7,23 +7,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/title_color"
+        android:background="@color/white"
         android:layout_height="@dimen/title_height">
 
         <LinearLayout
             android:id="@+id/ll_back"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:paddingRight="10dp">
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/shape_back"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/back" />
+                android:src="@mipmap/ic_title_back" />
         </LinearLayout>
 
         <TextView
@@ -31,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/font_black"
             android:layout_centerInParent="true"
             android:text="预订信息填写" />
 
@@ -40,8 +37,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000"/>
+        android:layout_height="1px"
+        android:background="@color/divider"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -66,6 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/font_black"
                     android:text="开始日期："/>
 
                 <LinearLayout
@@ -86,12 +84,13 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textColor="@color/font_black"
                         android:text="2017-01-01"/>
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_launcher"/>
+                        android:src="@mipmap/ic_calendar"/>
 
                 </LinearLayout>
 
@@ -110,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/font_black"
                     android:text="结束日期："/>
 
                 <LinearLayout
@@ -130,12 +130,13 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textColor="@color/font_black"
                         android:text="2017-01-01"/>
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_launcher"/>
+                        android:src="@mipmap/ic_calendar"/>
 
                 </LinearLayout>
 
@@ -153,6 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/font_black"
                     android:text="开始时间："/>
 
                 <LinearLayout
@@ -174,6 +176,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:gravity="center"
+                            android:textColor="@color/font_black"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/bg_box"
@@ -185,6 +188,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:gravity="center"
+                            android:textColor="@color/font_black"
                             android:layout_gravity="center_vertical"
                             android:text="："/>
 
@@ -196,6 +200,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:gravity="center"
+                            android:textColor="@color/font_black"
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/bg_box"
                             android:text="13"/>
@@ -210,6 +215,7 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:gravity="center"
+                        android:textColor="@color/font_black"
                         android:layout_gravity="center_vertical"
                         android:text="至"/>
 
@@ -228,6 +234,7 @@
                             android:background="@drawable/bg_box"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
+                            android:textColor="@color/font_black"
                             android:gravity="center"
                             android:text="13"/>
 
@@ -238,6 +245,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:gravity="center"
+                            android:textColor="@color/font_black"
                             android:text="："/>
 
                         <TextView
@@ -247,6 +255,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/bg_box"
+                            android:textColor="@color/font_black"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:gravity="center"
@@ -272,12 +281,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/font_black"
                     android:text="会场设备："/>
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/lv_equipment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:numColumns="4"/>
 
             </LinearLayout>
 
@@ -294,6 +305,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/font_black"
                     android:text="会议类型："/>
 
                 <LinearLayout
@@ -302,24 +314,18 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_box"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_type"
+                    <Spinner
+                        android:id="@+id/sp_type"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="2017-01-01"/>
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_launcher"/>
+                        />
 
                 </LinearLayout>
 
@@ -338,6 +344,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/font_black"
                     android:text="会议名称："/>
 
                 <EditText
@@ -349,6 +356,7 @@
                     android:paddingRight="10dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_box"
+                    android:textColor="@color/font_black"
                     android:text="2017-01-01"/>
 
             </LinearLayout>
@@ -372,6 +380,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textColor="@color/font_black"
                         android:text="参会人数："/>
 
                     <EditText
@@ -382,6 +391,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:inputType="number"
+                        android:textColor="@color/font_black"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_box"
                         android:text="20"/>
@@ -401,6 +411,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textColor="@color/font_black"
                         android:text="参会领导："/>
 
                     <EditText
@@ -412,6 +423,7 @@
                         android:paddingRight="10dp"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_box"
+                        android:textColor="@color/font_black"
                         android:text="20"/>
 
                 </LinearLayout>
@@ -436,12 +448,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textColor="@color/font_black"
                         android:text="会议备注："/>
                     <TextView
                         android:id="@+id/tv_enclosure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:textColor="@color/font_blue"
                         android:text="（+附件上传）"/>
                 </LinearLayout>
 
@@ -455,6 +469,7 @@
                     android:textSize="@dimen/sp_small"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_box"
+                    android:textColor="@color/font_black"
                     android:hint="请输入相关备注文字"/>
 
             </LinearLayout>

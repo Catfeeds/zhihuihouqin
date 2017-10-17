@@ -146,4 +146,9 @@
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:layout_marginBottom">1dp</item>
     </style>
+
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
 </resources>

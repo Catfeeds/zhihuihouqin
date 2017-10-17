@@ -12,15 +12,44 @@ import com.moe.wl.ui.home.modelimpl.office.AffirmOrderModelImpl;
 import com.moe.wl.ui.home.presenter.office.AffirmOrderPresenter;
 import com.moe.wl.ui.home.view.office.AffirmOrderView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.moe.wl.R.id.ll_back;
+import static com.moe.wl.R.id.tv_submit;
 
 /**
  * 确认订单信息
  */
-public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOrderView, AffirmOrderPresenter> implements View.OnClickListener,AffirmOrderView {
+public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOrderView, AffirmOrderPresenter> implements View.OnClickListener, AffirmOrderView {
 
-    private LinearLayout ll_back;
-    private TextView tv_submit;
+    @BindView(ll_back)
+    LinearLayout llBack;
+    @BindView(R.id.tv_people)
+    TextView tvPeople;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_order)
+    TextView tvOrder;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_type)
+    TextView tvType;
+    @BindView(R.id.tv_startTime)
+    TextView tvStartTime;
+    @BindView(R.id.tv_endTime)
+    TextView tvEndTime;
+    @BindView(R.id.tv_number)
+    TextView tvNumber;
+    @BindView(R.id.tv_leader)
+    TextView tvLeader;
+    @BindView(R.id.tv_remark)
+    TextView tvRemark;
+    @BindView(tv_submit)
+    TextView tvSubmit;
 
 
     @Override
@@ -31,12 +60,7 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
 
     @Override
     public void initView() {
-        ll_back = (LinearLayout) findViewById(R.id.ll_back);
-        ll_back.setOnClickListener(this);
-        tv_submit = (TextView) findViewById(R.id.tv_submit);
-        tv_submit.setOnClickListener(this);
 
-        initData();
         getPresenter().orderinfo();
 
     }
@@ -52,26 +76,25 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
     }
 
 
+
+
+    @OnClick({R.id.ll_back,R.id.tv_submit})
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
-            case R.id.tv_submit:
-                startActivity(new Intent(this,SubmitSuccActivity.class));
+            case tv_submit:
+                startActivity(new Intent(this, SubmitSuccActivity.class));
+                finish();
                 break;
         }
     }
-
-    private void initData() {
-
-
-    }
-
 
     @Override
     public void setData() {
 
     }
+
 }

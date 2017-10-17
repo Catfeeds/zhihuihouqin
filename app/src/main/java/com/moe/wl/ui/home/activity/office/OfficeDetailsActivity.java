@@ -91,6 +91,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
             case R.id.tv_subscribe:  //预订
                 Intent intent = new Intent(this, SubscribeInfoActivity.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

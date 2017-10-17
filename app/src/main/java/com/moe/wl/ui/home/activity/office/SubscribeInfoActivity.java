@@ -2,17 +2,24 @@ package com.moe.wl.ui.home.activity.office;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.ui.home.adapter.office.AffirmEquipmentAdapter;
 import com.moe.wl.ui.home.model.office.SubscribeInfoModel;
 import com.moe.wl.ui.home.modelimpl.office.SubscribeInfoModelImpl;
 import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
 import com.moe.wl.ui.home.view.office.SubscribeInfoView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +49,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     TextView tvEndMinute;
     @BindView(R.id.lv_equipment)
     NoSlidingGridView lvEquipment;
-    @BindView(R.id.tv_type)
-    TextView tvType;
+    @BindView(R.id.sp_type)
+    Spinner spType;
     @BindView(R.id.et_name)
     EditText etName;
     @BindView(R.id.et_number)
@@ -67,6 +74,12 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     @BindView(R.id.ll_type)
     LinearLayout llType;
 
+    private AffirmEquipmentAdapter adapter;
+    private List<String> mList;
+
+    private List<String> spinnerList;
+    private ArrayAdapter spinnerAdapter;
+
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_subscribe);
@@ -75,9 +88,39 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @Override
     public void initView() {
+        mList = new ArrayList<>();
+
+        adapter = new AffirmEquipmentAdapter(this);
+        adapter.setItemList(mList);
+        lvEquipment.setAdapter(adapter);
+
+        for (int i = 0; i < 6; i++) {
+            mList.add("投影仪" + i);
+        }
+        adapter.notifyDataSetChanged();
+
+        spinnerList = new ArrayList<String>();
+        spinnerList.add("北京");
+        spinnerList.add("上海");
+        spinnerList.add("广州");
+        spinnerList.add("深圳");
+
+        spinnerAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spType.setAdapter(spinnerAdapter);
+        spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
-
 
     @Override
     public SubscribeInfoPresenter createPresenter() {

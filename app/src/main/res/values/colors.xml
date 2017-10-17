@@ -61,8 +61,13 @@
     <color name="province_line_border">#D0D0D0</color>
 
     <!--页面的背景颜色-->
-    <color name="bg_page">#F2F2F2</color>
+    <color name="bg_page">#F6F6F6</color>
     <!--分割线颜色-->
-    <color name="divider">#999999</color>
-
+    <color name="divider">#E1E1E1</color>
+    <!--字体基本黑色-->
+    <color name="font_black">#333333</color>
+    <!--字体基本灰色-->
+    <color name="font_gray">#666666</color>
+    <!--字体基本蓝色-->
+    <color name="font_blue">#2EA7E0</color>
 </resources>
