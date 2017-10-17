@@ -9,17 +9,9 @@ import java.util.List;
 
 public class OrderRepairBean {
 
-    private String msg;
     private int errCode;
+    private String msg;
     private List<OrderlistEntity> orderlist;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public int getErrCode() {
         return errCode;
@@ -27,6 +19,14 @@ public class OrderRepairBean {
 
     public void setErrCode(int errCode) {
         this.errCode = errCode;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public List<OrderlistEntity> getOrderlist() {
@@ -41,16 +41,18 @@ public class OrderRepairBean {
 
         private String createtime;
         private String invitetime;
-        private String itemName;
-        private String menderMobile;
-        private String menderName;
-        private String menderPhoto;
+        private String itemname;
         private int menderid;
+        private String mendermobile;
+        private String mendername;
+        private String menderphoto;
         private int menditem;
-        private int orderId;
         private int orderchange;
         private String ordercode;
+        private int orderid;
         private int orderstatus;
+        private int paystatus;
+        private int score;
         private String serviceplace;
         private int uid;
 
@@ -70,36 +72,12 @@ public class OrderRepairBean {
             this.invitetime = invitetime;
         }
 
-        public String getItemName() {
-            return itemName;
+        public String getItemname() {
+            return itemname;
         }
 
-        public void setItemName(String itemName) {
-            this.itemName = itemName;
-        }
-
-        public String getMenderMobile() {
-            return menderMobile;
-        }
-
-        public void setMenderMobile(String menderMobile) {
-            this.menderMobile = menderMobile;
-        }
-
-        public String getMenderName() {
-            return menderName;
-        }
-
-        public void setMenderName(String menderName) {
-            this.menderName = menderName;
-        }
-
-        public String getMenderPhoto() {
-            return menderPhoto;
-        }
-
-        public void setMenderPhoto(String menderPhoto) {
-            this.menderPhoto = menderPhoto;
+        public void setItemname(String itemname) {
+            this.itemname = itemname;
         }
 
         public int getMenderid() {
@@ -110,20 +88,36 @@ public class OrderRepairBean {
             this.menderid = menderid;
         }
 
+        public String getMendermobile() {
+            return mendermobile;
+        }
+
+        public void setMendermobile(String mendermobile) {
+            this.mendermobile = mendermobile;
+        }
+
+        public String getMendername() {
+            return mendername;
+        }
+
+        public void setMendername(String mendername) {
+            this.mendername = mendername;
+        }
+
+        public String getMenderphoto() {
+            return menderphoto;
+        }
+
+        public void setMenderphoto(String menderphoto) {
+            this.menderphoto = menderphoto;
+        }
+
         public int getMenditem() {
             return menditem;
         }
 
         public void setMenditem(int menditem) {
             this.menditem = menditem;
-        }
-
-        public int getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
         }
 
         public int getOrderchange() {
@@ -142,12 +136,36 @@ public class OrderRepairBean {
             this.ordercode = ordercode;
         }
 
+        public int getOrderid() {
+            return orderid;
+        }
+
+        public void setOrderid(int orderid) {
+            this.orderid = orderid;
+        }
+
         public int getOrderstatus() {
             return orderstatus;
         }
 
         public void setOrderstatus(int orderstatus) {
             this.orderstatus = orderstatus;
+        }
+
+        public int getPaystatus() {
+            return paystatus;
+        }
+
+        public void setPaystatus(int paystatus) {
+            this.paystatus = paystatus;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
         }
 
         public String getServiceplace() {

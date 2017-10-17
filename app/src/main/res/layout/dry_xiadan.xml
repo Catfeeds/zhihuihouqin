@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -20,8 +21,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_lighter"
-       />
+        android:background="@color/gray_lighter" />
 
     <LinearLayout
         android:id="@+id/ll_Dry_type"
@@ -97,9 +97,10 @@
 
         </LinearLayout>
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:background="@color/gray_trans"/>
+        android:background="@color/gray_trans" />
 
 </LinearLayout>

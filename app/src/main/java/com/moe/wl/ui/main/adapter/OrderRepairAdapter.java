@@ -1,15 +1,18 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.activity.me.OrderRepairDetailActivity;
 import com.moe.wl.ui.main.bean.OrderRepairBean;
 
 import java.util.List;
@@ -47,10 +50,10 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
 
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getMenderPhoto(), holder.image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getMenderphoto(), holder.image);
         holder.orderNumber.setText("订  单  号：" + data.get(position).getOrdercode());
         holder.time.setText("下单时间：" + data.get(position).getCreatetime());
-        holder.repairType.setText("维修类型：" + data.get(position).getItemName());
+        holder.repairType.setText("维修类型：" + data.get(position).getItemname());
         holder.address.setText("服务地址：" + data.get(position).getServiceplace());
         holder.callTime.setText("上门时间：" + data.get(position).getInvitetime());
 
@@ -106,13 +109,22 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
             }
         });
 
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, OrderRepairDetailActivity.class);
+                intent.putExtra("OrderID", data.get(position).getOrderid());
+                intent.putExtra("State", data.get(position).getOrderstatus());
+                intent.putExtra("Mobile", data.get(position).getMendermobile());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image)
@@ -133,6 +145,8 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
         TextView pay;
         @BindView(R.id.on_line)
         TextView onLine;
+        @BindView(R.id.item)
+        LinearLayout item;
 
         ViewHolder(View view) {
             super(view);

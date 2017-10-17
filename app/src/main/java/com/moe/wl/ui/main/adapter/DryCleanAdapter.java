@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.DryCleaners.DryToCommentAct;
+import com.moe.wl.ui.main.activity.me.OrderDryDetailActivity;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
 
 import java.util.ArrayList;
@@ -78,6 +79,9 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
         TextView tvToComment;
         @BindView(R.id.tv_all)
         TextView tvAll;
+        @BindView(R.id.item)
+        LinearLayout item;
+
         private int mPosition;
 
         ViewHolder(View view) {
@@ -85,7 +89,7 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(CheckDryOrderBean.ListEntity listBean, int position, int state) {
+        public void setData(final CheckDryOrderBean.ListEntity listBean, int position, int state) {
             llDryType.removeAllViews();//每次刷新时都要移除条目,重新赋值
             if (listBean != null) {
                 this.mPosition = position;
@@ -142,6 +146,16 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
                         break;
                 }
             }
+
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, OrderDryDetailActivity.class);
+                    intent.putExtra("OrderID", listBean.getId());
+                    mContext.startActivity(intent);
+                }
+            });
+
         }
 
         @Override
