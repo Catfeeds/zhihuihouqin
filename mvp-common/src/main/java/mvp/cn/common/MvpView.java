@@ -30,5 +30,7 @@ public interface MvpView {
     void showProgressDialog();
 
     void showProgressDialog(String info);
+
     void dismissProgressDialog();
+
 }
