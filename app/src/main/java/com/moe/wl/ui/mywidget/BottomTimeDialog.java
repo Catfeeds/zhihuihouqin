@@ -2,21 +2,20 @@ package com.moe.wl.ui.mywidget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.wheelView.OnWheelScrollListener;
+import com.moe.wl.ui.main.wheelView.WheelView;
 import com.moe.wl.ui.main.wheelView.adapter.NumericWheelAdapter;
 
 import java.util.Calendar;
-
-import com.moe.wl.R;
-
-import com.moe.wl.ui.main.wheelView.OnWheelScrollListener;
-import com.moe.wl.ui.main.wheelView.WheelView;
 
 import mvp.cn.util.ScreenUtils;
 
@@ -28,6 +27,8 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
     private WheelView time;
     private WheelView min;
     private WheelView sec;
+    private TextView tv_title;
+
     private int mYear=1996;
     private int mMonth=0;
     private int mDay=1;
@@ -42,9 +43,18 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
     private int curHour;
     private int curMin;
 
+    private String title;
+
     public BottomTimeDialog(Context context, int theme) {
         super(context, theme);
         this.ct = context;
+        initView();
+    }
+
+    public BottomTimeDialog(Context context,String title, int theme) {
+        super(context, theme);
+        this.ct = context;
+        this.title = title;
         initView();
     }
 
@@ -52,6 +62,7 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
         View view = View.inflate(ct, R.layout.getrevice_time_dialog, null);
         TextView tvCancel = (TextView) view.findViewById(R.id.tv_cancel);
         TextView tvConfirm = (TextView) view.findViewById(R.id.tv_confirm);
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
         year = (WheelView) view.findViewById(R.id.year);
         month = (WheelView) view.findViewById(R.id.month);
         day = (WheelView) view.findViewById(R.id.day);
@@ -70,6 +81,13 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
         curDate = day;
         curHour = 00;
         curMin = 00;
+
+        if (!TextUtils.isEmpty(title)){
+            tv_title.setText(title);
+        }
+
+
+        LogUtils.d("-----------------滑轮初始化--------------------");
 
         NumericWheelAdapter numericWheelAdapter1=new NumericWheelAdapter(ct,norYear,norYear+20 );
         numericWheelAdapter1.setLabel("年");
@@ -124,6 +142,88 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
         getWindow().setWindowAnimations(R.style.AnimationDialog);
 
     }
+
+    /**
+     * 是否显示年滑轮
+     */
+    public void showYear(boolean bln){
+        if (year!=null){
+            if (bln){
+                year.setVisibility(View.VISIBLE);
+            }else{
+                year.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * 是否显示月滑轮
+     */
+    public void showMonth(boolean bln){
+        if (month!=null){
+            if (bln){
+                month.setVisibility(View.VISIBLE);
+            }else{
+                month.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * 是否显示日滑轮
+     */
+    public void showDay(boolean bln){
+        if (day!=null){
+            if (bln){
+                day.setVisibility(View.VISIBLE);
+            }else{
+                day.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * 是否显示小时滑轮
+     */
+    public void showHour(boolean bln){
+        if (time!=null){
+            if (bln){
+                time.setVisibility(View.VISIBLE);
+            }else{
+                time.setVisibility(View.GONE);
+                min.setVisibility(View.GONE);
+                sec.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * 是否显示分钟滑轮
+     */
+    public void showMin(boolean bln){
+        if (min!=null){
+            if (bln){
+                min.setVisibility(View.VISIBLE);
+            }else{
+                min.setVisibility(View.GONE);
+                sec.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    /**
+     * 是否显示秒钟滑轮
+     */
+    public void showSec(boolean bln){
+        if (sec!=null){
+            if (bln){
+                sec.setVisibility(View.VISIBLE);
+            }else{
+                sec.setVisibility(View.GONE);
+            }
+        }
+    }
+
 
     private int n_month;
     OnWheelScrollListener scrollListener = new OnWheelScrollListener() {

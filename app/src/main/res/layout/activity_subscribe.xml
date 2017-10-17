@@ -472,6 +472,16 @@
                     android:textColor="@color/font_black"
                     android:hint="请输入相关备注文字"/>
 
+                <GridView
+                    android:id="@+id/gv_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="5"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp" />
+
             </LinearLayout>
 
         </LinearLayout>
