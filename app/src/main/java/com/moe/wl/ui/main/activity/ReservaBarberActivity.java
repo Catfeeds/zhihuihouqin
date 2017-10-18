@@ -24,6 +24,7 @@ import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.ExpandableListAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
 import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.CreateorderBean;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 import com.moe.wl.ui.main.model.PreOderBarberModel;
 import com.moe.wl.ui.main.modelimpl.PreOrderBarberModelImpl;
@@ -199,9 +200,8 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
             for (int i = 0; i < timelist.size(); i++) {
                 PreOrderBean.TimelistBean timelistBean = timelist.get(i);
                 List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist = timelistBean.getSchedulelist();
-                String starttime = timelistBean.getStarttime();
-                String endtime = timelistBean.getEndtime();
-                int typeid = timelistBean.getTypeid();
+
+
                /* if (typeid == 1) {
                     tvSun.setText(starttime + "-" + endtime);
                     gridAdapter.setData(schedulelist);
@@ -213,6 +213,11 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         } else {
             showToast("PreOrderBean这个bean为空");
         }
+    }
+
+    @Override
+    public void createOrederResult(CreateorderBean bean) {
+
     }
 
     //初始化理发师信息
@@ -277,10 +282,4 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

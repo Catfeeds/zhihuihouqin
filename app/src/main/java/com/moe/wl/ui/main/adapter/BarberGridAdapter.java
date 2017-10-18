@@ -21,7 +21,6 @@ import com.moe.wl.R;
  */
 
 public class BarberGridAdapter extends BaseAdapter {
-    private int mPosition=-1;
     private List<PreOrderBean.TimelistBean.SchedulelistBean> data=new ArrayList<>();
 
     @Override
@@ -54,35 +53,53 @@ public class BarberGridAdapter extends BaseAdapter {
             viewHolder= (ViewHolder) convertView.getTag();
         }
         if(data!=null&&data.size()>0)
-        viewHolder.setData(position);
+        viewHolder.setData(data.get(position),position);
         return convertView;
     }
 
-    public void changeColor(int position) {
-        this.mPosition=position;
-        notifyDataSetChanged();
-    }
 
     public void setData(List<PreOrderBean.TimelistBean.SchedulelistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
-
+private int selectPosition=0;
     class ViewHolder {
         @BindView(R.id.tv_barber_grid_item)
         TextView tvBarberGridItem;
+        private int mPosition;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
+            tvBarberGridItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectPosition=mPosition;
+                    notifyDataSetChanged();
+                    if(listener!=null){
+                        listener.onItemClickListener(selectPosition);
+                    }
+                }
+            });
         }
 
-        public void setData(int position) {
-            tvBarberGridItem.setText(data.get(position)+"");
+        public void setData(PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean, int position) {
+            String starttime = schedulelistBean.getStarttime();
+            String endtime = schedulelistBean.getEndtime();
+            tvBarberGridItem.setText(starttime+"-"+endtime);
             if(mPosition==position){
                 tvBarberGridItem.setTextColor(Color.parseColor("#00aa00"));
             }else{
                 tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
             }
         }
+    }
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+      void  onItemClickListener(int position);
     }
 }

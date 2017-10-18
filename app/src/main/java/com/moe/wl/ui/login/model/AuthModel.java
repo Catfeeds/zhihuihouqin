@@ -1,5 +1,10 @@
 package com.moe.wl.ui.login.model;
 
+import com.moe.wl.ui.login.bean.Auth;
+import com.moe.wl.ui.login.bean.CarInfo;
+
+import java.util.List;
+
 import mvp.cn.rx.MvpModel;
 import rx.Observable;
 
@@ -8,7 +13,5 @@ import rx.Observable;
  */
 
 public interface AuthModel extends MvpModel{
-    Observable submitAuth(String name, String mobile,
-                          String idCard, int positionid, String roomId, String officetel,
-                          String cartypeId, String precarCode, String suffixcarCode,String buildnum,String departid);
+    Observable submitAuth(Auth auth,List<CarInfo> list);
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:banner="http://schemas.android.com/tools"
     android:id="@+id/activity_order_cut_hear"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,13 +13,39 @@
         android:id="@+id/more_health_consult_title"
         android:layout_width="match_parent"
         android:background="#1000"
-        android:layout_height="?actionBarSize" />
+        android:layout_height="@dimen/title_height" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/gray_lighter" />
-
+        <com.moe.wl.framework.widget.SimpleImageBanner
+            android:id="@+id/h_banner_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            banner:bb_barColor="#00000000"
+            banner:bb_barPaddingBottom="5dp"
+            banner:bb_barPaddingLeft="10dp"
+            banner:bb_barPaddingRight="10dp"
+            banner:bb_barPaddingTop="5dp"
+            banner:bb_delay="2"
+            banner:bb_indicatorCornerRadius="3dp"
+            banner:bb_indicatorGap="8dp"
+            banner:bb_indicatorGravity="CENTER"
+            banner:bb_indicatorHeight="6dp"
+            banner:bb_indicatorSelectColor="@color/tv_blue"
+            banner:bb_indicatorStyle="CORNER_RECTANGLE"
+            banner:bb_indicatorUnselectColor="#88ffffff"
+            banner:bb_indicatorWidth="6dp"
+            banner:bb_isAutoScrollEnable="true"
+            banner:bb_isBarShowWhenLast="true"
+            banner:bb_isIndicatorShow="true"
+            banner:bb_isLoopEnable="true"
+            banner:bb_isTitleShow="true"
+            banner:bb_period="5"
+            banner:bb_scale="0.5625"
+            banner:bb_textColor="#ffffff"
+            banner:bb_textSize="13.5sp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

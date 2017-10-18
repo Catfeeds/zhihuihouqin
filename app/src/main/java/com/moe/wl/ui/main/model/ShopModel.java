@@ -10,4 +10,5 @@ import rx.Observable;
 public interface ShopModel extends MvpModel{
 
     Observable getData();
+    Observable getServiceInfo(int serviceType);
 }

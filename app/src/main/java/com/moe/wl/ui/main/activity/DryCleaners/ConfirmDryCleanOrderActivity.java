@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -32,6 +33,9 @@ import rx.Subscriber;
 
 public class ConfirmDryCleanOrderActivity extends Base2Activity {
 
+
+    @BindView(R.id.activity_confirm_dry_clean_order)
+    LinearLayout activityConfirmDryCleanOrder;
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
     @BindView(R.id.tv_user_name)
@@ -46,12 +50,8 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
     TextView tvTime;
     @BindView(R.id.lv_order_info)
     ListView lvOrderInfo;
-    @BindView(R.id.tv_sum)
-    TextView tvSum;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-    @BindView(R.id.activity_confirm_dry_clean_order)
-    LinearLayout activityConfirmDryCleanOrder;
 
     private List<ClothBean.PageEntity.ListEntity> list;
     private String time;
@@ -73,7 +73,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         mobile = intent.getStringExtra("mobile");
         time = intent.getStringExtra("time");
         json = intent.getStringExtra("json");
-        String realName =  SharedPrefHelper.getInstance().getRealName();
+        String realName = SharedPrefHelper.getInstance().getRealName();
         Gson gson = new Gson();
         list = gson.fromJson(json, new TypeToken<List<ClothBean.PageEntity.ListEntity>>() {
         }.getType());
@@ -91,7 +91,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         tvUserName.setText(realName);
         tvPhoneNum.setText(mobile);
         tvTime.setText(time);
-        tvSum.setText("￥" + sum);
+        //tvSum.setText("￥" + sum);
     }
 
     private void commit() {
@@ -150,4 +150,5 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         commit();
 
     }
+
 }

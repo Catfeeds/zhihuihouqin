@@ -3,14 +3,13 @@ package com.moe.wl.ui.main.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,13 +22,18 @@ import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.ExpandableListAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
 import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.CreateorderBean;
+import com.moe.wl.ui.main.bean.Itemid;
+import com.moe.wl.ui.main.bean.Order;
 import com.moe.wl.ui.main.bean.PreOrderBean;
-import com.moe.wl.ui.main.model.PreOderBarberModel;
-import com.moe.wl.ui.main.modelimpl.PreOrderBarberModelImpl;
-import com.moe.wl.ui.main.presenter.PreOrderBarberPresenter;
+import com.moe.wl.ui.main.model.NowOrderBarberModel;
+import com.moe.wl.ui.main.modelimpl.NowOrderBarberModelImpl;
+import com.moe.wl.ui.main.presenter.NowOrderBarberPresenter;
 import com.moe.wl.ui.main.view.PreOrderBarberView;
+import com.moe.wl.ui.mywidget.NoScrollExpandableListView;
+import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,47 +41,27 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mvp.cn.util.DateUtils;
+import mvp.cn.util.StringUtil;
+import mvp.cn.util.VerifyCheck;
 
-public class NowReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreOrderBarberView, PreOrderBarberPresenter> implements PreOrderBarberView {
+public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, PreOrderBarberView, NowOrderBarberPresenter> implements PreOrderBarberView {
     private static final int MAX_NUM = 100;
     @BindView(R.id.reserve_info_title)
-    TitleBar titleBar;
+    TitleBar titile;
     @BindView(R.id.civ_header)
     CircleImageView civHeader;
     @BindView(R.id.rv_reserva_date)
-    RecyclerView recyclerView;
-    @BindView(R.id.iv_sun)
-    ImageView ivSun;
-    @BindView(R.id.tv_sun)
-    TextView tvSun;
-    @BindView(R.id.ll_morning)
-    LinearLayout llMorning;
-    @BindView(R.id.iv_moon)
-    ImageView ivMoon;
-    @BindView(R.id.tv_after)
-    TextView tvAfter;
-    @BindView(R.id.ll_afternoon)
-    LinearLayout llAfternoon;
+    NoSlideRecyclerView recyclerView;
     @BindView(R.id.view_morning)
     View viewMorning;
     @BindView(R.id.view_after)
     View viewAfter;
     @BindView(R.id.nsgv_barber)
     NoSlidingGridView nsgvBarber;
-    @BindView(R.id.tv_xijianchui)
-    TextView tvXijianchui;
-    @BindView(R.id.iv_gou1)
-    ImageView ivGou1;
-    @BindView(R.id.tv_xichui)
-    TextView tvXichui;
-    @BindView(R.id.iv_gou2)
-    ImageView ivGou2;
     @BindView(R.id.e_list)
-    ExpandableListView eList;
+    NoScrollExpandableListView eList;
     @BindView(R.id.ll_huli_list)
     LinearLayout llHuliList;
-    @BindView(R.id.tv_need_pay)
-    TextView tvNeedPay;
     @BindView(R.id.et_scanner)
     EditText etScanner;
     @BindView(R.id.word_num)
@@ -90,31 +74,26 @@ public class NowReservaBarberActivity extends BaseActivity<PreOderBarberModel, P
     Button tbRegist;
     @BindView(R.id.activity_reserva_barber)
     LinearLayout activityReservaBarber;
+    @BindView(R.id.et_mobile)
+    EditText etMobile;
 
 
-    private boolean tfIsShow = false;
-    private boolean rfIsShow = false;
-    private boolean hlIsShow = false;
     private BarberGridAdapter gridAdapter;
-    List<String> afterTime = Arrays.asList(
-            "17:30", "18:00", "18:30", "19:00", "19:30",
-            "20:00", "20:30", "21:00"
-    );
-    List<String> morningTime = Arrays.asList(
-            "10:00", "10:30", "11:00", "11:30", "12:00",
-            "14:00", "14:30", "17:00"
-    );
+
     private BarberListBean.BarberlistBean barberlistBean;
     private String address;
+    private int id;
+    private String barberid;
+    private List<Itemid> list;
 
     @Override
-    public PreOrderBarberPresenter createPresenter() {
-        return new PreOrderBarberPresenter();
+    public NowOrderBarberPresenter createPresenter() {
+        return new NowOrderBarberPresenter();
     }
 
     @Override
-    public PreOderBarberModel createModel() {
-        return new PreOrderBarberModelImpl();
+    public NowOrderBarberModel createModel() {
+        return new NowOrderBarberModelImpl();
     }
 
     @Override
@@ -125,12 +104,12 @@ public class NowReservaBarberActivity extends BaseActivity<PreOderBarberModel, P
 
     @Override
     public void initView() {
+        list = new ArrayList<>();
         barberlistBean = (BarberListBean.BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
-        getPresenter().getData(barberlistBean.getId());
+        getPresenter().order();
         //设置上午默认被点击
         initgride();
-        llMorning.performClick();
         initTitle();
         initRecycler();
         setListener();
@@ -180,24 +159,57 @@ public class NowReservaBarberActivity extends BaseActivity<PreOderBarberModel, P
     @Override
     public void getBarberInfo(PreOrderBean preOrderBean) {
         if (preOrderBean != null) {
-            List<PreOrderBean.ItemlistBeanX> itemlist = preOrderBean.getItemlist();
+
+            //理发类型数据
+            final List<PreOrderBean.ItemlistBeanX> itemlist = preOrderBean.getItemlist();
             ExpandableListAdapter adapter = new ExpandableListAdapter(this, itemlist);
             eList.setAdapter(adapter);
+            adapter.setListener(new ExpandableListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener() {
+                    int sum = 0;
+                    int count = 0;
+                    for (int i = 0; i < itemlist.size(); i++) {
+                        PreOrderBean.ItemlistBeanX itemlistBeanX = itemlist.get(i);
+                        List<PreOrderBean.ItemlistBeanX.ItemlistBean> itemlist1 = itemlistBeanX.getItemlist();
+                        for (int j = 0; j < itemlist1.size(); j++) {
+                            if (itemlist1.get(j).isSelect()) {
+                                sum += itemlist1.get(j).getPrice();
+                                int id = itemlist1.get(j).getId();
+                                list.add(new Itemid(id));
+                                count++;
+                            }
+                        }
+                    }
+                    //设置支付总额,服务数量
+                    tvSumService.setText("共" + count + "项服务 合计：");
+                    tvHowMuch.setText("￥" + sum);
+                }
+            });
+
 
             List<PreOrderBean.TimelistBean> timelist = preOrderBean.getTimelist();
             for (int i = 0; i < timelist.size(); i++) {
                 PreOrderBean.TimelistBean timelistBean = timelist.get(i);
-                List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist = timelistBean.getSchedulelist();
-                String starttime = timelistBean.getStarttime();
-                String endtime = timelistBean.getEndtime();
-                int typeid = timelistBean.getTypeid();
-                if (typeid == 1) {
+                final List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist = timelistBean.getSchedulelist();
+
+                gridAdapter.setData(schedulelist);
+                gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClickListener(int position) {
+                        PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
+                        id = schedulelistBean.getId();
+                        barberid = schedulelistBean.getBarberid();
+                    }
+                });
+
+               /* if (typeid == 1) {
                     tvSun.setText(starttime + "-" + endtime);
                     gridAdapter.setData(schedulelist);
                 } else {
                     tvAfter.setText(starttime + "-" + endtime);
                     gridAdapter.setData(schedulelist);
-                }
+                }*/
             }
 //
         } else {
@@ -205,94 +217,65 @@ public class NowReservaBarberActivity extends BaseActivity<PreOderBarberModel, P
         }
     }
 
+    @Override//下单成功
+    public void createOrederResult(CreateorderBean bean) {
+        if(bean!=null){
+
+            Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+            intent.putExtra("from", Constants.BARBER);
+            // TODO: 2017/8/22 0022 携带支付信息
+            startActivity(intent);
+        }
+    }
 
 
+    //预约时间
     private void initgride() {
         gridAdapter = new BarberGridAdapter();
         nsgvBarber.setAdapter(gridAdapter);
     }
 
+    //顶部日期
     private void initRecycler() {
-       /* recyclerView.setLayoutManager(new LinearLayoutManager(
+        recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
-        BarberRvAdapter rvAdapter = new BarberRvAdapter();
+        /*BarberRvAdapter rvAdapter = new BarberRvAdapter();
         recyclerView.setAdapter(rvAdapter);*/
 
         OrderTimeAdapter orderTimeAdapter = new OrderTimeAdapter(this);
         recyclerView.setAdapter(orderTimeAdapter);
-        List<String> week = DateUtils.get7week();
-        List<String> date = DateUtils.get7date();
+        List<String> week = DateUtils.get3week();
+        List<String> date = DateUtils.get3date();
         orderTimeAdapter.setData(week, date);
     }
 
     private void initTitle() {
-        titleBar.setBack(true);
-        titleBar.setTitle("发型师");
+        titile.setBack(true);
+        titile.setTitle("发型师");
     }
 
-    @OnClick({R.id.ll_morning, R.id.ll_afternoon, R.id.iv_gou1, R.id.iv_gou2, R.id.tb_regist})
+    @OnClick({ R.id.tb_regist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_morning:
-//                ivMoon.setImageResource();
-//                ivSun.setImageResource();
-                tvAfter.setTextColor(Color.parseColor("#000000"));
-                tvSun.setTextColor(Color.parseColor("#0000aa"));
-                viewMorning.setBackgroundColor(Color.parseColor("#0000aa"));
-                viewAfter.setBackgroundColor(Color.parseColor("#33000000"));
-                //gridAdapter.setTime(morningTime);
-                break;
-            case R.id.ll_afternoon:
-                //                ivMoon.setImageResource();
-//                ivSun.setImageResource();
-                tvAfter.setTextColor(Color.parseColor("#0000aa"));
-                tvSun.setTextColor(Color.parseColor("#000000"));
-                viewMorning.setBackgroundColor(Color.parseColor("#33000000"));
-                viewAfter.setBackgroundColor(Color.parseColor("#0000aa"));
-                //gridAdapter.setTime(afterTime);
-                break;
-            case R.id.iv_gou1:
-                break;
-            case R.id.iv_gou2:
-                break;
-           /* case R.id.rl_tangfa:
-                tfIsShow = !tfIsShow;
-                if (tfIsShow) {
-                    ivUpordown1.setImageResource(R.drawable.drawer_arrow_up);
-                    llTangfaList.setVisibility(View.VISIBLE);
-                } else {
-                    ivUpordown1.setImageResource(R.drawable.drawer_arrow_down);
-                    llTangfaList.setVisibility(View.GONE);
-                }
-                break;
-            case R.id.rl_ranfa:
-                rfIsShow = !rfIsShow;
-                if (rfIsShow) {
-                    ivUpordown2.setImageResource(R.drawable.drawer_arrow_up);
-                    llRanfaList.setVisibility(View.VISIBLE);
-                } else {
-                    ivUpordown2.setImageResource(R.drawable.drawer_arrow_down);
-                    llRanfaList.setVisibility(View.GONE);
-                }
-
-                break;*/
-            /*case R.id.rl_huli:
-                hlIsShow = !hlIsShow;
-                if (hlIsShow) {
-                    ivUpordown3.setImageResource(R.drawable.drawer_arrow_up);
-                    llHuliList.setVisibility(View.VISIBLE);
-                } else {
-                    ivUpordown3.setImageResource(R.drawable.drawer_arrow_down);
-                    llHuliList.setVisibility(View.GONE);
-                }
-
-                break;*/
             case R.id.tb_regist:
-                Intent intent = new Intent(this, PayFiveJiaoActivity.class);
-                intent.putExtra("from", Constants.BARBER);
-                // TODO: 2017/8/22 0022 携带支付信息
-                startActivity(intent);
+                String mobile = etMobile.getText().toString().trim();
+                String remark = etScanner.getText().toString().trim();
+                String money = tvHowMuch.getText().toString().trim();
+                String price=money.replaceAll("￥","");
+                if (StringUtil.isNullOrEmpty(mobile)) {
+                    showToast("请输入手机号");
+                    return ;
+                }
+                if (!VerifyCheck.isMobilePhoneVerify(mobile)) {
+                    showToast("请输入正确的手机号码");
+                    return ;
+                }
+
+                Order order = new Order(barberid,mobile,remark,price,id+"");
+                getPresenter().createOrder(order,list);//下单
+
                 break;
         }
     }
+
 }

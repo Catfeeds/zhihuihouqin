@@ -13,21 +13,29 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.adapter.CutHearAdapter;
+import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.model.ShopModel;
 import com.moe.wl.ui.main.modelimpl.ShopModelImpl;
 import com.moe.wl.ui.main.presenter.ShopPresenter;
 import com.moe.wl.ui.main.view.ShopView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
+import mvp.cn.util.LogUtil;
 import mvp.cn.util.StringUtil;
+import mvp.cn.util.ToastUtil;
 
 public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, ShopPresenter> implements ShopView {
 
@@ -55,6 +63,8 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     RelativeLayout activityOrderCutHear;
     @BindView(R.id.ll_call)
     LinearLayout llCall;
+    @BindView(R.id.h_banner_viewPager)
+    SimpleImageBanner sib;
     private CutHearAdapter adapter;
     private ShopBean shopBean;
 
@@ -77,6 +87,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     @Override
     public void initView() {
         getPresenter().getData();
+        getPresenter().getphotos(6);
         initTitle();
         initGrid();
     }
@@ -94,9 +105,47 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
             List<ShopBean.BarberlistBean> barberlist = shopBean.getBarberlist();
             tvBarberNum.setText("全部" + barberlist.size() + "位理发师");
             adapter.setData(barberlist);
+
+
         } else {
             showToast(shopBean.getMsg());
         }
+    }
+
+    @Override
+    public void getServiceInfo(ServiceBean bean) {
+        if(bean!=null){
+            //获取轮播图
+         ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
+            String detailphoto = infoBean.getDetailphoto();
+            if(detailphoto!=null) {
+                String[] urls = detailphoto.split(",");
+                List<?> imgList = Arrays.asList(urls);
+                if (imgList.size() > 0) {
+                    ArrayList<BannerItem> list = new ArrayList<>();
+                    for (int i = 0; i < imgList.size(); i++) {
+                        BannerItem item = new BannerItem();
+                        item.imgUrl = (String) imgList.get(i);
+                        LogUtil.log(item.imgUrl);
+                        list.add(item);
+                    }
+                    sib
+                            .setSource(list)
+                            .startScroll();
+                }
+                sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
+                    @Override
+                    public void onItemClick(int position) {
+                        ToastUtil.showToast(getActivity(), "position--->" + position);
+
+                    }
+                });
+
+            }else{
+                LogUtils.i("detailphoto"+"为null");
+            }
+        }
+
     }
 
     private void initGrid() {

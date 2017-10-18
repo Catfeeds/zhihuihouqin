@@ -248,35 +248,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"></LinearLayout>
 
-            <!--<View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@color/gray_lighter" />-->
-
-            <!--<RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="需要支付"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
-
-                <TextView
-                    android:id="@+id/tv_need_pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="￥78"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_common" />
-            </RelativeLayout>-->
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"

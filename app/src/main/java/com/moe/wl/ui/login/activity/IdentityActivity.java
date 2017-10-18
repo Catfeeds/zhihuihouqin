@@ -1,6 +1,7 @@
 package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -13,43 +14,64 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.login.bean.Auth;
+import com.moe.wl.ui.login.bean.CarInfo;
+import com.moe.wl.ui.login.model.AuthModel;
+import com.moe.wl.ui.login.modelimpl.AuthModelImpl;
+import com.moe.wl.ui.login.presenter.AuthPresenter;
+import com.moe.wl.ui.login.view.AuthView;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.login.model.AuthModel;
-import com.moe.wl.ui.login.modelimpl.AuthModelImpl;
-import com.moe.wl.ui.login.presenter.AuthPresenter;
-import com.moe.wl.ui.login.view.AuthView;
 import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
 
 public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPresenter> implements AuthView {
 
     private static final int REQUESTPOSTIONCODE = 10;
+    @BindView(R.id.title)
+    TitleBar title;
     @BindView(R.id.tv_name)
-    EditText etName;
+    EditText tvName;
     @BindView(R.id.tv_phone)
-    EditText etPhone;
+    EditText tvPhone;
     @BindView(R.id.tv_identity_num)
-    EditText etIdentityNum;
+    EditText tvIdentityNum;
+    @BindView(R.id.et_native)
+    EditText etNative;
+    @BindView(R.id.tv_position)
+    TextView tvPosition;
     @BindView(R.id.iv_position)
     ImageView ivPosition;
     @BindView(R.id.rl_positon)
     RelativeLayout rlPositon;
+    @BindView(R.id.et_build_num)
+    EditText etBuildNum;
     @BindView(R.id.tv_room_num)
-    EditText etRoomNum;
+    EditText tvRoomNum;
+    @BindView(R.id.et_officeid)
+    EditText etOfficeid;
+    @BindView(R.id.et_department_num)
+    EditText etDepartmentNum;
     @BindView(R.id.tv_office_phone)
-    EditText etOfficePhone;
+    EditText tvOfficePhone;
     @BindView(R.id.tv_car_type)
-    EditText etCarType;
+    EditText tvCarType;
+    @BindView(R.id.tv_shengfen)
+    TextView tvShengfen;
     @BindView(R.id.et_chepaihao)
     EditText etChepaihao;
     @BindView(R.id.tv_add_car_num)
@@ -57,13 +79,8 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     @BindView(R.id.tv_commit)
     TextView tvCommit;
     @BindView(R.id.activity_identity)
-    RelativeLayout activityIdentity;
-    @BindView(R.id.tv_shengfen)
-    TextView tvShengfen;
-    @BindView(R.id.et_build_num)
-    EditText etBuildNum;
-    @BindView(R.id.et_department_num)
-    EditText etDepartmentNum;
+    LinearLayout activityIdentity;
+
     private int positionId;
     private String name;
     private String phone;
@@ -84,7 +101,8 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
             , "M", "N", "O", "P", "Q", "R", "X"
             , "Y", "Z");
     private String preCarCode;
-    private int MAX_NUM=5;
+    private int MAX_NUM = 5;
+    private String officeid;
 
     @Override
     public AuthPresenter createPresenter() {
@@ -104,13 +122,17 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
 
     @Override
     public void initView() {
+        title.setBack(true);
+        title.setTitle("身份认证");
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
@@ -137,35 +159,40 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 showShengFenDialog();
                 break;
             case R.id.tv_commit:
-                name = etName.getText().toString().trim();
-                phone = etPhone.getText().toString().trim();
-                identityNum = etIdentityNum.getText().toString().trim();
-                roomNum = etRoomNum.getText().toString().trim();
-                officePhone = etOfficePhone.getText().toString().trim();
-                carType = etCarType.getText().toString().trim();
+                name = tvName.getText().toString().trim();
+                phone = tvPhone.getText().toString().trim();
+                identityNum = tvIdentityNum.getText().toString().trim();
+                roomNum = tvRoomNum.getText().toString().trim();
+                officePhone = tvOfficePhone.getText().toString().trim();
+                carType = tvCarType.getText().toString().trim();
                 chePaiHao = etChepaihao.getText().toString().trim();
                 preCarCode = tvShengfen.getText().toString().trim();
+                officeid = etOfficeid.getText().toString().trim();
+                String natives = etNative.getText().toString().trim();
                 String buildNum = etBuildNum.getText().toString().trim();
                 String departmentNum = etDepartmentNum.getText().toString().trim();
                 String telRegex = "[1][358]\\d{9}";
 
-                if(!phone.matches(telRegex)){
+                if (!phone.matches(telRegex)) {
                     showToast("请输入正确的手机号");
-                    return ;
+                    return;
                 }
-                Log.e("info",name+"=="+identityNum+"=="+positionId+"=="+roomNum+"=="+officePhone+"=="+carType+"=="
-                +preCarCode+"=="+chePaiHao);
+                Log.e("info", name + "==" + identityNum + "==" + positionId + "==" + roomNum + "==" + officePhone + "==" + carType + "=="
+                        + preCarCode + "==" + chePaiHao);
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
                         || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(carType) ||
-                        TextUtils.isEmpty(preCarCode) || TextUtils.isEmpty(chePaiHao)||
-                        TextUtils.isEmpty(buildNum)||TextUtils.isEmpty(departmentNum)) {
+                        TextUtils.isEmpty(preCarCode) || TextUtils.isEmpty(chePaiHao) ||
+                        TextUtils.isEmpty(buildNum) || TextUtils.isEmpty(departmentNum)
+                        || TextUtils.isEmpty(officeid)) {
                     showToast("请将信息填写完整");
                     return;
                 } else if (!isPhoneChecked(phone)) {
                     return;
-                } else {
-                    getPresenter().getData(name, phone, identityNum, positionId, roomNum,
-                            officePhone, carType, preCarCode, chePaiHao,buildNum,departmentNum);
+                } else {//, natives
+                    Auth auth = new Auth(officeid, departmentNum, buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
+                    List<CarInfo> carList = new ArrayList();
+                    carList.add(new CarInfo(carType, preCarCode, chePaiHao));
+                    getPresenter().getData(auth, carList);
                     break;
                 }
         }
@@ -174,8 +201,11 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     //认证成功
     @Override
     public void authSucc() {
+        SharedPrefHelper.getInstance().setRealName(name);
+        SharedPrefHelper.getInstance().setPhoneNumber(phone);
         Intent intent = new Intent(this, AuthSuccessActivity.class);
         startActivity(intent);
+        finish();
     }
 
     //电话检测
@@ -235,9 +265,17 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
             if (data != null) {
                 Log.e("positionId", "职位类型id:" + positionId);
                 positionId = data.getIntExtra("positionId", 0);
+                String position = data.getStringExtra("position");
+                tvPosition.setText(position);
             }
         }
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

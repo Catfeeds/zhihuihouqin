@@ -2,9 +2,13 @@ package com.moe.wl.ui.login.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.ui.login.bean.Auth;
+import com.moe.wl.ui.login.bean.CarInfo;
 import com.moe.wl.ui.login.bean.SubmitAuthBean;
 import com.moe.wl.ui.login.view.AuthView;
 import com.moe.wl.ui.login.model.AuthModel;
+
+import java.util.List;
 
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
@@ -17,13 +21,10 @@ import rx.Subscriber;
 public class AuthPresenter extends MvpRxPresenter<AuthModel, AuthView> {
 
 
-    public void getData(String name, String mobile, String idCard, int positionid, String roomId,
-                        String officetel, String cartypeId, String precarCode, final String suffixcarCode,String buildnum,String departid) {
+    public void getData(Auth auth,List<CarInfo> list) {
         LogUtil.log("MainPresenter发出请求");
         getView().showProgressDialog();
-        // TODO: 2017/9/5 0005 需要后端修改cartypeId
-        getModel().submitAuth(name, mobile, idCard, positionid, roomId, officetel, cartypeId,
-                precarCode, suffixcarCode,buildnum,departid)
+        getModel().submitAuth(auth,list)
                 .subscribe(new Subscriber<SubmitAuthBean>() {
             @Override
             public void onCompleted() {

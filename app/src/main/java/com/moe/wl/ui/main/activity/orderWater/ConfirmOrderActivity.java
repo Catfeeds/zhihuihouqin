@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
@@ -20,9 +21,15 @@ import com.moe.wl.ui.main.activity.OfficeSupplies.OrderRemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.SpPayActivity;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
+import com.moe.wl.ui.main.activity.me.MyDeposit;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
+import com.moe.wl.ui.main.bean.UserDepositBean;
+import com.moe.wl.ui.main.model.MyDepositModel;
+import com.moe.wl.ui.main.modelimpl.MyDepositModelImpl;
+import com.moe.wl.ui.main.presenter.MyDepositPresenter;
+import com.moe.wl.ui.main.view.MyDepositView;
 import com.moe.wl.ui.mywidget.AlertDialog;
 import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
@@ -35,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ConfirmOrderActivity extends AppCompatActivity {
+public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositView,MyDepositPresenter> implements MyDepositView {
 
     private static final int ADDRESSREQUESTCODE = 10;
     private static final int REMARKREUQESTCODE = 20;
@@ -88,14 +95,27 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private String ordertype;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public MyDepositPresenter createPresenter() {
+        return new MyDepositPresenter();
+    }
+
+    @Override
+    public MyDepositModel createModel() {
+        return new MyDepositModelImpl();
+    }
+
+    @Override
+    public void setContentLayout() {
         setContentView(R.layout.activity_sp_confirm_order);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
         initTitle();
         //检测是否交押金
-        // TODO: 2017/10/16 0016 还么有提供接口
-        showIsHasYajin();
+        getPresenter().getDepositInfo();
+
         Intent intent = getIntent();
         String address = intent.getStringExtra("address");
         String time = intent.getStringExtra("time");
@@ -114,10 +134,11 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         initList();
     }
 
+
     private void showIsHasYajin() {
         AlertDialog builder = new AlertDialog(this).builder();
         builder.setTitle("温馨提示")
-                .setMsg("您好,您订的桶装水首次下单需缴纳人民币50元押金,押金可在最后申请退还,给您带来的不便请谅解")
+                .setMsg("您好,您订的桶装水首次下单需缴纳人民币"+50+"元押金,押金可在最后申请退还,给您带来的不便请谅解")
                 .setPositiveButton("取消", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -237,6 +258,16 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     remark = data.getStringExtra("remark");
                     tvOtherNeed.setText(remark);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void getUserDepositResult(UserDepositBean bean) {
+        if(bean!=null){
+           int deposit= bean.getDeposit().getDeposit();
+            if(deposit<=0){//没有交押金,
+                showIsHasYajin();
             }
         }
     }

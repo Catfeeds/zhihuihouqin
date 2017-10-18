@@ -16,6 +16,7 @@ import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
 import com.moe.wl.ui.main.activity.me.LaiFangActivity;
@@ -254,8 +255,10 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
 
     @Override
     public void initView(View v) {
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), SharedPrefHelper.getInstance().getUserPhoto(), civHeader);
-        tvName.setText(SharedPrefHelper.getInstance().getNickname());
+        String nickname = SharedPrefHelper.getInstance().getNickname();
+        tvName.setText(nickname);
+        Glide.with(getActivity()).load(SharedPrefHelper.getInstance().getUserPhoto()).
+        placeholder(R.drawable.visitor_discrepancy).into(civHeader);
     }
     //更改头像和昵称
     @Subscribe(threadMode = ThreadMode.MAIN)

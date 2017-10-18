@@ -11,6 +11,10 @@ import com.moe.wl.framework.network.AppConstants;
 import com.moe.wl.framework.network.ServerConstants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.login.bean.Auth;
+import com.moe.wl.ui.login.bean.CarInfo;
+import com.moe.wl.ui.main.bean.Itemid;
+import com.moe.wl.ui.main.bean.Order;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -395,30 +399,17 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 职位列表
      */
-    public static Observable submitAuth(String name, String mobile,
-                                        String idCard, int positionid, String roomId, String officetel,
-                                        String cartypeId, String precarCode, String suffixcarCode,
-                                        String buildnum, String departid) {
+    public static Observable submitAuth(Auth auth,List<CarInfo> list) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<String, String>();
-            tempMap.put("name", name);
-            tempMap.put("mobile", mobile);
-            tempMap.put("idCard", idCard);
-            tempMap.put("positionid", positionid + "");
-            tempMap.put("roomId", roomId);
-            tempMap.put("officetel", officetel);
-            tempMap.put("cartypeId", cartypeId);
-            tempMap.put("precarCode", precarCode);
-            tempMap.put("suffixcarCode", suffixcarCode);
-            tempMap.put("buildnum", buildnum);
-            tempMap.put("departid", departid);
-            addParam(paramsMap, tempMap);
-
+            Map<String, Object> tempMap = new HashMap();
+            tempMap.put("auth", auth);
+            tempMap.put("carList",list);
+            addParams(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.getPositionList(paramsMap));
+        return getObservable(api.submitAuth(paramsMap));
     }
 
     /**
@@ -1007,7 +998,22 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getbarberworklist(paramsMap));
     }
+    /**
+     * 不指定预约理发师
+     *
+     * @return
+     */
+    public static Observable nowOrderBarber() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getbarberInfo(paramsMap));
+    }
     /**
      * 预约理发师
      *
@@ -1019,6 +1025,24 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             Map<String, String> tempMap = new HashMap<>();
             tempMap.put("barberId", id + "");
             addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getbarberInfo(paramsMap));
+    }
+    /**
+     * 下单
+     *
+     * @return
+     */
+    public static Observable createOrder(Order order, List<Itemid> list) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("order",order);
+            tempMap.put("detaillist",list);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -2924,7 +2948,7 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 充值记录
+     * 查询押金
      *
      * @return
      */

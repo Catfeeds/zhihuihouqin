@@ -35,7 +35,7 @@ public class WecatPay {
         try {
             json = new JSONObject(content);
             if (json != null) {
-                json = (JSONObject) json.get("data");
+//                json = (JSONObject) json.get("data");
                 if (null != json) {
                     PayReq req = new PayReq();
                     // req.appId = "wxf8b4f85f3a794e77"; // 测试用appId

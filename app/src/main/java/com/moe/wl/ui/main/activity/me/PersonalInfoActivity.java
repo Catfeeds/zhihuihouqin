@@ -24,9 +24,11 @@ import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.activity.PositionActivity;
+import com.moe.wl.ui.login.bean.UserInfo;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.ChangeUserInfo;
 import com.moe.wl.ui.main.bean.UpLoadHeaderBean;
@@ -109,6 +111,11 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     private final String IMG_TEMP_FILE = SoftApplication.getInstance().getFilesDir().getAbsolutePath() + "/ImageHead" + ".png";
     private File mFile;
     private String url;
+    private String nickname;
+    private String phone;
+    private String tel;
+    private String buildNum;
+    private String roomNum;
 
     @Override
     public UserInfoPresenter createPresenter() {
@@ -199,11 +206,11 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         } else {
             sexid = 0;
         }
-        String nickname = tvNicheng.getText().toString();
-        String phone = tvPhone.getText().toString();
-        String tel = etOfficePhone.getText().toString();
-        String buildNum = etBuildNum.getText().toString();
-        String roomNum = etRoomNum.getText().toString();
+        nickname = tvNicheng.getText().toString();
+        phone = tvPhone.getText().toString();
+        tel = etOfficePhone.getText().toString();
+        buildNum = etBuildNum.getText().toString();
+        roomNum = etRoomNum.getText().toString();
         if (TextUtils.isEmpty(nickname) || TextUtils.isEmpty(tel) || TextUtils.isEmpty(phone) ||
                 TextUtils.isEmpty(buildNum) || TextUtils.isEmpty(roomNum)) {
             showToast("请将个人信息填写完整");
@@ -443,6 +450,16 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
             if (bean.getErrCode() == 0) {
                 showToast("修改信息成功");
                 String nickName = tvNicheng.getText().toString().trim();
+//                sexid, nickname, url, positionId, tel, roomNum, phone, buildNum
+                SharedPrefHelper.getInstance().setPhoneNumber(phone);
+                SharedPrefHelper.getInstance().setuserPhoto(url);
+                SharedPrefHelper.getInstance().setNickname(nickName);
+                if(sexid==1){
+                    SharedPrefHelper.getInstance().setSex("男");
+                }else{
+                    SharedPrefHelper.getInstance().setSex("女");
+                }
+
                 //通知头像和昵称发生变化
                 EventBus.getDefault().post(new ChangeUserInfo(url,nickName));
             } else {

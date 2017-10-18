@@ -60,7 +60,8 @@ public interface NetUrl {
     String barberList="appuser/lffw/barberlist";
     String barberDetail="appuser/lffw/barberdetail";
     String barberworklist="appuser/lffw/barberworklist";
-    String preorder="appuser/lffw/preorder";
+    String preorder="appuser/lffw/preorder";//预约
+    String createorder="appuser/lffw/createorder";//下单
     String hairCutOrderList = "appuser/lffw/orderlist"; // 理发订单列表
     String cancelHairCutOrder = "appuser/lffw/cancelorder";
     String deleteHairCutOrder = "appuser/lffw/delorder"; // 删除订单

@@ -3,7 +3,12 @@ package com.moe.wl.ui.login.modelimpl;
 import android.util.Log;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.ui.login.bean.Auth;
+import com.moe.wl.ui.login.bean.CarInfo;
 import com.moe.wl.ui.login.model.AuthModel;
+
+import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -13,9 +18,9 @@ import rx.Observable;
 public class AuthModelImpl implements AuthModel {
 
     @Override
-    public Observable submitAuth(String name, String mobile, String idCard, int positionid, String roomId, String officetel, String cartypeId, String precarCode, String suffixcarCode,String buildnum,String departid) {
+    public Observable submitAuth(Auth auth,List<CarInfo> list) {
         Log.e("AuthModelImpl","--->获取了数据");
-        Observable observer = RetrofitUtils.getInstance().submitAuth(name,mobile,idCard,positionid,roomId,officetel,cartypeId,precarCode,suffixcarCode,buildnum,departid);
+        Observable observer = RetrofitUtils.getInstance().submitAuth(auth,list);
         return observer ;
     }
 }

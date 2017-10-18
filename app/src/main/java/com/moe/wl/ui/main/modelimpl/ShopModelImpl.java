@@ -18,4 +18,11 @@ public class ShopModelImpl implements ShopModel {
         Observable observer = RetrofitUtils.getInstance().getShopInfo();
         return observer;
     }
+
+    @Override
+    public Observable getServiceInfo(int serviceType) {
+        Log.e("ShopModel请求数据-->","---");
+        Observable observer = RetrofitUtils.getInstance().getDryCleanerHome(serviceType);
+        return observer;
+    }
 }

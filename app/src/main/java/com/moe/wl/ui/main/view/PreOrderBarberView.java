@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.view;
 
+import com.moe.wl.ui.main.bean.CreateorderBean;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 
 import mvp.cn.common.MvpView;
@@ -11,5 +12,6 @@ import mvp.cn.common.MvpView;
 public interface PreOrderBarberView extends MvpView{
 
 void getBarberInfo(PreOrderBean preOrderBean);
+void createOrederResult(CreateorderBean bean);
 
 }
