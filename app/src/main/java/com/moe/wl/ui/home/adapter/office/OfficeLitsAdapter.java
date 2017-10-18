@@ -33,6 +33,10 @@ public class OfficeLitsAdapter extends MyBaseAdapter<String> {
         }
 
         viewHolder.tv_name.setText(getItem(position));
+        viewHolder.tv_saturation.setText("60人");
+        viewHolder.tv_time.setText("全天");
+        viewHolder.tv_number.setText("305次");
+        viewHolder.tv_location.setText("业务楼401");
         if (position%2==0){
             viewHolder.tv_subscribe.setText("使用中");
             viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_red);

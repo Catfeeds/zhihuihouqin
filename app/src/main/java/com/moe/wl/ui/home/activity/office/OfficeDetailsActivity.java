@@ -109,6 +109,13 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
     @Override
     public void setData() {
+        tv_name.setText("会议室名称");
+        tv_saturation.setText("60人");
+        tv_time.setText("全天");
+        tv_number.setText("305次");
+        tv_location.setText("业务楼401");
+        tv_introduce.setText("会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍");
+
         for (int i = 0; i < 6; i++) {
             mList.add("投影仪" + i);
         }

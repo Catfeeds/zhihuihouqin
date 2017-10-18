@@ -26,7 +26,6 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
 
     private LinearLayout ll_back;
     private TextView tv_title;
-    private LinearLayout ll_right;
     private ImageView iv_icon;
     private ListView lv_content;
 
@@ -45,10 +44,7 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
         ll_back = (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(this);
         tv_title = (TextView) findViewById(R.id.tv_title);
-        ll_right = (LinearLayout) findViewById(R.id.ll_right);
-        ll_right.setOnClickListener(this);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
-        iv_icon.setOnClickListener(this);
         lv_content = (ListView) findViewById(R.id.lv_content);
 
         initData();
@@ -72,9 +68,6 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
         switch (v.getId()){
             case R.id.ll_back:
                 finish();
-                break;
-            case R.id.ll_right:  //标题右边搜索
-
                 break;
         }
     }

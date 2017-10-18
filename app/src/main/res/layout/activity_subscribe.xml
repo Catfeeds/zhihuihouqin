@@ -57,6 +57,7 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -86,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -110,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -149,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="5dp"
+                android:paddingTop="10dp"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -170,6 +171,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_box"
                     android:textColor="@color/font_black"
+                    android:textSize="@dimen/sp_small"
                     android:text="2017-01-01"/>
 
             </LinearLayout>
@@ -204,6 +206,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:inputType="number"
+                        android:textSize="@dimen/sp_small"
                         android:textColor="@color/font_black"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_box"
@@ -234,6 +237,7 @@
                         android:layout_height="40dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:textSize="@dimen/sp_small"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_box"
                         android:textColor="@color/font_black"
