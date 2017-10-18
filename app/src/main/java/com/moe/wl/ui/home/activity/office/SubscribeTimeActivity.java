@@ -1,15 +1,18 @@
 package com.moe.wl.ui.home.activity.office;
 
 import android.view.View;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.home.model.office.SubscribeInfoModel;
-import com.moe.wl.ui.home.modelimpl.office.SubscribeInfoModelImpl;
-import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
-import com.moe.wl.ui.home.view.office.SubscribeInfoView;
+import com.moe.wl.ui.home.adapter.office.SubscribeTimeAdapter;
+import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
+import com.moe.wl.ui.home.model.office.SubscribeTimeModel;
+import com.moe.wl.ui.home.modelimpl.office.SubscribeTimeModelImpl;
+import com.moe.wl.ui.home.presenter.office.SubscribeTimePresenter;
+import com.moe.wl.ui.home.view.office.SubscribeTimeView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ import butterknife.OnClick;
 /**
  * 预约时间
  */
-public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, SubscribeInfoView, SubscribeInfoPresenter> implements View.OnClickListener, SubscribeInfoView {
+public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, SubscribeTimeView, SubscribeTimePresenter> implements View.OnClickListener, SubscribeTimeView {
 
 
     @BindView(R.id.ll_back)
@@ -59,22 +62,8 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, Subs
     TextView tvDate6;
     @BindView(R.id.tv_date7)
     TextView tvDate7;
-    @BindView(R.id.tv_time1)
-    TextView tvTime1;
-    @BindView(R.id.tv_time2)
-    TextView tvTime2;
-    @BindView(R.id.tv_time3)
-    TextView tvTime3;
-    @BindView(R.id.tv_time4)
-    TextView tvTime4;
-    @BindView(R.id.tv_time5)
-    TextView tvTime5;
-    @BindView(R.id.tv_time6)
-    TextView tvTime6;
-    @BindView(R.id.tv_time7)
-    TextView tvTime7;
-    @BindView(R.id.tv_time8)
-    TextView tvTime8;
+    @BindView(R.id.gv_time)
+    GridView gvTime;
 
     private String[] weeks;
     private String[] dates;
@@ -83,6 +72,10 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, Subs
     private List<TextView> listWeek;
 
     private String time;
+    private String id;
+
+    private List<SubscribeTimeResponse.AppointmentListBean> listTime;
+    private SubscribeTimeAdapter adapter;
 
     @Override
     public void setContentLayout() {
@@ -92,6 +85,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @Override
     public void initView() {
+        id=getIntent().getStringExtra("id");
         listDate=new ArrayList<>();
         listDate.add(tvDate1);
         listDate.add(tvDate2);
@@ -120,21 +114,26 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, Subs
             listDate.get(i).setText(dates[i].substring(8,10));
         }
 
+        listTime=new ArrayList<>();
+        adapter=new SubscribeTimeAdapter(this);
+        adapter.setItemList(listTime);
+        gvTime.setAdapter(adapter);
+        getPresenter().findAvailableEquipment(id,dates[0]);
+
     }
 
     @Override
-    public SubscribeInfoPresenter createPresenter() {
-        return new SubscribeInfoPresenter();
+    public SubscribeTimePresenter createPresenter() {
+        return new SubscribeTimePresenter();
     }
 
     @Override
-    public SubscribeInfoModel createModel() {
-        return new SubscribeInfoModelImpl();
+    public SubscribeTimeModel createModel() {
+        return new SubscribeTimeModelImpl();
     }
 
     @OnClick({R.id.ll_back, R.id.tv_date1, R.id.tv_date2,
-            R.id.tv_date3, R.id.tv_date4, R.id.tv_date5, R.id.tv_date6, R.id.tv_date7,R.id.tv_time1, R.id.tv_time2,
-            R.id.tv_time3, R.id.tv_time4, R.id.tv_time5, R.id.tv_time6, R.id.tv_time7,R.id.tv_time8})
+            R.id.tv_date3, R.id.tv_date4, R.id.tv_date5, R.id.tv_date6, R.id.tv_date7})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -161,30 +160,6 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, Subs
                 break;
             case R.id.tv_date7:
                 clickDate(6);
-                break;
-            case R.id.tv_time1:
-                time="8:00~9:00";
-                break;
-            case R.id.tv_time2:
-                time="9:00~10:00";
-                break;
-            case R.id.tv_time3:
-                time="10:00~11:00";
-                break;
-            case R.id.tv_time4:
-                time="11:00~12:00";
-                break;
-            case R.id.tv_time5:
-                time="14:00~15:00";
-                break;
-            case R.id.tv_time6:
-                time="15:00~16:00";
-                break;
-            case R.id.tv_time7:
-                time="16:00~17:00";
-                break;
-            case R.id.tv_time8:
-                time="17:00~18:00";
                 break;
         }
     }
@@ -252,8 +227,9 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeInfoModel, Subs
     }
 
     @Override
-    public void submit() {
-
+    public void setData(List<SubscribeTimeResponse.AppointmentListBean> appointmentList) {
+        listTime.clear();
+        listTime.addAll(appointmentList);
+        adapter.notifyDataSetChanged();
     }
-
 }

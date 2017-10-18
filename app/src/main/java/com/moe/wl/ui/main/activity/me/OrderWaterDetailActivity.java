@@ -12,6 +12,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
@@ -74,7 +75,6 @@ public class OrderWaterDetailActivity extends AppCompatActivity {
 
     private OrderWaterDetailBean data;
 
-    private int serviceType = 18;
     private CustomerDialog progressDialog;
     private int state; // 订单类型分类
     private int orderID;
@@ -129,7 +129,6 @@ public class OrderWaterDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderWaterDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.ORDERWATER);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getDetail().getId());
                             startActivity(intent);
                         } else if (state == 3) {
@@ -215,7 +214,8 @@ public class OrderWaterDetailActivity extends AppCompatActivity {
         }
         orderType.setText("支付方式：" + pay);
 
-        state = data.getDetail().getPaytype();
+        state = data.getDetail().getStatus();
+        LogUtils.d("订水订单state : " + state);
         switch (state) {
             case 1: // 1: 已预约
                 cancelOrder.setVisibility(View.VISIBLE);

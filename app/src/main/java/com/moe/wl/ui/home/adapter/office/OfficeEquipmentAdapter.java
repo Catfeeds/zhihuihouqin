@@ -8,11 +8,12 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.ui.home.adapter.MyBaseAdapter;
+import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 
 /**
  * 办公室设备列表
  */
-public class OfficeEquipmentAdapter extends MyBaseAdapter<String> {
+public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.RoomDetailBean.EnameListBean> {
 
     public OfficeEquipmentAdapter(Context context) {
         super(context);
@@ -36,7 +37,10 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<String> {
             viewHolder.tv_name.setBackgroundResource(R.mipmap.bg_btn_transparency);
             viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.font_black));
         }
-        viewHolder.tv_name.setText(getItem(position));
+
+        OfficeDetailsResponse.RoomDetailBean.EnameListBean bean=getItem(position);
+
+        viewHolder.tv_name.setText(bean.getName());
 
         return convertView;
     }

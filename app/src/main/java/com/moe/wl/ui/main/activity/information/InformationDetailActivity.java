@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -48,11 +48,13 @@ public class InformationDetailActivity extends AppCompatActivity {
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.et_comment)
-    EditText etComment;
+    TextView etComment;
     @BindView(R.id.collect)
     ImageView collect;
     @BindView(R.id.list_view)
     NoSlidingListView listView;
+    @BindView(R.id.scroll)
+    ScrollView scroll;
 
     private int informationID;
     private CustomerDialog progressDialog;
@@ -144,6 +146,7 @@ public class InformationDetailActivity extends AppCompatActivity {
             adapter = new InformationCommentAdapter(this, bean.getCommentList());
             listView.setAdapter(adapter);
         }
+        scroll.smoothScrollTo(0, 20);
     }
 
     // 获取详情

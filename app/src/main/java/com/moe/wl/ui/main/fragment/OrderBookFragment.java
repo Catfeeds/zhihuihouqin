@@ -44,8 +44,6 @@ public class OrderBookFragment extends BaseFragment2 {
     private BookOrderAdapter bookOrderAdapter;
     private List<BookOrderListBean.OrderlistBean> orderList;
 
-    private int serviceType = 3;
-
     @Override
     public View setLayout() {
         View view = View.inflate(getActivity(), R.layout.fragment_wait_order, null);
@@ -162,7 +160,6 @@ public class OrderBookFragment extends BaseFragment2 {
                                 if (state == 0) {
                                     Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                                     intent.putExtra("from", Constants.BOOK);
-                                    intent.putExtra("ServiceType", serviceType);
                                     intent.putExtra("OrderingID", listBean.getOrderid());
                                     startActivity(intent);
                                 } else if (state == 1) {

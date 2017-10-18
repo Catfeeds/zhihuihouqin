@@ -29,7 +29,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 类描述：净菜订单详情页
+ * 类描述：洗衣店订单详情页
  * 作者：Shixhe On 2017/10/10 0010
  */
 public class OrderDryDetailActivity extends AppCompatActivity {
@@ -98,7 +98,6 @@ public class OrderDryDetailActivity extends AppCompatActivity {
     private OrderDryClearDetailBean data;
     private OrderDryClearDetailAdapter adapter;
 
-    private int serviceType = 7;
     private CustomerDialog progressDialog;
     private int orderID; // 订单类型分类
     private int state;
@@ -116,8 +115,6 @@ public class OrderDryDetailActivity extends AppCompatActivity {
         titleBar.setTitle("订单详情");
         titleBar.setBack(true);
         orderID = getIntent().getIntExtra("OrderID", 0);
-        adapter = new OrderDryClearDetailAdapter(this, data.getDetail().getClothesList());
-        listView.setAdapter(adapter);
         getData(orderID);
     }
 
@@ -126,6 +123,10 @@ public class OrderDryDetailActivity extends AppCompatActivity {
         if (data == null) {
             ToastUtil.showToast(this, "洗衣订单数据异常！");
             return;
+        }
+        if (data.getDetail() != null && data.getDetail().getClothesList() != null) {
+            adapter = new OrderDryClearDetailAdapter(this, data.getDetail().getClothesList());
+            listView.setAdapter(adapter);
         }
         price.setText("¥" + data.getDetail().getTotalprice());
         orderId.setText("订  单  号：" + data.getDetail().getOrdercode());
@@ -234,7 +235,6 @@ public class OrderDryDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderDryDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.DRYCLEANER);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getDetail().getId());
                             startActivity(intent);
                         } else if (state == 3) {

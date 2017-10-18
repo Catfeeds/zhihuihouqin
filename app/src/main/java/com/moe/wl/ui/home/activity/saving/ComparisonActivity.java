@@ -105,18 +105,15 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     @Override
     public void initView() {
 
-        // Generate some random values.
-        generateValues();
 
-        generateData();
         lineChart.setViewportCalculationEnabled(false);
 
-        addLineToData();
-
-        columnChartc.setColumnChartData(generateColumnChartData());
+        columnChartc.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
         columnChartc.setZoomType(ZoomType.HORIZONTAL);
 
-        columnChartc.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
+        generateValues();
+        columnChartc.setColumnChartData(generateColumnChartData());
+        addLineToData();
 
         spinner1List = new ArrayList<String>();
         spinner1List.add("北京");
@@ -266,16 +263,18 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
                     popwindow=new MenuPopwindow(this, new String[]{"按年查看", "按月查看","按日查看"}, new MenuPopwindow.MyOnClick() {
                         @Override
                         public void click(String s, int pos) {
-                            tvRight.setText(s);
                             if (pos==0){
+                                tvRight.setText("按年");
                                 Intent intent=new Intent(ComparisonActivity.this,SelectDateActivity.class);
                                 intent.putExtra("type",0);
                                 startActivityForResult(intent,REQUEST_CODE);
                             }if (pos==1){
+                                tvRight.setText("按月");
                                 Intent intent=new Intent(ComparisonActivity.this,SelectDateActivity.class);
                                 intent.putExtra("type",1);
                                 startActivityForResult(intent,REQUEST_CODE);
                             }else if (pos==2){
+                                tvRight.setText("按日");
                                 startActivityForResult(new Intent(ComparisonActivity.this,CalendarActivity.class),REQUEST_CODE);
                             }
                         }
@@ -284,7 +283,8 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
                 popwindow.showPopupWindow(this,llRight);
                 break;
             case R.id.bt_end:
-
+                columnChartc.setColumnChartData(generateColumnChartData());
+                generateData();
                 break;
         }
     }

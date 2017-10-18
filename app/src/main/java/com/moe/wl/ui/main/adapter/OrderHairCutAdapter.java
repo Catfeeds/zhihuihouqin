@@ -33,7 +33,6 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
     private OnPayClickListener payListener;
     private OnClickListener listener;
 
-
     public OrderHairCutAdapter(Context context, List<OrderHairCutBean.OrderlistEntity> data, int state) {
         this.context = context;
         this.data = data;
@@ -49,7 +48,6 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
-
         GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getPhoto(), holder.header);
         holder.userName.setText(data.get(position).getRealname());
         holder.orderNumber.setText("订  单  号：" + data.get(position).getOrdercode());

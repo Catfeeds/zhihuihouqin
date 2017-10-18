@@ -38,6 +38,7 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:paddingRight="10dp"
+            android:gravity="right"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/tv_right"
@@ -46,16 +47,21 @@
                 android:layout_marginRight="5dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:textColor="@color/white"
-                android:text="按月" />
+                android:textColor="@color/font_black"
+                android:text="按日" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_triangle_down" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -77,6 +83,7 @@
         android:layout_height="40dp"
         android:paddingLeft="10dp"
         android:gravity="center_vertical"
+        android:textColor="@color/font_black"
         android:text="数据详情"/>
 
     <LinearLayout
@@ -90,6 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:textColor="@color/font_black"
             android:text="教育部"/>
 
         <LinearLayout
@@ -101,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:textColor="@color/font_black"
                 android:text="日期："/>
 
             <TextView
@@ -108,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="2017-10-10"/>
+                android:textColor="@color/font_black" />
 
         </LinearLayout>
 
@@ -121,6 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:textColor="@color/font_black"
                 android:text="用电量："/>
 
             <TextView
@@ -128,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="120"/>
+                android:textColor="@color/font_black" />
 
         </LinearLayout>
 
@@ -141,6 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:textColor="@color/font_black"
                 android:text="用水量："/>
 
             <TextView
@@ -148,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="3.9"/>
+                android:textColor="@color/font_black" />
 
         </LinearLayout>
 

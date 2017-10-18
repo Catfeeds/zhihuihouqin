@@ -2,6 +2,7 @@ package com.moe.wl.ui.home.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
@@ -26,10 +27,14 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 /**
  * 用电排行
  */
-public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageView, HomePagePresenter> implements HomePageView{
+public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageView, HomePagePresenter> implements HomePageView {
 
     @BindView(R.id.mChart)
     ColumnChartView mChart;
+    @BindView(R.id.tv_type)
+    TextView tvType;
+    @BindView(R.id.tv_avg)
+    TextView tvAvg;
 
     private boolean hasLabels = false;
     private boolean hasLabelForSelected = false;
@@ -66,6 +71,25 @@ public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageV
 
     }
 
+    /**
+     * 设置排行类型
+     */
+    public void setType(int type) {
+        if (type == 0) {
+            tvType.setText("楼总量排行");
+            generateStackedData();
+        }else if (type == 1) {
+            tvType.setText("楼总单位面积排行");
+            generateStackedData();
+        }else if (type == 2) {
+            tvType.setText("部门总量排行");
+            generateStackedData();
+        }else if (type == 3) {
+            tvType.setText("部门单位人员排行");
+            generateStackedData();
+        }
+    }
+
     private void generateStackedData() {
         int numSubcolumns = 4;
         int numColumns = 8;
@@ -76,7 +100,7 @@ public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageV
 
             values = new ArrayList<SubcolumnValue>();
             for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 20f + 5, ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) Math.random() * 20f + 5, ChartUtils.rankColor()));
             }
 
             Column column = new Column(values);
@@ -93,17 +117,12 @@ public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageV
         if (hasAxes) {
             Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
-            if (hasAxesNames) {
-                axisX.setName("Axis X");
-                axisY.setName("Axis Y");
-            }
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);
             data.setAxisYLeft(null);
         }
-
         mChart.setColumnChartData(data);
     }
 

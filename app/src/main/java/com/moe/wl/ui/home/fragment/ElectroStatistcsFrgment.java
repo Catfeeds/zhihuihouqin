@@ -1,9 +1,12 @@
 package com.moe.wl.ui.home.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
@@ -33,7 +36,7 @@ import lecho.lib.hellocharts.view.PieChartView;
 /**
  * 用电统计
  */
-public class ElectroStatistcsFrgment extends BaseFragment<HomePageModel, HomePageView, HomePagePresenter> implements HomePageView ,View.OnClickListener{
+public class ElectroStatistcsFrgment extends BaseFragment<HomePageModel, HomePageView, HomePagePresenter> implements HomePageView, View.OnClickListener {
 
     @BindView(R.id.bt_type)
     Button btType;
@@ -41,6 +44,10 @@ public class ElectroStatistcsFrgment extends BaseFragment<HomePageModel, HomePag
     RelativeLayout rlColumnChart;
     @BindView(R.id.rl_preChart)
     RelativeLayout rlPreChart;
+    @BindView(R.id.tv_unit)
+    TextView tvUnit;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private int type;   //0柱形图  1饼状图
 
@@ -89,17 +96,28 @@ public class ElectroStatistcsFrgment extends BaseFragment<HomePageModel, HomePag
 
     }
 
+    public void setType(String time,String unit) {
+        if (type == 0){
+            tvTitle.setText(time+"耗能统计（时间单位："+unit+")");
+        }else{
+            tvTitle.setText(time+"用能比例（时间单位："+unit+")");
+        }
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_type://二维码扫描
                 if (type == 1) {
-                    type=0;
+                    type = 0;
                     btType.setText("用能比例");
+                    tvUnit.setVisibility(View.VISIBLE);
                     rlColumnChart.setVisibility(View.VISIBLE);
                     rlPreChart.setVisibility(View.GONE);
                 } else {
-                    type=1;
+                    type = 1;
+                    tvUnit.setVisibility(View.GONE);
                     btType.setText("耗能统计");
                     rlColumnChart.setVisibility(View.GONE);
                     rlPreChart.setVisibility(View.VISIBLE);
@@ -126,8 +144,8 @@ public class ElectroStatistcsFrgment extends BaseFragment<HomePageModel, HomePag
 
         ColumnChartData data = new ColumnChartData(columns);
 
-        data.setAxisXBottom(new Axis().setName("Axis X"));
-        data.setAxisYLeft(new Axis().setName("Axis Y").setHasLines(true));
+        data.setAxisXBottom(new Axis());
+        data.setAxisYLeft(new Axis().setHasLines(true));
         return data;
 
     }
@@ -145,4 +163,11 @@ public class ElectroStatistcsFrgment extends BaseFragment<HomePageModel, HomePag
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 }

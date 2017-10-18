@@ -52,6 +52,12 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
         holder.arriveTime.setText("送达时间：" + data.get(position).getSendTime());
         holder.number.setText("预订数量：" + data.get(position).getCount() + "份");
 
+        if (data.get(position).getType() == 1) {
+            holder.fixation.setVisibility(View.GONE);
+        } else {
+            holder.fixation.setVisibility(View.VISIBLE);
+        }
+
         switch (state) {
             case 0:
                 holder.comment.setVisibility(View.GONE);
@@ -118,6 +124,8 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
         TextView order;
         @BindView(R.id.comment)
         TextView comment;
+        @BindView(R.id.fixation)
+        TextView fixation;
         @BindView(R.id.item)
         LinearLayout item;
 

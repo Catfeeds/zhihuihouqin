@@ -57,6 +57,8 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
     private List<String> list_Title;          //tab名的列表
     private MyFragmentPagerAdapter adapter;
     private MenuPopwindow popwindow;
+    private ElectroRankingFrgment f1;
+    private WaterRankingFragment f2;
 
     @Override
     public RankingPresenter createPresenter() {
@@ -82,8 +84,8 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
 
         tabs.setupWithViewPager(viewpager);
 
-        ElectroRankingFrgment f1 = new ElectroRankingFrgment();
-        WaterRankingFragment f2 = new WaterRankingFragment();
+        f1 = new ElectroRankingFrgment();
+        f2 = new WaterRankingFragment();
 
         list_Title = new ArrayList<>();
         list_Title.add("用电");
@@ -109,6 +111,12 @@ public class RankingActivity extends BaseActivity<RankingModel, RankingView, Ran
                     popwindow=new MenuPopwindow(this, new String[]{"楼总量", "楼总单位面积","部门总量","部门单位面积"}, new MenuPopwindow.MyOnClick() {
                         @Override
                         public void click(String s, int pos) {
+                            if (f1!=null){
+                                f1.setType(pos);
+                            }
+                            if (f2!=null){
+                                f2.setType(pos);
+                            }
                             tvRight.setText(s);
                         }
                     });

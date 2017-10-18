@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.modelimpl;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.ui.main.model.OrderingModel;
+
 import mvp.cn.util.LogUtil;
 import rx.Observable;
 
@@ -12,9 +13,9 @@ import rx.Observable;
 
 public class OrderingModelImpl implements OrderingModel {
     @Override
-    public Observable getData(String userName, String phoneNumber, int timeId, int count, int addressId) {
+    public Observable getData(String phoneNumber, int count, int type, String fixedmealtype, int duration) {
         LogUtil.log("OrderingModelImpl-->getData");
-        Observable observer = RetrofitUtils.getInstance().createOrdering(userName, phoneNumber, timeId, count, addressId);
+        Observable observer = RetrofitUtils.getInstance().createOrdering(phoneNumber, count, type, fixedmealtype, duration);
         return observer;
     }
 

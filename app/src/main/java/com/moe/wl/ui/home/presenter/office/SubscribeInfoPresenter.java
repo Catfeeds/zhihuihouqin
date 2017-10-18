@@ -16,9 +16,9 @@ import rx.Subscriber;
 
 public class SubscribeInfoPresenter extends MvpRxPresenter<SubscribeInfoModel, SubscribeInfoView> {
 
-    public void subscribeInfo() {
+    public void findAvailableEquipment(String id) {
         getView().showProgressDialog();
-        Observable request = getModel().subscribeInfo();
+        Observable request = getModel().findAvailableEquipment(id);
         getNetWork(request, new Subscriber<CollectBean>() {
 
             @Override

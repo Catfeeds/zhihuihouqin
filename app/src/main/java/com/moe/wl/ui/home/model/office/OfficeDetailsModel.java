@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface OfficeDetailsModel extends MvpModel {
 
-    Observable officedetails();
+    Observable officedetails(String id);
 
 }

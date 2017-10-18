@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
+import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
+import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.login.bean.RegistBean;
@@ -359,7 +361,7 @@ public interface NetAPI {
 
     //获取取消原因列表
     @FormUrlEncoded
-    @POST(NetUrl.cancelDryOrder)
+    @POST(NetUrl.cancelDryReason)
     Observable<ReasonBean> getDryCancelList(@FieldMap Map<String, Object> map);
 
     //提交并删除订单
@@ -466,11 +468,6 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.orderReason)
     Observable<ReasonBean> getReason(@FieldMap Map<String, Object> map);
-
-    //取消工作餐订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelMealOrder)
-    Observable<CollectBean> cancelMealOrder(@FieldMap Map<String, Object> map);
 
     //获取营养套餐列表
     @FormUrlEncoded
@@ -604,50 +601,62 @@ public interface NetAPI {
     @POST(NetUrl.getMessageList)
     Observable<MessageListBean> getMessageList(@FieldMap Map<String, Object> map);
 
-    // 取消医疗订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelMedicalOrder)
-    Observable<CollectBean> cancelMedicalOrder(@FieldMap Map<String, Object> map);
+    /** **************************************************************************************
+     // 取消医疗订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelMedicalOrder)
+     Observable<CollectBean> cancelMedicalOrder(@FieldMap Map<String, Object> map);
 
-    // 取消专家订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelExpertsOrder)
-    Observable<CollectBean> cancelExpertsOrder(@FieldMap Map<String, Object> map);
+     // 取消专家订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelExpertsOrder)
+     Observable<CollectBean> cancelExpertsOrder(@FieldMap Map<String, Object> map);
 
-    // 取消报修订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelRepairsOrder)
-    Observable<CollectBean> cancelRepairsOrder(@FieldMap Map<String, Object> map);
+     //取消工作餐订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelMealOrder)
+     Observable<CollectBean> cancelMealOrder(@FieldMap Map<String, Object> map);
 
-    // 取消剪发订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelHairCutOrder)
-    Observable<CollectBean> cancelHairCutOrder(@FieldMap Map<String, Object> map);
+     // 取消报修订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelRepairsOrder)
+     Observable<CollectBean> cancelRepairsOrder(@FieldMap Map<String, Object> map);
 
-    // 取消图书订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelBookOrder)
-    Observable<CollectBean> cancelBookOrder(@FieldMap Map<String, Object> map);
+     // 取消剪发订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelHairCutOrder)
+     Observable<CollectBean> cancelHairCutOrder(@FieldMap Map<String, Object> map);
 
-    // 取消办公用品订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelOfficeOrder)
-    Observable<CollectBean> cancelOfficeOrder(@FieldMap Map<String, Object> map);
+     // 取消图书订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelBookOrder)
+     Observable<CollectBean> cancelBookOrder(@FieldMap Map<String, Object> map);
 
-    // 取消订水订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelWaterOrder)
-    Observable<CollectBean> cancelWaterOrder(@FieldMap Map<String, Object> map);
+     // 取消办公用品订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelOfficeOrder)
+     Observable<CollectBean> cancelOfficeOrder(@FieldMap Map<String, Object> map);
 
-    // 取消净菜订单
-    @FormUrlEncoded
-    @POST(NetUrl.cancelVegetableOrder)
-    Observable<CollectBean> cancelVegetableOrder(@FieldMap Map<String, Object> map);
+     // 取消订水订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelWaterOrder)
+     Observable<CollectBean> cancelWaterOrder(@FieldMap Map<String, Object> map);
+
+     // 取消净菜订单
+     @FormUrlEncoded
+     @POST(NetUrl.cancelVegetableOrder)
+     Observable<CollectBean> cancelVegetableOrder(@FieldMap Map<String, Object> map);
+     ***************************************************************************************** */
 
     // 获取取消订单原因
     @FormUrlEncoded
     @POST(NetUrl.getCancelReason)
     Observable<ReasonBean> getCancelReason(@FieldMap Map<String, Object> map);
+
+    // 取消所有订单的接口
+    @FormUrlEncoded
+    @POST(NetUrl.cancelOrder)
+    Observable<CollectBean> cancelOrder(@FieldMap Map<String, Object> map);
 
     /*----------------------------------获取各种订单列表-------------------------------------*/
 
@@ -770,6 +779,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.deleteBookOrder)
     Observable<CollectBean> deleteBookOrder(@FieldMap Map<String, Object> map);
+
+    // 删除图书订单
+    @FormUrlEncoded
+    @POST(NetUrl.deleteBookOrder)
+    Observable<CollectBean> deleteConferenceOrder(@FieldMap Map<String, Object> map);
 
     // 删除净菜订单
     @FormUrlEncoded
@@ -933,17 +947,22 @@ public interface NetAPI {
     //办公室详情
     @FormUrlEncoded
     @POST(NetUrl.officedetails)
-    Observable<OfficeListResponse> officedetails(@FieldMap Map<String, Object> map);
+    Observable<OfficeDetailsResponse> officedetails(@FieldMap Map<String, Object> map);
 
-    //填写预订信息
+    //生成会议室订单
     @FormUrlEncoded
     @POST(NetUrl.subscribeInfo)
     Observable<OfficeListResponse> subscribeInfo(@FieldMap Map<String, Object> map);
 
-    //办公室预订订单信息
+    //查询会议室预约列表
     @FormUrlEncoded
-    @POST(NetUrl.orderinfo)
-    Observable<OfficeListResponse> orderinfo(@FieldMap Map<String, Object> map);
+    @POST(NetUrl.findAvailableTime)
+    Observable<SubscribeTimeResponse> findAvailableTime(@FieldMap Map<String, Object> map);
+
+    //查询会议室内可以预定的设备
+    @FormUrlEncoded
+    @POST(NetUrl.findAvailableEquipment)
+    Observable<OfficeListResponse> findAvailableEquipment(@FieldMap Map<String, Object> map);
 
     //资讯列表
     @FormUrlEncoded

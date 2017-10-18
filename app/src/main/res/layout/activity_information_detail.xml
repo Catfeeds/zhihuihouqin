@@ -7,8 +7,9 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -93,7 +94,6 @@
                 android:dividerHeight="0dp">
 
             </com.moe.wl.framework.widget.NoSlidingListView>
-
         </LinearLayout>
     </ScrollView>
 
@@ -118,7 +118,7 @@
             android:padding="3dp"
             android:src="@drawable/back" />
 
-        <EditText
+        <TextView
             android:id="@+id/et_comment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -126,13 +126,12 @@
             android:layout_weight="1"
             android:background="@drawable/shap_write_comment"
             android:gravity="center_vertical"
-            android:hint="写评论"
             android:paddingBottom="3dp"
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
             android:paddingTop="3dp"
-            android:textColor="@color/tv_black"
-            android:textColorHint="@color/gray"
+            android:text="写评论"
+            android:textColor="@color/tv_gray"
             android:textSize="@dimen/sp_small" />
 
         <ImageView

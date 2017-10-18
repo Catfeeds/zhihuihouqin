@@ -31,7 +31,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 类描述：
+ * 类描述：报修订单详情页
  * 作者：Shixhe On 2017/10/17 0017
  */
 public class OrderRepairDetailActivity extends AppCompatActivity {
@@ -56,7 +56,6 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
     private int orderID;
     private String mobile;
 
-    private int serviceType = 1;
     private int state;
     private CustomerDialog progressDialog;
 
@@ -151,7 +150,7 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
                 break;
 
             case R.id.comment: // TODO 评论按钮
-                OtherUtils.gotoComment(OrderRepairDetailActivity.this, orderID, Constants.DRYCLEANER);
+                OtherUtils.gotoComment(OrderRepairDetailActivity.this, orderID, Constants.PROPERRY);
                 break;
 
             case R.id.delete_order: // 删除订单按钮
@@ -181,7 +180,6 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
                 hideFragment(fragment1);
                 showFragment(fragment2);
                 break;
-
         }
     }
 
@@ -193,8 +191,7 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (state == 1) {
                             Intent intent = new Intent(OrderRepairDetailActivity.this, CancelOrderingActivity.class);
-                            intent.putExtra("from", Constants.DRYCLEANER);
-                            intent.putExtra("ServiceType", serviceType);
+                            intent.putExtra("from", Constants.PROPERRY);
                             intent.putExtra("OrderingID", orderID);
                             startActivity(intent);
                         } else if (state == 2) {

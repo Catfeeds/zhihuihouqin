@@ -9,6 +9,9 @@ public interface NetUrl {
     // 首页
     String homePage = "appuser/index";
 
+    // 通用接口
+    String cancelOrder = "appuser/orderCommon/orderCancel"; // 取消订单 所有服务
+
     //
     String signup="appuser/user/login?";
     String captcha="appuser/user/getCaptcha?";

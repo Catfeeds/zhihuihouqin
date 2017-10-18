@@ -1,9 +1,12 @@
 package com.moe.wl.ui.home.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
@@ -42,6 +45,10 @@ public class WaterStatistcsFragment extends BaseFragment<HomePageModel, HomePage
     RelativeLayout rlColumnChart;
     @BindView(R.id.rl_preChart)
     RelativeLayout rlPreChart;
+    @BindView(R.id.tv_unit)
+    TextView tvUnit;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private int type;   //0柱形图  1饼状图
 
@@ -70,6 +77,14 @@ public class WaterStatistcsFragment extends BaseFragment<HomePageModel, HomePage
 
         rlPreChart.addView(pieChartView);
 
+    }
+
+    public void setType(String time, String unit) {
+        if (type == 0){
+            tvTitle.setText(time+"耗能统计（时间单位："+unit+")");
+        }else{
+            tvTitle.setText(time+"用能比例（时间单位："+unit+")");
+        }
     }
 
     @Override
@@ -141,4 +156,11 @@ public class WaterStatistcsFragment extends BaseFragment<HomePageModel, HomePage
         return data;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 }

@@ -13,8 +13,8 @@ import rx.Observable;
 public class SubscribeInfoModelImpl implements SubscribeInfoModel {
 
     @Override
-    public Observable subscribeInfo() {
-        Observable observable = RetrofitUtils.getInstance().subscribeInfo();
+    public Observable findAvailableEquipment(String id) {
+        Observable observable = RetrofitUtils.getInstance().findAvailableEquipment(id);
         return observable;
     }
 }

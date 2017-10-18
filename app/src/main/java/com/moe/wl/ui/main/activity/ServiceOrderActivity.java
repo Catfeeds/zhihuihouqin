@@ -238,6 +238,7 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
      * @param state 上方标签
      */
     private void goServiceActivity(int index, int from, String state) {
+        pop.dismiss();
         Intent intent = new Intent(this, ServiceOrderActivity.class);
         intent.putExtra("index", index);
         intent.putExtra("from", from);

@@ -45,8 +45,6 @@ public class OrderHairCutFragment extends BaseFragment2 {
     private List<OrderHairCutBean.OrderlistEntity> data;
     private int state;
 
-    private int serviceType = 6;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -118,7 +116,6 @@ public class OrderHairCutFragment extends BaseFragment2 {
                                 int id = listBean.getOrderid();
                                 LogUtils.d("id:" + id + "  position:" + position);
                                 intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
                                 // TODO 完成理发服务
@@ -143,8 +140,8 @@ public class OrderHairCutFragment extends BaseFragment2 {
         data = new ArrayList<>();
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new OrderHairCutAdapter(getActivity(), data, state);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override

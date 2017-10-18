@@ -1,9 +1,9 @@
 package com.moe.wl.ui.home.presenter.office;
 
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.model.office.OfficeListModel;
 import com.moe.wl.ui.home.view.office.OfficeListView;
-import com.moe.wl.ui.main.bean.CollectBean;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -19,7 +19,7 @@ public class OfficeListPresenter extends MvpRxPresenter<OfficeListModel, OfficeL
     public void officelist() {
         getView().showProgressDialog();
         Observable request = getModel().officelist();
-        getNetWork(request, new Subscriber<CollectBean>() {
+        getNetWork(request, new Subscriber<OfficeListResponse>() {
 
             @Override
             public void onCompleted() {
@@ -30,15 +30,16 @@ public class OfficeListPresenter extends MvpRxPresenter<OfficeListModel, OfficeL
             public void onError(Throwable e) {
                 getView().showProgressDialog();
                 LogUtils.d("接口请求错误："+e);
-                getView().setData();
             }
 
             @Override
-            public void onNext(CollectBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().setData();
+            public void onNext(OfficeListResponse mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode() == 0) {
+                    getView().setData(mResponse.getList());
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

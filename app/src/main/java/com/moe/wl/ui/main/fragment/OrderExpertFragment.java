@@ -45,8 +45,6 @@ public class OrderExpertFragment extends BaseFragment2 {
     private List<OrderExpertBean.OrderlistEntity> data;
     private int state;
 
-    private int serviceType = 14;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -118,7 +116,6 @@ public class OrderExpertFragment extends BaseFragment2 {
                                 int id = listBean.getId();
                                 LogUtils.d("id:" + id + "  position:" + position);
                                 intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
                                 // TODO 完成理发服务

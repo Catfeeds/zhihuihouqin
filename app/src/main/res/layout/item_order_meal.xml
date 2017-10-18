@@ -24,15 +24,32 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/order_number"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="订  单  号：454242452424242424"
-                android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/order_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="订  单  号：454242452424242424"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
+
+                <TextView
+                    android:id="@+id/fixation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="固定餐"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_big"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/time"

@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface SubscribeInfoModel extends MvpModel {
 
-    Observable subscribeInfo();
+    Observable findAvailableEquipment(String id);
 
 }

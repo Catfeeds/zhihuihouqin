@@ -14,7 +14,7 @@ public class AffirmOrderModelImpl implements AffirmOrderModel {
 
     @Override
     public Observable orderinfo() {
-        Observable observable = RetrofitUtils.getInstance().orderinfo();
+        Observable observable = RetrofitUtils.getInstance().findAvailableTime("","");
         return observable;
     }
 

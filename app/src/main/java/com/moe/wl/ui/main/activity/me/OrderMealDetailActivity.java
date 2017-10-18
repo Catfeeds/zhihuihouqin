@@ -61,7 +61,6 @@ public class OrderMealDetailActivity extends AppCompatActivity {
     TextView orderTime;
     private OrderMealDetailBean data;
 
-    private int serviceType = 9;
     private CustomerDialog progressDialog;
     private int orderID; // 订单类型分类
 
@@ -176,7 +175,6 @@ public class OrderMealDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderMealDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.ORDERMEAL);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getDetail().getId());
                             startActivity(intent);
                         } else if (state == 3) {

@@ -64,7 +64,6 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
     @BindView(R.id.address)
     TextView address;
 
-    private int serviceType = 6;
     private CustomerDialog progressDialog;
     private OrderHairCutBean.OrderlistEntity data;
 
@@ -158,7 +157,6 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderHairCutDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.HAIRCUTS);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getOrderid());
                             startActivity(intent);
                         } else if (state == 3) {

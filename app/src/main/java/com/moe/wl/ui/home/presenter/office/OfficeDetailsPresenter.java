@@ -1,9 +1,9 @@
 package com.moe.wl.ui.home.presenter.office;
 
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.model.office.OfficeDetailsModel;
 import com.moe.wl.ui.home.view.office.OfficeDetailsView;
-import com.moe.wl.ui.main.bean.CollectBean;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -16,10 +16,10 @@ import rx.Subscriber;
 
 public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, OfficeDetailsView> {
 
-    public void officedetails() {
+    public void officedetails(String id) {
         getView().showProgressDialog();
-        Observable request = getModel().officedetails();
-        getNetWork(request, new Subscriber<CollectBean>() {
+        Observable request = getModel().officedetails(id);
+        getNetWork(request, new Subscriber<OfficeDetailsResponse>() {
 
             @Override
             public void onCompleted() {
@@ -29,15 +29,17 @@ public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, O
             @Override
             public void onError(Throwable e) {
                 LogUtils.d("接口请求错误："+e);
-                getView().setData();
             }
 
             @Override
-            public void onNext(CollectBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().setData();
+            public void onNext(OfficeDetailsResponse mResponse) {
+                LogUtils.d("-----------mResponse-----------"+mResponse);
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode() == 0) {
+                    getView().setData(mResponse.getRoomDetail());
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

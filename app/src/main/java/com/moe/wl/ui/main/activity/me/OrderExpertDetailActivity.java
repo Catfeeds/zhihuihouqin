@@ -74,7 +74,6 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
     private OrderExpertsDetailBean.DetailEntity data;
     private OrderMedicalDetailBean.DetailEntity bean;
 
-    private int serviceType = 14;
     private CustomerDialog progressDialog;
     private int type; // 订单类型分类
     private int orderID; // 订单ID
@@ -131,8 +130,7 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (state == 1) {
                             Intent intent = new Intent(OrderExpertDetailActivity.this, CancelOrderingActivity.class);
-                            intent.putExtra("from", Constants.OFFICESUPPLIES);
-                            intent.putExtra("ServiceType", serviceType);
+                            intent.putExtra("from", Constants.EXPERTS);
                             if (type == 1) {
                                 intent.putExtra("OrderingID", bean.getId());
                             } else {

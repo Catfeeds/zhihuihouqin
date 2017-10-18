@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.home.adapter.office.OfficeLitsAdapter;
+import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.model.office.OfficeListModel;
 import com.moe.wl.ui.home.modelimpl.office.OfficeListModelImpl;
 import com.moe.wl.ui.home.presenter.office.OfficeListPresenter;
@@ -26,12 +27,11 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
 
     private LinearLayout ll_back;
     private TextView tv_title;
-    private LinearLayout ll_right;
     private ImageView iv_icon;
     private ListView lv_content;
 
     private OfficeLitsAdapter adapter;
-    private List<String> mList;
+    private List<OfficeListResponse.ListBean> mList;
 
 
     @Override
@@ -45,10 +45,7 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
         ll_back = (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(this);
         tv_title = (TextView) findViewById(R.id.tv_title);
-        ll_right = (LinearLayout) findViewById(R.id.ll_right);
-        ll_right.setOnClickListener(this);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
-        iv_icon.setOnClickListener(this);
         lv_content = (ListView) findViewById(R.id.lv_content);
 
         initData();
@@ -73,9 +70,6 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
             case R.id.ll_back:
                 finish();
                 break;
-            case R.id.ll_right:  //标题右边搜索
-
-                break;
         }
     }
 
@@ -89,12 +83,11 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
 
     }
 
-
     @Override
-    public void setData() {
-        for (int i = 0; i < 10; i++) {
-            mList.add("办公室名称"+i);
+    public void setData(List<OfficeListResponse.ListBean> list) {
+        if (list!=null && list.size()!=0){
+            mList.addAll(list);
+            adapter.notifyDataSetChanged();
         }
-        adapter.notifyDataSetChanged();
     }
 }

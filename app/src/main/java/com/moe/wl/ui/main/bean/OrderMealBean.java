@@ -38,7 +38,7 @@ public class OrderMealBean implements Serializable {
         this.list = list;
     }
 
-    public static class ListEntity implements Serializable {
+    public static class ListEntity {
 
         private String createtime;
         private int id;
@@ -48,6 +48,7 @@ public class OrderMealBean implements Serializable {
         private String sendTime;
         private String ordercode;
         private String serviceMobile;
+        private int type;
 
         public String getCreatetime() {
             return createtime;
@@ -111,6 +112,14 @@ public class OrderMealBean implements Serializable {
 
         public void setServiceMobile(String serviceMobile) {
             this.serviceMobile = serviceMobile;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
         }
     }
 }

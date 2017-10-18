@@ -45,8 +45,6 @@ public class OrderMealFragment extends BaseFragment2 {
     private List<OrderMealBean.ListEntity> data;
     private int state;
 
-    private int serviceType = 15;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -88,6 +86,7 @@ public class OrderMealFragment extends BaseFragment2 {
                         break;
 
                     case 3: // 评价
+
                         break;
 
                     case 4: // 删除订单
@@ -111,7 +110,6 @@ public class OrderMealFragment extends BaseFragment2 {
                             if (state == 0) { // 取消订单
                                 int id = listBean.getId();
                                 intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 4) {
                                 // 删除订单

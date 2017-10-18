@@ -48,8 +48,6 @@ public class WaterFragment extends BaseFragment2 {
     private int page = 1;
     private int state;
 
-    private int serviceType = 18;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -122,7 +120,6 @@ public class WaterFragment extends BaseFragment2 {
                                 // 取消订单
                                 int id = listBean.getId(); // 订单id
                                 intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
                                 // TODO 服务电话
