@@ -80,10 +80,10 @@ public class WaterStatistcsFragment extends BaseFragment<HomePageModel, HomePage
     }
 
     public void setType(String time, String unit) {
-        if (type == 0) {
-            tvTitle.setText(time + "耗能统计（时间单位：" + unit);
-        } else {
-            tvTitle.setText(time + "用能比例（时间单位：" + unit);
+        if (type == 0){
+            tvTitle.setText(time+"耗能统计（时间单位："+unit+")");
+        }else{
+            tvTitle.setText(time+"用能比例（时间单位："+unit+")");
         }
     }
 
