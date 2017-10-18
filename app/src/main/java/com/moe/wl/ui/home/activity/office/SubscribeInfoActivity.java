@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,27 +50,18 @@ import mvp.cn.util.DateUtil;
  */
 public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, SubscribeInfoView, SubscribeInfoPresenter> implements View.OnClickListener, SubscribeInfoView {
 
-
     @BindView(R.id.ll_back)
     LinearLayout llBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_startDate)
-    TextView tvStartDate;
-    @BindView(R.id.tv_endDate)
-    TextView tvEndDate;
-    @BindView(R.id.tv_startHour)
-    TextView tvStartHour;
-    @BindView(R.id.tv_startMinute)
-    TextView tvStartMinute;
-    @BindView(R.id.tv_endHour)
-    TextView tvEndHour;
-    @BindView(R.id.tv_endMinute)
-    TextView tvEndMinute;
+    @BindView(R.id.rl_time)
+    RelativeLayout rlTime;
     @BindView(R.id.lv_equipment)
     NoSlidingGridView lvEquipment;
     @BindView(R.id.sp_type)
     Spinner spType;
+    @BindView(R.id.ll_type)
+    LinearLayout llType;
     @BindView(R.id.et_name)
     EditText etName;
     @BindView(R.id.et_number)
@@ -80,20 +72,10 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     TextView tvEnclosure;
     @BindView(R.id.et_remark)
     EditText etRemark;
-    @BindView(R.id.tv_finish)
-    TextView tvFinish;
-    @BindView(R.id.ll_startDate)
-    LinearLayout llStartDate;
-    @BindView(R.id.ll_endDate)
-    LinearLayout llEndDate;
-    @BindView(R.id.ll_startTime)
-    LinearLayout llStartTime;
-    @BindView(R.id.ll_endTime)
-    LinearLayout llEndTime;
-    @BindView(R.id.ll_type)
-    LinearLayout llType;
     @BindView(R.id.gv_pic)
     GridView gvPic;
+    @BindView(R.id.tv_finish)
+    TextView tvFinish;
 
     private StringListDialog dialog;
 
@@ -173,7 +155,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         picAdapter.setListener(new ActivityPostMulitPicAdapter.OnAddPhotoClickListener() {
             @Override
             public void onClick(int position) {
-                if(position==pics.size()-1){
+                if (position == pics.size() - 1) {
                     isOne = false;
                     showButtomDialog();
                 }
@@ -191,25 +173,15 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         return new SubscribeInfoModelImpl();
     }
 
-    @OnClick({R.id.ll_back, R.id.ll_startDate, R.id.ll_endDate, R.id.ll_startTime, R.id.ll_endTime,
-            R.id.ll_type, R.id.tv_enclosure, R.id.tv_finish})
+    @OnClick({R.id.ll_back, R.id.rl_time, R.id.ll_type, R.id.tv_enclosure, R.id.tv_finish})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_back:
                 finish();
                 break;
-            case R.id.ll_startDate:  //开始日期
-                showStartDialog();
-                break;
-            case R.id.ll_endDate:  //结束日期
-                showEndDialog();
-                break;
-            case R.id.ll_startTime:  //开始时间
-
-                break;
-            case R.id.ll_endTime:  //结束时间
-
+            case R.id.rl_time:  //预约时间
+                startActivity(new Intent(this,SubscribeTimeActivity.class));
                 break;
             case R.id.ll_type:  //会议类型
 
@@ -227,34 +199,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     public void submit() {
         startActivity(new Intent(this, AffirmOrderActivity.class));
         finish();
-    }
-
-    private void showStartDialog() {
-        if (startDialog == null) {
-            startDialog = new BottomTimeDialog(this,"选择开始日期",R.style.dialog_style);
-            startDialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
-                @Override
-                public void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5) {
-                    tvStartDate.setText(i1 + "-" + i2 + "-" + i3 );
-                }
-            });
-            startDialog.showHour(false);
-        }
-        startDialog.show();
-    }
-
-    private void showEndDialog() {
-        if (endDialog == null) {
-            endDialog = new BottomTimeDialog(this, "选择结束日期",R.style.dialog_style);
-            endDialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
-                @Override
-                public void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5) {
-                    tvEndDate.setText(i1 + "-" + i2 + "-" + i3);
-                }
-            });
-            endDialog.showHour(false);
-        }
-        endDialog.show();
     }
 
     private void showButtomDialog() {

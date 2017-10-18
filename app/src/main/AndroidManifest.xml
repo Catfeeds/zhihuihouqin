@@ -446,6 +446,9 @@
         <activity
             android:name=".ui.home.activity.office.SubscribeDefeatedActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.SubscribeTimeActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 节能减排模块 -->
         <activity
