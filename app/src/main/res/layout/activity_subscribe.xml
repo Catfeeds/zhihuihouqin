@@ -50,7 +50,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rl_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
@@ -62,211 +63,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:textColor="@color/font_black"
-                    android:text="开始日期："/>
+                    android:layout_centerVertical="true"
+                    android:text="预约时间"/>
 
-                <LinearLayout
-                    android:id="@+id/ll_startDate"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_box"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
 
-                    <TextView
-                        android:id="@+id/tv_startDate"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/font_black"
-                        android:text="2017-01-01"/>
+            </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@mipmap/ic_calendar"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/font_black"
-                    android:text="结束日期："/>
-
-                <LinearLayout
-                    android:id="@+id/ll_endDate"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_box"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_endDate"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/font_black"
-                        android:text="2017-01-01"/>
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@mipmap/ic_calendar"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/font_black"
-                    android:text="开始时间："/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/ll_startTime"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tv_startHour"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/font_black"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/bg_box"
-                            android:text="13"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/font_black"
-                            android:layout_gravity="center_vertical"
-                            android:text="："/>
-
-                        <TextView
-                            android:id="@+id/tv_startMinute"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/font_black"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/bg_box"
-                            android:text="13"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:gravity="center"
-                        android:textColor="@color/font_black"
-                        android:layout_gravity="center_vertical"
-                        android:text="至"/>
-
-                    <LinearLayout
-                        android:id="@+id/ll_endTime"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tv_endHour"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/bg_box"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="@color/font_black"
-                            android:gravity="center"
-                            android:text="13"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:gravity="center"
-                            android:textColor="@color/font_black"
-                            android:text="："/>
-
-                        <TextView
-                            android:id="@+id/tv_endMinute"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/bg_box"
-                            android:textColor="@color/font_black"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:gravity="center"
-                            android:text="13"/>
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_height="1px"
+                android:background="@color/divider"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

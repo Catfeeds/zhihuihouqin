@@ -816,11 +816,11 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
-     * 图书收藏
+     * 添加收藏
      *
      * @return
      */
-    public static Observable bookCollect(int type, int entityid) {
+    public static Observable addCollect(int type, int entityid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
@@ -831,7 +831,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.bookCollect(paramsMap));
+        return getObservable(api.addCollect(paramsMap));
     }
 
     /**
@@ -1892,6 +1892,38 @@ carcode	是	string	车牌号*/
         return getObservable(api.getInformationClass(paramsMap));
     }
 
+    /**
+     * 获取信息公告详情
+     */
+    public static Observable getInformationDetail(int id) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("nid", id);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getinformationDetail(paramsMap));
+    }
+
+    /**
+     * 评论信息公告详情
+     */
+    public static Observable informationDetailComment(int id, String content) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("nid", id);
+            tempMap.put("content", content);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.informationDetailComment(paramsMap));
+    }
 
     /**
      * 获取信息列表

@@ -29,11 +29,8 @@ public class CommentAdapter extends MyBaseAdapter<String> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-
         return convertView;
     }
-
     class ViewHolder {
         public View rootView;
         public CircleImageView iv_avatar;

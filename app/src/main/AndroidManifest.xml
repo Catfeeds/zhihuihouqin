@@ -111,8 +111,8 @@
 
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <!-- ShareSDK3.1.0版本之前才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent -->
@@ -433,9 +433,9 @@
             android:name=".ui.main.activity.MealsRecharge.MealsRechargeActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-       <!-- <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />-->
+        <!-- <meta-data
+             android:name="com.google.android.gms.version"
+             android:value="@integer/google_play_services_version" />-->
 
         <!-- 办公室预订模块 -->
         <activity
@@ -455,6 +455,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.activity.office.SubscribeDefeatedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.activity.office.SubscribeTimeActivity"
             android:screenOrientation="portrait" />
 
         <!-- 节能减排模块 -->
@@ -488,11 +491,17 @@
         <activity
             android:name=".ui.main.activity.me.OrderDryDetailActivity"
             android:screenOrientation="portrait" />
-        <!-- 报修订单详情 -->
+
         <activity
             android:name=".ui.main.activity.me.OrderRepairDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.ordering.FixedOrderActivity" />
+        <activity
+            android:name=".ui.main.activity.ordering.FixedOrderActivity"
+            android:screenOrientation="portrait" />
+        <!-- 信息公告详情 -->
+        <activity
+            android:name=".ui.main.activity.information.InformationDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -39,6 +39,7 @@ import com.moe.wl.ui.main.bean.HistoryPostBean;
 import com.moe.wl.ui.main.bean.HomePageBean;
 import com.moe.wl.ui.main.bean.InformationBean;
 import com.moe.wl.ui.main.bean.InformationClazzBean;
+import com.moe.wl.ui.main.bean.InformationDetailBean;
 import com.moe.wl.ui.main.bean.JieYueBean;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 import com.moe.wl.ui.main.bean.LabellingBean;
@@ -258,7 +259,7 @@ public interface NetAPI {
     //图书收藏
     @FormUrlEncoded
     @POST(NetUrl.healthInfoCollect)
-    Observable<CollectBean> bookCollect(@FieldMap Map<String, Object> map);
+    Observable<CollectBean> addCollect(@FieldMap Map<String, Object> map);
 
     //图书借阅
     @FormUrlEncoded
@@ -542,6 +543,16 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.informationClass)
     Observable<InformationClazzBean> getInformationClass(@FieldMap Map<String, Object> map);
+
+    // 获取信息公告详情
+    @FormUrlEncoded
+    @POST(NetUrl.getinformationDetail)
+    Observable<InformationDetailBean> getinformationDetail(@FieldMap Map<String, Object> map);
+
+    // 评论信息公告详情
+    @FormUrlEncoded
+    @POST(NetUrl.informationDetailComment)
+    Observable<CollectBean> informationDetailComment(@FieldMap Map<String, Object> map);
 
     // 获取信息公告列表
     @FormUrlEncoded

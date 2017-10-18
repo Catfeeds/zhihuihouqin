@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_firstrv_logo"
@@ -9,8 +11,7 @@
         android:layout_height="68dp"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="3dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginTop="3dp" />
 
     <TextView
         android:id="@+id/tv_firstrv_title"
@@ -23,7 +24,6 @@
         android:layout_toRightOf="@id/iv_firstrv_logo"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="美食合理搭配，健康是吃出来的，营养套餐为你贴心安排"
         android:textColor="@color/tv_black"
         android:textSize="@dimen/sp_big" />
 
@@ -42,7 +42,6 @@
             android:id="@+id/tv_firstrv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="17-07-14 10:28"
             android:textSize="@dimen/sp_small" />
 
         <TextView
@@ -50,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="机关食堂"
             android:textSize="@dimen/sp_small" />
     </LinearLayout>
 

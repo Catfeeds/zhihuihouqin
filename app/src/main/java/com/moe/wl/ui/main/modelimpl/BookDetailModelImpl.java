@@ -15,7 +15,7 @@ public class BookDetailModelImpl implements BookDetailModel {
     @Override
     public Observable getData(int type,int bookId) {
         Log.e("BookDetailModelImpl","请求数据-->bookdetail");
-        Observable observer = RetrofitUtils.getInstance().bookCollect(type,bookId);
+        Observable observer = RetrofitUtils.getInstance().addCollect(type,bookId);
         return observer ;
     }
 }
