@@ -26,8 +26,6 @@ import butterknife.OnClick;
  */
 public class InfoDetailsActivity extends BaseActivity<InformationModel, InformationView, InformationPresenter> implements InformationView, View.OnClickListener {
 
-    @BindView(R.id.ll_back)
-    LinearLayout llBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_time)
@@ -40,6 +38,12 @@ public class InfoDetailsActivity extends BaseActivity<InformationModel, Informat
     TextView tvContent;
     @BindView(R.id.lv_comment)
     NoSlidingListView lvComment;
+    @BindView(R.id.ll_back)
+    LinearLayout llBack;
+    @BindView(R.id.ll_collect)
+    LinearLayout llCollect;
+    @BindView(R.id.ll_share)
+    LinearLayout llShare;
 
     private CommentAdapter adapter;
     private List<String> mList;

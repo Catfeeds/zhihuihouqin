@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -69,9 +68,9 @@ public class MenuPopwindow extends PopupWindow {
         // 设置SelectPicPopupWindow的View
         this.setContentView(conentView);
         // 设置SelectPicPopupWindow弹出窗体的宽
-        this.setWidth(w/3);
+        this.setWidth(w);
         // 设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.setHeight(h);
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(true);
