@@ -10,7 +10,7 @@ import rx.Observable;
 
 public interface OrderingModel extends MvpModel {
 
-    Observable getData(String userName, String phoneNumber, int timeId, int count, int addressId);
+    Observable getData(String phoneNumber, int count, int type, String fixedmealtype, int duration);
 
     Observable getTime();
 

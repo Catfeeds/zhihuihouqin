@@ -19,9 +19,9 @@ import rx.Subscriber;
 
 public class OrderingPresenter extends MvpRxPresenter<OrderingModel, OrderingView> {
 
-    public void getData(String userName, String phoneNumber, int sendfoodtimeId, int count, int addressId) {
+    public void getData(String phoneNumber, int count, int type, String fixedmealtype, int duration) {
         getView().showProgressDialog();
-        Observable login = getModel().getData(userName, phoneNumber, sendfoodtimeId, count, addressId);
+        Observable login = getModel().getData(phoneNumber, count, type, fixedmealtype, duration);
         getNetWork(login, new Subscriber<CollectBean>() {
             @Override
             public void onCompleted() {

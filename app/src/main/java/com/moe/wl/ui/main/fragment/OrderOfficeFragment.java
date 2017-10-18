@@ -46,8 +46,6 @@ public class OrderOfficeFragment extends BaseFragment2 {
     private int page = 1;
     private int state;
 
-    private int serviceType = 8;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -115,7 +113,6 @@ public class OrderOfficeFragment extends BaseFragment2 {
                             if (state == 0) {
                                 int id = listBean.getId(); // 订单id
                                 intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
                                 //TODO 服务电话

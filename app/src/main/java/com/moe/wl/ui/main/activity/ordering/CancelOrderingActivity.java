@@ -6,7 +6,6 @@ import android.widget.EditText;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.ReasonAdapter;
@@ -43,8 +42,8 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
     EditText etReason;
 
     private int id;
-    private int type;
-    private List<Integer> ids;
+//    private int type;
+//    private List<Integer> ids;
 
     private ReasonAdapter adapter;
     private List<ReasonBean.ServicereasonlistEntity> data;
@@ -62,7 +61,7 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
     public void initView() {
         titleBar.setBack(true);
         titleBar.setTitle("取消订单");
-        ids = new ArrayList<>();
+//        ids = new ArrayList<>();
         data = new ArrayList<>();
         contentList = new ArrayList<>();
         adapter = new ReasonAdapter(this, data);
@@ -70,24 +69,24 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
         Intent intent = getIntent();
         from = intent.getIntExtra("from", 0);
         id = intent.getIntExtra("OrderingID", 0);
-        type = intent.getIntExtra("ServiceType", 0);
-        getPresenter().getReasonList(type);
+//        type = intent.getIntExtra("ServiceType", 0);
+        getPresenter().getReasonList(from);
 
         adapter.setOnSelectItemListener(new ReasonAdapter.OnSelectItemListener() {
             @Override
             public void onSelect(int id, String content, boolean isSelect) {
                 if (isSelect) {
                     // 添加ID
-                    ids.add(id);
+//                    ids.add(id);
                     contentList.add(content);
                 } else {
                     // 删除ID
-                    for (int i = 0; i < ids.size(); i++) {
+                    /*for (int i = 0; i < ids.size(); i++) {
                         if (id == ids.get(i)) {
                             ids.remove(i);
                             return;
                         }
-                    }
+                    }*/
                     for (int i = 0; i < contentList.size(); i++) {
                         if (content.equals(contentList.get(i))) {
                             contentList.remove(i);
@@ -124,10 +123,6 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
                     ToastUtil.showToast(CancelOrderingActivity.this, "当前订单信息错误！");
                     return;
                 }
-                int[] reasonId = new int[ids.size()];
-                for (int i = 0; i < ids.size(); i++) {
-                    reasonId[i] = ids.get(i);
-                }
                 String reasonContent = "";
                 for (int i = 0; i < contentList.size(); i++) {
                     reasonContent += contentList.get(i) + ",";
@@ -137,36 +132,7 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
                     reasonContent = reasonContent.substring(0, reasonContent.length() - 1);
                 }
                 reasonContent = reasonContent + content;
-                switch (from) {
-                    case Constants.PROPERRY:
-                        getPresenter().cancelRepairsOrder(id, reasonContent);
-                        break;
-                    case Constants.OFFICESUPPLIES:
-                        getPresenter().cancelOfficeOrder(id, reasonId, content);
-                        break;
-                    case Constants.ORDERMEAL:
-                        getPresenter().cancelMealOrder(id, reasonId, content);
-                        break;
-                    case Constants.HAIRCUTS:
-                        getPresenter().cancelHaircutsOrder(id, reasonContent);
-                        break;
-                    case Constants.ORDERWATER:
-                        getPresenter().cancelWaterOrder(id, reasonId, content);
-                        break;
-                    case Constants.MEDICAL:
-                        getPresenter().cancelMedicalOrder(id, reasonContent);
-                        break;
-                    case Constants.EXPERTS:
-                        getPresenter().cancelExpertsOrder(id, reasonContent);
-                        break;
-                    case Constants.DRYCLEANER:
-                        getPresenter().cancelDryOrder(id, reasonId, content);
-                        break;
-                    case Constants.BOOK:
-                        getPresenter().cancelBookOrder(id, reasonContent);
-                        break;
-                }
-                break;
+                getPresenter().cancelOrder(from, id, reasonContent);
         }
     }
 

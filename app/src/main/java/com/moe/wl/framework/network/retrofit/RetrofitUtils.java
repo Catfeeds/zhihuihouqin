@@ -1476,16 +1476,16 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable createOrdering(String userName, String phoneNumber, int timeId, int count, int addressId) {
+    public static Observable createOrdering(String phoneNumber, int count, int type, String fixedmealtype, int duration) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("realname", userName);
+            Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("mobile", phoneNumber);
-            tempMap.put("sendfoodtimeId", timeId + "");
-            tempMap.put("count", count + "");
-            tempMap.put("addressId", addressId + "");
-            addParam(paramsMap, tempMap);
+            tempMap.put("count", count);
+            tempMap.put("type", type);
+            tempMap.put("fixedmealtype", fixedmealtype);
+            tempMap.put("duration", duration);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -2083,7 +2083,6 @@ carcode	是	string	车牌号*/
     }
 
      /*--------------------------------------------取消各种订单----------------------------------------------*/
-
     /**
      * 获取取消订单原因
      */
@@ -2100,151 +2099,20 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 取消报修订单
+     * 获取取消订单原因
      */
-    public static Observable cancelRepairOrder(int orderid, String cancelreason) {
+    public static Observable cancelOrder(int serviceType, int oid, String reasoncontent) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderid", orderid);
-            tempMap.put("cancelreason", cancelreason);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelRepairsOrder(paramsMap));
-    }
-
-    /**
-     * 取消办公用品订单
-     */
-    public static Observable cancelOfficeOrder(int oid, int[] reasonIds, String reasonContent) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("serviceType", serviceType);
             tempMap.put("oid", oid);
-            tempMap.put("reasonIds", reasonIds);
-            tempMap.put("reasonContent", reasonContent);
+            tempMap.put("reasoncontent", reasoncontent);
             addParams(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.cancelOfficeOrder(paramsMap));
-    }
-
-    /**
-     * 取消订餐订单
-     */
-    public static Observable cancelMealOrder(int oid, int[] reasonIds, String reasonContent) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("oid", oid);
-            tempMap.put("reasonIds", reasonIds);
-            tempMap.put("reasonContent", reasonContent);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelMealOrder(paramsMap));
-    }
-
-    /**
-     * 取消理发订单
-     */
-    public static Observable cancelHaircutsOrder(int orderid, String cancelreason) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderid", orderid);
-            tempMap.put("cancelreason", cancelreason);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelHairCutOrder(paramsMap));
-    }
-
-    /**
-     * 取消订水订单
-     */
-    public static Observable cancelWaterOrder(int oid, int[] reasonIds, String reasonContent) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("oid", oid);
-            tempMap.put("reasonIds", reasonIds);
-            tempMap.put("reasonContent", reasonContent);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelWaterOrder(paramsMap));
-    }
-
-    /**
-     * 取消医疗订单
-     */
-    public static Observable cancelMedicalOrder(int orderid, String cancelreason) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderid", orderid);
-            tempMap.put("cancelreason", cancelreason);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelMedicalOrder(paramsMap));
-    }
-
-    /**
-     * 取消专家坐诊订单
-     */
-    public static Observable cancelExpertsOrder(int orderid, String cancelreason) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderid", orderid);
-            tempMap.put("cancelreason", cancelreason);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelExpertsOrder(paramsMap));
-    }
-
-    /**
-     * 取消图书订单
-     */
-    public static Observable cancelBookOrder(int orderid, String cancelreason) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderid", orderid);
-            tempMap.put("cancelreason", cancelreason);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelBookOrder(paramsMap));
-    }
-
-    /**
-     * 取消净菜订单
-     */
-    public static Observable cancelVegetableOrder(int oid, int[] reasonIds, String reasonContent) {
-        Map<String, Object> paramsMap = new HashMap<>();
-        try {
-            Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("oid", oid);
-            tempMap.put("reasonIds", reasonIds);
-            tempMap.put("reasonContent", reasonContent);
-            addParams(paramsMap, tempMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return getObservable(api.cancelVegetableOrder(paramsMap));
+        return getObservable(api.cancelOrder(paramsMap));
     }
 
     /*--------------------------------------------各种订单----------------------------------------------*/
@@ -2542,6 +2410,21 @@ carcode	是	string	车牌号*/
      * 删除图书订单
      */
     public static Observable deleteBookOrder(int orderid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderid", orderid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.deleteBookOrder(paramsMap));
+    }
+
+    /**
+     * 删除会议室订单
+     */
+    public static Observable deleteConferenceOrder(int orderid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();

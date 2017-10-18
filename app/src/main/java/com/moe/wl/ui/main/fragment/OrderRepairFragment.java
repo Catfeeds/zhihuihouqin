@@ -46,8 +46,6 @@ public class OrderRepairFragment extends BaseFragment2 {
     private List<OrderRepairBean.OrderlistEntity> data;
     private int state;
 
-    private int serviceType = 1;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -128,7 +126,6 @@ public class OrderRepairFragment extends BaseFragment2 {
                                 int id = listBean.getOrderid();
                                 LogUtils.d("id:" + id + "  position:" + mPosition);
                                 intent.putExtra("OrderingID", id);
-                                intent.putExtra("ServiceType", serviceType);
                                 startActivity(intent);
                             } else if (state == 1) {
                                 //TODO 服务电话

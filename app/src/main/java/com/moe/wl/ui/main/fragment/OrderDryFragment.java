@@ -46,8 +46,6 @@ public class OrderDryFragment extends BaseFragment2 {
     private List<CheckDryOrderBean.ListEntity> list;
     private int state;
 
-    private int serviceType = 7;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(NotifyChange event) {
         getData();
@@ -104,7 +102,6 @@ public class OrderDryFragment extends BaseFragment2 {
                                 if (state == 1) {
                                     int id = listBean.getId();
                                     intent.putExtra("OrderingID", id);
-                                    intent.putExtra("ServiceType", serviceType);
                                     startActivity(intent);
                                 } else if (state == 2) {
                                     //TODO 应该是服务电话

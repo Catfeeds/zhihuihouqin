@@ -29,11 +29,11 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 图书订单Fragment
+ * 会议室订单Fragment
  * Created by 我的电脑 on 2017/9/15 0015.
  */
 
-public class OrderBookFragment extends BaseFragment2 {
+public class OrderConferenceFragment extends BaseFragment2 {
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
     Unbinder unbinder;
@@ -82,8 +82,8 @@ public class OrderBookFragment extends BaseFragment2 {
         });
     }
 
-    public static OrderBookFragment getInstance(int i) {
-        OrderBookFragment orderBookFragment = new OrderBookFragment();
+    public static OrderConferenceFragment getInstance(int i) {
+        OrderConferenceFragment orderBookFragment = new OrderConferenceFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("from", i);
         orderBookFragment.setArguments(bundle);
@@ -159,7 +159,7 @@ public class OrderBookFragment extends BaseFragment2 {
                             if (listBean != null) {
                                 if (state == 0) {
                                     Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                                    intent.putExtra("from", Constants.BOOK);
+                                    intent.putExtra("from", Constants.CONFERENCE);
                                     intent.putExtra("OrderingID", listBean.getOrderid());
                                     startActivity(intent);
                                 } else if (state == 1) {

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,8 +17,7 @@
             android:id="@+id/iv_photo"
             android:layout_width="68dp"
             android:layout_height="68dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,7 +107,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="4dp"
-            android:text="报名（15/50）"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small" />
     </RelativeLayout>

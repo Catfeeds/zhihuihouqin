@@ -64,8 +64,6 @@ public class OrderBookDetailActivity extends AppCompatActivity {
 
     private CustomerDialog progressDialog;
 
-    private int serviceType = 3;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,7 +153,6 @@ public class OrderBookDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderBookDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.BOOK);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getOrderid());
                             startActivity(intent);
                         } else if (state == 3) {

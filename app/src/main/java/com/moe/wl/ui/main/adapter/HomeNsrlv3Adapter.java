@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityDetailActivity;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 
@@ -103,7 +103,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
         private void callPhone() {
             String phone = activitylistBean.getAContactMobile();
             Log.e("phone =", phone);
-            CallPhoneUtils.callPhone(phone,mContext);
+            CallPhoneUtils.callPhone(phone, mContext);
         }
 
         public void setData(ActivityHomeBean.ActivitylistBean activitylistBean, int position) {
@@ -120,7 +120,8 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                 phone.setText("电话：" + str);
                 tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
                 tvSignUp.setText("报名(" + activitylistBean.getASignCount() + "/" + activitylistBean.getATotal() + ")");
-                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, activitylistBean.getAImg(), ivPhoto);
+//                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, activitylistBean.getAImg(), ivPhoto);
+                Glide.with(mContext).load(activitylistBean.getAImg()).placeholder(R.drawable.logo).into(ivPhoto);
             }
         }
     }

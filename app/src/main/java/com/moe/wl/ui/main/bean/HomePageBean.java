@@ -74,22 +74,35 @@ public class HomePageBean {
     }
 
     public static class BxwxOrderList {
-        private String createtime;
-        private String invitetime;
-        private String itemName;
-        private String menderMobile;
-        private String menderName;
-        private String menderPhoto;
-        private int menderid;
+        private int id;
         private int menditem;
-        private int orderId;
+        private String username;
+        private String mobile;
+        private String invitetime;
+        private String serviceplace;
+        private int menderid;
+        private String mendcontent;
+        private String mendimgs;
+        private int price;
+        private int orderstatus;
+        private int uid;
+        private String createtime;
+        private int invitetimetype;
         private int orderchange;
         private String ordercode;
-        private int orderstatus;
-        private String serviceplace;
-        private int uid;
         private int paystatus;
-        private int score;
+        private int isdel;
+        private int paytype;
+        private String cancelreason;
+        private String mendername;
+
+        public String getCancelreason() {
+            return cancelreason;
+        }
+
+        public void setCancelreason(String cancelreason) {
+            this.cancelreason = cancelreason;
+        }
 
         public String getCreatetime() {
             return createtime;
@@ -97,6 +110,14 @@ public class HomePageBean {
 
         public void setCreatetime(String createtime) {
             this.createtime = createtime;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getInvitetime() {
@@ -107,12 +128,28 @@ public class HomePageBean {
             this.invitetime = invitetime;
         }
 
-        public String getItemName() {
-            return itemName;
+        public int getInvitetimetype() {
+            return invitetimetype;
         }
 
-        public void setItemName(String itemName) {
-            this.itemName = itemName;
+        public void setInvitetimetype(int invitetimetype) {
+            this.invitetimetype = invitetimetype;
+        }
+
+        public int getIsdel() {
+            return isdel;
+        }
+
+        public void setIsdel(int isdel) {
+            this.isdel = isdel;
+        }
+
+        public String getMendcontent() {
+            return mendcontent;
+        }
+
+        public void setMendcontent(String mendcontent) {
+            this.mendcontent = mendcontent;
         }
 
         public int getMenderid() {
@@ -123,28 +160,20 @@ public class HomePageBean {
             this.menderid = menderid;
         }
 
-        public String getMenderMobile() {
-            return menderMobile;
+        public String getMendername() {
+            return mendername;
         }
 
-        public void setMenderMobile(String menderMobile) {
-            this.menderMobile = menderMobile;
+        public void setMendername(String mendername) {
+            this.mendername = mendername;
         }
 
-        public String getMenderName() {
-            return menderName;
+        public String getMendimgs() {
+            return mendimgs;
         }
 
-        public void setMenderName(String menderName) {
-            this.menderName = menderName;
-        }
-
-        public String getMenderPhoto() {
-            return menderPhoto;
-        }
-
-        public void setMenderPhoto(String menderPhoto) {
-            this.menderPhoto = menderPhoto;
+        public void setMendimgs(String mendimgs) {
+            this.mendimgs = mendimgs;
         }
 
         public int getMenditem() {
@@ -153,6 +182,14 @@ public class HomePageBean {
 
         public void setMenditem(int menditem) {
             this.menditem = menditem;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
         }
 
         public int getOrderchange() {
@@ -171,14 +208,6 @@ public class HomePageBean {
             this.ordercode = ordercode;
         }
 
-        public int getOrderId() {
-            return orderId;
-        }
-
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
-        }
-
         public int getOrderstatus() {
             return orderstatus;
         }
@@ -195,12 +224,20 @@ public class HomePageBean {
             this.paystatus = paystatus;
         }
 
-        public int getScore() {
-            return score;
+        public int getPaytype() {
+            return paytype;
         }
 
-        public void setScore(int score) {
-            this.score = score;
+        public void setPaytype(int paytype) {
+            this.paytype = paytype;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
         }
 
         public String getServiceplace() {
@@ -217,6 +254,14 @@ public class HomePageBean {
 
         public void setUid(int uid) {
             this.uid = uid;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
         }
     }
 

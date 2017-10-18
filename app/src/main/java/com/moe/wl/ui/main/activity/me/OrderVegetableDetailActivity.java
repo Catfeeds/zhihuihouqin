@@ -67,7 +67,6 @@ public class OrderVegetableDetailActivity extends AppCompatActivity {
 
     private OrderVegetableDetailBean data;
 
-    private int serviceType = 18;
     private CustomerDialog progressDialog;
     private int orderID; // 订单类型分类
 
@@ -183,7 +182,6 @@ public class OrderVegetableDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderVegetableDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.VEGETABLE);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getDetail().getId());
                             startActivity(intent);
                         } else if (state == 3) {

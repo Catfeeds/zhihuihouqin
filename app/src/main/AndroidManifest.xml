@@ -481,10 +481,11 @@
         <activity
             android:name=".ui.main.activity.me.OrderDryDetailActivity"
             android:screenOrientation="portrait" />
-
+        <!-- 报修订单详情页面 -->
         <activity
             android:name=".ui.main.activity.me.OrderRepairDetailActivity"
             android:screenOrientation="portrait" />
+        <!-- 固定餐预订页面 -->
         <activity
             android:name=".ui.main.activity.ordering.FixedOrderActivity"
             android:screenOrientation="portrait" />

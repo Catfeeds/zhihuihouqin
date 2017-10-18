@@ -20,19 +20,25 @@ public class Constants {
     public static final int SET_PWD = 4;//设置密码
     public static int checkHistoryNeedItem = 7;
     public static String YIJIANFANKUI = "yijianfankui";
-
-    public static final int PROPERRY = 100001;// 维修订单
-    public static final int OFFICESUPPLIES = 100002;// 办公用品
-    public static final int ORDERMEAL = 100003;// 订餐订单
-    public static final int HAIRCUTS = 100004; // 理发订单
-    public static final int ORDERWATER = 100005; // 订水订单
-    public static final int MEDICAL = 100006; // 医疗订单
-    public static final int EXPERTS = 100007; // 专家坐诊
-    public static final int DRYCLEANER = 100008; // 洗衣店
-    public static final int BOOK = 100009; // 图书订单
-    public static final int VEGETABLE = 100010; // 净菜订单
     public static final int BARBER = 100011; // 理发师
 
+    public static final int PROPERRY = 1;// 维修订单
+    public static final int MEDICAL = 2; // 医疗订单
+    public static final int BOOK = 3; // 图书订单
+    public static final int MEALSPAY = 4; // 餐费充值
+    public static final int TEAMACTIVE = 5; // 团队活动
+    public static final int HAIRCUTS = 6; // 理发订单
+    public static final int CONFERENCE = 7; // 会议室
+    public static final int OFFICESUPPLIES = 8;// 办公用品
+    public static final int VEGETABLE = 9; // 净菜订单
+    public static final int NUTRITION = 10; // 营养套餐
+    public static final int INFORMATION = 11; // 信息公告
+    public static final int CONPLAIN = 12; // 意见反馈
+    public static final int HEALTH = 13; // 健康资讯
+    public static final int EXPERTS = 14; // 专家坐诊
+    public static final int ORDERMEAL = 15;// 订餐订单
+    public static final int DRYCLEANER = 16; // 洗衣店
+    public static final int ORDERWATER = 18; // 订水订单
 }
 
 

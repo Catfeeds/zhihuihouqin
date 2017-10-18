@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -30,7 +31,7 @@ import rx.Subscriber;
 import static android.R.attr.type;
 
 /**
- * 类描述：订水订单详情页
+ * 类描述：办公用品订单详情页
  * 作者：Shixhe On 2017/10/10 0010
  */
 public class OrderOfficeDetailActivity extends AppCompatActivity {
@@ -73,10 +74,11 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
     TextView deleteOrder;
     @BindView(R.id.again_order)
     TextView againOrder;
+    @BindView(R.id.ll_cancel)
+    LinearLayout llCancel;
 
     private OrderOfficeDetailBean data;
 
-    private int serviceType = 18;
     private CustomerDialog progressDialog;
     private int orderID; // 订单类型分类
 
@@ -97,7 +99,7 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
     }
 
     // 设置页面
-    private void setUI(){
+    private void setUI() {
         if (data == null) {
             ToastUtil.showToast(this, "订水订单数据异常！");
             finish();
@@ -160,6 +162,7 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
                 againOrder.setVisibility(View.GONE);
                 break;
             case 5: // 5：已取消
+                llCancel.setVisibility(View.VISIBLE);
                 cancelOrder.setVisibility(View.GONE);
                 comment.setVisibility(View.GONE);
                 deleteOrder.setVisibility(View.VISIBLE);
@@ -202,7 +205,6 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
                         if (state == 1) {
                             Intent intent = new Intent(OrderOfficeDetailActivity.this, CancelOrderingActivity.class);
                             intent.putExtra("from", Constants.OFFICESUPPLIES);
-                            intent.putExtra("ServiceType", serviceType);
                             intent.putExtra("OrderingID", data.getDetail().getId());
                             startActivity(intent);
                         } else if (state == 3) {
