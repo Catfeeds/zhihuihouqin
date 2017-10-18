@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moe.wl.R;
-import mvp.cn.util.CommonUtil;
 
 /**
  * 类描述：
@@ -48,12 +47,11 @@ public class CommentPop extends PopupWindow {
                 if (etContent.getText().toString().trim().length() == 0) {
                     Toast.makeText(context, "内容不能为空！", Toast.LENGTH_SHORT).show();
                 } else {
+                    dismiss();
                     listener.onListener(etContent.getText().toString());
                 }
             }
         });
-
-        CommonUtil.openSoftKeyboard(context);
 
         //设置SelectPicPopupWindow的View
         this.setContentView(view);

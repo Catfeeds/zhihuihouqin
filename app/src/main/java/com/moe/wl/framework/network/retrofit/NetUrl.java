@@ -157,6 +157,8 @@ public interface NetUrl {
     String informationClass = "appuser/tnoticetype/findNoticeTypeList";
     String informationData = "appuser/tnotice/findNoticeList";
     String updataInformationClass = "appuser/tnoticetype/updateUserNoticeType";
+    String getinformationDetail = "appuser/tnotice/getNoticeInfo";
+    String informationDetailComment = "appuser/tnotice/addComment"; // 评论
 
     // 拜访人员
     String baifang="appuser/user/addVisitLog";
