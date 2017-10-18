@@ -11,6 +11,121 @@
         android:background="@color/white"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_black"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/sp_bigger"
+            android:layout_marginTop="20dp"
+            android:text="楼总量排名"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_legend_green"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/sp_smaller"
+                    android:layout_marginRight="10dp"
+                    android:text="空调用电"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_legend_yellow"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/sp_smaller"
+                    android:layout_marginRight="10dp"
+                    android:text="动力用电"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_legend_red"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/sp_smaller"
+                    android:text="照明月插座用电"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_legend_blue"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/sp_smaller"
+                    android:layout_marginRight="10dp"
+                    android:text="特殊用电"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:textSize="@dimen/sp_smaller"
+                    android:text="平均值:"/>
+                <TextView
+                    android:id="@+id/tv_avg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/font_black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/sp_smaller"
+                    android:text="152"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_black"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/sp_small"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="单位：KW/h"/>
+
         <lecho.lib.hellocharts.view.ColumnChartView
             android:id="@+id/mChart"
             android:layout_width="match_parent"
