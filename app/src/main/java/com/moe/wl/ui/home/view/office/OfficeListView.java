@@ -1,5 +1,9 @@
 package com.moe.wl.ui.home.view.office;
 
+import com.moe.wl.ui.home.bean.office.OfficeListResponse;
+
+import java.util.List;
+
 import mvp.cn.common.MvpView;
 
 /**
@@ -9,6 +13,6 @@ import mvp.cn.common.MvpView;
 
 public interface OfficeListView extends MvpView {
 
-    void setData();
+    void setData(List<OfficeListResponse.ListBean> list);
 
 }

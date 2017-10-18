@@ -13,8 +13,8 @@ import rx.Observable;
 public class OfficeDetailsModelImpl implements OfficeDetailsModel {
 
     @Override
-    public Observable officedetails() {
-        Observable observable = RetrofitUtils.getInstance().officedetails();
+    public Observable officedetails(String id) {
+        Observable observable = RetrofitUtils.getInstance().officedetails(id);
         return observable;
     }
 

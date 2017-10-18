@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.home.adapter.office.OfficeLitsAdapter;
+import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.model.office.OfficeListModel;
 import com.moe.wl.ui.home.modelimpl.office.OfficeListModelImpl;
 import com.moe.wl.ui.home.presenter.office.OfficeListPresenter;
@@ -30,7 +31,7 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
     private ListView lv_content;
 
     private OfficeLitsAdapter adapter;
-    private List<String> mList;
+    private List<OfficeListResponse.ListBean> mList;
 
 
     @Override
@@ -82,12 +83,11 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
 
     }
 
-
     @Override
-    public void setData() {
-        for (int i = 0; i < 10; i++) {
-            mList.add("办公室名称"+i);
+    public void setData(List<OfficeListResponse.ListBean> list) {
+        if (list!=null && list.size()!=0){
+            mList.addAll(list);
+            adapter.notifyDataSetChanged();
         }
-        adapter.notifyDataSetChanged();
     }
 }

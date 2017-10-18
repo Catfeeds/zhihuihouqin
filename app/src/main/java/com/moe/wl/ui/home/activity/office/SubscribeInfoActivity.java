@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -100,6 +101,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     private BottomTimeDialog startDialog;
     private BottomTimeDialog endDialog;
 
+    private String id;
+
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_subscribe);
@@ -108,6 +111,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @Override
     public void initView() {
+        id=getIntent().getStringExtra("id");
         mList = new ArrayList<>();
 
         adapter = new AffirmEquipmentAdapter(this);
@@ -146,6 +150,12 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         pics = new ArrayList<>();
 
         initGrlid();
+
+        if (!TextUtils.isEmpty(id)){
+            getPresenter().findAvailableEquipment(id);
+        }
+
+
     }
 
     private void initGrlid() {
@@ -190,7 +200,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 showButtomDialog();
                 break;
             case R.id.tv_finish:
-                getPresenter().subscribeInfo();
+
                 break;
         }
     }

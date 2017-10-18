@@ -2,7 +2,9 @@ package com.moe.wl.framework.network.retrofit;
 
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
+import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
+import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.login.bean.RegistBean;
@@ -947,17 +949,22 @@ public interface NetAPI {
     //办公室详情
     @FormUrlEncoded
     @POST(NetUrl.officedetails)
-    Observable<OfficeListResponse> officedetails(@FieldMap Map<String, Object> map);
+    Observable<OfficeDetailsResponse> officedetails(@FieldMap Map<String, Object> map);
 
-    //填写预订信息
+    //生成会议室订单
     @FormUrlEncoded
     @POST(NetUrl.subscribeInfo)
     Observable<OfficeListResponse> subscribeInfo(@FieldMap Map<String, Object> map);
 
-    //办公室预订订单信息
+    //查询会议室预约列表
     @FormUrlEncoded
-    @POST(NetUrl.orderinfo)
-    Observable<OfficeListResponse> orderinfo(@FieldMap Map<String, Object> map);
+    @POST(NetUrl.findAvailableTime)
+    Observable<SubscribeTimeResponse> findAvailableTime(@FieldMap Map<String, Object> map);
+
+    //查询会议室内可以预定的设备
+    @FormUrlEncoded
+    @POST(NetUrl.findAvailableEquipment)
+    Observable<OfficeListResponse> findAvailableEquipment(@FieldMap Map<String, Object> map);
 
     //资讯列表
     @FormUrlEncoded

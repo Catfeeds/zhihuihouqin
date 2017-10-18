@@ -1,6 +1,7 @@
 package com.moe.wl.ui.home.activity.office;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,8 +9,10 @@ import android.widget.TextView;
 import com.daimajia.slider.library.SliderLayout;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.home.adapter.office.OfficeEquipmentAdapter;
+import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.model.office.OfficeDetailsModel;
 import com.moe.wl.ui.home.modelimpl.office.OfficeDetailsModelImpl;
 import com.moe.wl.ui.home.presenter.office.OfficeDetailsPresenter;
@@ -39,9 +42,9 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
     private TextView tv_subscribe;
 
     private OfficeEquipmentAdapter adapter;
-    private List<String> mList;
+    private List<OfficeDetailsResponse.RoomDetailBean.EnameListBean> mList;
 
-
+    private String id;
 
     @Override
     public void setContentLayout() {
@@ -51,6 +54,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
     @Override
     public void initView() {
+        id=getIntent().getStringExtra("id");
 
         ll_back = (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(this);
@@ -67,7 +71,10 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
         tv_subscribe.setOnClickListener(this);
 
         initData();
-        getPresenter().officedetails();
+        if (!TextUtils.isEmpty(id)){
+            LogUtils.d("-----------id-----------"+id);
+            getPresenter().officedetails(id);
+        }
 
     }
 
@@ -106,19 +113,30 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
     }
 
-
     @Override
-    public void setData() {
-        tv_name.setText("会议室名称");
-        tv_saturation.setText("60人");
-        tv_time.setText("全天");
-        tv_number.setText("305次");
-        tv_location.setText("业务楼401");
-        tv_introduce.setText("会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍会议室介绍");
+    public void setData(OfficeDetailsResponse.RoomDetailBean bean) {
+        if (bean!=null){
+            tv_name.setText(bean.getName());
+            tv_saturation.setText(bean.getCapacity()+"人");
+            if ("1".equals(bean.getTimeserving())){
+                tv_time.setText("上午");
+            }else if ("2".equals(bean.getTimeserving())){
+                tv_time.setText("下午午");
+            }else if ("3".equals(bean.getTimeserving())){
+                tv_time.setText("全天");
+            }else{
+                tv_time.setText("全天");
+            }
+            tv_number.setText(bean.getUsenumber());
+            tv_location.setText(bean.getAddress());
 
-        for (int i = 0; i < 6; i++) {
-            mList.add("投影仪" + i);
+            tv_introduce.setText(bean.getIntroduce());
+
+            if (bean.getEnameList()!=null){
+
+            }
+            mList.addAll(bean.getEnameList());
+            adapter.notifyDataSetChanged();
         }
-        adapter.notifyDataSetChanged();
     }
 }

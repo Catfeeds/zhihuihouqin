@@ -8,8 +8,8 @@ import rx.Observable;
  * 办公室预订
  */
 
-public interface SubscribeInfoModel extends MvpModel {
+public interface SubscribeTimeModel extends MvpModel {
 
-    Observable findAvailableEquipment(String id);
+    Observable findAvailableEquipment(String roomid,String date);
 
 }

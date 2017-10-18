@@ -57,7 +57,6 @@ public class SubscribeDefeatedActivity extends BaseActivity<SubscribeInfoModel, 
                 finish();
                 break;
             case R.id.tv_submit:
-                getPresenter().subscribeInfo();
                 break;
         }
     }

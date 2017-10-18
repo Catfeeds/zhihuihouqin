@@ -1,9 +1,9 @@
 package com.moe.wl.ui.home.presenter.office;
 
 import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
-import com.moe.wl.ui.home.model.office.OfficeDetailsModel;
-import com.moe.wl.ui.home.view.office.OfficeDetailsView;
+import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
+import com.moe.wl.ui.home.model.office.SubscribeTimeModel;
+import com.moe.wl.ui.home.view.office.SubscribeTimeView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -14,12 +14,12 @@ import rx.Subscriber;
  * 作者：Shixhe On 2017/9/7 0007
  */
 
-public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, OfficeDetailsView> {
+public class SubscribeTimePresenter extends MvpRxPresenter<SubscribeTimeModel, SubscribeTimeView> {
 
-    public void officedetails(String id) {
+    public void findAvailableEquipment(String roomid,String date) {
         getView().showProgressDialog();
-        Observable request = getModel().officedetails(id);
-        getNetWork(request, new Subscriber<OfficeDetailsResponse>() {
+        Observable request = getModel().findAvailableEquipment(roomid,date);
+        getNetWork(request, new Subscriber<SubscribeTimeResponse>() {
 
             @Override
             public void onCompleted() {
@@ -28,16 +28,14 @@ public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, O
 
             @Override
             public void onError(Throwable e) {
+                getView().showProgressDialog();
                 LogUtils.d("接口请求错误："+e);
             }
 
             @Override
-            public void onNext(OfficeDetailsResponse mResponse) {
-                LogUtils.d("-----------mResponse-----------"+mResponse);
-                if (mResponse==null)
-                    return;
+            public void onNext(SubscribeTimeResponse mResponse) {
                 if (mResponse.getErrCode() == 0) {
-                    getView().setData(mResponse.getRoomDetail());
+                    getView().setData(mResponse.getAppointmentList());
                 } else {
                     getView().showToast(mResponse.getMsg());
                 }

@@ -2946,10 +2946,11 @@ carcode	是	string	车牌号*/
     /**
      * 办公室详情
      */
-    public static Observable officedetails() {
+    public static Observable officedetails(String id) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("id", id);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -2959,12 +2960,39 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 填写预订信息
+     * 查询会议室内可以预定的设备
+     */
+    public static Observable findAvailableEquipment(String id) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("id", id);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findAvailableEquipment(paramsMap));
+    }
+
+    /**
+     * 生成会议室订单
      */
     public static Observable subscribeInfo() {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+         /*   tempMap.put("roomid", roomid);
+            tempMap.put("equipmentids", equipmentids);
+            tempMap.put("conferencetype", conferencetype);
+            tempMap.put("conferencename", conferencename);
+            tempMap.put("attendnum", attendnum);
+            tempMap.put("attentdleader", attentdleader);
+            tempMap.put("remark", remark);
+            tempMap.put("username", iusernamed);
+            tempMap.put("mobile", mobile);
+            tempMap.put("files", files);*/
+
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -2974,18 +3002,20 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 办公室预订订单信息
+     * 查询会议室预约列表
      */
-    public static Observable orderinfo() {
+    public static Observable findAvailableTime(String roomid,String date) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("date", date);
+            tempMap.put("roomid", roomid);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.orderinfo(paramsMap));
+        return getObservable(api.findAvailableTime(paramsMap));
     }
 
     /**

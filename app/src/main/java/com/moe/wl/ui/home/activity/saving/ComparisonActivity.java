@@ -112,6 +112,8 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
         columnChartc.setZoomType(ZoomType.HORIZONTAL);
 
         generateValues();
+        columnChartc.setColumnChartData(generateColumnChartData());
+        addLineToData();
 
         spinner1List = new ArrayList<String>();
         spinner1List.add("北京");
@@ -283,7 +285,6 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
             case R.id.bt_end:
                 columnChartc.setColumnChartData(generateColumnChartData());
                 generateData();
-                addLineToData();
                 break;
         }
     }

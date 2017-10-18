@@ -10,12 +10,13 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity;
+import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.main.adapter.MyBaseAdapter;
 
 /**
  * 办公室列表
  */
-public class OfficeLitsAdapter extends MyBaseAdapter<String> {
+public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean> {
 
     public OfficeLitsAdapter(Context context) {
         super(context);
@@ -32,22 +33,32 @@ public class OfficeLitsAdapter extends MyBaseAdapter<String> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tv_name.setText(getItem(position));
-        viewHolder.tv_saturation.setText("60人");
-        viewHolder.tv_time.setText("全天");
-        viewHolder.tv_number.setText("305次");
-        viewHolder.tv_location.setText("业务楼401");
-        if (position%2==0){
-            viewHolder.tv_subscribe.setText("使用中");
-            viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_red);
+        final OfficeListResponse.ListBean bean=getItem(position);
+        viewHolder.tv_name.setText(bean.getName());
+        viewHolder.tv_saturation.setText(bean.getCapacity()+"人");
+        if ("1".equals(bean.getTimeserving())){
+            viewHolder.tv_time.setText("上午");
+        }else if ("2".equals(bean.getTimeserving())){
+            viewHolder.tv_time.setText("下午午");
+        }else if ("3".equals(bean.getTimeserving())){
+            viewHolder.tv_time.setText("全天");
         }else{
+            viewHolder.tv_time.setText("全天");
+        }
+        viewHolder.tv_number.setText(bean.getUsenumber());
+        viewHolder.tv_location.setText(bean.getAddress());
+        if ("1".equals(bean.getStatus())){
             viewHolder.tv_subscribe.setText("可预订");
             viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_blue);
+        }else{
+            viewHolder.tv_subscribe.setText("使用中");
+            viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_red);
         }
         viewHolder.tv_subscribe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OfficeDetailsActivity.class);
+                intent.putExtra("id",bean.getId());
                 getContext().startActivity(intent);
             }
         });
