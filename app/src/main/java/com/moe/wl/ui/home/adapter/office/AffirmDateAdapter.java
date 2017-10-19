@@ -11,6 +11,8 @@ import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.home.adapter.MyBaseAdapter;
 import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
 
+import java.text.SimpleDateFormat;
+
 /**
  * 办公室设备列表
  */
@@ -33,7 +35,7 @@ public class AffirmDateAdapter extends MyBaseAdapter<AppointmentDateBean> {
         }
 
         AppointmentDateBean bean=getItem(position);
-        viewHolder.tv_date.setText(bean.getDate());
+        viewHolder.tv_date.setText(toDtae(bean.getDate()));
         AffirmTimeAdapter adapter=new AffirmTimeAdapter(getContext());
         adapter.setItemList(bean.getTimes());
         viewHolder.gv_time.setAdapter(adapter);
@@ -51,6 +53,16 @@ public class AffirmDateAdapter extends MyBaseAdapter<AppointmentDateBean> {
             this.tv_date = (TextView) rootView.findViewById(R.id.tv_date);
         }
 
+    }
+
+    /**
+     * 获取未来日期
+     */
+    public String toDtae(String date) {
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format2 = new SimpleDateFormat("yyyy年MM月dd");
+        String myDate = format1.format(date);
+        return format2.format(myDate);
     }
 
 }
