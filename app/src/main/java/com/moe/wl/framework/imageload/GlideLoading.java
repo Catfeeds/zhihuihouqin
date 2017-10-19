@@ -39,4 +39,8 @@ public class GlideLoading {
     public void loadImgUrlHeader(Context ct, String url, ImageView iv) {
         Glide.with(ct).load(url).placeholder(R.drawable.visitor_discrepancy).into(iv);
     }
+
+    public void loadImgUrlHeader(Context ct, String url, ImageView iv,int defaultImg) {
+        Glide.with(ct).load(url).placeholder(defaultImg).into(iv);
+    }
 }

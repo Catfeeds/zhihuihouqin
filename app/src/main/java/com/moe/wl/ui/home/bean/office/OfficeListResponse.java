@@ -15,16 +15,16 @@ public class OfficeListResponse {
      * msg : success
      */
 
-    private Object topphoto;
+    private String topphoto;
     private int errCode;
     private String msg;
     private List<ListBean> list;
 
-    public Object getTopphoto() {
+    public String getTopphoto() {
         return topphoto;
     }
 
-    public void setTopphoto(Object topphoto) {
+    public void setTopphoto(String topphoto) {
         this.topphoto = topphoto;
     }
 

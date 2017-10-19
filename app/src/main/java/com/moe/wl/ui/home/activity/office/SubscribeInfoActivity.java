@@ -10,12 +10,10 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +29,7 @@ import com.moe.wl.ui.home.bean.office.TypeListBean;
 import com.moe.wl.ui.home.model.office.SubscribeInfoModel;
 import com.moe.wl.ui.home.modelimpl.office.SubscribeInfoModelImpl;
 import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
+import com.moe.wl.ui.home.view.office.ConferenceTypePop;
 import com.moe.wl.ui.home.view.office.SubscribeInfoView;
 import com.moe.wl.ui.main.adapter.ActivityPostMulitPicAdapter;
 import com.moe.wl.ui.mywidget.StringListDialog;
@@ -63,8 +62,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     RelativeLayout rlTime;
     @BindView(R.id.lv_equipment)
     NoSlidingGridView lvEquipment;
-    @BindView(R.id.sp_type)
-    Spinner spType;
     @BindView(R.id.ll_type)
     LinearLayout llType;
     @BindView(R.id.et_name)
@@ -108,9 +105,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     private String id;
     private String equipmentids;  //设备ids，（逗号分隔）
 
-    private List<String> spinnerList;
     private List<TypeListBean> typeList;
-    private ArrayAdapter spinnerAdapter;
+    private ConferenceTypePop pw;
     private TypeListBean conferencetype;  //会议类型1文艺类型
 
     private List<AppointmentDateBean> dates;  //预约的时间
@@ -134,7 +130,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
         initGrlid();
         initEquipment();
-        initType();
+        typeList = new ArrayList<>();
         if (!TextUtils.isEmpty(id)) {
             getPresenter().subscribeInfo(id);
         }
@@ -174,14 +170,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         });
     }
 
-    public void initType() {
-        spinnerList = new ArrayList<>();
-        typeList = new ArrayList<>();
-        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spType.setAdapter(spinnerAdapter);
-    }
-
     private void initGrlid() {
         picAdapter = new ActivityPostMulitPicAdapter(this);
         gvPic.setAdapter(picAdapter);
@@ -218,7 +206,9 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 startActivityForResult(new Intent(this, SubscribeTimeActivity.class), TAKE_TIME);
                 break;
             case R.id.ll_type:  //会议类型
-
+                int[] location = new int[2];
+                llType.getLocationOnScreen(location);
+                pw.showPopupWindow(llType, location[1]);
                 break;
             case R.id.tv_enclosure:  //附件上传
                 showButtomDialog();
@@ -274,26 +264,24 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         }
         if (mResponse.getTypeList() != null) {
             typeList.addAll(mResponse.getTypeList());
-            for (int i = 0; i < typeList.size(); i++) {
-                spinnerList.add(typeList.get(i).getTypename());
+            if (typeList != null && typeList.size() > 0) {
+                if (pw == null) {
+                    pw = new ConferenceTypePop(SubscribeInfoActivity.this, new ConferenceTypePop.MyOnClick() {
+                        @Override
+                        public void click(TypeListBean bean) {
+                            conferencetype =bean;
+                            tvType.setText(conferencetype.getTypename());
+                        }
+                    });
+                    pw.setData(typeList);
+                }
             }
-            adapter.notifyDataSetChanged();
             if (typeList.size()>0){
                 conferencetype = typeList.get(0);
-                tvType.setText(conferencetype.getTypename());
+                typeList.get(0).setCheck(true);
+                tvType.setText(typeList.get(0).getTypename());
             }
-            spType.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    conferencetype = typeList.get(position);
-                    tvType.setText(conferencetype.getTypename());
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
         }
 
     }

@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.NoSlidingGridView;
@@ -18,6 +19,7 @@ import com.moe.wl.ui.home.presenter.office.OfficeDetailsPresenter;
 import com.moe.wl.ui.home.view.office.OfficeDetailsView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -131,11 +133,27 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
             tv_introduce.setText(bean.getIntroduce());
 
-            if (bean.getEnameList()!=null){
-
+            if (bean.getImgList()!=null){
+                HashMap<String, String> map = new HashMap<>();
+                for (int i = 0; i < bean.getImgList().size(); i++) {
+                    map.put("", bean.getImgList().get(i));
+                }
+                initSliderLayout(map);
             }
             mList.addAll(bean.getEnameList());
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    // 轮播图数据
+    private void initSliderLayout(HashMap<String, String> map) {
+        ll_slider.removeAllSliders();
+        for (String desc : map.keySet()) {
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            textSliderView
+                    .description(desc)
+                    .image(map.get(desc));
+            ll_slider.addSlider(textSliderView);
         }
     }
 }

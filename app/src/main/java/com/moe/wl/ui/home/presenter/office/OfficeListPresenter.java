@@ -37,7 +37,7 @@ public class OfficeListPresenter extends MvpRxPresenter<OfficeListModel, OfficeL
                 if (mResponse==null)
                     return;
                 if (mResponse.getErrCode() == 0) {
-                    getView().setData(mResponse.getList());
+                    getView().setData(mResponse.getList(),mResponse.getTopphoto());
                 } else {
                     getView().showToast(mResponse.getMsg());
                 }

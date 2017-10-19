@@ -13,6 +13,6 @@ import mvp.cn.common.MvpView;
 
 public interface OfficeListView extends MvpView {
 
-    void setData(List<OfficeListResponse.ListBean> list);
+    void setData(List<OfficeListResponse.ListBean> list,String img);
 
 }

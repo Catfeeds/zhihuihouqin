@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -35,10 +36,10 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.
 
         viewHolder.tv_name.setText(bean.getName());
         if ("0".equals(bean.getEstatus())){
-            viewHolder.tv_name.setBackgroundResource(R.mipmap.bg_btn_blue);
+            viewHolder.ll_name.setBackgroundResource(R.mipmap.bg_btn_blue);
             viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.white));
         }else{
-            viewHolder.tv_name.setBackgroundResource(R.mipmap.bg_btn_transparency);
+            viewHolder.ll_name.setBackgroundResource(R.mipmap.bg_btn_transparency);
             viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.font_black));
         }
 
@@ -49,10 +50,13 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.
     class ViewHolder {
         public View rootView;
         public TextView tv_name;
+        public LinearLayout ll_name;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
+            this.ll_name = (LinearLayout) rootView.findViewById(R.id.ll_name);
+
         }
 
     }

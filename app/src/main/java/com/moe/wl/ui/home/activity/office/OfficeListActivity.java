@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.home.adapter.office.OfficeLitsAdapter;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.model.office.OfficeListModel;
@@ -84,7 +85,8 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
     }
 
     @Override
-    public void setData(List<OfficeListResponse.ListBean> list) {
+    public void setData(List<OfficeListResponse.ListBean> list, String img) {
+        GlideLoading.getInstance().loadImgUrlHeader(this,img,iv_icon,R.mipmap.ic_default_rectangle);
         if (list!=null && list.size()!=0){
             mList.addAll(list);
             adapter.notifyDataSetChanged();
