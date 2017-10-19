@@ -1,23 +1,23 @@
 package com.moe.wl.ui.home.bean.office;
 
+import com.moe.wl.framework.base.BaseResponse;
+
 import java.util.List;
 
 /**
  * 办公室预订列表解析
  */
 
-public class OfficeDetailsResponse {
+public class OfficeDetailsResponse extends BaseResponse {
 
 
     /**
-     * roomDetail : {"address":"大楼东侧","capacity":80,"enameList":[{"id":"1","name":"鲜花"},{"id":"2","name":"投影仪"}],"enames":"1-鲜花,2-投影仪,3-热毛巾,4-音响","id":1,"imgList":["11"],"imgs":"11","introduce":"测试测试","name":"会议室2","photo":"1111","status":null,"timeserving":1,"usenumber":20}
+     * roomDetail : {"address":"大楼东侧","capacity":80,"enameList":[{"id":"1","name":"鲜花"},{"id":"2","name":"投影仪"}],"enames":"1-鲜花,2-投影仪,3-热毛巾,4-音响","id":1,"imgList":["11"],"imgs":"11","Stringroduce":"测试测试","name":"会议室2","photo":"1111","status":null,"timeserving":1,"usenumber":20}
      * errCode : 0
      * msg : success
      */
 
     private RoomDetailBean roomDetail;
-    private int errCode;
-    private String msg;
 
     public RoomDetailBean getRoomDetail() {
         return roomDetail;
@@ -27,21 +27,6 @@ public class OfficeDetailsResponse {
         this.roomDetail = roomDetail;
     }
 
-    public int getErrCode() {
-        return errCode;
-    }
-
-    public void setErrCode(int errCode) {
-        this.errCode = errCode;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public static class RoomDetailBean {
         /**
@@ -61,16 +46,16 @@ public class OfficeDetailsResponse {
          */
 
         private String address;
-        private int capacity;
+        private String capacity;
         private String enames;
-        private int id;
+        private String id;
         private String imgs;
         private String introduce;
         private String name;
         private String photo;
-        private Object status;
-        private int timeserving;
-        private int usenumber;
+        private String status;
+        private String timeserving;
+        private String usenumber;
         private List<EnameListBean> enameList;
         private List<String> imgList;
 
@@ -82,11 +67,11 @@ public class OfficeDetailsResponse {
             this.address = address;
         }
 
-        public int getCapacity() {
+        public String getCapacity() {
             return capacity;
         }
 
-        public void setCapacity(int capacity) {
+        public void setCapacity(String capacity) {
             this.capacity = capacity;
         }
 
@@ -98,11 +83,11 @@ public class OfficeDetailsResponse {
             this.enames = enames;
         }
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -138,27 +123,27 @@ public class OfficeDetailsResponse {
             this.photo = photo;
         }
 
-        public Object getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(Object status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
-        public int getTimeserving() {
+        public String getTimeserving() {
             return timeserving;
         }
 
-        public void setTimeserving(int timeserving) {
+        public void setTimeserving(String timeserving) {
             this.timeserving = timeserving;
         }
 
-        public int getUsenumber() {
+        public String getUsenumber() {
             return usenumber;
         }
 
-        public void setUsenumber(int usenumber) {
+        public void setUsenumber(String usenumber) {
             this.usenumber = usenumber;
         }
 
@@ -186,6 +171,15 @@ public class OfficeDetailsResponse {
 
             private String id;
             private String name;
+            private String estatus;
+
+            public String getEstatus() {
+                return estatus;
+            }
+
+            public void setEstatus(String estatus) {
+                this.estatus = estatus;
+            }
 
             public String getId() {
                 return id;

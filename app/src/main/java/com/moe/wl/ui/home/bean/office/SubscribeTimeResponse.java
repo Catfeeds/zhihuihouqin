@@ -43,39 +43,5 @@ public class SubscribeTimeResponse {
         this.appointmentList = appointmentList;
     }
 
-    public static class AppointmentListBean {
-        /**
-         * durationstr : 8:00-9:00
-         * intervalid : 1
-         * status : 2
-         */
 
-        private String durationstr;
-        private int intervalid;
-        private int status;
-
-        public String getDurationstr() {
-            return durationstr;
-        }
-
-        public void setDurationstr(String durationstr) {
-            this.durationstr = durationstr;
-        }
-
-        public int getIntervalid() {
-            return intervalid;
-        }
-
-        public void setIntervalid(int intervalid) {
-            this.intervalid = intervalid;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-    }
 }

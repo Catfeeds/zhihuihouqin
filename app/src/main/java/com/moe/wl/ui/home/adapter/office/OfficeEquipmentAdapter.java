@@ -30,7 +30,11 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if (position%2==0){
+
+        OfficeDetailsResponse.RoomDetailBean.EnameListBean bean=getItem(position);
+
+        viewHolder.tv_name.setText(bean.getName());
+        if ("0".equals(bean.getEstatus())){
             viewHolder.tv_name.setBackgroundResource(R.mipmap.bg_btn_blue);
             viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.white));
         }else{
@@ -38,9 +42,6 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.
             viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.font_black));
         }
 
-        OfficeDetailsResponse.RoomDetailBean.EnameListBean bean=getItem(position);
-
-        viewHolder.tv_name.setText(bean.getName());
 
         return convertView;
     }

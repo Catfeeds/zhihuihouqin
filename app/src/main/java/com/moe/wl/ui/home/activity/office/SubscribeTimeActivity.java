@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.activity.office;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -8,12 +9,13 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.home.adapter.office.SubscribeTimeAdapter;
-import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
+import com.moe.wl.ui.home.bean.office.AppointmentListBean;
 import com.moe.wl.ui.home.model.office.SubscribeTimeModel;
 import com.moe.wl.ui.home.modelimpl.office.SubscribeTimeModelImpl;
 import com.moe.wl.ui.home.presenter.office.SubscribeTimePresenter;
 import com.moe.wl.ui.home.view.office.SubscribeTimeView;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,6 +66,8 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
     TextView tvDate7;
     @BindView(R.id.gv_time)
     GridView gvTime;
+    @BindView(R.id.ll_right)
+    LinearLayout llRight;
 
     private String[] weeks;
     private String[] dates;
@@ -71,11 +75,13 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
     private List<TextView> listDate;
     private List<TextView> listWeek;
 
-    private String time;
+    private String date;
     private String id;
 
-    private List<SubscribeTimeResponse.AppointmentListBean> listTime;
+    private List<AppointmentListBean> listTime;
     private SubscribeTimeAdapter adapter;
+
+    private List<AppointmentListBean> selectTime;
 
     @Override
     public void setContentLayout() {
@@ -85,8 +91,8 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
 
     @Override
     public void initView() {
-        id=getIntent().getStringExtra("id");
-        listDate=new ArrayList<>();
+        id = getIntent().getStringExtra("id");
+        listDate = new ArrayList<>();
         listDate.add(tvDate1);
         listDate.add(tvDate2);
         listDate.add(tvDate3);
@@ -95,7 +101,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
         listDate.add(tvDate6);
         listDate.add(tvDate7);
 
-        listWeek=new ArrayList<>();
+        listWeek = new ArrayList<>();
         listWeek.add(tvWeek1);
         listWeek.add(tvWeek2);
         listWeek.add(tvWeek3);
@@ -111,15 +117,31 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
         }
 
         for (int i = 0; i < dates.length; i++) {
-            listDate.get(i).setText(dates[i].substring(8,10));
+            listDate.get(i).setText(dates[i].substring(8, 10));
         }
 
-        listTime=new ArrayList<>();
-        adapter=new SubscribeTimeAdapter(this);
+        initTime();
+        getPresenter().findAvailableEquipment(id, dates[0]);
+
+    }
+
+    public void initTime() {
+        listTime = new ArrayList<>();
+        selectTime= new ArrayList<>();
+        adapter = new SubscribeTimeAdapter(this);
         adapter.setItemList(listTime);
         gvTime.setAdapter(adapter);
-        getPresenter().findAvailableEquipment(id,dates[0]);
-
+        adapter.setMyCallBack(new SubscribeTimeAdapter.MyCallBack() {
+            @Override
+            public void cb(int pos) {
+                if (listTime.get(pos).isCheck()) {
+                    listTime.get(pos).setCheck(false);
+                } else {
+                    listTime.get(pos).setCheck(true);
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -132,12 +154,29 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
         return new SubscribeTimeModelImpl();
     }
 
-    @OnClick({R.id.ll_back, R.id.tv_date1, R.id.tv_date2,
+    @OnClick({R.id.ll_back,R.id.ll_right, R.id.tv_date1, R.id.tv_date2,
             R.id.tv_date3, R.id.tv_date4, R.id.tv_date5, R.id.tv_date6, R.id.tv_date7})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_back:
+                finish();
+                break;
+            case R.id.ll_right:
+                selectTime.clear();
+                for (int i = 0; i < listTime.size() ; i++) {
+                    if (listTime.get(i).isCheck()){
+                        selectTime.add(listTime.get(i));
+                    }
+                }
+                if (selectTime.size()==0){
+                    showToast("请先选择时间");
+                    return;
+                }
+                Intent intent=new Intent();
+                intent.putExtra("date",date);
+                intent.putExtra("list", (Serializable) selectTime);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
             case R.id.tv_date1:
@@ -169,13 +208,15 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
      */
     public void clickDate(int pos) {
         for (int i = 0; i < listDate.size(); i++) {
-            if (i==pos){
-                listDate.get(i).setBackgroundColor(getResources().getColor(R.color.red));
+            date = dates[pos];
+            if (i == pos) {
+                listDate.get(i).setBackgroundResource(R.mipmap.bg_btn_blue);
                 listDate.get(i).setTextColor(getResources().getColor(R.color.white));
-            }else{
-                listDate.get(i).setBackgroundColor(0);
-                listDate.get(i).setTextColor(getResources().getColor(R.color.font_black));
+            } else {
+                listDate.get(i).setBackgroundResource(0);
+                listDate.get(i).setTextColor(getResources().getColor(R.color.font_blue));
             }
+            getPresenter().findAvailableEquipment(id, date);
         }
     }
 
@@ -183,18 +224,18 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
      * 获取未来日期
      */
     public void getTime() {
-        weeks=new String[7];
-        dates=new String[7];
+        weeks = new String[7];
+        dates = new String[7];
 
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        dates[0]=format.format(today);
-        weeks[0]=getWeek(calendar);
+        dates[0] = format.format(today);
+        weeks[0] = getWeek(calendar);
         for (int i = 1; i < 7; i++) {
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
-            dates[i]=format.format(calendar.getTime());
-            weeks[i]=getWeek(calendar);
+            dates[i] = format.format(calendar.getTime());
+            weeks[i] = getWeek(calendar);
         }
     }
 
@@ -202,7 +243,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
      * 根据当前日期获得是星期几
      */
     public String getWeek(Calendar c) {
-        if (c.get(Calendar.DAY_OF_WEEK)==1) {
+        if (c.get(Calendar.DAY_OF_WEEK) == 1) {
             return "日";
         }
         if (c.get(Calendar.DAY_OF_WEEK) == 2) {
@@ -227,9 +268,10 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
     }
 
     @Override
-    public void setData(List<SubscribeTimeResponse.AppointmentListBean> appointmentList) {
+    public void setData(List<AppointmentListBean> appointmentList) {
         listTime.clear();
         listTime.addAll(appointmentList);
         adapter.notifyDataSetChanged();
     }
+
 }

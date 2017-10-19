@@ -1,6 +1,6 @@
 package com.moe.wl.ui.home.view.office;
 
-import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
+import com.moe.wl.ui.home.bean.office.AppointmentListBean;
 
 import java.util.List;
 
@@ -13,6 +13,6 @@ import mvp.cn.common.MvpView;
 
 public interface SubscribeTimeView extends MvpView {
 
-    void setData( List<SubscribeTimeResponse.AppointmentListBean> appointmentList);
+    void setData( List<AppointmentListBean> appointmentList);
 
 }

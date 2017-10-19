@@ -2,8 +2,10 @@ package com.moe.wl.framework.network.retrofit;
 
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.home.bean.LoginBean;
+import com.moe.wl.ui.home.bean.office.AffirmOrderResponse;
 import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
+import com.moe.wl.ui.home.bean.office.SubscribeInfoResponse;
 import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.bean.PositionListBean;
@@ -861,12 +863,17 @@ public interface NetAPI {
     //查询会议室内可以预定的设备
     @FormUrlEncoded
     @POST(NetUrl.subscribeInfo)
-    Observable<OfficeListResponse> subscribeInfo(@FieldMap Map<String, Object> map);
+    Observable<SubscribeInfoResponse> subscribeInfo(@FieldMap Map<String, Object> map);
+
+    //生成会议室订单-不带附件
+    @FormUrlEncoded
+    @POST(NetUrl.generateOfficeOrder)
+    Observable<AffirmOrderResponse> findAvailableEquipment(@FieldMap Map<String, Object> map);
 
     //生成会议室订单
     @FormUrlEncoded
     @POST(NetUrl.generateOfficeOrder)
-    Observable<OfficeListResponse> findAvailableEquipment(@FieldMap Map<String, Object> map);
+    Observable<AffirmOrderResponse> findAvailableEquipment(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
 
     //查询会议室预约列表
     @FormUrlEncoded

@@ -36,10 +36,10 @@ public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, O
                 LogUtils.d("-----------mResponse-----------"+mResponse);
                 if (mResponse==null)
                     return;
-                if (mResponse.getErrCode() == 0) {
+                if (mResponse.errCode == 0) {
                     getView().setData(mResponse.getRoomDetail());
                 } else {
-                    getView().showToast(mResponse.getMsg());
+                    getView().showToast(mResponse.msg);
                 }
             }
         });

@@ -97,6 +97,33 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
     }
 
+    private static void addObjectParam(Map<String, Object> paramsMap, Map<String, Object> tempMap) {
+        Gson gson = new Gson();
+        String biz = gson.toJson(tempMap);
+        paramsMap.put("biz", biz);
+        LogUtils.d("biz", biz);
+        String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
+        paramsMap.put("timestamp", timestamp);
+        LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
+        if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
+            paramsMap.put(TOKEN, SharedPrefHelper.getInstance().getToken());
+        } else {
+            if (SharedPrefHelper.getInstance().getyouke()) {
+                paramsMap.put(TOKEN, "0");
+            } else {
+            }
+        }
+        try {
+            String sign = getSign(biz, timestamp, "zxcadsadwa@2321$");
+            LogUtils.d("sign:" + sign);
+            paramsMap.put("sign", sign);
+
+        } catch (UnsupportedEncodingException e) {
+            Log.e("sign异常", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private static void addParams(Map<String, Object> paramsMap, Map<String, Object> tempMap) {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
@@ -124,6 +151,40 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
 
 
     private static void getRequestBody(Map<String, RequestBody> paramsMap, Map<String, String> tempMap) {
+        Gson gson = new Gson();
+        String biz = gson.toJson(tempMap);
+        LogUtils.d("biz", biz);
+        RequestBody requestbiz = RequestBody.create(MediaType.parse("multipart/form-data"), biz);
+        paramsMap.put(ParameterKeys.BIZ, requestbiz);
+        //  LogUtils.d("biz请求参数：" + biz);
+        //  String device=gson.toJson(getdevice());
+        //  RequestBody requestdevice = RequestBody.create(MediaType.parse("multipart/form-data"), device);
+        //  paramsMap.put(ParameterKeys.DEVICE,requestdevice);
+        //  LogUtils.d("device请求参数：" + device);
+        String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
+        RequestBody requesttimestamp = RequestBody.create(MediaType.parse("multipart/form-data"), timestamp);
+        paramsMap.put(ParameterKeys.TIMESTAMP, requesttimestamp);
+        //     LogUtils.d("时间戳请求参数：" + timestamp);
+        if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
+            //        LogUtils.d("请求参数：getToken" + SharedPrefHelper.getInstance().getToken());
+            paramsMap.put(TOKEN, RequestBody.create(MediaType.parse("multipart/form-data"), SharedPrefHelper.getInstance().getToken()));
+        } else {
+            LogUtil.log(SharedPrefHelper.getInstance().getyouke() + "。。。。。。。。。");
+            if (SharedPrefHelper.getInstance().getyouke() == true) {
+                paramsMap.put(TOKEN, RequestBody.create(MediaType.parse("multipart/form-data"), "0"));
+            } else {
+            }
+        }
+        try {
+            RequestBody requestsign = RequestBody.create(MediaType.parse("multipart/form-data"), getSign(biz, timestamp, "zxcadsadwa@2321$"));
+            paramsMap.put(ParameterKeys.SIGN, requestsign);
+            //       LogUtils.d("sign戳请求参数：" + getSign(device,biz, timestamp));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void getObjectRequestBody(Map<String, RequestBody> paramsMap, Map<String, Object> tempMap) {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         LogUtils.d("biz", biz);
@@ -211,8 +272,17 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
                 public void log(String message) {
-                    //打印retrofit日志
-                    Log.d("retrofit", "retrofitBack = " + message);
+                    if (message.length() > 3000) {
+                        for (int i = 0; i < message.length(); i += 3000) {
+                            if (i + 3000 < message.length()) {
+                                LogUtils.d("返回数据:" + message.substring(i, i + 3000));
+                            } else {
+                                LogUtils.d("返回数据:" + message.substring(i, message.length()));
+                            }
+                        }
+                    } else {
+                        LogUtils.d("返回数据:" + message);
+                    }
                 }
             });
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -2845,29 +2915,55 @@ carcode	是	string	车牌号*/
     }
 
     /**
-     * 生成会议室订单
+     * 生成会议室订单-不带附件
      */
-    public static Observable findAvailableEquipment() {
+    public static Observable findAvailableEquipment(String roomid,String username,String mobile,String equipmentids,String conferencetype,String conferencename,
+                                String attendnum,String attentdleader,String remark,JsonArray appointmentInfo) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<>();
-         /*   tempMap.put("roomid", roomid);
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("roomid", roomid);
+            tempMap.put("username", username);
+            tempMap.put("mobile", mobile);
             tempMap.put("equipmentids", equipmentids);
             tempMap.put("conferencetype", conferencetype);
             tempMap.put("conferencename", conferencename);
             tempMap.put("attendnum", attendnum);
             tempMap.put("attentdleader", attentdleader);
             tempMap.put("remark", remark);
-            tempMap.put("username", iusernamed);
-            tempMap.put("mobile", mobile);
-            tempMap.put("files", files);*/
-
-            addParam(paramsMap, tempMap);
+            tempMap.put("appointmentInfo", appointmentInfo);
+            addObjectParam(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return getObservable(api.findAvailableEquipment(paramsMap));
+    }
+
+    /**
+     * 生成会议室订单
+     */
+    public static Observable findAvailableEquipment(String roomid,String username,String mobile,String equipmentids,String conferencetype,String conferencename,
+                                                    String attendnum,String attentdleader,String remark,JsonArray appointmentInfo,List<String> path) {
+
+        Map<String, RequestBody> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("roomid", roomid);
+            tempMap.put("username", username);
+            tempMap.put("mobile", mobile);
+            tempMap.put("equipmentids", equipmentids);
+            tempMap.put("conferencetype", conferencetype);
+            tempMap.put("conferencename", conferencename);
+            tempMap.put("attendnum", attendnum);
+            tempMap.put("attentdleader", attentdleader);
+            tempMap.put("remark", remark);
+            tempMap.put("appointmentInfo", appointmentInfo);
+            getObjectRequestBody(paramsMap, tempMap);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findAvailableEquipment(paramsMap, getImgList(path, "files")));
     }
 
     /**

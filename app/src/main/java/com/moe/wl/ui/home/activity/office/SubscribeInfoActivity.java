@@ -24,16 +24,21 @@ import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.home.adapter.office.AffirmEquipmentAdapter;
+import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
+import com.moe.wl.ui.home.bean.office.AppointmentListBean;
+import com.moe.wl.ui.home.bean.office.EquipmentListBean;
+import com.moe.wl.ui.home.bean.office.SubscribeInfoResponse;
+import com.moe.wl.ui.home.bean.office.TypeListBean;
 import com.moe.wl.ui.home.model.office.SubscribeInfoModel;
 import com.moe.wl.ui.home.modelimpl.office.SubscribeInfoModelImpl;
 import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
 import com.moe.wl.ui.home.view.office.SubscribeInfoView;
 import com.moe.wl.ui.main.adapter.ActivityPostMulitPicAdapter;
-import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.StringListDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,10 +70,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     LinearLayout llType;
     @BindView(R.id.et_name)
     EditText etName;
-    @BindView(R.id.et_number)
-    EditText etNumber;
-    @BindView(R.id.et_leader)
-    EditText etLeader;
     @BindView(R.id.tv_enclosure)
     TextView tvEnclosure;
     @BindView(R.id.et_remark)
@@ -77,17 +78,24 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     GridView gvPic;
     @BindView(R.id.tv_finish)
     TextView tvFinish;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_type)
+    TextView tvType;
+    @BindView(R.id.et_number)
+    EditText etNumber;
+    @BindView(R.id.et_leader)
+    EditText etLeader;
 
     private StringListDialog dialog;
 
     private AffirmEquipmentAdapter adapter;
-    private List<String> mList;
+    private List<EquipmentListBean> mList;
 
-    private List<String> spinnerList;
-    private ArrayAdapter spinnerAdapter;
 
     private static final int TAKE_PHOTO_CAMERA = 10001;
     private static final int TAKE_PHOTO_ALBUM = 10002;
+    private static final int TAKE_TIME = 10003;
     private String imageUri;
     private boolean isOne;
     private ArrayList<String> paths;
@@ -98,10 +106,16 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     private ActivityPostMulitPicAdapter picAdapter;
 
-    private BottomTimeDialog startDialog;
-    private BottomTimeDialog endDialog;
-
     private String id;
+    private String equipmentids;  //设备ids，（逗号分隔）
+
+    private List<String> spinnerList;
+    private List<TypeListBean> typeList;
+    private ArrayAdapter spinnerAdapter;
+    private TypeListBean conferencetype;  //会议类型1文艺类型
+
+    private List<AppointmentDateBean> dates;  //预约的时间
+
 
     @Override
     public void setContentLayout() {
@@ -111,38 +125,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @Override
     public void initView() {
-        id=getIntent().getStringExtra("id");
-        mList = new ArrayList<>();
+        id = getIntent().getStringExtra("id");
 
-        adapter = new AffirmEquipmentAdapter(this);
-        adapter.setItemList(mList);
-        lvEquipment.setAdapter(adapter);
-
-        for (int i = 0; i < 6; i++) {
-            mList.add("投影仪" + i);
-        }
-        adapter.notifyDataSetChanged();
-
-        spinnerList = new ArrayList<String>();
-        spinnerList.add("北京");
-        spinnerList.add("上海");
-        spinnerList.add("广州");
-        spinnerList.add("深圳");
-
-        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spType.setAdapter(spinnerAdapter);
-        spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         //单张图片的集合
         paths = new ArrayList<>();
@@ -150,12 +134,53 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         pics = new ArrayList<>();
 
         initGrlid();
-
-        if (!TextUtils.isEmpty(id)){
-            getPresenter().findAvailableEquipment(id);
+        initEquipment();
+        initType();
+        if (!TextUtils.isEmpty(id)) {
+            getPresenter().subscribeInfo(id);
         }
 
 
+    }
+
+    /**
+     * 初始化会场设备
+     */
+    public void initEquipment() {
+        mList = new ArrayList<>();
+
+        adapter = new AffirmEquipmentAdapter(this);
+        adapter.setItemList(mList);
+        lvEquipment.setAdapter(adapter);
+        adapter.setMyCallBack(new AffirmEquipmentAdapter.MyCallBack() {
+            @Override
+            public void cb(int pos) {
+                if (mList.get(pos).isCheck()) {
+                    mList.get(pos).setCheck(false);
+                } else {
+                    mList.get(pos).setCheck(true);
+                }
+                StringBuffer buffer = new StringBuffer();
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(pos).isCheck()) {
+                        if (buffer.length() > 0) {
+                            buffer.append(",");
+                        }
+                        buffer.append(mList.get(pos).getId());
+                    }
+                }
+                equipmentids = buffer.toString();
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void initType() {
+        spinnerList = new ArrayList<>();
+        typeList = new ArrayList<>();
+        spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spType.setAdapter(spinnerAdapter);
     }
 
     private void initGrlid() {
@@ -191,7 +216,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 finish();
                 break;
             case R.id.rl_time:  //预约时间
-                startActivity(new Intent(this,SubscribeTimeActivity.class));
+                startActivityForResult(new Intent(this, SubscribeTimeActivity.class), TAKE_TIME);
                 break;
             case R.id.ll_type:  //会议类型
 
@@ -200,15 +225,79 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 showButtomDialog();
                 break;
             case R.id.tv_finish:
-
+                if (conferencetype == null) {
+                    showToast("请选择会议类型");
+                    return;
+                }
+                String conferencename = etName.getText().toString();
+                if (TextUtils.isEmpty(conferencename)) {
+                    showToast("请输入会议名称");
+                    return;
+                }
+                String attendnum = etNumber.getText().toString();
+                if (TextUtils.isEmpty(attendnum)) {
+                    showToast("请输入参会人数");
+                    return;
+                }
+                String attentdleader = etLeader.getText().toString();
+                if (TextUtils.isEmpty(attentdleader)) {
+                    showToast("请输入参会领导");
+                    return;
+                }
+                String remark = etRemark.getText().toString();
+                if (TextUtils.isEmpty(remark)) {
+                    showToast("请输入会议备注");
+                    return;
+                }
+                if (dates==null || dates.size() == 0) {
+                    showToast("请选择预约时间");
+                    return;
+                }
+                Intent intent = new Intent(this, AffirmOrderActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("equipmentids", equipmentids);
+                intent.putExtra("conferencetype", (Serializable) conferencetype);
+                intent.putExtra("conferencename", conferencename);
+                intent.putExtra("attendnum", attendnum);
+                intent.putExtra("attentdleader", attentdleader);
+                intent.putExtra("remark", remark);
+                intent.putExtra("list", (Serializable) dates);
+                startActivity(intent);
+                finish();
                 break;
         }
     }
 
     @Override
-    public void submit() {
-        startActivity(new Intent(this, AffirmOrderActivity.class));
-        finish();
+    public void setData(SubscribeInfoResponse mResponse) {
+        if (mResponse.getEquipmentList() != null) {
+            mList.addAll(mResponse.getEquipmentList());
+            adapter.notifyDataSetChanged();
+        }
+        if (mResponse.getTypeList() != null) {
+            typeList.addAll(mResponse.getTypeList());
+            for (int i = 0; i < typeList.size(); i++) {
+                spinnerList.add(typeList.get(i).getTypename());
+            }
+            adapter.notifyDataSetChanged();
+            if (typeList.size()>0){
+                conferencetype = typeList.get(0);
+                tvType.setText(conferencetype.getTypename());
+            }
+            spType.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    conferencetype = typeList.get(position);
+                    tvType.setText(conferencetype.getTypename());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+
     }
 
     private void showButtomDialog() {
@@ -309,48 +398,62 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            LogUtils.d("requestCode : " + requestCode + "resultCode : " + resultCode);
+        if (requestCode == TAKE_TIME) {
+            if (data != null) {
+                if (dates == null) {
+                    dates = new ArrayList<>();
+                }
+                String date = data.getStringExtra("date");
+                List<AppointmentListBean> times = (List<AppointmentListBean>) data.getSerializableExtra("list");
+                AppointmentDateBean bean = new AppointmentDateBean();
+                bean.setDate(date);
+                bean.setTimes(times);
+                dates.add(bean);
+                tvTime.setText("已选择");
+            }
         } else {
-            switch (requestCode) {
-                case TAKE_PHOTO_CAMERA:// 相机
-                    if (null != imageUri) {
-                        if (isOne) {
-                            paths.clear();
-                            paths.add(imageUri);
+            if (resultCode != RESULT_OK) {
+                LogUtils.d("requestCode : " + requestCode + "resultCode : " + resultCode);
+            } else {
+                switch (requestCode) {
+                    case TAKE_PHOTO_CAMERA:// 相机
+                        if (null != imageUri) {
+                            if (isOne) {
+                                paths.clear();
+                                paths.add(imageUri);
                          /*   GlideLoading.getInstance().loadImgUrlNyImgLoader(this,imageUri,addPhoto);*/
-                        } else {
-                            pics.add(0, imageUri);
-                            picAdapter.setData(pics);
+                            } else {
+                                pics.add(0, imageUri);
+                                picAdapter.setData(pics);
+                            }
                         }
-                    }
-                    break;
-                case TAKE_PHOTO_ALBUM:// 相册
-                    if (data != null) {
-                        String[] proj = {MediaStore.Images.Media.DATA};
-                        //好像是android多媒体数据库的封装接口，具体的看Android文档
-                        Cursor cursor = managedQuery(data.getData(), proj, null, null, null);
-                        //按我个人理解 这个是获得用户选择的图片的索引值
-                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        //将光标移至开头 ，这个很重要，不小心很容易引起越界
-                        cursor.moveToFirst();
-                        //最后根据索引值获取图片路径
-                        String path = cursor.getString(column_index);
-                        LogUtils.d("返回的图片地址：" + path);
-                        if (isOne) {
-                            paths.clear();
-                            paths.add(path);
+                        break;
+                    case TAKE_PHOTO_ALBUM:// 相册
+                        if (data != null) {
+                            String[] proj = {MediaStore.Images.Media.DATA};
+                            //好像是android多媒体数据库的封装接口，具体的看Android文档
+                            Cursor cursor = managedQuery(data.getData(), proj, null, null, null);
+                            //按我个人理解 这个是获得用户选择的图片的索引值
+                            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                            //将光标移至开头 ，这个很重要，不小心很容易引起越界
+                            cursor.moveToFirst();
+                            //最后根据索引值获取图片路径
+                            String path = cursor.getString(column_index);
+                            LogUtils.d("返回的图片地址：" + path);
+                            if (isOne) {
+                                paths.clear();
+                                paths.add(path);
                           /*  GlideLoading.getInstance().loadImgUrlNyImgLoader(this,path,addPhoto);*/
-                        } else {
-                            pics.add(0, path);
-                            picAdapter.setData(pics);
+                            } else {
+                                pics.add(0, path);
+                                picAdapter.setData(pics);
+                            }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

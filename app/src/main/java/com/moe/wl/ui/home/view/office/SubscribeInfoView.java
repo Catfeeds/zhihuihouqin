@@ -1,5 +1,7 @@
 package com.moe.wl.ui.home.view.office;
 
+import com.moe.wl.ui.home.bean.office.SubscribeInfoResponse;
+
 import mvp.cn.common.MvpView;
 
 /**
@@ -9,6 +11,6 @@ import mvp.cn.common.MvpView;
 
 public interface SubscribeInfoView extends MvpView {
 
-    void submit();
+    void setData(SubscribeInfoResponse mResponse);
 
 }

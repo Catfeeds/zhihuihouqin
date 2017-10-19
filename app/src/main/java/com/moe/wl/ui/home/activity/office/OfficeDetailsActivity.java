@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.daimajia.slider.library.SliderLayout;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.home.adapter.office.OfficeEquipmentAdapter;
 import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
@@ -72,7 +71,6 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
         initData();
         if (!TextUtils.isEmpty(id)){
-            LogUtils.d("-----------id-----------"+id);
             getPresenter().officedetails(id);
         }
 
@@ -97,6 +95,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
                 break;
             case R.id.tv_subscribe:  //预订
                 Intent intent = new Intent(this, SubscribeInfoActivity.class);
+                intent.putExtra("id",id);
                 startActivity(intent);
                 finish();
                 break;

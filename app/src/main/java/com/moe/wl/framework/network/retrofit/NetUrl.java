@@ -213,7 +213,7 @@ public interface NetUrl {
 
     /*------------------------------办公室预订模块------------------------------------------------*/
     String officelist="appuser/hysfwconferenceroom/findConferenceList";  //办公室列表
-    String officedetails="appuser/hysfwconferenceroom/findConferenceList";  //办公室详情
+    String officedetails="appuser/hysfwconferenceroom/findConferenceDetail";  //办公室详情
     String subscribeInfo="appuser/hysfwconferenceroom/findAvailableEquipment";  //查询会议室内可以预定的设备
     String generateOfficeOrder="appuser/hysfworder/generateOrder";  //生成会议室订单
     String findAvailableTime="appuser/hysfworder/findAvailableTime";  //查询会议室预约列表
