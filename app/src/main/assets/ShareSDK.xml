@@ -56,9 +56,9 @@
     <SinaWeibo
         Id="1"
         SortId="1"
-        AppKey="568898243"
-        AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"
-        RedirectUrl="http://www.sharesdk.cn"
+        AppKey="695417268"
+        AppSecret="05f5b410cbed38ce2f11f5d117d81384 "
+        RedirectUrl="http://zghwlm.oss-cn-hangzhou.aliyuncs.com/index.html"
         ShareByAppClient="true"
 		IsNewApi = "true"
         Enable="true" />
@@ -79,16 +79,16 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wxfea2c609a68ce8f6"
-        AppSecret="2f2133389e253c17eddf2adb58df481e"
+        AppId="wx723f038c9add02a3"
+        AppSecret="64020361b8ec4c99936c0e3999a9f249"
         BypassApproval="false"
         Enable="true" />
 
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wxfea2c609a68ce8f6"
-        AppSecret="2f2133389e253c17eddf2adb58df481e"
+        AppId="wx723f038c9add02a3"
+        AppSecret="64020361b8ec4c99936c0e3999a9f249"
         BypassApproval="false"
         Enable="true" />
 
