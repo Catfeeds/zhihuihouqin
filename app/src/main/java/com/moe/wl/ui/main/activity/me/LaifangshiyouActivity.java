@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.TitleBar;
 
@@ -13,8 +14,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.moe.wl.R;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.model.SaveAdviceModel;
+import com.moe.wl.ui.main.modelimpl.SaveAdviceModelImpl;
+import com.moe.wl.ui.main.presenter.SaveAdvicePresenter;
+import com.moe.wl.ui.main.view.SaveAdviceView;
 
-public class LaifangshiyouActivity extends AppCompatActivity {
+public class LaifangshiyouActivity extends BaseActivity<SaveAdviceModel,SaveAdviceView,SaveAdvicePresenter> implements SaveAdviceView {
 
     @BindView(R.id.title)
     TitleBar title;
@@ -25,10 +31,23 @@ public class LaifangshiyouActivity extends AppCompatActivity {
     private String from;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public SaveAdvicePresenter createPresenter() {
+        return new SaveAdvicePresenter();
+    }
+
+    @Override
+    public SaveAdviceModel createModel() {
+        return new SaveAdviceModelImpl();
+    }
+
+    @Override
+    public void setContentLayout() {
         setContentView(R.layout.activity_laifangshiyou);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
         from = getIntent().getStringExtra("from");
         initTitle();
     }
@@ -52,10 +71,18 @@ public class LaifangshiyouActivity extends AppCompatActivity {
         if (Constants.YIJIANFANKUI.equals(from)) {
             intent.putExtra("yijianfankui", shiyou);
             setResult(Constants.SHIYOU, intent);
+            getPresenter().saveAdvice(shiyou);//提交意见反馈
         } else {
             intent.putExtra("shiyou", shiyou);
             setResult(Constants.SHIYOU, intent);
         }
         finish();
+    }
+
+    @Override
+    public void saveAdviceResult(ActivityPostBean bean) {
+        if(bean!=null){
+            showToast("提交反馈成功");
+        }
     }
 }

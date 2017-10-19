@@ -484,9 +484,58 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getPositionList(paramsMap));
     }
-
     /**
-     * 职位列表
+     * 民族列表
+     */
+    public static Observable getNationlist() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getNationlist(paramsMap));
+    }  /**
+     * 部门列表
+     */
+    public static Observable getdepartList() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getdepartList(paramsMap));
+    }  /**
+     * 处室列表
+     */
+    public static Observable getofficelist() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getofficelist(paramsMap));
+    }
+    /**
+     * 处室列表
+     */
+    public static Observable getcartypelist() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getcartypelist(paramsMap));
+    }
+    /**
+     * 认证
      */
     public static Observable submitAuth(Auth auth, List<CarInfo> list) {
         Map<String, Object> paramsMap = new HashMap<>();
@@ -2867,7 +2916,23 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.modifyCode(paramsMap));
     }
+    /**
+     * 意见反馈
+     *
+     * @return
+     */
+    public Observable saveAdvice(String content) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("content", content);
+            addParam(paramsMap, tempMap);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.saveAdvice(paramsMap));
+    }
     /**
      * 修改用户信息
      *
@@ -3016,5 +3081,6 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.information(paramsMap));
     }
+
 
 }

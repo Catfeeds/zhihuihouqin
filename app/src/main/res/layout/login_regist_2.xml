@@ -28,6 +28,7 @@
         android:background="@drawable/shape_rec_text"
         android:ems="10"
         android:gravity="left|center"
+        android:textColorHint="@color/tv_gray"
         android:hint="请输入密码"
         android:inputType="textPassword"
         android:paddingLeft="10dip" />
@@ -42,6 +43,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
+        android:textColorHint="@color/tv_gray"
         android:background="@drawable/shape_rec_text"
         android:gravity="left|center"
         android:hint="请再次输入密码"

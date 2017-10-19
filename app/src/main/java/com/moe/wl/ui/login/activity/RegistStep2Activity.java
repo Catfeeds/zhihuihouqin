@@ -185,6 +185,8 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     @Override
     public void changePassWord(RegistBean registBean) {
         ToastUtil.showToast(this, "修改密码成功！");
+        Intent intent=new Intent(this,LoginActivity.class);
+        startActivity(intent);
         finish();
     }
 

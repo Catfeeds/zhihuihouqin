@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_identity"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<com.moe.wl.framework.widget.TitleBar
-    android:id="@+id/title"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/title_height"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_lighter"/>
+        android:background="@color/gray_lighter" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -27,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -45,8 +48,50 @@
                     android:gravity="right"
                     android:hint="请输入姓名"
                     android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_lighter" />
+
+            <RelativeLayout
+                android:id="@+id/rl_native"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/standard_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="民族"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_native"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_big" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/turn_right" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -58,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -77,6 +122,7 @@
                     android:hint="请输入电话号"
                     android:inputType="number"
                     android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </LinearLayout>
 
@@ -90,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,38 +154,10 @@
                     android:gravity="right"
                     android:hint="填写身份证号"
                     android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="民族"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
-
-                <EditText
-                    android:id="@+id/et_native"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="填写民族"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -151,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -179,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/turn_right" />c
+                        android:src="@drawable/turn_right" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -194,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,6 +230,7 @@
                     android:gravity="right"
                     android:hint="填写楼号"
                     android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </LinearLayout>
 
@@ -225,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -243,18 +262,21 @@
                     android:gravity="right"
                     android:hint="填写房间号"
                     android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />
-            <LinearLayout
+
+            <RelativeLayout
+                android:id="@+id/rl_officeid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -263,29 +285,40 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 
-                <EditText
-                    android:id="@+id/et_officeid"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="填写处室号"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
-            </LinearLayout>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_officeid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_big" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/turn_right" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rl_department_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -294,16 +327,28 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 
-                <EditText
-                    android:id="@+id/et_department_num"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="填写部门号"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
-            </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_department_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_big" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/turn_right" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -315,7 +360,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -330,8 +375,10 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="right"
+                    android:inputType="number"
                     android:hint="填写办公室座机"
                     android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </LinearLayout>
 
@@ -343,7 +390,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/standard_padding"
                 android:text="车辆信息"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_bigger" />
@@ -353,12 +400,12 @@
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />
 
-            <LinearLayout
+            <!--<RelativeLayout
+                android:id="@+id/rl_car_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -367,26 +414,42 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 
-                <EditText
-                    android:id="@+id/tv_car_type"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="车辆类型"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
-            </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_car_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_big" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/turn_right" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
-
+                android:background="@color/gray_lighter" />-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_chepaihao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+<!--
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/standard_padding"
                 android:text="车牌号"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_bigger" />
@@ -420,16 +483,23 @@
                     android:hint="车牌号后五位"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />
 
-            <FrameLayout
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/continue_add"/>
 
                 <TextView
                     android:id="@+id/tv_add_car_num"
@@ -437,11 +507,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="12dp"
-                    android:drawableLeft="@drawable/add_app"
                     android:text="添加车辆"
                     android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
-            </FrameLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

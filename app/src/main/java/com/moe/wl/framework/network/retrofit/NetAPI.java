@@ -108,6 +108,10 @@ import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
+import com.moe.wl.ui.main.bean.*;
+
+import java.util.List;
+import java.util.Map;
 
 import java.util.List;
 import java.util.Map;
@@ -161,6 +165,26 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.positionList)
     Observable<PositionListBean> getPositionList(@FieldMap Map<String, Object> map);
+
+    //民族
+    @FormUrlEncoded
+    @POST(NetUrl.nationlist)
+    Observable<NationslistBean> getNationlist(@FieldMap Map<String, Object> map);
+
+    //部门列表
+    @FormUrlEncoded
+    @POST(NetUrl.getdepartList)
+    Observable<DepartsListBean> getdepartList(@FieldMap Map<String, Object> map);
+
+    //处室列表
+    @FormUrlEncoded
+    @POST(NetUrl.getofficelist)
+    Observable<OfficeslistBean> getofficelist(@FieldMap Map<String, Object> map);
+
+    //车辆类别列表
+    @FormUrlEncoded
+    @POST(NetUrl.cartypelist)
+    Observable<CartypeslistBean> getcartypelist(@FieldMap Map<String, Object> map);
 
     //认证
     @FormUrlEncoded
@@ -891,4 +915,8 @@ public interface NetAPI {
     @POST(NetUrl.information)
     Observable<OfficeListResponse> information(@FieldMap Map<String, Object> map);
 
+    //意见反馈
+    @FormUrlEncoded
+    @POST(NetUrl.saveAdvice)
+    Observable<ActivityPostBean> saveAdvice(@FieldMap Map<String, Object> map);
 }

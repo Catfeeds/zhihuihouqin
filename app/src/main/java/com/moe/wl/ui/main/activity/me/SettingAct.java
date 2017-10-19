@@ -1,8 +1,10 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -68,11 +70,34 @@ public class SettingAct extends Base2Activity {
     protected void initView() {
         initTitle();
         setCacheSize();
+        float versionCode = getVersionCode(this);
+        tvVersion.setText(versionCode+"");
     }
 
     private void initTitle() {
         title.setTitle("系统设置");
         title.setBack(true);
+    }
+    /**
+     * 获取软件版本号
+     *
+     * @param context
+     * @return
+     */
+    private float getVersionCode(Context context)
+    {
+        float versionCode = 0;
+        try
+        {
+            // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
+            versionCode = Float.valueOf(this.getPackageManager().getPackageInfo(
+                    this.getPackageName(), 0).versionName);
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        return versionCode;
     }
 
     /**
