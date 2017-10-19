@@ -10,7 +10,9 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
+import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderMealAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
@@ -82,11 +84,11 @@ public class OrderMealFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 再次预订
-
+                        startActivity(new Intent(getActivity(), OrderingActivity.class));
                         break;
 
                     case 3: // 评价
-
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.ORDERMEAL);
                         break;
 
                     case 4: // 删除订单
@@ -189,7 +191,7 @@ public class OrderMealFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteMealOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.ORDERMEAL, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

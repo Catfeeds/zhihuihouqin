@@ -13,8 +13,10 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.OfficeSupplies.OfficeSuppliesActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderOfficeDetailBean;
@@ -27,8 +29,6 @@ import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
-
-import static android.R.attr.type;
 
 /**
  * 类描述：办公用品订单详情页
@@ -66,14 +66,8 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
     TextView orderTime; // 下单时间
     @BindView(R.id.order_type)
     TextView orderType;
-    @BindView(R.id.cancel_order)
-    TextView cancelOrder;
-    @BindView(R.id.comment)
-    TextView comment;
-    @BindView(R.id.delete_order)
-    TextView deleteOrder;
-    @BindView(R.id.again_order)
-    TextView againOrder;
+    @BindView(R.id.right)
+    TextView right;
     @BindView(R.id.ll_cancel)
     LinearLayout llCancel;
 
@@ -81,6 +75,7 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
 
     private CustomerDialog progressDialog;
     private int orderID; // 订单类型分类
+    private int state;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,58 +131,53 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
         }
         orderType.setText("支付方式：" + pay);
 
-        switch (data.getDetail().getStatus()) {
+        right.setVisibility(View.VISIBLE);
+        state = data.getDetail().getStatus();
+        switch (state) {
             case 1: // 1: 已预约
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("取消订单");
                 break;
             case 2: // 2: 配送中
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("联系商家");
                 break;
             case 3: // 3：已完成
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("再来一单");
                 break;
             case 4: // 4：待评价
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
+                right.setText("删除订单");
                 llCancel.setVisibility(View.VISIBLE);
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
                 break;
         }
     }
 
-    @OnClick({R.id.cancel_order, R.id.comment, R.id.delete_order, R.id.again_order, R.id.call})
+    @OnClick({R.id.left, R.id.right, R.id.call})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cancel_order: // 取消订单按钮
-                showAlertDialog("是否取消订单", type);
+            case R.id.right:
+                switch (state) {
+                    case 1:
+                        showAlertDialog("是否取消订单", state);
+                        break;
+                    case 2:
+                        showAlertDialog("是否拨打电话", state);
+                        break;
+                    case 3:
+                        startActivity(new Intent(OrderOfficeDetailActivity.this, OfficeSuppliesActivity.class));
+                        break;
+                    case 4:
+                        OtherUtils.gotoComment(OrderOfficeDetailActivity.this, orderID, Constants.OFFICESUPPLIES);
+                        break;
+                    case 5:
+                        showAlertDialog("是否删除订单", state);
+                        break;
+                }
                 break;
 
-            case R.id.comment: // TODO 评论按钮
-
-                break;
-
-            case R.id.delete_order: // 删除订单按钮
-                showAlertDialog("是否删除订单", type);
-                break;
-
-            case R.id.again_order: // 再次预订按钮
-                showAlertDialog("是否再次预订", type);
+            case R.id.left:
+                // TODO 在线沟通
                 break;
 
             case R.id.call: // 拨打电话
@@ -255,7 +245,7 @@ public class OrderOfficeDetailActivity extends AppCompatActivity {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteOfficeOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.OFFICESUPPLIES, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

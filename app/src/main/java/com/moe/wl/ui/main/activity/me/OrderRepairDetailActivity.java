@@ -17,6 +17,7 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
+import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.fragment.OrderRepairDetailOneFragment;
 import com.moe.wl.ui.main.fragment.OrderRepairDetailTwoFragment;
@@ -26,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
-import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -44,14 +44,10 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
     TextView two;
     @BindView(R.id.frame)
     FrameLayout frame;
-    @BindView(R.id.cancel_order)
-    TextView cancelOrder;
-    @BindView(R.id.comment)
-    TextView comment;
-    @BindView(R.id.delete_order)
-    TextView deleteOrder;
-    @BindView(R.id.again_order)
-    TextView againOrder;
+    @BindView(R.id.right)
+    TextView right;
+    @BindView(R.id.left)
+    TextView left;
 
     private int orderID;
     private String mobile;
@@ -78,39 +74,6 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
         titleBar.setBack(true);
         titleBar.setTitle("订单详情");
 
-        switch (state) {
-            case 1: // 1: 已下单
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
-                break;
-            case 2: // 2：服务中
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
-                break;
-            case 3: // 3：已完成
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
-                break;
-            case 4: // 4：待评价
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
-                break;
-            case 5: // 5：已取消
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
-                break;
-        }
-
         Bundle bundle = new Bundle();
         bundle.putInt("OrderID", orderID);
         fragment1 = new OrderRepairDetailOneFragment();
@@ -120,6 +83,27 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
         addFragment(fragment1);
         addFragment(fragment2);
         hideFragment(fragment2);
+
+        right.setVisibility(View.VISIBLE);
+        switch (state) {
+            case 1: // 1: 已下单
+                right.setText("取消订单");
+                break;
+            case 2: // 2：服务中
+                left.setVisibility(View.VISIBLE);
+                right.setText("拨打电话");
+                break;
+            case 3: // 3：已完成
+                right.setText("再次预订");
+                break;
+            case 4: // 4：待评价
+                right.setText("立即评价");
+                break;
+            case 5: // 5：已取消
+                right.setText("删除订单");
+                break;
+        }
+
     }
 
     private void addFragment(Fragment fragment) {
@@ -140,26 +124,33 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    private int states = 1;
-
-    @OnClick({R.id.cancel_order, R.id.comment, R.id.delete_order, R.id.again_order, R.id.one, R.id.two})
+    @OnClick({R.id.left, R.id.right, R.id.one, R.id.two})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cancel_order: // 取消订单按钮
-                showAlertDialog("是否取消订单", states);
+            case R.id.right:
+                switch (state) {
+                    case 1:
+                        showAlertDialog("是否取消订单");
+                        break;
+                    case 2:
+                        showAlertDialog("是否拨打电话");
+                        break;
+                    case 3:
+                        startActivity(new Intent(OrderRepairDetailActivity.this, PropertyAintenanceActivity.class));
+                        break;
+                    case 4:
+                        OtherUtils.gotoComment(OrderRepairDetailActivity.this, orderID, Constants.PROPERRY);
+                        break;
+                    case 5:
+                        showAlertDialog("是否删除订单");
+                        break;
+                }
                 break;
 
-            case R.id.comment: // TODO 评论按钮
-                OtherUtils.gotoComment(OrderRepairDetailActivity.this, orderID, Constants.PROPERRY);
+            case R.id.left:
+                // TODO 在线沟通
                 break;
 
-            case R.id.delete_order: // 删除订单按钮
-                showAlertDialog("是否删除订单", states);
-                break;
-
-            case R.id.again_order: // 再次预订按钮
-                showAlertDialog("是否再次预订", state);
-                break;
             case R.id.one:
                 if (state == 1) {
                     return;
@@ -183,7 +174,7 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void showAlertDialog(String s, final int state) {
+    private void showAlertDialog(String s) {
         new AlertDialog(this).builder()
                 .setBigMsg(s)
                 .setPositiveButton("是", new View.OnClickListener() {
@@ -197,9 +188,6 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
                         } else if (state == 2) {
                             // TODO 联系客服
                             CallPhoneUtils.callPhone(mobile, OrderRepairDetailActivity.this);
-                        } else if (state == 3) {
-                            // TODO 再次预订
-
                         } else if (state == 5) {
                             // 删除订单
                             deleteOrder(orderID);
@@ -215,7 +203,7 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteRepairsOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.PROPERRY, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override
@@ -231,7 +219,6 @@ public class OrderRepairDetailActivity extends AppCompatActivity {
             @Override
             public void onNext(CollectBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    ToastUtil.showToast(OrderRepairDetailActivity.this, "删除成功！");
                     finish();
                 }
             }

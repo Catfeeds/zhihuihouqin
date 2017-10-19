@@ -74,8 +74,8 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
         TextView tvAuthor;
         @BindView(R.id.tv_chubanshe)
         TextView tvChubanshe;
-        @BindView(R.id.tv_to_comment)
-        TextView tvToComment;
+//        @BindView(R.id.tv_to_comment)
+//        TextView tvToComment;
         @BindView(R.id.tv_all)
         TextView tvAll;
         @BindView(R.id.item)
@@ -101,35 +101,35 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
             }
             switch (state) {
                 case 0:
-                    tvAll.setText("已预定");
-                    tvToComment.setVisibility(View.GONE);
+                    tvAll.setText("取消订单");
+//                    tvToComment.setVisibility(View.GONE);
                     tvAll.setOnClickListener(this);
                     break;
 
                 case 1:
-                    tvAll.setText("已借阅");
-                    tvToComment.setVisibility(View.GONE);
+                    tvAll.setText("已归还");
+//                    tvToComment.setVisibility(View.GONE);
                     tvAll.setOnClickListener(this);
                     break;
 
                 case 2:
-                    tvAll.setText("已归还");
-                    tvToComment.setVisibility(View.VISIBLE);
-                    tvToComment.setOnClickListener(this);
+                    tvAll.setText("再次预订");
+//                    tvToComment.setVisibility(View.VISIBLE);
+//                    tvToComment.setOnClickListener(this);
                     tvAll.setOnClickListener(this);
                     break;
 
                 case 3:
-                    tvAll.setText("待评价");
-                    tvToComment.setVisibility(View.GONE);
+                    tvAll.setText("立即评价");
+//                    tvToComment.setVisibility(View.GONE);
                     tvAll.setOnClickListener(this);
                     break;
 
                 case 4:
-                    tvAll.setText("已取消");
-                    tvToComment.setVisibility(View.VISIBLE);
+                    tvAll.setText("删除订单");
+//                    tvToComment.setVisibility(View.VISIBLE);
                     tvAll.setOnClickListener(this);
-                    tvToComment.setOnClickListener(this);
+//                    tvToComment.setOnClickListener(this);
                     break;
             }
 

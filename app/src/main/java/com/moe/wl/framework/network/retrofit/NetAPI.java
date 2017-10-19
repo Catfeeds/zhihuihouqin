@@ -604,52 +604,46 @@ public interface NetAPI {
     @POST(NetUrl.getMessageList)
     Observable<MessageListBean> getMessageList(@FieldMap Map<String, Object> map);
 
-    /** **************************************************************************************
-     // 取消医疗订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelMedicalOrder)
-     Observable<CollectBean> cancelMedicalOrder(@FieldMap Map<String, Object> map);
-
-     // 取消专家订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelExpertsOrder)
-     Observable<CollectBean> cancelExpertsOrder(@FieldMap Map<String, Object> map);
-
-     //取消工作餐订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelMealOrder)
-     Observable<CollectBean> cancelMealOrder(@FieldMap Map<String, Object> map);
-
-     // 取消报修订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelRepairsOrder)
-     Observable<CollectBean> cancelRepairsOrder(@FieldMap Map<String, Object> map);
-
-     // 取消剪发订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelHairCutOrder)
-     Observable<CollectBean> cancelHairCutOrder(@FieldMap Map<String, Object> map);
-
-     // 取消图书订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelBookOrder)
-     Observable<CollectBean> cancelBookOrder(@FieldMap Map<String, Object> map);
-
-     // 取消办公用品订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelOfficeOrder)
-     Observable<CollectBean> cancelOfficeOrder(@FieldMap Map<String, Object> map);
-
-     // 取消订水订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelWaterOrder)
-     Observable<CollectBean> cancelWaterOrder(@FieldMap Map<String, Object> map);
-
-     // 取消净菜订单
-     @FormUrlEncoded
-     @POST(NetUrl.cancelVegetableOrder)
-     Observable<CollectBean> cancelVegetableOrder(@FieldMap Map<String, Object> map);
-     ***************************************************************************************** */
+    /**
+     * *************************************************************************************
+     * // 取消医疗订单
+     *
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelMedicalOrder) Observable<CollectBean> cancelMedicalOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消专家订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelExpertsOrder) Observable<CollectBean> cancelExpertsOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * //取消工作餐订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelMealOrder) Observable<CollectBean> cancelMealOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消报修订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelRepairsOrder) Observable<CollectBean> cancelRepairsOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消剪发订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelHairCutOrder) Observable<CollectBean> cancelHairCutOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消图书订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelBookOrder) Observable<CollectBean> cancelBookOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消办公用品订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelOfficeOrder) Observable<CollectBean> cancelOfficeOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消订水订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelWaterOrder) Observable<CollectBean> cancelWaterOrder(@FieldMap Map<String, Object> map);
+     * <p>
+     * // 取消净菜订单
+     * @FormUrlEncoded
+     * @POST(NetUrl.cancelVegetableOrder) Observable<CollectBean> cancelVegetableOrder(@FieldMap Map<String, Object> map);
+     * ****************************************************************************************
+     */
 
     // 获取取消订单原因
     @FormUrlEncoded
@@ -727,6 +721,7 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.pay)
     Observable<WeixinBean> weixinpay(@FieldMap Map<String, Object> map);
+
     // 个人钱包支付
     @FormUrlEncoded
     @POST(NetUrl.pay)
@@ -738,108 +733,19 @@ public interface NetAPI {
     Observable<UserInfoBean> getUserInfo(@FieldMap Map<String, Object> map);
     /*----------------------------------删除各种订单列表-------------------------------------*/
 
-    // 删除报修订单
+    // 删除订单
     @FormUrlEncoded
-    @POST(NetUrl.deleteRepairsOrder)
-    Observable<CollectBean> deleteRepairsOrder(@FieldMap Map<String, Object> map);
-
-    // 删除办公用品订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteOfficeOrder)
-    Observable<CollectBean> deleteOfficeOrder(@FieldMap Map<String, Object> map);
-
-    // 删除工作餐订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteMealOrder)
-    Observable<CollectBean> deleteMealOrder(@FieldMap Map<String, Object> map);
-
-    // 删除理发订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteHairCutOrder)
-    Observable<CollectBean> deleteHairCutOrder(@FieldMap Map<String, Object> map);
-
-    // 删除订水订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteWaterOrder)
-    Observable<CollectBean> deleteWaterOrder(@FieldMap Map<String, Object> map);
-
-    // 删除医疗订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteMedicalOrder)
-    Observable<CollectBean> deleteMedicalOrder(@FieldMap Map<String, Object> map);
-
-    // 删除专家坐诊订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteExpertsOrder)
-    Observable<CollectBean> deleteExpertsOrder(@FieldMap Map<String, Object> map);
-
-    // 删除干洗订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteDryOrder)
-    Observable<CollectBean> deleteDryOrder(@FieldMap Map<String, Object> map);
-
-    // 删除图书订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteBookOrder)
-    Observable<CollectBean> deleteBookOrder(@FieldMap Map<String, Object> map);
-
-    // 删除图书订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteBookOrder)
-    Observable<CollectBean> deleteConferenceOrder(@FieldMap Map<String, Object> map);
-
-    // 删除净菜订单
-    @FormUrlEncoded
-    @POST(NetUrl.deleteVegetableOrder)
-    Observable<CollectBean> deleteVegetableOrder(@FieldMap Map<String, Object> map);
+    @POST(NetUrl.deleteOrder)
+    Observable<CollectBean> deleteOrder(@FieldMap Map<String, Object> map);
 
     /*----------------------------------评论各种订单-------------------------------------*/
 
-    // 评论报修订单
+    // 评论订单
     @Multipart
-    @POST(NetUrl.commentRepairsOrder)
-    Observable<CollectBean> commentRepairsOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+    @POST(NetUrl.commentOrder)
+    Observable<CollectBean> commentOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
 
-    // 评论办公用品订单
-    @Multipart
-    @POST(NetUrl.commentOfficeOrder)
-    Observable<CollectBean> commentOfficeOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-
-    // 评论工作餐订单
-    @Multipart
-    @POST(NetUrl.commentMealOrder)
-    Observable<CollectBean> commentMealOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-    // 评论理发订单
-    @Multipart
-    @POST(NetUrl.commentHairCutOrder)
-    Observable<CollectBean> commentHairCutOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-    // 评论订水订单
-    @Multipart
-    @POST(NetUrl.commentWaterOrder)
-    Observable<CollectBean> commentWaterOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-    // 评论医疗订单
-    @Multipart
-    @POST(NetUrl.commentMedicalOrder)
-    Observable<CollectBean> commentMedicalOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-    // 评论干洗订单
-    @Multipart
-    @POST(NetUrl.commentDryOrder)
-    Observable<CollectBean> commentDryOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-    // 评论图书订单
-    @Multipart
-    @POST(NetUrl.commentBookOrder)
-    Observable<CollectBean> commentBookOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
-
-    // 评论净菜订单
-    @Multipart
-    @POST(NetUrl.commentVegetableOrder)
-    Observable<CollectBean> commentVegetableOrder(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
+     /*-----------------------------------订单详情-------------------------------------*/
 
     // 专家订单详情
     @FormUrlEncoded

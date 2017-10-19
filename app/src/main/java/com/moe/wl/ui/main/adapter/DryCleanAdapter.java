@@ -113,7 +113,7 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
                 }
                 switch (state) {
                     case 1:
-                        tvAll.setText("取消预约");
+                        tvAll.setText("取消预订");
                         tvToComment.setVisibility(View.GONE);
                         tvAll.setOnClickListener(this);
                         break;
@@ -123,8 +123,8 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
                         tvAll.setOnClickListener(this);
                         break;
                     case 3:
-                        tvAll.setText("再次预定");
-                        tvToComment.setVisibility(View.VISIBLE);
+                        tvAll.setText("再次预订");
+                        tvToComment.setVisibility(View.GONE);
                         tvAll.setOnClickListener(this);
                         tvToComment.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -135,12 +135,12 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
                         });
                         break;
                     case 4:
-                        tvAll.setText("评价");
+                        tvAll.setText("立即评价");
                         tvToComment.setVisibility(View.GONE);
                         tvAll.setOnClickListener(this);
                         break;
                     case 5:
-                        tvAll.setText("删除");
+                        tvAll.setText("删除订单");
                         tvToComment.setVisibility(View.GONE);
                         tvAll.setOnClickListener(this);
                         break;

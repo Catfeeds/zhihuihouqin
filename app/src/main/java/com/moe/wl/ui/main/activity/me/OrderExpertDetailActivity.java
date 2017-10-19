@@ -13,8 +13,10 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderExpertsDetailBean;
@@ -36,14 +38,10 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
-    @BindView(R.id.cancel_order)
-    TextView cancelOrder;
-    @BindView(R.id.comment)
-    TextView comment;
-    @BindView(R.id.delete_order)
-    TextView deleteOrder;
-    @BindView(R.id.again_order)
-    TextView againOrder;
+    @BindView(R.id.left)
+    TextView left;
+    @BindView(R.id.right)
+    TextView right;
     @BindView(R.id.order_number)
     TextView orderNumber;
     @BindView(R.id.state)
@@ -100,25 +98,36 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.cancel_order, R.id.comment, R.id.delete_order, R.id.again_order})
+    @OnClick({R.id.left, R.id.right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cancel_order: // 取消订单按钮
-                showAlertDialog("是否取消订单", states);
+            case R.id.right:
+                switch (states) {
+                    case 1:
+                        showAlertDialog("是否取消订单", states);
+                        break;
+                    case 2:
+//                        showAlertDialog("是否拨打电话", states);
+                        break;
+                    case 3:
+                        if (type == 1) {
+                            startActivity(new Intent(OrderExpertDetailActivity.this, orderWaterServiceActivity.class));
+                        } else {
+                            startActivity(new Intent(OrderExpertDetailActivity.this, orderWaterServiceActivity.class));
+                        }
+                        break;
+                    case 4:
+                        OtherUtils.gotoComment(OrderExpertDetailActivity.this, orderID, Constants.ORDERWATER);
+                        break;
+                    case 5:
+                        showAlertDialog("是否删除订单", states);
+                        break;
+                }
                 break;
 
-            case R.id.comment: // TODO 评论按钮
-
+            case R.id.left:
+                // TODO 在线沟通
                 break;
-
-            case R.id.delete_order: // 删除订单按钮
-                showAlertDialog("是否删除订单", states);
-                break;
-
-            case R.id.again_order: // 再次预订按钮
-                showAlertDialog("是否再次预订", states);
-                break;
-
         }
     }
 
@@ -137,10 +146,7 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
                                 intent.putExtra("OrderingID", data.getId());
                             }
                             startActivity(intent);
-                        } else if (state == 3) {
-                            // TODO 再次预订
-
-                        } else if (state == 5) {
+                        }  else if (state == 5) {
                             // 删除订单
                             if (type == 1) {
                                 deleteMedicalOrder(bean.getId());
@@ -177,42 +183,24 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
             number.setText("问诊量：" + bean.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + bean.getDoctor().getHospitalname());
         }
-        states = bean.getStatus();
+        right.setVisibility(View.VISIBLE);
+
+        states = data.getStatus();
         switch (states) {
             case 1: // 1: 已预约
-                state.setText("已预约");
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("取消订单");
                 break;
-            case 2: // 2: 服务中
-                state.setText("服务中");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+            case 2: // 2: 配送中
+                right.setText("已完成");
                 break;
             case 3: // 3：已完成
-                state.setText("已完成");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("再次预订");
                 break;
             case 4: // 4：待评价
-                state.setText("待评价");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
-                state.setText("已取消");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("删除订单");
                 break;
         }
     }
@@ -232,37 +220,23 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
             number.setText("问诊量：" + data.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + data.getDoctor().getHospitalName());
         }
+        right.setVisibility(View.VISIBLE);
         states = data.getStatus();
-        switch (data.getStatus()) {
+        switch (states) {
             case 1: // 1: 已预约
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("取消订单");
                 break;
-            case 2: // 2: 服务中
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+            case 2: // 2: 配送中
+                right.setText("已完成");
                 break;
             case 3: // 3：已完成
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("再次预订");
                 break;
             case 4: // 4：待评价
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("删除订单");
                 break;
         }
     }
@@ -318,7 +292,7 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
 
     // 删除医疗订单接口
     private void deleteMedicalOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteMedicalOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.MEDICAL, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override
@@ -343,7 +317,7 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
 
     // 删除专家订单接口
     private void deleteExpertsOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteExpertsOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.EXPERTS, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

@@ -58,14 +58,14 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
             case 0:
                 holder.order.setText("取消订单");
                 break;
-            case 1:
-                holder.order.setText("联系商家");
-                break;
             case 2:
-                holder.order.setText("评价");
+                holder.order.setText("再次预订");
                 break;
             case 3:
-                holder.order.setText("评价");
+                holder.order.setText("立即评价");
+                break;
+            case 4:
+                holder.order.setText("删除订单");
                 break;
         }
 

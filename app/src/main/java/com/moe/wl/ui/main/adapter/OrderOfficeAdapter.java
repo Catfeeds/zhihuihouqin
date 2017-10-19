@@ -32,7 +32,6 @@ public class OrderOfficeAdapter extends RecyclerView.Adapter {
     private int state;
     private OnClickListener listener;
 
-
     public OrderOfficeAdapter(Context context, List<OrderOfficeBean.ListEntity> data, int state) {
         this.context = context;
         this.data = data;
@@ -61,13 +60,13 @@ public class OrderOfficeAdapter extends RecyclerView.Adapter {
                 holder.order1.setText("取消订单");
                 break;
             case 1:
-                holder.order1.setText("拨打电话");
+                holder.order1.setText("联系商家");
                 break;
             case 2:
-                holder.order1.setText("评价");
+                holder.order1.setText("再来一单");
                 break;
             case 3:
-                holder.order1.setText("评价");
+                holder.order1.setText("立即评价");
                 break;
             case 4:
                 holder.order1.setText("删除订单");

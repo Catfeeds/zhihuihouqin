@@ -10,6 +10,8 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.DryCleanAdapter;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
@@ -71,14 +73,16 @@ public class OrderDryFragment extends BaseFragment2 {
             public void onClickListener(int state, int position) {
                 switch (state) {
                     case 1:
-                        showAlertDialog("是否取消订单", state, position);
+                        showAlertDialog("是否取消预订", state, position);
                         break;
                     case 2:
-                        showAlertDialog("是否拨打服务电话", state, position);
+                        showAlertDialog("是否拨打电话", state, position);
                         break;
                     case 3:
+                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
                         break;
                     case 4:
+                        OtherUtils.gotoComment(getActivity(), listAll.get(position).getId(), Constants.DRYCLEANER);
                         break;
                     case 5://删除
                         showAlertDialog("是否删除订单", state, position);
@@ -107,7 +111,7 @@ public class OrderDryFragment extends BaseFragment2 {
                                     //TODO 应该是服务电话
                                     String mobile = listBean.getServiceMobile();
                                     CallPhoneUtils.callPhone(mobile, getActivity());
-                                } else if (state == 4) {
+                                } else if (state == 5) {
                                     // 删除订单
                                     deleteOrder(listBean.getId());
                                 }
@@ -175,7 +179,7 @@ public class OrderDryFragment extends BaseFragment2 {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.i("获取订单出现问题    "  + e.toString());
+                LogUtils.i("获取订单出现问题    " + e.toString());
                 dismissProgressDialog();
             }
 
@@ -198,7 +202,7 @@ public class OrderDryFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteDryOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.DRYCLEANER, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

@@ -10,7 +10,9 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
+import com.moe.wl.ui.main.activity.vegetable.VegetableMainActivity;
 import com.moe.wl.ui.main.adapter.OrderVegetableAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
@@ -83,13 +85,15 @@ public class OrderVegetableFragment extends BaseFragment2 {
                         break;
 
                     case 1: // 联系配送人员
-                        showAlertDialog("是否拨打服务电话", state, position);
+//                        showAlertDialog("是否拨打服务电话", state, position);
                         break;
 
                     case 2: // 再来一单
+                        startActivity(new Intent(getActivity(), VegetableMainActivity.class));
                         break;
 
-                    case 3: // 评价
+                    case 3:
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.VEGETABLE);
                         break;
 
                     case 4: // 删除订单
@@ -195,7 +199,7 @@ public class OrderVegetableFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteVegetableOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.VEGETABLE, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

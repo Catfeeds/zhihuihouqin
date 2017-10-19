@@ -10,6 +10,8 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.Library.LibraryActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.BookOrderAdapter;
 import com.moe.wl.ui.main.bean.BookOrderListBean;
@@ -64,15 +66,16 @@ public class OrderBookFragment extends BaseFragment2 {
             public void onClickListener(int state, int position) {
                 switch (state) {
                     case 0:
-                        break;
-                    case 1:
                         showAlertDialog("是否取消订单", state, position);
                         break;
+                    case 1:
+//                        showAlertDialog("是否拨打服务电话", state, position);
+                        break;
                     case 2:
-                        showAlertDialog("是否拨打服务电话", state, position);
+                        startActivity(new Intent(getActivity(), LibraryActivity.class));
                         break;
                     case 3:
-
+                        OtherUtils.gotoComment(getActivity(), orderList.get(position).getOrderid(), Constants.BOOK);
                         break;
                     case 4:
                         showAlertDialog("是否删除订单", state, position);
@@ -186,7 +189,7 @@ public class OrderBookFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteBookOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.BOOK, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

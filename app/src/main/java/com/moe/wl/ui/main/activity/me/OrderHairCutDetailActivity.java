@@ -12,9 +12,11 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CircleImageView;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.OrderCutHearActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderHairCutBean;
@@ -35,18 +37,14 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
-    @BindView(R.id.cancel_order)
-    TextView cancelOrder;
-    @BindView(R.id.comment)
-    TextView comment;
-    @BindView(R.id.delete_order)
-    TextView deleteOrder;
-    @BindView(R.id.again_order)
-    TextView againOrder;
+    @BindView(R.id.left)
+    TextView left;
+    @BindView(R.id.right)
+    TextView right;
     @BindView(R.id.order_number)
     TextView orderNumber;
     @BindView(R.id.state)
-    TextView state;
+    TextView states;
     @BindView(R.id.time)
     TextView time;
     @BindView(R.id.order_time)
@@ -66,6 +64,7 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
 
     private CustomerDialog progressDialog;
     private OrderHairCutBean.OrderlistEntity data;
+    private int state;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,57 +91,58 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
         ratingBar.setRating(data.getScore());
         score.setText("" + data.getScore());
         address.setText("地址：" + data.getAddr());
-        switch (data.getStatus()) {
+
+        state = data.getStatus();
+        right.setVisibility(View.VISIBLE);
+        switch (state) {
             case 1: // 1: 已预约
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                states.setText("已预约");
+                right.setText("取消预约");
                 break;
-            case 2: // 2: 服务中
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+            case 2: // 2: 配送中
+                states.setText("服务中");
+                right.setText("已完成");
                 break;
             case 3: // 3：已完成
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                states.setText("已完成");
+                right.setText("再次预约");
                 break;
             case 4: // 4：待评价
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                states.setText("待评价");
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
+                states.setText("已取消");
+                right.setText("删除订单");
                 break;
         }
     }
 
-    @OnClick({R.id.cancel_order, R.id.comment, R.id.delete_order, R.id.again_order})
+    @OnClick({R.id.left, R.id.right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cancel_order: // 取消订单按钮
-                showAlertDialog("是否取消订单", data.getStatus());
+            case R.id.right:
+                switch (state) {
+                    case 1:
+                        showAlertDialog("是否取消预约", state);
+                        break;
+                    case 2:
+//                        showAlertDialog("是否拨打电话", state);
+                        break;
+                    case 3:
+                        startActivity(new Intent(OrderHairCutDetailActivity.this, OrderCutHearActivity.class));
+                        break;
+                    case 4:
+                        OtherUtils.gotoComment(OrderHairCutDetailActivity.this, data.getOrderid(), Constants.HAIRCUTS);
+                        break;
+                    case 5:
+                        showAlertDialog("是否删除订单", state);
+                        break;
+                }
                 break;
 
-            case R.id.comment: // TODO 评论按钮
-
-                break;
-
-            case R.id.delete_order: // 删除订单按钮
-                showAlertDialog("是否删除订单", data.getStatus());
-                break;
-
-            case R.id.again_order: // 再次预订按钮
-                showAlertDialog("是否再次预订", data.getStatus());
+            case R.id.left:
+                // TODO 在线沟通
                 break;
 
         }
@@ -164,7 +164,7 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
 
                         } else if (state == 5) {
                             // 删除订单
-                            deleteExpertsOrder(data.getOrderid());
+                            deleteOrder(data.getOrderid());
                         }
                     }
                 })
@@ -177,9 +177,9 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
     }
 
 
-    // 删除专家订单接口
-    private void deleteExpertsOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteExpertsOrder(orderID);
+    // 删除订单接口
+    private void deleteOrder(int orderID) {
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.HAIRCUTS, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

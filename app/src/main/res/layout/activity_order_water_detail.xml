@@ -26,11 +26,11 @@
             android:background="@color/white" />
 
         <TextView
-            android:id="@+id/cancel_order"
+            android:id="@+id/left"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:background="@drawable/background_edit"
+            android:gravity="center"
             android:paddingBottom="8dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
@@ -41,7 +41,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/comment"
+            android:id="@+id/right"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -52,38 +52,6 @@
             android:paddingRight="12dp"
             android:paddingTop="8dp"
             android:text="评论"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/delete_order"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="删除"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/again_order"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="再次预订"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big"
             android:visibility="gone" />
@@ -228,10 +196,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="联系商家"
                 android:drawableLeft="@drawable/phone"
                 android:drawablePadding="18dp"
+                android:padding="10dp"
+                android:text="联系商家"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_bigger" />
 
@@ -296,6 +264,25 @@
                     android:text="配送服务：由商家自行配送，不收取任何配送费用"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
+
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:text="配送人员"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_big" />
+
+                    <ImageView
+                        android:id="@+id/header"
+                        android:layout_marginLeft="12dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+                </LinearLayout>-->
 
             </LinearLayout>
 

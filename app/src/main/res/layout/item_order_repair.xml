@@ -109,27 +109,8 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="8dp"
-            android:text="取消订单"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
-
-        <TextView
-            android:id="@+id/pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@id/order_1"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:minWidth="90dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="支付"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/on_line"

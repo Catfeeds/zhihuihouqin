@@ -10,7 +10,8 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.activity.me.OrderCommentActivity;
+import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.WaterAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -89,13 +90,11 @@ public class WaterFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 再来一单
-
+                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
                         break;
 
                     case 3: // 评价
-                        Intent intent = new Intent(getActivity(), OrderCommentActivity.class);
-                        intent.putExtra("OrderID", data.get(position).getId());
-                        startActivity(intent);
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.ORDERWATER);
                         break;
 
                     case 4: // 删除订单
@@ -203,7 +202,7 @@ public class WaterFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteWaterOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.ORDERWATER, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

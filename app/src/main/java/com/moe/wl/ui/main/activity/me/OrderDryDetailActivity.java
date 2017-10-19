@@ -14,6 +14,7 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderDryClearDetailAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -34,14 +35,10 @@ import rx.Subscriber;
  */
 public class OrderDryDetailActivity extends AppCompatActivity {
 
-    @BindView(R.id.cancel_order)
-    TextView cancelOrder;
-    @BindView(R.id.comment)
-    TextView comment;
-    @BindView(R.id.delete_order)
-    TextView deleteOrder;
-    @BindView(R.id.again_order)
-    TextView againOrder;
+    @BindView(R.id.left)
+    TextView left;
+    @BindView(R.id.right)
+    TextView right;
     @BindView(R.id.list_view)
     NoSlidingListView listView;
     @BindView(R.id.price)
@@ -132,42 +129,29 @@ public class OrderDryDetailActivity extends AppCompatActivity {
         orderId.setText("订  单  号：" + data.getDetail().getOrdercode());
         orderTime.setText("下单时间：" + data.getDetail().getCreatetime());
         orderType.setText("支付状态：" + (data.getDetail().getPayStatus() == 0 ? "未支付" : "已支付"));
+
+        right.setVisibility(View.VISIBLE);
         state = data.getDetail().getStatus();
         switch (state) {
-            case 1: // 1: 已下单
+            case 1: // 1: 已预约
                 serviceState.setText("服务状态：已下单");
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("取消预订");
                 break;
-            case 2: // 2：服务中
+            case 2: // 2: 配送中
                 serviceState.setText("服务状态：服务中");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("拨打电话");
                 break;
             case 3: // 3：已完成
                 serviceState.setText("服务状态：已完成");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("再次预订");
                 break;
             case 4: // 4：待评价
                 serviceState.setText("服务状态：待评价");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
                 serviceState.setText("服务状态：已取消");
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("删除订单");
                 break;
         }
 
@@ -204,23 +188,31 @@ public class OrderDryDetailActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @OnClick({R.id.cancel_order, R.id.comment, R.id.delete_order, R.id.again_order})
+    @OnClick({R.id.left, R.id.right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cancel_order: // 取消订单按钮
-                showAlertDialog("是否取消订单", state);
+            case R.id.right:
+                switch (state) {
+                    case 1:
+                        showAlertDialog("是否取消预订", state);
+                        break;
+                    case 2:
+                        showAlertDialog("是否拨打电话", state);
+                        break;
+                    case 3:
+                        startActivity(new Intent(OrderDryDetailActivity.this, orderWaterServiceActivity.class));
+                        break;
+                    case 4:
+                        OtherUtils.gotoComment(OrderDryDetailActivity.this, data.getDetail().getId(), Constants.DRYCLEANER);
+                        break;
+                    case 5:
+                        showAlertDialog("是否删除订单", state);
+                        break;
+                }
                 break;
 
-            case R.id.comment: // TODO 评论按钮
-                OtherUtils.gotoComment(OrderDryDetailActivity.this, orderID, Constants.DRYCLEANER);
-                break;
-
-            case R.id.delete_order: // 删除订单按钮
-                showAlertDialog("是否删除订单", state);
-                break;
-
-            case R.id.again_order: // 再次预订按钮
-                showAlertDialog("是否再次预订", state);
+            case R.id.left:
+                // TODO 在线沟通
                 break;
 
         }
@@ -237,13 +229,10 @@ public class OrderDryDetailActivity extends AppCompatActivity {
                             intent.putExtra("from", Constants.DRYCLEANER);
                             intent.putExtra("OrderingID", data.getDetail().getId());
                             startActivity(intent);
-                        } else if (state == 3) {
+                        } else if (state == 2) {
                             // TODO 联系客服
                             String mobile = data.getDetail().getServiceMobile();
                             CallPhoneUtils.callPhone(mobile, OrderDryDetailActivity.this);
-                        } else if (state == 3) {
-                            // TODO 再次预订
-
                         } else if (state == 5) {
                             // 删除订单
                             deleteOrder(data.getDetail().getId());
@@ -284,7 +273,7 @@ public class OrderDryDetailActivity extends AppCompatActivity {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteDryOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.DRYCLEANER, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

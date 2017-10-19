@@ -60,10 +60,10 @@ public class WaterAdapter extends RecyclerView.Adapter {
                 holder.order1.setText("联系商家");
                 break;
             case 2:
-                holder.order1.setText("评价");
+                holder.order1.setText("再次预订");
                 break;
             case 3:
-                holder.order1.setText("评价");
+                holder.order1.setText("立即评价");
                 break;
             case 4:
                 holder.order1.setText("删除订单");

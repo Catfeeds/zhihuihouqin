@@ -64,16 +64,16 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
                 holder.order.setText("取消订单");
                 break;
             case 1:
-                holder.comment.setVisibility(View.VISIBLE);
+                holder.comment.setVisibility(View.GONE);
                 holder.order.setText("再次预订");
                 break;
             case 2:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("评价");
+                holder.order.setText("立即评价");
                 break;
             case 3:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("删除");
+                holder.order.setText("删除订单");
                 break;
         }
 

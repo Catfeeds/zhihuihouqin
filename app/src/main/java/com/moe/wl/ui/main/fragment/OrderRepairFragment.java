@@ -87,6 +87,7 @@ public class OrderRepairFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 评价
+
                         break;
 
                     case 3: // 评价
@@ -96,14 +97,6 @@ public class OrderRepairFragment extends BaseFragment2 {
                         showAlertDialog("是否删除订单", position);
                         break;
                 }
-            }
-        });
-
-        // 支付监听
-        adapter.setOnPayClickListener(new OrderRepairAdapter.OnPayClickListener() {
-            @Override
-            public void onPayClick() {
-
             }
         });
     }
@@ -188,7 +181,6 @@ public class OrderRepairFragment extends BaseFragment2 {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.i("获取订单出现问题");
                 dismissProgressDialog();
             }
 
@@ -210,7 +202,7 @@ public class OrderRepairFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteRepairsOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.PROPERRY, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

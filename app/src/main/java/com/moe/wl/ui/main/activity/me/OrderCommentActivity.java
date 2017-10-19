@@ -1,44 +1,6 @@
 package com.moe.wl.ui.main.activity.me;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.moe.wl.R;
-import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.framework.widget.CustomerDialog;
-import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
-import com.moe.wl.ui.main.bean.CollectBean;
-import com.moe.wl.ui.mywidget.AddPhotoPop;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import mvp.cn.util.DateUtil;
-import rx.Observable;
-import rx.Subscriber;
 
 /**
  * 类描述：订单评论页面 （报修、订水、医疗、专家、干洗、）
@@ -47,7 +9,7 @@ import rx.Subscriber;
 
 public class OrderCommentActivity extends AppCompatActivity {
 
-    private static final int TAKE_PHOTO_CAMERA = 10001;
+   /* private static final int TAKE_PHOTO_CAMERA = 10001;
     private static final int TAKE_PHOTO_ALBUM = 10002;
     private static final int CROP_PHOTO = 10003;
 
@@ -139,7 +101,7 @@ public class OrderCommentActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.submit:
-                Observable observable = RetrofitUtils.getInstance().commentRepairsOrder(orderID, etContent.getText().toString(),
+                Observable observable = RetrofitUtils.getInstance().commentOrder(orderID, etContent.getText().toString(),
                         radioButton.isChecked() ? 1 : 0, paths);
                 progressDialog.show();
                 observable.subscribe(new Subscriber<CollectBean>() {
@@ -220,9 +182,9 @@ public class OrderCommentActivity extends AppCompatActivity {
         }
     };
 
-    /**
+    *//**
      * 相机拍照
-     */
+     *//*
     private void takePhotoCamera() {
         pop.dismiss();
         imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
@@ -245,14 +207,14 @@ public class OrderCommentActivity extends AppCompatActivity {
         startActivityForResult(intent, TAKE_PHOTO_CAMERA);
     }
 
-    /**
+    *//**
      * 相册选取
-     */
+     *//*
     private void takePhotoAlbum() {
         pop.dismiss();
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
-    }
+    }*/
 
 }

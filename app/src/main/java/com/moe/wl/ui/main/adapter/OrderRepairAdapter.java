@@ -30,7 +30,6 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<OrderRepairBean.OrderlistEntity> data;
     private int state;
-    private OnPayClickListener payListener;
     private OnClickListener listener;
 
 
@@ -60,27 +59,22 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
         switch (state) {
             case 0:
                 holder.onLine.setVisibility(View.GONE);
-                holder.pay.setVisibility(View.GONE);
                 holder.order1.setText("取消订单");
                 break;
             case 1:
                 holder.onLine.setVisibility(View.VISIBLE);
-                holder.pay.setVisibility(View.GONE);
                 holder.order1.setText("拨打电话");
                 break;
             case 2:
                 holder.onLine.setVisibility(View.GONE);
-                holder.pay.setVisibility(View.VISIBLE);
-                holder.order1.setText("评价");
+                holder.order1.setText("再次预订");
                 break;
             case 3:
                 holder.onLine.setVisibility(View.GONE);
-                holder.pay.setVisibility(View.GONE);
-                holder.order1.setText("评价");
+                holder.order1.setText("立即评价");
                 break;
             case 4:
                 holder.onLine.setVisibility(View.GONE);
-                holder.pay.setVisibility(View.GONE);
                 holder.order1.setText("删除订单");
                 break;
         }
@@ -93,15 +87,7 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
             }
         });
 
-        // 支付
-        holder.pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        // 在线沟通
+        // TODO 在线沟通
         holder.onLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,8 +127,6 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
         TextView callTime;
         @BindView(R.id.order_1)
         TextView order1;
-        @BindView(R.id.pay)
-        TextView pay;
         @BindView(R.id.on_line)
         TextView onLine;
         @BindView(R.id.item)
@@ -152,14 +136,6 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
-    }
-
-    public interface OnPayClickListener {
-        void onPayClick();
-    }
-
-    public void setOnPayClickListener(OnPayClickListener listener) {
-        payListener = listener;
     }
 
     public interface OnClickListener {

@@ -10,6 +10,8 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderMedicalAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -81,14 +83,16 @@ public class OrderMedicalFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 1: // 待定
+                    case 1: // 已完成
 //                        showAlertDialog("是否拨打服务电话", position);
                         break;
 
-                    case 2: // 评价
+                    case 2: // 再次预订
+                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
                         break;
 
-                    case 3: // 评价
+                    case 3: // 立即评价
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.MEDICAL);
                         break;
 
                     case 4: // 删除订单
@@ -112,13 +116,13 @@ public class OrderMedicalFragment extends BaseFragment2 {
                         if (data.size() >= position) {
                             OrderMedicalBean.OrderlistEntity listBean = data.get(position);
                             if (state == 0) {
-                                // TODO 取消理发订单
+                                // TODO 取消订单
                                 int id = listBean.getId();
                                 LogUtils.d("id:" + id + "  position:" + position);
                                 intent.putExtra("OrderingID", id);
                                 startActivity(intent);
                             } else if (state == 1) {
-                                // TODO 完成理发服务
+                                // TODO 完成服务
 
                             } else if (state == 4) {
                                 // TODO 删除
@@ -199,7 +203,7 @@ public class OrderMedicalFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteMedicalOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.MEDICAL, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

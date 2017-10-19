@@ -13,8 +13,10 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderWaterDetailBean;
@@ -64,14 +66,10 @@ public class OrderWaterDetailActivity extends AppCompatActivity {
     TextView orderTime; // 下单时间
     @BindView(R.id.order_type)
     TextView orderType;
-    @BindView(R.id.cancel_order)
-    TextView cancelOrder;
-    @BindView(R.id.comment)
-    TextView comment;
-    @BindView(R.id.delete_order)
-    TextView deleteOrder;
-    @BindView(R.id.again_order)
-    TextView againOrder;
+    @BindView(R.id.left)
+    TextView left;
+    @BindView(R.id.right)
+    TextView right;
 
     private OrderWaterDetailBean data;
 
@@ -95,23 +93,31 @@ public class OrderWaterDetailActivity extends AppCompatActivity {
         getData(orderID);
     }
 
-    @OnClick({R.id.cancel_order, R.id.comment, R.id.delete_order, R.id.again_order, R.id.call})
+    @OnClick({R.id.left, R.id.right, R.id.call})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cancel_order: // 取消订单按钮
-                showAlertDialog("是否取消订单", state);
+            case R.id.right:
+                switch (state) {
+                    case 1:
+                        showAlertDialog("是否取消订单", state);
+                        break;
+                    case 2:
+                        showAlertDialog("是否拨打电话", state);
+                        break;
+                    case 3:
+                        startActivity(new Intent(OrderWaterDetailActivity.this, orderWaterServiceActivity.class));
+                        break;
+                    case 4:
+                        OtherUtils.gotoComment(OrderWaterDetailActivity.this, orderID, Constants.ORDERWATER);
+                        break;
+                    case 5:
+                        showAlertDialog("是否删除订单", state);
+                        break;
+                }
                 break;
 
-            case R.id.comment: // TODO 评论按钮
-
-                break;
-
-            case R.id.delete_order: // 删除订单按钮
-                showAlertDialog("是否删除订单", state);
-                break;
-
-            case R.id.again_order: // 再次预订按钮
-                showAlertDialog("是否再次预订", state);
+            case R.id.left:
+                // TODO 在线沟通
                 break;
 
             case R.id.call: // 拨打电话
@@ -216,37 +222,31 @@ public class OrderWaterDetailActivity extends AppCompatActivity {
 
         state = data.getDetail().getStatus();
         LogUtils.d("订水订单state : " + state);
+
+        right.setVisibility(View.VISIBLE);
+        state = data.getDetail().getStatus();
         switch (state) {
             case 1: // 1: 已预约
-                cancelOrder.setVisibility(View.VISIBLE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("取消订单");
+                break;
+            case 2: // 2: 配送中
+                right.setText("联系商家");
                 break;
             case 3: // 3：已完成
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.VISIBLE);
+                right.setText("再次预订");
                 break;
             case 4: // 4：待评价
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.VISIBLE);
-                deleteOrder.setVisibility(View.GONE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
-                cancelOrder.setVisibility(View.GONE);
-                comment.setVisibility(View.GONE);
-                deleteOrder.setVisibility(View.VISIBLE);
-                againOrder.setVisibility(View.GONE);
+                right.setText("删除订单");
                 break;
         }
     }
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteWaterOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.ORDERWATER, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

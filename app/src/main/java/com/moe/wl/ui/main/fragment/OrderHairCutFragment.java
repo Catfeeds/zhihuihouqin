@@ -10,6 +10,8 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.OrderCutHearActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderHairCutAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -81,14 +83,16 @@ public class OrderHairCutFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 1: // 拨打电话
-                        showAlertDialog("是否拨打服务电话", position);
+                    case 1: // 已完成
+//                        showAlertDialog("是否拨打服务电话", position);
                         break;
 
-                    case 2: // 评价
+                    case 2: // 再次预约
+                        startActivity(new Intent(getActivity(), OrderCutHearActivity.class));
                         break;
 
                     case 3: // 评价
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.HAIRCUTS);
                         break;
 
                     case 4: // 删除订单
@@ -199,7 +203,7 @@ public class OrderHairCutFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteHairCutOrder(orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.HAIRCUTS, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

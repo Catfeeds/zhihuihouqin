@@ -26,7 +26,7 @@
             android:background="@color/white" />
 
         <TextView
-            android:id="@+id/cancel_order"
+            android:id="@+id/left"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/background_edit"
@@ -41,7 +41,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/comment"
+            android:id="@+id/right"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -52,38 +52,6 @@
             android:paddingRight="12dp"
             android:paddingTop="8dp"
             android:text="评论"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/delete_order"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="删除"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/again_order"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="再次预订"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big"
             android:visibility="gone" />
@@ -107,13 +75,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:text="订单详情"
-                android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:layout_weight="1"
+                    android:text="订单详情"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_bigger" />
+
+                <TextView
+                    android:id="@+id/fix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="固定餐"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_bigger"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
