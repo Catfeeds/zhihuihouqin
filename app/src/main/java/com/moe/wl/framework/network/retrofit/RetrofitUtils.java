@@ -2987,7 +2987,7 @@ carcode	是	string	车牌号*/
     /**
      * 查询会议室内可以预定的设备
      */
-    public static Observable findAvailableEquipment(String id) {
+    public static Observable subscribeInfo(String id) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -2997,13 +2997,13 @@ carcode	是	string	车牌号*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.findAvailableEquipment(paramsMap));
+        return getObservable(api.subscribeInfo(paramsMap));
     }
 
     /**
      * 生成会议室订单
      */
-    public static Observable subscribeInfo() {
+    public static Observable findAvailableEquipment() {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -3023,7 +3023,7 @@ carcode	是	string	车牌号*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.subscribeInfo(paramsMap));
+        return getObservable(api.findAvailableEquipment(paramsMap));
     }
 
     /**

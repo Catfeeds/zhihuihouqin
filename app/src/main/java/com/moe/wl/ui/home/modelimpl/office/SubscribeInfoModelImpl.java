@@ -14,7 +14,7 @@ public class SubscribeInfoModelImpl implements SubscribeInfoModel {
 
     @Override
     public Observable findAvailableEquipment(String id) {
-        Observable observable = RetrofitUtils.getInstance().findAvailableEquipment(id);
+        Observable observable = RetrofitUtils.getInstance().subscribeInfo(id);
         return observable;
     }
 }
