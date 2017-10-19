@@ -90,8 +90,9 @@ public class SettingAct extends Base2Activity {
         try
         {
             // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-            versionCode = Float.valueOf(this.getPackageManager().getPackageInfo(
-                    this.getPackageName(), 0).versionName);
+            versionCode = Float.valueOf(getPackageManager().getPackageInfo(
+                    getPackageName(), 0).versionCode);
+            //getPackageManager().getPackageInfo(getPackageName(),0).versionCode
         }
         catch (PackageManager.NameNotFoundException e)
         {
