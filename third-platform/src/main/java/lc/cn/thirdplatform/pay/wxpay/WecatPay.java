@@ -57,6 +57,7 @@ public class WecatPay {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.d("callback", "返回错误" + e);
         }
     }
 

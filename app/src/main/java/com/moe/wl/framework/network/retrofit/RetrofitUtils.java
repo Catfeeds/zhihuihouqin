@@ -74,7 +74,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         paramsMap.put("biz", biz);
-        LogUtils.d("biz", biz);
+        LogUtils.d("请求参数:" +biz);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
         LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
@@ -101,7 +101,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         paramsMap.put("biz", biz);
-        LogUtils.d("biz", biz);
+        LogUtils.d("请求参数:" +biz);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
         LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
@@ -128,7 +128,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         paramsMap.put("biz", biz);
-        LogUtils.d("biz", biz);
+        LogUtils.d("请求参数:" + biz);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
         if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
@@ -153,7 +153,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     private static void getRequestBody(Map<String, RequestBody> paramsMap, Map<String, String> tempMap) {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
-        LogUtils.d("biz", biz);
+        LogUtils.d("请求参数:" + biz);
         RequestBody requestbiz = RequestBody.create(MediaType.parse("multipart/form-data"), biz);
         paramsMap.put(ParameterKeys.BIZ, requestbiz);
         //  LogUtils.d("biz请求参数：" + biz);
@@ -187,7 +187,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     private static void getObjectRequestBody(Map<String, RequestBody> paramsMap, Map<String, Object> tempMap) {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
-        LogUtils.d("biz", biz);
+        LogUtils.d("请求参数:" +biz);
         RequestBody requestbiz = RequestBody.create(MediaType.parse("multipart/form-data"), biz);
         paramsMap.put(ParameterKeys.BIZ, requestbiz);
         //  LogUtils.d("biz请求参数：" + biz);

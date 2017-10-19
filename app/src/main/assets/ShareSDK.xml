@@ -58,7 +58,7 @@
         SortId="1"
         AppKey="695417268"
         AppSecret="05f5b410cbed38ce2f11f5d117d81384 "
-        RedirectUrl="http://zghwlm.oss-cn-hangzhou.aliyuncs.com/index.html"
+        RedirectUrl="http://open.weibo.com/apps/2199498915/privilege/oauth"
         ShareByAppClient="true"
 		IsNewApi = "true"
         Enable="true" />

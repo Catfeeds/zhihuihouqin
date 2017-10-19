@@ -2,13 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
-import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.PayModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.PayView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -49,6 +47,7 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
         });
     }
     public void weiXinPay(String orderid,String ordercode,String ordertype,int paytype) {
+        LogUtils.d("");
         getView().showProgressDialog();
         Observable request = getModel().pay(orderid,ordercode,ordertype,paytype);
         getNetWork(request, new Subscriber<WeixinBean>() {

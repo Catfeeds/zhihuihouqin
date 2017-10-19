@@ -17,25 +17,25 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import lc.cn.thirdplatform.R;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
-	
+
 	private static final String TAG = "WXPayEntryActivity";
-	
-    private IWXAPI api;
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pay_result);
-        
-    	api = WXAPIFactory.createWXAPI(this, "wx723f038c9add02a3");
-        api.handleIntent(getIntent(), this);
-    }
+
+	private IWXAPI api;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.pay_result);
+
+		api = WXAPIFactory.createWXAPI(this, "wx723f038c9add02a3");
+		api.handleIntent(getIntent(), this);
+	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		setIntent(intent);
-        api.handleIntent(intent, this);
+		api.handleIntent(intent, this);
 	}
 
 	@Override
@@ -48,10 +48,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 		if(resp.errCode==0){
 			//微信支付，不需要依赖于服务器端的通知，直接提示即可
 			Toast.makeText(this, "支付成功!", Toast.LENGTH_SHORT).show();
-			Log.e("weixin","微信支付成功了");
 		}else {
 			Toast.makeText(this, "支付失败!", Toast.LENGTH_SHORT).show();
-			Log.e("weixin","微信支付失败了");
 		}
 		//根据支付结果展示UI的
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
