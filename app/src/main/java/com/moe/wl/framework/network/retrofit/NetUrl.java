@@ -18,6 +18,7 @@ public interface NetUrl {
     String signup="appuser/user/login?";
     String captcha="appuser/user/getCaptcha?";
     String regist="appuser/user/register?";
+    String thirdLogin="appuser/user/thirdLogin?";
     String positionList="appuser/user/positionlist";
     String submitAuth="appuser/user/auth";
     String bindPhone="appuser/user/bindMobile";

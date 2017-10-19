@@ -11,4 +11,6 @@ public interface LoginModel extends MvpModel{
     Observable getData();
 
     Observable login(String s, String s1);
+
+    Observable thirdLogin(String thirdNum, String loginType);
 }

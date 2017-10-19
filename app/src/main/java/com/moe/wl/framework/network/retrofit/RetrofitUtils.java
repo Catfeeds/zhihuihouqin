@@ -388,6 +388,25 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 三方登录
+     */
+    public static Observable thirdLogin(String thirdNum, String loginType) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<String, String>();
+            tempMap.put("thirdNum", thirdNum);
+            tempMap.put("loginType", loginType);
+
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.thirdLogin(paramsMap));
+
+    }
+
+    /**
      * 修改密码
      *
      * @param mobile

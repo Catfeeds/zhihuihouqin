@@ -142,6 +142,11 @@ public interface NetAPI {
     @POST(NetUrl.regist)
     Observable<RegistBean> register(@FieldMap Map<String, Object> map);
 
+    //三方登录
+    @FormUrlEncoded
+    @POST(NetUrl.thirdLogin)
+    Observable<RegistBean> thirdLogin(@FieldMap Map<String, Object> map);
+
     //更改密码
     @FormUrlEncoded
     @POST(NetUrl.changePassWord)

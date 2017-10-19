@@ -42,6 +42,34 @@ public class LoginPresenter extends MvpRxPresenter<LoginModel, LoginView> {
         });
     }
 
+
+    public void thirdLogin(String thirdNum, String loginType) {
+        LogUtil.log("LoginPresenter发出请求");
+        getView().showProgressDialog();
+        getModel().thirdLogin(thirdNum, loginType).subscribe(new Subscriber<LoginBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(LoginBean loginBean) {
+                if (loginBean.getErrCode() == 0) {
+                    getView().loginSuccess(loginBean);
+                } else {
+                    SharedPrefHelper.getInstance().setPassword("");
+                    LogUtils.d("登录失败码：" + loginBean.getErrCode() + "");
+                    getView().showToast(loginBean.getMsg());
+                }
+            }
+        });
+    }
+
     @Override
     public void detachView(boolean retainInstance) {
         super.detachView(retainInstance);

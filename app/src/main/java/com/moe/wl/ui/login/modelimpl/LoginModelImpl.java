@@ -24,4 +24,12 @@ public class LoginModelImpl implements LoginModel {
         Observable observer = RetrofitUtils.getInstance().login(s,s1);
         return observer ;
     }
+
+    @Override
+    public Observable thirdLogin(String thirdNum, String loginType) {
+        LogUtil.log("MainModel请求数据-->login");
+        Observable observer = RetrofitUtils.getInstance().thirdLogin(thirdNum,loginType);
+        return observer ;
+    }
+
 }

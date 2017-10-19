@@ -2,9 +2,7 @@ package com.moe.wl.framework.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
-import mvp.cn.util.DensityUtil;
+
 import mvp.cn.util.LogUtil;
 
 
@@ -92,12 +90,6 @@ public class TitleBar extends RelativeLayout implements View.OnClickListener {
 
     public void setTitle(String title) {
         tv_title.setText(title);
-        //wj后添加的
-        tv_title.setTextColor(Color.GRAY);
-        //字体加粗
-        TextPaint tp = tv_title.getPaint();
-        tp.setFakeBoldText(true);
-        tv_title.setTextSize(DensityUtil.dip2px(getContext(),8));
     }
 
     public void setTitle(int resId) {

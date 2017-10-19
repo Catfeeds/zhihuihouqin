@@ -77,6 +77,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     private String mobile;
     private String pwd;
 
+    private String type;
+
     @Override
     public void setContentLayout() {
         setContentView(R.layout.login);
@@ -171,16 +173,13 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                 doLogin();
                 break;
             case R.id.l_iv_wecat:
-//                doLoginPlatForm("3", Wechat.NAME);
-                doLoginThree(Wechat.NAME);
+                doLoginPlatForm("wx", Wechat.NAME);
                 break;
             case R.id.l_iv_weibo:
-//                doLoginPlatForm("2", SinaWeibo.NAME);
-                doLoginThree(SinaWeibo.NAME);
+                doLoginPlatForm("wb", SinaWeibo.NAME);
                 break;
             case R.id.l_iv_qq:
-//                doLoginPlatForm("1", QQ.NAME);
-                doLoginThree(QQ.NAME);
+                doLoginPlatForm("qq", QQ.NAME);
                 break;
         }
     }
@@ -293,31 +292,26 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         }
     }
 
-    // 三方登录
-    private void doLoginThree(String platformName) {
-        LoginApi api = new LoginApi();
-        //设置登陆的平台后执行登陆的方法
+    /**
+     * 三方登录
+     */
+    private void doLoginPlatForm(final String thirdType, String platformName) {
+        showProgressDialog();
+        LoginApi api = new LoginApi(); // 设置登陆的平台后执行登陆的方法
         api.setPlatform(platformName);
         api.setOnLoginListener(new OnLoginListener() {
-            public boolean onLogin(String platform, HashMap<String, Object> res) {
-                // 在这个方法填写尝试的代码，返回true表示还不能登录，需要注册
-                // 此处全部给回需要注册
-                LogUtils.d("platform : " + platform);
-                int type;
-                if (QQ.NAME.equals(platform)) {
-                    // QQ 1
-                    type = 1;
-                } else if (SinaWeibo.NAME.equals(platform)) {
-                    // 微博 2
-                    type = 2;
-                } else if (Wechat.NAME.equals(platform)) {
-                    // 微信 3
-                    type = 3;
+            public boolean onLogin(String platform, HashMap<String, Object> res) { // 在这个方法填写尝试的代码，返回true表示还不能登录，需要注册
+               String thirdId = res.get("id").toString();// ID
+                if (thirdType.equals("qq")) {
+                    type = "1";
+                } else if (thirdType.equals("wb")) {
+                    type = "2";
+                } else if (thirdType.equals("wx")) {
+                    type = "3";
+                } else {
+                    type = "";
                 }
-                String id = (String) res.get("uid");
-
-
-
+                getPresenter().thirdLogin(thirdId, type);
                 return true;
             }
 
@@ -328,161 +322,13 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
             @Override
             public boolean onError() {
-                return false;
-            }
-
-        });
-        api.login(this);
-    }
-
- /* *//**//*  private void doLoginRequest(final String mobile, final String md5Pwd) {
-        showProgressDialog();
-        Request request = RequestMaker.getInstance().getLoginRequest(mobile, md5Pwd);
-        getNetWorkDate(request, new SubBaseParser<UserResponse>(UserResponse.class), new OnCompleteListener<UserResponse>(this) {
-
-            @Override
-            public void onSuccessed(UserResponse result, String resultString) {
-
-                SharedPrefHelper.getInstance().setUserInfo(resultString);
-
-                SharedPrefHelper.getInstance().setLoginAccount(mobile);
-                SharedPrefHelper.getInstance().setLoginPwd(etPsw.getText().toString().trim());
-                softApplication.setUserInfo(result.data);
-                softApplication.setAlias(String.format("jpush%suser", result.data.uid));
-                *//**//**//**//**
-     * 登录环信
-     *//**//**//**//*
-                loginHuanxinServer(mobile, "123456");
-
-                //未完善资料的
-//                isLoginAndAuthOk();
-//                UIManager.turnToAct(LoginActivity.this, MainActivity.class);
-                getNickAndAvatar();
-                finish();
-            }
-
-            @Override
-            public void onCompleted(UserResponse result, String resultString) {
-                dismissProgressDialog();
-            }
-        });
-    }
-
-    public void loginHuanxinServer(final String uname, final String pwd) {
-        LogUtil.log("jhys" + uname + "user" + "===========用户名======================");
-        EMClient.getInstance().login("jhys" + uname + "user", pwd, new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                try {
-                    EMClient.getInstance().chatManager().loadAllConversations();
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                }
-                softApplication.setHXAutoLogin(true);
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-            }
-
-            @Override
-            public void onError(final int code, final String message) {
-
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        LogUtil.log("环信登录失败");
-                        LogUtil.log("环信登录失败" + message);
-                    }
-                });
-            }
-        });
-    }
-
-    *//**//**//**//**
-     * 三方登陆服务器
-     *//**//**//**//*
-    private void doLoginByThirdPlatformRequest(final String thirdNum, final String thirdType) {
-//        showProgressDialog();
-        Request request = RequestMaker.getInstance().getLoginByThirdPlatformRequest(thirdNum, thirdType);
-        getNetWorkDate(request, new SubBaseParser<UserResponse>(UserResponse.class), new OnCompleteListener<UserResponse>(this) {
-
-            *//**//**//**//**
-     -3： "未绑定手机号"
-     -2： "暂时未开通该三方登录方式"
-     -1 ： "参数异常"
-     -5 ： "该三方账号已绑定其他手机号"
-     -6 ：  "该手机号已绑定其他账号"
-     *//**//**//**//*
-            @Override
-            public void onSuccessed(UserResponse result, String resultString) {
-                SoftApplication.softApplication.setUserInfo(result.data);
-
-                getNickAndAvatar();
-
-            }
-
-            @Override
-            public void onCodeError(UserResponse result) {
-                if (result.errCode == -3) {
-                    turnToBind(thirdType, thirdNum);
-                } else {
-                    super.onCodeError(result);
-                }
-            }
-
-            @Override
-            public void onCompleted(UserResponse result, String resultString) {
-                dismissProgressDialog();
-            }
-        });
-    }
-
-
-    *//**//*
-
-    *//**/
-
-    /**
-     * 三方登录
-     *//**//**//**//*
-    private void doLoginPlatForm(final String thirdType, String platformName) {
-        showProgressDialog("登录中");
-
-        String num = new Random().nextInt(100) * 100 + "";
-
-//        doLoginByThirdPlatformRequest("55555", thirdType);
-
-        LoginApi api = new LoginApi(); // 设置登陆的平台后执行登陆的方法
-        api.setPlatform(platformName);
-        api.setOnLoginListener(new OnLoginListener() {
-            public boolean onLogin(String platform, HashMap<String, Object> res) { // 在这个方法填写尝试的代码，返回true表示还不能登录，需要注册
-                String thirdId = res.get("uid").toString();// ID
-                // String tName = res.get("name").toString();// 用户名
-                // String tDescription = res.get("description").toString();// 描述
-                // String tVatar = res.get("profile_image_url").toString();//
-                // 头像链接
-                LogUtil.log("tId====" + thirdId);
-
-                doLoginByThirdPlatformRequest(thirdId, thirdType);
-                return true;
-            }
-
-            public boolean onRegister(UserResponse info) {
-                // 填写处理注册信息的代码，返回true表示数据合法，注册页面可以关闭
-                return true;
-            }
-
-            @Override
-            public boolean onError() {
                 dismissProgressDialog();
                 return false;
             }
         });
         api.login(this);
-
     }
-    /*daozhe */
+
     @Override
     public void showToast() {
 
