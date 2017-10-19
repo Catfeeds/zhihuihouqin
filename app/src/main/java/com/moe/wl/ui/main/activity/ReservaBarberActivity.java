@@ -1,10 +1,7 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
@@ -23,8 +21,11 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.ExpandableListAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
+import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.CreateorderBean;
+import com.moe.wl.ui.main.bean.Itemid;
+import com.moe.wl.ui.main.bean.Order;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 import com.moe.wl.ui.main.model.PreOderBarberModel;
 import com.moe.wl.ui.main.modelimpl.PreOrderBarberModelImpl;
@@ -33,7 +34,7 @@ import com.moe.wl.ui.main.view.PreOrderBarberView;
 import com.moe.wl.ui.mywidget.NoScrollExpandableListView;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +42,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mvp.cn.util.DateUtils;
+import mvp.cn.util.StringUtil;
+import mvp.cn.util.VerifyCheck;
 
 public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreOrderBarberView, PreOrderBarberPresenter> implements PreOrderBarberView {
     private static final int MAX_NUM = 100;
@@ -78,21 +81,23 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     TextView tvHowMuch;
     @BindView(R.id.tb_regist)
     Button tbRegist;
+    @BindView(R.id.et_mobile)
+    EditText etMobile;
     @BindView(R.id.activity_reserva_barber)
     LinearLayout activityReservaBarber;
 
 
     private BarberGridAdapter gridAdapter;
-    List<String> afterTime = Arrays.asList(
-            "17:30", "18:00", "18:30", "19:00", "19:30",
-            "20:00", "20:30", "21:00"
-    );
-    List<String> morningTime = Arrays.asList(
-            "10:00", "10:30", "11:00", "11:30", "12:00",
-            "14:00", "14:30", "17:00"
-    );
-    private BarberListBean.BarberlistBean barberlistBean;
+
+    private BarberlistBean barberlistBean;
     private String address;
+    private int id;
+    private String barberid;
+    private List<Itemid> list;
+    private int sumAll;
+    private OrderTimeAdapter orderTimeAdapter;
+    private List<PreOrderBean.TimelistBean> timelist;
+    private List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist;
 
     @Override
     public PreOrderBarberPresenter createPresenter() {
@@ -112,9 +117,14 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
 
     @Override
     public void initView() {
-        barberlistBean = (BarberListBean.BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
+        list = new ArrayList<>();
+        barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
-        getPresenter().getData(barberlistBean.getId());//预约信息数据加载
+        if(barberlistBean!=null){
+            getPresenter().getData(barberlistBean.getId());//预约信息数据加载
+        }
+        Glide.with(this).load(barberlistBean.getPhoto()).into(civBarberHeader);
+        Glide.with(this).load(barberlistBean.getPhoto()).into(ivBarberBackground);
         //初始化金额和服务数量
         tvSumService.setText("共" + 0 + "项服务 合计：");
         tvHowMuch.setText("￥" + 0);
@@ -178,6 +188,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
             adapter.setListener(new ExpandableListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener() {
+                    list.clear();
                     int sum = 0;
                     int count = 0;
                     for (int i = 0; i < itemlist.size(); i++) {
@@ -187,38 +198,45 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                             if (itemlist1.get(j).isSelect()) {
                                 sum += itemlist1.get(j).getPrice();
                                 count++;
+                                int id = itemlist1.get(j).getId();
+                                list.add(new Itemid(id));
                             }
                         }
                     }
                     //设置支付总额,服务数量
+                    sumAll = sum;
                     tvSumService.setText("共" + count + "项服务 合计：");
                     tvHowMuch.setText("￥" + sum);
                 }
             });
 
-            List<PreOrderBean.TimelistBean> timelist = preOrderBean.getTimelist();
+            timelist = preOrderBean.getTimelist();
+            orderTimeAdapter.setData(timelist);
+            orderTimeAdapter.setListener(new OrderTimeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    PreOrderBean.TimelistBean timelistBean = timelist.get(position);
+                    schedulelist = timelistBean.getSchedulelist();
+                    gridAdapter.setData(schedulelist);
+
+                }
+            });
+            gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
+                    id = schedulelistBean.getId();
+                    barberid = schedulelistBean.getBarberid();
+                }
+            });
             for (int i = 0; i < timelist.size(); i++) {
-                PreOrderBean.TimelistBean timelistBean = timelist.get(i);
-                List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist = timelistBean.getSchedulelist();
 
-
-               /* if (typeid == 1) {
-                    tvSun.setText(starttime + "-" + endtime);
-                    gridAdapter.setData(schedulelist);
-                } else {
-                    tvAfter.setText(starttime + "-" + endtime);
-                    gridAdapter.setData(schedulelist);
-                }*/
             }
         } else {
             showToast("PreOrderBean这个bean为空");
         }
     }
 
-    @Override
-    public void createOrederResult(CreateorderBean bean) {
-
-    }
 
     //初始化理发师信息
     private void initBarberInfo() {
@@ -237,14 +255,8 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
-        /*BarberRvAdapter rvAdapter = new BarberRvAdapter();
-        recyclerView.setAdapter(rvAdapter);*/
-
-        OrderTimeAdapter orderTimeAdapter = new OrderTimeAdapter(this);
+        orderTimeAdapter = new OrderTimeAdapter(this);
         recyclerView.setAdapter(orderTimeAdapter);
-        List<String> week = DateUtils.get3week();
-        List<String> date = DateUtils.get3date();
-        orderTimeAdapter.setData(week, date);
     }
 
     private void initTitle() {
@@ -255,31 +267,39 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     @OnClick({R.id.tb_regist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            /*case R.id.ll_morning:
-//                ivMoon.setImageResource();
-//                ivSun.setImageResource();
-                tvAfter.setTextColor(Color.parseColor("#000000"));
-                tvSun.setTextColor(Color.parseColor("#0000aa"));
-                viewMorning.setBackgroundColor(Color.parseColor("#0000aa"));
-                viewAfter.setBackgroundColor(Color.parseColor("#33000000"));
-                //gridAdapter.setTime(morningTime);
-                break;
-            case R.id.ll_afternoon:
-                //                ivMoon.setImageResource();
-//                ivSun.setImageResource();
-                tvAfter.setTextColor(Color.parseColor("#0000aa"));
-                tvSun.setTextColor(Color.parseColor("#000000"));
-                viewMorning.setBackgroundColor(Color.parseColor("#33000000"));
-                viewAfter.setBackgroundColor(Color.parseColor("#0000aa"));
-                //gridAdapter.setTime(afterTime);
-                break;*/
             case R.id.tb_regist:
-                Intent intent = new Intent(this, PayFiveJiaoActivity.class);
-                // TODO: 2017/8/22 0022 携带支付信息
-                intent.putExtra("from", Constants.BARBER);
-                startActivity(intent);
+
+                String mobile = etMobile.getText().toString().trim();
+                String remark = etScanner.getText().toString().trim();
+                String money = tvHowMuch.getText().toString().trim();
+                String price = money.replaceAll("￥", "");
+                if (StringUtil.isNullOrEmpty(mobile)) {
+                    showToast("请输入手机号");
+                    return;
+                }
+                if (!VerifyCheck.isMobilePhoneVerify(mobile)) {
+                    showToast("请输入正确的手机号码");
+                    return;
+                }
+
+                Order order = new Order(barberid, mobile, remark, price, id + "");
+                getPresenter().createOrder(order, list);//下单
+
                 break;
         }
     }
 
+    @Override
+    public void createOrederResult(CreateorderBean bean) {
+
+        Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+        int orderid = bean.getOrderid();
+        int ordertype = bean.getOrdertype();
+        intent.putExtra("from", Constants.BARBER);
+        intent.putExtra("pay",sumAll);
+        intent.putExtra("orderid",orderid);
+        intent.putExtra("ordercode","");
+        intent.putExtra("ordertype",ordertype);
+        startActivity(intent);
+    }
 }

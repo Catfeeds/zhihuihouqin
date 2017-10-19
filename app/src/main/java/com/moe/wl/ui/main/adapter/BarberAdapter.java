@@ -19,7 +19,9 @@ import butterknife.ButterKnife;
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.activity.ReservaBarberActivity;
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
+import com.moe.wl.ui.main.bean.BarberlistBean;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -28,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class BarberAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<BarberListBean.BarberlistBean> data = new ArrayList<>();
+    private List<BarberlistBean> data = new ArrayList<>();
     private String address;
     private String shopName;
 
@@ -58,7 +60,7 @@ public class BarberAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public void setData(List<BarberListBean.BarberlistBean> data, String address, String shopName) {
+    public void setData(List<BarberlistBean> data, String address, String shopName) {
         this.data = data;
         this.address = address;
         this.shopName = shopName;
@@ -80,7 +82,7 @@ public class BarberAdapter extends RecyclerView.Adapter {
         TextView tvBarberAddress;
         @BindView(R.id.tv_percent)
         TextView tvPercent;
-        private BarberListBean.BarberlistBean barberlistBean;
+        private BarberlistBean barberlistBean;
 
         ViewHolder(View view) {
             super(view);
@@ -115,7 +117,7 @@ public class BarberAdapter extends RecyclerView.Adapter {
             });
         }
 
-        public void setData(BarberListBean.BarberlistBean barberlistBean) {
+        public void setData(BarberlistBean barberlistBean) {
             this.barberlistBean = barberlistBean;
             if (barberlistBean != null) {
                 GlideLoading.getInstance().loadImgUrlNyImgLoader(context, barberlistBean.getPhoto(), barberHeader);

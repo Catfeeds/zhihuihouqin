@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberAdapter;
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
+import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.model.BarberListModel;
 import com.moe.wl.ui.main.modelimpl.BarberListModelImpl;
 import com.moe.wl.ui.main.presenter.BarberListPresenter;
@@ -58,9 +59,11 @@ public class BarberActivity extends BaseActivity<BarberListModel, BarberListView
     }
 
     @Override
-    public void getBarberListSucc(BarberListBean listBean) {
+    public void getBarberListSucc(BarberListsBean listBean) {
         if (listBean != null) {
-            List<BarberListBean.BarberlistBean> barberlist = listBean.getBarberlist();
+            listBean.getBarberlist();
+            listBean.getBarberlist();
+            List<BarberlistBean> barberlist = listBean.getBarberlist();
             barberAdapter.setData(barberlist,address,shopName);
         }else{
             System.out.println("理发师"+listBean+"为空");

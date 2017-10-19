@@ -18,7 +18,7 @@ import com.moe.wl.ui.main.bean.ActivityUserDetailBean;
 import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
 import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
 import com.moe.wl.ui.main.bean.BarberProductDetailBean;
 import com.moe.wl.ui.main.bean.BarberWorkListBean;
@@ -96,11 +96,6 @@ import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
-
-import java.util.List;
-import java.util.Map;
-
-import com.moe.wl.ui.main.bean.WalletOrderBean;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -297,7 +292,7 @@ public interface NetAPI {
     //理发师列表
     @FormUrlEncoded
     @POST(NetUrl.barberList)
-    Observable<BarberListBean> getBarberList(@FieldMap Map<String, Object> map);
+    Observable<BarberListsBean> getBarberList(@FieldMap Map<String, Object> map);
 
     //理发师详情
     @FormUrlEncoded

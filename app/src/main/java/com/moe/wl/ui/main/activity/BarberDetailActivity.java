@@ -17,7 +17,8 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberProductAdapter;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
+import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 import com.moe.wl.ui.main.model.BarberDetailModel;
@@ -81,7 +82,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     @BindView(R.id.activity_barber_detail)
     LinearLayout activityBarberDetail;
     private String address;
-    private BarberListBean.BarberlistBean barberlistBean;
+    private BarberlistBean barberlistBean;
     private DoctorDetailrvAdapter rvAdapter;
     private List<CommentlistBean> data;
     private String shopName;
@@ -111,7 +112,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         Bundle extras = intent.getExtras();
         address = extras.getString("address");
         shopName = extras.getString("shopName");
-        barberlistBean = (BarberListBean.BarberlistBean) extras.getSerializable("barberlistBean");
+        barberlistBean = (BarberlistBean) extras.getSerializable("barberlistBean");
         id = barberlistBean.getId();
         System.out.println("理发师详情" + barberlistBean);
         if (barberlistBean != null) {
@@ -131,7 +132,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         if (detailBean != null) {
             tvBarberJieshaoContent.setText(detailBean.getBrief());
             tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
-            barberProductAdapter.setData(detailBean.getWorklist());
+            barberProductAdapter.setData(detailBean.getWorklist());//设置作品列表
             LogUtils.i("worklist===" + detailBean.getWorklist().size());
             data.addAll(detailBean.getCommentlist());
             rvAdapter.notifyDataSetChanged();
@@ -160,7 +161,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             ivCollect.setImageResource(R.mipmap.tab3_y);
             showToast("取消收藏");
         }else{
-            ivCollect.setImageResource(R.mipmap.tab1_n);
+            ivCollect.setImageResource(R.drawable.collect);
             showToast("收藏成功");
         }
     }
@@ -186,7 +187,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     @OnClick({R.id.tv_barber_jieshao_content, R.id.iv_call_barber_phone, R.id.tv_more_zuopin, R.id.tv_more_comment, R.id.iv_collect, R.id.zixun, R.id.tv_now_order})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_barber_jieshao_content:
+            case R.id.tv_barber_jieshao_content://介绍
                 Intent intent2 = new Intent(this, BarberJianjieActivity.class);
                 String content = tvBarberJieshaoContent.getText().toString().trim();
                 intent2.putExtra("content", content);
@@ -208,14 +209,15 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             case R.id.iv_collect://收藏
                 getPresenter().collect(Type,id);
                 break;
-            case R.id.zixun:
+            case R.id.zixun://咨询
                 Intent intent3 = new Intent(this, ConsultActivity.class);
                 intent3.putExtra("barberid", id);
                 startActivity(intent3);
                 break;
             case R.id.tv_now_order:
                 Intent intent4=new Intent(this,ReservaBarberActivity.class);
-
+                intent4.putExtra("barberlistBean",barberlistBean);
+                intent4.putExtra("address",address);
                 startActivity(intent4);
                 break;
         }

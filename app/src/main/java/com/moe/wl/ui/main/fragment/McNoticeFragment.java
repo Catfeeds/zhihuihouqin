@@ -74,29 +74,31 @@ public class McNoticeFragment extends BaseFragment<McNocticeModel,McNoticeView,M
     }
     @Override
     public void getCollect(MyCollectBean bean) {
-        List<MyCollectBean.PageBean.ListBean> list = bean.getPage().getList();
-        switch (type){
-            case 1:
-                NoticeAdapter adapter = new NoticeAdapter(getActivity());
-                rvCollect.setAdapter(adapter);
-                adapter.setData(list);
-                break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-                break;
-
-
-
-
+        if(bean!=null){
+            MyCollectBean.PageBean page = bean.getPage();
+            if(page!=null){
+                List<MyCollectBean.PageBean.ListBean> list = page.getList();
+                switch (type){
+                    case 1:
+                        NoticeAdapter adapter = new NoticeAdapter(getActivity());
+                        rvCollect.setAdapter(adapter);
+                        adapter.setData(list);
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 11:
+                        break;
+                }
+            }
         }
+
 
     }
 }

@@ -6,6 +6,7 @@ import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.model.ShopModel;
 import com.moe.wl.ui.main.view.ShopView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -23,33 +24,37 @@ public class ShopPresenter extends MvpRxPresenter<ShopModel, ShopView> {
         getNetWork(login, new Subscriber<ShopBean>() {
             @Override
             public void onCompleted() {
-
+                getView().dismissProgressDialog();
             }
+
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 Log.e("错误", e.getMessage());
             }
 
             @Override
             public void onNext(ShopBean shopBean) {
-                Log.e("errorCode",shopBean.getErrCode()+"");
+                Log.e("errorCode", shopBean.getErrCode() + "");
                 if (shopBean.getErrCode() == 0) {
                     getView().getShopInfo(shopBean);
                 } else {
-                    Log.e("getMsg",shopBean.getMsg());
+                    Log.e("getMsg", shopBean.getMsg());
                     getView().showToast(shopBean.getMsg());
                 }
             }
         });
     }
+
     public void getphotos(int servicetype) {
         Log.e("ShopPresenter处理了", "--");
         Observable login = getModel().getServiceInfo(servicetype);
         getNetWork(login, new Subscriber<ServiceBean>() {
             @Override
             public void onCompleted() {
-
+                getView().dismissProgressDialog();
             }
+
             @Override
             public void onError(Throwable e) {
                 Log.e("错误", e.getMessage());
@@ -61,7 +66,7 @@ public class ShopPresenter extends MvpRxPresenter<ShopModel, ShopView> {
                 if (bean.getErrCode() == 0) {
                     getView().getServiceInfo(bean);
                 } else {
-                    Log.e("getMsg",bean.getMsg());
+                    Log.e("getMsg", bean.getMsg());
                     getView().showToast(bean.getMsg());
                 }
             }

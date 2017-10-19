@@ -40,7 +40,7 @@ public class BarberChatAdapter extends RecyclerView.Adapter {
             ConsultBarberBean.NoticelistBean noticelistBean = data.get(position);
             String content = noticelistBean.getContent();
             String createtime = noticelistBean.getCreatetime();
-            int time = Integer.parseInt(createtime);
+//            int time = Integer.parseInt(createtime);
             viewHolder.tv_message.setText(content);
             viewHolder.tv_time.setText(createtime);
            /* //如果是第1条消息 与当前的系统时间比较 如果消息发送/收到的时间和当前时间足够近就不需要展示

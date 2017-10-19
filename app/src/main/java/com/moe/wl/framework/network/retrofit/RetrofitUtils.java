@@ -988,7 +988,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("barberId", id);
+            tempMap.put("barberid", id);
             tempMap.put("page", page);
             tempMap.put("limit", limit);
             addParam(paramsMap, tempMap);
@@ -1047,7 +1047,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.getbarberInfo(paramsMap));
+        return getObservable(api.createorder(paramsMap));
     }
 
     /**
@@ -1077,7 +1077,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("barberid", barberid + "");
+            tempMap.put("getid", barberid + "");
             tempMap.put("content", content);
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
@@ -2706,11 +2706,12 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable pay(String orderid,String ordertype,int paytype) {
+    public static Observable pay(String orderid,String ordercode,String ordertype,int paytype) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("ordercode",orderid);
+            tempMap.put("orderid",orderid);
+            tempMap.put("ordercode",ordercode);
             tempMap.put("ordertype",ordertype);
             tempMap.put("paytype",paytype+"");
             addParam(paramsMap, tempMap);
@@ -2718,11 +2719,11 @@ carcode	是	string	车牌号*/
             e.printStackTrace();
         }
         if(paytype==1){
-            return getObservable(api.alipay(paramsMap));
+            return getObservable(api.alipay(paramsMap));//支付宝
         }else if(paytype==2){
-            return getObservable(api.weixinpay(paramsMap));
+            return getObservable(api.weixinpay(paramsMap));//微信
         }else if(paytype==3){
-            return getObservable(api.personalwalletpay(paramsMap));
+            return getObservable(api.personalwalletpay(paramsMap));//个人钱包
         }
         else{
             return null;

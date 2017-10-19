@@ -106,27 +106,17 @@ public class InformationDetailActivity extends AppCompatActivity {
                     }
                 });
                 pop.showAtLocation(findViewById(R.id.main), Gravity.BOTTOM, 0, 0);
-                pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        CommonUtil.hideSoftKeyboard(InformationDetailActivity.this);
-                    }
-                });
-                popupInputMethodWindow();
+//                pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss() {
+//                        CommonUtil.hideSoftKeyboard(InformationDetailActivity.this);
+//                    }
+//                });
+//                popupInputMethodWindow();
                 break;
         }
     }
 
-    Handler handler = new Handler();
-
-    private void popupInputMethodWindow() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CommonUtil.openSoftKeyboard(InformationDetailActivity.this);
-            }
-        }, 0);
-    }
 
     // 设置页面数据
     private void setUI(InformationDetailBean bean) {

@@ -29,6 +29,7 @@ public class BarberProductListPresenter extends MvpRxPresenter<BarberPoductListM
 
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 Log.e("Throwable",e.getMessage());
             }
 

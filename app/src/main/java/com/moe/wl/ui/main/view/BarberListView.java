@@ -1,6 +1,6 @@
 package com.moe.wl.ui.main.view;
 
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
 import mvp.cn.common.MvpView;
 
 /**
@@ -9,6 +9,6 @@ import mvp.cn.common.MvpView;
 
 public interface BarberListView extends MvpView{
 
-void getBarberListSucc(BarberListBean listBean);
+void getBarberListSucc(BarberListsBean listBean);
 
 }

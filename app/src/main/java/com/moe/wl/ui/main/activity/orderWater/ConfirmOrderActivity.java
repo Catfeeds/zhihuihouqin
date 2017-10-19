@@ -217,6 +217,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
                         Intent intent = new Intent(ConfirmOrderActivity.this, PayFiveJiaoActivity.class);
                         intent.putExtra("pay", sum);
                         intent.putExtra("from",Constants.ORDERWATER);
+                        intent.putExtra("orderid","");
                         intent.putExtra("ordercode",ordercode);
                         intent.putExtra("ordertype",ordertype);
                         startActivity(intent);

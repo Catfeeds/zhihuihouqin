@@ -33,8 +33,8 @@ public class MealsRechargeModelImpl implements MealsRechargeModel {
     }
 
     @Override
-    public Observable pay(String orderid, String ordertype, int paytype) {
-        Observable observable = RetrofitUtils.getInstance().pay(orderid,ordertype,paytype);
+    public Observable pay(String orderid,String ordercode, String ordertype, int paytype) {
+        Observable observable = RetrofitUtils.getInstance().pay(orderid,ordercode,ordertype,paytype);
         return observable;
     }
 }

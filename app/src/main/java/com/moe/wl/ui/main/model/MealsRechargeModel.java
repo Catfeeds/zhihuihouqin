@@ -13,6 +13,6 @@ public interface MealsRechargeModel extends MvpModel {
     Observable findLastCardNum();
     Observable findRemain();
     Observable generateChargeOrder(String money,int paytype,String cardNum);
-    Observable pay(String orderid,String ordertype,int paytype);
+    Observable pay(String orderid,String ordercode,String ordertype,int paytype);
 
 }

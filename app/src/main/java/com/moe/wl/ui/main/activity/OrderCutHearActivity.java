@@ -3,7 +3,9 @@ package com.moe.wl.ui.main.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.adapter.CutHearAdapter;
+import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.model.ShopModel;
@@ -59,14 +62,13 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     GridView shopGrid;
     @BindView(R.id.tv_now_order)
     TextView tvNowOrder;
-    @BindView(R.id.activity_order_cut_hear)
-    RelativeLayout activityOrderCutHear;
     @BindView(R.id.ll_call)
     LinearLayout llCall;
     @BindView(R.id.h_banner_viewPager)
     SimpleImageBanner sib;
     private CutHearAdapter adapter;
     private ShopBean shopBean;
+    private List<BarberlistBean> barberlist;
 
     @Override
     public ShopPresenter createPresenter() {
@@ -87,13 +89,14 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     @Override
     public void initView() {
         getPresenter().getData();
-        getPresenter().getphotos(6);
+
         initTitle();
         initGrid();
     }
 
     @Override
     public void getShopInfo(ShopBean shopBean) {
+        getPresenter().getphotos(6);
         this.shopBean = shopBean;
         System.out.println("shopBean = " + shopBean);
         if (shopBean != null) {
@@ -102,11 +105,9 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
             tvAddress.setText(shopBean.getPlace());
             tvWorkTime.setText(shopBean.getBusinesshour());
             tvPhone.setText(shopBean.getMobile());
-            List<ShopBean.BarberlistBean> barberlist = shopBean.getBarberlist();
+            barberlist = shopBean.getBarberlist();
             tvBarberNum.setText("全部" + barberlist.size() + "位理发师");
             adapter.setData(barberlist);
-
-
         } else {
             showToast(shopBean.getMsg());
         }
@@ -142,7 +143,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 });
 
             }else{
-                LogUtils.i("detailphoto"+"为null");
+                LogUtils.i("detailphoto==="+"为null");
             }
         }
 
@@ -151,6 +152,22 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     private void initGrid() {
         adapter = new CutHearAdapter(this);
         shopGrid.setAdapter(adapter);
+        //进入到理发师详情
+        shopGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BarberlistBean barberlistBean = barberlist.get(position);
+                String place = shopBean.getPlace();
+                String tradename = shopBean.getTradename();
+                Intent intent=new Intent(OrderCutHearActivity.this, BarberDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("address",place);
+                bundle.putString("shopName",tradename);
+                bundle.putSerializable("barberlistBean",barberlistBean);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initTitle() {
@@ -163,7 +180,8 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
         switch (view.getId()) {
             case R.id.tv_barber_num:
                 Intent intent = new Intent(this, BarberActivity.class);
-                intent.putExtra("address", shopBean.getPlace());
+                String place = tvAddress.getText().toString().trim();
+                intent.putExtra("address",place);
                 intent.putExtra("shopName", shopBean.getTradename());
                 startActivity(intent);
                 break;

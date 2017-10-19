@@ -1,167 +1,100 @@
 package com.moe.wl.ui.main.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * Created by 我的电脑 on 2017/8/29 0029.
+ * Created by 我的电脑 on 2017/10/18 0018.
  */
 
-public class BarberListBean implements Serializable{
+public class BarberlistBean implements Serializable{
+    private int id;
+    private String mobile;
+    private String name;
+    private String photo;
+    private String positionName;
+    private int positionid;
+    private int remaincount;
+    private float score;
+    private int tatalcount;
+    private int valid;
 
-    /**
-     * msg : success
-     * errCode : 0
-     * barberlist : [{"id":1,"mobile":"132098787888","name":"张三","photo":"www.baidu.com","positionName":"主任","positionid":1,"remaincount":1,"score":1,"tatalcount":null,"valid":1}]
-     */
-
-    private String msg;
-    private int errCode;
-    private List<BarberlistBean> barberlist;
-
-    public String getMsg() {
-        return msg;
+    public int getId() {
+        return id;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getErrCode() {
-        return errCode;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setErrCode(int errCode) {
-        this.errCode = errCode;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public List<BarberlistBean> getBarberlist() {
-        return barberlist;
+    public String getName() {
+        return name;
     }
 
-    public void setBarberlist(List<BarberlistBean> barberlist) {
-        this.barberlist = barberlist;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public static class BarberlistBean implements Serializable{
-        @Override
-        public String toString() {
-            return "BarberlistBean{" +
-                    "id=" + id +
-                    ", mobile='" + mobile + '\'' +
-                    ", name='" + name + '\'' +
-                    ", photo='" + photo + '\'' +
-                    ", positionName='" + positionName + '\'' +
-                    ", positionid=" + positionid +
-                    ", remaincount=" + remaincount +
-                    ", score=" + score +
-                    ", tatalcount=" + tatalcount +
-                    ", valid=" + valid +
-                    '}';
-        }
+    public String getPhoto() {
+        return photo;
+    }
 
-        /**
-         * id : 1
-         * mobile : 132098787888
-         * name : 张三
-         * photo : www.baidu.com
-         * positionName : 主任
-         * positionid : 1
-         * remaincount : 1
-         * score : 1
-         * tatalcount : null
-         * valid : 1
-         */
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
-        private int id;
-        private String mobile;
-        private String name;
-        private String photo;
-        private String positionName;
-        private int positionid;
-        private int remaincount;
-        private int score;
-        private int tatalcount;
-        private int valid;
+    public String getPositionName() {
+        return positionName;
+    }
 
-        public int getId() {
-            return id;
-        }
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    public int getPositionid() {
+        return positionid;
+    }
 
-        public String getMobile() {
-            return mobile;
-        }
+    public void setPositionid(int positionid) {
+        this.positionid = positionid;
+    }
 
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
-        }
+    public int getRemaincount() {
+        return remaincount;
+    }
 
-        public String getName() {
-            return name;
-        }
+    public void setRemaincount(int remaincount) {
+        this.remaincount = remaincount;
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public float getScore() {
+        return score;
+    }
 
-        public String getPhoto() {
-            return photo;
-        }
+    public void setScore(float score) {
+        this.score = score;
+    }
 
-        public void setPhoto(String photo) {
-            this.photo = photo;
-        }
+    public int getTatalcount() {
+        return tatalcount;
+    }
 
-        public String getPositionName() {
-            return positionName;
-        }
+    public void setTatalcount(int tatalcount) {
+        this.tatalcount = tatalcount;
+    }
 
-        public void setPositionName(String positionName) {
-            this.positionName = positionName;
-        }
+    public int getValid() {
+        return valid;
+    }
 
-        public int getPositionid() {
-            return positionid;
-        }
-
-        public void setPositionid(int positionid) {
-            this.positionid = positionid;
-        }
-
-        public int getRemaincount() {
-            return remaincount;
-        }
-
-        public void setRemaincount(int remaincount) {
-            this.remaincount = remaincount;
-        }
-
-        public int getScore() {
-            return score;
-        }
-
-        public void setScore(int score) {
-            this.score = score;
-        }
-
-        public int getTatalcount() {
-            return tatalcount;
-        }
-
-        public void setTatalcount(int tatalcount) {
-            this.tatalcount = tatalcount;
-        }
-
-        public int getValid() {
-            return valid;
-        }
-
-        public void setValid(int valid) {
-            this.valid = valid;
-        }
+    public void setValid(int valid) {
+        this.valid = valid;
     }
 }

@@ -4,30 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by 我的电脑 on 2017/8/28 0028.
+ * Created by 我的电脑 on 2017/8/29 0029.
  */
 
-public class ShopBean  {
-
+public class BarberListsBean {
 
     /**
      * msg : success
-     * tradename : null
      * errCode : 0
-     * mobile : 098765
-     * place : a301
-     * businesshour : 8:00
      * barberlist : [{"id":1,"mobile":"132098787888","name":"张三","photo":"www.baidu.com","positionName":"主任","positionid":1,"remaincount":1,"score":1,"tatalcount":null,"valid":1}]
-     * picture : http://www.baidu.com
      */
 
     private String msg;
-    private String tradename;
     private int errCode;
-    private String mobile;
-    private String place;
-    private String businesshour;
-    private String picture;
     private List<BarberlistBean> barberlist;
 
     public String getMsg() {
@@ -38,52 +27,12 @@ public class ShopBean  {
         this.msg = msg;
     }
 
-    public String getTradename() {
-        return tradename;
-    }
-
-    public void setTradename(String tradename) {
-        this.tradename = tradename;
-    }
-
     public int getErrCode() {
         return errCode;
     }
 
     public void setErrCode(int errCode) {
         this.errCode = errCode;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getBusinesshour() {
-        return businesshour;
-    }
-
-    public void setBusinesshour(String businesshour) {
-        this.businesshour = businesshour;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     public List<BarberlistBean> getBarberlist() {
@@ -94,8 +43,24 @@ public class ShopBean  {
         this.barberlist = barberlist;
     }
 
-   /* public static class BarberlistBean implements Serializable{
-    *//*    *
+    /*public static class BarberlistBean implements Serializable{
+        @Override
+        public String toString() {
+            return "BarberlistBean{" +
+                    "id=" + id +
+                    ", mobile='" + mobile + '\'' +
+                    ", name='" + name + '\'' +
+                    ", photo='" + photo + '\'' +
+                    ", positionName='" + positionName + '\'' +
+                    ", positionid=" + positionid +
+                    ", remaincount=" + remaincount +
+                    ", score=" + score +
+                    ", tatalcount=" + tatalcount +
+                    ", valid=" + valid +
+                    '}';
+        }
+
+        *//**
          * id : 1
          * mobile : 132098787888
          * name : 张三
@@ -105,8 +70,8 @@ public class ShopBean  {
          * remaincount : 1
          * score : 1
          * tatalcount : null
-         * valid : 1*//*
-
+         * valid : 1
+         *//*
 
         private int id;
         private String mobile;

@@ -2,6 +2,7 @@ package com.moe.wl.ui.mywidget;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moe.wl.R;
+import com.moe.wl.ui.main.activity.information.InformationDetailActivity;
+
+import mvp.cn.util.CommonUtil;
 
 /**
  * 类描述：
@@ -53,6 +57,13 @@ public class CommentPop extends PopupWindow {
             }
         });
 
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CommonUtil.openSoftKeyboard(context);
+            }
+        }, 500);
+
         //设置SelectPicPopupWindow的View
         this.setContentView(view);
         //设置SelectPicPopupWindow弹出窗体的宽
@@ -87,6 +98,13 @@ public class CommentPop extends PopupWindow {
 
     public interface OnCommentListener {
         void onListener(String content);
+    }
+
+
+    Handler handler = new Handler();
+
+    private void popupInputMethodWindow() {
+
     }
 
 }

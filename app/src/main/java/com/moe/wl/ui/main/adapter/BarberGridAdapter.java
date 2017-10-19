@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.ui.main.bean.PreOrderBean;
 
 import java.util.ArrayList;
@@ -14,20 +15,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
  * Created by 我的电脑 on 2017/8/22 0022.
  */
 
 public class BarberGridAdapter extends BaseAdapter {
-    private List<PreOrderBean.TimelistBean.SchedulelistBean> data=new ArrayList<>();
+    private List<PreOrderBean.TimelistBean.SchedulelistBean> data = new ArrayList<>();
 
     @Override
     public int getCount() {
-        if(data!=null){
+        if (data != null) {
             return data.size();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -44,16 +44,16 @@ public class BarberGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
+        ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-            viewHolder=new ViewHolder(convertView);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(data!=null&&data.size()>0)
-        viewHolder.setData(data.get(position),position);
+        if (data != null && data.size() > 0)
+            viewHolder.setData(data.get(position), position);
         return convertView;
     }
 
@@ -62,7 +62,9 @@ public class BarberGridAdapter extends BaseAdapter {
         this.data = data;
         notifyDataSetChanged();
     }
-private int selectPosition=0;
+
+    private int selectPosition = 0;
+
     class ViewHolder {
         @BindView(R.id.tv_barber_grid_item)
         TextView tvBarberGridItem;
@@ -73,9 +75,9 @@ private int selectPosition=0;
             tvBarberGridItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectPosition=mPosition;
+                    selectPosition = mPosition;
                     notifyDataSetChanged();
-                    if(listener!=null){
+                    if (listener != null) {
                         listener.onItemClickListener(selectPosition);
                     }
                 }
@@ -83,23 +85,25 @@ private int selectPosition=0;
         }
 
         public void setData(PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean, int position) {
+           this.mPosition=position;
             String starttime = schedulelistBean.getStarttime();
             String endtime = schedulelistBean.getEndtime();
-            tvBarberGridItem.setText(starttime+"-"+endtime);
-            if(mPosition==position){
-                tvBarberGridItem.setTextColor(Color.parseColor("#00aa00"));
-            }else{
+            tvBarberGridItem.setText(starttime + "-" + endtime);
+            if (selectPosition == position) {
+                tvBarberGridItem.setTextColor(Color.parseColor("#00CCFF"));
+            } else {
                 tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
             }
         }
     }
+
     private OnItemClickListener listener;
 
     public void setListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    public interface OnItemClickListener{
-      void  onItemClickListener(int position);
+    public interface OnItemClickListener {
+        void onItemClickListener(int position);
     }
 }

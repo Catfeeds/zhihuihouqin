@@ -9,9 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
-
-
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/barber_header"
         android:layout_width="60dp"

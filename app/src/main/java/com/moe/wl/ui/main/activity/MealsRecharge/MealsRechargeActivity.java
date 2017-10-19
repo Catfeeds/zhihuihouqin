@@ -175,10 +175,10 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
             int paytype = bean.getPaytype();
             switch (paytype){
                 case ZHIFUBAO:
-                    getPresenter().aliPay(bean.getOrdercode()+"" ,bean.getOrdertype()+"",paytype);
+                    getPresenter().aliPay("",bean.getOrdercode()+"" ,bean.getOrdertype()+"",paytype);
                     break;
                 case WEIXIN:
-                    getPresenter().weiXinPay(bean.getOrdercode()+"" ,bean.getOrdertype()+"",paytype);
+                    getPresenter().weiXinPay("",bean.getOrdercode()+"" ,bean.getOrdertype()+"",paytype);
                     break;
             }
         }

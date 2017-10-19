@@ -1,8 +1,6 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,7 +19,8 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.ExpandableListAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
+import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.CreateorderBean;
 import com.moe.wl.ui.main.bean.Itemid;
 import com.moe.wl.ui.main.bean.Order;
@@ -80,11 +79,15 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
 
     private BarberGridAdapter gridAdapter;
 
-    private BarberListBean.BarberlistBean barberlistBean;
+    private BarberlistBean barberlistBean;
     private String address;
     private int id;
     private String barberid;
     private List<Itemid> list;
+    private int sumAll;
+    private List<PreOrderBean.TimelistBean> timelist;
+    private OrderTimeAdapter orderTimeAdapter;
+    private List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist;
 
     @Override
     public NowOrderBarberPresenter createPresenter() {
@@ -105,13 +108,12 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     @Override
     public void initView() {
         list = new ArrayList<>();
-        barberlistBean = (BarberListBean.BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
+        barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
-        getPresenter().order();
-        //设置上午默认被点击
         initgride();
         initTitle();
         initRecycler();
+        getPresenter().order();
         setListener();
         TextWatcher watcher = new TextWatcher() {
             @Override
@@ -167,6 +169,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
             adapter.setListener(new ExpandableListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener() {
+                    list.clear();
                     int sum = 0;
                     int count = 0;
                     for (int i = 0; i < itemlist.size(); i++) {
@@ -182,17 +185,34 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                         }
                     }
                     //设置支付总额,服务数量
+                    sumAll = sum;
                     tvSumService.setText("共" + count + "项服务 合计：");
                     tvHowMuch.setText("￥" + sum);
                 }
             });
+            timelist = preOrderBean.getTimelist();
+            orderTimeAdapter.setData(timelist);
+            orderTimeAdapter.setListener(new OrderTimeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    PreOrderBean.TimelistBean timelistBean = timelist.get(position);
+                    schedulelist = timelistBean.getSchedulelist();
+                    gridAdapter.setData(schedulelist);
 
+                }
+            });
+            gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int position) {
+                    PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
+                    id = schedulelistBean.getId();
+                    barberid = schedulelistBean.getBarberid();
+                }
+            });
 
-            List<PreOrderBean.TimelistBean> timelist = preOrderBean.getTimelist();
-            for (int i = 0; i < timelist.size(); i++) {
+           /* for (int i = 0; i < timelist.size(); i++) {
                 PreOrderBean.TimelistBean timelistBean = timelist.get(i);
                 final List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist = timelistBean.getSchedulelist();
-
                 gridAdapter.setData(schedulelist);
                 gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
                     @Override
@@ -202,16 +222,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                         barberid = schedulelistBean.getBarberid();
                     }
                 });
-
-               /* if (typeid == 1) {
-                    tvSun.setText(starttime + "-" + endtime);
-                    gridAdapter.setData(schedulelist);
-                } else {
-                    tvAfter.setText(starttime + "-" + endtime);
-                    gridAdapter.setData(schedulelist);
-                }*/
-            }
-//
+            }*/
         } else {
             showToast("PreOrderBean这个bean为空");
         }
@@ -220,10 +231,14 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     @Override//下单成功
     public void createOrederResult(CreateorderBean bean) {
         if(bean!=null){
-
+            int orderid = bean.getOrderid();
+            int ordertype = bean.getOrdertype();
             Intent intent = new Intent(this, PayFiveJiaoActivity.class);
             intent.putExtra("from", Constants.BARBER);
-            // TODO: 2017/8/22 0022 携带支付信息
+            intent.putExtra("pay",sumAll);
+            intent.putExtra("orderid",orderid+"");
+            intent.putExtra("ordercode","");
+            intent.putExtra("ordertype",ordertype+"");
             startActivity(intent);
         }
     }
@@ -239,14 +254,11 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
-        /*BarberRvAdapter rvAdapter = new BarberRvAdapter();
-        recyclerView.setAdapter(rvAdapter);*/
-
-        OrderTimeAdapter orderTimeAdapter = new OrderTimeAdapter(this);
+        orderTimeAdapter = new OrderTimeAdapter(this);
         recyclerView.setAdapter(orderTimeAdapter);
-        List<String> week = DateUtils.get3week();
-        List<String> date = DateUtils.get3date();
-        orderTimeAdapter.setData(week, date);
+        /*List<String> week = DateUtils.get3week();
+        List<String> date = DateUtils.get3date();*/
+
     }
 
     private void initTitle() {

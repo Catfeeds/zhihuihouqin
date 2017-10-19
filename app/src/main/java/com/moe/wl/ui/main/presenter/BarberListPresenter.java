@@ -2,7 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.BarberListBean;
+import com.moe.wl.ui.main.bean.BarberListsBean;
 import com.moe.wl.ui.main.model.BarberListModel;
 import com.moe.wl.ui.main.view.BarberListView;
 import mvp.cn.rx.MvpRxPresenter;
@@ -20,7 +20,7 @@ public class BarberListPresenter extends MvpRxPresenter<BarberListModel, BarberL
         getView().showProgressDialog();
         LogUtil.log("BarberListPresenter发出请求");
         Observable login = getModel().getData();
-        getNetWork(login, new Subscriber<BarberListBean>() {
+        getNetWork(login, new Subscriber<BarberListsBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -32,7 +32,7 @@ public class BarberListPresenter extends MvpRxPresenter<BarberListModel, BarberL
             }
 
             @Override
-            public void onNext(BarberListBean listBean) {
+            public void onNext(BarberListsBean listBean) {
                 if(listBean.getErrCode()==0){
                     getView().getBarberListSucc(listBean);
                 }else{

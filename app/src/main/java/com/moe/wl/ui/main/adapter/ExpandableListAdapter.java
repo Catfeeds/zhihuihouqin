@@ -119,19 +119,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         final List<PreOrderBean.ItemlistBeanX.ItemlistBean> childItemlist = mItemlist.get(groupPosition).getItemlist();
 
         tvChildName.setText(childItemlist.get(childPosition).getName());
-        tvChilePrice.setText(childItemlist.get(childPosition).getPrice()+"");
+        tvChilePrice.setText("￥"+childItemlist.get(childPosition).getPrice());
         boolean select = childItemlist.get(childPosition).isSelect();
         if(select){
-            ivCheck.setImageResource(R.drawable.selected);
+            ivCheck.setImageResource(R.drawable.select);
         }else{
-            ivCheck.setImageResource(R.drawable.unselected);
+            ivCheck.setImageResource(R.drawable.unselect);
         }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean select = childItemlist.get(childPosition).isSelect();
-                childItemlist.get(childPosition).setSelect(!select);
-                notifyDataSetChanged();
+                for (int i = 0; i < childItemlist.size(); i++) {
+                    if(i==childPosition){
+                        childItemlist.get(childPosition).setSelect(!select);
+                    }else{
+                        childItemlist.get(i).setSelect(false);
+                    }
+                    notifyDataSetChanged();
+                }
                 if(listener!=null){
                     listener.onItemClickListener();
                 }

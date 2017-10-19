@@ -22,9 +22,9 @@ import rx.Subscriber;
 
 public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
 
-    public void aliPay(String orderid,String ordertype,int paytype) {
+    public void aliPay(String orderid,String ordercode,String ordertype,int paytype) {
         getView().showProgressDialog();
-        Observable request = getModel().pay(orderid,ordertype,paytype);
+        Observable request = getModel().pay(orderid,ordercode,ordertype,paytype);
         getNetWork(request, new Subscriber<AlipayBean>() {
 
             @Override
@@ -48,9 +48,9 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
             }
         });
     }
-    public void weiXinPay(String orderid,String ordertype,int paytype) {
+    public void weiXinPay(String orderid,String ordercode,String ordertype,int paytype) {
         getView().showProgressDialog();
-        Observable request = getModel().pay(orderid,ordertype,paytype);
+        Observable request = getModel().pay(orderid,ordercode,ordertype,paytype);
         getNetWork(request, new Subscriber<WeixinBean>() {
 
             @Override
@@ -74,9 +74,9 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
             }
         });
     }
-    public void personalWalletPay(String orderid,String ordertype,int paytype) {
+    public void personalWalletPay(String orderid,String ordercode,String ordertype,int paytype) {
         getView().showProgressDialog();
-        Observable request = getModel().pay(orderid,ordertype,paytype);
+        Observable request = getModel().pay(orderid,ordercode,ordertype,paytype);
         getNetWork(request, new Subscriber<ActivityPostBean>() {
 
             @Override

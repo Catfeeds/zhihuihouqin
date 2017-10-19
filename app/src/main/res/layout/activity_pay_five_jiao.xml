@@ -64,7 +64,7 @@
         <ImageView
             android:id="@+id/iv_balance_pay_check"
             android:layout_centerVertical="true"
-           android:src="@drawable/selected"
+           android:src="@drawable/select"
             android:layout_alignParentRight="true"
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
@@ -94,7 +94,7 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/sp_small"
             android:textColor="@color/tv_black"
-            android:text="￥200"
+            android:text="￥0.0"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -124,7 +124,7 @@
             android:background="#1000"/>
         <ImageView
             android:id="@+id/iv_weixin_pay"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/recharge_wechat"
             android:layout_width="35dp"
             android:layout_height="35dp" />
         <TextView
@@ -140,7 +140,7 @@
         <ImageView
             android:id="@+id/iv_weixin_pay_check"
             android:layout_centerVertical="true"
-            android:src="@drawable/unselected"
+            android:src="@drawable/unselect"
             android:layout_alignParentRight="true"
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_alpay"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/recharge_alipay"
             android:layout_width="35dp"
             android:layout_height="35dp" />
         <TextView

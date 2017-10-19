@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.moe.wl.R;
 
+import com.moe.wl.ui.main.activity.BarberDetailActivity;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
+import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by 我的电脑 on 2017/8/15 0015.
  */
 public class CutHearAdapter extends BaseAdapter {
-private List<ShopBean.BarberlistBean> mBarberList=new ArrayList<>();
+private List<BarberlistBean> mBarberList=new ArrayList<>();
     private Context context;
 
     public CutHearAdapter(Context context) {
@@ -61,13 +64,13 @@ private List<ShopBean.BarberlistBean> mBarberList=new ArrayList<>();
             viewHolder= (ViewHolder) convertView.getTag();
         }
         if(mBarberList!=null){
-            ShopBean.BarberlistBean barberlistBean = mBarberList.get(position);
+            BarberlistBean barberlistBean = mBarberList.get(position);
             viewHolder.setData(barberlistBean);
         }
         return convertView;
     }
 
-    public void setData(List<ShopBean.BarberlistBean> barberlist) {
+    public void setData(List<BarberlistBean> barberlist) {
         this.mBarberList=barberlist;
         notifyDataSetChanged();
     }
@@ -79,22 +82,30 @@ private List<ShopBean.BarberlistBean> mBarberList=new ArrayList<>();
         TextView tvBarberName;
         @BindView(R.id.tv_position)
         TextView tvPosition;
-         private ShopBean.BarberlistBean barberlistBean;
+         private BarberlistBean barberlistBean;
 
          ViewHolder(View view) {
             ButterKnife.bind(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
+            /*view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context, BarberDetailBean.class);
+                    Intent intent=new Intent(context, BarberDetailActivity.class);
                     // TODO: 2017/9/28 0028 传递参数
-
+*//* Bundle extras = intent.getExtras();
+        address = extras.getString("address");
+        shopName = extras.getString("shopName");
+        barberlistBean = (BarberListsBean.BarberlistBean) extras.getSerializable("barberlistBean");
+        *//*
+                    Bundle bundle = new Bundle();
+                    bundle.putString("address");
+                    bundle.putString("shopName");
+                    bundle.putSerializable("barberlistBean",barberlistBean);
                     context.startActivity(intent);
                 }
-            });
+            });*/
         }
 
-        public void setData(ShopBean.BarberlistBean barberlistBean) {
+        public void setData(BarberlistBean barberlistBean) {
             this.barberlistBean=barberlistBean;
             if(barberlistBean!=null){
                 tvBarberName.setText(barberlistBean.getName());

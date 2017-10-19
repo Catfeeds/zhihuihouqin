@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content" />
                 <ImageView
                     android:id="@+id/iv_call_barber_phone"
-                    android:src="@drawable/phone"
+                    android:src="@drawable/blue_phone"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
@@ -133,10 +133,11 @@
                 android:maxLines="4"
                 android:lineSpacingExtra="3dp"
                 android:padding="@dimen/standard_padding"
+                android:gravity="top"
                 android:background="@drawable/shape_rec_gury"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <View
                 android:layout_width="match_parent"

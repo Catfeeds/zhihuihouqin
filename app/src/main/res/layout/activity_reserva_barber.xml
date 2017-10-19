@@ -29,6 +29,7 @@
                     android:id="@+id/iv_barber_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleType="fitXY"
                     android:background="@drawable/partner_luffy"
                     android:src="#1caca1a1" />
 
@@ -275,11 +276,16 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/et_mobile"
+                    android:hint="请输入手机号码"
+                    android:gravity="right"
+                    android:textColorHint="@color/tv_gray"
+                    android:background="@null"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="18511286166"
+                    android:text=""
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
             </LinearLayout>

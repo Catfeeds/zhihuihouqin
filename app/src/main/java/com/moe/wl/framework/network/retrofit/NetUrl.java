@@ -214,6 +214,10 @@ public interface NetUrl {
     String officedetails="appuser/wallet/officedetails";  //办公室详情
     String subscribeInfo="appuser/wallet/subscribeInfo";  //填写预订信息
     String orderinfo="appuser/wallet/orderinfo";  //办公室预订订单信息
+    //一下是假数据
+    String findAvailableTime="appuser/wallet/orderinfo";  //办公室预订订单信息
+    String findAvailableEquipment="appuser/wallet/orderinfo";  //办公室预订订单信息
+    String cancelDryReason="appuser/wallet/orderinfo";  //办公室预订订单信息
 
 
     /*------------------------------节能减排------------------------------------------------*/

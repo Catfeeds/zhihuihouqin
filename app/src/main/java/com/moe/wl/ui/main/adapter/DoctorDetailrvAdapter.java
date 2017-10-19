@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 
@@ -90,7 +91,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         }
 
         public void setData(CommentlistBean commentlistBean) {
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, commentlistBean.getImgs(), civUserPhoto);
+            Glide.with(context).load(commentlistBean.getImgs()).into(civUserPhoto);
             tvUserName.setText(commentlistBean.getRealname());
             userRatingBar.setRating((float) commentlistBean.getScore());
             OtherUtils.ratingBarColor(userRatingBar);

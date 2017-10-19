@@ -60,7 +60,7 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
 
     @Override
     public void initView() {
-        id = getIntent().getIntExtra("id", 1);
+        id = getIntent().getIntExtra("barberid", 1);
         initTitle();
         getPresenter().getConsultBarberInfo(id);
         rvChat.setLayoutManager(new LinearLayoutManager(this));
@@ -104,7 +104,6 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
 
     @Override
     public void getConsultInfo(ConsultBarberBean bean) {
-        showToast("展示对话列表成功了");
         if(bean!=null){
             List<ConsultBarberBean.NoticelistBean> noticelist = bean.getNoticelist();
             adapter.setData(noticelist);

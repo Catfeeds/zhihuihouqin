@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +21,8 @@ import com.moe.wl.R;
 
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimesAdapter;
+import com.moe.wl.ui.main.adapter.TimeOrderAdapter;
+
 import mvp.cn.util.DateUtils;
 
 
@@ -45,7 +46,7 @@ public class OrderTimeActivity extends AppCompatActivity {
             "13:00","13:30","14:00","14:30","15:00","15:30","16:00",
             "16:30","17:00","17:30","18:00");
     private BarberGridAdapter gridAdapter;
-    private OrderTimeAdapter orderTimeAdapter;
+    private TimeOrderAdapter orderTimeAdapter;
     private OrderTimesAdapter orderTimesAdapter;
 
     @Override
@@ -73,7 +74,7 @@ public class OrderTimeActivity extends AppCompatActivity {
 
     private void initRecycler() {
         rvOrderTime.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        orderTimeAdapter = new OrderTimeAdapter(this);
+        orderTimeAdapter = new TimeOrderAdapter(this);
         rvOrderTime.setAdapter(orderTimeAdapter);
         List<String> week = DateUtils.get7week();
         List<String> date = DateUtils.get7date();
@@ -91,10 +92,10 @@ public class OrderTimeActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_confirm_select_time:
-                String s = orderTimeAdapter.getTime();
+                /*String s = TimeOrderAdapter.getTime();*/
                 int selectPosition = orderTimesAdapter.getSelectPosition();
                 //获得时间
-                intent.putExtra("time", s+" "+this.time.get(selectPosition));
+                //intent.putExtra("time", s+" "+this.time.get(selectPosition));
                 setResult(RESULT_OK,intent);
                 finish();
                 break;

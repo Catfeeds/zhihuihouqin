@@ -73,6 +73,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private String ordercode;
     private String ordertype;
     private int from;
+    private String orderid;
 
     @Override
     public PayPresenter createPresenter() {
@@ -98,13 +99,19 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     private void initData() {
         Intent intent = getIntent();
+        orderid = intent.getStringExtra("orderid");
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
-        LogUtils.i(ordercode);
-        LogUtils.i(ordertype);
         from = intent.getIntExtra("orderWater", Constants.ORDERWATER);
         int pay = intent.getIntExtra("pay", 0);
+       /* LogUtils.i(ordercode);
+        LogUtils.i(ordertype);*/
         tvNeedPay.setText("￥" + pay);
+        if(from==Constants.BARBER){//是理发展示代金券
+            rlDaijinquanPay.setVisibility(View.VISIBLE);
+        }else{
+            rlDaijinquanPay.setVisibility(View.GONE);
+        }
     }
 
     private void initTitle() {
@@ -117,36 +124,35 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         unCheckPay();
         switch (view.getId()) {
             case R.id.iv_daijinjuan_check://代金券支付
-                ivDaijinjuanCheck.setImageResource(R.drawable.selected);
+                ivDaijinjuanCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.iv_balance_pay_check://余额支付
                 paytype = 3;
-                ivBalancePayCheck.setImageResource(R.drawable.selected);
+                ivBalancePayCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.iv_weixin_pay_check://微信支付
                 paytype = 2;
-                ivWeixinPayCheck.setImageResource(R.drawable.selected);
+                ivWeixinPayCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.iv_alpay_check://支付宝支付
                 paytype = 1;
-                ivAlpayCheck.setImageResource(R.drawable.selected);
+                ivAlpayCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.bt_confirm://确认支付，去顶支付成功进入支付成功界面
-
                 switch (paytype) {
                     case 1:
-                        getPresenter().aliPay(ordercode,ordertype,1);
+                        getPresenter().aliPay(orderid,ordercode,ordertype,1);
                         break;
                     case 2:
-                        getPresenter().weiXinPay(ordercode,ordertype,2);
+                        getPresenter().weiXinPay(orderid,ordercode,ordertype,2);
                         break;
                     case 3:
+                        getPresenter().personalWalletPay(orderid,ordercode,ordertype,3);
                         break;
                 }
              /*   switch (from){
                     case ORDERWATER:
                         Intent intent=new Intent(this, SpPaySuccessActivity.class);
-
                         break;
                 }
                 Intent intent = new Intent(this, SubmitSuccessActivity.class);
@@ -156,10 +162,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
     }
     private void unCheckPay() {
-        ivDaijinjuanCheck.setImageResource(R.drawable.unselected);
-        ivBalancePayCheck.setImageResource(R.drawable.unselected);
-        ivWeixinPayCheck.setImageResource(R.drawable.unselected);
-        ivAlpayCheck.setImageResource(R.drawable.unselected);
+        ivDaijinjuanCheck.setImageResource(R.drawable.unselect);
+        ivBalancePayCheck.setImageResource(R.drawable.unselect);
+        ivWeixinPayCheck.setImageResource(R.drawable.unselect);
+        ivAlpayCheck.setImageResource(R.drawable.unselect);
     }
 
     @Override
@@ -167,6 +173,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         if(bean!=null){
             new Alipay(this).doPay(bean.getPayLink());
         }
+        finish();
     }
 
     @Override
@@ -176,6 +183,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             String json = gson.toJson(bean);
             new WecatPay(this).doPay(json);
         }
+        finish();
     }
 
     @Override

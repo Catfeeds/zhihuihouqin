@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.adapter.FmPagerAdapter;
+import com.moe.wl.ui.main.fragment.McNoticeFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +19,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import com.moe.wl.R;
-
-import com.moe.wl.ui.main.adapter.FmPagerAdapter;
-import com.moe.wl.ui.main.fragment.McNoticeFragment;
 
 public class MyCollectActivity extends AppCompatActivity {
 
@@ -33,8 +30,8 @@ public class MyCollectActivity extends AppCompatActivity {
     ViewPager vpCollect;
     @BindView(R.id.activity_my_collect)
     LinearLayout activityMyCollect;
-    private List<String> tabs = Arrays.asList("公告", "办公", "作品", "图书", "医生",
-             "活动", "发型师","健康资讯","9专家","营养套餐","办公用品");
+    private List<String> tabs = Arrays.asList("公告", "办公用品", "理发作品", "图书", "专家",
+            "活动", "发型师");
     // type收藏类型 ： 1: 公告，2：办公，3：作品，4：图书，5：医生，6：活动，7：发型师
     // 8:健康资讯 9专家 10营养套餐 11办公用品
     private List<Fragment> fragments;
@@ -51,9 +48,15 @@ public class MyCollectActivity extends AppCompatActivity {
 
     private void initFragment() {
         fragments = new ArrayList<>();
-        for (int i = 1; i <= 11; i++) {
-            fragments.add(McNoticeFragment.getInstance(i));
-        }
+
+        fragments.add(McNoticeFragment.getInstance(1));
+        fragments.add(McNoticeFragment.getInstance(11));
+        fragments.add(McNoticeFragment.getInstance(3));
+        fragments.add(McNoticeFragment.getInstance(4));
+        fragments.add(McNoticeFragment.getInstance(9));
+        fragments.add(McNoticeFragment.getInstance(6));
+        fragments.add(McNoticeFragment.getInstance(7));
+
     }
 
     private void initTitle() {
