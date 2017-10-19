@@ -32,20 +32,31 @@ public class SubscribeTimeAdapter extends MyBaseAdapter<AppointmentListBean> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        AppointmentListBean bean=getItem(position);
+        final AppointmentListBean bean=getItem(position);
         viewHolder.tv_time.setText(bean.getDurationstr());
-        if (bean.isCheck()){
+        //状态1可租用2不可租用3已租用
+        if ("2".equals(bean.getStatus())){
             viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.white));
-            viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_blue);
+            viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_gay);
+        }else if ("3".equals(bean.getStatus())){
+            viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.white));
+            viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_gay);
         }else{
-            viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.font_black));
-            viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_transparency);
+            if (bean.isCheck()){
+                viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.white));
+                viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_blue);
+            }else{
+                viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.font_black));
+                viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_while);
+            }
         }
         viewHolder.tv_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (callBack!=null){
-                    callBack.cb(position);
+                if ("1".equals(bean.getStatus())){
+                    if (callBack!=null){
+                        callBack.cb(position);
+                    }
                 }
             }
         });

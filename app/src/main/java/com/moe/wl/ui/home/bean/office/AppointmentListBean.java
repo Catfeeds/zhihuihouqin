@@ -12,12 +12,12 @@ public class AppointmentListBean implements Serializable{
     /**
      * durationstr : 8:00-9:00
      * intervalid : 1
-     * status : 2
+     * status : 2   // 	状态1可租用2不可租用3已租用
      */
 
     private String durationstr;
     private String intervalid;
-    private int status;
+    private String status;
     private boolean isCheck;
 
     public boolean isCheck() {
@@ -44,11 +44,11 @@ public class AppointmentListBean implements Serializable{
         this.intervalid = intervalid;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

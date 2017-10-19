@@ -1,19 +1,12 @@
 package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,14 +15,12 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.login.adapter.CarNumAdapter;
 import com.moe.wl.ui.login.bean.Auth;
 import com.moe.wl.ui.login.bean.CarInfo;
 import com.moe.wl.ui.login.model.AuthModel;
 import com.moe.wl.ui.login.modelimpl.AuthModelImpl;
 import com.moe.wl.ui.login.presenter.AuthPresenter;
 import com.moe.wl.ui.login.view.AuthView;
-import com.moe.wl.ui.main.activity.me.CarTypeActivity;
 import com.moe.wl.ui.main.activity.me.DepartmentActivity;
 import com.moe.wl.ui.main.activity.me.NativesActivity;
 import com.moe.wl.ui.main.activity.me.OfficeidActivity;
@@ -44,6 +35,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
+
+import static java.lang.reflect.Modifier.NATIVE;
 
 public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPresenter> implements AuthView {
 
@@ -101,20 +94,27 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     private String carType;
     private String chePaiHao;
     private String str = "";
-
+    private List<String> lists = Arrays.asList("京", "津", "冀", "晋", "蒙", "辽",
+            "吉", "黑", "沪", "苏", "浙", "皖"
+            , "闽", "赣", "鲁", "豫", "鄂", "湘"
+            , "粤", "桂", "琼", "川", "贵", "云"
+            , "渝", "藏", "陕", "甘", "青", "宁"
+            , "新");
+    private List<String> listTwo = Arrays.asList("A", "B", "C", "D", "E", "F"
+            , "G", "H", "I", "J", "K", "L"
+            , "M", "N", "O", "P", "Q", "R", "X"
+            , "Y", "Z");
     private String preCarCode;
     private int MAX_NUM = 5;
     private String officeid;
-    private static final int CARTYPE = 1;
-    private static final int NATIVE = 2;
-    private static final int OFFICEID = 3;
-    private static final int DEPARTMENT = 4;
-    private int nationId;
-    private int departId;
-    private int carTypeId;
-    private int carNum=1;
-    private CarAdapter carAdapter;
+
+
     private List<CarInfo> carList;
+    private CarAdapter carAdapter;
+    public int nationId;
+    private int departId;
+    public static final int DEPARTMENT=100;
+    public static final int OFFICEID=101;
 
     @Override
     public AuthPresenter createPresenter() {
