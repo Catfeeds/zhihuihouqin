@@ -88,6 +88,18 @@ public class CarAdapter extends RecyclerView.Adapter {
          ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+             rlCarType.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if(listener!=null){
+                         CarInfo carInfo = data.get(mPosition);
+                         carInfo.setPrecarcode(str);
+                         String s = etChepaihao.getText().toString().trim();
+                         carInfo.setSuffixcarcode(s);
+                         listener.onCarTypeItemClick(carInfo);
+                     }
+                 }
+             });
 
              tvShengfen.setOnClickListener(new View.OnClickListener() {
                  @Override
@@ -138,7 +150,6 @@ public class CarAdapter extends RecyclerView.Adapter {
                  adapter = new ArrayAdapter<String>(mContext, R.layout.simple_list_item_1, R.id.tv_item, lists);
              } else {
                  adapter = new ArrayAdapter<String>(mContext, R.layout.simple_list_item_1, R.id.tv_item, listTwo);
-
              }
              gv.setAdapter(adapter);
              gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -155,5 +166,14 @@ public class CarAdapter extends RecyclerView.Adapter {
                  }
              });
          }
+    }
+    private OnCarTypeItemClick listener;
+
+    public void setListener(OnCarTypeItemClick listener) {
+        this.listener = listener;
+    }
+
+    public interface  OnCarTypeItemClick{
+        void onCarTypeItemClick(CarInfo carInfo);
     }
 }

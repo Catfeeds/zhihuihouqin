@@ -18,4 +18,10 @@ public class MyDepositModelImpl implements MyDepositModel {
         Observable observable = RetrofitUtils.getInstance().getUserDeposit();
         return observable;
     }
+
+    @Override
+    public Observable generateChargeWalletOrder(double s, int s1, int s2) {
+        Observable observable = RetrofitUtils.getInstance().generateChargeWalletOrder(s,s1,s2);
+        return observable;
+    }
 }

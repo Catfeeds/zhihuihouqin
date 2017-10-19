@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.view;
 
 import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
+import com.moe.wl.ui.main.bean.WalletOrderBean;
 
 import mvp.cn.common.MvpView;
 
@@ -13,5 +14,6 @@ import mvp.cn.common.MvpView;
 public interface MyDepositView extends MvpView {
 
     void getUserDepositResult(UserDepositBean bean);
+    void getOrderResult(WalletOrderBean bean);
 
 }

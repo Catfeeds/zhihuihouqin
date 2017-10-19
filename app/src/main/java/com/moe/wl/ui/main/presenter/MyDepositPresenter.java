@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
+import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.MyDepositModel;
 import com.moe.wl.ui.main.view.AddressView;
@@ -40,6 +41,32 @@ public class MyDepositPresenter extends MvpRxPresenter<MyDepositModel, MyDeposit
             public void onNext(UserDepositBean bean) {
                 if (bean.getErrCode() == 0) {
                     getView().getUserDepositResult(bean);
+                } else {
+                    getView().showToast(bean.getMsg());
+                }
+            }
+        });
+    }
+    public void generateChargeWalletOrder(double s,int s1,int s2) {
+        getView().showProgressDialog();
+        Observable request = getModel().generateChargeWalletOrder(s,s1,s2);
+        getNetWork(request, new Subscriber<WalletOrderBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(WalletOrderBean bean) {
+                if (bean.getErrCode() == 0) {
+                    getView().getOrderResult(bean);
                 } else {
                     getView().showToast(bean.getMsg());
                 }

@@ -441,7 +441,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray_lighter" />-->
-            <android.support.v7.widget.RecyclerView
+            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                 android:id="@+id/rv_chepaihao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -493,6 +493,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:padding="@dimen/standard_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -506,7 +507,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="12dp"
                     android:text="添加车辆"
                     android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />

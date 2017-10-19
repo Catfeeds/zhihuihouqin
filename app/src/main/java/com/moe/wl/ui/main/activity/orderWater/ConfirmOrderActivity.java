@@ -26,6 +26,7 @@ import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
+import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
 import com.moe.wl.ui.main.modelimpl.MyDepositModelImpl;
 import com.moe.wl.ui.main.presenter.MyDepositPresenter;
@@ -148,6 +149,8 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
                 .setNegativeButton("去缴纳", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //getPresenter().generateChargeWalletOrder(50,);
+
                         Intent intent=new Intent(ConfirmOrderActivity.this,PayDepositActivity.class);
                         startActivity(intent);
                     }
@@ -271,5 +274,10 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
                 showIsHasYajin();
             }
         }
+    }
+
+    @Override
+    public void getOrderResult(WalletOrderBean bean) {
+
     }
 }

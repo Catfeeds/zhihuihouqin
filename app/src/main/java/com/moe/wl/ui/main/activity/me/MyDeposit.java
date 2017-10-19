@@ -7,6 +7,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.UserDepositBean;
+import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
 import com.moe.wl.ui.main.modelimpl.MyDepositModelImpl;
 import com.moe.wl.ui.main.presenter.MyDepositPresenter;
@@ -79,5 +80,10 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
             int deposit1 = deposit.getDeposit();
             tvMoney.setText(deposit1);
         }
+    }
+
+    @Override
+    public void getOrderResult(WalletOrderBean bean) {
+
     }
 }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,10 +22,13 @@ import com.moe.wl.ui.login.model.AuthModel;
 import com.moe.wl.ui.login.modelimpl.AuthModelImpl;
 import com.moe.wl.ui.login.presenter.AuthPresenter;
 import com.moe.wl.ui.login.view.AuthView;
+import com.moe.wl.ui.main.activity.me.CarTypeActivity;
 import com.moe.wl.ui.main.activity.me.DepartmentActivity;
 import com.moe.wl.ui.main.activity.me.NativesActivity;
 import com.moe.wl.ui.main.activity.me.OfficeidActivity;
 import com.moe.wl.ui.main.adapter.CarAdapter;
+import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
+import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,12 +82,11 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
    /* @BindView(R.id.rl_car_type)
     RelativeLayout rlCarType;*/
     @BindView(R.id.rv_chepaihao)
-    RecyclerView rvChepaihao;
+    NoSlideRecyclerView rvChepaihao;
     @BindView(R.id.tv_add_car_num)
     TextView tvAddCarNum;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
-
 
     private int positionId;
     private String name;
@@ -113,8 +116,11 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     private CarAdapter carAdapter;
     public int nationId;
     private int departId;
+    private CarInfo carInfos;
     public static final int DEPARTMENT=100;
     public static final int OFFICEID=101;
+    public static final int CARTYPE=102;
+    private int carTypeId;
 
     @Override
     public AuthPresenter createPresenter() {
@@ -145,7 +151,8 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     }
 
     private void initList() {
-        rvChepaihao.setLayoutManager(new LinearLayoutManager(this));
+
+        rvChepaihao.setLayoutManager(new NoScrollLinearLayoutManager(this));
         carAdapter = new CarAdapter(this);
         rvChepaihao.setAdapter(carAdapter);
         carAdapter.setData(carList);
@@ -158,6 +165,15 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 showToast("点击了");
                 carList.add(new CarInfo("","",""));
                 carAdapter.setData(carList);
+                carAdapter.setListener(new CarAdapter.OnCarTypeItemClick() {
+                    @Override
+                    public void onCarTypeItemClick(CarInfo carInfo) {
+                        carInfo.setCartypeid(carTypeId+"");
+                        carInfos=carInfo;
+                        Intent intent4 = new Intent(IdentityActivity.this, CarTypeActivity.class);
+                        startActivityForResult(intent4, CARTYPE);
+                    }
+                });
                 break;
             case R.id.rl_native:
                 Intent intent = new Intent(this, NativesActivity.class);
@@ -175,10 +191,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 Intent intent3 = new Intent(this, DepartmentActivity.class);
                 startActivityForResult(intent3, DEPARTMENT);
                 break;
-            /*case R.id.rl_car_type:
-                Intent intent4 = new Intent(this, CarTypeActivity.class);
-                startActivityForResult(intent4, CARTYPE);
-                break;*/
             case R.id.tv_commit:
                 name = tvName.getText().toString().trim();
                 phone = tvPhone.getText().toString().trim();
@@ -216,23 +228,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         }
     }
 
-    /*@OnClick({R.id.rl_positon, R.id.tv_add_car_num, R.id.tv_shengfen, R.id.tv_commit})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rl_positon:
-                Intent intent = new Intent(this, PositionActivity.class);
-                startActivityForResult(intent, REQUESTPOSTIONCODE);
-                break;
-            case R.id.tv_add_car_num:
-                break;
-            case R.id.tv_shengfen:
-                showShengFenDialog();
-                break;
-            case R.id.tv_commit:
-
-        }
-    }*/
-
     //认证成功
     @Override
     public void authSucc() {
@@ -255,43 +250,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         }
         return true;
     }
-
-  /*  private void showShengFenDialog() {
-        show(true);
-    }
-
-    private void show(final boolean isFirst) {
-        final AlertDialog dlg = new AlertDialog.Builder(this).create();
-        dlg.show();
-        Window window = dlg.getWindow();
-        // *** 主要就是在这里实现这种效果的.
-        // 设置窗口的内容页面,alertdialog.xml文件中定义view内容
-        window.setContentView(R.layout.view_car_alertdialog);
-        GridView gv = (GridView) window.findViewById(R.id.gv_car_num);
-        ArrayAdapter<String> adapter = null;
-        if (isFirst) {
-            str = "";
-            tvShengfen.setText(str);
-            adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, R.id.tv_item, lists);
-        } else {
-            adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, R.id.tv_item, listTwo);
-
-        }
-        gv.setAdapter(adapter);
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (isFirst) {
-                    str += lists.get(position);
-                    show(false);
-                } else {
-                    str += listTwo.get(position);
-                }
-                dlg.cancel();
-                tvShengfen.setText(str);
-            }
-        });
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -329,13 +287,13 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                         tvOfficeid.setText(officeName);
                     }
                     break;
-               /* case CARTYPE:
+                case CARTYPE:
                     if (data != null) {
                         carTypeId = data.getIntExtra("id", 0);
                         String typename = data.getStringExtra("typename");
                         tvNative.setText(typename);
                     }
-                    break;*/
+                    break;
             }
         }
     }
