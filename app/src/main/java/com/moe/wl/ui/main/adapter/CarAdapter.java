@@ -3,6 +3,8 @@ package com.moe.wl.ui.main.adapter;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +83,7 @@ public class CarAdapter extends RecyclerView.Adapter {
          private int mPosition;
          private String str;
          private CarInfo carInfo;
+         private int MAX_NUM=5;
 
          ViewHolder(View view) {
             super(view);
@@ -92,7 +95,26 @@ public class CarAdapter extends RecyclerView.Adapter {
                      showShengFenDialog();
                  }
              });
+             TextWatcher watcher = new TextWatcher() {
+                 @Override
+                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                 }
+
+                 @Override
+                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                 }
+
+                 @Override
+                 public void afterTextChanged(Editable s) {
+                     //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
+                     if (s.length() > MAX_NUM) {
+                         s.delete(MAX_NUM, s.length());
+                     }
+                 }
+             };
+             etChepaihao.addTextChangedListener(watcher);
         }
+
         public  void setData(CarInfo carInfo, int position) {
             this.mPosition = position;
             this.carInfo=carInfo;

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.support.multidex.MultiDex;
 
 import com.google.gson.Gson;
-import com.mob.MobSDK;
 import com.moe.wl.framework.config.AppConfig;
 import com.moe.wl.framework.config.AppInfo;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
@@ -20,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.sharesdk.framework.ShareSDK;
 import mvp.cn.common.QuickApplication;
 import mvp.cn.util.DateUtil;
 import mvp.cn.util.NetUtil;
@@ -50,7 +50,8 @@ public class SoftApplication extends QuickApplication {
         refWatcher =  LeakCanary.install(this);
 
         // 初始化ShareSDK
-        MobSDK.init(getApplicationContext());
+//        MobSDK.init(getApplicationContext());
+        ShareSDK.initSDK(getApplicationContext());
 
 //        appInfo = initAppInfo();
 

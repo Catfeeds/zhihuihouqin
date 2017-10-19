@@ -15,7 +15,7 @@ public class SaveAdviceModelImpl implements SaveAdviceModel {
 
     @Override
     public Observable saveAdvice(String content) {
-        Observable observable = RetrofitUtils.getInstance().saveAdvice();
+        Observable observable = RetrofitUtils.getInstance().saveAdvice(content);
         return observable;
     }
 }

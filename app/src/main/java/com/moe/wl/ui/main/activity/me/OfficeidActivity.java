@@ -41,6 +41,7 @@ public class OfficeidActivity extends BaseActivity<OfficeNumModel, OfficeNumView
     public void initView() {
         title.setBack(true);
         title.setTitle("处室号");
+        getPresenter().getOfficeNum();
         rvItemContainer.setLayoutManager(new LinearLayoutManager(this));
         adapter = new OfficeNumAdapter(this);
         rvItemContainer.setAdapter(adapter);

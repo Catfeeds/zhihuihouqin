@@ -1,8 +1,9 @@
 package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,12 +22,18 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.login.adapter.CarNumAdapter;
 import com.moe.wl.ui.login.bean.Auth;
 import com.moe.wl.ui.login.bean.CarInfo;
 import com.moe.wl.ui.login.model.AuthModel;
 import com.moe.wl.ui.login.modelimpl.AuthModelImpl;
 import com.moe.wl.ui.login.presenter.AuthPresenter;
 import com.moe.wl.ui.login.view.AuthView;
+import com.moe.wl.ui.main.activity.me.CarTypeActivity;
+import com.moe.wl.ui.main.activity.me.DepartmentActivity;
+import com.moe.wl.ui.main.activity.me.NativesActivity;
+import com.moe.wl.ui.main.activity.me.OfficeidActivity;
+import com.moe.wl.ui.main.adapter.CarAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,12 +52,14 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     TitleBar title;
     @BindView(R.id.tv_name)
     EditText tvName;
+    @BindView(R.id.tv_native)
+    TextView tvNative;
+    @BindView(R.id.rl_native)
+    RelativeLayout rlNative;
     @BindView(R.id.tv_phone)
     EditText tvPhone;
     @BindView(R.id.tv_identity_num)
     EditText tvIdentityNum;
-    @BindView(R.id.et_native)
-    EditText etNative;
     @BindView(R.id.tv_position)
     TextView tvPosition;
     @BindView(R.id.iv_position)
@@ -62,24 +70,27 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     EditText etBuildNum;
     @BindView(R.id.tv_room_num)
     EditText tvRoomNum;
-    @BindView(R.id.et_officeid)
-    EditText etOfficeid;
-    @BindView(R.id.et_department_num)
-    EditText etDepartmentNum;
+    @BindView(R.id.tv_officeid)
+    TextView tvOfficeid;
+    @BindView(R.id.rl_officeid)
+    RelativeLayout rlOfficeid;
+    @BindView(R.id.tv_department_num)
+    TextView tvDepartmentNum;
+    @BindView(R.id.rl_department_num)
+    RelativeLayout rlDepartmentNum;
     @BindView(R.id.tv_office_phone)
     EditText tvOfficePhone;
-    @BindView(R.id.tv_car_type)
-    EditText tvCarType;
-    @BindView(R.id.tv_shengfen)
-    TextView tvShengfen;
-    @BindView(R.id.et_chepaihao)
-    EditText etChepaihao;
+    /*@BindView(R.id.tv_car_type)
+    TextView tvCarType;*/
+   /* @BindView(R.id.rl_car_type)
+    RelativeLayout rlCarType;*/
+    @BindView(R.id.rv_chepaihao)
+    RecyclerView rvChepaihao;
     @BindView(R.id.tv_add_car_num)
     TextView tvAddCarNum;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
-    @BindView(R.id.activity_identity)
-    LinearLayout activityIdentity;
+
 
     private int positionId;
     private String name;
@@ -90,19 +101,20 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     private String carType;
     private String chePaiHao;
     private String str = "";
-    private List<String> lists = Arrays.asList("京", "津", "冀", "晋", "蒙", "辽",
-            "吉", "黑", "沪", "苏", "浙", "皖"
-            , "闽", "赣", "鲁", "豫", "鄂", "湘"
-            , "粤", "桂", "琼", "川", "贵", "云"
-            , "渝", "藏", "陕", "甘", "青", "宁"
-            , "新");
-    private List<String> listTwo = Arrays.asList("A", "B", "C", "D", "E", "F"
-            , "G", "H", "I", "J", "K", "L"
-            , "M", "N", "O", "P", "Q", "R", "X"
-            , "Y", "Z");
+
     private String preCarCode;
     private int MAX_NUM = 5;
     private String officeid;
+    private static final int CARTYPE = 1;
+    private static final int NATIVE = 2;
+    private static final int OFFICEID = 3;
+    private static final int DEPARTMENT = 4;
+    private int nationId;
+    private int departId;
+    private int carTypeId;
+    private int carNum=1;
+    private CarAdapter carAdapter;
+    private List<CarInfo> carList;
 
     @Override
     public AuthPresenter createPresenter() {
@@ -124,29 +136,87 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     public void initView() {
         title.setBack(true);
         title.setTitle("身份认证");
-        TextWatcher watcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        carList = new ArrayList<>();
+        carList.add(new CarInfo("","",""));
+        initList();
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
-                if (s.length() > MAX_NUM) {
-                    s.delete(MAX_NUM, s.length());
-                }
-            }
-        };
-        etChepaihao.addTextChangedListener(watcher);
 
 
     }
 
-    @OnClick({R.id.rl_positon, R.id.tv_add_car_num, R.id.tv_shengfen, R.id.tv_commit})
+    private void initList() {
+        rvChepaihao.setLayoutManager(new LinearLayoutManager(this));
+        carAdapter = new CarAdapter(this);
+        rvChepaihao.setAdapter(carAdapter);
+        carAdapter.setData(carList);
+    }
+
+    @OnClick({R.id.tv_add_car_num,R.id.rl_native, R.id.rl_positon, R.id.rl_officeid, R.id.rl_department_num, /*R.id.rl_car_type,*/ R.id.tv_commit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_add_car_num:
+                showToast("点击了");
+                carList.add(new CarInfo("","",""));
+                carAdapter.setData(carList);
+                break;
+            case R.id.rl_native:
+                Intent intent = new Intent(this, NativesActivity.class);
+                startActivityForResult(intent, NATIVE);
+                break;
+            case R.id.rl_positon:
+                Intent intent1 = new Intent(this, PositionActivity.class);
+                startActivityForResult(intent1, REQUESTPOSTIONCODE);
+                break;
+            case R.id.rl_officeid:
+                Intent intent2 = new Intent(this, OfficeidActivity.class);
+                startActivityForResult(intent2, OFFICEID);
+                break;
+            case R.id.rl_department_num:
+                Intent intent3 = new Intent(this, DepartmentActivity.class);
+                startActivityForResult(intent3, DEPARTMENT);
+                break;
+            /*case R.id.rl_car_type:
+                Intent intent4 = new Intent(this, CarTypeActivity.class);
+                startActivityForResult(intent4, CARTYPE);
+                break;*/
+            case R.id.tv_commit:
+                name = tvName.getText().toString().trim();
+                phone = tvPhone.getText().toString().trim();
+                identityNum = tvIdentityNum.getText().toString().trim();
+                roomNum = tvRoomNum.getText().toString().trim();
+                officePhone = tvOfficePhone.getText().toString().trim();
+                String buildNum = etBuildNum.getText().toString().trim();
+
+                boolean mobilePhoneVerify = VerifyCheck.isMobilePhoneVerify(phone);
+                if (!mobilePhoneVerify) {
+                    showToast("请输入正确的手机号");
+                    return;
+                }
+                boolean idCardVerify = VerifyCheck.isIDCardVerify(identityNum);
+                if (!idCardVerify) {
+                    showToast("请核对身份证号");
+                    return;
+                }
+                Log.e("info", name + "==" + identityNum + "==" + positionId + "==" + roomNum + "==" + officePhone + "==" + carType + "=="
+                        + preCarCode + "==" + chePaiHao);
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
+                        || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(buildNum)) {
+                    showToast("请将信息填写完整");
+                    return;
+                } else if (!isPhoneChecked(phone)) {
+                    return;
+                } else {//, natives
+                    Auth auth = new Auth(officeid, departId+"", buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
+                    List<CarInfo> carList = new ArrayList();
+                    carList.add(new CarInfo(carType, preCarCode, chePaiHao));
+                    getPresenter().getData(auth, carList);
+                    break;
+                }
+
+        }
+    }
+
+    /*@OnClick({R.id.rl_positon, R.id.tv_add_car_num, R.id.tv_shengfen, R.id.tv_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_positon:
@@ -159,44 +229,9 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 showShengFenDialog();
                 break;
             case R.id.tv_commit:
-                name = tvName.getText().toString().trim();
-                phone = tvPhone.getText().toString().trim();
-                identityNum = tvIdentityNum.getText().toString().trim();
-                roomNum = tvRoomNum.getText().toString().trim();
-                officePhone = tvOfficePhone.getText().toString().trim();
-                carType = tvCarType.getText().toString().trim();
-                chePaiHao = etChepaihao.getText().toString().trim();
-                preCarCode = tvShengfen.getText().toString().trim();
-                officeid = etOfficeid.getText().toString().trim();
-                String natives = etNative.getText().toString().trim();
-                String buildNum = etBuildNum.getText().toString().trim();
-                String departmentNum = etDepartmentNum.getText().toString().trim();
-                String telRegex = "[1][358]\\d{9}";
 
-                if (!phone.matches(telRegex)) {
-                    showToast("请输入正确的手机号");
-                    return;
-                }
-                Log.e("info", name + "==" + identityNum + "==" + positionId + "==" + roomNum + "==" + officePhone + "==" + carType + "=="
-                        + preCarCode + "==" + chePaiHao);
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
-                        || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(carType) ||
-                        TextUtils.isEmpty(preCarCode) || TextUtils.isEmpty(chePaiHao) ||
-                        TextUtils.isEmpty(buildNum) || TextUtils.isEmpty(departmentNum)
-                        || TextUtils.isEmpty(officeid)) {
-                    showToast("请将信息填写完整");
-                    return;
-                } else if (!isPhoneChecked(phone)) {
-                    return;
-                } else {//, natives
-                    Auth auth = new Auth(officeid, departmentNum, buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
-                    List<CarInfo> carList = new ArrayList();
-                    carList.add(new CarInfo(carType, preCarCode, chePaiHao));
-                    getPresenter().getData(auth, carList);
-                    break;
-                }
         }
-    }
+    }*/
 
     //认证成功
     @Override
@@ -221,7 +256,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         return true;
     }
 
-    private void showShengFenDialog() {
+  /*  private void showShengFenDialog() {
         show(true);
     }
 
@@ -256,26 +291,52 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 tvShengfen.setText(str);
             }
         });
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (data != null) {
-                Log.e("positionId", "职位类型id:" + positionId);
-                positionId = data.getIntExtra("positionId", 0);
-                String position = data.getStringExtra("position");
-                tvPosition.setText(position);
+            switch (requestCode) {
+                case REQUESTPOSTIONCODE:
+                    if (data != null) {
+                        Log.e("positionId", "职位类型id:" + positionId);
+                        positionId = data.getIntExtra("positionId", 0);
+                        String position = data.getStringExtra("position");
+                        tvPosition.setText(position);
+                    }
+                    break;
+                case NATIVE:
+                    if (data != null) {
+                        nationId = data.getIntExtra("id", 0);
+                        String nation = data.getStringExtra("nation");
+                        tvNative.setText(nation);
+                    }
+                    break;
+                case DEPARTMENT:
+                    if (data != null) {
+                        departId = data.getIntExtra("id", 0);
+                        String depart = data.getStringExtra("depart");
+                        tvNative.setText(depart);
+                    }
+                    break;
+                case OFFICEID:
+                    if (data != null) {
+                        int bgypright = data.getIntExtra("bgypright", 0);
+                        int departid = data.getIntExtra("departid", 0);
+                         officeid = data.getIntExtra("id", 0)+"";
+                        String officeName = data.getStringExtra("name");
+                        tvOfficeid.setText(officeName);
+                    }
+                    break;
+               /* case CARTYPE:
+                    if (data != null) {
+                        carTypeId = data.getIntExtra("id", 0);
+                        String typename = data.getStringExtra("typename");
+                        tvNative.setText(typename);
+                    }
+                    break;*/
             }
         }
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

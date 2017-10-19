@@ -69,7 +69,7 @@ public class NativesActivity extends BaseActivity<NationsModel,NationsView,Natio
         if(bean!=null){
             final List<NationslistBean.NationlistBean> nationlist = bean.getNationlist();
             adapter.setData(nationlist);
-            adapter.setLister(new PositionAdatper.OnClickLister() {
+            adapter.setLister(new NativeAdapter.OnClickLister() {
                 @Override
                 public void itemClickLister(int position) {
                     NationslistBean.NationlistBean nationlistBean = nationlist.get(position);

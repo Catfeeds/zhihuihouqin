@@ -19,7 +19,6 @@ public interface NetUrl {
     String captcha="appuser/user/getCaptcha?";
     String regist="appuser/user/register?";
     String thirdLogin="appuser/user/thirdLogin?";
-    String positionList="appuser/user/positionlist";
     String positionList="appuser/user/positionlist";//职位列表
     String nationlist="appuser/common/nationlist";//民族列表
     String getdepartList="appuser/user/getdepartList";//部门列表
