@@ -13,6 +13,6 @@ import mvp.cn.common.MvpView;
 
 public interface SubscribeTimeView extends MvpView {
 
-    void setData( List<AppointmentListBean> appointmentList);
+    void setData( List<AppointmentListBean> appointmentList,String date);
 
 }

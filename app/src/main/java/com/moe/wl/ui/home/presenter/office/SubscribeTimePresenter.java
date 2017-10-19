@@ -16,7 +16,7 @@ import rx.Subscriber;
 
 public class SubscribeTimePresenter extends MvpRxPresenter<SubscribeTimeModel, SubscribeTimeView> {
 
-    public void findAvailableEquipment(String roomid,String date) {
+    public void findAvailableEquipment(String roomid, final String date) {
         getView().showProgressDialog();
         Observable request = getModel().findAvailableEquipment(roomid,date);
         getNetWork(request, new Subscriber<SubscribeTimeResponse>() {
@@ -35,7 +35,7 @@ public class SubscribeTimePresenter extends MvpRxPresenter<SubscribeTimeModel, S
             @Override
             public void onNext(SubscribeTimeResponse mResponse) {
                 if (mResponse.getErrCode() == 0) {
-                    getView().setData(mResponse.getAppointmentList());
+                    getView().setData(mResponse.getAppointmentList(),date);
                 } else {
                     getView().showToast(mResponse.getMsg());
                 }

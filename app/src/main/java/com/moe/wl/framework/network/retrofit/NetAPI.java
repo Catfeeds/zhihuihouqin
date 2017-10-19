@@ -871,12 +871,12 @@ public interface NetAPI {
     Observable<SubscribeInfoResponse> subscribeInfo(@FieldMap Map<String, Object> map);
 
     //生成会议室订单-不带附件
-    @FormUrlEncoded
+    @Multipart
     @POST(NetUrl.generateOfficeOrder)
-    Observable<AffirmOrderResponse> findAvailableEquipment(@FieldMap Map<String, Object> map);
+    Observable<AffirmOrderResponse> findAvailableEquipment(@PartMap() Map<String, RequestBody> paramsMap);
 
     //生成会议室订单
-    @FormUrlEncoded
+    @Multipart
     @POST(NetUrl.generateOfficeOrder)
     Observable<AffirmOrderResponse> findAvailableEquipment(@PartMap() Map<String, RequestBody> paramsMap, @Part List<MultipartBody.Part> albumPhoto);
 

@@ -2938,7 +2938,7 @@ carcode	是	string	车牌号*/
      */
     public static Observable findAvailableEquipment(String roomid,String username,String mobile,String equipmentids,String conferencetype,String conferencename,
                                 String attendnum,String attentdleader,String remark,JsonArray appointmentInfo) {
-        Map<String, Object> paramsMap = new HashMap<>();
+        Map<String, RequestBody> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("roomid", roomid);
@@ -2951,7 +2951,7 @@ carcode	是	string	车牌号*/
             tempMap.put("attentdleader", attentdleader);
             tempMap.put("remark", remark);
             tempMap.put("appointmentInfo", appointmentInfo);
-            addObjectParam(paramsMap, tempMap);
+            getObjectRequestBody(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();

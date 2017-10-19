@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.home.adapter.office.SubscribeTimeAdapter;
+import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
 import com.moe.wl.ui.home.bean.office.AppointmentListBean;
 import com.moe.wl.ui.home.model.office.SubscribeTimeModel;
 import com.moe.wl.ui.home.modelimpl.office.SubscribeTimeModelImpl;
@@ -81,7 +82,8 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
     private List<AppointmentListBean> listTime;
     private SubscribeTimeAdapter adapter;
 
-    private List<AppointmentListBean> selectTime;
+    private List<AppointmentDateBean> selectTime;
+    private List<AppointmentDateBean> listAll;
 
     @Override
     public void setContentLayout() {
@@ -92,6 +94,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
     @Override
     public void initView() {
         id = getIntent().getStringExtra("id");
+
         listDate = new ArrayList<>();
         listDate.add(tvDate1);
         listDate.add(tvDate2);
@@ -120,8 +123,11 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
             listDate.get(i).setText(dates[i].substring(8, 10));
         }
 
+        listAll=new ArrayList<>();
+
         initTime();
-        getPresenter().findAvailableEquipment(id, dates[0]);
+        date=dates[0];
+        getPresenter().findAvailableEquipment(id, date);
 
     }
 
@@ -164,9 +170,17 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
                 break;
             case R.id.ll_right:
                 selectTime.clear();
-                for (int i = 0; i < listTime.size() ; i++) {
-                    if (listTime.get(i).isCheck()){
-                        selectTime.add(listTime.get(i));
+                selectTime.addAll(listAll);
+                for (int i = 0; i < selectTime.size() ; i++) {
+                    for (int j = 0; j < selectTime.get(i).getTimes().size(); j++) {
+                        if (!selectTime.get(i).getTimes().get(j).isCheck()){
+                            selectTime.get(i).getTimes().remove(j);
+                            j--;
+                        }
+                    }
+                    if (selectTime.get(i).getTimes().size()==0){
+                        selectTime.remove(i);
+                        i--;
                     }
                 }
                 if (selectTime.size()==0){
@@ -174,7 +188,6 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
                     return;
                 }
                 Intent intent=new Intent();
-                intent.putExtra("date",date);
                 intent.putExtra("list", (Serializable) selectTime);
                 setResult(RESULT_OK,intent);
                 finish();
@@ -216,8 +229,22 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
                 listDate.get(i).setBackgroundResource(0);
                 listDate.get(i).setTextColor(getResources().getColor(R.color.font_blue));
             }
+        }
+        boolean bln = false;
+        for (int i = 0; i < listAll.size(); i++) {
+            if (date.equals(listAll.get(i).getDate())){
+                bln=true;
+                //说明之前添加过
+                listTime.clear();
+                listTime.addAll(listAll.get(i).getTimes());
+                adapter.notifyDataSetChanged();
+                break;
+            }
+        }
+        if (!bln){  //说明之前没有添加过
             getPresenter().findAvailableEquipment(id, date);
         }
+
     }
 
     /**
@@ -268,10 +295,13 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
     }
 
     @Override
-    public void setData(List<AppointmentListBean> appointmentList) {
+    public void setData(List<AppointmentListBean> appointmentList, String date) {
+        AppointmentDateBean bean=new AppointmentDateBean();
+        bean.setDate(date);
+        bean.setTimes(appointmentList);
         listTime.clear();
-        listTime.addAll(appointmentList);
+        listTime.addAll(bean.getTimes());
+        listAll.add(bean);
         adapter.notifyDataSetChanged();
     }
-
 }

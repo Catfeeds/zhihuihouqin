@@ -7,23 +7,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/tv_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/font_black"
-            android:textSize="@dimen/sp_smaller" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/font_black" />
 
         <com.moe.wl.framework.widget.NoSlidingGridView
             android:id="@+id/gv_time"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:numColumns="2"/>
 
     </LinearLayout>
 

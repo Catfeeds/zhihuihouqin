@@ -25,7 +25,6 @@ import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.home.adapter.office.AffirmEquipmentAdapter;
 import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
-import com.moe.wl.ui.home.bean.office.AppointmentListBean;
 import com.moe.wl.ui.home.bean.office.EquipmentListBean;
 import com.moe.wl.ui.home.bean.office.SubscribeInfoResponse;
 import com.moe.wl.ui.home.bean.office.TypeListBean;
@@ -245,10 +244,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                     return;
                 }
                 String remark = etRemark.getText().toString();
-                if (TextUtils.isEmpty(remark)) {
-                    showToast("请输入会议备注");
-                    return;
-                }
                 if (dates==null || dates.size() == 0) {
                     showToast("请选择预约时间");
                     return;
@@ -260,7 +255,10 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 intent.putExtra("conferencename", conferencename);
                 intent.putExtra("attendnum", attendnum);
                 intent.putExtra("attentdleader", attentdleader);
-                intent.putExtra("remark", remark);
+                if (!TextUtils.isEmpty(remark)) {
+                    intent.putExtra("remark", remark);
+                }
+
                 intent.putExtra("list", (Serializable) dates);
                 startActivity(intent);
                 finish();
@@ -403,12 +401,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 if (dates == null) {
                     dates = new ArrayList<>();
                 }
-                String date = data.getStringExtra("date");
-                List<AppointmentListBean> times = (List<AppointmentListBean>) data.getSerializableExtra("list");
-                AppointmentDateBean bean = new AppointmentDateBean();
-                bean.setDate(date);
-                bean.setTimes(times);
-                dates.add(bean);
+                dates = (List<AppointmentDateBean>) data.getSerializableExtra("list");
                 tvTime.setText("已选择");
             }
         } else {
