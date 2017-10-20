@@ -130,7 +130,7 @@ public class BarberAdapter extends RecyclerView.Adapter {
                 tvPercent.setText(remaincount + "/" + tatalcount);
             }
             if (address != null) {
-                tvBarberAddress.setText(address);
+                tvBarberAddress.setText("地址:"+address);
             }
         }
     }

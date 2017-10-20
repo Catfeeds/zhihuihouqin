@@ -139,9 +139,9 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             rvAdapter.setData(detailBean.getCommentlist());
             //初始化收藏状太
             if(detailBean.getFavorstatus()==0){
-                ivCollect.setImageResource(R.mipmap.tab3_y);
+                ivCollect.setImageResource(R.drawable.collect);
             }else{
-                ivCollect.setImageResource(R.mipmap.tab1_n);
+                ivCollect.setImageResource(R.drawable.collected);
             }
         }
         if (barberlistBean != null) {
@@ -158,10 +158,10 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     public void collectSucc(CollectBean listBean) {
         LogUtils.i("CollectBean=="+listBean.getStatus());
         if(listBean.getStatus()==0){//
-            ivCollect.setImageResource(R.mipmap.tab3_y);
+            ivCollect.setImageResource(R.drawable.collect);
             showToast("取消收藏");
         }else{
-            ivCollect.setImageResource(R.drawable.collect);
+            ivCollect.setImageResource(R.drawable.collected);
             showToast("收藏成功");
         }
     }

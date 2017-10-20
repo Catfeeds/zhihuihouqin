@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.model.ShopModel;
@@ -49,7 +50,7 @@ public class ShopPresenter extends MvpRxPresenter<ShopModel, ShopView> {
     public void getphotos(int servicetype) {
         Log.e("ShopPresenter处理了", "--");
         Observable login = getModel().getServiceInfo(servicetype);
-        getNetWork(login, new Subscriber<ServiceBean>() {
+        getNetWork(login, new Subscriber<BannerResponse>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -61,14 +62,14 @@ public class ShopPresenter extends MvpRxPresenter<ShopModel, ShopView> {
             }
 
             @Override
-            public void onNext(ServiceBean bean) {
+            public void onNext(BannerResponse bean) {
+                getView().getServiceInfo(bean);
+ /*               if (bean.getErrCode() == 0) {
 
-                if (bean.getErrCode() == 0) {
-                    getView().getServiceInfo(bean);
                 } else {
                     Log.e("getMsg", bean.getMsg());
                     getView().showToast(bean.getMsg());
-                }
+                }*/
             }
         });
     }

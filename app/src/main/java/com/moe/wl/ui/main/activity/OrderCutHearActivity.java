@@ -19,6 +19,7 @@ import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.adapter.CutHearAdapter;
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
@@ -95,7 +96,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
 
     @Override
     public void getShopInfo(ShopBean shopBean) {
-        getPresenter().getphotos(6);
+        getPresenter().getphotos(6);//获取顶部轮播图
         this.shopBean = shopBean;
         System.out.println("shopBean = " + shopBean);
         if (shopBean != null) {
@@ -113,10 +114,11 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     }
 
     @Override
-    public void getServiceInfo(ServiceBean bean) {
+    public void getServiceInfo(BannerResponse bean) {
         if(bean!=null){
             //获取轮播图
-         ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
+            BannerResponse.ServiceInfoBean infoBean = bean.getServiceInfo();
+            //ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
             String detailphoto = infoBean.getDetailphoto();
             if(detailphoto!=null) {
                 String[] urls = detailphoto.split(",");

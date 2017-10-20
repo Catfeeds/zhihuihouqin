@@ -77,7 +77,7 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
 
     private void initTitle() {
         titleBar.setBack(true);
-        titleBar.setTitle("发行详情");
+        titleBar.setTitle("发型详情");
         if(favorstatus==0){
             titleBar.setTitleRight("收藏");
         }else{

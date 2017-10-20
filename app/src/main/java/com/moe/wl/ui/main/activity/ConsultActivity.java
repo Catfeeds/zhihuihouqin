@@ -86,7 +86,7 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("在先咨询");
+        title.setTitle("在线咨询");
     }
 
     @OnClick(R.id.btn_send)
