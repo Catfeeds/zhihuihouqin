@@ -94,7 +94,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                     showToast("登录失败");
                     break;
                 case COMPLETE:
-                    showToast("登录成功");
                     Platform platform = (Platform) msg.obj;
                     int action = msg.arg1;
                     if (action == Platform.ACTION_USER_INFOR) {
@@ -172,7 +171,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     private void initTitle() {
         titleBar.setBack(true);
-        titleBar.setTitle("登陆");
+        titleBar.setTitle("登录");
     }
 
     @Override
