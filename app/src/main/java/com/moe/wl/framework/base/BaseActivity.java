@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +13,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
+import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.manager.UIManager;
 import com.moe.wl.framework.widget.CustomerDialog;
@@ -21,7 +23,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 import mvp.cn.common.MvpView;
 import mvp.cn.rx.MvpModel;
 import mvp.cn.rx.MvpRxActivity;
@@ -255,8 +256,14 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
      */
     public void dismissProgressDialog() {
         if (null != progressDialog && progressDialog.isShowing() == true) {
-            progressDialog.dismiss();
-            progressDialog = null;
+            new Handler().postAtTime(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                    progressDialog = null;
+                }
+            },2000);
+
         }
     }
 

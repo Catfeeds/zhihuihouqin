@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,11 @@ public class HomeNsrlv2Adapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        holder.tvContentDes.setText(data.get(position).getMendcontent());
+        if (!TextUtils.isEmpty(data.get(position).getUsername())){
+            holder.tvContentDes.setText(data.get(position).getUsername());
+        }else{
+            holder.tvContentDes.setText("暂无名称");
+        }
         holder.tvSecondrvTime.setText(data.get(position).getCreatetime());
         holder.tvRoomNum.setText(data.get(position).getServiceplace());
         holder.tvName.setText(data.get(position).getMendername());
