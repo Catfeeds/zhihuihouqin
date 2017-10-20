@@ -118,10 +118,14 @@
 
     <style name="fiveRatingBar_big" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/five_rating_bar_big</item>
+        <item name="android:minHeight">43dip</item>
+        <item name="android:maxHeight">43dip</item>
     </style>
 
     <style name="fiveRatingBar_small" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/five_rating_bar_small</item>
+        <item name="android:minHeight">20.5dip</item>
+        <item name="android:maxHeight">20.5dip</item>
     </style>
 
     //支付密码

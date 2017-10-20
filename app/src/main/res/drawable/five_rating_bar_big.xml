@@ -7,7 +7,7 @@
 
     <item
         android:id="@android:id/secondaryProgress"
-        android:drawable="@drawable/start_fill_big" />
+        android:drawable="@drawable/start_null_big" />
 
     <item
         android:id="@android:id/progress"

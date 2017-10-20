@@ -8,14 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
-import mvp.cn.util.ToastUtil;
 
 /**
  * 类描述：
@@ -60,7 +59,15 @@ public class GridViewImageAdapter extends BaseAdapter {
         }
 
         if (paths.get(position).equals("addPhoto")) {
-            Glide.with(context).load(R.drawable.add_photo).into(holder.image);
+            Glide.with(context).load(R.drawable.add_dotted_line).into(holder.image);
+            holder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick();
+                }
+            });
+        } else if (paths.get(position).equals("addComment")) {
+            Glide.with(context).load(R.drawable.add_dotted_line).into(holder.image);
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,7 +79,7 @@ public class GridViewImageAdapter extends BaseAdapter {
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast(context, "点击图片了！");
+//                    ToastUtil.showToast(context, "点击图片了！");
                 }
             });
         }

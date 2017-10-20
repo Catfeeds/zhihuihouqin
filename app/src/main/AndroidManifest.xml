@@ -510,6 +510,9 @@
         <activity android:name=".ui.main.activity.me.DepartmentActivity"></activity>
         <activity android:name=".ui.main.activity.me.OfficeidActivity" />
         <activity android:name=".ui.main.activity.me.CarTypeActivity" />
+        <activity
+            android:name=".ui.main.activity.me.OrderCommentSuccessActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

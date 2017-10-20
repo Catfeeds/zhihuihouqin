@@ -16,6 +16,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.adapter.MyPagerAdapter;
 import com.moe.wl.ui.main.fragment.OrderBookFragment;
+import com.moe.wl.ui.main.fragment.OrderConferenceFragment;
 import com.moe.wl.ui.main.fragment.OrderDryFragment;
 import com.moe.wl.ui.main.fragment.OrderExpertFragment;
 import com.moe.wl.ui.main.fragment.OrderHairCutFragment;
@@ -149,6 +150,14 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                 fragments.add(OrderVegetableFragment.getInstance(3));
                 fragments.add(OrderVegetableFragment.getInstance(4));
                 break;
+
+            case Constants.CONFERENCE: // 会议室
+                fragments.add(OrderConferenceFragment.getInstance(0));
+                fragments.add(OrderConferenceFragment.getInstance(1));
+                fragments.add(OrderConferenceFragment.getInstance(2));
+                fragments.add(OrderConferenceFragment.getInstance(3));
+                fragments.add(OrderConferenceFragment.getInstance(4));
+                break;
         }
         initViewpager();
         viewPager.setCurrentItem(index);
@@ -226,6 +235,7 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                 goServiceActivity(0, Constants.BOOK, orderBook);
                 break;
             case R.id.tv_office:
+                goServiceActivity(0, Constants.CONFERENCE, orderConference);
                 break;
         }
     }
@@ -267,5 +277,7 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
     private static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
     // 净菜订单 标题
     private static final String orderVegetable = "已下单,已完成,待评价,已取消";
+    // 会议室
+    private static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
 
 }

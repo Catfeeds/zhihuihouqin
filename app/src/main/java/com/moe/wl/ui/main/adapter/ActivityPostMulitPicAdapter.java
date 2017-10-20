@@ -81,7 +81,7 @@ public class ActivityPostMulitPicAdapter extends BaseAdapter {
         public void setData(String data, final int position) {
             this.data = data;
             if (data.equals("addPhoto")) {
-                Glide.with(mContext).load(R.drawable.add_photo).into(ivItem);
+                Glide.with(mContext).load(R.drawable.add_dotted_line).into(ivItem);
                 ivItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

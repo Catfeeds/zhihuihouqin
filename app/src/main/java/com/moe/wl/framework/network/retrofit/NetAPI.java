@@ -112,6 +112,7 @@ import com.moe.wl.ui.main.bean.*;
 
 import java.util.List;
 import java.util.Map;
+import com.moe.wl.ui.main.bean.*;
 
 import java.util.List;
 import java.util.Map;
@@ -703,6 +704,11 @@ public interface NetAPI {
     @POST(NetUrl.repairsOrderList)
     Observable<OrderRepairBean> repairsOrderList(@FieldMap Map<String, Object> map);
 
+    // 会议室订单列表
+    @FormUrlEncoded
+    @POST(NetUrl.conferenceOrderList)
+    Observable<OrderConferenceBean> conferenceOrderList(@FieldMap Map<String, Object> map);
+
     // 理发订单列表
     @FormUrlEncoded
     @POST(NetUrl.hairCutOrderList)
@@ -818,6 +824,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.orderMealDetail)
     Observable<OrderMealDetailBean> orderMealDetail(@FieldMap Map<String, Object> map);
+
+    // 工作餐订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.orderConferenceDetail)
+    Observable<OrderConferenceDetailBean> orderConferenceDetail(@FieldMap Map<String, Object> map);
 
     // 干洗订单详情
     @FormUrlEncoded

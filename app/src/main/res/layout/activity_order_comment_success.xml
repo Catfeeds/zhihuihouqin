@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
-        android:id="@+id/title_bar"
+        android:id="@+id/all_sp_comment_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/white" />
@@ -14,42 +14,48 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_line" />
+        android:background="#1000" />
 
     <ImageView
         android:id="@+id/iv_submit_or_pay"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
         android:src="@drawable/selected" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="发表成功"
-        android:textColor="@color/blue"
-        android:textSize="24sp" />
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_bigger_20" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="感谢您的用心评价"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/sp_bigger" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="感谢你的用心评价"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_big" />
 
     <TextView
-        android:id="@+id/back"
+        android:id="@+id/goto_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/shap_check_order"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/background_edit"
         android:paddingBottom="8dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:paddingRight="12dp"
         android:paddingTop="8dp"
         android:text="返回首页"
-        android:textSize="20sp" />
+        android:textColor="@color/tv_gray"
+        android:textSize="@dimen/sp_big" />
+
 
 </LinearLayout>

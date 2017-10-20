@@ -93,7 +93,7 @@ public class VegetableBean implements Serializable {
             private String img;
             private String name;
             private String original;
-            private int price;
+            private double price;
             private int remain;
             private int totalcount;
             private int uploaduid;
@@ -139,11 +139,11 @@ public class VegetableBean implements Serializable {
                 this.original = original;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

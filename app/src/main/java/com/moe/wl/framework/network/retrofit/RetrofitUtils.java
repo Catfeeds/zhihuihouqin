@@ -2450,6 +2450,27 @@ carcode	是	string	车牌号*/
         return getObservable(api.vegetableOrderList(paramsMap));
     }
 
+    /**
+     * 查看会议室订单
+     * 1:待服务，2 服务中  3 已完成  4 待评价  5 已取消
+     *
+     * @return
+     */
+    public static Observable getConferenceOrder(int orderStatus, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderStatus", orderStatus);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.conferenceOrderList(paramsMap));
+    }
+
     /*------------------------------------------删除各种订单------------------------------------------*/
 
     /**
@@ -2613,6 +2634,21 @@ carcode	是	string	车牌号*/
             e.printStackTrace();
         }
         return getObservable(api.orderMealDetail(paramsMap));
+    }
+
+    /**
+     * 工作餐订单详情
+     */
+    public static Observable orderConferenceDetail(int oid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("oid", oid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.orderConferenceDetail(paramsMap));
     }
 
     /**

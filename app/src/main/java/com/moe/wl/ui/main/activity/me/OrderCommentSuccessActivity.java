@@ -1,9 +1,9 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
@@ -14,26 +14,26 @@ import butterknife.OnClick;
 
 /**
  * 类描述：
- * 作者：Shixhe On 2017/10/9 0009
+ * 作者：Shixhe On 2017/9/4 0004
  */
-public class OrderCommentSuccActivity extends AppCompatActivity {
+public class OrderCommentSuccessActivity extends AppCompatActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R.id.all_sp_comment_title)
     TitleBar titleBar;
+    @BindView(R.id.goto_home)
+    TextView gotoHome;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_comment_succ);
+        setContentView(R.layout.activity_order_comment_success);
         ButterKnife.bind(this);
         titleBar.setBack(true);
-        titleBar.setTitle("评价成功");
+        titleBar.setTitle("提交成功");
     }
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.goto_home})
     public void onViewClicked(View view){
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
         finish();
     }
 

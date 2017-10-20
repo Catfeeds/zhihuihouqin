@@ -39,16 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:layout_marginBottom="10dp"
-                android:text="超市"
                 android:textColor="@color/tv_gray"
-                android:textSize="@dimen/sp_bigger_20" />
+                android:textSize="@dimen/sp_bigger" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingTop="20dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/appraise"
@@ -57,18 +55,80 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="12dp"
                     android:layout_marginBottom="10dp"
+                    android:text="5分"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
                 <RatingBar
                     android:id="@+id/rating_bar"
                     style="@style/fiveRatingBar_big"
                     android:layout_width="wrap_content"
-                    android:layout_height="38dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:numStars="5"
-                    android:rating="0"
+                    android:rating="5"
                     android:stepSize="1.0" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/gray_line" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+
+                    <RatingBar
+                        android:id="@+id/rating_one"
+                        style="@style/fiveRatingBar_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:numStars="5"
+                        android:rating="5"
+                        android:stepSize="1.0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_small" />
+
+                    <RatingBar
+                        android:id="@+id/rating_two"
+                        style="@style/fiveRatingBar_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:numStars="5"
+                        android:rating="5"
+                        android:stepSize="1.0" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -88,7 +148,7 @@
                     android:padding="12dp"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/gray"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/grid_view"
@@ -108,6 +168,10 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:button="@drawable/check_box_button"
+                android:checked="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:text="匿名评价"
                 android:textColor="@color/tv_gray"
                 android:textSize="@dimen/sp_big" />

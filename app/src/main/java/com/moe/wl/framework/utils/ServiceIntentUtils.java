@@ -42,7 +42,7 @@ public class ServiceIntentUtils {
             R.drawable.office_green, R.drawable.car_wash_service,
             R.drawable.vehicle_maintenance, R.drawable.vehicle_inspection,
             R.drawable.vehicle_insurance, R.drawable.offic_room, R.drawable.fixed_assets,
-            R.drawable.office_upplies, R.drawable.send_receive_files,
+            R.drawable.office_supplies, R.drawable.send_receive_files,
             R.drawable.document_printing, R.drawable.conference_room,
             R.drawable.ticketing_services, R.drawable.destruction,
             R.drawable.car_manger, R.drawable.about_car_service,

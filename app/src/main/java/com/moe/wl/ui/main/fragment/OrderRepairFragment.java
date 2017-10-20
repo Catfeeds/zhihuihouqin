@@ -10,7 +10,9 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
+import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import com.moe.wl.ui.main.adapter.OrderRepairAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.NotifyChange;
@@ -86,11 +88,12 @@ public class OrderRepairFragment extends BaseFragment2 {
                         showAlertDialog("是否拨打服务电话", position);
                         break;
 
-                    case 2: // 评价
-
+                    case 2: // 再来一单
+                        startActivity(new Intent(getActivity(), PropertyAintenanceActivity.class));
                         break;
 
                     case 3: // 评价
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.PROPERRY);
                         break;
 
                     case 4: // 删除订单

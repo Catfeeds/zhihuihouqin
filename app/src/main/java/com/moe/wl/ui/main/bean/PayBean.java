@@ -11,6 +11,42 @@ public class PayBean {
     private int ordertype;
     private int orderid;
     private String msg;
+    private String createtime;
+    private int paytype;
+    private String ordercode;
+    private int totalMoney;
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getOrdercode() {
+        return ordercode;
+    }
+
+    public void setOrdercode(String ordercode) {
+        this.ordercode = ordercode;
+    }
+
+    public int getPaytype() {
+        return paytype;
+    }
+
+    public void setPaytype(int paytype) {
+        this.paytype = paytype;
+    }
+
+    public int getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(int totalMoney) {
+        this.totalMoney = totalMoney;
+    }
 
     public int getErrCode() {
         return errCode;

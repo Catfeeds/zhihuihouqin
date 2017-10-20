@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
@@ -65,9 +63,8 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     private static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
     // 净菜订单 标题
     private static final String orderVegetable = "已下单,已完成,待评价,已取消";
-
-    //   标题
-    private static final String order = "已预约,服务中,已完成,已评价,已取消";
+    // 会议室
+    private static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
 
     Unbinder unbinder;
     @BindView(R.id.iv_bg)
@@ -258,14 +255,17 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
         String nickname = SharedPrefHelper.getInstance().getNickname();
         tvName.setText(nickname);
         Glide.with(getActivity()).load(SharedPrefHelper.getInstance().getUserPhoto()).
-        placeholder(R.drawable.visitor_discrepancy).into(civHeader);
+                placeholder(R.drawable.visitor_discrepancy).into(civHeader);
     }
+
     //更改头像和昵称
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeUserInfo event) {
         Glide.with(getActivity()).load(event.getUrl()).into(civHeader);
         tvName.setText(event.getNickName());
-    };
+    }
+
+    ;
 
     @Override
     public void onStart() {
@@ -278,6 +278,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public Tab4Model createModel() {
         return new Tab4ModelImpl();
@@ -300,12 +301,13 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.tv_service7, R.id.tv_finish7, R.id.tv_daipingjia7, R.id.rl_laifang_person,
             R.id.rl_setting, R.id.rl_turn8, R.id.tv_yuyue8, R.id.tv_service8, R.id.tv_finish8, R.id.tv_pingjia8, R.id.tv_cancle8,
             R.id.rl_turn9, R.id.tv_yuding9, R.id.tv_jieyue9, R.id.tv_guihuan9, R.id.tv_pingjia9, R.id.tv_cancle9,
-            R.id.rl_vegetable, R.id.tv_vegetable_one, R.id.tv_vegetable_two, R.id.tv_vegetable_three, R.id.tv_vegetable_four
-            , R.id.tv_vegetable_five})
+            R.id.rl_vegetable, R.id.tv_vegetable_one, R.id.tv_vegetable_two, R.id.tv_vegetable_three, R.id.tv_vegetable_four,
+            R.id.tv_vegetable_five, R.id.tv_conference_one, R.id.tv_conference_two, R.id.tv_conference_three, R.id.tv_conference_four,
+            R.id.tv_conference_five})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_my_packge:
-                Intent intent=new Intent(getActivity(),MyPurseActivity.class);
+                Intent intent = new Intent(getActivity(), MyPurseActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_my_collect:
@@ -522,6 +524,22 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 break;
             case R.id.tv_vegetable_five:
                 goServiceActivity(4, Constants.VEGETABLE, orderVegetable);
+                break;
+
+            case R.id.tv_conference_one:
+                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                break;
+            case R.id.tv_conference_two:
+                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                break;
+            case R.id.tv_conference_three:
+                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                break;
+            case R.id.tv_conference_four:
+                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                break;
+            case R.id.tv_conference_five:
+                goServiceActivity(4, Constants.CONFERENCE, orderConference);
                 break;
 
             case R.id.rl_laifang_person: // 来访

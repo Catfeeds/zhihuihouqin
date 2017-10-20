@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,9 +12,7 @@ import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.OfficeSupplies.SpPaySuccessActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
@@ -107,9 +104,9 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
        /* LogUtils.i(ordercode);
         LogUtils.i(ordertype);*/
         tvNeedPay.setText("￥" + pay);
-        if(from==Constants.BARBER){//是理发展示代金券
+        if (from == Constants.BARBER) {//是理发展示代金券
             rlDaijinquanPay.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             rlDaijinquanPay.setVisibility(View.GONE);
         }
     }
@@ -141,13 +138,13 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             case R.id.bt_confirm://确认支付，去顶支付成功进入支付成功界面
                 switch (paytype) {
                     case 1:
-                        getPresenter().aliPay(orderid,ordercode,ordertype,1);
+                        getPresenter().aliPay(orderid, ordercode, ordertype, 1);
                         break;
                     case 2:
-                        getPresenter().weiXinPay(orderid,ordercode,ordertype,2);
+                        getPresenter().weiXinPay(orderid, ordercode, ordertype, 2);
                         break;
                     case 3:
-                        getPresenter().personalWalletPay(orderid,ordercode,ordertype,3);
+                        getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3);
                         break;
                 }
              /*   switch (from){
@@ -161,6 +158,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                 break;
         }
     }
+
     private void unCheckPay() {
         ivDaijinjuanCheck.setImageResource(R.drawable.unselect);
         ivBalancePayCheck.setImageResource(R.drawable.unselect);
@@ -170,7 +168,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     @Override
     public void aliPay(AlipayBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             new Alipay(this).doPay(bean.getPayLink());
         }
         finish();
@@ -178,7 +176,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     @Override
     public void weiXinPay(WeixinBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             Gson gson = new Gson();
             String json = gson.toJson(bean);
             new WecatPay(this).doPay(json);
@@ -188,7 +186,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     @Override
     public void personalWallet(ActivityPostBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             showToast("支付成功");
         }
     }

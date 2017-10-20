@@ -1,12 +1,21 @@
 package com.moe.wl.ui.main.activity.vegetable;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.adapter.VegetableOrderAdapter;
+import com.moe.wl.ui.main.bean.PayBean;
+import com.moe.wl.ui.main.bean.VegetableBean;
+import com.moe.wl.ui.main.model.ConfirmVegetableOrderModel;
+import com.moe.wl.ui.main.modelimpl.ConfirmVegetableOrderModelImpl;
 import com.moe.wl.ui.main.presenter.ConfirmVegetableOrderPresenter;
 import com.moe.wl.ui.main.view.ConfirmVegetableOrderView;
 
@@ -20,15 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.ui.main.bean.PayBean;
-import com.moe.wl.ui.main.bean.VegetableBean;
-import com.moe.wl.ui.main.model.ConfirmVegetableOrderModel;
-import com.moe.wl.ui.main.modelimpl.ConfirmVegetableOrderModelImpl;
-
-import mvp.cn.util.ToastUtil;
 
 /**
  * 类描述：
@@ -90,8 +90,14 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
 
     @Override
     public void submitVegetableOrderSucc(PayBean bean) {
-        ToastUtil.showToast(this, "Type: " + bean.getOrdertype() + "  ID:" + bean.getOrderid());
+//        ToastUtil.showToast(this, "Type: " + bean.getOrdertype() + "  ID:" + bean.getOrdercode());
         // TODO 去支付
+        Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+        intent.putExtra("pay", priceNum);
+        intent.putExtra("orderid", "");
+        intent.putExtra("ordercode", bean.getOrdercode());
+        intent.putExtra("ordertype", bean.getOrdertype() + "");
+        startActivity(intent);
     }
 
     @OnClick({R.id.submit})

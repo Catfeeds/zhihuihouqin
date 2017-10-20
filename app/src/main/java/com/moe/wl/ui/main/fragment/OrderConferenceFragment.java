@@ -10,13 +10,17 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.adapter.BookOrderAdapter;
-import com.moe.wl.ui.main.bean.BookOrderListBean;
+import com.moe.wl.ui.main.adapter.OrderConferenceAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
+import com.moe.wl.ui.main.bean.NotifyChange;
+import com.moe.wl.ui.main.bean.OrderConferenceBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,31 +28,42 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
 /**
  * 会议室订单Fragment
- * Created by 我的电脑 on 2017/9/15 0015.
+ * Created by 我的电脑 on 2017/8/17 0017.
  */
-
 public class OrderConferenceFragment extends BaseFragment2 {
+
     @BindView(R.id.rv_wait_order_fragment)
     XRecyclerView recyclerView;
+
     Unbinder unbinder;
-    private int state;
+    private OrderConferenceAdapter adapter;
     private int page = 1;
-    private int limit = 20;
-    //    List listAll = new ArrayList<>();
-    private BookOrderAdapter bookOrderAdapter;
-    private List<BookOrderListBean.OrderlistBean> orderList;
+    private List<OrderConferenceBean.ListEntity> data;
+    private int state;
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        getData();
+    }
+
+    public static OrderConferenceFragment getInstance(int i) {
+        OrderConferenceFragment waitOrderFragment = new OrderConferenceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("from", i);
+        waitOrderFragment.setArguments(bundle);
+        return waitOrderFragment;
+    }
 
     @Override
     public View setLayout() {
         View view = View.inflate(getActivity(), R.layout.fragment_wait_order, null);
         unbinder = ButterKnife.bind(this, view);
-        //EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -59,45 +74,76 @@ public class OrderConferenceFragment extends BaseFragment2 {
     }
 
     private void setClick() {
-        bookOrderAdapter.setListener(new BookOrderAdapter.OnClickListener() {
+        adapter.setOnClickListener(new OrderConferenceAdapter.OnClickListener() {
             @Override
-            public void onClickListener(int state, int position) {
-                switch (state) {
-                    case 0:
+            public void onClick(int type, int position) {
+                switch (type) {
+                    case 0: // 取消订单
+                        showAlertDialog("是否取消订单", position);
                         break;
-                    case 1:
-                        showAlertDialog("是否取消订单", state, position);
-                        break;
-                    case 2:
-                        showAlertDialog("是否拨打服务电话", state, position);
-                        break;
-                    case 3:
 
+                    case 1: // 拨打电话
+//                        showAlertDialog("是否拨打服务电话", position);
                         break;
-                    case 4:
-                        showAlertDialog("是否删除订单", state, position);
+
+                    case 2: // 再来一单
+//                        startActivity(new Intent(getActivity(), PropertyAintenanceActivity.class));
+                        break;
+
+                    case 3: // 评价
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.CONFERENCE);
+                        break;
+
+                    case 4: // 删除订单
+                        showAlertDialog("是否删除订单", position);
                         break;
                 }
             }
         });
     }
 
-    public static OrderConferenceFragment getInstance(int i) {
-        OrderConferenceFragment orderBookFragment = new OrderConferenceFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("from", i);
-        orderBookFragment.setArguments(bundle);
-        return orderBookFragment;
+    int mPosition;
+
+    private void showAlertDialog(String s, int position) {
+        mPosition = position;
+        new AlertDialog(getActivity()).builder()
+//                .setBigMsg(s)
+                .setMsg(s)
+                .setPositiveButton("是", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
+                        intent.putExtra("from", Constants.PROPERRY);
+                        if (data.size() >= mPosition) {
+                            OrderConferenceBean.ListEntity listBean = data.get(mPosition);
+                            if (state == 0) {
+                                int id = listBean.getId();
+                                LogUtils.d("id:" + id + "  position:" + mPosition);
+                                intent.putExtra("OrderingID", id);
+                                startActivity(intent);
+                            } else if (state == 4) {
+                                // 删除订单
+                                deleteOrder(listBean.getId());
+                            }
+                        }
+
+                    }
+                })
+                .setNegativeButton("否", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).show();
     }
 
     private void initRecycler() {
-        orderList = new ArrayList<>();
+        data = new ArrayList<>();
         Bundle arguments = getArguments();
         state = arguments.getInt("from");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        bookOrderAdapter = new BookOrderAdapter(getActivity());
-        recyclerView.setAdapter(bookOrderAdapter);
-
+        adapter = new OrderConferenceAdapter(getActivity(), data, state);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -111,14 +157,20 @@ public class OrderConferenceFragment extends BaseFragment2 {
                 getData();
             }
         });
-
         getData();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+    }
+
     public void getData() {
-        Observable observable = RetrofitUtils.getInstance().bookOrderList(state + 1 + "", page, limit);
+        Observable observable = RetrofitUtils.getInstance().getConferenceOrder(state + 1, page);
         showProgressDialog();
-        observable.subscribe(new Subscriber<BookOrderListBean>() {
+        observable.subscribe(new Subscriber<OrderConferenceBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -126,62 +178,23 @@ public class OrderConferenceFragment extends BaseFragment2 {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.d("获取订单出现问题");
                 dismissProgressDialog();
             }
 
             @Override
-            public void onNext(BookOrderListBean orderBean) {
-                if (page == 1) {
-                    orderList.clear();
-                    recyclerView.refreshComplete();
-                } else {
-                    recyclerView.loadMoreComplete();
-                }
+            public void onNext(OrderConferenceBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    orderList = orderBean.getOrderlist();
-                    bookOrderAdapter.setData(orderList, state);
-                } else {
-                    ToastUtil.showToast(getActivity(), orderBean.getMsg());
+                    if (page == 1) {
+                        data.clear();
+                        recyclerView.refreshComplete();
+                    } else {
+                        recyclerView.loadMoreComplete();
+                    }
+                    data.addAll(orderBean.getList());
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
-    }
-
-    private void showAlertDialog(String s, final int state, final int position) {
-        new AlertDialog(getActivity()).builder()
-                .setBigMsg(s)
-                .setPositiveButton("是", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (orderList != null && orderList.size() > 0) {
-                            BookOrderListBean.OrderlistBean listBean = orderList.get(position);
-                            if (listBean != null) {
-                                if (state == 0) {
-                                    Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                                    intent.putExtra("from", Constants.CONFERENCE);
-                                    intent.putExtra("OrderingID", listBean.getOrderid());
-                                    startActivity(intent);
-                                } else if (state == 1) {
-//                                    String mobile = listBean.get;
-//                                    CallPhoneUtils.callPhone(mobile, getActivity());
-                                } else if (state == 4) {
-                                    // 删除订单
-                                    deleteOrder(listBean.getOrderid());
-                                }
-                            } else {
-                                LogUtils.d("listBean为空了");
-                            }
-                        }
-
-                    }
-                })
-                .setNegativeButton("否", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                }).show();
     }
 
     // 删除订单接口
@@ -207,12 +220,5 @@ public class OrderConferenceFragment extends BaseFragment2 {
                 }
             }
         });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        EventBus.getDefault().unregister(this);
     }
 }

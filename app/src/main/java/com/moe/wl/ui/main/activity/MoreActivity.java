@@ -105,7 +105,7 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
             "票务服务", "保密文件销毁", "车辆管理", "约车服务",
             "户籍管理");
     List<Integer> officePhotos = Arrays.asList(
-            R.drawable.office_upplies, R.drawable.send_receive_files,
+            R.drawable.office_supplies, R.drawable.send_receive_files,
             R.drawable.document_printing, R.drawable.conference_room,
             R.drawable.ticketing_services, R.drawable.destruction,
             R.drawable.car_manger, R.drawable.about_car_service,

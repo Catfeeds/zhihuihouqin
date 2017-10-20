@@ -8,5 +8,5 @@
         android:id="@+id/iv_up_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/add_photo" />
+        android:src="@drawable/add_dotted_line" />
 </LinearLayout>
