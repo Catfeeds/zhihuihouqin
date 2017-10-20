@@ -5,20 +5,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.bean.RegistBean;
 import com.moe.wl.ui.login.model.RegistStep2Model;
-import com.moe.wl.ui.login.view.RegistStep2View;
-
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.login.modelimpl.RegistStep2ModelImpl;
 import com.moe.wl.ui.login.presenter.RegistStep2Presenter;
+import com.moe.wl.ui.login.view.RegistStep2View;
 
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.ToastUtil;
@@ -32,7 +31,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     private TitleBar mTitleBar;
     private EditText et_password;
     private EditText et_repassword;
-    private Button bt_next;
+    private TextView bt_next;
     private String mMobile;
     private String mCptcha;
     private int from;
@@ -77,7 +76,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     private void initLayout() {
         mTitleBar.setBack(true);
         if (from == Constants.REGIST) {
-            mTitleBar.setTitle("设置资料");
+            mTitleBar.setTitle("设置密码");
             bt_next.setText("注册");
         } else if (from == Constants.FORGET) {
             mTitleBar.setTitle("设置密码");
@@ -89,7 +88,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         mTitleBar = (TitleBar) findViewById(R.id.mTitleBar);
         et_password = (EditText) findViewById(R.id.et_password);
         et_repassword = (EditText) findViewById(R.id.et_repassword);
-        bt_next = (Button) findViewById(R.id.bt_next);
+        bt_next = (TextView) findViewById(R.id.bt_next);
         bt_next.setOnClickListener(this);
     }
 
@@ -155,7 +154,6 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         }
     }
 
-
     @Override
     public void registSuccess(RegistBean registBean) {
         int errCode = registBean.getErrCode();
@@ -185,7 +183,7 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
     @Override
     public void changePassWord(RegistBean registBean) {
         ToastUtil.showToast(this, "修改密码成功！");
-        Intent intent=new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

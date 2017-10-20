@@ -74,27 +74,28 @@ public class HomePageBean {
     }
 
     public static class BxwxOrderList {
-        private int id;
-        private int menditem;
-        private String username;
-        private String mobile;
-        private String invitetime;
-        private String serviceplace;
-        private int menderid;
-        private String mendcontent;
-        private String mendimgs;
-        private int price;
-        private int orderstatus;
-        private int uid;
+
+        private String cancelreason;
         private String createtime;
+        private int id;
+        private String invitetime;
         private int invitetimetype;
+        private int isdel;
+        private String mendcontent;
+        private int menderid;
+        private String mendername;
+        private String mendimgs;
+        private int menditem;
+        private String mobile;
         private int orderchange;
         private String ordercode;
+        private int orderstatus;
         private int paystatus;
-        private int isdel;
         private int paytype;
-        private String cancelreason;
-        private String mendername;
+        private double price;
+        private String serviceplace;
+        private int uid;
+        private String username;
 
         public String getCancelreason() {
             return cancelreason;
@@ -232,11 +233,11 @@ public class HomePageBean {
             this.paytype = paytype;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

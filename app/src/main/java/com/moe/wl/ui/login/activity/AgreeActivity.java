@@ -18,7 +18,6 @@ public class AgreeActivity extends BaseActivity<MainModel,MainView,MainPresenter
 
     private TitleBar mTitleBar;
 
-
     @Override
     public void setContentLayout() {
         setContentView(R.layout.login_agree);
@@ -37,7 +36,6 @@ public class AgreeActivity extends BaseActivity<MainModel,MainView,MainPresenter
         mTitleBar.setBack(true);
         mTitleBar.setTitle("阅读协议");
     }
-
 
     @Override
     public MainModel createModel() {

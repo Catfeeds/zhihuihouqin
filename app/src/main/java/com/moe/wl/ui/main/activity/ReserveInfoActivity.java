@@ -8,14 +8,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
-
 import mvp.cn.util.ToastUtil;
 
 public class ReserveInfoActivity extends AppCompatActivity {
@@ -42,7 +41,11 @@ public class ReserveInfoActivity extends AppCompatActivity {
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("预定信息");
-        tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
+        if ("".equals(SharedPrefHelper.getInstance().getRealName()) || SharedPrefHelper.getInstance().getRealName() == null) {
+            tvUserName.setText(SharedPrefHelper.getInstance().getNickname());
+        } else {
+            tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
+        }
         tvUserPhone.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         tvUserPhone.setSelection(SharedPrefHelper.getInstance().getPhoneNumber().length());
     }

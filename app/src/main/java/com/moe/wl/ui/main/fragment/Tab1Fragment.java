@@ -17,10 +17,24 @@ import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.ServiceIntentUtils;
+import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.ui.main.adapter.HomeAdapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv2Adapter;
+import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
+import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.HomePageBean;
+import com.moe.wl.ui.main.bean.InformationBean;
+import com.moe.wl.ui.main.model.HomePageModel;
+import com.moe.wl.ui.main.modelimpl.HomePageModelImpl;
 import com.moe.wl.ui.main.presenter.HomePagePresenter;
+import com.moe.wl.ui.main.view.HomePageView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
+import com.moe.wl.zxing.android.CaptureActivity;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -36,19 +50,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseFragment;
-import com.moe.wl.framework.utils.ServiceIntentUtils;
-import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.main.adapter.HomeAdapter;
-import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
-import com.moe.wl.ui.main.bean.ActivityHomeBean;
-import com.moe.wl.ui.main.bean.HomePageBean;
-import com.moe.wl.ui.main.bean.InformationBean;
-import com.moe.wl.ui.main.model.HomePageModel;
-import com.moe.wl.ui.main.modelimpl.HomePageModelImpl;
-import com.moe.wl.ui.main.view.HomePageView;
-import com.moe.wl.zxing.android.CaptureActivity;
 
 /**
  * Created by hh on 2016/5/18.
@@ -94,7 +95,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
             R.drawable.more};
 
     private List<HomePageBean.ServiceListEntity> serviceData; // 服务
-//    private List<HomePageBean.CarouselListEntity> roastingData; // 轮播图
+    //    private List<HomePageBean.CarouselListEntity> roastingData; // 轮播图
     private List<ActivityHomeBean.ActivitylistBean> activeData; // 活动
     private List<InformationBean.PageEntity.ListEntity> informationData; // 公告
     private List<HomePageBean.BxwxOrderList> bxData; // 报修
@@ -145,7 +146,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
         gridViewCatogary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (ServiceIntentUtils.goService(serviceData.get(position).getId())==null){
+                if (ServiceIntentUtils.goService(serviceData.get(position).getId()) == null) {
                     return;
                 }
                 startActivity(new Intent(getActivity(), ServiceIntentUtils.goService(serviceData.get(position).getId())));
@@ -158,6 +159,8 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
 
     // 轮播图数据
     private void initSliderLayout(HashMap<String, String> map) {
+        LogUtils.d("map的长度：" + map.size());
+        sliderLayout.setSystemUiVisibility(View.GONE);
         sliderLayout.removeAllSliders();
         for (String desc : map.keySet()) {
             TextSliderView textSliderView = new TextSliderView(getActivity());
@@ -201,7 +204,11 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
             // TODO 轮播图数据
             HashMap<String, String> map = new HashMap<>();
             for (int i = 0; i < bean.getCarouselList().size(); i++) {
-                map.put("", bean.getCarouselList().get(i).getImgs());
+                String content = "";
+                for (int j = 0; j < i; j++) {
+                    content = content + " ";
+                }
+                map.put(content, bean.getCarouselList().get(i).getImgs());
             }
             initSliderLayout(map);
         }

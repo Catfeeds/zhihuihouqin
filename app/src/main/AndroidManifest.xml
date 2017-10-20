@@ -483,11 +483,14 @@
             android:name=".ui.main.activity.information.InformationDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.me.NativesActivity" />
-        <activity android:name=".ui.main.activity.me.DepartmentActivity"></activity>
+        <activity android:name=".ui.main.activity.me.DepartmentActivity"/>
         <activity android:name=".ui.main.activity.me.OfficeidActivity" />
         <activity android:name=".ui.main.activity.me.CarTypeActivity" />
         <activity
             android:name=".ui.main.activity.me.OrderCommentSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.activity.AccountComplainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.DoctorConsultActivity" />
     </application>

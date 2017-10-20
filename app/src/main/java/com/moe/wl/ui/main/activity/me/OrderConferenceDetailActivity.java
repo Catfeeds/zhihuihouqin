@@ -102,6 +102,8 @@ public class OrderConferenceDetailActivity extends AppCompatActivity {
             ToastUtil.showToast(this, "会议室订单数据异常！");
             return;
         }
+        state = data.getDetail().getStatus();
+
     }
 
     @OnClick({R.id.left, R.id.right})

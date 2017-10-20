@@ -91,6 +91,11 @@ public interface NetAPI {
     @POST(NetUrl.submitAuth)
     Observable<SubmitAuthBean> submitAuth(@FieldMap Map<String, Object> map);
 
+    //账号申诉
+    @FormUrlEncoded
+    @POST(NetUrl.accountComplain)
+    Observable<CollectBean> accountComplain(@FieldMap Map<String, Object> map);
+
     // 首页数据
     @FormUrlEncoded
     @POST(NetUrl.homePage)

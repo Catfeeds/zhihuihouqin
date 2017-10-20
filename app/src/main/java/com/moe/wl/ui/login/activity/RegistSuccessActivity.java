@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.mywidget.AlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 
 public class RegistSuccessActivity extends AppCompatActivity {
 
@@ -57,5 +57,7 @@ public class RegistSuccessActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_to_write_info)
     public void onViewClicked() {
+        Intent intent = new Intent(RegistSuccessActivity.this, IdentityActivity.class);
+        startActivity(intent);
     }
 }

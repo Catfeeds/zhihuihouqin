@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_regist_success"
     android:layout_width="match_parent"
-    android:gravity="center_horizontal"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -22,51 +22,65 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_gongxile"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/smile"
-            android:text="恭喜啦！"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_biggest" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smile" />
+
+            <TextView
+                android:id="@+id/tv_gongxile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="恭喜啦！"
+                android:textColor="@color/tv_gray"
+                android:textSize="@dimen/sp_big" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/standard_padding"
-            android:text="你的个人账户成功创建"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:text="您的个人账户成功创建"
+            android:textColor="@color/tv_gray"
+            android:textSize="@dimen/sp_big" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="@dimen/standard_padding"
+        android:layout_marginLeft="12dp"
         android:text="友情提示："
-        android:textColor="@color/black"
+        android:textColor="@color/tv_black"
         android:textSize="@dimen/sp_small" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="3dp"
         android:text="请您填写身份信息用于身份审核认证"
-        android:textColor="@color/tv_black"
+        android:textColor="@color/tv_gray"
         android:textSize="@dimen/sp_small" />
 
     <TextView
         android:id="@+id/tv_to_write_info"
-        style="@style/tvStyle_tv_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/shape_login"
-        android:padding="16dp"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:text="去填写身份信息"
-        android:textSize="@dimen/sp_big" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_small" />
 </LinearLayout>

@@ -301,7 +301,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.rl_turn9, R.id.tv_yuding9, R.id.tv_jieyue9, R.id.tv_guihuan9, R.id.tv_pingjia9, R.id.tv_cancle9,
             R.id.rl_vegetable, R.id.tv_vegetable_one, R.id.tv_vegetable_two, R.id.tv_vegetable_three, R.id.tv_vegetable_four,
             R.id.tv_vegetable_five, R.id.tv_conference_one, R.id.tv_conference_two, R.id.tv_conference_three, R.id.tv_conference_four,
-            R.id.tv_conference_five})
+            R.id.tv_conference_five, R.id.rl_conference})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_my_packge:
@@ -524,17 +524,20 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 goServiceActivity(4, Constants.VEGETABLE, orderVegetable);
                 break;
 
+            case R.id.rl_conference:
+                goServiceActivity(0, Constants.CONFERENCE, orderConference);
+                break;
             case R.id.tv_conference_one:
-                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                goServiceActivity(0, Constants.CONFERENCE, orderConference);
                 break;
             case R.id.tv_conference_two:
-                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                goServiceActivity(1, Constants.CONFERENCE, orderConference);
                 break;
             case R.id.tv_conference_three:
-                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                goServiceActivity(2, Constants.CONFERENCE, orderConference);
                 break;
             case R.id.tv_conference_four:
-                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                goServiceActivity(3, Constants.CONFERENCE, orderConference);
                 break;
             case R.id.tv_conference_five:
                 goServiceActivity(4, Constants.CONFERENCE, orderConference);

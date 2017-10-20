@@ -41,7 +41,7 @@ public class HomeNsrlv2Adapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        holder.tvContentDes.setText(data.get(position).getUsername());
+        holder.tvContentDes.setText(data.get(position).getMendcontent());
         holder.tvSecondrvTime.setText(data.get(position).getCreatetime());
         holder.tvRoomNum.setText(data.get(position).getServiceplace());
         holder.tvName.setText(data.get(position).getMendername());

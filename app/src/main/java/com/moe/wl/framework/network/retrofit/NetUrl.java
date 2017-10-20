@@ -27,6 +27,7 @@ public interface NetUrl {
     String submitAuth="appuser/user/auth";
     String bindPhone="appuser/user/bindMobile";
     String changePassWord = "appuser/user/updatePass";
+    String accountComplain = "appuser/user/appeal"; // 账号申诉
 
     // 医疗
     String healthServiceHome = "appuser/ylfw/ylfwindex";

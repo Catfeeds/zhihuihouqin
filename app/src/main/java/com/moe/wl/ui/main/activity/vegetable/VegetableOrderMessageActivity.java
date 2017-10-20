@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
@@ -22,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -53,7 +53,11 @@ public class VegetableOrderMessageActivity extends BaseActivity<VegetableOrderMe
     public void initView() {
         titleBar.setBack(true);
         titleBar.setTitle("预订信息");
-        userName.setText(SharedPrefHelper.getInstance().getRealName());
+        if ("".equals(SharedPrefHelper.getInstance().getRealName()) || SharedPrefHelper.getInstance().getRealName() == null) {
+            userName.setText(SharedPrefHelper.getInstance().getNickname());
+        } else {
+            userName.setText(SharedPrefHelper.getInstance().getRealName());
+        }
         phoneNumber.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         phoneNumber.setSelection(SharedPrefHelper.getInstance().getPhoneNumber().length());
         data = (List<VegetableBean.PageEntity.ListEntity>) getIntent().getSerializableExtra("Data");

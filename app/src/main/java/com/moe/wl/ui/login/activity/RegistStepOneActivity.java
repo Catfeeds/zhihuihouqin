@@ -1,6 +1,7 @@
 package com.moe.wl.ui.login.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -9,7 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -33,22 +34,17 @@ import mvp.cn.util.VerifyCheck;
 
 
 public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, RegistStep1View, RegistStep1Presenter> implements RegistStep1View {
+
     @BindView(R.id.regist_title)
     TitleBar registTitle;
-    @BindView(R.id.iv1)
-    ImageView iv1;
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.iv_uname)
     ImageView ivUname;
     @BindView(R.id.rl_uname)
-    RelativeLayout rlUname;
-    @BindView(R.id.iv2)
-    ImageView iv2;
+    LinearLayout rlUname;
     @BindView(R.id.et_code)
     EditText etCode;
-    @BindView(R.id.rl_code)
-    RelativeLayout rlCode;
     @BindView(R.id.btn_getcode)
     TextView btnGetcode;
     @BindView(R.id.checkbox)
@@ -57,6 +53,8 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     TextView tvAgreen;
     @BindView(R.id.tv_next_step)
     TextView tvNextStep;
+    @BindView(R.id.complaint)
+    TextView complaint;
 
 
  /*   @BindView(R.id.mTitleBar)
@@ -96,7 +94,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
 
     @Override
     public void initView() {
-        tvAgreen.setText("<<智慧后勤用户服务协议>>");
+        tvAgreen.setText("《智慧后勤用户服务协议》");
         registTitle.setBack(true);
         getPerfromData();
     }
@@ -119,7 +117,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             thirdType = extras.getString("thirdType");
             thirdNum = extras.getString("thirdNum");
             if (from == Constants.FORGET) {
-//                cbAgreen.setVisibility(View.INVISIBLE);
                 registTitle.setTitle("找回密码");
             } else if (from == Constants.REGIST) {
                 registTitle.setTitle("注册");
@@ -130,7 +127,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         }
     }
 
-    @OnClick({R.id.btn_getcode, R.id.tv_agreen, R.id.tv_next_step, R.id.iv_uname})
+    @OnClick({R.id.btn_getcode, R.id.tv_agreen, R.id.tv_next_step, R.id.iv_uname, R.id.complaint})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_getcode:
@@ -144,6 +141,9 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
                 break;
             case R.id.iv_uname:
                 etPhone.setText("");
+                break;
+            case R.id.complaint:
+                startActivity(new Intent(RegistStepOneActivity.this, AccountComplainActivity.class));
                 break;
         }
     }
@@ -167,7 +167,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             showToast("请阅读并同意服务协议");
             return;
         }
-        if (mCaptcha==null || !mCaptcha.equals(captcha)) {
+        if (mCaptcha == null || !mCaptcha.equals(captcha)) {
             showToast("验证码不正确");
             return;
         }
@@ -257,6 +257,12 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     @Override
     public void bindResult(BindPhoneBean bindPhoneBean) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 
 

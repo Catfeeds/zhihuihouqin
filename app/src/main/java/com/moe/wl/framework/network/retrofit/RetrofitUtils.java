@@ -551,6 +551,27 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 认证
+     */
+    public static Observable accountComplain(String userName, String password, String idcard,
+                                             String mobile, String realname, String reason) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap();
+            tempMap.put("userName", userName);
+            tempMap.put("password", password);
+            tempMap.put("idcard", idcard);
+            tempMap.put("mobile", mobile);
+            tempMap.put("realname", realname);
+            tempMap.put("reason", reason);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.accountComplain(paramsMap));
+    }
+
+    /**
      * 医疗健康服务首页
      *
      * @return
@@ -3006,12 +3027,13 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.modifyCode(paramsMap));
     }
+
     /**
      * 意见反馈
      *
      * @return
      */
-    public Observable saveAdvice(String content) {
+    public static Observable saveAdvice(String content) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -3023,6 +3045,7 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.saveAdvice(paramsMap));
     }
+
     /**
      * 修改用户信息
      *
