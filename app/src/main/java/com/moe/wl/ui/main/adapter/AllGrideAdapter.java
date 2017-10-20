@@ -9,17 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
+import com.moe.wl.ui.main.bean.ServiceDataBean;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.bean.ServiceDataBean;
 import mvp.cn.util.ToastUtil;
 
 /**
