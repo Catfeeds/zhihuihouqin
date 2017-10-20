@@ -1,7 +1,8 @@
 package com.moe.wl.ui.main.view;
 
-import com.moe.wl.ui.main.bean.AddressBean;
-import com.moe.wl.ui.main.bean.MyCollectBean;
+import com.moe.wl.ui.main.bean.McNoticeListResponse;
+
+import java.util.List;
 
 import mvp.cn.common.MvpView;
 
@@ -12,6 +13,6 @@ import mvp.cn.common.MvpView;
 
 public interface McNoticeView extends MvpView {
 
-    void getCollect(MyCollectBean bean);
+    void getCollect(List<McNoticeListResponse.PageBean.ListBean> list);
 
 }

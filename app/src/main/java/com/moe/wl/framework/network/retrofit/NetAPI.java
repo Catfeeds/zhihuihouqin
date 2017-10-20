@@ -739,6 +739,11 @@ public interface NetAPI {
     @POST(NetUrl.addFavor)
     Observable<MyCollectBean> addFavor(@FieldMap Map<String, Object> map);
 
+    //我的收藏
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<McNoticeListResponse> findUserFavorList(@FieldMap Map<String, Object> map);
+
     //修改用户信息
     @FormUrlEncoded
     @POST(NetUrl.changeUserInfo)

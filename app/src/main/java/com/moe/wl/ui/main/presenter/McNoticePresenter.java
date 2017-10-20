@@ -2,11 +2,8 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
-import com.moe.wl.ui.main.bean.MyCollectBean;
-import com.moe.wl.ui.main.model.AddressModel;
+import com.moe.wl.ui.main.bean.McNoticeListResponse;
 import com.moe.wl.ui.main.model.McNocticeModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.McNoticeView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -20,10 +17,10 @@ import rx.Subscriber;
 
 public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeView> {
 
-    public void getCollect(int type) {
+    public void findUserFavorList(String type) {
         getView().showProgressDialog();
-        Observable request = getModel().getData(type);
-        getNetWork(request, new Subscriber<MyCollectBean>() {
+        Observable request = getModel().findUserFavorList(type);
+        getNetWork(request, new Subscriber<McNoticeListResponse>() {
 
             @Override
             public void onCompleted() {
@@ -37,11 +34,11 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
             }
 
             @Override
-            public void onNext(MyCollectBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getCollect(bean);
+            public void onNext(McNoticeListResponse mResponse) {
+                if (mResponse.errCode == 0) {
+                    getView().getCollect(mResponse.getPage().getList());
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.msg);
                 }
             }
         });

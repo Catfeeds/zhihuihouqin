@@ -206,6 +206,8 @@ public interface NetUrl {
 
     //意见反馈
     String saveAdvice="appuser/user/saveAdvice";
+    //我的收藏列表
+    String findUserFavorList = "appuser/tfavor/findUserFavorList";
     //我的收藏
     String addFavor = "appuser/tfavor/addFavor";
     //我的钱包

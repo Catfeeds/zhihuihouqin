@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface McNocticeModel extends MvpModel {
 
-    Observable getData(int type);
+    Observable findUserFavorList(String type);
 
 }

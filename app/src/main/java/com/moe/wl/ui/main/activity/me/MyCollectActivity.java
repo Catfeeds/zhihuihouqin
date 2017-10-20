@@ -30,10 +30,8 @@ public class MyCollectActivity extends AppCompatActivity {
     ViewPager vpCollect;
     @BindView(R.id.activity_my_collect)
     LinearLayout activityMyCollect;
-    private List<String> tabs = Arrays.asList("公告", "办公用品", "理发作品", "图书", "专家",
-            "活动", "发型师");
-    // type收藏类型 ： 1: 公告，2：办公，3：作品，4：图书，5：医生，6：活动，7：发型师
-    // 8:健康资讯 9专家 10营养套餐 11办公用品
+    private List<String> tabs = Arrays.asList("公告", "办公", "理发作品", "图书", "医生", "活动", "发型师" ,"健康资讯", "专家", "营养套餐");
+    // 1: 公告，2：办公，3：理发作品，4：图书，5：医生，6：活动，7：发型师 //8:健康资讯 9专家 10营养套餐
     private List<Fragment> fragments;
 
     @Override
@@ -49,13 +47,16 @@ public class MyCollectActivity extends AppCompatActivity {
     private void initFragment() {
         fragments = new ArrayList<>();
 
-        fragments.add(McNoticeFragment.getInstance(1));
-        fragments.add(McNoticeFragment.getInstance(11));
-        fragments.add(McNoticeFragment.getInstance(3));
-        fragments.add(McNoticeFragment.getInstance(4));
-        fragments.add(McNoticeFragment.getInstance(9));
-        fragments.add(McNoticeFragment.getInstance(6));
-        fragments.add(McNoticeFragment.getInstance(7));
+        fragments.add(McNoticeFragment.getInstance("1"));
+        fragments.add(McNoticeFragment.getInstance("2"));
+        fragments.add(McNoticeFragment.getInstance("3"));
+        fragments.add(McNoticeFragment.getInstance("4"));
+        fragments.add(McNoticeFragment.getInstance("5"));
+        fragments.add(McNoticeFragment.getInstance("6"));
+        fragments.add(McNoticeFragment.getInstance("7"));
+        fragments.add(McNoticeFragment.getInstance("8"));
+        fragments.add(McNoticeFragment.getInstance("9"));
+        fragments.add(McNoticeFragment.getInstance("10"));
 
     }
 

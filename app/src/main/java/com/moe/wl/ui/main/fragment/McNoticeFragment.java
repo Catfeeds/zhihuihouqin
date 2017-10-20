@@ -1,24 +1,15 @@
 package com.moe.wl.ui.main.fragment;
 
-import android.app.Notification;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.ui.main.adapter.NoticeAdapter;
-import com.moe.wl.ui.main.bean.MyCollectBean;
+import com.moe.wl.ui.main.bean.McNoticeListResponse;
 import com.moe.wl.ui.main.model.McNocticeModel;
 import com.moe.wl.ui.main.modelimpl.McNoticeModelImpl;
 import com.moe.wl.ui.main.presenter.McNoticePresenter;
@@ -26,20 +17,26 @@ import com.moe.wl.ui.main.view.McNoticeView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
- * Created by 我的电脑 on 2017/9/11 0011.
+ * 我的收藏列表
  */
 
 public class McNoticeFragment extends BaseFragment<McNocticeModel,McNoticeView,McNoticePresenter> implements McNoticeView {
+
     @BindView(R.id.rv_collect)
     XRecyclerView rvCollect;
     Unbinder unbinder;
-    private int type;
 
-    public static McNoticeFragment getInstance(int type){
+    private String type;  //1: 公告，2：办公，3：理发作品，4：图书，5：医生，6：活动，7：发型师 //8:健康资讯 9专家 10营养套餐
+
+    public static McNoticeFragment getInstance(String type){
         McNoticeFragment fragment = new McNoticeFragment();
         Bundle bundle=new Bundle();
-        bundle.putInt("type",type);
+        bundle.putString("type",type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -64,41 +61,22 @@ public class McNoticeFragment extends BaseFragment<McNocticeModel,McNoticeView,M
         ButterKnife.bind(this, v);
         Bundle bundle = getArguments();
         if(bundle!=null){
-            type = bundle.getInt("type", 1);
+            type = bundle.getString("type");
         }
-        getPresenter().getCollect(type);//请求收藏
+        if (!TextUtils.isEmpty(type)){
+            getPresenter().findUserFavorList(type);//请求收藏
+        }
 
         rvCollect.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
     }
+
     @Override
-    public void getCollect(MyCollectBean bean) {
-        if(bean!=null){
-            MyCollectBean.PageBean page = bean.getPage();
-            if(page!=null){
-                List<MyCollectBean.PageBean.ListBean> list = page.getList();
-                switch (type){
-                    case 1:
-                        NoticeAdapter adapter = new NoticeAdapter(getActivity());
-                        rvCollect.setAdapter(adapter);
-                        adapter.setData(list);
-                        break;
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                    case 9:
-                    case 10:
-                    case 11:
-                        break;
-                }
-            }
+    public void getCollect(List<McNoticeListResponse.PageBean.ListBean> list) {
+        if(list!=null){
+            NoticeAdapter adapter = new NoticeAdapter(getActivity(),type);
+            rvCollect.setAdapter(adapter);
+            adapter.setData(list);
         }
-
-
     }
 }

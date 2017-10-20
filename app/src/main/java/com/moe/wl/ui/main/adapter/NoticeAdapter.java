@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.bean.MyCollectBean;
+import com.moe.wl.ui.main.bean.McNoticeListResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +22,41 @@ import butterknife.ButterKnife;
  */
 
 public class NoticeAdapter extends RecyclerView.Adapter {
-    private Context mContext;
-    private List<MyCollectBean.PageBean.ListBean> mList = new ArrayList<>();
 
-    public NoticeAdapter(Context context) {
+    private Context mContext;
+    private List<McNoticeListResponse.PageBean.ListBean> mList = new ArrayList<>();
+    private String type;  //1: 公告，2：办公，3：理发作品，4：图书，5：医生，6：活动，7：发型师 //8:健康资讯 9专家 10营养套餐
+
+
+    public NoticeAdapter(Context context,String type) {
         this.mContext = context;
+        this.type = type;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        View view;
+        if ("1".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("2".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("3".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("4".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("5".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("6".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("7".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("8".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else if ("9".equals(type)){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
+        }
         return new ViewHolder(view);
     }
 
@@ -50,7 +74,7 @@ public class NoticeAdapter extends RecyclerView.Adapter {
         return mList.size();
     }
 
-    public void setData(List<MyCollectBean.PageBean.ListBean> list) {
+    public void setData(List<McNoticeListResponse.PageBean.ListBean> list) {
         this.mList = list;
     }
 

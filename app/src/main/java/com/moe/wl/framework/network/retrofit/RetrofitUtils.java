@@ -2785,6 +2785,23 @@ carcode	是	string	车牌号*/
     }
 
     /**
+     * 我的收藏列表
+     */
+    public static Observable findUserFavorList(String serviceType) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("serviceType", serviceType);  //1: 公告，2：办公，3：理发作品，4：图书，5：医生，6：活动，7：发型师 //8:健康资讯 9专家 10营养套餐
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findUserFavorList(paramsMap));
+    }
+
+
+    /**
      * 修改用户信息
      *
      * @return
