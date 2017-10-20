@@ -2,13 +2,9 @@ package com.moe.wl.ui.main.activity.Library;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
@@ -18,13 +14,18 @@ import com.moe.wl.ui.main.modelimpl.RecommandVBookModelImpl;
 import com.moe.wl.ui.main.presenter.RecommandBookPresenter;
 import com.moe.wl.ui.main.view.RecommandBookView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ *
+ */
 public class ReaderRecommendActivity extends BaseActivity<RecommandBookModel, RecommandBookView, RecommandBookPresenter> implements RecommandBookView {
 
     private static final boolean BOOKSUBMIT = false;
     @BindView(R.id.reader_commend_title)
     TitleBar titleBar;
-    @BindView(R.id.view_down)
-    View viewDown;
     @BindView(R.id.et_book_name)
     EditText etBookName;
     @BindView(R.id.author_name)

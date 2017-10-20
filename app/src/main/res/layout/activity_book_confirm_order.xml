@@ -3,6 +3,7 @@
     android:id="@+id/activity_book_confirm_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -14,26 +15,26 @@
     <View
         android:id="@+id/view_title"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000" />
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:textSize="@dimen/sp_bigger"
-    android:textColor="@color/black"
-    android:gravity="center_vertical"
-    android:text="个人信息"
-    android:paddingLeft="@dimen/standard_padding"
-    android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/divider" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="@dimen/sp_bigger"
+        android:gravity="center_vertical"
+        android:text="个人信息"
+        android:paddingLeft="@dimen/standard_padding"/>
     <include layout="@layout/personal_info" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/divider"/>
     <RelativeLayout
-    android:padding="@dimen/standard_padding"
-    android:layout_width="match_parent"
-    android:layout_height="60dp">
+        android:padding="@dimen/standard_padding"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="50dp">
     <TextView
         android:text="预计取书时间"
         android:textSize="@dimen/sp_big"
@@ -53,18 +54,17 @@
 </RelativeLayout>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:textSize="@dimen/sp_bigger"
-        android:textColor="@color/black"
         android:gravity="center_vertical"
         android:text="借阅信息"
-        android:paddingLeft="@dimen/standard_padding"
-        android:background="@color/gray_lighter"/>
+        android:paddingLeft="@dimen/standard_padding"/>
     <LinearLayout
         android:id="@+id/ll_book_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"
+        android:background="@color/white"></LinearLayout>
    <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -75,7 +75,7 @@
         android:paddingLeft="@dimen/standard_padding" />-->
    <View
        android:layout_width="match_parent"
-       android:layout_height="2dp"
+       android:layout_height="1px"
        android:background="@color/gray_lighter"/>
     <TextView
         android:id="@+id/tv_again"
@@ -83,6 +83,7 @@
        android:textColor="@color/gray"
        android:padding="@dimen/standard_padding"
        android:gravity="center"
+        android:background="@color/white"
        android:text="+继续借阅"
        android:layout_width="match_parent"
        android:layout_height="wrap_content" />

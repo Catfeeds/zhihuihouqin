@@ -3,9 +3,9 @@ package com.moe.wl.ui.main.activity.Library;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -28,6 +27,9 @@ import butterknife.OnClick;
 import cn.sharesdk.tencent.qq.QQ;
 import lc.cn.thirdplatform.sharesdk.onekeyshare.OnekeyShare;
 
+/**
+ * 图书馆-书籍简介
+ */
 public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookDetailView, BookDetailPresenter> implements BookDetailView, View.OnClickListener {
 
 
@@ -57,10 +59,12 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     TextView tvBookIntroduce;
     @BindView(R.id.tv_book_introduce_content)
     TextView tvBookIntroduceContent;
-    @BindView(R.id.tv_share)
-    TextView tvShare;
-    @BindView(R.id.tv_collect)
-    TextView tvCollect;
+    @BindView(R.id.ll_share)
+    LinearLayout llShare;
+    @BindView(R.id.ll_collect)
+    LinearLayout llCollect;
+    @BindView(R.id.iv_collect)
+    ImageView ivCollect;
     @BindView(R.id.tv_now_borrowing)
     TextView tvNowBorrowing;
     @BindView(R.id.activity_book_description)
@@ -104,7 +108,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     }
 
     private void initAllViw() {
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bookListvBean.getImg(), ivBookPic);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bookListvBean.getImg(), ivBookPic,R.mipmap.ic_default_book);
         tvBookName.setText(bookListvBean.getTitle());
         ratingBar.setRating(bookListvBean.getScore());
         tvStarNum.setText(bookListvBean.getScore() + "分");
@@ -124,10 +128,10 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     public void collectSucc(CollectBean collectBean) {
         if (collectBean.getStatus() == 0) {
             showToast("取消收藏");
-            tvCollect.setText("收藏");
+            ivCollect.setImageResource(R.drawable.collected);
         } else {
             showToast("收藏成功");
-            tvCollect.setText("取消收藏");
+            ivCollect.setImageResource(R.drawable.collect);
         }
     }
 
@@ -136,14 +140,14 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
         titleBar.setTitle("书籍简介");
     }
 
-    @OnClick({R.id.tv_share, R.id.tv_collect, R.id.tv_now_borrowing})
+    @OnClick({R.id.ll_share, R.id.ll_collect, R.id.tv_now_borrowing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_share:
+            case R.id.ll_share:
                 // sharePopWindow();
                 //showShare("测试", "智慧后勤", "http://www.baidu.com", "http://casemeet.oss-cn-beijing.aliyuncs.com/2017080214260236353118.png");
                 break;
-            case R.id.tv_collect:
+            case R.id.ll_collect:
                 getPresenter().getData(TYPE,bookId);
                 break;
             case R.id.tv_now_borrowing://立即借阅
@@ -155,13 +159,6 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                     finish();
                 } else {
                     showToast("此书已经被借阅,请选择其它书籍");
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            SystemClock.sleep(2000);
-                            finish();
-                        }
-                    }).start();
                 }
                 break;
         }

@@ -6,9 +6,9 @@
     android:orientation="horizontal">
 <ImageView
     android:id="@+id/iv_book_pic"
-    android:src="@mipmap/ic_default_square"
-    android:layout_width="100dp"
-    android:scaleType="centerCrop"
+    android:src="@mipmap/ic_default_book"
+    android:layout_width="80dp"
+    android:scaleType="fitXY"
     android:layout_height="100dp" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,6 @@
             android:layout_weight="1">
             <TextView
                 android:id="@+id/tv_book_name"
-                android:text="人性的弱点"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_bigger"
                 android:layout_centerVertical="true"
@@ -29,7 +28,6 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_state"
-                android:text="在架上"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/green"
                 android:textSize="@dimen/sp_small"
@@ -65,7 +63,6 @@
         </LinearLayout>
         <TextView
             android:id="@+id/tv_author"
-            android:text="作者:戴尔.卡耐基"
             android:textSize="@dimen/sp_small"
             android:gravity="center_vertical"
             android:textColor="@color/tv_black"
@@ -74,7 +71,6 @@
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/tv_chubanshe"
-            android:text="新华日报出版社"
             android:textSize="@dimen/sp_small"
             android:gravity="center_vertical"
             android:textColor="@color/tv_black"
@@ -83,7 +79,6 @@
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/tv_book_des"
-            android:text="这般书对你有事儿中公用1是你脱离心的"
             android:singleLine="true"
             android:textSize="@dimen/sp_small"
             android:gravity="center_vertical"

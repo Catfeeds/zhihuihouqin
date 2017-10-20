@@ -5,7 +5,8 @@
     <RelativeLayout
         android:padding="@dimen/standard_padding"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:background="@color/white"
+        android:layout_height="50dp">
         <TextView
             android:text="姓名"
             android:textSize="@dimen/sp_big"
@@ -25,12 +26,13 @@
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/divider"/>
     <RelativeLayout
         android:padding="@dimen/standard_padding"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:background="@color/white"
+        android:layout_height="50dp">
         <TextView
             android:text="手机号"
             android:textSize="@dimen/sp_big"

@@ -3,21 +3,19 @@
     android:id="@+id/activity_reader_recommend"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/reader_commend_title"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="@dimen/title_height" />
-    <View
-        android:id="@+id/view_down"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/rl_title"
-        android:background="@color/gray_lighter" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
         android:padding="@dimen/standard_padding">
         <TextView
             android:text="书籍名称:"
@@ -34,12 +32,13 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/divider"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:padding="@dimen/standard_padding">
         <TextView
             android:text="作者名称:"
@@ -56,12 +55,13 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:padding="@dimen/standard_padding">
         <TextView
             android:text="出版社名称:"
@@ -78,12 +78,13 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@color/white"
         android:padding="@dimen/standard_padding">
         <TextView
             android:text="其他备注:"
@@ -91,35 +92,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/standard_padding"
-        android:layout_marginRight="@dimen/standard_padding"
-        android:layout_marginBottom="@dimen/standard_padding"
-        android:padding="@dimen/standard_padding"
-        android:background="@drawable/shape_remark"
-        android:layout_height="200dp" >
-        <EditText
-            android:id="@+id/et_write_your_book_name"
-            android:background="@null"
-            android:hint="请输入你想要的书籍详细内容"
-            android:textColorHint="@color/gray_light"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            android:gravity="top"
-
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_marginLeft="@dimen/standard_padding"
+            android:layout_marginRight="@dimen/standard_padding"
+            android:layout_marginBottom="@dimen/standard_padding"
+            android:padding="@dimen/standard_padding"
+            android:background="@drawable/shape_remark"
+            android:layout_marginTop="10dp"
+            android:layout_height="200dp" >
+            <EditText
+                android:id="@+id/et_write_your_book_name"
+                android:background="@null"
+                android:hint="请输入你想要的书籍详细内容"
+                android:textColorHint="@color/gray_light"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_big"
+                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:background="@color/gray_lighter">
+        android:gravity="center">
         <TextView
             android:id="@+id/submit"
             android:text="提交"

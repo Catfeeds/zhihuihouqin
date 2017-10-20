@@ -4,7 +4,8 @@
     android:id="@+id/activity_borrow_order"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/reserve_info_title"
@@ -15,18 +16,22 @@
     <View
         android:id="@+id/view_title"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000" />
+        android:layout_height="1px"
+        android:background="@color/divider" />
+
    <include layout="@layout/personal_info"/>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/divider"/>
+
     <RelativeLayout
         android:id="@+id/rl_time"
         android:padding="@dimen/standard_padding"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:background="@color/white"
+        android:layout_height="50dp">
         <TextView
             android:text="预计取书时间"
             android:textSize="@dimen/sp_big"
@@ -56,11 +61,11 @@
         </LinearLayout>
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/gray_lighter"/>
+        android:layout_weight="1" />
 <TextView
     android:id="@+id/tv_confirm"
     android:textColor="@color/white"

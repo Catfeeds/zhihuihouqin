@@ -8,21 +8,24 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.Base2Activity;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 import com.moe.wl.ui.mywidget.PopSelectTime;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscriber;
 
+/**
+ * 图书馆借阅订单
+ */
 public class BorrowOrderActivity extends Base2Activity {
 
     @BindView(R.id.reserve_info_title)
