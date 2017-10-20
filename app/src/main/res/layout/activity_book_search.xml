@@ -4,29 +4,28 @@
     android:id="@+id/activity_book_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="?actionBarSize"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/shape_back"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:src="@mipmap/back" />
+            android:src="@mipmap/ic_title_back" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/iv_back"
             android:background="@drawable/shap_search_text"
             android:gravity="center_vertical"
@@ -67,7 +66,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="2px"
         android:background="@color/gray_lighter" />
 <FrameLayout
     android:layout_width="match_parent"
@@ -104,15 +103,15 @@
         android:orientation="vertical">
         <android.support.design.widget.TabLayout
             android:id="@+id/tab"
-            app:tabSelectedTextColor="@color/tv_red"
-            app:tabIndicatorColor="@color/tv_red"
+            app:tabSelectedTextColor="@color/font_blue"
+            app:tabIndicatorColor="@color/font_blue"
             app:tabIndicatorHeight="2dp"
-            app:tabTextColor="@color/tv_black"
+            app:tabTextColor="@color/font_black"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"/>
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1px"
             android:background="@color/gray_lighter"/>
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_book"
