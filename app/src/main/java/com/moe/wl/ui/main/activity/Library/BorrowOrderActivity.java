@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.Library;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,6 +67,9 @@ public class BorrowOrderActivity extends Base2Activity {
         LogUtils.i("BorrowOrderActivity的bookId:"+bookids);
         bookName = getIntent().getStringExtra("bookName");
         realName = SharedPrefHelper.getInstance().getRealName();
+        if (TextUtils.isEmpty(realName)){
+            realName=SharedPrefHelper.getInstance().getNickname();
+        }
         phoneNumber = SharedPrefHelper.getInstance().getPhoneNumber();
         tvName.setText(realName);
         tvPhoneNum.setText(phoneNumber);
