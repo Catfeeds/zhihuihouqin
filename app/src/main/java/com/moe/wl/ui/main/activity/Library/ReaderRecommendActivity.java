@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- *
+ * 讀者推薦
  */
 public class ReaderRecommendActivity extends BaseActivity<RecommandBookModel, RecommandBookView, RecommandBookPresenter> implements RecommandBookView {
 
@@ -74,7 +74,7 @@ public class ReaderRecommendActivity extends BaseActivity<RecommandBookModel, Re
         getReaderCommend();
         if (TextUtils.isEmpty(bookName)||TextUtils.isEmpty(author)||
                 TextUtils.isEmpty(pressName)) {
-            showToast("请讲信息填写完整");
+            showToast("请信息填写完整");
         } else {
             getPresenter().getData(book, author, pressName, writeBookDetail);
         }
