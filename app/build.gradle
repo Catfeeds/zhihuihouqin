@@ -80,4 +80,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile project(path: ':hellocharts-library')
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.githang:status-bar-compat:latest.integration'//更改状态栏颜色
 }

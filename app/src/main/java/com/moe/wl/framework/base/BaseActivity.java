@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.manager.UIManager;
 import com.moe.wl.framework.widget.CustomerDialog;
@@ -55,6 +56,7 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
             setTranslucentStatus(R.color.transparent);
         }*/
         setContentLayout();
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
         ButterKnife.bind(this);
         initView();
 

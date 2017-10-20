@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.widget.CustomerDialog;
 
@@ -18,6 +19,7 @@ public abstract class Base2Activity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initLayout();
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
         initView();
     }
 

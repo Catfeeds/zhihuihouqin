@@ -145,9 +145,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         carList = new ArrayList<>();
         carList.add(new CarInfo("","",""));
         initList();
-
-
-
     }
 
     private void initList() {
