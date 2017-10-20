@@ -76,8 +76,8 @@ public class PayUpMessageDetailActivity extends AppCompatActivity {
                 title.append("团队活动");
                 break;
 
-            case 6: // 预约理发
-                title.append("预约理发");
+            case 6: // 美容美发
+                title.append("美容美发");
                 break;
 
             case 7: // 干洗店

@@ -83,7 +83,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     RelativeLayout search;//关键词搜索
 
     private String[] des = {"医疗服务", "物业维修", "图书馆", "活动报名",
-            "预约理发", "干洗店", "办公用品", "更多"};
+            "美容美发", "干洗店", "办公用品", "更多"};
 
     private int[] photos = {R.drawable.health_service,
             R.drawable.property_maintenance,

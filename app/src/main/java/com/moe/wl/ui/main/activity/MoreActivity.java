@@ -58,7 +58,7 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
             "金融服务", "物业服务", "健康服务", "出入管理", "即时信息"};
 
     private List<ServiceDataBean> myData;
-    List<String> MyApps = Arrays.asList("医疗服务", "物业维修", "图书馆", "活动报名", "预约理发",
+    List<String> MyApps = Arrays.asList("医疗服务", "物业维修", "图书馆", "活动报名", "美容美发",
             "干洗店", "办公用品");
     List<Integer> MyAppPhotos = Arrays.asList(R.drawable.health_service,
             R.drawable.property_maintenance, R.drawable.library,
@@ -78,7 +78,7 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     private List<ServiceDataBean> lifeData;
     List<Integer> lifeID = Arrays.asList(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
     List<String> lifeService = Arrays.asList(
-            "图书馆", "预约理发", "干洗店", "订水服务",
+            "图书馆", "美容美发", "干洗店", "订水服务",
             "托管班", "母婴室", "除甲醛", "邮政包裹",
             "团购服务", "招待所服务", "办公室绿植", "洗车服务",
             "车辆保养", "车辆年检", "车辆保险");

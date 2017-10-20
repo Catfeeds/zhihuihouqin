@@ -1326,7 +1326,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             Map<String, String> tempMap = new HashMap<>();
             // serviceType服务类型 ：
             // 1:网络报修，2：医疗服务，3：图书借阅，4：餐费充值，
-            // 5：团队活动，6：预约理发，7：会议室预定，8：办公用品，
+            // 5：团队活动，6：美容美发，7：会议室预定，8：办公用品，
             // 9：订餐，10：营养套餐，11：信息公布，12：意见反馈 ，
             // 13：健康资讯，14：专家坐诊 15：工作餐 16：干洗
             // 17 : 医疗服务预约挂号挂号单号 18订水服务

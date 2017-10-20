@@ -89,7 +89,7 @@ public class ServiceIntentUtils {
             case 7: // 7	图书馆
                 return LibraryActivity.class;
 
-            case 8: // 8	预约理发
+            case 8: // 8	美容美发
                 return OrderCutHearActivity.class;
 
             case 9: // 9	干洗店
