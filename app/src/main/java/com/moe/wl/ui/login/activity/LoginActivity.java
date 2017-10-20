@@ -336,9 +336,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         type = "3";
         Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
         wechat.SSOSetting(true);
-        if (!wechat.isClientValid()) {
-            showToast("微信未安装,请先安装微信");
-        }
         authorize(wechat);
     }
 
