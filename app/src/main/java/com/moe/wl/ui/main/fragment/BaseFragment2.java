@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.widget.CustomerDialog;
 
@@ -29,6 +30,7 @@ public abstract class BaseFragment2 extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
+        StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
     }
     public abstract View setLayout();
     public abstract void initView();

@@ -20,7 +20,7 @@ import rx.Subscriber;
 
 public class CarTypePresenter extends MvpRxPresenter<CarTypeModel, CarTypeView> {
 
-    public void getAddress() {
+    public void getCarType() {
         getView().showProgressDialog();
         Observable request = getModel().getcartypelist();
         getNetWork(request, new Subscriber<CartypeslistBean>() {

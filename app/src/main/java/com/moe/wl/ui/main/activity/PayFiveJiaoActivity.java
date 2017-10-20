@@ -15,6 +15,7 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
+import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
 import com.moe.wl.ui.main.model.PayModel;
 import com.moe.wl.ui.main.modelimpl.PayModelImpl;
@@ -32,8 +33,6 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private static final int ORDERWATER = 1;
     @BindView(R.id.pay_title)
     TitleBar payTitle;
-    @BindView(R.id.iv_balance_pay)
-    ImageView ivBalancePay;
     @BindView(R.id.tv_balance_pay)
     TextView tvBalancePay;
     @BindView(R.id.iv_balance_pay_check)
@@ -109,6 +108,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         } else {
             rlDaijinquanPay.setVisibility(View.GONE);
         }
+        getPresenter().findUserWallet();//查询钱包信息
     }
 
     private void initTitle() {
@@ -116,22 +116,22 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         payTitle.setTitle("支付");
     }
 
-    @OnClick({R.id.iv_daijinjuan_check, R.id.iv_balance_pay_check, R.id.iv_weixin_pay_check, R.id.iv_alpay_check, R.id.bt_confirm})
+    @OnClick({R.id.rl_daijinquan_pay,R.id.rl_banance_pay, R.id.rl_wx_pay, R.id.rl_alipay, R.id.bt_confirm})
     public void onViewClicked(View view) {
         unCheckPay();
         switch (view.getId()) {
-            case R.id.iv_daijinjuan_check://代金券支付
+            case R.id.rl_daijinquan_pay://代金券支付
                 ivDaijinjuanCheck.setImageResource(R.drawable.select);
                 break;
-            case R.id.iv_balance_pay_check://余额支付
+            case R.id.rl_banance_pay://余额支付
                 paytype = 3;
                 ivBalancePayCheck.setImageResource(R.drawable.select);
                 break;
-            case R.id.iv_weixin_pay_check://微信支付
+            case R.id.rl_wx_pay://微信支付
                 paytype = 2;
                 ivWeixinPayCheck.setImageResource(R.drawable.select);
                 break;
-            case R.id.iv_alpay_check://支付宝支付
+            case R.id.rl_alipay://支付宝支付
                 paytype = 1;
                 ivAlpayCheck.setImageResource(R.drawable.select);
                 break;
@@ -188,6 +188,14 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     public void personalWallet(ActivityPostBean bean) {
         if (bean != null) {
             showToast("支付成功");
+        }
+    }
+
+    @Override
+    public void findUserWalletResult(UserWalletBean bean) {
+        if(bean!=null){
+            int walletRemain = bean.getWalletRemain();//对私钱包余额
+            int publicRemain = bean.getPublicRemain();//对公钱包余额
         }
     }
 }

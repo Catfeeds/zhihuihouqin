@@ -11,6 +11,7 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.CarTypeAdapter;
 import com.moe.wl.ui.main.bean.CartypeslistBean;
 import com.moe.wl.ui.main.model.CarTypeModel;
+import com.moe.wl.ui.main.modelimpl.CarTypeModelImpl;
 import com.moe.wl.ui.main.presenter.CarTypePresenter;
 import com.moe.wl.ui.main.view.CarTypeView;
 
@@ -40,6 +41,7 @@ public class CarTypeActivity extends BaseActivity<CarTypeModel, CarTypeView, Car
     public void initView() {
         title.setBack(true);
         title.setTitle("车辆类别");
+        getPresenter().getCarType();
         rvItemContainer.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CarTypeAdapter(this);
         rvItemContainer.setAdapter(adapter);
@@ -69,11 +71,11 @@ public class CarTypeActivity extends BaseActivity<CarTypeModel, CarTypeView, Car
 
     @Override
     public CarTypeModel createModel() {
-        return null;
+        return new CarTypeModelImpl();
     }
 
     @Override
     public CarTypePresenter createPresenter() {
-        return null;
+        return new CarTypePresenter();
     }
 }

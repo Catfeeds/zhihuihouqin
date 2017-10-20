@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.manager.UIManager;
@@ -45,6 +46,7 @@ public abstract class BaseFragment<M extends MvpModel, V extends MvpView, P exte
         if (inflate == null) {
             LogUtil.log(getClass().getName() + "初始化");
             setContentLayout(savedInstanceState);
+            StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
             if (contentViewRes == -1) {
                 LogUtil.log("未设置布局");
                 return null;

@@ -48,7 +48,7 @@ public class TitleBar extends RelativeLayout implements View.OnClickListener {
         View view = View.inflate(ct, R.layout.f_title, this);
         //setBackgroundColor(ContextCompat.getColor(ct,R.color.title_color ));
         //设置背景色为透明色
-        setBackgroundColor(ContextCompat.getColor(ct,android.R.color.transparent));
+        setBackgroundColor(ContextCompat.getColor(ct,android.R.color.white));
         bindViews(view);
     }
 

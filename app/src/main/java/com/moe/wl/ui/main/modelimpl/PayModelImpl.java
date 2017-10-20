@@ -18,4 +18,10 @@ public class PayModelImpl implements PayModel {
         Observable observable = RetrofitUtils.getInstance().pay(orderid,orderCode,orderType,paytype);
         return observable;
     }
+
+    @Override
+    public Observable getfindUserWallet() {
+        Observable observable = RetrofitUtils.getInstance().findUserWallet();
+        return observable;
+    }
 }

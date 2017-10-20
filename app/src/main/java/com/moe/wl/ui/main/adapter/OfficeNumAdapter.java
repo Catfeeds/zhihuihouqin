@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class OfficeNumAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<OfficeslistBean.DepartListBean> data=new ArrayList<>();
+    private List<OfficeslistBean.OfficelistBean> data=new ArrayList<>();
 
     public OfficeNumAdapter(Context mContext) {
         this.mContext = mContext;
@@ -44,11 +44,16 @@ public class OfficeNumAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if(data!=null&&data.size()>0){
+            return data.size();
+        }else{
+            return 0;
+        }
+
     }
     private int selectPosition=0;
 
-    public void setData(List<OfficeslistBean.DepartListBean> data) {
+    public void setData(List<OfficeslistBean.OfficelistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -76,7 +81,7 @@ public class OfficeNumAdapter extends RecyclerView.Adapter {
             });
         }
 
-        public void setDate(OfficeslistBean.DepartListBean departListBean, int position) {
+        public void setDate(OfficeslistBean.OfficelistBean departListBean, int position) {
             this.mPosition = position;
             tvPosition.setText(departListBean.getName());
             if (selectPosition == position) {

@@ -9,22 +9,14 @@ import java.util.List;
 public class OfficeslistBean {
 
     /**
-     * msg : success
+     * officelist : [{"bgypright":1,"departid":1,"departname":"司局1","id":1,"name":"人事部","typename":null},{"bgypright":1,"departid":1,"departname":"司局1","id":2,"name":"研发部","typename":null},{"bgypright":1,"departid":2,"departname":"司局2","id":3,"name":"人事部","typename":null},{"bgypright":0,"departid":2,"departname":"司局2","id":4,"name":"研发部","typename":null},{"bgypright":0,"departid":2,"departname":"司局2","id":5,"name":"1223","typename":null}]
      * errCode : 0
-     * departList : [{"bgypright":1,"departid":2,"id":4,"name":"研发部"},{"bgypright":1,"departid":2,"id":3,"name":"人事部"},{"bgypright":1,"departid":1,"id":2,"name":"研发部"},{"bgypright":1,"departid":1,"id":1,"name":"人事部"}]
+     * msg : success
      */
 
-    private String msg;
     private int errCode;
-    private List<DepartListBean> departList;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    private String msg;
+    private List<OfficelistBean> officelist;
 
     public int getErrCode() {
         return errCode;
@@ -34,26 +26,38 @@ public class OfficeslistBean {
         this.errCode = errCode;
     }
 
-    public List<DepartListBean> getDepartList() {
-        return departList;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setDepartList(List<DepartListBean> departList) {
-        this.departList = departList;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public static class DepartListBean {
+    public List<OfficelistBean> getOfficelist() {
+        return officelist;
+    }
+
+    public void setOfficelist(List<OfficelistBean> officelist) {
+        this.officelist = officelist;
+    }
+
+    public static class OfficelistBean {
         /**
          * bgypright : 1
-         * departid : 2
-         * id : 4
-         * name : 研发部
+         * departid : 1
+         * departname : 司局1
+         * id : 1
+         * name : 人事部
+         * typename : null
          */
 
         private int bgypright;
         private int departid;
+        private String departname;
         private int id;
         private String name;
+        private String typename;
 
         public int getBgypright() {
             return bgypright;
@@ -71,6 +75,14 @@ public class OfficeslistBean {
             this.departid = departid;
         }
 
+        public String getDepartname() {
+            return departname;
+        }
+
+        public void setDepartname(String departname) {
+            this.departname = departname;
+        }
+
         public int getId() {
             return id;
         }
@@ -85,6 +97,14 @@ public class OfficeslistBean {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getTypename() {
+            return typename;
+        }
+
+        public void setTypename(String typename) {
+            this.typename = typename;
         }
     }
 }

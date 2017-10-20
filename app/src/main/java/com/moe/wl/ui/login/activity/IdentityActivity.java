@@ -3,7 +3,9 @@ package com.moe.wl.ui.login.activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -121,6 +123,8 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     public static final int OFFICEID=101;
     public static final int CARTYPE=102;
     private int carTypeId;
+    private int MAX_IDNUM=18;
+    private int index;
 
     @Override
     public AuthPresenter createPresenter() {
@@ -153,24 +157,31 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         carAdapter = new CarAdapter(this);
         rvChepaihao.setAdapter(carAdapter);
         carAdapter.setData(carList);
+        carAdapter.setListener(new CarAdapter.OnCarTypeItemClick() {
+            @Override
+            public void onCarTypeItemClick(CarInfo carInfo,int position) {
+                showToast("点击了");
+                index = position;
+                Intent intent4 = new Intent(IdentityActivity.this, CarTypeActivity.class);
+                startActivityForResult(intent4, CARTYPE);
+                for (int i = 0; i < carList.size(); i++) {
+                    if(i==position){
+                        CarInfo carInfo1 = carList.get(position);
+                        carInfo1.setCartypeid(carTypeId+"");
+                    }
+                }
+            }
+        });
+
     }
 
     @OnClick({R.id.tv_add_car_num,R.id.rl_native, R.id.rl_positon, R.id.rl_officeid, R.id.rl_department_num, /*R.id.rl_car_type,*/ R.id.tv_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_add_car_num:
-                showToast("点击了");
                 carList.add(new CarInfo("","",""));
                 carAdapter.setData(carList);
-                carAdapter.setListener(new CarAdapter.OnCarTypeItemClick() {
-                    @Override
-                    public void onCarTypeItemClick(CarInfo carInfo) {
-                        carInfo.setCartypeid(carTypeId+"");
-                        carInfos=carInfo;
-                        Intent intent4 = new Intent(IdentityActivity.this, CarTypeActivity.class);
-                        startActivityForResult(intent4, CARTYPE);
-                    }
-                });
+
                 break;
             case R.id.rl_native:
                 Intent intent = new Intent(this, NativesActivity.class);
@@ -216,8 +227,8 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     return;
                 } else {//, natives
                     Auth auth = new Auth(officeid, departId+"", buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
-                    List<CarInfo> carList = new ArrayList();
-                    carList.add(new CarInfo(carType, preCarCode, chePaiHao));
+                    //List<CarInfo> carList = new ArrayList();
+                    //carList.add(new CarInfo(carType, preCarCode, chePaiHao));
                     getPresenter().getData(auth, carList);
                     break;
                 }
@@ -288,7 +299,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     if (data != null) {
                         carTypeId = data.getIntExtra("id", 0);
                         String typename = data.getStringExtra("typename");
-                        tvNative.setText(typename);
+                        carAdapter.setTypeName(typename,index);
                     }
                     break;
             }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_pay_five_jiao"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +10,7 @@
         android:id="@+id/pay_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="#1000" />
+         />
 
     <View
         android:layout_width="match_parent"
@@ -49,23 +48,16 @@
         android:background="#1000" />
 
     <RelativeLayout
+        android:id="@+id/rl_banance_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/iv_balance_pay"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/tv_balance_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@+id/iv_balance_pay_check"
             android:text="余额支付"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
@@ -77,15 +69,12 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/select" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/tv_balance_pay"
-            android:layout_below="@+id/tv_balance_pay"
-            android:layout_marginTop="12dp"
-            android:background="#1000" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1000" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -97,7 +86,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="可用余额"
-
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
 
@@ -126,18 +114,18 @@
         android:textColor="@color/tv_black"
         android:textSize="@dimen/sp_small" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="55dp"
+        android:background="#1000" />
+
     <RelativeLayout
+        android:id="@+id/rl_wx_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_above="@+id/tv_weixin_pay"
-            android:layout_alignLeft="@+id/tv_weixin_pay"
-            android:layout_marginTop="12dp"
-            android:background="#1000" />
 
         <ImageView
             android:id="@+id/iv_weixin_pay"
@@ -164,16 +152,17 @@
             android:layout_centerVertical="true"
             android:src="@drawable/unselect" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/tv_weixin_pay"
-            android:layout_below="@+id/tv_weixin_pay"
-            android:layout_marginTop="12dp"
-            android:background="#1000" />
+
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="55dp"
+        android:background="#1000" />
+
     <RelativeLayout
+        android:id="@+id/rl_alipay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -203,14 +192,34 @@
             android:layout_centerVertical="true"
             android:src="@drawable/unselect" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/tv_alpay"
-            android:layout_below="@+id/tv_alpay"
-            android:layout_marginTop="12dp"
-            android:background="#1000" />
+
     </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/gray_trans">
+
+        <Button
+            android:id="@+id/bt_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="24dp"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_small" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="55dp"
+        android:background="#1000" />
 
     <RelativeLayout
         android:id="@+id/rl_daijinquan_pay"
@@ -252,26 +261,6 @@
             android:layout_marginTop="12dp"
             android:background="#1000" />
     </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#1000">
-
-        <Button
-            android:id="@+id/bt_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="24dp"
-            android:background="#2000"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="确定"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_small" />
-    </FrameLayout>
 
 
 </LinearLayout>

@@ -50,16 +50,17 @@ public class OfficeidActivity extends BaseActivity<OfficeNumModel, OfficeNumView
     @Override
     public void getOfficeNumResult(OfficeslistBean bean) {
         if(bean!=null){
-            final List<OfficeslistBean.DepartListBean> departList = bean.getDepartList();
-            adapter.setData(departList);
+            final List<OfficeslistBean.OfficelistBean> officelist = bean.getOfficelist();
+
+            adapter.setData(officelist);
             adapter.setLister(new OfficeNumAdapter.OnClickLister() {
                 @Override
                 public void itemClickLister(int position) {
-                    OfficeslistBean.DepartListBean departListBean = departList.get(position);
-                    int bgypright = departListBean.getBgypright();
-                    String name = departListBean.getName();
-                    int departid = departListBean.getDepartid();
-                    int id = departListBean.getId();
+                    OfficeslistBean.OfficelistBean officelistBean = officelist.get(position);
+                    int bgypright = officelistBean.getBgypright();
+                    String name = officelistBean.getName();
+                    int departid = officelistBean.getDepartid();
+                    int id = officelistBean.getId();
                     Intent intent = new Intent();
                     intent.putExtra("bgypright",bgypright);
                     intent.putExtra("name",name);

@@ -43,6 +43,8 @@ public class CarAdapter extends RecyclerView.Adapter {
             , "G", "H", "I", "J", "K", "L"
             , "M", "N", "O", "P", "Q", "R", "X"
             , "Y", "Z");
+    private String typeName;
+    private int index;
 
     public CarAdapter(Context mContext) {
         this.mContext = mContext;
@@ -58,7 +60,7 @@ public class CarAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.setData(data.get(position),position);
+        viewHolder.setData(data.get(position),position,typeName);
     }
 
     @Override
@@ -70,8 +72,15 @@ public class CarAdapter extends RecyclerView.Adapter {
         this.data = data;
         notifyDataSetChanged();
     }
+private int selectPosition=0;
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+    public void setTypeName(String typeName,int index) {
+        this.typeName = typeName;
+        this.index=index;
+        notifyDataSetChanged();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_shengfen)
         TextView tvShengfen;
         @BindView(R.id.et_chepaihao)
@@ -91,12 +100,13 @@ public class CarAdapter extends RecyclerView.Adapter {
              rlCarType.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
+                     selectPosition=mPosition;
                      if(listener!=null){
                          CarInfo carInfo = data.get(mPosition);
                          carInfo.setPrecarcode(str);
                          String s = etChepaihao.getText().toString().trim();
                          carInfo.setSuffixcarcode(s);
-                         listener.onCarTypeItemClick(carInfo);
+                         listener.onCarTypeItemClick(carInfo,selectPosition);
                      }
                  }
              });
@@ -127,9 +137,11 @@ public class CarAdapter extends RecyclerView.Adapter {
              etChepaihao.addTextChangedListener(watcher);
         }
 
-        public  void setData(CarInfo carInfo, int position) {
+        public  void setData(CarInfo carInfo, int position,String typeName) {
             this.mPosition = position;
             this.carInfo=carInfo;
+            if(index==position)
+            tvCarType.setText(typeName);
         }
          private void showShengFenDialog() {
              show(true);
@@ -174,6 +186,6 @@ public class CarAdapter extends RecyclerView.Adapter {
     }
 
     public interface  OnCarTypeItemClick{
-        void onCarTypeItemClick(CarInfo carInfo);
+        void onCarTypeItemClick(CarInfo carInfo,int position);
     }
 }

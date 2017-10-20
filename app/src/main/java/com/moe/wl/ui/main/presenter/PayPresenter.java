@@ -5,6 +5,7 @@ import android.util.Log;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
+import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
 import com.moe.wl.ui.main.model.PayModel;
 import com.moe.wl.ui.main.view.PayView;
@@ -93,6 +94,32 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
             public void onNext(ActivityPostBean bean) {
                 if (bean.getErrCode() == 0) {
                     getView().personalWallet(bean);
+                } else {
+                    getView().showToast(bean.getMsg());
+                }
+            }
+        });
+    }
+    public void findUserWallet() {
+        getView().showProgressDialog();
+        Observable request = getModel().getfindUserWallet();
+        getNetWork(request, new Subscriber<UserWalletBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable=====", e.getMessage());
+            }
+
+            @Override
+            public void onNext(UserWalletBean bean) {
+                if (bean.getErrCode() == 0) {
+                    getView().findUserWalletResult(bean);
                 } else {
                     getView().showToast(bean.getMsg());
                 }

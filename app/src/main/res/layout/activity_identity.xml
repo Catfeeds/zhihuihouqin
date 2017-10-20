@@ -31,7 +31,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/standard_padding">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -152,6 +151,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
+                    android:maxLength="18"
                     android:hint="填写身份证号"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
