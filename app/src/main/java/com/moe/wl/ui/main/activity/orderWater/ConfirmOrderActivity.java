@@ -1,8 +1,6 @@
 package com.moe.wl.ui.main.activity.orderWater;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,15 +11,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.OfficeSupplies.OrderRemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.SpPayActivity;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
-import com.moe.wl.ui.main.activity.me.MyDeposit;
+import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
@@ -36,6 +34,10 @@ import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.ui.mywidget.OrderWaterPayDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -113,6 +115,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         initTitle();
         //检测是否交押金
         getPresenter().getDepositInfo();
@@ -280,4 +283,26 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
     public void getOrderResult(WalletOrderBean bean) {
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(MessageEvent event) {
+        if (event!=null){
+            if (event!=null && event.getCode()==MessageEvent.WECHAT_PAY){
+                LogUtils.d("--------------支付订单----------");
+                showToast("支付订单");
+                Intent intent=new Intent(this, SubmitSuccessActivity.class);
+                intent.putExtra("isPay",true);
+                startActivity(intent);
+                finish();
+            }
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

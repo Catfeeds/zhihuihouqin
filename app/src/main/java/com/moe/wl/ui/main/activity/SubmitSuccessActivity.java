@@ -8,12 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 
 public class SubmitSuccessActivity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
         //设置字体加粗
         tvSubmitSuccess.setTypeface(Typeface.DEFAULT_BOLD);
         Intent intent = getIntent();
-         isPay = intent.getBooleanExtra("isPay", false);
+        isPay = intent.getBooleanExtra("isPay", false);
         processShow();
     }
 

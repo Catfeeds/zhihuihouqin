@@ -2,6 +2,8 @@ package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -32,11 +34,13 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
-import lc.cn.thirdplatform.sharesdk.login.LoginApi;
-import lc.cn.thirdplatform.sharesdk.login.OnLoginListener;
 import mvp.cn.util.CommonUtil;
 import mvp.cn.util.CrcUtil;
 
@@ -78,6 +82,34 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     private String pwd;
 
     private String type;
+
+    private final int ERROR = 0;
+    private final int COMPLETE = 1;
+    private final int CANCLE = 2;
+
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case ERROR:
+                    showToast("登录失败");
+                    break;
+                case COMPLETE:
+                    showToast("登录成功");
+                    Platform platform = (Platform) msg.obj;
+                    int action = msg.arg1;
+                    if (action == Platform.ACTION_USER_INFOR) {
+                        PlatformDb platformDb = platform.getDb();
+                        String userId = platformDb.getUserId();
+                        getPresenter().thirdLogin(userId, type);
+                    }
+                    platform.removeAccount(true);
+                    break;
+                case CANCLE:
+                    showToast("取消登录");
+                    break;
+            }
+        }
+    };
 
     @Override
     public void setContentLayout() {
@@ -173,13 +205,13 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
                 doLogin();
                 break;
             case R.id.l_iv_wecat:
-                doLoginPlatForm("wx", Wechat.NAME);
+                wechatLogoin();
                 break;
             case R.id.l_iv_weibo:
-                doLoginPlatForm("wb", SinaWeibo.NAME);
+                sinaWeiboLogoin();
                 break;
             case R.id.l_iv_qq:
-                doLoginPlatForm("qq", QQ.NAME);
+                qqLogin();
                 break;
         }
     }
@@ -262,6 +294,11 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     }
 
     @Override
+    public void showToast() {
+
+    }
+
+    @Override
     public void loginSuccess(LoginBean loginBean) {
         if (lCbRemenberPwd.isChecked()) {
             LogUtils.d("选中");
@@ -293,44 +330,76 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     }
 
     /**
-     * 三方登录
+     * 微信第三方登录
      */
-    private void doLoginPlatForm(final String thirdType, String platformName) {
-        showProgressDialog();
-        LoginApi api = new LoginApi(); // 设置登陆的平台后执行登陆的方法
-        api.setPlatform(platformName);
-        api.setOnLoginListener(new OnLoginListener() {
-            public boolean onLogin(String platform, HashMap<String, Object> res) { // 在这个方法填写尝试的代码，返回true表示还不能登录，需要注册
-               String thirdId = res.get("id").toString();// ID
-                if (thirdType.equals("qq")) {
-                    type = "1";
-                } else if (thirdType.equals("wb")) {
-                    type = "2";
-                } else if (thirdType.equals("wx")) {
-                    type = "3";
-                } else {
-                    type = "";
-                }
-                getPresenter().thirdLogin(thirdId, type);
-                return true;
-            }
 
-            @Override
-            public boolean onRegister(Object info) {
-                return false;
-            }
-
-            @Override
-            public boolean onError() {
-                dismissProgressDialog();
-                return false;
-            }
-        });
-        api.login(this);
+    private void wechatLogoin() {
+        type = "3";
+        Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+        wechat.SSOSetting(true);
+        if (!wechat.isClientValid()) {
+            showToast("微信未安装,请先安装微信");
+        }
+        authorize(wechat);
     }
 
-    @Override
-    public void showToast() {
+    /**
+     * 新浪第三方登录
+     */
+    private void sinaWeiboLogoin() {
+        type = "2";
+        Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
+        sina.SSOSetting(true);
+        authorize(sina);
+    }
+
+    /**
+     * qq第三方登录
+     */
+    private void qqLogin() {
+        type = "1";
+        Platform qq = ShareSDK.getPlatform(QQ.NAME);
+        qq.SSOSetting(true);
+        authorize(qq);
+    }
+
+
+    private void authorize(Platform plat) {
+        if (plat == null) {
+            return;
+        }
+        //判断指定平台是否已经完成授权
+        if (plat.isAuthValid()) {
+            //如果用户已授权，则取消授权
+            plat.removeAccount();
+        }
+        plat.setPlatformActionListener(new MyPlatformActionListener());
+        //获取用户资料
+        plat.showUser(null);
+    }
+
+    public class MyPlatformActionListener implements PlatformActionListener {
+
+        @Override
+        public void onCancel(Platform platform, int arg1) {
+            handler.sendEmptyMessage(CANCLE);
+        }
+
+        @Override
+        public void onComplete(Platform platform, int action, HashMap<String, Object> map) {
+            Message message = handler.obtainMessage();
+            message.obj = platform;
+            message.arg1 = action;
+            message.what = COMPLETE;
+            handler.sendMessage(message);
+
+        }
+
+        @Override
+        public void onError(Platform platform, int arg1, Throwable arg2) {
+            platform.removeAccount(true);
+            handler.sendEmptyMessage(ERROR);
+        }
 
     }
 

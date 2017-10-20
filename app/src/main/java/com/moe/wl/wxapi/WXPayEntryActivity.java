@@ -1,18 +1,19 @@
 package com.moe.wl.wxapi;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.moe.wl.framework.base.MessageEvent;
+import com.moe.wl.framework.utils.LogUtils;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 import lc.cn.thirdplatform.R;
 
@@ -40,23 +41,20 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onReq(BaseReq req) {
+		
 	}
 
 	@Override
 	public void onResp(BaseResp resp) {
-		Log.e(TAG,"error= "+resp.errCode);
+		LogUtils.d("error= "+resp.errCode);
 		if(resp.errCode==0){
 			//微信支付，不需要依赖于服务器端的通知，直接提示即可
 			Toast.makeText(this, "支付成功!", Toast.LENGTH_SHORT).show();
-		}else {
-			Toast.makeText(this, "支付失败!", Toast.LENGTH_SHORT).show();
-		}
-		//根据支付结果展示UI的
-		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("zhifu");
-			builder.setMessage("xiaoxi");
-			builder.show();
+			EventBus.getDefault().post(new MessageEvent(MessageEvent.WECHAT_PAY) );
+		}else if(resp.errCode==-1){
+			Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
+		}else if(resp.errCode==-2){
+			Toast.makeText(this, "取消支付", Toast.LENGTH_SHORT).show();
 		}
 	}
 }

@@ -54,6 +54,8 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+
+
     <application
         android:name=".framework.application.SoftApplication"
         android:allowBackup="true"
@@ -74,39 +76,6 @@
             -->
         </activity>
 
-        <!--
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <data android:scheme="tencent100371282" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            &lt;!&ndash; 调用新浪原生SDK，需要注册的回调activity &ndash;&gt;
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            &lt;!&ndash; 集成line客户端登录授权，需要添如下格式的过滤器 &ndash;&gt;
-            <intent-filter>
-                <data android:scheme="line.1477692153" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        -->
 
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -135,10 +104,10 @@
 
         <meta-data
             android:name="Mob-AppKey"
-            android:value="您的AppKey" />
+            android:value="219a3d64f60de" />
         <meta-data
             android:name="Mob-AppSecret"
-            android:value="您的AppSecret" />
+            android:value="f3e26991676930f8f3d355e809979aa9" />
 
         <!-- 微信分享回调 -->
         <!--
@@ -160,7 +129,7 @@
             -->
         </activity>
         <activity
-            android:name="wxapi.WXPayEntryActivity"
+            android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
