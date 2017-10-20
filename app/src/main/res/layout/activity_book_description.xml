@@ -52,8 +52,7 @@
                         android:layout_weight="1">
                         <TextView
                             android:id="@+id/tv_book_name"
-                            android:text="人性的弱点"
-                            android:textColor="@color/white"
+                            android:textColor="@color/font_black"
                             android:textSize="@dimen/sp_bigger"
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
@@ -96,19 +95,17 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tv_author"
-                        android:text="作者:戴尔.卡耐基"
                         android:textSize="@dimen/sp_small"
                         android:gravity="center_vertical"
-                        android:textColor="@color/white"
+                        android:textColor="@color/font_black"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/tv_chubanshe"
-                        android:text="新华日报出版社"
                         android:textSize="@dimen/sp_small"
                         android:gravity="center_vertical"
-                        android:textColor="@color/white"
+                        android:textColor="@color/font_black"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"/>
@@ -141,7 +138,7 @@
                 <TextView
                     android:id="@+id/tv_authors_introduce_content"
                     android:textSize="@dimen/sp_small"
-                    android:text="作者介绍的内容"
+                    android:text="暂无介绍"
                     android:padding="16dp"
                     android:textColor="@color/tv_black"
                     android:layout_width="match_parent"
@@ -173,7 +170,7 @@
                 <TextView
                     android:id="@+id/tv_book_introduce_content"
                     android:textSize="@dimen/sp_small"
-                    android:text="书籍简介的内容"
+                    android:text="暂无介绍"
                     android:padding="16dp"
                     android:textColor="@color/tv_black"
                     android:layout_width="match_parent"

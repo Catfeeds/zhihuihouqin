@@ -109,6 +109,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
     private void initAllViw() {
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bookListvBean.getImg(), ivBookPic,R.mipmap.ic_default_book);
+        
         tvBookName.setText(bookListvBean.getTitle());
         ratingBar.setRating(bookListvBean.getScore());
         tvStarNum.setText(bookListvBean.getScore() + "分");
@@ -122,6 +123,9 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
             tvState.setText("已借出");
             tvState.setTextColor(Color.parseColor("#F95759"));
         }
+
+
+
     }
 
     @Override
