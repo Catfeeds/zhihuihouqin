@@ -24,9 +24,9 @@ public class BarberChatAdapter extends RecyclerView.Adapter {
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = null;
-        if (viewType == 1) {//用户
+        if (viewType == 2) {//商户
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chat_item_send, parent, false);
-        } else if (viewType == 2) {//商户
+        } else if (viewType ==1 ) {//用户
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chat_item, parent, false);
 
         }
@@ -43,6 +43,7 @@ public class BarberChatAdapter extends RecyclerView.Adapter {
 //            int time = Integer.parseInt(createtime);
             viewHolder.tv_message.setText(content);
             viewHolder.tv_time.setText(createtime);
+
            /* //如果是第1条消息 与当前的系统时间比较 如果消息发送/收到的时间和当前时间足够近就不需要展示
             //显示消息时间的textView
             if (position == 0) {

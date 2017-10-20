@@ -111,10 +111,10 @@ public class HealthConsultDetailActivity extends BaseActivity<CollectModel, Coll
     public void getCollectResult(CollectBean collectBean) {
         if (collectBean.getStatus() == 1) {
             showToast("已收藏");
-           collect .setImageResource(R.drawable.collect);
+           collect .setImageResource(R.drawable.collected);
         } else {
             showToast("取消收藏");
-            collect.setImageResource(R.drawable.collected);
+            collect.setImageResource(R.drawable.collect);
         }
     }
 

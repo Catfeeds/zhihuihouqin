@@ -8,19 +8,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.moe.wl.R;
-import com.moe.wl.ui.main.bean.ConsultBarberBean;
+
 import com.moe.wl.ui.main.bean.ExpertnoticelistBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by 我的电脑 on 2017/10/20 0020.
  */
 
 public class DocConsultAdapter extends RecyclerView.Adapter {
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_message)
+    TextView tvMessage;
     private Context mContext;
-    private List<ExpertnoticelistBean.NoticelistBean> data=new ArrayList<>();
+    private List<ExpertnoticelistBean.NoticelistBean> data = new ArrayList<>();
 
     public DocConsultAdapter(Context mContext) {
         this.mContext = mContext;
@@ -35,44 +42,54 @@ public class DocConsultAdapter extends RecyclerView.Adapter {
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chat_item, parent, false);
 
         }
-        return new MyViewHolder(itemView);
+        return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder viewHolder = (MyViewHolder) holder;
+        ViewHolder viewHolder = (ViewHolder) holder;
         if (data != null && data.size() > 0) {
             ExpertnoticelistBean.NoticelistBean noticelistBean = data.get(position);
             String content = noticelistBean.getContent();
             String createtime = noticelistBean.getCreatetime();
-            viewHolder.tv_message.setText(content);
-            viewHolder.tv_time.setText(createtime);
+            viewHolder.tvMessage.setText(content);
+            viewHolder.tvTime.setText(createtime);
+            viewHolder.tvTime.getBackground().setAlpha(100);
         }
     }
 
     @Override
     public int getItemCount() {
-        if(data!=null){
+        if (data != null) {
             return data.size();
         }
         return 0;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if(data!=null&&data.size()>0){
+            ExpertnoticelistBean.NoticelistBean noticelistBean = data.get(position);
+            int gettype = noticelistBean.getGettype();
+            return gettype;
+        }else{
+            return super.getItemViewType(position);
+        }
+    }
     public void setData(List<ExpertnoticelistBean.NoticelistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_time;
-        private TextView tv_message;
-        // private ImageView iv_state;
+     class ViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_message)
+        TextView tvMessage;
 
-        public MyViewHolder(View itemView) {
-            super(itemView);
-
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
         }
     }
-    /* tv_message = (TextView) itemView.findViewById(R.id.tv_message);
-            tv_time = (TextView) itemView.findViewById(R.id.tv_time);*/
 }

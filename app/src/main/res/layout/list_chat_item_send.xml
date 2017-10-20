@@ -7,6 +7,10 @@
     android:id="@+id/tv_time"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textColor="@color/white"
+    android:padding="4dp"
+    android:textSize="@dimen/sp_smaller"
+    android:background="@drawable/shape_chat_bg"
     android:layout_gravity="center_horizontal"
     android:text="昨天上午 8:49"
     android:layout_margin="5dp"/>
@@ -15,8 +19,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/avatar2"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"/>
@@ -25,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="你好"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_common"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/iv_avatar"
             android:layout_marginLeft="5dp"

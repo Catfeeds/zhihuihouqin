@@ -47,6 +47,7 @@ public class BarberMoreCommentrvAdapter extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder) holder;
         BarberMoreCommentBean.CommentlistBean commentlistBean = list.get(position);
         GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,commentlistBean.getPhoto(),viewHolder.civUserPhoto);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,commentlistBean.getPhoto(),viewHolder.civUserPhoto,R.drawable.logo);
         viewHolder.tvUserName.setText(commentlistBean.getRealname());
         viewHolder.userRatingBar.setRating(commentlistBean.getScore());
         OtherUtils.ratingBarColor(viewHolder.userRatingBar,mContext);

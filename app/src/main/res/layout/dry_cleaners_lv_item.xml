@@ -32,8 +32,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentRight="true"
                 android:textSize="@dimen/sp_small"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/tv_red"
-                android:layout_width="12dp"
+                android:layout_width="wrap_content"
                 android:gravity="center"
                 android:layout_height="wrap_content" />
             <ImageView

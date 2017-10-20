@@ -101,6 +101,9 @@ public class DoctorConsultActivity extends BaseActivity<GetDocConsultListModel,G
         if(bean!=null){
             List<ExpertnoticelistBean.NoticelistBean> noticelist = bean.getNoticelist();
             adapter.setData(noticelist);
+            if(noticelist.size()>1){
+                rvChat.smoothScrollToPosition(noticelist.size()-1);
+            }
         }
     }
 

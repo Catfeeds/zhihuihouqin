@@ -6,6 +6,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_user_photo"
+        android:src="@drawable/logo"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_margin="12dp" />
