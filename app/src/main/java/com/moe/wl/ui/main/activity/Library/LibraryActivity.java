@@ -4,65 +4,65 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.moe.wl.framework.imageload.GlideLoading;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.adapter.BookPagerAdapter;
+import com.moe.wl.ui.main.bean.BannerResponse;
+import com.moe.wl.ui.main.fragment.HottestFragment;
 import com.moe.wl.ui.main.fragment.LatestFragment;
+import com.moe.wl.ui.main.model.BannerModel;
+import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
+import com.moe.wl.ui.main.presenter.BannerPresenter;
+import com.moe.wl.ui.main.view.BannerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 
-import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.ui.main.bean.LibraryPicBean;
-import com.moe.wl.ui.main.fragment.HottestFragment;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import rx.Observable;
-import rx.Subscriber;
-
-public class LibraryActivity extends Base2Activity {
+/**
+ * 图书馆首页
+ */
+public class LibraryActivity extends BaseActivity<BannerModel,BannerView,BannerPresenter> implements BannerView {
 
     @BindView(R.id.more_health_consult_title)
     TitleBar titleBar;
     @BindView(R.id.iv_more_health_consult_search)
     ImageView ivMoreHealthConsultSearch;
-    @BindView(R.id.view_down)
-    View viewDown;
-    @BindView(R.id.iv_big_pic)
-    ImageView ivBigPic;
+    @BindView(R.id.slider_layout)
+    SliderLayout sliderLayout;
     @BindView(R.id.tab_book)
     TabLayout tabBook;
     @BindView(R.id.vp_book)
     ViewPager vpBook;
     @BindView(R.id.civ_recommend)
-    CircleImageView civRecommend;
+    ImageView civRecommend;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
-    @BindView(R.id.activity_library)
-    RelativeLayout activityLibrary;
+
     private List<Fragment> fragments;
     private boolean again;
 
     @Override
-    protected void initLayout() {
+    public void setContentLayout() {
         setContentView(R.layout.activity_library);
         ButterKnife.bind(this);
     }
 
     @Override
-    protected void initView() {
-        getPicData();
+    public void initView() {
+        getPresenter().getBanner(3);
         again = getIntent().getBooleanExtra("again", false);
         fragments = new ArrayList<>();
         fragments.add(LatestFragment.getInstance(again));
@@ -104,32 +104,30 @@ public class LibraryActivity extends Base2Activity {
 
     }
 
-    public void getPicData() {
-        showProgressDialog();
-        Observable homePic = RetrofitUtils.getInstance().getLibraryHomePic();
-        homePic.subscribe(new Subscriber<LibraryPicBean>() {
-            @Override
-            public void onCompleted() {
-                dismissProgressDialog();
+    @Override
+    public void setData(BannerResponse.ServiceInfoBean bean) {
+        if (bean!= null && !TextUtils.isEmpty(bean.getTopphoto())) {
+            String[] strings=bean.getTopphoto().split(",");
+            HashMap<String, String> map = new HashMap<>();
+            for (int i = 0; i < strings.length; i++) {
+                map.put("", strings[i]);
             }
+            sliderLayout.removeAllSliders();
+            for (String desc : map.keySet()) {
+                TextSliderView textSliderView = new TextSliderView(getActivity());
+                textSliderView.description(desc).image(map.get(desc));
+                sliderLayout.addSlider(textSliderView);
+            }
+        }
+    }
 
-            @Override
-            public void onError(Throwable e) {
-                dismissProgressDialog();
-                Log.e("getPicData", e.getMessage());
-            }
+    @Override
+    public BannerModel createModel() {
+        return new BannerModelImpl();
+    }
 
-            @Override
-            public void onNext(LibraryPicBean picBean) {
-                if (picBean.getErrCode() == 0) {
-                    if (picBean != null) {
-                        GlideLoading.getInstance().loadImgUrlNyImgLoader(LibraryActivity.this, picBean.getPhoto(),
-                                ivBigPic);
-                    }
-                } else {
-                    Log.e("获取图片", "失败了");
-                }
-            }
-        });
+    @Override
+    public BannerPresenter createPresenter() {
+        return new BannerPresenter();
     }
 }

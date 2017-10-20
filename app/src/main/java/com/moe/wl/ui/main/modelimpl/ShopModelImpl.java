@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.ui.main.model.ShopModel;
+
 import rx.Observable;
 
 /**
@@ -22,7 +23,7 @@ public class ShopModelImpl implements ShopModel {
     @Override
     public Observable getServiceInfo(int serviceType) {
         Log.e("ShopModel请求数据-->","---");
-        Observable observer = RetrofitUtils.getInstance().getDryCleanerHome(serviceType);
+        Observable observer = RetrofitUtils.getInstance().getBanner(serviceType);
         return observer;
     }
 }

@@ -32,6 +32,10 @@ public class GlideLoading {
         Glide.with(ct).load(url).into(iv);
     }
 
+    public void loadImgUrlNyImgLoader(Context ct, String url, ImageView iv,int defaultImg) {
+        Glide.with(ct).load(url).placeholder(defaultImg).into(iv);
+    }
+
     public void loadImgUrlNyImgLoader(Context ct, int resourceId, ImageView iv) {
         Glide.with(ct).load(resourceId).into(iv);
     }

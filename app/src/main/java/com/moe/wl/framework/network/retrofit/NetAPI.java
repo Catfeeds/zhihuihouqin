@@ -280,8 +280,8 @@ public interface NetAPI {
 
     //干洗店
     @FormUrlEncoded
-    @POST(NetUrl.dryCleanerHome)
-    Observable<ServiceBean> getDryCleanerHomeInfo(@FieldMap Map<String, Object> map);
+    @POST(NetUrl.getBanner)
+    Observable<BannerResponse> getBanner(@FieldMap Map<String, Object> map);
 
     //预约干洗
     @FormUrlEncoded

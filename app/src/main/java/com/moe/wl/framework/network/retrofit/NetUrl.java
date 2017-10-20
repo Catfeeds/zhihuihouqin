@@ -81,8 +81,8 @@ public interface NetUrl {
     String sendMessage = "appuser/lffw/addnotice";
     String barberProductDetail = "appuser/lffw/barberworkdetail";
     String barberMoreComment = "appuser/lffw/getcomment";
-    // 干洗店
-    String dryCleanerHome = "appuser/service/getServiceInfo";
+    // 获取轮播图
+    String getBanner = "appuser/service/getServiceInfo";
     String orderDryCleaner = "appuser/tgxdfwclothestype/findClothesTypeList";
     String DryOrderCommit = "appuser/tgxdfworder/generateOrder";
     String DryOrder = "appuser/tgxdfworder/findOrderList";

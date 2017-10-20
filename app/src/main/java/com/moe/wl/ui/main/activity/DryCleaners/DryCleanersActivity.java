@@ -7,26 +7,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.widget.SimpleImageBanner;
+import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.framework.widget.bean.BannerItem;
+import com.moe.wl.ui.main.bean.BannerResponse;
+import com.moe.wl.ui.main.model.BannerModel;
+import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
+import com.moe.wl.ui.main.presenter.BannerPresenter;
+import com.moe.wl.ui.main.view.BannerView;
+import com.moe.wl.ui.mywidget.AlertDialog;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.framework.widget.SimpleImageBanner;
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.framework.widget.bean.BannerItem;
-import com.moe.wl.ui.main.activity.Base2Activity;
-import com.moe.wl.ui.main.bean.ServiceBean;
-import com.moe.wl.ui.mywidget.AlertDialog;
 import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.LogUtil;
-import rx.Observable;
-import rx.Subscriber;
 
-public class DryCleanersActivity extends Base2Activity {
+public class DryCleanersActivity extends BaseActivity<BannerModel,BannerView,BannerPresenter> implements BannerView {
 
 
     @BindView(R.id.dry_cleaners_title)
@@ -52,59 +54,17 @@ public class DryCleanersActivity extends Base2Activity {
     @BindView(R.id.ll_call)
     LinearLayout llCall;
 
+
     @Override
-    protected void initLayout() {
+    public void setContentLayout() {
         setContentView(R.layout.activity_dry_cleaners);
         ButterKnife.bind(this);
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         initTitle();
-        getData();
-    }
-
-    private void getData() {
-        Observable observable = RetrofitUtils.getInstance().getDryCleanerHome(16);
-        showProgressDialog();
-        observable.subscribe(new Subscriber<ServiceBean>() {
-            @Override
-            public void onCompleted() {
-                dismissProgressDialog();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                dismissProgressDialog();
-                Log.e("干洗首页", e.getMessage());
-            }
-
-            @Override
-            public void onNext(ServiceBean serviceBean) {
-                Log.e("errcode",serviceBean.getErrCode()+"");
-                if (serviceBean.getErrCode() == 0) {
-                    ServiceBean.ServiceInfoBean serviceInfo = serviceBean.getServiceInfo();
-                    String topphoto = serviceInfo.getTopphoto();//轮播图
-                    String[] topPhotos = topphoto.split(",");
-                    String name = serviceInfo.getTradename();//店名
-                    String smallimg = serviceInfo.getSmallimg();//小图
-                    String place = serviceInfo.getPlace();//地址
-                    String businesshour = serviceInfo.getBusinesshour();//shijian
-                    String mobile = serviceInfo.getMobile();//电话
-                    Log.e("打印备案:",serviceInfo+"");
-                    initBanner(topPhotos);
-                    shopName.setText(name);
-                    GlideLoading.getInstance().loadImgUrlNyImgLoader(DryCleanersActivity.this,
-                            smallimg,ivCutHearLogo);
-                    tvAddress.setText(place);
-                    tvWorkTime.setText(businesshour);
-                    tvPhone.setText(mobile);
-                    call(mobile);
-                } else {
-                    Log.e("ServiceBean==", serviceBean.getMsg());
-                }
-            }
-        });
+        getPresenter().getBanner(16);
     }
 
     private void call(final String mobile) {
@@ -185,4 +145,36 @@ public class DryCleanersActivity extends Base2Activity {
                 break;
         }
     }
+
+    @Override
+    public void setData(BannerResponse.ServiceInfoBean bean) {
+        String topphoto = bean.getTopphoto();//轮播图
+        String[] topPhotos = topphoto.split(",");
+        String name = bean.getTradename();//店名
+        String smallimg = bean.getSmallimg();//小图
+        String place = bean.getPlace();//地址
+        String businesshour = bean.getBusinesshour();//shijian
+        String mobile = bean.getMobile();//电话
+        Log.e("打印备案:",bean+"");
+        initBanner(topPhotos);
+        shopName.setText(name);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(DryCleanersActivity.this,
+                smallimg,ivCutHearLogo);
+        tvAddress.setText(place);
+        tvWorkTime.setText(businesshour);
+        tvPhone.setText(mobile);
+        call(mobile);
+    }
+
+    @Override
+    public BannerModel createModel() {
+        return new BannerModelImpl();
+    }
+
+
+    @Override
+    public BannerPresenter createPresenter() {
+        return new BannerPresenter();
+    }
+
 }

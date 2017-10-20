@@ -11,17 +11,16 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.activity.Library.BookDescriptionActivity;
+import com.moe.wl.ui.main.bean.BooklistBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-
-import com.moe.wl.ui.main.activity.Library.BookDescriptionActivity;
-import com.moe.wl.ui.main.bean.BooklistBean;
 
 /**
  * Created by 我的电脑 on 2017/8/23 0023.
@@ -47,7 +46,6 @@ public class BookRvAdapter extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder) holder;
         if(data!=null){
             viewHolder.setData(data.get(position));
-
         }
     }
 
@@ -101,8 +99,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
 
         public void setData(BooklistBean booklistBean) {
             this.bookListvBean=booklistBean;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,
-                    booklistBean.getImg(),ivBookPic);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, booklistBean.getImg(),ivBookPic,R.mipmap.ic_default_square);
             tvBookName.setText(booklistBean.getTitle());
             ratingBar.setRating(booklistBean.getScore());
             tvStarNum.setText(booklistBean.getScore()+"分");
