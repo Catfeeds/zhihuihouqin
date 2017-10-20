@@ -283,7 +283,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     if (data != null) {
                         departId = data.getIntExtra("id", 0);
                         String depart = data.getStringExtra("depart");
-                        tvNative.setText(depart);
+                        tvDepartmentNum.setText(depart);
                     }
                     break;
                 case OFFICEID:

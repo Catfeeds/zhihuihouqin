@@ -10,6 +10,7 @@
         style="@style/tvStyle_black_bigger"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:background="@color/white"
         android:text="@string/personal_center" />
 
     <ScrollView
@@ -160,6 +161,7 @@
                     android:id="@+id/civ_header"
                     android:layout_width="58dp"
                     android:layout_height="58dp"
+                    android:src="@drawable/avatar2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp" />
 
@@ -170,7 +172,7 @@
                     android:layout_below="@id/civ_header"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text=""
+                    android:text="昵称"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_bigger" />
 
@@ -181,7 +183,7 @@
                     android:layout_below="@id/tv_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:text="认证完成"
+                    android:text="未完成认证"
                     android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_big" />
             </RelativeLayout>

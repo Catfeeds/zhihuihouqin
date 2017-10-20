@@ -1,5 +1,7 @@
 package com.moe.wl.ui.main.view;
 
+import com.moe.wl.ui.main.bean.UserInfoBean;
+
 import mvp.cn.common.MvpView;
 
 /**
@@ -7,5 +9,6 @@ import mvp.cn.common.MvpView;
  */
 
 public interface Tab4View extends MvpView{
+    void getUserInfo(UserInfoBean bean);
 
 }

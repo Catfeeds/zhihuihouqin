@@ -23,6 +23,7 @@ import com.moe.wl.ui.main.activity.me.MyPurseActivity;
 import com.moe.wl.ui.main.activity.me.PersonalInfoActivity;
 import com.moe.wl.ui.main.activity.me.SettingAct;
 import com.moe.wl.ui.main.bean.ChangeUserInfo;
+import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.model.Tab4Model;
 import com.moe.wl.ui.main.modelimpl.Tab4ModelImpl;
 import com.moe.wl.ui.main.presenter.Tab4Presenter;
@@ -252,10 +253,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
 
     @Override
     public void initView(View v) {
-        String nickname = SharedPrefHelper.getInstance().getNickname();
-        tvName.setText(nickname);
-        Glide.with(getActivity()).load(SharedPrefHelper.getInstance().getUserPhoto()).
-                placeholder(R.drawable.visitor_discrepancy).into(civHeader);
+        getPresenter().getData();//获取用户信息
     }
 
     //更改头像和昵称
@@ -581,5 +579,22 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     public void onDestroyView() {
         super.onDestroyView();
         unbinder1.unbind();
+    }
+
+    @Override
+    public void getUserInfo(UserInfoBean bean) {
+        if(bean!=null){
+            UserInfoBean.UserinfoBean userinfo = bean.getUserinfo();
+            if(userinfo!=null){
+                Glide.with(this).load(userinfo.getPhoto()).into(civHeader);
+                tvName.setText(userinfo.getNickname());
+                if(userinfo.getAuthStatus()==0){
+                    tvAuth.setText("认证完成");
+                }else{
+                    tvAuth.setText("未完成认证");
+                }
+            }
+
+        }
     }
 }

@@ -47,6 +47,8 @@ public interface NetUrl {
 //    String cancelExpertsOrder = "appuser/ylfw/cancelexpertorder"; // 取消专家订单
 //    String deleteExpertsOrder = "appuser/ylfw/delexpertorder"; // 删除专家订单
     String orderExpertsDetail = "appuser/ylfw/expertorderdetail"; // 专家订单详情
+    String addexpertnotice="appuser/ylfw/addexpertnotice";//发送咨询消息
+    String expertnoticelist="appuser/ylfw/expertnoticelist";//获取咨询消息
 
     // 物业维修
     String wuyeHome = "appuser/bxwx/addOrder";

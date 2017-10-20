@@ -92,7 +92,13 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, HealthConsultDetailActivity.class);
                     intent.putExtra("url", infolistBean.getUrl());
+                    String title = infolistBean.getTitle();
+                    String imgs = infolistBean.getImgs();
+                    String source = infolistBean.getSource();
+                    String createtime = infolistBean.getCreatetime();
                     intent.putExtra("id", infolistBean.getId());
+                    intent.putExtra("createtime",createtime);
+                    intent.putExtra("title",title);
                     context.startActivity(intent);
                 }
             });

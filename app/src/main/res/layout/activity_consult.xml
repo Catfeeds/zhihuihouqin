@@ -38,6 +38,7 @@
                 android:id="@+id/et_message"
                 android:layout_width="0dp"
                 android:background="@null"
+                android:layout_marginLeft="@dimen/standard_padding"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
             <Button

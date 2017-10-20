@@ -8,8 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="#1000">
+        android:layout_height="@dimen/title_height">
 
         <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/more_health_consult_title"

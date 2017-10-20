@@ -183,7 +183,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:background="@color/gray_lighter" />
+                android:background="@color/gray_trans" />
 
             <TextView
                 android:id="@+id/skilledinfo"
@@ -196,7 +196,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:background="@color/gray_lighter" />
+                android:background="@color/gray_trans" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                 android:layout_marginTop="3dp"
                 android:padding="12dp"
                 android:text="问诊服务"
-                android:textColor="@color/black"
+                android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_big"
                 android:textStyle="bold" />
 
@@ -324,7 +324,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:background="@color/gray_line" />
+                android:background="@color/gray_trans" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -334,7 +334,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="10dp"
                 android:text="个人简介："
-                android:textColor="@color/black"
+                android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_big"
                 android:textStyle="bold" />
 
@@ -351,10 +351,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray_lighter"
+                android:background="@color/gray_trans"
                 android:padding="12dp"
                 android:text="用户评价"
-                android:textColor="@color/black"
+                android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
             <android.support.v7.widget.RecyclerView

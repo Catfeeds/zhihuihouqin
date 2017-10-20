@@ -94,7 +94,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
             Glide.with(context).load(commentlistBean.getImgs()).into(civUserPhoto);
             tvUserName.setText(commentlistBean.getRealname());
             userRatingBar.setRating((float) commentlistBean.getScore());
-            OtherUtils.ratingBarColor(userRatingBar);
+            OtherUtils.ratingBarColor(userRatingBar,context);
             tvTime.setText(commentlistBean.getCreatetime());
             tvEvaluate.setText(commentlistBean.getContent());
         }

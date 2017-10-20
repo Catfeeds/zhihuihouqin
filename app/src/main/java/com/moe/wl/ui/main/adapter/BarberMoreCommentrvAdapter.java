@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
 import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
 import com.moe.wl.ui.main.bean.CommentlistBean;
@@ -48,6 +49,7 @@ public class BarberMoreCommentrvAdapter extends RecyclerView.Adapter {
         GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,commentlistBean.getPhoto(),viewHolder.civUserPhoto);
         viewHolder.tvUserName.setText(commentlistBean.getRealname());
         viewHolder.userRatingBar.setRating(commentlistBean.getScore());
+        OtherUtils.ratingBarColor(viewHolder.userRatingBar,mContext);
         viewHolder.tvTime.setText(commentlistBean.getCreatetime());
         viewHolder.tvEvaluate.setText(commentlistBean.getContent());
     }

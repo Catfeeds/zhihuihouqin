@@ -196,6 +196,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         if(bean!=null){
             int walletRemain = bean.getWalletRemain();//对私钱包余额
             int publicRemain = bean.getPublicRemain();//对公钱包余额
+            tvAvailableBalance.setText("￥"+walletRemain);
         }
     }
 }

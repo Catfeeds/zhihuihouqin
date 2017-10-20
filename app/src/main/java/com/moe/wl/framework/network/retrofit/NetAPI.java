@@ -141,6 +141,16 @@ public interface NetAPI {
     @POST(NetUrl.expertOrder)
     Observable<ExpertOrderBean> submitExpertOrder(@FieldMap Map<String, Object> map);
 
+    //发送消息
+    @FormUrlEncoded
+    @POST(NetUrl.addexpertnotice)
+    Observable<DexpertnoticeBean> addexpertnotice(@FieldMap Map<String, Object> map);
+
+    //查询咨询消息
+    @FormUrlEncoded
+    @POST(NetUrl.expertnoticelist)
+    Observable<ExpertnoticelistBean> expertnoticelist(@FieldMap Map<String, Object> map);
+
     //物业首页
     @Multipart
     @POST(NetUrl.wuyeHome)

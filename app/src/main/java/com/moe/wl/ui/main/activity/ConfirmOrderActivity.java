@@ -77,7 +77,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
         tvDoctorPosition.setText(entity.getPositionname());
         tvSeeing.setText(entity.getConsultcount() + "");
         tvHospital.setText(entity.getHospitalName());
-        OtherUtils.ratingBarColor(ratingBar);
+        OtherUtils.ratingBarColor(ratingBar,this);
         ratingBar.setRating((float) entity.getScore());
         tvStarNum.setText(entity.getScore() + "");
         if (entity.getRemaincount() != null)

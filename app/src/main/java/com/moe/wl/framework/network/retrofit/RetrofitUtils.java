@@ -721,6 +721,39 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 发送消息addexpertnotice
+     */
+    public static Observable addexpertnotice(int getid, String content) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("getid", getid + "");
+            tempMap.put("content",content);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.addexpertnotice(paramsMap));
+    }
+
+    /**
+     * 获得咨询消息列表
+     */
+    public static Observable expertnoticelist(String doctorid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+
+            tempMap.put("doctorid",doctorid);
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.expertnoticelist(paramsMap));
+    }
+    /**
      * 物业报修Item
      *
      * @return

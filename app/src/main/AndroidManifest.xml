@@ -489,6 +489,7 @@
         <activity
             android:name=".ui.main.activity.me.OrderCommentSuccessActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.activity.DoctorConsultActivity" />
     </application>
 
 </manifest>

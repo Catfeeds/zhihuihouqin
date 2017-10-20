@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.widget.RatingBar;
 
+import com.moe.wl.R;
 import com.moe.wl.ui.main.activity.me.OrderCommentActivity;
 
 /**
@@ -17,9 +18,9 @@ import com.moe.wl.ui.main.activity.me.OrderCommentActivity;
 public class OtherUtils {
 
     // 设置评分星星颜色
-    public static void ratingBarColor(RatingBar ratingBar) {
+    public static void ratingBarColor(RatingBar ratingBar,Context context) {
         LayerDrawable drawable = (LayerDrawable) ratingBar.getProgressDrawable();
-        drawable.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+        drawable.getDrawable(2).setColorFilter(context.getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_ATOP);
     }
 
     // 手机号正则

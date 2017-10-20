@@ -8,17 +8,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
-import com.suke.widget.SwitchButton;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
@@ -29,7 +21,14 @@ import com.moe.wl.ui.main.model.ExpertDetailModel;
 import com.moe.wl.ui.main.modelimpl.ExpertDetailModelImpl;
 import com.moe.wl.ui.main.presenter.ExpertDetailPresenter;
 import com.moe.wl.ui.main.view.ExpertDetailView;
+import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
+import com.suke.widget.SwitchButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -78,7 +77,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     private DoctorDetailrvAdapter adapter;
     private ExpertSelectTimeAdapter timeAdapter;
 
-    private int doctorID = 0;
+    private int doctorID ;
 
     private ExpertDetailBean.ExpertEntity entity;
     private List<ExpertDetailBean.SchedulesEntity> timeData;
@@ -106,7 +105,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         adapter = new DoctorDetailrvAdapter(this, data, 1);
         recycleView.setLayoutManager(new NoScrollLinearLayoutManager(this));
         recycleView.setAdapter(adapter);
-        OtherUtils.ratingBarColor(ratingBar);
+        OtherUtils.ratingBarColor(ratingBar, this);
         getPresenter().getExpertDetail();
     }
 
@@ -116,7 +115,10 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
             case R.id.iv_doc_detail_back:
                 finish();
                 break;
-            case R.id.iv_doc_detail_consult: // 资讯
+            case R.id.iv_doc_detail_consult: // 咨询
+                Intent intent1 = new Intent(this, DoctorConsultActivity.class);
+                intent1.putExtra("doctorid",doctorID );
+                startActivity(intent1);
                 break;
             case R.id.tv_now_order://
                 if (timeID == 0) {

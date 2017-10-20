@@ -14,7 +14,7 @@ public class Tab4ModelImpl implements Tab4Model {
     @Override
     public Observable getData() {
         LogUtil.log("MainModel请求数据");
-        Observable observer = RetrofitUtils.getInstance().login("", "");
+        Observable observer = RetrofitUtils.getInstance().getUserInfo();
         return observer ;
     }
 
