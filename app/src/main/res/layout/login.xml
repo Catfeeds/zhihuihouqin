@@ -45,6 +45,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
             android:orientation="vertical">
 
             <ImageView
@@ -165,14 +167,12 @@
                 <TextView
                     android:id="@+id/bt_login"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
                     android:background="@color/blue"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
                     android:text="登录"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_small" />
