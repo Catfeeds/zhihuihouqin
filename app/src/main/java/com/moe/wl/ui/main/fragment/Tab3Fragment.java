@@ -5,12 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.ui.main.activity.message.ActiveMessageActivity;
+import com.moe.wl.ui.main.activity.message.AuditMessageActivity;
 import com.moe.wl.ui.main.activity.message.CommentMessageActivity;
+import com.moe.wl.ui.main.activity.message.ComplainMessageActivity;
+import com.moe.wl.ui.main.activity.message.OrderMessageActivity;
 import com.moe.wl.ui.main.activity.message.PayUpMessageActivity;
 import com.moe.wl.ui.main.activity.message.SystemMessageActivity;
 import com.moe.wl.ui.main.adapter.MessageListAdapter;
+import com.moe.wl.ui.main.bean.MessageBean;
+import com.moe.wl.ui.main.model.Tab3Model;
+import com.moe.wl.ui.main.modelimpl.Tab3ModelImpl;
+import com.moe.wl.ui.main.presenter.Tab3Presenter;
+import com.moe.wl.ui.main.view.Tab3View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +29,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseFragment;
-import com.moe.wl.ui.main.activity.message.AuditMessageActivity;
-import com.moe.wl.ui.main.activity.message.ComplainMessageActivity;
-import com.moe.wl.ui.main.activity.message.OrderMessageActivity;
-import com.moe.wl.ui.main.bean.MessageBean;
-import com.moe.wl.ui.main.model.Tab3Model;
-import com.moe.wl.ui.main.modelimpl.Tab3ModelImpl;
-import com.moe.wl.ui.main.presenter.Tab3Presenter;
-import com.moe.wl.ui.main.view.Tab3View;
 
 /**
  * Created by hh on 2016/5/18.
@@ -75,6 +76,7 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
+        sysColor=R.color.white;
         setContentView(R.layout.f_tab3);
     }
 
@@ -85,6 +87,12 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
         getPresenter().getData();
         adapter = new MessageListAdapter(getActivity(), data);
         recycleView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
     }
 
     @Override

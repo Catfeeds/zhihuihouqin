@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.utils.LogUtils;
@@ -107,7 +108,14 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
+        sysColor=R.color.white;
         setContentView(R.layout.f_tab_1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
     }
 
     @Override
@@ -191,11 +199,6 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
                 refreshlayout.finishRefresh(2000);
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override

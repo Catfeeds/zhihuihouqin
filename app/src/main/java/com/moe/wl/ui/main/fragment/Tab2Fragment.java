@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.widget.NoSlidingGridView;
@@ -148,7 +149,14 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
+        sysColor=R.color.white;
         setContentView(R.layout.f_tab2);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
     }
 
     private void initData() {

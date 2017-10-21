@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
@@ -245,6 +246,12 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     public void setContentLayout(Bundle savedInstanceState) {
         sysColor=R.color.font_blue;
         setContentView(R.layout.f_tab4);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.font_blue), true);
     }
 
     @Override
