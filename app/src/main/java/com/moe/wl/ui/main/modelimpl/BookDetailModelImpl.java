@@ -18,4 +18,10 @@ public class BookDetailModelImpl implements BookDetailModel {
         Observable observer = RetrofitUtils.getInstance().addCollect(type,bookId);
         return observer ;
     }
+
+    @Override
+    public Observable getDetail(int id) {
+        Observable observable = RetrofitUtils.getInstance().getBookDetailResult(id);
+        return observable;
+    }
 }

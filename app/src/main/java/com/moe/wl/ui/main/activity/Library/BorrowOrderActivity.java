@@ -64,11 +64,11 @@ public class BorrowOrderActivity extends Base2Activity {
     protected void initView() {
         initTitle();
         bookids = getIntent().getStringExtra("bookId");
-        LogUtils.i("BorrowOrderActivity的bookId:"+bookids);
+        LogUtils.i("BorrowOrderActivity的bookId:" + bookids);
         bookName = getIntent().getStringExtra("bookName");
         realName = SharedPrefHelper.getInstance().getRealName();
-        if (TextUtils.isEmpty(realName)){
-            realName=SharedPrefHelper.getInstance().getNickname();
+        if (TextUtils.isEmpty(realName)) {
+            realName = SharedPrefHelper.getInstance().getNickname();
         }
         phoneNumber = SharedPrefHelper.getInstance().getPhoneNumber();
         tvName.setText(realName);
@@ -90,10 +90,10 @@ public class BorrowOrderActivity extends Base2Activity {
                 break;
             case R.id.tv_confirm:
                 Intent intent = new Intent(this, BookConfirmOrderActivity.class);
-                intent.putExtra("bookId",bookids);
-                intent.putExtra("bookName",bookName);
+                intent.putExtra("bookId", bookids);
+                intent.putExtra("bookName", bookName);
                 String t = tvTime.getText().toString().trim();
-                intent.putExtra("time",t);
+                intent.putExtra("time", t);
                 startActivity(intent);
                 finish();
                 break;
@@ -104,16 +104,17 @@ public class BorrowOrderActivity extends Base2Activity {
         PopSelectTime selectTimePop = new PopSelectTime(this, mTimeBean, new PopSelectTime.OnSelectClick() {
             @Override
             public void onClick(String typeid, String time) {
-                if(typeid.equals("1")){
-                    tvTime.setText("上午 "+time);
-                }else{
-                    tvTime.setText("下午 "+time);
+                if (typeid.equals("1")) {
+                    tvTime.setText("上午 " + time);
+                } else {
+                    tvTime.setText("下午 " + time);
                 }
             }
         });
 
-        selectTimePop.showAtLocation(activityBorrowOrder, Gravity.CENTER,0,0);
+        selectTimePop.showAtLocation(activityBorrowOrder, Gravity.CENTER, 0, 0);
     }
+
     public void getTime() {
         Observable observable = RetrofitUtils.getInstance().getJieyueTime();
         showProgressDialog();
@@ -126,13 +127,12 @@ public class BorrowOrderActivity extends Base2Activity {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
-                LogUtils.i("获取解决时间出现问题");
             }
 
             @Override
             public void onNext(JieYueTimeBean timeBean) {
-                if(timeBean!=null){
-                    mTimeBean=timeBean;
+                if (timeBean != null) {
+                    mTimeBean = timeBean;
                 }
             }
         });

@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityDetailActivity;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 
@@ -125,8 +125,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                     tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
                 }
                 tvSignUp.setText("报名(" + activitylistBean.getASignCount() + "/" + activitylistBean.getATotal() + ")");
-//                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, activitylistBean.getAImg(), ivPhoto);
-                Glide.with(mContext).load(activitylistBean.getAImg()).placeholder(R.drawable.logo).into(ivPhoto);
+                GlideLoading.getInstance().loadImgUrlHeader(mContext, activitylistBean.getAImg(), ivPhoto, R.mipmap.ic_default_square);
             }
         }
     }

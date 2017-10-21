@@ -28,7 +28,7 @@
             android:layout_marginLeft="8dp"
             android:text="小刚"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
     </LinearLayout>
 
@@ -59,51 +59,51 @@
                 android:maxLines="1"
                 android:text="订  单  号：454242452424242424"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/reserve_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="预约时间：2017-10-08"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/order_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="下单时间：2017-10-08"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/arrive_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="预  约  号：007"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/pay_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="支付状态：未支付"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
         </LinearLayout>
     </LinearLayout>
@@ -125,15 +125,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
             android:minWidth="90dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
+            android:paddingTop="6dp"
             android:text="取消订单"
-            android:textColor="@color/tv_black"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_small" />
 
         <!--<TextView

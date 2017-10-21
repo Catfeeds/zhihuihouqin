@@ -6,16 +6,11 @@ package com.moe.wl.ui.main.bean;
 
 public class BookDetailBean {
 
-
-    /**
-     * msg : success
-     * favorstatus : 1
-     * errCode : 0
-     */
-
     private String msg;
+    private String authorbrief;
     private int favorstatus;
     private int errCode;
+    private String content;
 
     public String getMsg() {
         return msg;
@@ -23,6 +18,14 @@ public class BookDetailBean {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getAuthorbrief() {
+        return authorbrief;
+    }
+
+    public void setAuthorbrief(String authorbrief) {
+        this.authorbrief = authorbrief;
     }
 
     public int getFavorstatus() {
@@ -39,5 +42,13 @@ public class BookDetailBean {
 
     public void setErrCode(int errCode) {
         this.errCode = errCode;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

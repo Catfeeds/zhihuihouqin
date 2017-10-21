@@ -29,15 +29,15 @@
             android:id="@+id/left"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
+            android:paddingTop="6dp"
             android:text="取消订单"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_small"
             android:visibility="gone" />
 
         <TextView
@@ -45,15 +45,15 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
+            android:paddingTop="6dp"
             android:text="评论"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_small"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -76,9 +76,9 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 

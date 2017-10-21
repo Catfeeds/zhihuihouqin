@@ -99,15 +99,15 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="right"
         android:layout_margin="10dp"
-        android:background="@drawable/background_edit"
+        android:background="@drawable/bg_order_button"
         android:gravity="center"
         android:minWidth="90dp"
-        android:paddingBottom="8dp"
+        android:paddingBottom="6dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="8dp"
+        android:paddingTop="6dp"
         android:text="取消订单"
-        android:textColor="@color/tv_black"
+        android:textColor="@color/white"
         android:textSize="@dimen/sp_small" />
 
 </LinearLayout>

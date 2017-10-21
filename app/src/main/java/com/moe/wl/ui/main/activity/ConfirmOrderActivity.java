@@ -6,20 +6,21 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.bean.ExpertOrderBean;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
+import com.moe.wl.ui.main.bean.ExpertOrderBean;
 import com.moe.wl.ui.main.model.ExpertOrderModel;
 import com.moe.wl.ui.main.modelimpl.ExpertOrderModelImpl;
 import com.moe.wl.ui.main.presenter.ExpertOrderPresenter;
 import com.moe.wl.ui.main.view.ExpertOrderView;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
 public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertOrderView, ExpertOrderPresenter> implements ExpertOrderView {
@@ -71,19 +72,24 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
         id = entity.getId();
         titleBar.setBack(true);
         titleBar.setTitle("确认订单");
-        tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
+        GlideLoading.getInstance().loadImgUrlHeader(this, entity.getPhoto(), ivDocPhoto, R.mipmap.ic_default_square);
+        if ("".equals(SharedPrefHelper.getInstance().getRealName()) || SharedPrefHelper.getInstance().getRealName() == null) {
+            tvUserName.setText(SharedPrefHelper.getInstance().getNickname());
+        } else {
+            tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
+        }
         tvUserPhone.setText(getIntent().getStringExtra("PhoneNumber"));
         tvDoctorName.setText(entity.getRealname());
         tvDoctorPosition.setText(entity.getPositionname());
         tvSeeing.setText(entity.getConsultcount() + "");
         tvHospital.setText(entity.getHospitalName());
-        OtherUtils.ratingBarColor(ratingBar,this);
+        OtherUtils.ratingBarColor(ratingBar, this);
         ratingBar.setRating((float) entity.getScore());
         tvStarNum.setText(entity.getScore() + "");
-        if (entity.getRemaincount() != null)
+        if (entity.getRemaincount() != null && entity.getInvitetotalcount() > 0)
             reservationNum.setText(Integer.parseInt(entity.getRemaincount()) + 1 + "/" + entity.getInvitetotalcount());
         else
-            reservationNum.setText(entity.getRemaincount() + "/" + entity.getInvitetotalcount());
+            reservationNum.setText("0/" + entity.getInvitetotalcount());
     }
 
     @OnClick(R.id.tv_commit)

@@ -102,14 +102,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
             android:minWidth="90dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:textColor="@color/tv_black"
+            android:paddingTop="6dp"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_small" />
 
         <TextView
@@ -118,15 +118,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@id/order_1"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
             android:minWidth="90dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
+            android:paddingTop="6dp"
             android:text="在线沟通"
-            android:textColor="@color/tv_black"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
             android:visibility="gone" />
 

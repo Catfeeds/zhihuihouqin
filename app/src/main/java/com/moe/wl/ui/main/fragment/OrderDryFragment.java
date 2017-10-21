@@ -11,7 +11,7 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
-import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
+import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.DryCleanAdapter;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
@@ -79,7 +79,7 @@ public class OrderDryFragment extends BaseFragment2 {
                         showAlertDialog("是否拨打电话", state, position);
                         break;
                     case 3:
-                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
+                        startActivity(new Intent(getActivity(), DryCleanersActivity.class));
                         break;
                     case 4:
                         OtherUtils.gotoComment(getActivity(), listAll.get(position).getId(), Constants.DRYCLEANER);

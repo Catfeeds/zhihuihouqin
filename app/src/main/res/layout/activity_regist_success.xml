@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@color/blue"
+        android:background="@drawable/bg_blue_rounded"
         android:gravity="center"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"

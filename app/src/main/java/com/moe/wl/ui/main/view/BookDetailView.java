@@ -9,8 +9,10 @@ import mvp.cn.common.MvpView;
  * Created by hh on 2017/5/12.
  */
 
-public interface BookDetailView extends MvpView{
+public interface BookDetailView extends MvpView {
 
-void collectSucc(CollectBean detailBean);
+    void collectSucc(CollectBean detailBean);
+
+    void getDetail(BookDetailBean bean);
 
 }

@@ -14,7 +14,7 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
+import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderDryClearDetailAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -200,7 +200,7 @@ public class OrderDryDetailActivity extends AppCompatActivity {
                         showAlertDialog("是否拨打电话", state);
                         break;
                     case 3:
-                        startActivity(new Intent(OrderDryDetailActivity.this, orderWaterServiceActivity.class));
+                        startActivity(new Intent(OrderDryDetailActivity.this, DryCleanersActivity.class));
                         break;
                     case 4:
                         OtherUtils.gotoComment(OrderDryDetailActivity.this, data.getDetail().getId(), Constants.DRYCLEANER);

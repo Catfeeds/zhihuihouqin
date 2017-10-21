@@ -34,7 +34,7 @@ import butterknife.OnClick;
 /**
  * 图书馆首页
  */
-public class LibraryActivity extends BaseActivity<BannerModel,BannerView,BannerPresenter> implements BannerView {
+public class LibraryActivity extends BaseActivity<BannerModel, BannerView, BannerPresenter> implements BannerView {
 
     @BindView(R.id.more_health_consult_title)
     TitleBar titleBar;
@@ -69,7 +69,6 @@ public class LibraryActivity extends BaseActivity<BannerModel,BannerView,BannerP
         fragments.add(HottestFragment.getInstance(again));
         initTitle();
         initPager();
-
     }
 
     private void initPager() {
@@ -84,18 +83,18 @@ public class LibraryActivity extends BaseActivity<BannerModel,BannerView,BannerP
         titleBar.setBack(true);
     }
 
-    @OnClick({R.id.iv_more_health_consult_search,R.id.civ_recommend})
+    @OnClick({R.id.iv_more_health_consult_search, R.id.civ_recommend})
     public void onViewClicked(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_more_health_consult_search:
                 Intent intent1 = new Intent(this, BookSearchActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.civ_recommend:
-                if(again){
-                    Intent intent11=new Intent(this,BookConfirmOrderActivity.class);
+                if (again) {
+                    Intent intent11 = new Intent(this, BookConfirmOrderActivity.class);
                     startActivity(intent11);
-                }else{
+                } else {
                     Intent intent = new Intent(this, ReaderRecommendActivity.class);
                     startActivity(intent);
                 }
@@ -106,8 +105,8 @@ public class LibraryActivity extends BaseActivity<BannerModel,BannerView,BannerP
 
     @Override
     public void setData(BannerResponse.ServiceInfoBean bean) {
-        if (bean!= null && !TextUtils.isEmpty(bean.getTopphoto())) {
-            String[] strings=bean.getTopphoto().split(",");
+        if (bean != null && !TextUtils.isEmpty(bean.getTopphoto())) {
+            String[] strings = bean.getTopphoto().split(",");
             HashMap<String, String> map = new HashMap<>();
             for (int i = 0; i < strings.length; i++) {
                 map.put("", strings[i]);

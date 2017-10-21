@@ -1,43 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_auth_success"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/mTitleBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_common" />
+        android:layout_height="@dimen/dp_common"
+
+        android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_lighter"/>
-<de.hdodenhof.circleimageview.CircleImageView
-    android:layout_width="80dp"
-    android:layout_marginTop="30dp"
-    android:layout_marginBottom="30dp"
-    android:layout_gravity="center_horizontal"
-    android:src="@mipmap/ic_default_rectangle"
-    android:layout_height="80dp" />
-    <TextView
-        android:text="提交完成"
-        android:textSize="@dimen/sp_bigger"
-        android:textColor="@color/tv_black"
+        android:background="@color/gray_lighter" />
+
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/submit_success"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提交完成"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_big" />
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_margin="40dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp">
+
         <TextView
-            android:text="您的申请已提交成功,我们会在3-7个工作日内审核完毕,审核后会以短信方式通知您,感谢您的配合!"
-            android:textColor="@color/tv_black"
-            android:padding="3dp"
-            android:textSize="@dimen/sp_common"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="您的申请已提交成功,我们会在3-7个工作日内审核完毕,审核后会以短信方式通知您,感谢您的配合!"
+            android:textColor="@color/tv_gray"
+            android:textSize="@dimen/sp_small" />
     </FrameLayout>
 
 </LinearLayout>

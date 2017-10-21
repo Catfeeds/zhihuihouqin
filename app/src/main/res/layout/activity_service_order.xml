@@ -4,21 +4,23 @@
     android:id="@+id/activity_service_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/shape_back"
-            android:src="@mipmap/back" />
+            android:layout_marginLeft="6dp"
+            android:padding="6dp"
+            android:src="@drawable/back" />
 
         <LinearLayout
             android:id="@+id/ll_title"
@@ -31,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="服务订单"
-                android:textColor="#a000"
+                android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_bigger" />
 
             <ImageView
@@ -53,6 +55,7 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:tabIndicatorColor="@color/blue"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="@color/blue"
@@ -60,7 +63,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_line" />
 
     <android.support.v4.view.ViewPager

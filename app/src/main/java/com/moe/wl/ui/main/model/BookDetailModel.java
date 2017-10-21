@@ -10,4 +10,6 @@ import rx.Observable;
 public interface BookDetailModel extends MvpModel{
 
     Observable getData(int type,int bookId);
+
+    Observable getDetail (int id);
 }

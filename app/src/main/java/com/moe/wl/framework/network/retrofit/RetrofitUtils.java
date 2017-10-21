@@ -993,12 +993,12 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable getBookDetailResult(int bookId) {
+    public static Observable getBookDetailResult(int bookid) {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("getBookDetailResult", "---》bookDetail");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
-            tempMap.put("bookId", bookId + "");
+            tempMap.put("bookid", bookid + "");
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {

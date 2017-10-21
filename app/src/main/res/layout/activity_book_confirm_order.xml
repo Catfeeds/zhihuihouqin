@@ -21,91 +21,103 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:textSize="@dimen/sp_bigger"
         android:gravity="center_vertical"
+        android:paddingLeft="@dimen/standard_padding"
         android:text="个人信息"
-        android:paddingLeft="@dimen/standard_padding"/>
+        android:textSize="@dimen/sp_bigger" />
+
     <include layout="@layout/personal_info" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider"/>
+        android:background="@color/divider" />
+
     <RelativeLayout
-        android:padding="@dimen/standard_padding"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:layout_height="50dp">
-    <TextView
-        android:text="预计取书时间"
-        android:textSize="@dimen/sp_big"
-        android:textColor="@color/tv_black"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textSize="@dimen/sp_big"
-        android:textColor="@color/tv_black"
-        android:id="@+id/tv_take_book_time"
-        android:text="时间"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+        android:padding="@dimen/standard_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="预计取书时间"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
+        <TextView
+            android:id="@+id/tv_take_book_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+    </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:textSize="@dimen/sp_bigger"
         android:gravity="center_vertical"
+        android:paddingLeft="@dimen/standard_padding"
         android:text="借阅信息"
-        android:paddingLeft="@dimen/standard_padding"/>
+        android:textSize="@dimen/sp_bigger" />
+
     <LinearLayout
         android:id="@+id/ll_book_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white"></LinearLayout>
-   <!-- <TextView
+        android:background="@color/white"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <!-- <TextView
+         android:layout_width="match_parent"
+         android:layout_height="60dp"
+         android:textSize="@dimen/sp_big"
+         android:textColor="@color/black"
+         android:gravity="center_vertical"
+         android:text="个人信息"
+         android:paddingLeft="@dimen/standard_padding" />-->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textSize="@dimen/sp_big"
-        android:textColor="@color/black"
-        android:gravity="center_vertical"
-        android:text="个人信息"
-        android:paddingLeft="@dimen/standard_padding" />-->
-   <View
-       android:layout_width="match_parent"
-       android:layout_height="1px"
-       android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/gray_lighter" />
+
     <TextView
         android:id="@+id/tv_again"
-       android:textSize="@dimen/sp_small"
-       android:textColor="@color/gray"
-       android:padding="@dimen/standard_padding"
-       android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-       android:text="+继续借阅"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content" />
-    <TextView
-        android:text="温馨提示:
-单次 结束上限为3本，每个人的图书程定不可超过10本，如果超出后无权在结束"
-        android:textSize="@dimen/sp_small"
+        android:gravity="center"
+        android:padding="@dimen/standard_padding"
+        android:text="+继续借阅"
         android:textColor="@color/gray"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="18dp"
-        android:background="@color/gray_lighter"
-        android:paddingRight="@dimen/standard_padding"
+        android:textSize="@dimen/sp_small" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingTop="18dp"
+        android:text="温馨提示:
+单次借书上限为3本，每个人的图书沉淀不可超过10本，如果超出后无权再借书"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/sp_small" />
+
     <TextView
         android:id="@+id/tv_confirm"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_height"
+        android:layout_height="wrap_content"
         android:background="@color/blue"
         android:gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         android:text="立即提交"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_bigger" />
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>

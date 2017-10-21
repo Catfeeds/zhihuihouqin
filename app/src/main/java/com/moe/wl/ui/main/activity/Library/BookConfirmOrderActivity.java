@@ -59,10 +59,10 @@ public class BookConfirmOrderActivity extends Base2Activity {
         initTitle();
         Intent intent = getIntent();
         String bookId = intent.getStringExtra("bookId");
-        LogUtils.i("bookId:为:"+bookId);
+        LogUtils.i("bookId:为:" + bookId);
         String bookName = intent.getStringExtra("bookName");
         String time = intent.getStringExtra("time");
-        if(time!=null){
+        if (time != null) {
             SharedPrefHelper.getInstance().saveTime(time);
         }
         realName = SharedPrefHelper.getInstance().getRealName();
@@ -72,19 +72,19 @@ public class BookConfirmOrderActivity extends Base2Activity {
         time1 = SharedPrefHelper.getInstance().getTime();
         tvTakeBookTime.setText(time1);
         String bookName2 = SharedPrefHelper.getInstance().getBookName();
-        if(bookName2!=null){
-            if(bookName2.equals("")){
+        if (bookName2 != null) {
+            if (bookName2.equals("")) {
                 SharedPrefHelper.getInstance().saveBookName(bookName);
-            }else{
-                SharedPrefHelper.getInstance().saveBookName(bookName2+","+bookName);
+            } else {
+                SharedPrefHelper.getInstance().saveBookName(bookName2 + "," + bookName);
             }
         }
         String bookId2 = SharedPrefHelper.getInstance().getBookId();
-        if(bookId2!=null){
-            if(bookId2.equals("")){
+        if (bookId2 != null) {
+            if (bookId2.equals("")) {
                 SharedPrefHelper.getInstance().saveBookId(bookId);
-            }else{
-                SharedPrefHelper.getInstance().saveBookId(bookId2+","+bookId);
+            } else {
+                SharedPrefHelper.getInstance().saveBookId(bookId2 + "," + bookId);
             }
         }
 
@@ -108,11 +108,11 @@ public class BookConfirmOrderActivity extends Base2Activity {
         switch (view.getId()) {
             case R.id.tv_again:
 
-                if(bookNames.length<3){
+                if (bookNames.length < 3) {
                     Intent intent = new Intent(this, LibraryActivity.class);
-                    intent.putExtra("again",true);
+                    intent.putExtra("again", true);
                     startActivity(intent);
-                }else {
+                } else {
                     showToast("单次最多可以借三本书");
                 }
                 break;
@@ -124,7 +124,7 @@ public class BookConfirmOrderActivity extends Base2Activity {
 
     public void getData() {
         String bookId = SharedPrefHelper.getInstance().getBookId();
-        String time=SharedPrefHelper.getInstance().getTime();
+        String time = SharedPrefHelper.getInstance().getTime();
         Observable observable = RetrofitUtils.getInstance().jieYueBook(time, realName, mobile, bookId);
         showProgressDialog();
         observable.subscribe(new Subscriber<JieYueBean>() {
@@ -137,7 +137,7 @@ public class BookConfirmOrderActivity extends Base2Activity {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
-                Log.e("借阅出现问题",e.getMessage());
+                Log.e("借阅出现问题", e.getMessage());
             }
 
             @Override
@@ -145,12 +145,12 @@ public class BookConfirmOrderActivity extends Base2Activity {
                 SharedPrefHelper.getInstance().saveBookName(null);
                 SharedPrefHelper.getInstance().saveBookId(null);
                 SharedPrefHelper.getInstance().saveTime(null);
-                if(jieYueBean.getErrCode()==0){
+                if (jieYueBean.getErrCode() == 0) {
                     Intent intent = new Intent(BookConfirmOrderActivity.this, JieYueSuccActivity.class);
                     startActivity(intent);
                     finish();
-                }else{
-                    LogUtils.i("问题:"+jieYueBean.getMsg());
+                } else {
+                    LogUtils.i("问题:" + jieYueBean.getMsg());
                 }
             }
         });

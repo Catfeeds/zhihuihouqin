@@ -5,10 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.Unbinder;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.ui.main.adapter.BookRvAdapter;
@@ -19,11 +15,16 @@ import com.moe.wl.ui.main.modelimpl.LibraryHomeModelImpl;
 import com.moe.wl.ui.main.presenter.LibraryHomePresenter;
 import com.moe.wl.ui.main.view.LibraryHomeView;
 
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.Unbinder;
+
 /**
  * Created by 我的电脑 on 2017/8/23 0023.
  */
 
-public class LatestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeView,LibraryHomePresenter> implements LibraryHomeView {
+public class LatestFragment extends BaseFragment<LibraryHomeModel, LibraryHomeView, LibraryHomePresenter> implements LibraryHomeView {
     @BindView(R.id.rv_book)
     RecyclerView rvBook;
     Unbinder unbinder;
@@ -41,13 +42,15 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeVie
         bookRvAdapter = new BookRvAdapter(getActivity());
         rvBook.setAdapter(bookRvAdapter);
     }
-    public static  LatestFragment getInstance(boolean again){
+
+    public static LatestFragment getInstance(boolean again) {
         LatestFragment latestFragment = new LatestFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean("again",again);
+        bundle.putBoolean("again", again);
         latestFragment.setArguments(bundle);
         return latestFragment;
     }
+
     @Override
     public LibraryHomePresenter createPresenter() {
         return new LibraryHomePresenter();
@@ -55,14 +58,14 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel,LibraryHomeVie
 
     @Override
     public void getLibraryHomeSucc(LibraryHomeBean homeBean) {
-        if(homeBean!=null){
+        if (homeBean != null) {
             List<BooklistBean> booklist = homeBean.getBooklist();
             Bundle bundle = getArguments();
-            boolean again=false;
-            if(bundle!=null){
-                 again = bundle.getBoolean("again");
+            boolean again = false;
+            if (bundle != null) {
+                again = bundle.getBoolean("again");
             }
-            bookRvAdapter.setData(booklist,again);
+            bookRvAdapter.setData(booklist, again);
         }
     }
 

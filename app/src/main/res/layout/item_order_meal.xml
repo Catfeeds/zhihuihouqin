@@ -38,7 +38,7 @@
                     android:maxLines="1"
                     android:text="订  单  号：454242452424242424"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/fixation"
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:text="固定餐"
                     android:textColor="@color/blue"
-                    android:textSize="@dimen/sp_big"
+                    android:textSize="@dimen/sp_small"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -55,12 +55,12 @@
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="下单时间：2017-10-08"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/arrive_time"
@@ -71,7 +71,7 @@
                 android:maxLines="1"
                 android:text="送达时间：10:00"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/number"
@@ -82,7 +82,7 @@
                 android:maxLines="1"
                 android:text="预订数量：5"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
         </LinearLayout>
     </LinearLayout>
@@ -104,15 +104,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
             android:minWidth="90dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
+            android:paddingTop="6dp"
             android:text="取消订单"
-            android:textColor="@color/tv_black"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_small" />
 
         <TextView
@@ -121,15 +121,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@id/order"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
             android:minWidth="90dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
+            android:paddingTop="6dp"
             android:text="评价"
-            android:textColor="@color/tv_black"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
             android:visibility="gone" />
 

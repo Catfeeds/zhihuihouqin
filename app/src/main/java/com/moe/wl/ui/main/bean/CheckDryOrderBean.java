@@ -40,7 +40,7 @@ public class CheckDryOrderBean {
 
         private String createtime;
         private int id;
-        private Object payStatus;
+        private int payStatus;
         private int status;
         private String ordercode;
         private String serviceMobile;
@@ -62,11 +62,11 @@ public class CheckDryOrderBean {
             this.id = id;
         }
 
-        public Object getPayStatus() {
+        public int getPayStatus() {
             return payStatus;
         }
 
-        public void setPayStatus(Object payStatus) {
+        public void setPayStatus(int payStatus) {
             this.payStatus = payStatus;
         }
 

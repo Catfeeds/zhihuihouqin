@@ -93,9 +93,9 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
             llDryType.removeAllViews();//每次刷新时都要移除条目,重新赋值
             if (listBean != null) {
                 this.mPosition = position;
-                tvOrderNum.setText("订单号: " + listBean.getOrdercode());
-                tvPaystate.setText("支付状态: " + listBean.getPayStatus());
-                tvTime.setText("下单时间: " + listBean.getCreatetime());
+                tvOrderNum.setText("订单号：" + listBean.getOrdercode());
+                tvPaystate.setText("支付状态：" + (listBean.getPayStatus() == 0 ? "未支付" : "已支付"));
+                tvTime.setText("下单时间：" + listBean.getCreatetime());
                 List<CheckDryOrderBean.ListEntity.ClothesListEntity> detailList = listBean.getClothesList();
                 if (detailList != null && detailList.size() > 0) {
                     for (int i = 0; i < detailList.size(); i++) {

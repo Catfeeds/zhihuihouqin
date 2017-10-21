@@ -8,9 +8,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:background="@color/white"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:background="@color/white">
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,9 +28,10 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
             android:padding="5dp"
+            android:text="@string/already_read"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small"
-            android:text="@string/already_read" />
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -94,10 +95,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_system"
                     android:layout_below="@id/msg_system"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/rl_system"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -152,10 +153,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_comment"
                     android:layout_below="@id/msg_comment"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/ll_comment"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -210,10 +211,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_pay_up"
                     android:layout_below="@id/msg_pay_up"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/ll_pay_up"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -268,10 +269,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_audit"
                     android:layout_below="@id/msg_audit"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/ll_audit"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -326,10 +327,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_active"
                     android:layout_below="@id/msg_active"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/ll_active"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -384,10 +385,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_order"
                     android:layout_below="@id/msg_order"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/ll_order"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -442,10 +443,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/msg_complain"
                     android:layout_below="@id/msg_complain"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toRightOf="@id/ll_complain"
-                    android:textColor="@color/tv_gray"
                     android:text="暂无消息"
+                    android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -459,9 +460,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
+                android:background="@color/white"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
 
@@ -469,8 +470,8 @@
                     android:id="@+id/recycleView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:dividerHeight="0px"
-                    android:divider="@null"/>
+                    android:divider="@null"
+                    android:dividerHeight="0px" />
 
             </LinearLayout>
 

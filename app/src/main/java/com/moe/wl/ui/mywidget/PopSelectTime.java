@@ -9,13 +9,12 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 
+import com.moe.wl.R;
 import com.moe.wl.ui.main.adapter.TimeSelectAdapter;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.moe.wl.R;
 
 /**
  * Created by 我的电脑 on 2017/9/15 0015.
@@ -30,7 +29,7 @@ public class PopSelectTime extends PopupWindow {
     private final List<JieYueTimeBean.TimelistBean> list1;
     private final List<JieYueTimeBean.TimelistBean> list2;
 
-    public PopSelectTime(Context context, JieYueTimeBean bean,OnSelectClick listener) {
+    public PopSelectTime(Context context, JieYueTimeBean bean, OnSelectClick listener) {
         this.context = context;
         this.listene = listener;
         this.data = bean;
@@ -42,14 +41,14 @@ public class PopSelectTime extends PopupWindow {
         list2 = new ArrayList();
 
         for (int i = 0; i < timelist.size(); i++) {
-            if(timelist.get(i).getTypeid().equals("1")){
+            if (timelist.get(i).getTypeid().equals("1")) {
                 list1.add(timelist.get(i));
-            }else if(timelist.get(i).getTypeid().equals("2")){
+            } else if (timelist.get(i).getTypeid().equals("2")) {
                 list2.add(timelist.get(i));
             }
         }
-        TimeSelectAdapter anAdapter=new TimeSelectAdapter(context, list1);
-        TimeSelectAdapter pnAdapter=new TimeSelectAdapter(context, list2);
+        TimeSelectAdapter anAdapter = new TimeSelectAdapter(context, list1);
+        TimeSelectAdapter pnAdapter = new TimeSelectAdapter(context, list2);
 
         am.setAdapter(anAdapter);
         pm.setAdapter(pnAdapter);
@@ -57,7 +56,8 @@ public class PopSelectTime extends PopupWindow {
         am.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listene.onClick(list1.get(position).getTypeid(),list1.get(position).getTimeperiod());
+                if (listene != null)
+                    listene.onClick(list1.get(position).getTypeid(), list1.get(position).getTimeperiod());
                 dismiss();
             }
         });
@@ -65,7 +65,8 @@ public class PopSelectTime extends PopupWindow {
         pm.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listene.onClick(list2.get(position).getTypeid(), list2.get(position).getTimeperiod());
+                if (listene != null)
+                    listene.onClick(list2.get(position).getTypeid(), list2.get(position).getTimeperiod());
                 dismiss();
             }
         });

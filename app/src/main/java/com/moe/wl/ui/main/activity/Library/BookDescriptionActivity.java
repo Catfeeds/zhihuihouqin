@@ -14,6 +14,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.bean.BookDetailBean;
 import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.model.BookDetailModel;
@@ -74,7 +75,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     private String title;
     private boolean again;
     private int bollowstatus;
-    private static final int TYPE=4;
+    private static final int TYPE = 4;
 
     @Override
     public BookDetailPresenter createPresenter() {
@@ -94,6 +95,8 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
     @Override
     public void initView() {
+        bookId = getIntent().getIntExtra("BookID", 0);
+        getPresenter().getDetail(bookId);
         Intent intent = getIntent();
         bookListvBean = (BooklistBean) intent.getSerializableExtra("bookListvBean");
         bookId = bookListvBean.getId();
@@ -101,15 +104,13 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
         String url = bookListvBean.getUrl();
         bollowstatus = bookListvBean.getBollowstatus();
         again = intent.getBooleanExtra("again", false);
-        // TODO: 2017/9/28 0028 没有作者介绍和书籍介绍
-        //tvAuthorsIntroduceContent.setText(bookListvBean.get);
         initTitle();
         initAllViw();
     }
 
     private void initAllViw() {
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bookListvBean.getImg(), ivBookPic,R.mipmap.ic_default_book);
-        
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bookListvBean.getImg(), ivBookPic, R.mipmap.ic_default_book);
+
         tvBookName.setText(bookListvBean.getTitle());
         ratingBar.setRating(bookListvBean.getScore());
         tvStarNum.setText(bookListvBean.getScore() + "分");
@@ -123,9 +124,6 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
             tvState.setText("已借出");
             tvState.setTextColor(Color.parseColor("#F95759"));
         }
-
-
-
     }
 
     @Override
@@ -137,6 +135,13 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
             showToast("收藏成功");
             ivCollect.setImageResource(R.drawable.collect);
         }
+    }
+
+    @Override
+    public void getDetail(BookDetailBean bean) {
+        // TODO: 2017/9/28 0028 没有作者介绍和书籍介绍
+        tvAuthorsIntroduceContent.setText(bean.getAuthorbrief());
+        tvBookIntroduceContent.setText(bean.getContent());
     }
 
     private void initTitle() {
@@ -152,7 +157,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                 //showShare("测试", "智慧后勤", "http://www.baidu.com", "http://casemeet.oss-cn-beijing.aliyuncs.com/2017080214260236353118.png");
                 break;
             case R.id.ll_collect:
-                getPresenter().getData(TYPE,bookId);
+                getPresenter().getData(TYPE, bookId);
                 break;
             case R.id.tv_now_borrowing://立即借阅
                 if (bollowstatus == 1) {

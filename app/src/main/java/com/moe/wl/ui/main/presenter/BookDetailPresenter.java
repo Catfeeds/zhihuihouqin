@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.moe.wl.ui.main.bean.BookDetailBean;
 import com.moe.wl.ui.main.bean.CollectBean;
-import com.moe.wl.ui.main.view.BookDetailView;
 import com.moe.wl.ui.main.model.BookDetailModel;
+import com.moe.wl.ui.main.view.BookDetailView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -17,10 +17,10 @@ import rx.Subscriber;
 
 public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDetailView> {
 
-    public void getData(int type,int id) {
+    public void getData(int type, int id) {
         getView().showProgressDialog();
-        Log.e("BookDetailPresenter","发出请求");
-        Observable login = getModel().getData(type,id);
+        Log.e("BookDetailPresenter", "发出请求");
+        Observable login = getModel().getData(type, id);
         getNetWork(login, new Subscriber<CollectBean>() {
             @Override
             public void onCompleted() {
@@ -29,14 +29,40 @@ public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDet
 
             @Override
             public void onError(Throwable e) {
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(CollectBean listBean) {
-                if(listBean.getErrCode()==0){
+                if (listBean.getErrCode() == 0) {
                     getView().collectSucc(listBean);
-                }else{
+                } else {
+                    getView().showToast(listBean.getMsg());
+                }
+            }
+        });
+    }
+
+
+    public void getDetail(int id) {
+        getView().showProgressDialog();
+        Observable login = getModel().getDetail(id);
+        getNetWork(login, new Subscriber<BookDetailBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BookDetailBean listBean) {
+                if (listBean.getErrCode() == 0) {
+                    getView().getDetail(listBean);
+                } else {
                     getView().showToast(listBean.getMsg());
                 }
             }

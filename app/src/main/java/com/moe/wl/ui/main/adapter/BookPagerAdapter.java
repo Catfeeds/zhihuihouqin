@@ -13,8 +13,8 @@ import java.util.List;
  */
 
 public class BookPagerAdapter extends FragmentPagerAdapter {
-    private List<Fragment> fragments=new ArrayList<>();
-    private List<String> tabNames= Arrays.asList("最新","最热");
+    private List<Fragment> fragments = new ArrayList<>();
+    private List<String> tabNames = Arrays.asList("最新", "最热");
 
     @Override
     public CharSequence getPageTitle(int position) {
@@ -32,7 +32,7 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(fragments!=null){
+        if (fragments != null) {
             return fragments.get(position);
         }
         return null;
@@ -40,7 +40,7 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        if(fragments!=null){
+        if (fragments != null) {
             return fragments.size();
         }
         return 2;

@@ -57,6 +57,10 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     @BindView(R.id.ll_title)
     LinearLayout llTitle;
 
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.back)
+    ImageView back;
     private boolean isShow = false;
 
     private String[] serviceTypes = {"我的应用", "餐饮服务", "生活服务", "资产管理", "机关办公",
@@ -182,6 +186,7 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
 
     @Override
     public void initView() {
+        back.setVisibility(View.VISIBLE);
         myData = new ArrayList<>();
         foodData = new ArrayList<>();
         lifeData = new ArrayList<>();
@@ -612,10 +617,13 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
         llApp.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_finish})
+    @OnClick({R.id.iv_back, R.id.tv_finish, R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+                finish();
+                break;
+            case R.id.back:
                 finish();
                 break;
             case R.id.tv_finish://点击进行编辑
