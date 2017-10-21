@@ -332,7 +332,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                     ivGroup1.setImageResource(R.drawable.group_up);
                     llOrderServiceContainer.setVisibility(View.VISIBLE);
                 } else {
-                    ivGroup1.setImageResource(R.drawable.group_down);
+                    ivGroup1.setImageResource(R.mipmap.ic_arrows_down);
                     llOrderServiceContainer.setVisibility(View.GONE);
                 }
                 break;
