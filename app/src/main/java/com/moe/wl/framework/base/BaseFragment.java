@@ -32,7 +32,7 @@ public abstract class BaseFragment<M extends MvpModel, V extends MvpView, P exte
     private CustomerDialog progressDialog;
     private View inflate;
     private int contentViewRes = -1;
-
+    public int sysColor=R.color.white;
 
 
     @Override
@@ -46,7 +46,7 @@ public abstract class BaseFragment<M extends MvpModel, V extends MvpView, P exte
         if (inflate == null) {
             LogUtil.log(getClass().getName() + "初始化");
             setContentLayout(savedInstanceState);
-            StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
+            StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(sysColor), true);
             if (contentViewRes == -1) {
                 LogUtil.log("未设置布局");
                 return null;

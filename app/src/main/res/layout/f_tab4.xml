@@ -3,68 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <TextView
         style="@style/tvStyle_black_bigger"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/white"
+        android:background="@color/font_blue"
         android:text="@string/personal_center"
-        android:textColor="@color/tv_black" />
+        android:textColor="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/font_blue"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="-180dp"
+                android:orientation="vertical">
 
-                <RelativeLayout
-                    android:id="@+id/iv_bg"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:background="#F53B46">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/bg_white">
 
-                    <RelativeLayout
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/civ_header"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
+                        android:text="昵称"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/tv_black"
+                        android:textSize="@dimen/sp_bigger" />
+
+                    <TextView
+                        android:id="@+id/tv_auth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="未完成认证"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/tv_gray"
+                        android:textSize="@dimen/sp_big" />
+
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/white">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="8dp"
-                            android:background="@color/gray_lighter" />
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/v_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_below="@+id/iv_bg"
-                    android:background="@color/gray_trans">
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/divider"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
@@ -78,8 +93,8 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:src="@drawable/my_purse" />
 
                             <TextView
@@ -94,7 +109,6 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="16dp"
                             android:background="@color/gray_lighter" />
 
                         <LinearLayout
@@ -106,8 +120,8 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:src="@drawable/my_collect" />
 
                             <TextView
@@ -122,7 +136,6 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="16dp"
                             android:background="@color/gray_lighter" />
 
                         <LinearLayout
@@ -134,8 +147,8 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:src="@drawable/personal" />
 
                             <TextView
@@ -146,59 +159,32 @@
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
-                    </LinearLayout>
-                </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="Me"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_big" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/civ_header"
-                    android:layout_width="58dp"
-                    android:layout_height="58dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
                     android:src="@drawable/avatar2" />
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/civ_header"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="昵称"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
-
-                <TextView
-                    android:id="@+id/tv_auth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:text="未完成认证"
-                    android:textColor="@color/tv_gray"
-                    android:textSize="@dimen/sp_big" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_order_service"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:padding="@dimen/standard_padding">
 
                 <ImageView
                     android:id="@+id/iv_img1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/order_service" />
 
                 <TextView
@@ -209,7 +195,7 @@
                     android:layout_toRightOf="@+id/iv_img1"
                     android:text="订单服务"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:id="@+id/iv_group1"
@@ -217,13 +203,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/group_down" />
+                    android:src="@mipmap/ic_arrows_down" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
             <!--订单服务的子目录-->
             <LinearLayout
                 android:id="@+id/ll_order_service_container"
@@ -233,14 +215,15 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -254,8 +237,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -270,7 +253,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img1"
                                 android:text="我的报修"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child1"
@@ -345,16 +328,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -368,8 +352,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -384,7 +368,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img2"
                                 android:text="办公用品"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child2"
@@ -459,16 +443,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -482,8 +467,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -498,7 +483,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img3"
                                 android:text="我的订餐"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child3"
@@ -561,16 +546,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -584,8 +570,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -600,7 +586,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img4"
                                 android:text="理发订单"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child4"
@@ -675,16 +661,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -698,8 +685,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -714,7 +701,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img5"
                                 android:text="订水订单"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child5"
@@ -789,16 +776,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -812,8 +800,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -828,7 +816,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img6"
                                 android:text="医疗订单"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child6"
@@ -903,16 +891,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -926,8 +915,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -942,7 +931,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img7"
                                 android:text="专家坐诊"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child7"
@@ -1017,16 +1006,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1040,8 +1030,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -1056,7 +1046,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img8"
                                 android:text="洗衣店"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child8"
@@ -1131,16 +1121,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1154,8 +1145,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -1170,7 +1161,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img9"
                                 android:text="图书订单"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:id="@+id/iv_child9"
@@ -1245,16 +1236,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1268,8 +1260,8 @@
 
                             <ImageView
                                 android:id="@+id/image_vegetable"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -1284,7 +1276,7 @@
                                 android:layout_toRightOf="@id/image_vegetable"
                                 android:text="净菜订单"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -1358,16 +1350,17 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="8dp">
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1381,8 +1374,8 @@
 
                             <ImageView
                                 android:id="@+id/iv_child_img"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
@@ -1397,7 +1390,7 @@
                                 android:layout_toRightOf="@+id/iv_child_img"
                                 android:text="会议室订单"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_common" />
+                                android:textSize="@dimen/sp_small" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -1469,7 +1462,7 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -1477,12 +1470,16 @@
                 android:id="@+id/rl_laifang_person"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:padding="@dimen/standard_padding">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/iv_img2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/visitors" />
 
                 <TextView
@@ -1493,7 +1490,7 @@
                     android:layout_toRightOf="@+id/iv_img2"
                     android:text="来访人员"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:id="@+id/iv_group2"
@@ -1501,24 +1498,24 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/turn_right" />
+                    android:src="@mipmap/ic_more" />
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
 
             <RelativeLayout
                 android:id="@+id/rl_setting"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:padding="@dimen/standard_padding">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:id="@+id/iv_img3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/setting" />
 
                 <TextView
@@ -1529,7 +1526,7 @@
                     android:layout_toRightOf="@+id/iv_img3"
                     android:text="设置"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:id="@+id/iv_group3"
@@ -1537,13 +1534,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/turn_right" />
+                    android:src="@mipmap/ic_more" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray_lighter" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

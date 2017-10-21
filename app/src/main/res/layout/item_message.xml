@@ -44,6 +44,6 @@
         android:layout_height="1px"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:background="@color/gray" />
+        android:background="@color/divider" />
 
 </LinearLayout>

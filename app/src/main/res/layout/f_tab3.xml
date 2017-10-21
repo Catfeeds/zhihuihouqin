@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,7 +18,7 @@
             android:layout_centerInParent="true"
             android:text="@string/message"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
         <TextView
             android:id="@+id/already_read"
@@ -28,15 +29,15 @@
             android:layout_marginRight="12dp"
             android:padding="5dp"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textSize="@dimen/sp_small"
             android:text="@string/already_read" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_line" />
+        android:layout_height="1px"
+        android:background="@color/divider" />
 
     <ScrollView
         android:id="@+id/scroll"
@@ -51,7 +52,8 @@
             <RelativeLayout
                 android:id="@+id/system"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/rl_system"
@@ -95,6 +97,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/rl_system"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -107,7 +110,8 @@
             <RelativeLayout
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/ll_comment"
@@ -151,6 +155,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ll_comment"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -163,7 +168,8 @@
             <RelativeLayout
                 android:id="@+id/pay_up"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/ll_pay_up"
@@ -207,6 +213,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ll_pay_up"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -219,7 +226,8 @@
             <RelativeLayout
                 android:id="@+id/audit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/ll_audit"
@@ -263,6 +271,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ll_audit"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -275,7 +284,8 @@
             <RelativeLayout
                 android:id="@+id/active"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/ll_active"
@@ -319,6 +329,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ll_active"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -331,7 +342,8 @@
             <RelativeLayout
                 android:id="@+id/order"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/ll_order"
@@ -375,6 +387,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ll_order"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -387,7 +400,8 @@
             <RelativeLayout
                 android:id="@+id/complain"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <RelativeLayout
                     android:id="@+id/ll_complain"
@@ -431,6 +445,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/ll_complain"
                     android:textColor="@color/tv_gray"
+                    android:text="暂无消息"
                     android:textSize="@dimen/sp_small" />
 
             </RelativeLayout>
@@ -440,18 +455,24 @@
                 android:layout_height="1px"
                 android:background="@color/background" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/gray_line" />
 
-            <com.moe.wl.framework.widget.NoSlidingListView
-                android:id="@+id/recycleView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp">
+
+                <com.moe.wl.framework.widget.NoSlidingListView
+                    android:id="@+id/recycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dividerHeight="0px"
+                    android:divider="@null"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

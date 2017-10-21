@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
 import com.moe.wl.ui.main.activity.me.LaiFangActivity;
@@ -68,16 +67,12 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     private static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
 
     Unbinder unbinder;
-    @BindView(R.id.iv_bg)
-    RelativeLayout ivBg;
     @BindView(R.id.ll_my_packge)
     LinearLayout llMyPackge;
     @BindView(R.id.ll_my_collect)
     LinearLayout llMyCollect;
     @BindView(R.id.ll_personal_auth)
     LinearLayout llPersonalAuth;
-    @BindView(R.id.v_bg)
-    RelativeLayout vBg;
     @BindView(R.id.civ_header)
     CircleImageView civHeader;
     @BindView(R.id.tv_name)
@@ -248,6 +243,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
+        sysColor=R.color.font_blue;
         setContentView(R.layout.f_tab4);
     }
 
