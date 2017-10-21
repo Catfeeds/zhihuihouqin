@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,7 +119,11 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                 else
                     str = aContactMobile;
                 phone.setText("电话：" + str);
-                tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
+                if (TextUtils.isEmpty(activitylistBean.getACreateTime())){
+                    tvThridrvTime.setText("暂无时间");
+                }else{
+                    tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
+                }
                 tvSignUp.setText("报名(" + activitylistBean.getASignCount() + "/" + activitylistBean.getATotal() + ")");
 //                GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, activitylistBean.getAImg(), ivPhoto);
                 Glide.with(mContext).load(activitylistBean.getAImg()).placeholder(R.drawable.logo).into(ivPhoto);

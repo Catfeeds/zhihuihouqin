@@ -17,7 +17,7 @@
             android:id="@+id/iv_person_header"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/partner_luffy" />
+            android:src="@mipmap/ic_default_rectangle" />
         <TextView
             android:id="@+id/person_name"
             android:layout_width="wrap_content"

@@ -13,7 +13,7 @@
         android:id="@+id/barber_header"
         android:layout_width="60dp"
         android:layout_height="80dp"
-        android:src="@drawable/partner_luffy" />
+        android:src="@mipmap/ic_default_rectangle" />
 
     <LinearLayout
         android:layout_width="match_parent"

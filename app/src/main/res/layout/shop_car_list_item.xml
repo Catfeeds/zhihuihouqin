@@ -23,7 +23,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="@dimen/standard_padding"
             android:scaleType="centerCrop"
-            android:src="@drawable/partner_luffy" />
+            android:src="@mipmap/ic_default_rectangle" />
 
         <RelativeLayout
             android:layout_width="match_parent"

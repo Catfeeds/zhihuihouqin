@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:background="@drawable/partner_luffy"
+                    android:background="@mipmap/ic_default_rectangle"
                     android:src="#1caca1a1" />
 
                 <View
@@ -50,7 +50,7 @@
                         android:layout_height="60dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/partner_luffy" />
+                        android:src="@mipmap/ic_default_rectangle" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"

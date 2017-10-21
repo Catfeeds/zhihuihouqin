@@ -3,17 +3,13 @@
     android:id="@+id/activity_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/gray_lighter" />
 
     <RelativeLayout
         android:id="@+id/rl_account_saft"
@@ -22,6 +18,8 @@
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
         android:paddingTop="12dp">
 
         <TextView
@@ -35,12 +33,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/turn_right" />
+            android:src="@mipmap/ic_more" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter" />
 
     <RelativeLayout
@@ -50,6 +48,7 @@
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/white"
         android:paddingTop="12dp">
 
         <TextView
@@ -63,13 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/turn_right" />
+            android:src="@mipmap/ic_more" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@color/gray_lighter" />
 
     <RelativeLayout
         android:id="@+id/rl_yijian"
@@ -78,6 +72,8 @@
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
         android:paddingTop="12dp">
 
         <TextView
@@ -91,12 +87,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/turn_right" />
+            android:src="@mipmap/ic_more" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter" />
 
     <RelativeLayout
@@ -105,6 +101,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
+        android:background="@color/white"
         android:paddingRight="8dp"
         android:paddingTop="12dp">
 
@@ -135,14 +132,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/turn_right" />
+                android:src="@mipmap/ic_more" />
         </LinearLayout>
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter" />
 
     <RelativeLayout
@@ -152,6 +149,7 @@
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/white"
         android:paddingTop="12dp">
 
         <TextView
@@ -179,15 +177,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/turn_right" />
+                android:src="@mipmap/ic_more" />
         </LinearLayout>
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter" />
 
     <RelativeLayout
         android:id="@+id/rl_version"
@@ -195,6 +188,8 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
         android:paddingRight="8dp"
         android:paddingTop="12dp">
 
@@ -224,14 +219,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:src="@drawable/turn_right" />
+                android:src="@mipmap/ic_more" />
         </LinearLayout>
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter" />
 
     <RelativeLayout
@@ -240,6 +235,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
         android:paddingLeft="8dp"
+        android:background="@color/white"
         android:paddingRight="8dp"
         android:paddingTop="12dp">
 
@@ -254,31 +250,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/turn_right" />
+            android:src="@mipmap/ic_more" />
     </RelativeLayout>
-
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter" />
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/bt_out_login"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/background">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/actionsheet_red"
+        android:text="注销登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_big" />
 
-        <Button
-            android:id="@+id/bt_out_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/actionsheet_red"
-            android:text="注销登录"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_big" />
-    </RelativeLayout>
 </LinearLayout>

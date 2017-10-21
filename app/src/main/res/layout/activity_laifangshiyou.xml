@@ -3,7 +3,7 @@
     android:id="@+id/activity_laifangshiyou"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_trans"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -14,7 +14,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1px"
         android:background="@color/gray_light" />
 
 

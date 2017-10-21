@@ -67,7 +67,7 @@
                 android:id="@+id/iv_cut_hear_logo"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
-                android:src="@drawable/partner_luffy" />
+                android:src="@mipmap/ic_default_rectangle" />
         </android.support.v7.widget.CardView>
     </RelativeLayout>
     <View

@@ -41,7 +41,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/partner_luffy" />
+                android:src="@mipmap/ic_default_rectangle"/>
 
             <ImageView
                 android:layout_width="wrap_content"

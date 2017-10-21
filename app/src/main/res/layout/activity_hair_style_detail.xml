@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/partner_luffy" />
+            android:src="@mipmap/ic_default_rectangle"/>
 
         <TextView
             android:id="@+id/tv_hair_style_name"

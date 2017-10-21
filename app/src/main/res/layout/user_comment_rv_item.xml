@@ -10,7 +10,7 @@
         android:id="@+id/civ_user_commment"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/partner_luffy" />
+        android:src="@mipmap/ic_default_rectangle" />
 
     <LinearLayout
         android:id="@+id/ll_user_comment"

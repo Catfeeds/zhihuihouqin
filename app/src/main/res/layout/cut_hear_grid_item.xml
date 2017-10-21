@@ -6,7 +6,7 @@
     android:layout_margin="16dp">
 <de.hdodenhof.circleimageview.CircleImageView
     android:id="@+id/civ_barber_photo"
-    android:src="@drawable/partner_luffy"
+    android:src="@mipmap/ic_default_rectangle"
     android:layout_width="60dp"
     android:layout_height="60dp" />
     <TextView

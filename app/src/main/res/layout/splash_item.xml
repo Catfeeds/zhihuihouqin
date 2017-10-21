@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 <ImageView
     android:id="@+id/iv_splash"
-    android:src="@drawable/partner_luffy"
+    android:src="@mipmap/ic_default_rectangle"
     android:scaleType="centerCrop"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />

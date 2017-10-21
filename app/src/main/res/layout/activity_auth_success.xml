@@ -19,7 +19,7 @@
     android:layout_marginTop="30dp"
     android:layout_marginBottom="30dp"
     android:layout_gravity="center_horizontal"
-    android:src="@drawable/partner_luffy"
+    android:src="@mipmap/ic_default_rectangle"
     android:layout_height="80dp" />
     <TextView
         android:text="提交完成"

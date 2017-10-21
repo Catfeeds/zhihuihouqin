@@ -2,39 +2,49 @@ package com.moe.wl.ui.main.activity.ActivityRegistration;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.BannerResponse;
+import com.moe.wl.ui.main.model.BannerModel;
+import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
+import com.moe.wl.ui.main.presenter.BannerPresenter;
+import com.moe.wl.ui.main.view.BannerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import rx.Observable;
 import rx.Subscriber;
 
-public class ActivityRegistrationActivity extends Base2Activity {
+/**
+ * 活动报名
+ */
+public class ActivityRegistrationActivity extends BaseActivity<BannerModel,BannerView,BannerPresenter> implements BannerView {
 
     @BindView(R.id.activity_title)
     TitleBar activityTitle;
     @BindView(R.id.view_title)
     View viewTitle;
-    @BindView(R.id.iv_big_pic)
-    ImageView ivBigPic;
+    @BindView(R.id.slider_layout)
+    SliderLayout sliderLayout;
     @BindView(R.id.rv_activity)
     XRecyclerView rvActivity;
     @BindView(R.id.tv_activity_posted)
@@ -46,13 +56,14 @@ public class ActivityRegistrationActivity extends Base2Activity {
     List<ActivityHomeBean.ActivitylistBean> listAll=new ArrayList<>();
 
     @Override
-    protected void initLayout() {
+    public void setContentLayout() {
         setContentView(R.layout.activity_registration2);
         ButterKnife.bind(this);
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
+        getPresenter().getBanner(5);
         getData(1,10);
         initTitle();
         initRecycler();
@@ -121,8 +132,6 @@ public class ActivityRegistrationActivity extends Base2Activity {
 
     private void getDataSucc(ActivityHomeBean homeBean) {
         if(homeBean!=null){
-            String picture = homeBean.getPicture();
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(this,picture,ivBigPic);
             if(isRefresh==true) {
                 listAll.clear();
             }
@@ -131,4 +140,31 @@ public class ActivityRegistrationActivity extends Base2Activity {
         }
     }
 
+    @Override
+    public void setData(BannerResponse.ServiceInfoBean bean) {
+        if (bean!= null && !TextUtils.isEmpty(bean.getTopphoto())) {
+            String[] strings=bean.getTopphoto().split(",");
+            HashMap<String, String> map = new HashMap<>();
+            for (int i = 0; i < strings.length; i++) {
+                map.put("", strings[i]);
+            }
+            sliderLayout.removeAllSliders();
+            for (String desc : map.keySet()) {
+                TextSliderView textSliderView = new TextSliderView(getActivity());
+                textSliderView.description(desc).image(map.get(desc));
+                sliderLayout.addSlider(textSliderView);
+            }
+        }
+    }
+
+
+    @Override
+    public BannerModel createModel() {
+        return new BannerModelImpl();
+    }
+
+    @Override
+    public BannerPresenter createPresenter() {
+        return new BannerPresenter();
+    }
 }

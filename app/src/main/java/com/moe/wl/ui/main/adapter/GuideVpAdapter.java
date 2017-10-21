@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.moe.wl.R;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.LoginActivity;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by 我的电脑 on 2017/8/21 0021.
@@ -22,11 +22,11 @@ import com.moe.wl.ui.login.activity.LoginActivity;
 
 public class GuideVpAdapter extends PagerAdapter {
     private  Context mContext;
-    List<Integer> photos= Arrays.asList(R.drawable.partner_luffy,
-            R.drawable.partner_luffy,
-            R.drawable.partner_luffy,
-            R.drawable.partner_luffy,
-            R.drawable.partner_luffy);
+    List<Integer> photos= Arrays.asList(R.mipmap.ic_default_rectangle,
+            R.mipmap.ic_default_rectangle,
+            R.mipmap.ic_default_rectangle,
+            R.mipmap.ic_default_rectangle,
+            R.mipmap.ic_default_rectangle);
 
     public GuideVpAdapter(Context context) {
         this.mContext = context;
