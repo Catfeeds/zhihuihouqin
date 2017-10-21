@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="12dp"
         android:gravity="right"
-        android:minWidth="35dp"
+        android:minWidth="50dp"
         android:paddingBottom="12dp"
         android:paddingTop="12dp"
         android:textColor="@color/tv_black"

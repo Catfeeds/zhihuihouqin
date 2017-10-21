@@ -53,6 +53,7 @@ public class VegetableAdapter extends RecyclerView.Adapter {
             h.number.setVisibility(View.GONE);
             h.minus.setVisibility(View.GONE);
         } else {
+            h.number.setText(entity.getNumber() + "");
             h.number.setVisibility(View.VISIBLE);
             h.minus.setVisibility(View.VISIBLE);
         }
@@ -67,9 +68,11 @@ public class VegetableAdapter extends RecyclerView.Adapter {
                 }
                 if (addClickListener != null)
                     addClickListener.onAddClick(position, num);
-                h.number.setText(num + "");
-                h.number.setVisibility(View.VISIBLE);
-                h.minus.setVisibility(View.VISIBLE);
+                entity.setNumber(num);
+                notifyDataSetChanged();
+//                h.number.setText(num + "");
+//                h.number.setVisibility(View.VISIBLE);
+//                h.minus.setVisibility(View.VISIBLE);
             }
         });
 
@@ -83,7 +86,9 @@ public class VegetableAdapter extends RecyclerView.Adapter {
                 }
                 if (minusClickListener != null)
                     minusClickListener.onMinusClick(position, num);
-                h.number.setText(num + "");
+//                h.number.setText(num + "");
+                entity.setNumber(num);
+                notifyDataSetChanged();
             }
         });
 
