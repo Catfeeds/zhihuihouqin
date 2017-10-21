@@ -10,8 +10,13 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
     <com.moe.wl.framework.widget.TabBar
         android:id="@+id/m_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height" />
+
 </LinearLayout>
