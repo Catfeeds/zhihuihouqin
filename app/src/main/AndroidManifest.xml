@@ -191,7 +191,7 @@
         <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
         <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
         <activity android:name=".ui.main.activity.Library.BookConfirmOrderActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />

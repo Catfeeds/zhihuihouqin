@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.BookDetailBean;
 import com.moe.wl.ui.main.bean.BooklistBean;
@@ -167,6 +168,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                         //再次借阅的的直接进去确认订单页面
                         Intent intent = new Intent(this, BookConfirmOrderActivity.class);
                         intent.putExtra("bean", (Serializable) bean);
+                        LogUtils.d("---------------again-------------------"+again);
                         intent.putExtra("again", again);
                         startActivity(intent);
                         finish();

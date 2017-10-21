@@ -66,10 +66,11 @@ public class BookConfirmOrderActivity extends Base2Activity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         BooklistBean bean = (BooklistBean) intent.getSerializableExtra("bean");
-        boolean again = intent.getBooleanExtra("again",false);
-        if (again){
+        boolean myAgain = intent.getBooleanExtra("again",false);
+        if (myAgain){
             if (bookList!=null){
                 bookList.add(bean);
+                showBook();
             }
         }
     }
@@ -104,6 +105,7 @@ public class BookConfirmOrderActivity extends Base2Activity {
 
     public void showBook(){
         if (bookList!=null && bookList.size()>0){
+            llBookContainer.removeAllViews();
             for (int i = 0; i <bookList.size() ; i++) {
                 View view = View.inflate(this, R.layout.book_name_item, null);
                 TextView name = (TextView) view.findViewById(R.id.book_name);
