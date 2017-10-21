@@ -262,7 +262,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     //更改头像和昵称
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeUserInfo event) {
-        Glide.with(getActivity()).load(event.getUrl()).into(civHeader);
+        Glide.with(getActivity()).load(event.getUrl()).placeholder(R.drawable.avatar2).into(civHeader);
         tvName.setText(event.getNickName());
     }
 
