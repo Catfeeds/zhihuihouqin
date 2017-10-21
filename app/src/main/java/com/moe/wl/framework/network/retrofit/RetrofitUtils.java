@@ -993,7 +993,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable getBookDetailResult(int bookid) {
+    public static Observable getBookDetailResult(String bookid) {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("getBookDetailResult", "---》bookDetail");
         try {
@@ -1012,7 +1012,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable addCollect(int type, int entityid) {
+    public static Observable addCollect(int type, String entityid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<String, String>();

@@ -1,5 +1,7 @@
 package com.moe.wl.ui.main.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +9,8 @@ import android.view.View;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.ui.main.activity.Library.BookDescriptionActivity;
+import com.moe.wl.ui.main.activity.Library.LibraryActivity;
 import com.moe.wl.ui.main.adapter.BookRvAdapter;
 import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.bean.LibraryHomeBean;
@@ -15,6 +19,7 @@ import com.moe.wl.ui.main.modelimpl.LibraryHomeModelImpl;
 import com.moe.wl.ui.main.presenter.LibraryHomePresenter;
 import com.moe.wl.ui.main.view.LibraryHomeView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,6 +34,13 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel, LibraryHomeVi
     RecyclerView rvBook;
     Unbinder unbinder;
     private BookRvAdapter bookRvAdapter;
+    private LibraryActivity activity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity= (LibraryActivity) activity;
+    }
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
@@ -41,6 +53,24 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel, LibraryHomeVi
         rvBook.setLayoutManager(new LinearLayoutManager(getActivity()));
         bookRvAdapter = new BookRvAdapter(getActivity());
         rvBook.setAdapter(bookRvAdapter);
+        bookRvAdapter.setMyCallBack(new BookRvAdapter.MyCallBack() {
+            @Override
+            public void cb(BooklistBean bookListvBean, String BookID, boolean again) {
+                if (activity.bookList!=null && activity.bookList.size()>0){
+                    for (int i = 0; i < activity.bookList.size(); i++) {
+                        if (bookListvBean.getId().equals( activity.bookList.get(i).getId())){
+                            showToast("已经添加了此书");
+                            return;
+                        }
+                    }
+                }
+                Intent intent = new Intent(getActivity(), BookDescriptionActivity.class);
+                intent.putExtra("bean",(Serializable)bookListvBean);
+                intent.putExtra("again", again);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 
     public static LatestFragment getInstance(boolean again) {

@@ -12,11 +12,13 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
+import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 import com.moe.wl.ui.mywidget.PopSelectTime;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,12 +49,11 @@ public class BorrowOrderActivity extends Base2Activity {
     LinearLayout activityBorrowOrder;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    private String bookids;
     private String realName;
     private String phoneNumber;
-    private String bookName;
-    private Object time;
+    private String myTime;
     private JieYueTimeBean mTimeBean;
+    private BooklistBean bean;
 
     @Override
     protected void initLayout() {
@@ -63,9 +64,7 @@ public class BorrowOrderActivity extends Base2Activity {
     @Override
     protected void initView() {
         initTitle();
-        bookids = getIntent().getStringExtra("bookId");
-        LogUtils.i("BorrowOrderActivity的bookId:" + bookids);
-        bookName = getIntent().getStringExtra("bookName");
+        bean = (BooklistBean) getIntent().getSerializableExtra("bean");
         realName = SharedPrefHelper.getInstance().getRealName();
         if (TextUtils.isEmpty(realName)) {
             realName = SharedPrefHelper.getInstance().getNickname();
@@ -89,11 +88,13 @@ public class BorrowOrderActivity extends Base2Activity {
                 showWindow();
                 break;
             case R.id.tv_confirm:
+                if (TextUtils.isEmpty(myTime)){
+                    showToast("请先选择预计取书时间");
+                    return;
+                }
                 Intent intent = new Intent(this, BookConfirmOrderActivity.class);
-                intent.putExtra("bookId", bookids);
-                intent.putExtra("bookName", bookName);
-                String t = tvTime.getText().toString().trim();
-                intent.putExtra("time", t);
+                intent.putExtra("bean", (Serializable) bean);
+                intent.putExtra("time", myTime);
                 startActivity(intent);
                 finish();
                 break;
@@ -105,9 +106,11 @@ public class BorrowOrderActivity extends Base2Activity {
             @Override
             public void onClick(String typeid, String time) {
                 if (typeid.equals("1")) {
-                    tvTime.setText("上午 " + time);
+                    myTime="上午 " + time;
+                    tvTime.setText(myTime);
                 } else {
-                    tvTime.setText("下午 " + time);
+                    myTime="下午 " + time;
+                    tvTime.setText(myTime);
                 }
             }
         });

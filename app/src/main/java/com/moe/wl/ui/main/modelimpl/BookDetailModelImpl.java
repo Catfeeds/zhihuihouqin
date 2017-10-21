@@ -13,14 +13,14 @@ import rx.Observable;
 public class BookDetailModelImpl implements BookDetailModel {
 
     @Override
-    public Observable getData(int type,int bookId) {
+    public Observable getData(int type,String bookId) {
         Log.e("BookDetailModelImpl","请求数据-->bookdetail");
         Observable observer = RetrofitUtils.getInstance().addCollect(type,bookId);
         return observer ;
     }
 
     @Override
-    public Observable getDetail(int id) {
+    public Observable getDetail(String id) {
         Observable observable = RetrofitUtils.getInstance().getBookDetailResult(id);
         return observable;
     }

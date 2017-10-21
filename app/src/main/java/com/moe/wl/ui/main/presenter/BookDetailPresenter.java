@@ -17,7 +17,7 @@ import rx.Subscriber;
 
 public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDetailView> {
 
-    public void getData(int type, int id) {
+    public void getData(int type, String id) {
         getView().showProgressDialog();
         Log.e("BookDetailPresenter", "发出请求");
         Observable login = getModel().getData(type, id);
@@ -44,7 +44,7 @@ public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDet
     }
 
 
-    public void getDetail(int id) {
+    public void getDetail(String id) {
         getView().showProgressDialog();
         Observable login = getModel().getDetail(id);
         getNetWork(login, new Subscriber<BookDetailBean>() {

@@ -10,7 +10,7 @@ public class BooklistBean implements Serializable{
 
     private String author;
     private int bollowstatus;
-    private int id;
+    private String id;
     private String img;
     private String publisher;
     private int score;
@@ -35,11 +35,11 @@ public class BooklistBean implements Serializable{
         this.bollowstatus = bollowstatus;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

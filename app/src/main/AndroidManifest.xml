@@ -67,13 +67,6 @@
             android:name=".ui.main.activity.MainActivity"
             android:launchMode="singleTask">
 
-            <!--
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
         </activity>
 
 
@@ -198,7 +191,8 @@
         <activity android:name=".ui.main.activity.Library.LibraryActivity" />
         <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
         <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
-        <activity android:name=".ui.main.activity.Library.BookConfirmOrderActivity" />
+        <activity android:name=".ui.main.activity.Library.BookConfirmOrderActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />

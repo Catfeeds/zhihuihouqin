@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.Library;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,8 @@ import com.moe.wl.ui.main.model.BookDetailModel;
 import com.moe.wl.ui.main.modelimpl.BookDetailModelImpl;
 import com.moe.wl.ui.main.presenter.BookDetailPresenter;
 import com.moe.wl.ui.main.view.BookDetailView;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,11 +73,9 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     TextView tvNowBorrowing;
     @BindView(R.id.activity_book_description)
     RelativeLayout activityBookDescription;
-    private BooklistBean bookListvBean;
-    private int bookId;
-    private String title;
+
+    private BooklistBean bean;
     private boolean again;
-    private int bollowstatus;
     private static final int TYPE = 4;
 
     @Override
@@ -95,29 +96,30 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
     @Override
     public void initView() {
-        bookId = getIntent().getIntExtra("BookID", 0);
-        getPresenter().getDetail(bookId);
         Intent intent = getIntent();
-        bookListvBean = (BooklistBean) intent.getSerializableExtra("bookListvBean");
-        bookId = bookListvBean.getId();
-        title = bookListvBean.getTitle();
-        String url = bookListvBean.getUrl();
-        bollowstatus = bookListvBean.getBollowstatus();
+        bean = (BooklistBean) intent.getSerializableExtra("bean");
         again = intent.getBooleanExtra("again", false);
+
+        if (bean!=null && !TextUtils.isEmpty(bean.getId())){
+            getPresenter().getDetail(bean.getId());
+        }else{
+            finish();
+        }
+
         initTitle();
         initAllViw();
     }
 
     private void initAllViw() {
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bookListvBean.getImg(), ivBookPic, R.mipmap.ic_default_book);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getImg(), ivBookPic, R.mipmap.ic_default_book);
 
-        tvBookName.setText(bookListvBean.getTitle());
-        ratingBar.setRating(bookListvBean.getScore());
-        tvStarNum.setText(bookListvBean.getScore() + "分");
-        tvAuthor.setText(bookListvBean.getAuthor());
-        tvChubanshe.setText(bookListvBean.getPublisher());
+        tvBookName.setText(bean.getTitle());
+        ratingBar.setRating(bean.getScore());
+        tvStarNum.setText(bean.getScore() + "分");
+        tvAuthor.setText(bean.getAuthor());
+        tvChubanshe.setText(bean.getPublisher());
 
-        if (bookListvBean.getBollowstatus() == 1) {
+        if (bean.getBollowstatus() == 1) {
             tvState.setText("在架上");
             tvState.setTextColor(Color.parseColor("#36CCAE"));
         } else {
@@ -157,15 +159,23 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                 //showShare("测试", "智慧后勤", "http://www.baidu.com", "http://casemeet.oss-cn-beijing.aliyuncs.com/2017080214260236353118.png");
                 break;
             case R.id.ll_collect:
-                getPresenter().getData(TYPE, bookId);
+                getPresenter().getData(TYPE, bean.getId());
                 break;
             case R.id.tv_now_borrowing://立即借阅
-                if (bollowstatus == 1) {
-                    Intent intent = new Intent(this, BorrowOrderActivity.class);
-                    intent.putExtra("bookId", bookId + "");
-                    intent.putExtra("bookName", title);
-                    startActivity(intent);
-                    finish();
+                if (bean.getBollowstatus() == 1) {
+                    if (again){
+                        //再次借阅的的直接进去确认订单页面
+                        Intent intent = new Intent(this, BookConfirmOrderActivity.class);
+                        intent.putExtra("bean", (Serializable) bean);
+                        intent.putExtra("again", again);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        Intent intent = new Intent(this, BorrowOrderActivity.class);
+                        intent.putExtra("bean", (Serializable) bean);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     showToast("此书已经被借阅,请选择其它书籍");
                 }

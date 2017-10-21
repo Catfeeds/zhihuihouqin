@@ -13,9 +13,11 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BookPagerAdapter;
 import com.moe.wl.ui.main.bean.BannerResponse;
+import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.fragment.HottestFragment;
 import com.moe.wl.ui.main.fragment.LatestFragment;
 import com.moe.wl.ui.main.model.BannerModel;
@@ -52,7 +54,8 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     RelativeLayout rlTitle;
 
     private List<Fragment> fragments;
-    private boolean again;
+    private boolean again;  //是否是再次借阅
+    public List<BooklistBean> bookList; //之前借阅的书籍
 
     @Override
     public void setContentLayout() {
@@ -64,6 +67,9 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     public void initView() {
         getPresenter().getBanner(3);
         again = getIntent().getBooleanExtra("again", false);
+        bookList= (List<BooklistBean>) getIntent().getSerializableExtra("list");
+        if (bookList!=null)
+        LogUtils.d("-------bookList----"+bookList.size());
         fragments = new ArrayList<>();
         fragments.add(LatestFragment.getInstance(again));
         fragments.add(HottestFragment.getInstance(again));

@@ -1,13 +1,11 @@
 package com.moe.wl.ui.main.activity.information;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,7 +22,6 @@ import com.moe.wl.ui.mywidget.CommentPop;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import mvp.cn.util.CommonUtil;
 import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
@@ -189,7 +186,7 @@ public class InformationDetailActivity extends AppCompatActivity {
 
     // 添加收藏
     private void collect() {
-        Observable observable = RetrofitUtils.getInstance().addCollect(serviceType, informationID);
+        Observable observable = RetrofitUtils.getInstance().addCollect(serviceType, informationID+"");
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

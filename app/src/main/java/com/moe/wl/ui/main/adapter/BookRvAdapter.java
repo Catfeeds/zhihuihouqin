@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.activity.Library.BookDescriptionActivity;
 import com.moe.wl.ui.main.bean.BooklistBean;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<BooklistBean> data = new ArrayList<>();
     private boolean again;
+    private MyCallBack callBack;
 
     public BookRvAdapter(Context context) {
         this.mContext = context;
@@ -88,11 +87,9 @@ public class BookRvAdapter extends RecyclerView.Adapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, BookDescriptionActivity.class);
-                    intent.putExtra("bookListvBean", bookListvBean);
-                    intent.putExtra("BookID", bookListvBean.getId());
-                    intent.putExtra("again", again);
-                    mContext.startActivity(intent);
+                    if (callBack!=null){
+                        callBack.cb(bookListvBean,bookListvBean.getId(),again);
+                    }
                 }
             });
         }
@@ -117,4 +114,13 @@ public class BookRvAdapter extends RecyclerView.Adapter {
 
         }
     }
+
+    public interface MyCallBack{
+        void cb(BooklistBean bookListvBean,String BookID,boolean again);
+    }
+
+    public void setMyCallBack(MyCallBack callBack){
+        this.callBack=callBack;
+    }
+
 }
