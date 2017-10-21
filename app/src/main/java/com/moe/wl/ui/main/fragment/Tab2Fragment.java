@@ -39,7 +39,10 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
     RelativeLayout rlSearch;
     @BindView(R.id.ll_f_tab2_grid_container)
     LinearLayout llFTab2GridContainer;
+    @BindView(R.id.line)
+    View line;
     Unbinder unbinder;
+
     private String[] serviceTypes = {/*"我的应用",*/ "餐饮服务", "生活服务", "资产管理", "机关办公",
             "金融服务", "物业服务", "健康服务", "出入管理", "即时信息"};
 

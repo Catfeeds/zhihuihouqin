@@ -50,8 +50,13 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     RelativeLayout rlMyApp;
     @BindView(R.id.view)
     View view;
-    @BindView(R.id.view_line)
-    View viewLine;
+    @BindView(R.id.ll_app)
+    LinearLayout llApp;
+    @BindView(R.id.rl_title)
+    RelativeLayout rlTitle;
+    @BindView(R.id.ll_title)
+    LinearLayout llTitle;
+
     private boolean isShow = false;
 
     private String[] serviceTypes = {"我的应用", "餐饮服务", "生活服务", "资产管理", "机关办公",
@@ -602,10 +607,9 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     }
 
     private void setVisibility() {
-        ivBack.setVisibility(View.VISIBLE);
-        rlMyApp.setVisibility(View.VISIBLE);
-        gvApp.setVisibility(View.VISIBLE);
-        viewLine.setVisibility(View.VISIBLE);
+        rlTitle.setVisibility(View.VISIBLE);
+        llTitle.setVisibility(View.GONE);
+        llApp.setVisibility(View.VISIBLE);
     }
 
     @OnClick({R.id.iv_back, R.id.tv_finish})

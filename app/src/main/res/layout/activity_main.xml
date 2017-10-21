@@ -12,7 +12,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"/>
+        android:layout_height="1dp"/>
 
     <com.moe.wl.framework.widget.TabBar
         android:id="@+id/m_bottom"
