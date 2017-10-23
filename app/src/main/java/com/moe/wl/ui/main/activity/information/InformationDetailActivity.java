@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.information;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -122,7 +123,7 @@ public class InformationDetailActivity extends AppCompatActivity {
             title.setText(bean.getNoticeInfo().getTitle());
             time.setText(bean.getNoticeInfo().getCreatetime());
             from.setText(bean.getNoticeInfo().getSource());
-            content.setText(bean.getNoticeInfo().getContent());
+            content.setText(Html.fromHtml(bean.getNoticeInfo().getContent()));
         }
 
         if (bean.getFavorNum() != 0) {

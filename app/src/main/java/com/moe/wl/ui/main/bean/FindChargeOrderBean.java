@@ -8,9 +8,10 @@ import java.util.List;
 
 public class FindChargeOrderBean {
 
+
     /**
      * errCode : 0
-     * list : [{"monthName":"本月","monthList":[{"weekday":"周四","monthDay":"10-12","paytype":1,"money":16},{"weekday":"周四","monthDay":"10-12","paytype":1,"money":14}]},{"monthName":"8月","monthList":[{"weekday":"周三","monthDay":"08-16","paytype":1,"money":22}]},{"monthName":"2015年7月","monthList":[{"weekday":"周五","monthDay":"07-17","paytype":1,"money":1},{"weekday":"周五","monthDay":"07-17","paytype":1,"money":3}]}]
+     * list : [{"createtime":"2017-10-20 11:11:11","monthName":"本月","weekday":"周四","monthDay":"10-12","paytype":1,"money":16},{"createtime":"2017-10-20 11:11:11","monthName":"本月","weekday":"周四","monthDay":"10-12","paytype":1,"money":14}]
      * msg : success
      */
 
@@ -44,12 +45,28 @@ public class FindChargeOrderBean {
 
     public static class ListBean {
         /**
+         * createtime : 2017-10-20 11:11:11
          * monthName : 本月
-         * monthList : [{"weekday":"周四","monthDay":"10-12","paytype":1,"money":16},{"weekday":"周四","monthDay":"10-12","paytype":1,"money":14}]
+         * weekday : 周四
+         * monthDay : 10-12
+         * paytype : 1
+         * money : 16
          */
 
+        private String createtime;
         private String monthName;
-        private List<MonthListBean> monthList;
+        private String weekday;
+        private String monthDay;
+        private int paytype;
+        private int money;
+
+        public String getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(String createtime) {
+            this.createtime = createtime;
+        }
 
         public String getMonthName() {
             return monthName;
@@ -59,58 +76,36 @@ public class FindChargeOrderBean {
             this.monthName = monthName;
         }
 
-        public List<MonthListBean> getMonthList() {
-            return monthList;
+        public String getWeekday() {
+            return weekday;
         }
 
-        public void setMonthList(List<MonthListBean> monthList) {
-            this.monthList = monthList;
+        public void setWeekday(String weekday) {
+            this.weekday = weekday;
         }
 
-        public static class MonthListBean {
-            /**
-             * weekday : 周四
-             * monthDay : 10-12
-             * paytype : 1
-             * money : 16
-             */
+        public String getMonthDay() {
+            return monthDay;
+        }
 
-            private String weekday;
-            private String monthDay;
-            private int paytype;
-            private int money;
+        public void setMonthDay(String monthDay) {
+            this.monthDay = monthDay;
+        }
 
-            public String getWeekday() {
-                return weekday;
-            }
+        public int getPaytype() {
+            return paytype;
+        }
 
-            public void setWeekday(String weekday) {
-                this.weekday = weekday;
-            }
+        public void setPaytype(int paytype) {
+            this.paytype = paytype;
+        }
 
-            public String getMonthDay() {
-                return monthDay;
-            }
+        public int getMoney() {
+            return money;
+        }
 
-            public void setMonthDay(String monthDay) {
-                this.monthDay = monthDay;
-            }
-
-            public int getPaytype() {
-                return paytype;
-            }
-
-            public void setPaytype(int paytype) {
-                this.paytype = paytype;
-            }
-
-            public int getMoney() {
-                return money;
-            }
-
-            public void setMoney(int money) {
-                this.money = money;
-            }
+        public void setMoney(int money) {
+            this.money = money;
         }
     }
 }

@@ -53,8 +53,8 @@ public class RechargeRecordActivity extends BaseActivity<RechargeModel,RechargeV
 
     private void initRecycler() {
         recycler.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new RechargeRecordAdapter(this);
-//        recycler.setAdapter(adapter);
+        adapter = new RechargeRecordAdapter(this);
+        recycler.setAdapter(adapter);
     }
 
     private void initTitle() {
