@@ -89,7 +89,7 @@ public class ClothBean {
 
             private int id;
             private String name;
-            private int price;
+            private float price;
             private int count;
 
             public int getId() {
@@ -108,11 +108,11 @@ public class ClothBean {
                 this.name = name;
             }
 
-            public int getPrice() {
+            public float getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(float price) {
                 this.price = price;
             }
 

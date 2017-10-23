@@ -46,6 +46,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
     @BindView(R.id.tv_confirm_pay)
     TextView tvConfirmPay;
     private static  final int ORDERTYPE=19;
+    private BottomRechargeDialog dialog;
 
     @Override
     public RechargeAmountPresenter createPresenter() {
@@ -89,7 +90,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
             ToastUtil.showToast(this,"请输入充值金额");
             return ;
         }
-        BottomRechargeDialog dialog=new BottomRechargeDialog(this,R.style.dialog_style);
+        dialog = new BottomRechargeDialog(this, R.style.dialog_style);
         dialog.setAmount(amount);
         dialog.show();
         dialog.setListener(new BottomRechargeDialog.OnConfirmClickListener() {
@@ -118,6 +119,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
                 getPresenter().weiXinPay(orderid+"", ordercode, ordertype+"", 2);
                 break;
         }
+        dialog.dismiss();
     }
     //支付宝支付成功
     @Subscribe(threadMode = ThreadMode.MAIN)
