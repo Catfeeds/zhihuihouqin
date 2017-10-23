@@ -13,6 +13,7 @@ import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.login.bean.RegistBean;
 import com.moe.wl.ui.login.model.RegistStep2Model;
 import com.moe.wl.ui.login.modelimpl.RegistStep2ModelImpl;
@@ -120,7 +121,7 @@ public class RegistStepTwoActivity extends BaseActivity<RegistStep2Model, Regist
             // TODO 注册
             getPresenter().getData(mMobile, mCptcha, pwd1);
         }else if (from == Constants.BIND){
-            getPresenter().bindPhone(thirdType, mMobile,thirdNum,"1",pwd1, mCptcha);
+            getPresenter().bindPhone(thirdType, mMobile,thirdNum,"0",pwd1, mCptcha);
         }
     }
 
@@ -194,7 +195,7 @@ public class RegistStepTwoActivity extends BaseActivity<RegistStep2Model, Regist
     }
 
     @Override
-    public void bindSuccess(RegistBean registBean) {
+    public void bindSuccess(BindPhoneBean registBean) {
         getPresenter().getData(mMobile, mCptcha, pwd1);
     }
 

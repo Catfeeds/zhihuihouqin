@@ -1,6 +1,8 @@
 package com.moe.wl.ui.login.view;
 
+import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.login.bean.RegistBean;
+
 import mvp.cn.common.MvpView;
 
 /**
@@ -14,5 +16,5 @@ public interface RegistStep2View extends MvpView{
 
     void changePassWord(RegistBean registBean);
 
-    void bindSuccess(RegistBean registBean);
+    void bindSuccess(BindPhoneBean registBean);
 }
