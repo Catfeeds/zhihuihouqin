@@ -37,7 +37,7 @@ import rx.Subscriber;
 /**
  * 活动报名
  */
-public class ActivityRegistrationActivity extends BaseActivity<BannerModel,BannerView,BannerPresenter> implements BannerView {
+public class ActivityRegistrationActivity extends BaseActivity<BannerModel, BannerView, BannerPresenter> implements BannerView {
 
     @BindView(R.id.activity_title)
     TitleBar activityTitle;
@@ -51,9 +51,9 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel,Banne
     TextView tvActivityPosted;
     private CustomerDialog progressDialog;
     private HomeNsrlv3Adapter homeNsrlv3Adapter;
-    private boolean isRefresh=false;
+    private boolean isRefresh = false;
     private int page;
-    List<ActivityHomeBean.ActivitylistBean> listAll=new ArrayList<>();
+    List<ActivityHomeBean.ActivitylistBean> listAll = new ArrayList<>();
 
     @Override
     public void setContentLayout() {
@@ -64,7 +64,7 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel,Banne
     @Override
     public void initView() {
         getPresenter().getBanner(5);
-        getData(1,10);
+        getData(1, 10);
         initTitle();
         initRecycler();
     }
@@ -77,18 +77,18 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel,Banne
         rvActivity.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                isRefresh=true;
+                isRefresh = true;
                 page = 1;
-                getData(page,10);
+                getData(page, 10);
                 rvActivity.refreshComplete();
 
             }
 
             @Override
             public void onLoadMore() {
-                isRefresh=false;
-                page ++;
-                getData(page,10);
+                isRefresh = false;
+                page++;
+                getData(page, 10);
                 rvActivity.loadMoreComplete();
             }
         });
@@ -105,8 +105,8 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel,Banne
         startActivity(intent);
     }
 
-    public void getData(int page,int limit) {
-        Observable observer = RetrofitUtils.getInstance().getActivityHome(page,limit);
+    public void getData(int page, int limit) {
+        Observable observer = RetrofitUtils.getInstance().getActivityHome(page, limit);
         showProgressDialog();
         observer.subscribe(new Subscriber<ActivityHomeBean>() {
             @Override
@@ -116,23 +116,23 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel,Banne
 
             @Override
             public void onError(Throwable e) {
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(ActivityHomeBean homeBean) {
-                if(homeBean.getErrCode()==0){
+                if (homeBean.getErrCode() == 0) {
                     getDataSucc(homeBean);
-                }else{
-                    Log.e("ActivityHomeBean",homeBean.getMsg());
+                } else {
+                    Log.e("ActivityHomeBean", homeBean.getMsg());
                 }
             }
         });
     }
 
     private void getDataSucc(ActivityHomeBean homeBean) {
-        if(homeBean!=null){
-            if(isRefresh==true) {
+        if (homeBean != null) {
+            if (isRefresh == true) {
                 listAll.clear();
             }
             listAll.addAll(homeBean.getActivitylist());
@@ -142,8 +142,8 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel,Banne
 
     @Override
     public void setData(BannerResponse.ServiceInfoBean bean) {
-        if (bean!= null && !TextUtils.isEmpty(bean.getTopphoto())) {
-            String[] strings=bean.getTopphoto().split(",");
+        if (bean != null && !TextUtils.isEmpty(bean.getTopphoto())) {
+            String[] strings = bean.getTopphoto().split(",");
             HashMap<String, String> map = new HashMap<>();
             for (int i = 0; i < strings.length; i++) {
                 map.put("", strings[i]);

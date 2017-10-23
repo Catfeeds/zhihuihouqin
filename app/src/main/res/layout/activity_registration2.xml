@@ -23,23 +23,28 @@
         android:id="@+id/slider_layout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@mipmap/ic_default_rectangle"/>
+        android:background="@mipmap/ic_default_rectangle" />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter"/>
+        android:background="@color/gray_lighter" />
+
     <TextView
         android:id="@+id/tv_activity_posted"
-        style="@style/tvStyle_blue_bigger"
         android:layout_width="match_parent"
-        android:background="@color/font_blue"
-        android:layout_height="@dimen/bottom_height"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:text="活动发布"
         android:textColor="@color/white"
-        android:text="活动发布" />
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>

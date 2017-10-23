@@ -12,6 +12,6 @@ import rx.Observable;
 
 public interface ConfirmVegetableOrderModel extends MvpModel {
 
-    Observable submitVegetableOrder(HashMap<String, String> map);
+    Observable submitVegetableOrder(HashMap<String, Object> map);
 
 }

@@ -60,6 +60,7 @@ public class ReserveInfoActivity extends AppCompatActivity {
         intent.putExtra("PhoneNumber", tvUserPhone.getText().toString().trim());
         intent.putExtra("Data", getIntent().getSerializableExtra("Data"));
         intent.putExtra("TimeID", getIntent().getIntExtra("TimeID", 0));
+        intent.putExtra("Time", getIntent().getStringExtra("Time"));
         startActivity(intent);
     }
 }

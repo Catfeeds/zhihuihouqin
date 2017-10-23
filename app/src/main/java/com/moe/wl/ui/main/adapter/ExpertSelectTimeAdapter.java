@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.ui.main.bean.ExpertDetailBean;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -78,14 +79,14 @@ public class ExpertSelectTimeAdapter extends BaseAdapter {
                     }
                     mPosition = position;
                     notifyDataSetChanged();
-                    listener.onClick(data.get(position).getId());
+                    listener.onClick(data.get(position).getId(), data.get(position).getStarttime()/* + "-" + data.get(position).getEndtime()*/);
                 }
             });
         }
 
         void setData(int position) {
             this.position = position;
-            text.setText(data.get(position).getStarttime() + "-" + data.get(position).getEndtime());
+            text.setText(data.get(position).getStarttime() /*+ "-" + data.get(position).getEndtime()*/);
             if (data.get(position).getStatus() == 0) {
                 if (mPosition == position) {
                     text.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_blue_fill));
@@ -102,6 +103,6 @@ public class ExpertSelectTimeAdapter extends BaseAdapter {
     }
 
     public interface OnClickListener {
-        void onClick(int id);
+        void onClick(int id, String time);
     }
 }

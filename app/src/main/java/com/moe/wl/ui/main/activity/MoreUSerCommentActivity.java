@@ -7,13 +7,12 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.BarberMoreCommentrvAdapter;
-import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
-import com.moe.wl.ui.main.bean.BarberMoreCommentBean;
-import com.moe.wl.ui.main.model.BarberMoreCommentModel;
-import com.moe.wl.ui.main.modelimpl.BarberMoreCommentModelImpl;
-import com.moe.wl.ui.main.presenter.BarberMoreCommentPresenter;
-import com.moe.wl.ui.main.view.BarberMoreCommentView;
+import com.moe.wl.ui.main.adapter.ExpertsCommentAdapter;
+import com.moe.wl.ui.main.bean.ExpertsCommentBean;
+import com.moe.wl.ui.main.model.ExpertsCommentMoreModel;
+import com.moe.wl.ui.main.modelimpl.ExpertsCommentMoreModelImpl;
+import com.moe.wl.ui.main.presenter.ExpertsCommentMorePresenter;
+import com.moe.wl.ui.main.view.ExpertsCommentMoreView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +23,17 @@ import butterknife.ButterKnife;
 /**
  * 预约专家更多评论
  */
-public class MoreUSerCommentActivity extends BaseActivity<BarberMoreCommentModel, BarberMoreCommentView, BarberMoreCommentPresenter>
-        implements BarberMoreCommentView {
+public class MoreUSerCommentActivity extends BaseActivity<ExpertsCommentMoreModel, ExpertsCommentMoreView, ExpertsCommentMorePresenter>
+        implements ExpertsCommentMoreView {
 
     @BindView(R.id.more_user_comment_title)
     TitleBar titleBar;
     @BindView(R.id.rv_more_user_comment)
     XRecyclerView recyclerView;
-    private List<BarberMoreCommentBean.CommentlistBean> data;
+    private List<ExpertsCommentBean.CommentlistEntity> data;
     private int page = 1;
     private int id;
-    private BarberMoreCommentrvAdapter rvAdapter;
+    private ExpertsCommentAdapter rvAdapter;
 
     @Override
     public void setContentLayout() {
@@ -45,7 +44,7 @@ public class MoreUSerCommentActivity extends BaseActivity<BarberMoreCommentModel
     @Override
     public void initView() {
         id = getIntent().getIntExtra("id", -1);
-        getPresenter().getDat(id, page, 20);
+        getPresenter().getDat(id, page);
         initTitle();
         initRecycler();
     }
@@ -53,7 +52,7 @@ public class MoreUSerCommentActivity extends BaseActivity<BarberMoreCommentModel
     private void initRecycler() {
         data = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        rvAdapter = new BarberMoreCommentrvAdapter(this, data);
+        rvAdapter = new ExpertsCommentAdapter(this, data);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -61,13 +60,13 @@ public class MoreUSerCommentActivity extends BaseActivity<BarberMoreCommentModel
             @Override
             public void onRefresh() {
                 page = 1;
-                getPresenter().getDat(id, page, 20);
+                getPresenter().getDat(id, page);
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getPresenter().getDat(id, page, 20);
+                getPresenter().getDat(id, page);
             }
         });
     }
@@ -78,7 +77,7 @@ public class MoreUSerCommentActivity extends BaseActivity<BarberMoreCommentModel
     }
 
     @Override
-    public void getDataSucc(BarberMoreCommentBean bean) {
+    public void getDataSucc(ExpertsCommentBean bean) {
         if (bean.getCommentlist() == null)
             return;
         if (page == 1) {
@@ -87,18 +86,18 @@ public class MoreUSerCommentActivity extends BaseActivity<BarberMoreCommentModel
         } else {
             recyclerView.loadMoreComplete();
         }
-        List<BarberMoreCommentBean.CommentlistBean> commentlist = bean.getCommentlist();
+        List<ExpertsCommentBean.CommentlistEntity> commentlist = bean.getCommentlist();
         data.addAll(commentlist);
         rvAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public BarberMoreCommentModel createModel() {
-        return new BarberMoreCommentModelImpl();
+    public ExpertsCommentMoreModel createModel() {
+        return new ExpertsCommentMoreModelImpl();
     }
 
     @Override
-    public BarberMoreCommentPresenter createPresenter() {
-        return new BarberMoreCommentPresenter();
+    public ExpertsCommentMorePresenter createPresenter() {
+        return new ExpertsCommentMorePresenter();
     }
 }

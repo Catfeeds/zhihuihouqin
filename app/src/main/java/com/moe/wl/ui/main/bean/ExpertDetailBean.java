@@ -78,7 +78,7 @@ public class ExpertDetailBean implements Serializable {
         private String positionname;
         private String realname;
         private String remaincount;
-        private int score;
+        private double score;
         private String skilledinfo;
         private int valid;
         private String worktime;
@@ -147,11 +147,11 @@ public class ExpertDetailBean implements Serializable {
             this.realname = realname;
         }
 
-        public int getScore() {
+        public double getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(double score) {
             this.score = score;
         }
 

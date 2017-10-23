@@ -1,20 +1,16 @@
 package com.moe.wl.ui.main.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.BarberChatAdapter;
 import com.moe.wl.ui.main.adapter.DocConsultAdapter;
 import com.moe.wl.ui.main.bean.DexpertnoticeBean;
 import com.moe.wl.ui.main.bean.ExpertnoticelistBean;
@@ -41,7 +37,7 @@ public class DoctorConsultActivity extends BaseActivity<GetDocConsultListModel,G
     @BindView(R.id.et_message)
     EditText etMessage;
     @BindView(R.id.btn_send)
-    Button btnSend;
+    TextView btnSend;
     private int id;
     private DocConsultAdapter adapter;
 
@@ -80,7 +76,7 @@ public class DoctorConsultActivity extends BaseActivity<GetDocConsultListModel,G
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("在先咨询");
+        title.setTitle("在线咨询");
     }
 
     @OnClick(R.id.btn_send)

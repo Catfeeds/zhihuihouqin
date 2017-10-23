@@ -37,9 +37,6 @@ import mvp.cn.util.ToastUtil;
 
 public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, ExpertDetailView, ExpertDetailPresenter> implements ExpertDetailView {
 
-
-    @BindView(R.id.iv_doc_detail_consult)
-    Button ivDocDetailConsult; // 资讯
     @BindView(R.id.tv_now_order)
     Button tvNowOrder; // 立即预约
     @BindView(R.id.iv_doc_detail_back)
@@ -77,12 +74,13 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     private DoctorDetailrvAdapter adapter;
     private ExpertSelectTimeAdapter timeAdapter;
 
-    private int doctorID ;
+    private int doctorID;
 
     private ExpertDetailBean.ExpertEntity entity;
     private List<ExpertDetailBean.SchedulesEntity> timeData;
 
     private int timeID = 0;
+    private String time;
 
     @Override
     public void setContentLayout() {
@@ -95,8 +93,9 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         timeData = new ArrayList<>();
         timeAdapter = new ExpertSelectTimeAdapter(this, timeData, new ExpertSelectTimeAdapter.OnClickListener() {
             @Override
-            public void onClick(int id) {
+            public void onClick(int id, String timeString) {
                 timeID = id;
+                time = timeString;
             }
         });
         gridView.setAdapter(timeAdapter);
@@ -117,7 +116,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 break;
             case R.id.iv_doc_detail_consult: // 咨询
                 Intent intent1 = new Intent(this, DoctorConsultActivity.class);
-                intent1.putExtra("doctorid",doctorID );
+                intent1.putExtra("doctorid", doctorID);
                 startActivity(intent1);
                 break;
             case R.id.tv_now_order://
@@ -127,6 +126,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 }
                 Intent intent2 = new Intent(this, ReserveInfoActivity.class);
                 intent2.putExtra("TimeID", timeID);
+                intent2.putExtra("Time", time);
                 if (entity.getId() != 0) {
                     intent2.putExtra("Data", entity);
                 } else {

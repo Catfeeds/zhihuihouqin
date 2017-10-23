@@ -2,7 +2,6 @@ package com.moe.wl.ui.main.activity.ordering;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -36,7 +35,7 @@ public class AddAddressActivity extends BaseActivity<AddAddressModel, AddAddress
     @BindView(R.id.et_address)
     EditText et_address;
     @BindView(R.id.btn_add)
-    Button add;
+    TextView add;
     @BindView(R.id.delete)
     TextView delete;
 

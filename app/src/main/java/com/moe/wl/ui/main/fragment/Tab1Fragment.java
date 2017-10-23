@@ -15,14 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.framework.widget.SimpleImageBanner;
+import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.adapter.HomeAdapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv2Adapter;
@@ -44,13 +43,13 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import mvp.cn.util.LogUtil;
 
 /**
  * Created by hh on 2016/5/18.
@@ -64,9 +63,10 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     ImageView ivSearch;*/
     /*@BindView(R.id.h_banner_viewPager)
     SimpleImageBanner hBannerViewPager;*/
-    @BindView(R.id.slider_layout)
-    SliderLayout sliderLayout;
-
+//    @BindView(R.id.slider_layout)
+//    SliderLayout sliderLayout;
+    @BindView(R.id.h_banner_viewPager)
+    SimpleImageBanner sib;
     @BindView(R.id.gridView_catogary)
     NoSlidingGridView gridViewCatogary;
     @BindView(R.id.pullToRefreshScrollView)
@@ -108,7 +108,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
-        sysColor=R.color.white;
+        sysColor = R.color.white;
         setContentView(R.layout.f_tab_1);
     }
 
@@ -116,6 +116,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void onResume() {
         super.onResume();
         StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
+        sib.computeScroll();
     }
 
     @Override
@@ -165,19 +166,19 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
         getPresenter().getHomePageData();
     }
 
-    // 轮播图数据
-    private void initSliderLayout(HashMap<String, String> map) {
-        LogUtils.d("map的长度：" + map.size());
-        sliderLayout.setSystemUiVisibility(View.GONE);
-        sliderLayout.removeAllSliders();
-        for (String desc : map.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .description(desc)
-                    .image(map.get(desc));
-            sliderLayout.addSlider(textSliderView);
-        }
-    }
+//    // 轮播图数据
+//    private void initSliderLayout(HashMap<String, String> map) {
+//        LogUtils.d("map的长度：" + map.size());
+//        sliderLayout.setSystemUiVisibility(View.GONE);
+//        sliderLayout.removeAllSliders();
+//        for (String desc : map.keySet()) {
+//            TextSliderView textSliderView = new TextSliderView(getActivity());
+//            textSliderView
+//                    .description(desc)
+//                    .image(map.get(desc));
+//            sliderLayout.addSlider(textSliderView);
+//        }
+//    }
 
     private void setRefresh() {
         //设置 Header 为 Material风格
@@ -205,15 +206,27 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void getHomePageSucc(HomePageBean bean) {
         if (bean.getCarouselList() != null) {
             // TODO 轮播图数据
-            HashMap<String, String> map = new HashMap<>();
+//            HashMap<String, String> map = new HashMap<>();
+//            for (int i = 0; i < bean.getCarouselList().size(); i++) {
+//                String content = "";
+//                for (int j = 0; j < i; j++) {
+//                    content = content + " ";
+//                }
+//                if (bean.getCarouselList().get(i).getImgs() != null && !"".equals(bean.getCarouselList().get(i).getImgs())) {
+//                    map.put(content, bean.getCarouselList().get(i).getImgs());
+//                }
+//            }
+            ArrayList<BannerItem> list = new ArrayList<>();
             for (int i = 0; i < bean.getCarouselList().size(); i++) {
-                String content = "";
-                for (int j = 0; j < i; j++) {
-                    content = content + " ";
-                }
-                map.put(content, bean.getCarouselList().get(i).getImgs());
+                BannerItem item = new BannerItem();
+                item.imgUrl = bean.getCarouselList().get(i).getImgs();
+                LogUtil.log(item.imgUrl);
+                list.add(item);
             }
-            initSliderLayout(map);
+            sib
+                    .setSource(list)
+                    .startScroll();
+//            initSliderLayout(map);
         }
         if (bean.getServiceList() != null) {
             // TODO 填充服务数据
@@ -240,6 +253,12 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
             activeData.addAll(bean.getActivityList());
             adapter3.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sib.pauseScroll();
     }
 
     @OnClick({R.id.iv_two_dimension_code, R.id.iv_search})

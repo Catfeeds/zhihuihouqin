@@ -109,9 +109,9 @@ public class AddressAdapter extends BaseAdapter {
         void setData(int position) {
             mPosition = position;
             if (selectPosition == position) {
-                checkBox.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.selected));
+                checkBox.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.select));
             } else {
-                checkBox.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.unselected));
+                checkBox.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.unselect));
             }
         }
 

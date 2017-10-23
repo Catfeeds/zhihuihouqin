@@ -50,6 +50,8 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
     TextView tvHospital;
     @BindView(R.id.tv_tishi)
     TextView tvTishi;
+    @BindView(R.id.time)
+    TextView time;
 
     private ExpertDetailBean.ExpertEntity entity;
 
@@ -78,6 +80,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
         } else {
             tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
         }
+        time.setText(getIntent().getStringExtra("Time"));
         tvUserPhone.setText(getIntent().getStringExtra("PhoneNumber"));
         tvDoctorName.setText(entity.getRealname());
         tvDoctorPosition.setText(entity.getPositionname());

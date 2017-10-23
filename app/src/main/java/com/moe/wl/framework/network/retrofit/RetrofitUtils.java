@@ -2208,11 +2208,11 @@ carcode	是	string	车牌号*/
     /**
      * 提交净菜订单
      */
-    public static Observable submitVegetableOrder(HashMap<String, String> tempMap) {
+    public static Observable submitVegetableOrder(HashMap<String, Object> tempMap) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             tempMap.put("limit", 20 + "");
-            addParam(paramsMap, tempMap);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -2476,7 +2476,7 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("type", type);
+            tempMap.put("orderStatus", type);
             tempMap.put("page", page);
             tempMap.put("limit", 20);
             addParams(paramsMap, tempMap);
@@ -2671,7 +2671,7 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderid", orderid);
+            tempMap.put("oid", orderid);
             addParams(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();

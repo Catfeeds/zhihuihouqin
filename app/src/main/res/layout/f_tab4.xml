@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/font_blue"/>
+                android:background="@color/font_blue" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -39,9 +39,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/bg_white">
+                    android:background="@drawable/bg_white"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_name"
@@ -49,9 +49,9 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/civ_header"
                         android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="50dp"
                         android:text="昵称"
-                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_bigger" />
 
@@ -59,20 +59,20 @@
                         android:id="@+id/tv_auth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="未完成认证"
-                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/tv_gray"
                         android:textSize="@dimen/sp_big" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/divider"/>
+                        android:background="@color/divider" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -184,6 +184,7 @@
                     android:id="@+id/iv_img1"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/order_service" />
 
                 <TextView
@@ -218,11 +219,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -250,7 +251,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
                                 android:layout_toRightOf="@+id/iv_child_img1"
-                                android:text="我的报修"
+                                android:text="报修订单"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -333,11 +334,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -448,11 +449,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -480,7 +481,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
                                 android:layout_toRightOf="@+id/iv_child_img3"
-                                android:text="我的订餐"
+                                android:text="工作餐"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -551,11 +552,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -666,11 +667,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -781,11 +782,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -855,7 +857,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="已接单"
+                                android:text="服务中"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -865,7 +867,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="服务中"
+                                android:text="已完成"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -875,7 +877,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="已完成"
+                                android:text="待评价"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -885,7 +887,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="待评价"
+                                android:text="已取消"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
@@ -896,11 +898,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1011,126 +1013,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:id="@+id/rl_turn8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/iv_child_img8"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginBottom="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginTop="8dp"
-                                android:src="@drawable/order_dry_clear" />
-
-                            <TextView
-                                android:id="@+id/tv_child_name8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="8dp"
-                                android:layout_toRightOf="@+id/iv_child_img8"
-                                android:text="洗衣店"
-                                android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
-
-                            <ImageView
-                                android:id="@+id/iv_child8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:src="@drawable/turn_right" />
-                        </RelativeLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/gray_lighter" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingBottom="12dp"
-                            android:paddingTop="12dp">
-
-                            <TextView
-                                android:id="@+id/tv_yuyue8"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="已预约"
-                                android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
-
-                            <TextView
-                                android:id="@+id/tv_service8"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="服务中"
-                                android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
-
-                            <TextView
-                                android:id="@+id/tv_finish8"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="已完成"
-                                android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
-
-                            <TextView
-                                android:id="@+id/tv_pingjia8"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="已评价"
-                                android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
-
-                            <TextView
-                                android:id="@+id/tv_cancle8"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="已取消"
-                                android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1158,7 +1045,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
                                 android:layout_toRightOf="@+id/iv_child_img9"
-                                android:text="图书订单"
+                                android:text="图书借阅"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -1241,11 +1128,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1253,31 +1140,32 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:id="@+id/rl_vegetable"
+                            android:id="@+id/rl_turn8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:id="@+id/image_vegetable"
+                                android:id="@+id/iv_child_img8"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="8dp"
-                                android:src="@drawable/order_vegetable" />
+                                android:src="@drawable/order_dry_clear" />
 
                             <TextView
-                                android:id="@+id/tv_vegetable_title"
+                                android:id="@+id/tv_child_name8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
-                                android:layout_toRightOf="@id/image_vegetable"
-                                android:text="净菜订单"
+                                android:layout_toRightOf="@+id/iv_child_img8"
+                                android:text="干洗店"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
                             <ImageView
+                                android:id="@+id/iv_child8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -1299,37 +1187,37 @@
                             android:paddingTop="12dp">
 
                             <TextView
-                                android:id="@+id/tv_vegetable_one"
+                                android:id="@+id/tv_yuyue8"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="已预定"
+                                android:text="已下单"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
                             <TextView
-                                android:id="@+id/tv_vegetable_two"
+                                android:id="@+id/tv_service8"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="已借阅"
+                                android:text="服务中"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
                             <TextView
-                                android:id="@+id/tv_vegetable_three"
+                                android:id="@+id/tv_finish8"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="已归还"
+                                android:text="已完成"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
                             <TextView
-                                android:id="@+id/tv_vegetable_four"
+                                android:id="@+id/tv_pingjia8"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -1339,7 +1227,7 @@
                                 android:textSize="@dimen/sp_small" />
 
                             <TextView
-                                android:id="@+id/tv_vegetable_five"
+                                android:id="@+id/tv_cancle8"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -1355,11 +1243,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@color/white">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1387,7 +1275,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
                                 android:layout_toRightOf="@+id/iv_child_img"
-                                android:text="会议室订单"
+                                android:text="会议室"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 
@@ -1463,16 +1351,131 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_vegetable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/image_vegetable"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/order_vegetable" />
+
+                            <TextView
+                                android:id="@+id/tv_vegetable_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="8dp"
+                                android:layout_toRightOf="@id/image_vegetable"
+                                android:text="净菜预订"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/turn_right" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray_lighter" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingTop="12dp">
+
+                            <TextView
+                                android:id="@+id/tv_vegetable_one"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已下单"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <TextView
+                                android:id="@+id/tv_vegetable_two"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已完成"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <TextView
+                                android:id="@+id/tv_vegetable_three"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="待评价"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+
+                            <TextView
+                                android:id="@+id/tv_vegetable_four"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="待评价"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/tv_vegetable_five"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="已取消"
+                                android:textColor="@color/tv_black"
+                                android:textSize="@dimen/sp_small" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_laifang_person"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:id="@+id/iv_img2"
@@ -1504,8 +1507,8 @@
                 android:id="@+id/rl_setting"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">

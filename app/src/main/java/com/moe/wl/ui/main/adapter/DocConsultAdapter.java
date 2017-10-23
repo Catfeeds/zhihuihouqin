@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.ExpertnoticelistBean;
 
 import java.util.ArrayList;
@@ -36,11 +37,11 @@ public class DocConsultAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = null;
-        if (viewType == 1) {//用户
-            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chat_item_send, parent, false);
-        } else if (viewType == 2) {//商户
+        LogUtils.d("viewType : " + viewType);
+        if (viewType == 1) { //商户
             itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chat_item, parent, false);
-
+        } else if (viewType == 2) { //用户
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chat_item_send, parent, false);
         }
         return new ViewHolder(itemView);
     }
@@ -48,7 +49,7 @@ public class DocConsultAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        if (data != null && data.size() > 0) {
+        if (data.size() > 0) {
             ExpertnoticelistBean.NoticelistBean noticelistBean = data.get(position);
             String content = noticelistBean.getContent();
             String createtime = noticelistBean.getCreatetime();
@@ -68,20 +69,21 @@ public class DocConsultAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(data!=null&&data.size()>0){
+        if (data != null && data.size() > 0) {
             ExpertnoticelistBean.NoticelistBean noticelistBean = data.get(position);
             int gettype = noticelistBean.getGettype();
             return gettype;
-        }else{
+        } else {
             return super.getItemViewType(position);
         }
     }
+
     public void setData(List<ExpertnoticelistBean.NoticelistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.tv_message)

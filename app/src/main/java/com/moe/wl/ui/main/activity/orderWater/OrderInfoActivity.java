@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.orderWater;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -21,16 +19,11 @@ import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
-import com.moe.wl.ui.main.bean.SelectTimeBean;
 import com.moe.wl.ui.main.model.OrderInfoModel;
 import com.moe.wl.ui.main.modelimpl.OrderInfoModelImpl;
 import com.moe.wl.ui.main.presenter.OrderInfoPresenter;
 import com.moe.wl.ui.main.view.OrderInfoView;
 import com.moe.wl.ui.mywidget.OrderWaterSelectTimePop;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +35,6 @@ import butterknife.OnClick;
 
 
 public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoView, OrderInfoPresenter> implements OrderInfoView {
-
 
     private static final int REQUEST_ADDRESS = 1001;
     @BindView(R.id.all_sp_comment_title)
@@ -76,7 +68,6 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
     private Object[] arr;
     private String mTime;
 
-
     @Override
     public OrderInfoPresenter createPresenter() {
         return new OrderInfoPresenter();
@@ -106,16 +97,21 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
             QueryWaterListBean.PageBean.ListBean listBean = list.get(i);
             int id = listBean.getId();
             int count = listBean.getCount();
-            Map<String ,Integer> map=new HashMap<>();
-            map.put("goodsid",id);
-            map.put("count",count);
-            arr[i]=map;
+            Map<String, Integer> map = new HashMap<>();
+            map.put("goodsid", id);
+            map.put("count", count);
+            arr[i] = map;
         }
 
-        realName = SharedPrefHelper.getInstance().getRealName();
+        if ("".equals(SharedPrefHelper.getInstance().getRealName()) || SharedPrefHelper.getInstance().getRealName() == null) {
+            realName = SharedPrefHelper.getInstance().getNickname();
+        } else {
+            realName = SharedPrefHelper.getInstance().getRealName();
+        }
         phone = SharedPrefHelper.getInstance().getPhoneNumber();
         userName.setText(realName);
         phoneNumber.setText(phone);
+        phoneNumber.setSelection(phone.length());
         initTitle();
     }
 
@@ -137,16 +133,16 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
             case R.id.confirm:
                 String time = tvTime.getText().toString().trim();
                 String remark = etRemark.getText().toString().trim();
-                if(TextUtils.isEmpty(address)){
+                if (TextUtils.isEmpty(address)) {
                     showToast("请选择送货地址");
-                    return ;
+                    return;
                 }
-                if(TextUtils.isEmpty(time)){
+                if (TextUtils.isEmpty(time)) {
                     showToast("请选择期望送水的时间");
                     return;
                 }
                 //生成订单
-                getPresenter().generateOrder(realName,phone,id,time,arr,remark);
+                getPresenter().generateOrder(realName, phone, id, time, arr, remark);
                 break;
         }
     }
@@ -157,7 +153,7 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
             @Override
             public void onClick(int id, String time, boolean isAm) {
                 timeId = id;
-                mTime=time;
+                mTime = time;
                 tvTime.setText(time);
             }
         });
@@ -167,19 +163,19 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
     @Override
     public void generateOrderSucc(GenerateOrderWaterBean bean) {
         //生成订单成功
-        if(bean!=null){
-            Intent intent=new Intent(this,ConfirmOrderActivity.class);
+        if (bean != null) {
+            Intent intent = new Intent(this, ConfirmOrderActivity.class);
             String ordercode = bean.getOrdercode();
-            String ordertype = bean.getOrdertype()+"";
-            intent.putExtra("ordercode",ordercode);
-            intent.putExtra("ordertype",ordertype);
-            intent.putExtra("json",json);
-            intent.putExtra("address",address);
+            String ordertype = bean.getOrdertype() + "";
+            intent.putExtra("ordercode", ordercode);
+            intent.putExtra("ordertype", ordertype);
+            intent.putExtra("json", json);
+            intent.putExtra("address", address);
             String phone = phoneNumber.getText().toString().trim();
-            intent.putExtra("phone",phone);
-            intent.putExtra("time",mTime);
+            intent.putExtra("phone", phone);
+            intent.putExtra("time", mTime);
             startActivity(intent);
-        }else{
+        } else {
             LogUtils.i("返回的bean为null");
         }
     }

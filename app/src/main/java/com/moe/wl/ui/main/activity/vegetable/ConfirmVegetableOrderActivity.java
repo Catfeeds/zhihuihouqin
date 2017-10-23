@@ -19,10 +19,6 @@ import com.moe.wl.ui.main.modelimpl.ConfirmVegetableOrderModelImpl;
 import com.moe.wl.ui.main.presenter.ConfirmVegetableOrderPresenter;
 import com.moe.wl.ui.main.view.ConfirmVegetableOrderView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +66,11 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         titleBar.setTitle("确认订单");
         titleBar.setBack(true);
         timeID = getIntent().getIntExtra("TimeID", 0);
-        userName.setText(SharedPrefHelper.getInstance().getRealName());
+        if (SharedPrefHelper.getInstance().getRealName() == null || "".equals(SharedPrefHelper.getInstance().getRealName())) {
+            userName.setText(SharedPrefHelper.getInstance().getNickname());
+        } else {
+            userName.setText(SharedPrefHelper.getInstance().getRealName());
+        }
         tvTime.setText(getIntent().getStringExtra("Time"));
         phoneNumber.setText(getIntent().getStringExtra("PhoneNumber"));
         list = new ArrayList<>();
@@ -111,21 +111,15 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
 
     // 结算方法
     private void confirm() {
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("realname", SharedPrefHelper.getInstance().getRealName());
         map.put("mobile", SharedPrefHelper.getInstance().getPhoneNumber());
-        map.put("getfoodtimeID", timeID + "");
-        JSONArray array = new JSONArray();
-        try {
-            for (int i = 0; i < list.size(); i++) {
-                JSONObject json = new JSONObject();
-                json.put("foodid", list.get(i).getId());
-                json.put("count", list.get(i).getNumber());
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        map.put("getfoodtimeID", timeID);
+        VegetableBean.PageEntity.ListEntity[] listFood = new VegetableBean.PageEntity.ListEntity[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            listFood[i] = list.get(i);
         }
-        map.put("foodList", array.toString());
+        map.put("foodList", listFood);
         getPresenter().ConfirmVegetableOrder(map);
     }
 

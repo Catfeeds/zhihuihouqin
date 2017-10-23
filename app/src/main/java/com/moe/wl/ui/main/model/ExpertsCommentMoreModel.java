@@ -8,8 +8,8 @@ import rx.Observable;
  * 作者：Shixhe On 2017/9/4 0004
  */
 
-public interface BarberMoreCommentModel extends MvpModel {
+public interface ExpertsCommentMoreModel extends MvpModel {
 
-    Observable getData(int id, int page, int limit);
+    Observable getData(int doctorid, int page);
 
 }

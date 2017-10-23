@@ -6,10 +6,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_user_photo"
-        android:src="@drawable/logo"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="12dp" />
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_margin="12dp"
+        android:src="@mipmap/ic_default_square" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,10 +41,10 @@
 
         <RatingBar
             android:id="@+id/user_ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            style="?android:attr/ratingBarStyleSmall"
             android:progressBackgroundTint="@color/gray"
             android:progressTint="@color/yellow"
             android:secondaryProgressTint="@color/gray"

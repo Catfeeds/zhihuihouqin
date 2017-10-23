@@ -14,7 +14,7 @@ import rx.Observable;
 public class ConfirmVegetableOrderModelImpl implements ConfirmVegetableOrderModel {
 
     @Override
-    public Observable submitVegetableOrder(HashMap<String, String> map) {
+    public Observable submitVegetableOrder(HashMap<String, Object> map) {
         Observable observer = RetrofitUtils.getInstance().submitVegetableOrder(map);
         return observer ;
     }

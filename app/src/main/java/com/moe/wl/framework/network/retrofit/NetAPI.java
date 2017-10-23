@@ -139,7 +139,7 @@ public interface NetAPI {
     // 获得专家评论列表
     @FormUrlEncoded
     @POST(NetUrl.expertComment)
-    Observable<ExpertCommentBean> getExpertComment(@FieldMap Map<String, Object> map);
+    Observable<ExpertsCommentBean> getExpertComment(@FieldMap Map<String, Object> map);
 
     // 专家下单
     @FormUrlEncoded

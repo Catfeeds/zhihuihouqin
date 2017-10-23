@@ -19,7 +19,7 @@ import rx.Subscriber;
 
 public class ConfirmVegetableOrderPresenter extends MvpRxPresenter<ConfirmVegetableOrderModel, ConfirmVegetableOrderView> {
 
-    public void ConfirmVegetableOrder(HashMap<String, String> map) {
+    public void ConfirmVegetableOrder(HashMap<String, Object> map) {
         getView().showProgressDialog();
         Log.e("BookDetailPresenter", "发出请求");
         Observable request = getModel().submitVegetableOrder(map);

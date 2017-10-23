@@ -133,10 +133,10 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     public void collectSucc(CollectBean collectBean) {
         if (collectBean.getStatus() == 0) {
             showToast("取消收藏");
-            ivCollect.setImageResource(R.drawable.collected);
+            ivCollect.setImageResource(R.drawable.collect);
         } else {
             showToast("收藏成功");
-            ivCollect.setImageResource(R.drawable.collect);
+            ivCollect.setImageResource(R.drawable.collected);
         }
     }
 

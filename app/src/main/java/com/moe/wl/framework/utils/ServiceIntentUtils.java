@@ -5,7 +5,7 @@ import com.moe.wl.ui.home.activity.office.OfficeListActivity;
 import com.moe.wl.ui.home.activity.saving.SavingActivity;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityRegistrationActivity;
 import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
-import com.moe.wl.ui.main.activity.HealthServerceActivity;
+import com.moe.wl.ui.main.activity.ExpertsVisitActivity;
 import com.moe.wl.ui.main.activity.Library.LibraryActivity;
 import com.moe.wl.ui.main.activity.MealsRecharge.MealsRechargeActivity;
 import com.moe.wl.ui.main.activity.MoreActivity;
@@ -97,7 +97,7 @@ public class ServiceIntentUtils {
 
             case 10: //10	订水服务
 
-               return orderWaterServiceActivity.class;
+                return orderWaterServiceActivity.class;
             case 11: //11	托管班
 
                 break;
@@ -210,11 +210,11 @@ public class ServiceIntentUtils {
 
                 break;
             case 48: //48	医疗服务
-                return HealthServerceActivity.class;
-
-            case 49: //49	专家坐诊
-
+//                return HealthServerceActivity.class;
                 break;
+            case 49: //49	专家坐诊
+                return ExpertsVisitActivity.class;
+
             case 50: //50	计生管理
 
                 break;

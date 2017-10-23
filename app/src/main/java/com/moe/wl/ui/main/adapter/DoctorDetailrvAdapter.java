@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 
 import java.util.ArrayList;
@@ -17,10 +18,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-
-import com.moe.wl.framework.utils.OtherUtils;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -54,6 +51,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doc_detail_rv_item, parent, false);
         return new ViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
@@ -91,10 +89,10 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         }
 
         public void setData(CommentlistBean commentlistBean) {
-            Glide.with(context).load(commentlistBean.getImgs()).into(civUserPhoto);
+            GlideLoading.getInstance().loadImgUrlHeader(context, commentlistBean.getImgs(), civUserPhoto, R.mipmap.ic_default_square);
             tvUserName.setText(commentlistBean.getRealname());
             userRatingBar.setRating((float) commentlistBean.getScore());
-            OtherUtils.ratingBarColor(userRatingBar,context);
+            OtherUtils.ratingBarColor(userRatingBar, context);
             tvTime.setText(commentlistBean.getCreatetime());
             tvEvaluate.setText(commentlistBean.getContent());
         }

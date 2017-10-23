@@ -28,7 +28,7 @@ import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.LogUtil;
 
-public class DryCleanersActivity extends BaseActivity<BannerModel,BannerView,BannerPresenter> implements BannerView {
+public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, BannerPresenter> implements BannerView {
 
 
     @BindView(R.id.dry_cleaners_title)
@@ -54,7 +54,6 @@ public class DryCleanersActivity extends BaseActivity<BannerModel,BannerView,Ban
     @BindView(R.id.ll_call)
     LinearLayout llCall;
 
-
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_dry_cleaners);
@@ -72,11 +71,11 @@ public class DryCleanersActivity extends BaseActivity<BannerModel,BannerView,Ban
             @Override
             public void onClick(View v) {
                 new AlertDialog(DryCleanersActivity.this).builder()
-                        .setMsg("拨打服务热线:  "+mobile)
+                        .setMsg("拨打服务热线:  " + mobile)
                         .setPositiveButton("是", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                CallPhoneUtils.callPhone(mobile,DryCleanersActivity.this);
+                                CallPhoneUtils.callPhone(mobile, DryCleanersActivity.this);
                             }
                         })
                         .setNegativeButton("否", new View.OnClickListener() {
@@ -118,17 +117,15 @@ public class DryCleanersActivity extends BaseActivity<BannerModel,BannerView,Ban
     @Override
     public void onResume() {
         super.onResume();
-
         sib.computeScroll();
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
         sib.pauseScroll();
-
     }
+
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("店铺");
@@ -155,11 +152,11 @@ public class DryCleanersActivity extends BaseActivity<BannerModel,BannerView,Ban
         String place = bean.getPlace();//地址
         String businesshour = bean.getBusinesshour();//shijian
         String mobile = bean.getMobile();//电话
-        Log.e("打印备案:",bean+"");
+        Log.e("打印备案:", bean + "");
         initBanner(topPhotos);
         shopName.setText(name);
         GlideLoading.getInstance().loadImgUrlNyImgLoader(DryCleanersActivity.this,
-                smallimg,ivCutHearLogo);
+                smallimg, ivCutHearLogo);
         tvAddress.setText(place);
         tvWorkTime.setText(businesshour);
         tvPhone.setText(mobile);

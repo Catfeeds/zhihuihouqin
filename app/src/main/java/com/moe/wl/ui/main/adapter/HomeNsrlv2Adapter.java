@@ -42,14 +42,19 @@ public class HomeNsrlv2Adapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        if (!TextUtils.isEmpty(data.get(position).getUsername())){
-            holder.tvContentDes.setText(data.get(position).getUsername());
-        }else{
+        if (!TextUtils.isEmpty(data.get(position).getMendcontent())) {
+            holder.tvContentDes.setText(data.get(position).getMendcontent());
+        } else {
             holder.tvContentDes.setText("暂无名称");
         }
         holder.tvSecondrvTime.setText(data.get(position).getCreatetime());
         holder.tvRoomNum.setText(data.get(position).getServiceplace());
-        holder.tvName.setText(data.get(position).getMendername());
+//        holder.tvName.setText(data.get(position).getMendername());
+        if (!TextUtils.isEmpty(data.get(position).getMendername())) {
+            holder.tvName.setText(data.get(position).getMendername());
+        } else {
+            holder.tvName.setText("暂无名称");
+        }
         switch (data.get(position).getOrderstatus()) {
             case 1:
                 holder.tvDaili.setText("【待接单】");

@@ -2,16 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/bg_page">
 
-    <Button
+    <TextView
         android:id="@+id/btn_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/blue"
+        android:gravity="center"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         android:text="保存地址"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_big" />
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -43,13 +47,14 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/rl_top"
-        android:background="@color/gray" />
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
@@ -84,13 +89,14 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/ll1"
-        android:background="@color/gray" />
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:id="@+id/ll2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view1"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
@@ -125,13 +131,14 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/ll2"
-        android:background="@color/gray" />
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:id="@+id/ll3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view2"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
@@ -165,6 +172,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_below="@id/ll3"
-        android:background="@color/gray" />
+        android:background="@color/gray_line" />
 
 </RelativeLayout>
