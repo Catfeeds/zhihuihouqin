@@ -2,11 +2,9 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.UserWalletBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.MyPurseModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.MyPurseView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -37,11 +35,17 @@ public class MyPursePresenter extends MvpRxPresenter<MyPurseModel, MyPurseView> 
             }
 
             @Override
-            public void onNext(UserWalletBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getInfoSucc(bean);
+            public void onNext(UserWalletBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getInfoSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

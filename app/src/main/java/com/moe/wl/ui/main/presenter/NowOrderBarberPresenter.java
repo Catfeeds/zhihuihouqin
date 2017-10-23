@@ -2,14 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.CreateorderBean;
 import com.moe.wl.ui.main.bean.Itemid;
 import com.moe.wl.ui.main.bean.Order;
 import com.moe.wl.ui.main.bean.PreOrderBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.NowOrderBarberModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.PreOrderBarberView;
 
 import java.util.List;
@@ -42,11 +40,17 @@ public class NowOrderBarberPresenter extends MvpRxPresenter<NowOrderBarberModel,
             }
 
             @Override
-            public void onNext(PreOrderBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getBarberInfo(bean);
+            public void onNext(PreOrderBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getBarberInfo(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

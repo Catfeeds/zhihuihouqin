@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.model.AddressModel;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.view.AddressView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -32,11 +34,17 @@ public class AddressPresenter extends MvpRxPresenter<AddressModel, AddressView> 
             }
 
             @Override
-            public void onNext(AddressBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().addressData(bean);
+            public void onNext(AddressBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().addressData(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

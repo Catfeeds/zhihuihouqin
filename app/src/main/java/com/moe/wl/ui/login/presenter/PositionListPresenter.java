@@ -2,9 +2,10 @@ package com.moe.wl.ui.login.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.login.view.PositionListView;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.login.model.PositionListModel;
+import com.moe.wl.ui.login.view.PositionListView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
@@ -33,6 +34,12 @@ public class PositionListPresenter extends MvpRxPresenter<PositionListModel, Pos
 
             @Override
             public void onNext(PositionListBean positionListBean) {
+                if (positionListBean==null)
+                    return;
+                if (positionListBean.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (positionListBean.getErrCode() == 0) {
                     getView().getListSucc(positionListBean);
                 } else {

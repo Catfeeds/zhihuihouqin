@@ -2,11 +2,9 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.FindWalletLogBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.PayDetailModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.PayDetailView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -37,11 +35,17 @@ public class PayDetailPresenter extends MvpRxPresenter<PayDetailModel, PayDetail
             }
 
             @Override
-            public void onNext(FindWalletLogBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getPayDetailResult(bean);
+            public void onNext(FindWalletLogBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getPayDetailResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

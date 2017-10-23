@@ -2,9 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.view.OfficeIndexView;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.OfficeIndexBean;
 import com.moe.wl.ui.main.model.OfficeIndexModel;
+import com.moe.wl.ui.main.view.OfficeIndexView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -33,11 +34,17 @@ public class OfficeIndexPresenter extends MvpRxPresenter<OfficeIndexModel, Offic
             }
 
             @Override
-            public void onNext(OfficeIndexBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getIndexInfo(bean);
+            public void onNext(OfficeIndexBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getIndexInfo(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

@@ -2,13 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
-import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.UpLoadHeaderBean;
 import com.moe.wl.ui.main.bean.UserInfoBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.UserInfoModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.UserInfoView;
 
 import java.io.File;
@@ -41,11 +39,17 @@ public class UserInfoPresenter extends MvpRxPresenter<UserInfoModel, UserInfoVie
             }
 
             @Override
-            public void onNext(UserInfoBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getUserInfoSucc(bean);
+            public void onNext(UserInfoBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getUserInfoSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

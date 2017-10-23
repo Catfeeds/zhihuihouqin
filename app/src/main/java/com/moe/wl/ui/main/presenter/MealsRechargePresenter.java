@@ -2,16 +2,14 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.ChargeOrderBean;
 import com.moe.wl.ui.main.bean.FindRemainBean;
 import com.moe.wl.ui.main.bean.LastCardNumBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.MealsRechargeModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.MealsRechargeView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -42,11 +40,17 @@ public class MealsRechargePresenter extends MvpRxPresenter<MealsRechargeModel, M
             }
 
             @Override
-            public void onNext(LastCardNumBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getfindLastCardNumResult(bean);
+            public void onNext(LastCardNumBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getfindLastCardNumResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.presenter.office;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
 import com.moe.wl.ui.home.model.office.SubscribeTimeModel;
@@ -34,6 +35,12 @@ public class SubscribeTimePresenter extends MvpRxPresenter<SubscribeTimeModel, S
 
             @Override
             public void onNext(SubscribeTimeResponse mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (mResponse.getErrCode() == 0) {
                     getView().setData(mResponse.getAppointmentList(),date);
                 } else {

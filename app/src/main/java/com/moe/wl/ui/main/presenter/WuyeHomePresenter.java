@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.RepairItmeBean;
 import com.moe.wl.ui.main.model.WuyeHomeModel;
@@ -38,11 +39,17 @@ public class WuyeHomePresenter extends MvpRxPresenter<WuyeHomeModel, WuyeHomeVie
             }
 
             @Override
-            public void onNext(ActivityPostBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getWuyeHomeResult(bean);
+            public void onNext(ActivityPostBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getWuyeHomeResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

@@ -2,11 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
-import com.moe.wl.ui.main.view.OrderingView;
 import com.moe.wl.ui.main.model.OrderingModel;
+import com.moe.wl.ui.main.view.OrderingView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -35,11 +36,17 @@ public class OrderingPresenter extends MvpRxPresenter<OrderingModel, OrderingVie
             }
 
             @Override
-            public void onNext(CollectBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().createOrderingSucc(listBean);
+            public void onNext(CollectBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().createOrderingSucc(mResponse);
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

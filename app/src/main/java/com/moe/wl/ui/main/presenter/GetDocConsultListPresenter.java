@@ -2,12 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.DexpertnoticeBean;
 import com.moe.wl.ui.main.bean.ExpertnoticelistBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.GetDocConsultListModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.GetDocConsultLisstView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -38,11 +36,17 @@ public class GetDocConsultListPresenter extends MvpRxPresenter<GetDocConsultList
             }
 
             @Override
-            public void onNext(ExpertnoticelistBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getListResult(bean);
+            public void onNext(ExpertnoticelistBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getListResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

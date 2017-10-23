@@ -2,12 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.DepartsListBean;
-import com.moe.wl.ui.main.bean.NationslistBean;
 import com.moe.wl.ui.main.model.DepartMentModel;
-import com.moe.wl.ui.main.model.NationsModel;
 import com.moe.wl.ui.main.view.DepartMentView;
-import com.moe.wl.ui.main.view.NationsView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -36,11 +34,17 @@ public class DepartMentPresenter extends MvpRxPresenter<DepartMentModel, DepartM
             }
 
             @Override
-            public void onNext(DepartsListBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getDepartResult(bean);
+            public void onNext(DepartsListBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getDepartResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

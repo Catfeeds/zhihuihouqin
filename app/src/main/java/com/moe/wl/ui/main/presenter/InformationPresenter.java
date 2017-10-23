@@ -2,10 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.InformationBean;
 import com.moe.wl.ui.main.model.InformationModel;
 import com.moe.wl.ui.main.view.InformationView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -33,16 +35,22 @@ public class InformationPresenter extends MvpRxPresenter<InformationModel, Infor
             }
 
             @Override
-            public void onNext(InformationBean listBean) {
+            public void onNext(InformationBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (getView() == null) {
                     LogUtils.d("返回了" + "View为空！");
                     onCompleted();
                     return;
                 }
-                if (listBean.getErrCode() == 0) {
-                    getView().getInformationSucc(listBean);
+                if (mResponse.getErrCode() == 0) {
+                    getView().getInformationSucc(mResponse);
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

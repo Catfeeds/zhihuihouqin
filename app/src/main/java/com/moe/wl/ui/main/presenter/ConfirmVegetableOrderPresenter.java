@@ -2,12 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.ui.main.bean.PayBean;
+import com.moe.wl.ui.main.model.ConfirmVegetableOrderModel;
 import com.moe.wl.ui.main.view.ConfirmVegetableOrderView;
 
 import java.util.HashMap;
-
-import com.moe.wl.ui.main.bean.PayBean;
-import com.moe.wl.ui.main.model.ConfirmVegetableOrderModel;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -35,11 +35,17 @@ public class ConfirmVegetableOrderPresenter extends MvpRxPresenter<ConfirmVegeta
             }
 
             @Override
-            public void onNext(PayBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().submitVegetableOrderSucc(bean);
+            public void onNext(PayBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().submitVegetableOrderSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

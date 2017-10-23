@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.FindChargeOrderBean;
 import com.moe.wl.ui.main.model.RechargeModel;
 import com.moe.wl.ui.main.view.RechargeView;
@@ -34,7 +35,13 @@ public class RechargePresenter extends MvpRxPresenter<RechargeModel, RechargeVie
             }
 
             @Override
-            public void onNext(FindChargeOrderBean bean) {
+            public void onNext(FindChargeOrderBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
 //                if (bean.getErrCode() == 0) {
 //                    getView().rechargeResult(bean);
 //                } else {

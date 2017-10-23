@@ -2,7 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.model.CollectModel;
 import com.moe.wl.ui.main.view.CollectView;
@@ -34,11 +34,17 @@ public class CollectPresenter extends MvpRxPresenter<CollectModel, CollectView> 
             }
 
             @Override
-            public void onNext(CollectBean collectBean) {
-                if(collectBean.getErrCode()==0){
-                    getView().getCollectResult(collectBean);
+            public void onNext(CollectBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if(mResponse.getErrCode()==0){
+                    getView().getCollectResult(mResponse);
                 }else{
-                    getView().showToast(collectBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

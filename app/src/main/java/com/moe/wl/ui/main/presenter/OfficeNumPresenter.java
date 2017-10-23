@@ -2,11 +2,9 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.DepartsListBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.OfficeslistBean;
-import com.moe.wl.ui.main.model.DepartMentModel;
 import com.moe.wl.ui.main.model.OfficeNumModel;
-import com.moe.wl.ui.main.view.DepartMentView;
 import com.moe.wl.ui.main.view.OfficeNumView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -36,11 +34,17 @@ public class OfficeNumPresenter extends MvpRxPresenter<OfficeNumModel, OfficeNum
             }
 
             @Override
-            public void onNext(OfficeslistBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getOfficeNumResult(bean);
+            public void onNext(OfficeslistBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getOfficeNumResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

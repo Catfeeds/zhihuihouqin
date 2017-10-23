@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.presenter.office;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.model.office.OfficeDetailsModel;
@@ -33,7 +34,12 @@ public class OfficeDetailsPresenter extends MvpRxPresenter<OfficeDetailsModel, O
 
             @Override
             public void onNext(OfficeDetailsResponse mResponse) {
-                LogUtils.d("-----------mResponse-----------"+mResponse);
+                if (mResponse==null)
+                    return;
+                if (mResponse.errCode==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (mResponse==null)
                     return;
                 if (mResponse.errCode == 0) {

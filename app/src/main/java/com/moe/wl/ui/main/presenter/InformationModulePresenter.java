@@ -2,10 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.InformationClazzBean;
 import com.moe.wl.ui.main.model.InformationModuleModel;
 import com.moe.wl.ui.main.view.InformationModuleView;
-import com.moe.wl.ui.main.bean.CollectBean;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -36,11 +37,17 @@ public class InformationModulePresenter extends MvpRxPresenter<InformationModule
             }
 
             @Override
-            public void onNext(InformationClazzBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().getInformationClassSucc(listBean);
+            public void onNext(InformationClazzBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getInformationClassSucc(mResponse);
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

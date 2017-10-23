@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.presenter;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.ReasonBean;
@@ -35,11 +36,17 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
             }
 
             @Override
-            public void onNext(ReasonBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getReasonList(bean);
+            public void onNext(ReasonBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getReasonList(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

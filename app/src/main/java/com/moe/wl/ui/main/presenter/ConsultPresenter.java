@@ -2,12 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ConsultBarberBean;
 import com.moe.wl.ui.main.bean.SendMessageBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.ConsultModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.ConsultView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -38,11 +36,17 @@ public class ConsultPresenter extends MvpRxPresenter<ConsultModel, ConsultView> 
             }
 
             @Override
-            public void onNext(ConsultBarberBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getConsultInfo(bean);
+            public void onNext(ConsultBarberBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getConsultInfo(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

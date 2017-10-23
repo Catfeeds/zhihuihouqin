@@ -2,14 +2,15 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.LabellingBean;
 import com.moe.wl.ui.main.model.SubmitComplainModel;
+import com.moe.wl.ui.main.view.SubmitComplainView;
 
 import java.util.ArrayList;
 
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.bean.CollectBean;
-import com.moe.wl.ui.main.view.SubmitComplainView;
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -40,13 +41,19 @@ public class SubmitComplainPresenter extends MvpRxPresenter<SubmitComplainModel,
             }
 
             @Override
-            public void onNext(CollectBean bean) {
-                Log.e("errorCode", bean.getErrCode() + "");
-                if (bean.getErrCode() == 0) {
-                    getView().submitComplainSucc(bean);
+            public void onNext(CollectBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                Log.e("errorCode", mResponse.getErrCode() + "");
+                if (mResponse.getErrCode() == 0) {
+                    getView().submitComplainSucc(mResponse);
                 } else {
-                    Log.e("getMsg", bean.getMsg());
-                    getView().showToast(bean.getMsg());
+                    Log.e("getMsg", mResponse.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

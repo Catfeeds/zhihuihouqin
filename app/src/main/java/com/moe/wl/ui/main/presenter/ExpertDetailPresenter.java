@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.model.ExpertDetailModel;
 import com.moe.wl.ui.main.view.ExpertDetailView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -31,11 +33,17 @@ public class ExpertDetailPresenter extends MvpRxPresenter<ExpertDetailModel, Exp
             }
 
             @Override
-            public void onNext(ExpertDetailBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getExpertDetailSucc(bean);
+            public void onNext(ExpertDetailBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getExpertDetailSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

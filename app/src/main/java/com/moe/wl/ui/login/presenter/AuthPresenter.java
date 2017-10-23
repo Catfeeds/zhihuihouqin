@@ -2,11 +2,12 @@ package com.moe.wl.ui.login.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.login.bean.Auth;
 import com.moe.wl.ui.login.bean.CarInfo;
 import com.moe.wl.ui.login.bean.SubmitAuthBean;
-import com.moe.wl.ui.login.view.AuthView;
 import com.moe.wl.ui.login.model.AuthModel;
+import com.moe.wl.ui.login.view.AuthView;
 
 import java.util.List;
 
@@ -39,6 +40,12 @@ public class AuthPresenter extends MvpRxPresenter<AuthModel, AuthView> {
 
             @Override
             public void onNext(SubmitAuthBean submitAuthBean) {
+                if (submitAuthBean==null)
+                    return;
+                if (submitAuthBean.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (submitAuthBean.getErrCode() == 0) {
                     getView().authSucc();
                 } else if (submitAuthBean.getErrCode() == 1015) {

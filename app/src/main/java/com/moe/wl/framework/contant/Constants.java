@@ -39,6 +39,9 @@ public class Constants {
     public static final int ORDERMEAL = 15;// 订餐订单
     public static final int DRYCLEANER = 16; // 洗衣店
     public static final int ORDERWATER = 18; // 订水订单
+
+    public static final String LOGIN_ERROR = "您的登录已过时，请重新登录。"; //登录token已失效
+
 }
 
 

@@ -2,16 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
-import com.moe.wl.ui.main.bean.SelectTimeBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.OrderInfoModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.OrderInfoView;
-
-import org.json.JSONArray;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -41,11 +36,17 @@ public class OrderInfoPresenter extends MvpRxPresenter<OrderInfoModel, OrderInfo
             }
 
             @Override
-            public void onNext(OrderWaterTimeBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getTimeSucc(bean);
+            public void onNext(OrderWaterTimeBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getTimeSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

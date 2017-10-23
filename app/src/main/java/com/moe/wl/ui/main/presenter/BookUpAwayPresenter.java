@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.SearchBookListBean;
 import com.moe.wl.ui.main.model.BookUpAwayModel;
 import com.moe.wl.ui.main.view.BookUpAwayView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Subscriber;
 
@@ -31,11 +33,17 @@ public class BookUpAwayPresenter extends MvpRxPresenter<BookUpAwayModel, BookUpA
             }
 
             @Override
-            public void onNext(SearchBookListBean booklistBean) {
-                if(booklistBean.getErrCode()==0){
-                    getView().getBookListSucc(booklistBean);
+            public void onNext(SearchBookListBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if(mResponse.getErrCode()==0){
+                    getView().getBookListSucc(mResponse);
                 }else{
-                    Log.e("SearchBookListBean",booklistBean.getMsg());
+                    Log.e("SearchBookListBean",mResponse.getMsg());
                 }
             }
         });

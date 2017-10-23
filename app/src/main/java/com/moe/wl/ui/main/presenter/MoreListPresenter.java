@@ -2,9 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.ui.main.bean.MoreListBean;
 import com.moe.wl.ui.main.model.MoreListModel;
 import com.moe.wl.ui.main.view.MoreListView;
-import com.moe.wl.ui.main.bean.MoreListBean;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -31,11 +32,17 @@ public class MoreListPresenter extends MvpRxPresenter<MoreListModel, MoreListVie
             }
 
             @Override
-            public void onNext(MoreListBean moreListBean) {
-                if (moreListBean.getErrCode() == 0) {
-                    getView().getMoreList(moreListBean);
+            public void onNext(MoreListBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getMoreList(mResponse);
                 } else {
-                    getView().showToast(moreListBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

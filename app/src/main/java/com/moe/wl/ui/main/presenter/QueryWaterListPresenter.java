@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.model.QueryWaterListModel;
 import com.moe.wl.ui.main.view.QueryWaterListView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -33,11 +35,17 @@ public class QueryWaterListPresenter extends MvpRxPresenter<QueryWaterListModel,
             }
 
             @Override
-            public void onNext(QueryWaterListBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().queryWaterListSucc(bean);
+            public void onNext(QueryWaterListBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().queryWaterListSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

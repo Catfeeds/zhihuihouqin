@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ComplainDetailBean;
 import com.moe.wl.ui.main.model.ComplainDetailModel;
 import com.moe.wl.ui.main.view.ComplainDetailView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -33,11 +35,17 @@ public class ComplainDetailPresenter extends MvpRxPresenter<ComplainDetailModel,
             }
 
             @Override
-            public void onNext(ComplainDetailBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getComplainDetail(bean);
+            public void onNext(ComplainDetailBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getComplainDetail(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

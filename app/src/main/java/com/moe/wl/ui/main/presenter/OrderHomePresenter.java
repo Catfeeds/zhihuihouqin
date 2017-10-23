@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.QueryWaterTypeBean;
 import com.moe.wl.ui.main.model.OrderHomeModel;
 import com.moe.wl.ui.main.view.OrderHomeView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -33,11 +35,17 @@ public class OrderHomePresenter extends MvpRxPresenter<OrderHomeModel, OrderHome
             }
 
             @Override
-            public void onNext(QueryWaterTypeBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().queryTypeSucc(bean);
+            public void onNext(QueryWaterTypeBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().queryTypeSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

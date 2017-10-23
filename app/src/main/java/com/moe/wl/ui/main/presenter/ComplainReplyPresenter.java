@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.ComplainReplyBean;
@@ -35,11 +36,17 @@ public class ComplainReplyPresenter extends MvpRxPresenter<ComplainReplyModel, C
             }
 
             @Override
-            public void onNext(ComplainReplyBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().getComplainReply(listBean);
+            public void onNext(ComplainReplyBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getComplainReply(mResponse);
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

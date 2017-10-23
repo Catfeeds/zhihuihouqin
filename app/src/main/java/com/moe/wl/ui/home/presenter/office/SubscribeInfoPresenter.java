@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.presenter.office;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.bean.office.SubscribeInfoResponse;
 import com.moe.wl.ui.home.model.office.SubscribeInfoModel;
@@ -34,7 +35,10 @@ public class SubscribeInfoPresenter extends MvpRxPresenter<SubscribeInfoModel, S
 
             @Override
             public void onNext(SubscribeInfoResponse mResponse) {
-                if (mResponse==null){
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
                 if (mResponse.getErrCode() == 0) {

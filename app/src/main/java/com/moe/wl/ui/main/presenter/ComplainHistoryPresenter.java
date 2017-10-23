@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ComplainHistoryBean;
 import com.moe.wl.ui.main.model.ComplainHistoryModel;
 import com.moe.wl.ui.main.view.ComplainHistoryView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
 import rx.Observable;
@@ -33,11 +35,17 @@ public class ComplainHistoryPresenter extends MvpRxPresenter<ComplainHistoryMode
             }
 
             @Override
-            public void onNext(ComplainHistoryBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getComplainHistorySucc(bean);
+            public void onNext(ComplainHistoryBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getComplainHistorySucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

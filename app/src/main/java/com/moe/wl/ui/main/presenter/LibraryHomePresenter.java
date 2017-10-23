@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.LibraryHomeBean;
 import com.moe.wl.ui.main.model.LibraryHomeModel;
 import com.moe.wl.ui.main.view.LibraryHomeView;
@@ -34,11 +35,17 @@ public class LibraryHomePresenter extends MvpRxPresenter<LibraryHomeModel, Libra
             }
 
             @Override
-            public void onNext(LibraryHomeBean listBean) {
-                if(listBean.getErrCode()==0){
-                    getView().getLibraryHomeSucc(listBean);
+            public void onNext(LibraryHomeBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if(mResponse.getErrCode()==0){
+                    getView().getLibraryHomeSucc(mResponse);
                 }else{
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

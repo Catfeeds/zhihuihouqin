@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,6 +17,7 @@ import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.manager.UIManager;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.ui.login.activity.LoginActivity;
 
@@ -328,6 +330,15 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
         }
         UIManager.turnToAct(getActivity(), LoginActivity.class);
         return false;
+    }
+
+    public void reLogin(String msg) {
+        if (!TextUtils.isEmpty(msg))
+            showToast(msg);
+        SharedPrefHelper.getInstance().setPassword("");
+        SharedPrefHelper.getInstance().setToken("");
+        UIManager.turnToAct(this, LoginActivity.class);
+        finish();
     }
 
 

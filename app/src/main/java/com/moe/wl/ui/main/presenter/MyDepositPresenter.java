@@ -2,12 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.bean.AddressBean;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.MyDepositModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.MyDepositView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -38,11 +36,17 @@ public class MyDepositPresenter extends MvpRxPresenter<MyDepositModel, MyDeposit
             }
 
             @Override
-            public void onNext(UserDepositBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getUserDepositResult(bean);
+            public void onNext(UserDepositBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getUserDepositResult(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ExpertOrderBean;
 import com.moe.wl.ui.main.model.ExpertOrderModel;
 import com.moe.wl.ui.main.view.ExpertOrderView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -32,11 +34,17 @@ public class ExpertOrderPresenter extends MvpRxPresenter<ExpertOrderModel, Exper
             }
 
             @Override
-            public void onNext(ExpertOrderBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().submitExpertOrderSucc(bean);
+            public void onNext(ExpertOrderBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().submitExpertOrderSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

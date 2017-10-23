@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.NutritionBean;
 import com.moe.wl.ui.main.model.NutritionModel;
 import com.moe.wl.ui.main.view.NutritionView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
 import rx.Observable;
@@ -35,11 +37,17 @@ public class NutritionPresenter extends MvpRxPresenter<NutritionModel, Nutrition
             }
 
             @Override
-            public void onNext(NutritionBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().getNutritionList(listBean);
+            public void onNext(NutritionBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getNutritionList(mResponse);
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

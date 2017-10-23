@@ -2,10 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.ServiceMyBean;
 import com.moe.wl.ui.main.model.MoreServiceModel;
 import com.moe.wl.ui.main.view.MoreServiceView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -32,11 +34,17 @@ public class MoreServicePresenter extends MvpRxPresenter<MoreServiceModel, MoreS
             }
 
             @Override
-            public void onNext(ServiceMyBean listBean) {
-                if (listBean.getErrCode() == 0) {
-                    getView().getMyServiceSucc(listBean);
+            public void onNext(ServiceMyBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getMyServiceSucc(mResponse);
                 } else {
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

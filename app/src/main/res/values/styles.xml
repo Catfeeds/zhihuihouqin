@@ -39,7 +39,7 @@
         <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
         <item name="android:windowExitAnimation">@anim/input_method_exit</item>
     </style>
-    //底部分享动画
+    <!--底部分享动画-->
 
     <style name="bottomSheet_dialog_animation">
         <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
@@ -128,7 +128,7 @@
         <item name="android:maxHeight">20.5dip</item>
     </style>
 
-    //支付密码
+    <!--//支付密码-->
     <style name="GridPasswordView" />
 
     <style name="GridPasswordView.TextView">
@@ -161,6 +161,13 @@
         <item name="android:maxWidth">50dp</item>
         <item name="android:minHeight">50dp</item>
         <item name="android:maxHeight">50dp</item>
+    </style>
+
+    <style name="splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <!--     <item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@mipmap/ic_splash</item>
     </style>
 
 </resources>

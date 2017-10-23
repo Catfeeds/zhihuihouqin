@@ -2,6 +2,7 @@ package com.moe.wl.ui.login.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.login.model.AccountComplainModel;
 import com.moe.wl.ui.login.view.AccountComplainView;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -32,6 +33,12 @@ public class AccountComplainPresenter extends MvpRxPresenter<AccountComplainMode
 
                     @Override
                     public void onNext(CollectBean submitAuthBean) {
+                        if (submitAuthBean==null)
+                            return;
+                        if (submitAuthBean.getErrCode()==2){
+                            getView().reLogin(Constants.LOGIN_ERROR);
+                            return;
+                        }
                         if (submitAuthBean.getErrCode() == 0) {
                             getView().complainSucc();
                         } else {

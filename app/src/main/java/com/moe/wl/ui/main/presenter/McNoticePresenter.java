@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.McNoticeListResponse;
 import com.moe.wl.ui.main.model.McNocticeModel;
 import com.moe.wl.ui.main.view.McNoticeView;
@@ -35,6 +36,12 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
 
             @Override
             public void onNext(McNoticeListResponse mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.errCode==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (mResponse.errCode == 0) {
                     getView().getCollect(mResponse.getPage().getList());
                 } else {

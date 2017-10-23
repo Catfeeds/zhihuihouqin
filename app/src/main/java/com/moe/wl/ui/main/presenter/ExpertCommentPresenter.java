@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ExpertCommentBean;
 import com.moe.wl.ui.main.model.ExpertCommentModel;
 import com.moe.wl.ui.main.view.ExpertCommentView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -32,11 +34,17 @@ public class ExpertCommentPresenter extends MvpRxPresenter<ExpertCommentModel, E
             }
 
             @Override
-            public void onNext(ExpertCommentBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getExpertCommentListSucc(bean);
+            public void onNext(ExpertCommentBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getExpertCommentListSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

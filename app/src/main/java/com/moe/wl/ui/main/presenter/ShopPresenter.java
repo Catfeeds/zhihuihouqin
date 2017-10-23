@@ -2,8 +2,8 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.BannerResponse;
-import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.model.ShopModel;
 import com.moe.wl.ui.main.view.ShopView;
@@ -35,13 +35,19 @@ public class ShopPresenter extends MvpRxPresenter<ShopModel, ShopView> {
             }
 
             @Override
-            public void onNext(ShopBean shopBean) {
-                Log.e("errorCode", shopBean.getErrCode() + "");
-                if (shopBean.getErrCode() == 0) {
-                    getView().getShopInfo(shopBean);
+            public void onNext(ShopBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                Log.e("errorCode", mResponse.getErrCode() + "");
+                if (mResponse.getErrCode() == 0) {
+                    getView().getShopInfo(mResponse);
                 } else {
-                    Log.e("getMsg", shopBean.getMsg());
-                    getView().showToast(shopBean.getMsg());
+                    Log.e("getMsg", mResponse.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

@@ -2,10 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.model.AddAddressModel;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.CollectBean;
+import com.moe.wl.ui.main.model.AddAddressModel;
 import com.moe.wl.ui.main.view.AddAddressView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -34,6 +36,12 @@ public class AddAddressPresenter extends MvpRxPresenter<AddAddressModel, AddAddr
 
             @Override
             public void onNext(CollectBean listBean) {
+                if (listBean==null)
+                    return;
+                if (listBean.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (listBean.getErrCode() == 0) {
                     getView().addAddressSucc();
                 } else {

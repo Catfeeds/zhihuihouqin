@@ -2,11 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
-import com.moe.wl.ui.main.view.DoctorDetailView;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.DoctorDetailBean;
 import com.moe.wl.ui.main.bean.UserCommentBean;
 import com.moe.wl.ui.main.model.DoctorDetailModel;
+import com.moe.wl.ui.main.view.DoctorDetailView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -34,13 +35,19 @@ public class DoctorDetailPresenter extends MvpRxPresenter<DoctorDetailModel, Doc
             }
 
             @Override
-            public void onNext(DoctorDetailBean listBean) {
-                if(listBean.getErrCode()==0){
-                    getView().getDoctorDetailSucc(listBean);
+            public void onNext(DoctorDetailBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if(mResponse.getErrCode()==0){
+                    getView().getDoctorDetailSucc(mResponse);
                 }else{
-                    getView().showToast(listBean.getMsg());
-                    Log.e("errcode",listBean.getErrCode()+"");
-                    Log.e("msg",listBean.getMsg()+"");
+                    getView().showToast(mResponse.getMsg());
+                    Log.e("errcode",mResponse.getErrCode()+"");
+                    Log.e("msg",mResponse.getMsg()+"");
                 }
             }
         });

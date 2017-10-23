@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.presenter.office;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.model.office.OfficeListModel;
@@ -36,6 +37,10 @@ public class OfficeListPresenter extends MvpRxPresenter<OfficeListModel, OfficeL
             public void onNext(OfficeListResponse mResponse) {
                 if (mResponse==null)
                     return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (mResponse.getErrCode() == 0) {
                     getView().setData(mResponse.getList(),mResponse.getTopphoto());
                 } else {

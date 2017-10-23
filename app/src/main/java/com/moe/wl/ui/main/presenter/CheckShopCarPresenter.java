@@ -2,10 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.SpCheckShopCarBean;
 import com.moe.wl.ui.main.model.CheckShopCarModel;
 import com.moe.wl.ui.main.view.CheckShopCarView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -34,11 +36,17 @@ public class CheckShopCarPresenter extends MvpRxPresenter<CheckShopCarModel, Che
             }
 
             @Override
-            public void onNext(SpCheckShopCarBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().checkShopCar(bean);
+            public void onNext(SpCheckShopCarBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().checkShopCar(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

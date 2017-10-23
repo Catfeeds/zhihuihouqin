@@ -1,6 +1,7 @@
 package com.moe.wl.ui.home.presenter.office;
 
 import com.google.gson.JsonArray;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.bean.office.AffirmOrderResponse;
 import com.moe.wl.ui.home.model.office.AffirmOrderModel;
@@ -45,6 +46,12 @@ public class AffirmOrderPresenter extends MvpRxPresenter<AffirmOrderModel, Affir
 
             @Override
             public void onNext(AffirmOrderResponse mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.errCode==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (mResponse.errCode == 0) {
                     getView().setData();
                 } else {

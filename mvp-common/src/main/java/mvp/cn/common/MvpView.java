@@ -23,6 +23,7 @@ package mvp.cn.common;
  * @since 1.0.0
  */
 public interface MvpView {
+
     void showToast(String info);
 
     void showToastLong(String info);
@@ -32,5 +33,10 @@ public interface MvpView {
     void showProgressDialog(String info);
 
     void dismissProgressDialog();
+
+    /**
+     * token失效，重新登录
+     */
+    void reLogin(String msg);
 
 }

@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.presenter.saving;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.model.saving.StatisticsModel;
 import com.moe.wl.ui.home.view.saving.StatisticsView;
@@ -30,6 +31,12 @@ public class StatisticsPresenter extends MvpRxPresenter<StatisticsModel, Statist
 
             @Override
             public void onNext(CollectBean listBean) {
+                if (listBean==null)
+                    return;
+                if (listBean.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (listBean.getErrCode() == 0) {
                     getView().setData();
                 } else {

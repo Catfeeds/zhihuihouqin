@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.MessageListBean;
 import com.moe.wl.ui.main.model.MessageListModel;
 import com.moe.wl.ui.main.view.MessageListView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -31,11 +33,17 @@ public class MessageListPresenter extends MvpRxPresenter<MessageListModel, Messa
             }
 
             @Override
-            public void onNext(MessageListBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getMessageListSucc(bean);
+            public void onNext(MessageListBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getMessageListSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

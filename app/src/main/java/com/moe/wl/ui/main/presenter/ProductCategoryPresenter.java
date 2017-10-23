@@ -2,10 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.ProductCategoryBean;
 import com.moe.wl.ui.main.model.ProductCategoryModel;
 import com.moe.wl.ui.main.view.ProductCategoryView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -33,12 +35,18 @@ public class ProductCategoryPresenter extends MvpRxPresenter<ProductCategoryMode
             }
 
             @Override
-            public void onNext(ProductCategoryBean bean) {
-                LogUtils.i("获取bean"+bean.getErrCode());
-                if (bean.getErrCode() == 0) {
-                    getView().getSpCategory(bean);
+            public void onNext(ProductCategoryBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                LogUtils.i("获取bean"+mResponse.getErrCode());
+                if (mResponse.getErrCode() == 0) {
+                    getView().getSpCategory(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

@@ -2,9 +2,10 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.SpOrderBean;
-import com.moe.wl.ui.main.view.SpOrderView;
 import com.moe.wl.ui.main.model.SpOrderModel;
+import com.moe.wl.ui.main.view.SpOrderView;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -34,11 +35,17 @@ public class SpOrderPresenter extends MvpRxPresenter<SpOrderModel, SpOrderView> 
             }
 
             @Override
-            public void onNext(SpOrderBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getOrderInfoSucc(bean);
+            public void onNext(SpOrderBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getOrderInfoSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

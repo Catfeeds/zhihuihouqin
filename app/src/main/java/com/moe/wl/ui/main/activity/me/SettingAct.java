@@ -13,18 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.DataClearUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.login.activity.LoginActivity;
 import com.moe.wl.ui.main.activity.Base2Activity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-
-import com.moe.wl.framework.utils.DataClearUtils;
-import com.moe.wl.ui.login.activity.LoginActivity;
-
 import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.StringUtil;
 
@@ -144,6 +143,8 @@ public class SettingAct extends Base2Activity {
                 startActivity(intent6);
                 break;
             case R.id.bt_out_login:
+                SharedPrefHelper.getInstance().setToken("");
+                SharedPrefHelper.getInstance().setPassword("");
                 Intent intent7 = new Intent(SettingAct.this, LoginActivity.class);
                 intent7.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                         Intent.FLAG_ACTIVITY_CLEAR_TASK);

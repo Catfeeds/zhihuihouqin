@@ -2,9 +2,11 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.SpAllCommentCountBean;
 import com.moe.wl.ui.main.model.SpCommentCountModel;
 import com.moe.wl.ui.main.view.SpCommentCountView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -33,11 +35,17 @@ public class SpCommentCountPresenter extends MvpRxPresenter<SpCommentCountModel,
             }
 
             @Override
-            public void onNext(SpAllCommentCountBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().getCommentSucc(bean);
+            public void onNext(SpAllCommentCountBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getCommentSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

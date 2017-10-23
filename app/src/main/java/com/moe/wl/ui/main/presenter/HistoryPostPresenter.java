@@ -2,10 +2,12 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.HistoryPostBean;
 import com.moe.wl.ui.main.model.HistoryPostModel;
 import com.moe.wl.ui.main.view.HistoryPostView;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -34,12 +36,18 @@ public class HistoryPostPresenter extends MvpRxPresenter<HistoryPostModel, Histo
             }
 
             @Override
-            public void onNext(HistoryPostBean bean) {
-                LogUtils.i("bean===="+bean);
-                if (bean.getErrCode() == 0) {
-                    getView().getHistoryPostSucc(bean);
+            public void onNext(HistoryPostBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                LogUtils.i("bean===="+mResponse);
+                if (mResponse.getErrCode() == 0) {
+                    getView().getHistoryPostSucc(mResponse);
                 } else {
-                    getView().showToast(bean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });

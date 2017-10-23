@@ -2,11 +2,9 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
-import com.moe.wl.ui.main.bean.AddressBean;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.HasPwdModel;
-import com.moe.wl.ui.main.view.AddressView;
 import com.moe.wl.ui.main.view.HasPwdView;
 
 import mvp.cn.rx.MvpRxPresenter;
@@ -37,11 +35,17 @@ public class HasPwdPresenter extends MvpRxPresenter<HasPwdModel, HasPwdView> {
             }
 
             @Override
-            public void onNext(ActivityPostBean bean) {
-                if (bean.getErrCode() == 0) {
-                    getView().isHasPwd(bean);
-                } else if(bean.getErrCode()==1001){
-                    getView().isHasPwd(bean);
+            public void onNext(ActivityPostBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().isHasPwd(mResponse);
+                } else if(mResponse.getErrCode()==1001){
+                    getView().isHasPwd(mResponse);
                 }
             }
         });

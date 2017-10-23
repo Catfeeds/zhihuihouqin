@@ -1,6 +1,7 @@
 package com.moe.wl.framework.base;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.manager.UIManager;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.ui.login.activity.LoginActivity;
 
@@ -134,4 +136,14 @@ public abstract class BaseFragment<M extends MvpModel, V extends MvpView, P exte
         UIManager.turnToAct(getActivity(), LoginActivity.class);
         return false;
     }
+
+    public void reLogin(String msg) {
+        if (!TextUtils.isEmpty(msg))
+            showToast(msg);
+        SharedPrefHelper.getInstance().setPassword("");
+        SharedPrefHelper.getInstance().setToken("");
+        UIManager.turnToAct(getActivity(), LoginActivity.class);
+        getActivity().finish();
+    }
+
 }

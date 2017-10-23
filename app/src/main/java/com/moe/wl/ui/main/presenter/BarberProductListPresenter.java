@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.presenter;
 
 import android.util.Log;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.BarberWorkListBean;
 import com.moe.wl.ui.main.model.BarberPoductListModel;
 import com.moe.wl.ui.main.view.BarberProductListView;
@@ -34,11 +35,17 @@ public class BarberProductListPresenter extends MvpRxPresenter<BarberPoductListM
             }
 
             @Override
-            public void onNext(BarberWorkListBean listBean) {
-                if(listBean.getErrCode()==0){
-                    getView().getBarberListSucc(listBean);
+            public void onNext(BarberWorkListBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if(mResponse.getErrCode()==0){
+                    getView().getBarberListSucc(mResponse);
                 }else{
-                    getView().showToast(listBean.getMsg());
+                    getView().showToast(mResponse.getMsg());
                 }
             }
         });
