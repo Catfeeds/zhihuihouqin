@@ -76,7 +76,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     @BindView(R.id.iv_collect)
     ImageView ivCollect;
     @BindView(R.id.zixun)
-    TextView zixun;
+    LinearLayout zixun;
     @BindView(R.id.tv_now_order)
     TextView tvNowOrder;
     @BindView(R.id.activity_barber_detail)
@@ -132,6 +132,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         if (detailBean != null) {
             tvBarberJieshaoContent.setText(detailBean.getBrief());
             tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
+            tvCommentNum.setText("用户评价("+detailBean.getCommentlist().size()+")");
             barberProductAdapter.setData(detailBean.getWorklist());//设置作品列表
             LogUtils.i("worklist===" + detailBean.getWorklist().size());
             data.addAll(detailBean.getCommentlist());
@@ -194,7 +195,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
                 startActivity(intent2);
                 break;
             case R.id.iv_call_barber_phone:
-                CallPhoneUtils.callPhone(barberlistBean.getMobile(), this);
+                //CallPhoneUtils.callPhone(barberlistBean.getMobile(), this);
                 break;
             case R.id.tv_more_zuopin:
                 Intent intent = new Intent(this, BarberMoreProductActivity.class);

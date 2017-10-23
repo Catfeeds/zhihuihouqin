@@ -23,7 +23,8 @@
         android:id="@+id/slider_layout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@mipmap/ic_default_rectangle" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_default_rectangle" />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_activity"

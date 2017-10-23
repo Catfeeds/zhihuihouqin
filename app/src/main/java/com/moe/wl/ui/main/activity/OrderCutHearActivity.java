@@ -119,6 +119,9 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
             //获取轮播图
             BannerResponse.ServiceInfoBean infoBean = bean.getServiceInfo();
             //ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
+            if(infoBean!=null){
+
+
             String detailphoto = infoBean.getDetailphoto();
             if(detailphoto!=null) {
                 String[] urls = detailphoto.split(",");
@@ -138,13 +141,14 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
                     @Override
                     public void onItemClick(int position) {
-                        ToastUtil.showToast(getActivity(), "position--->" + position);
+                        /*ToastUtil.showToast(getActivity(), "position--->" + position);*/
 
                     }
                 });
 
             }else{
                 LogUtils.i("detailphoto==="+"为null");
+            }
             }
         }
 

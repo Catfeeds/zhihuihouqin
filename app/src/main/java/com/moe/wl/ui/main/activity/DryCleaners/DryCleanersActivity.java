@@ -109,7 +109,7 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
             @Override
             public void onItemClick(int position) {
-                showToast("position--->" + position);
+                /*showToast("position--->" + position);*/
             }
         });
     }

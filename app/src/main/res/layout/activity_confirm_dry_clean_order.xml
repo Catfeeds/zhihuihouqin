@@ -3,6 +3,7 @@
     android:id="@+id/activity_confirm_dry_clean_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -13,17 +14,16 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000" />
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_trans"
         android:padding="12dp"
         android:text="个人信息"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp_bigger" />
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_common" />
 
     <RelativeLayout
         android:id="@+id/rl_name"
@@ -56,14 +56,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1000" />
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:id="@+id/rl_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -88,8 +87,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1000" />
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -115,50 +114,52 @@
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_common" />
     </RelativeLayout>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="@color/gray_line"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_trans"
         android:padding="12dp"
         android:text="订单信息"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp_bigger" />
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_common" />
 
     <ListView
         android:id="@+id/lv_order_info"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/gray_lighter" />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"
+        android:background="@drawable/bt"
         android:orientation="horizontal">
 
-        <!--<TextView
+        <TextView
             android:id="@+id/tv_sum"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@color/gray_light"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
             android:text="总金额 ￥34.00"
             android:textColor="@color/tv_red"
-            android:textSize="@dimen/sp_bigger" />-->
+            android:textSize="@dimen/sp_bigger" />
 
         <TextView
             android:id="@+id/tv_submit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/bg_color"
             android:gravity="center"
             android:text="提交"
             android:textColor="@color/white"

@@ -5,28 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context="cn.moe.wl.com.moe.wl.ui.main.activity.SubmitSuccessActivity">
+    android:background="@color/bg_page"
+    android:orientation="vertical">
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
         android:background="#1000"
-        android:layout_height="?actionBarSize"/>
+        android:layout_height="@dimen/title_height"/>
     <View android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1000"/>
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
     <ImageView
         android:id="@+id/iv_submit_or_pay"
         android:layout_marginTop="60dp"
         android:src="@drawable/selected"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
     <TextView
         android:id="@+id/tv_submit_success"
         android:text="提交完成"
-        android:textSize="22sp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="60dp"
+        android:textSize="@dimen/sp_bigger"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

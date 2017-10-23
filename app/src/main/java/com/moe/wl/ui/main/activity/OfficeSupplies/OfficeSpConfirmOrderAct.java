@@ -206,7 +206,7 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
         dialog.show();
         dialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
             @Override
-            public void onConfirmClickListener(int n_year, int n_month, int n_day, int n_min, int n_sec) {
+            public void onConfirmClickListener(int n_year, int n_month, int n_day, String n_min, String n_sec) {
                 LogUtils.i(n_year + " " + n_month + " " + n_day + " " + n_min + " " + n_sec);
                 tvTime.setText(n_year + "-" + n_month + "-" + n_day + " " + n_min + ":" + n_sec);
             }

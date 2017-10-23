@@ -1,8 +1,10 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +21,6 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.ExpandableListAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
-import com.moe.wl.ui.main.bean.BarberListsBean;
 import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.CreateorderBean;
 import com.moe.wl.ui.main.bean.Itemid;
@@ -39,28 +40,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import mvp.cn.util.DateUtils;
 import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
 
 public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, PreOrderBarberView, NowOrderBarberPresenter> implements PreOrderBarberView {
     private static final int MAX_NUM = 100;
     @BindView(R.id.reserve_info_title)
-    TitleBar titile;
+    TitleBar title;
     @BindView(R.id.civ_header)
     CircleImageView civHeader;
     @BindView(R.id.rv_reserva_date)
     NoSlideRecyclerView recyclerView;
-    @BindView(R.id.view_morning)
-    View viewMorning;
-    @BindView(R.id.view_after)
-    View viewAfter;
     @BindView(R.id.nsgv_barber)
     NoSlidingGridView nsgvBarber;
     @BindView(R.id.e_list)
     NoScrollExpandableListView eList;
-    @BindView(R.id.ll_huli_list)
-    LinearLayout llHuliList;
+    @BindView(R.id.et_mobile)
+    EditText etMobile;
     @BindView(R.id.et_scanner)
     EditText etScanner;
     @BindView(R.id.word_num)
@@ -73,12 +69,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     Button tbRegist;
     @BindView(R.id.activity_reserva_barber)
     LinearLayout activityReservaBarber;
-    @BindView(R.id.et_mobile)
-    EditText etMobile;
-
-
     private BarberGridAdapter gridAdapter;
-
     private BarberlistBean barberlistBean;
     private String address;
     private int id;
@@ -205,24 +196,17 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                 @Override
                 public void onItemClickListener(int position) {
                     PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
-                    id = schedulelistBean.getId();
-                    barberid = schedulelistBean.getBarberid();
-                }
-            });
-
-           /* for (int i = 0; i < timelist.size(); i++) {
-                PreOrderBean.TimelistBean timelistBean = timelist.get(i);
-                final List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist = timelistBean.getSchedulelist();
-                gridAdapter.setData(schedulelist);
-                gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClickListener(int position) {
-                        PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
+                    int status = schedulelistBean.getStatus();
+                    if(status==1){//已经有预约了
+                        showToast("该时间段已经被预约");
+                        return;
+                    }else if(status==0){//没有预约
                         id = schedulelistBean.getId();
                         barberid = schedulelistBean.getBarberid();
                     }
-                });
-            }*/
+                }
+            });
+
         } else {
             showToast("PreOrderBean这个bean为空");
         }
@@ -230,15 +214,15 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
 
     @Override//下单成功
     public void createOrederResult(CreateorderBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             int orderid = bean.getOrderid();
             int ordertype = bean.getOrdertype();
             Intent intent = new Intent(this, PayFiveJiaoActivity.class);
             intent.putExtra("from", Constants.BARBER);
-            intent.putExtra("pay",sumAll);
-            intent.putExtra("orderid",orderid+"");
-            intent.putExtra("ordercode","");
-            intent.putExtra("ordertype",ordertype+"");
+            intent.putExtra("pay", sumAll);
+            intent.putExtra("orderid", orderid + "");
+            intent.putExtra("ordercode", "");
+            intent.putExtra("ordertype", ordertype + "");
             startActivity(intent);
         }
     }
@@ -256,38 +240,39 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                 this, LinearLayoutManager.HORIZONTAL, false));
         orderTimeAdapter = new OrderTimeAdapter(this);
         recyclerView.setAdapter(orderTimeAdapter);
-        /*List<String> week = DateUtils.get3week();
-        List<String> date = DateUtils.get3date();*/
 
     }
 
     private void initTitle() {
-        titile.setBack(true);
-        titile.setTitle("发型师");
+        title.setBack(true);
+        title.setTitle("发型师");
     }
 
-    @OnClick({ R.id.tb_regist})
+    @OnClick({R.id.tb_regist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tb_regist:
                 String mobile = etMobile.getText().toString().trim();
                 String remark = etScanner.getText().toString().trim();
                 String money = tvHowMuch.getText().toString().trim();
-                String price=money.replaceAll("￥","");
+                String price = money.replaceAll("￥", "");
                 if (StringUtil.isNullOrEmpty(mobile)) {
                     showToast("请输入手机号");
-                    return ;
+                    return;
                 }
                 if (!VerifyCheck.isMobilePhoneVerify(mobile)) {
                     showToast("请输入正确的手机号码");
-                    return ;
+                    return;
                 }
-
-                Order order = new Order(barberid,mobile,remark,price,id+"");
-                getPresenter().createOrder(order,list);//下单
+                float amount = Float.parseFloat(price);
+                if(amount<=0){
+                    showToast("请选择服务项");
+                    return;
+                }
+                Order order = new Order(barberid, mobile, remark, price, id + "");
+                getPresenter().createOrder(order, list);//下单
 
                 break;
         }
     }
-
 }

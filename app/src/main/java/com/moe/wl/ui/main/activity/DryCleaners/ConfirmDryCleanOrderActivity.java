@@ -48,6 +48,8 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
     LinearLayout rlPhone;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.tv_sum)
+    TextView tvSum;
     @BindView(R.id.lv_order_info)
     ListView lvOrderInfo;
     @BindView(R.id.tv_submit)
@@ -91,7 +93,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         tvUserName.setText(realName);
         tvPhoneNum.setText(mobile);
         tvTime.setText(time);
-        //tvSum.setText("￥" + sum);
+        tvSum.setText("总金额￥" + sum);
     }
 
     private void commit() {

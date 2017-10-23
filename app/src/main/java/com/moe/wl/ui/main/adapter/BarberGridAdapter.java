@@ -88,11 +88,18 @@ public class BarberGridAdapter extends BaseAdapter {
            this.mPosition=position;
             String starttime = schedulelistBean.getStarttime();
             String endtime = schedulelistBean.getEndtime();
+            int status = schedulelistBean.getStatus();
             tvBarberGridItem.setText(starttime + "-" + endtime);
-            if (selectPosition == position) {
-                tvBarberGridItem.setTextColor(Color.parseColor("#00CCFF"));
-            } else {
+            if(status==1){//已经预约
+                tvBarberGridItem.setBackgroundColor(Color.parseColor("#F6F6F6"));
                 tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
+            }else if(status==0){//没有预约
+                tvBarberGridItem.setBackgroundColor(Color.WHITE);
+                if (selectPosition == position) {
+                    tvBarberGridItem.setTextColor(Color.parseColor("#00CCFF"));
+                } else {
+                    tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
+                }
             }
         }
     }

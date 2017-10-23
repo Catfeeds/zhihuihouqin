@@ -74,7 +74,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         paramsMap.put("biz", biz);
-        LogUtils.d("请求参数:" +biz);
+        LogUtils.d("请求参数:" + biz);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
         LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
@@ -101,7 +101,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
         paramsMap.put("biz", biz);
-        LogUtils.d("请求参数:" +biz);
+        LogUtils.d("请求参数:" + biz);
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
         LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
@@ -187,7 +187,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     private static void getObjectRequestBody(Map<String, RequestBody> paramsMap, Map<String, Object> tempMap) {
         Gson gson = new Gson();
         String biz = gson.toJson(tempMap);
-        LogUtils.d("请求参数:" +biz);
+        LogUtils.d("请求参数:" + biz);
         RequestBody requestbiz = RequestBody.create(MediaType.parse("multipart/form-data"), biz);
         paramsMap.put(ParameterKeys.BIZ, requestbiz);
         //  LogUtils.d("biz请求参数：" + biz);
@@ -485,6 +485,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getPositionList(paramsMap));
     }
+
     /**
      * 民族列表
      */
@@ -497,7 +498,9 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getNationlist(paramsMap));
-    }  /**
+    }
+
+    /**
      * 部门列表
      */
     public static Observable getdepartList() {
@@ -509,7 +512,9 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             e.printStackTrace();
         }
         return getObservable(api.getdepartList(paramsMap));
-    }  /**
+    }
+
+    /**
      * 处室列表
      */
     public static Observable getofficelist() {
@@ -522,6 +527,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getofficelist(paramsMap));
     }
+
     /**
      * 处室列表
      */
@@ -535,6 +541,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getcartypelist(paramsMap));
     }
+
     /**
      * 认证
      */
@@ -750,7 +757,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         try {
             Map<String, String> tempMap = new HashMap<>();
             tempMap.put("getid", getid + "");
-            tempMap.put("content",content);
+            tempMap.put("content", content);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -767,7 +774,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         try {
             Map<String, String> tempMap = new HashMap<>();
 
-            tempMap.put("doctorid",doctorid);
+            tempMap.put("doctorid", doctorid);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -775,6 +782,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.expertnoticelist(paramsMap));
     }
+
     /**
      * 物业报修Item
      *
@@ -2787,6 +2795,7 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+
             tempMap.put("ordercode", ordercode);
             tempMap.put("ordertype", ordertype);
             tempMap.put("paytype", paytype + "");
@@ -2804,6 +2813,30 @@ carcode	是	string	车牌号*/
         } else {
             return null;
         }
+    }
+
+    /**
+     * 个人钱包支付
+     *
+     * @return
+     */
+    public static Observable walletPay(String orderid, String ordercode, String ordertype, int paytype, String paypassd,int count) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("paypass", paypassd);
+            tempMap.put("ordercode", ordercode);
+            tempMap.put("ordertype", ordertype);
+            tempMap.put("paytype", paytype + "");
+            tempMap.put("orderid", orderid);
+            if(paytype==5){
+                tempMap.put("vouchercount",count+"");
+            }
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.personalwalletpay(paramsMap));//个人钱包,理发券
     }
 
     /**
@@ -3115,8 +3148,8 @@ carcode	是	string	车牌号*/
     /**
      * 生成会议室订单-不带附件
      */
-    public static Observable findAvailableEquipment(String roomid,String username,String mobile,String equipmentids,String conferencetype,String conferencename,
-                                String attendnum,String attentdleader,String remark,JsonArray appointmentInfo) {
+    public static Observable findAvailableEquipment(String roomid, String username, String mobile, String equipmentids, String conferencetype, String conferencename,
+                                                    String attendnum, String attentdleader, String remark, JsonArray appointmentInfo) {
         Map<String, RequestBody> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
@@ -3141,8 +3174,8 @@ carcode	是	string	车牌号*/
     /**
      * 生成会议室订单
      */
-    public static Observable findAvailableEquipment(String roomid,String username,String mobile,String equipmentids,String conferencetype,String conferencename,
-                                                    String attendnum,String attentdleader,String remark,JsonArray appointmentInfo,List<String> path) {
+    public static Observable findAvailableEquipment(String roomid, String username, String mobile, String equipmentids, String conferencetype, String conferencename,
+                                                    String attendnum, String attentdleader, String remark, JsonArray appointmentInfo, List<String> path) {
 
         Map<String, RequestBody> paramsMap = new HashMap<>();
         try {
@@ -3158,7 +3191,7 @@ carcode	是	string	车牌号*/
             tempMap.put("remark", remark);
             tempMap.put("appointmentInfo", appointmentInfo);
             getObjectRequestBody(paramsMap, tempMap);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return getObservable(api.findAvailableEquipment(paramsMap, getImgList(path, "files")));

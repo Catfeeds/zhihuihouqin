@@ -98,7 +98,8 @@ public class OrderTimeAdapter extends RecyclerView.Adapter {
             mPosition=position;
             if(timelistBean!=null){
                 String scheduleDate = timelistBean.getScheduleDate();
-                tvWorkday.setText(scheduleDate);
+                String[] split = scheduleDate.split(" ");
+                tvWorkday.setText(split[0]);
                 if (selectPosition == position) {
                     llTime.setBackgroundColor(Color.parseColor("#00CCFF"));
                     tvWorkday.setTextColor(Color.WHITE);

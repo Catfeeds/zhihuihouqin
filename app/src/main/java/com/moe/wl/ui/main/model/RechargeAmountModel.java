@@ -11,5 +11,7 @@ import rx.Observable;
 public interface RechargeAmountModel extends MvpModel {
 
     Observable getData(double money,int paytype,int ordertype);
+    Observable pay(String orderid,String orderCode,String orderType,int paytype);
+
 
 }

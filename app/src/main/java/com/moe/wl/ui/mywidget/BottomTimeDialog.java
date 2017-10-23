@@ -304,8 +304,21 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
             break;
             case R.id.tv_confirm:
                 LogUtils.i(curYear+" "+curMonth+" "+curDate+" "+curHour+" "+curMin);
+                String hour="";
+                String min="";
                 if(listener2!=null){
-                    listener2.onConfirmClickListener(curYear,curMonth,curDate,curHour,curMin);
+                    if(curHour<10){
+                         hour="0"+curHour;
+                    }else{
+                        hour=curHour+"";
+                    }
+                    if(curMin<10){
+                         min="0"+curMin;
+                    }else{
+                        min=curMin+"";
+                    }
+
+                    listener2.onConfirmClickListener(curYear,curMonth,curDate,hour,min);
                 }else{
                     LogUtils.i("listerner2为空");
                 }
@@ -315,6 +328,6 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
     }
 
     public interface OnConfirmClickListener{
-        void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5);
+        void onConfirmClickListener(int i1, int i2, int i3, String i4, String i5);
     }
 }

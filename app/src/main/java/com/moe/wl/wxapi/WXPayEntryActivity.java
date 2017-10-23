@@ -56,5 +56,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 		}else if(resp.errCode==-2){
 			Toast.makeText(this, "取消支付", Toast.LENGTH_SHORT).show();
 		}
+		finish();
 	}
 }

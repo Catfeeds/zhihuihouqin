@@ -62,7 +62,7 @@ public class PayDetailActivity extends BaseActivity<PayDetailModel,PayDetailView
     public void getPayDetailResult(FindWalletLogBean bean) {
         if(bean!=null){
             List<FindWalletLogBean.PageBean.ListBean> list = bean.getPage().getList();
-            adapter.setData(list);
+            //adapter.setData(list);
         }
     }
 }

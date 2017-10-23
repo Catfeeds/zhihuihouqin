@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_dry_clean_reserve_info"
     android:layout_width="match_parent"
+    android:background="@color/bg_page"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -15,17 +16,17 @@
         <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/more_health_consult_title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:background="#1000" />
+            android:layout_height="@dimen/title_height" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/gray_lighter" />
+            android:layout_height="1px"
+            android:background="@color/gray_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -50,12 +51,13 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:background="@color/gray_lighter" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -65,7 +67,7 @@
                 android:padding="12dp"
                 android:text="手机号"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_small" />
+                android:textSize="@dimen/sp_common" />
 
             <EditText
                 android:id="@+id/et_phone_num"
@@ -83,7 +85,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:background="@color/gray_lighter" />
 
         <LinearLayout
@@ -91,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -108,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
+                android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="12dp">
 
@@ -130,34 +134,29 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#1000" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:text="衣服类型"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_common" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_lighter" />
+            android:layout_height="1px"
+            android:background="@color/gray_line" />
 
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/rv_dry_clean"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_lighter" />
+            android:layout_height="1px"
+            android:background="@color/gray_line" />
 
         <TextView
             android:id="@+id/tv_more"
@@ -165,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/standard_padding"
+            android:background="@color/white"
             android:text="更多" />
 
         <View
@@ -172,12 +172,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/gray_lighter" />
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -198,7 +199,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/bg_color"
+            android:background="@color/bt"
             android:gravity="center"
             android:text="提交"
             android:textColor="@color/white"

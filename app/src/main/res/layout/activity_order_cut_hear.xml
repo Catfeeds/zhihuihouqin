@@ -5,6 +5,7 @@
     android:id="@+id/activity_order_cut_hear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,13 +16,12 @@
         <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/more_health_consult_title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:background="#1000" />
+            android:layout_height="@dimen/title_height" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/gray_lighter" />
+            android:layout_height="1px"
+            android:background="@color/gray_line" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -29,15 +29,15 @@
             android:layout_weight="1">
 
             <LinearLayout
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-
                 <com.moe.wl.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:background="@mipmap/ic_default_rectangle"
                     banner:bb_barColor="#00000000"
                     banner:bb_barPaddingBottom="5dp"
                     banner:bb_barPaddingLeft="10dp"
@@ -85,7 +85,8 @@
                         <ImageView
                             android:id="@+id/iv_cut_hear_logo"
                             android:layout_width="90dp"
-                            android:layout_height="70dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/logo" />
                     </android.support.v7.widget.CardView>
                 </RelativeLayout>
@@ -101,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/shap_small_voil" />
+                        android:src="@drawable/address" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -122,8 +123,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray_lighter" />
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -136,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/shap_small_voil" />
+                        android:src="@drawable/business_time" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -157,8 +158,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray_lighter" />
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -176,7 +177,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/shap_small_voil" />
+                            android:src="@drawable/blue_phone" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -208,7 +209,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
-                    android:background="@color/gray_trans" />
+                    android:background="@color/bg_page" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:numColumns="4" />
                 <View
-                    android:background="@color/gray_trans"
+                    android:background="@color/bg_page"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/bottom_height"/>
             </LinearLayout>
@@ -252,7 +253,7 @@
             android:id="@+id/tv_now_order"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_height"
-            android:background="#e9a839"
+            android:background="@drawable/bt"
             android:gravity="center"
             android:text="立即预约"
             android:textColor="#fff"
