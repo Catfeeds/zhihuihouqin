@@ -444,7 +444,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("loginType", loginType + "");
             tempMap.put("userName", userName);
             tempMap.put("thirdNum", thirdNum);
-            tempMap.put("isRegister", isRegister);
+            tempMap.put("isregister", isRegister);
             tempMap.put("password", password);
             tempMap.put("captcha", captcha);
 
