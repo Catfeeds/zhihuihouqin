@@ -12,6 +12,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.adapter.SignUpPersonAdapter;
@@ -25,6 +26,9 @@ import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscriber;
 
+/**
+ * 活动详情
+ */
 public class ActivityDetailActivity extends Base2Activity {
 
     @BindView(R.id.activity_title)
@@ -55,6 +59,9 @@ public class ActivityDetailActivity extends Base2Activity {
     ScrollView sv;
     @BindView(R.id.tv_jianjie)
     TextView tvJianjie;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+
     private SignUpPersonAdapter rvAdapter;
     private ActivityHomeBean.ActivitylistBean activitylistBean;
     private ActivitySignListBean activitySignListBean;
@@ -87,16 +94,18 @@ public class ActivityDetailActivity extends Base2Activity {
     private void setData() {
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this,
                 activitylistBean.getAImg(), ivBigPic);
-        tvActNum.setText(activitylistBean.getATitle());
-        tvAddress.setText("活动地点;" + activitylistBean.getAPlace());
-        phone.setText("场馆电话:" + activitylistBean.getAContactMobile());
-        tvActNum.setText("活动热数:" + activitylistBean.getATotal() + "人");
+        tvTitle.setText(activitylistBean.getATitle()+"       ");
+        tvAddress.setText("活动地点：" + activitylistBean.getAPlace());
+        phone.setText("场馆电话：" + activitylistBean.getAContactMobile());
+        tvActNum.setText("活动人数：" + activitylistBean.getATotal() + "人");
         if (activitylistBean.getAStatus() == 1) {
             tvState.setText("报名进行中");
         } else if (activitylistBean.getAStatus() == 2) {
             tvState.setText("报名结束");
         }
         tvPostedTime.setText(activitylistBean.getACreateTime() + "发布");
+
+
         tvZhubanfang.setText(activitylistBean.getASponsor());
         tvJianjie.setText(activitylistBean.getAContent());
         tvSignUpNum.setText(activitylistBean.getASignCount() + "人");
@@ -122,7 +131,7 @@ public class ActivityDetailActivity extends Base2Activity {
                 if (o.getErrCode() == 0) {
                     getSignListSucc(o);
                 } else {
-                    Log.e("ActivitySignListBean", o.getMsg());
+                    LogUtils.d("----------------");
                 }
             }
         });
@@ -131,8 +140,10 @@ public class ActivityDetailActivity extends Base2Activity {
 
     //获取报名列表
     public void getSignListSucc(ActivitySignListBean o) {
+        LogUtils.d("----------111------");
         if (o != null) {
             activitySignListBean = o;
+            LogUtils.d("----------222------");
             rvAdapter.setData(o.getMemberlist());
         }
     }
