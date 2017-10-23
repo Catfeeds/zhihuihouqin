@@ -432,10 +432,11 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
 
     }
 
+
     /**
      * 绑定手机号
      */
-    public static Observable bindPhone(int loginType, String userName, String thirdNum,
+    public static Observable bindPhone(String loginType, String userName, String thirdNum,
                                        String isRegister, String password, String captcha) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {

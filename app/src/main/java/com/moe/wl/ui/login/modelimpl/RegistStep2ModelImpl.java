@@ -32,4 +32,11 @@ public class RegistStep2ModelImpl implements RegistStep2Model {
         return observer;
     }
 
+    @Override
+    public Observable bindPhone(String loginType, String userName, String thirdNum,
+                                String isRegister, String password, String captcha) {
+        Observable observer = RetrofitUtils.getInstance().bindPhone(loginType,userName,thirdNum, isRegister,password,captcha);
+        return observer;
+    }
+
 }

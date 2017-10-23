@@ -29,7 +29,7 @@ public class RegistStep1ModelImpl implements RegistStep1Model {
     }
 
     @Override
-    public Observable bindPhone(int loginType, String userName, String thirdNum, String isRegister, String password, String captcha) {
+    public Observable bindPhone(String loginType, String userName, String thirdNum, String isRegister, String password, String captcha) {
         Log.e("bindPhone","绑定手机号获取数据");
         Observable observer = RetrofitUtils.getInstance().bindPhone(loginType,userName,thirdNum,isRegister,password,captcha);
         return observer;

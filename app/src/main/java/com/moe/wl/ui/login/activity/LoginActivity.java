@@ -242,19 +242,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     }
 
     /**
-     * 注册
-     *
-     * @param thirdType
-     */
-    public void turnToBind(String thirdType, String thirdNum) {
-        Bundle b = new Bundle();
-        b.putInt("from", Constants.BIND);
-        b.putString("thirdType", thirdType);
-        b.putString("thirdNum", thirdNum);
-        UIManager.turnToAct(this, RegistStep1Activity.class, b);
-    }
-
-    /**
      * 登录
      */
     public void doLogin() {
@@ -326,6 +313,17 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
             Log.e("msg++++", loginBean.getMsg());
             showToast(loginBean.getMsg());
         }
+    }
+
+    @Override
+    public void binding(String loginType, String thirdNum) {
+        //第三登录没有绑定手机号
+        showToast("请绑定手机号");
+        Bundle b = new Bundle();
+        b.putInt("from", Constants.BIND);
+        b.putString("thirdType", loginType);
+        b.putString("thirdNum", thirdNum);
+        UIManager.turnToAct(this, RegistStepOneActivity.class, b);
     }
 
     /**

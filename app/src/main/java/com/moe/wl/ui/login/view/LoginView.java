@@ -12,4 +12,7 @@ public interface LoginView extends MvpView{
 
     void showToast();
     void loginSuccess(LoginBean loginBean);
+
+    void binding(String loginType,String thirdNum);
+
 }

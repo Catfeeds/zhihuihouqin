@@ -68,6 +68,33 @@ public class RegistStep2Presenter extends MvpRxPresenter<RegistStep2Model, Regis
         });
     }
 
+    public void bindPhone(String loginType, String userName, String thirdNum,
+                               String isRegister, String password, String captcha) {
+        getView().showProgressDialog();
+        getModel().bindPhone(loginType,userName,thirdNum, isRegister,password,captcha).subscribe(new Subscriber<RegistBean>() {
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(RegistBean registBean) {
+                Log.e("changePassWord", registBean.getErrCode() + "");
+                Log.e("changePassWord", registBean.getMsg() + "");
+                if (registBean.getErrCode() == 0) {
+                    getView().bindSuccess(registBean);
+                } else {
+                    getView().showToast(registBean.getMsg());
+                }
+            }
+        });
+    }
+
     @Override
     public void detachView(boolean retainInstance) {
         super.detachView(retainInstance);

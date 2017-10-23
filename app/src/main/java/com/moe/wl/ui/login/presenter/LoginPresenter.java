@@ -43,7 +43,7 @@ public class LoginPresenter extends MvpRxPresenter<LoginModel, LoginView> {
     }
 
 
-    public void thirdLogin(String thirdNum, String loginType) {
+    public void thirdLogin(final String thirdNum, final String loginType) {
         LogUtil.log("LoginPresenter发出请求");
         getView().showProgressDialog();
         getModel().thirdLogin(thirdNum, loginType).subscribe(new Subscriber<LoginBean>() {
@@ -61,6 +61,8 @@ public class LoginPresenter extends MvpRxPresenter<LoginModel, LoginView> {
             public void onNext(LoginBean loginBean) {
                 if (loginBean.getErrCode() == 0) {
                     getView().loginSuccess(loginBean);
+                }else if (loginBean.getErrCode() == 1005) {
+                    getView().binding(loginType,thirdNum);
                 } else {
                     SharedPrefHelper.getInstance().setPassword("");
                     LogUtils.d("登录失败码：" + loginBean.getErrCode() + "");

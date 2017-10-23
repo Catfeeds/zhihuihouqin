@@ -46,7 +46,7 @@ public class RegistStep1Presenter extends MvpRxPresenter<RegistStep1Model, Regis
         });
     }
 
-    public void bindPhone(int loginType, String userName, String thirdNum, String isRegister, String password, String captcha) {
+    public void bindPhone(String loginType, String userName, String thirdNum, String isRegister, String password, String captcha) {
         getView().showProgressDialog();
         getModel().bindPhone(loginType, userName, thirdNum, isRegister, password, captcha).subscribe(new Subscriber<BindPhoneBean>() {
             @Override

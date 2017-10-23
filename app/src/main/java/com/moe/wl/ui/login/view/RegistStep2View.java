@@ -13,4 +13,6 @@ public interface RegistStep2View extends MvpView{
     void registSuccess(RegistBean registBean);
 
     void changePassWord(RegistBean registBean);
+
+    void bindSuccess(RegistBean registBean);
 }

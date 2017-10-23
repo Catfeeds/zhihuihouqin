@@ -23,7 +23,7 @@ import mvp.cn.util.CommonUtil;
 import mvp.cn.util.ToastUtil;
 
 
-public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistStep2View, RegistStep2Presenter> implements RegistStep2View, View.OnClickListener {
+public class RegistStepTwoActivity extends BaseActivity<RegistStep2Model, RegistStep2View, RegistStep2Presenter> implements RegistStep2View, View.OnClickListener {
 
 
     // Content View Elements
@@ -81,6 +81,9 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         } else if (from == Constants.FORGET) {
             mTitleBar.setTitle("设置密码");
             bt_next.setText("确认");
+        }else if (from == Constants.BIND){
+            mTitleBar.setTitle("设置密码");
+            bt_next.setText("确认");
         }
     }
 
@@ -113,9 +116,11 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         if (from == Constants.FORGET) {
             // TODO 修改密码
             getPresenter().changePassWord(mMobile, mCptcha, pwd1);
-        } else {
+        } else if (from == Constants.REGIST){
             // TODO 注册
             getPresenter().getData(mMobile, mCptcha, pwd1);
+        }else if (from == Constants.BIND){
+            getPresenter().bindPhone(thirdType, mMobile,thirdNum,"1",pwd1, mCptcha);
         }
     }
 
@@ -186,6 +191,11 @@ public class RegistStep2Activity extends BaseActivity<RegistStep2Model, RegistSt
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void bindSuccess(RegistBean registBean) {
+        getPresenter().getData(mMobile, mCptcha, pwd1);
     }
 
     /**

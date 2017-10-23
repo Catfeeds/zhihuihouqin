@@ -13,4 +13,8 @@ public interface RegistStep2Model extends MvpModel{
     Observable regist(String s, String code, String pas);
 
     Observable changePassWord(String s, String code, String pas);
+
+    Observable bindPhone(String loginType, String userName, String thirdNum,
+                         String isRegister, String password, String captcha);
+
 }

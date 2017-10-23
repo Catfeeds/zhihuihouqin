@@ -11,26 +11,22 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.login.activity.RegistStep2Activity;
+import com.moe.wl.ui.login.activity.RegistStepTwoActivity;
+import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.main.activity.Base2Activity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-
-import com.moe.wl.ui.login.bean.CaptchaBean;
-
 import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
 import rx.Observable;
 import rx.Subscriber;
-
-import static com.moe.wl.R.id.from;
 
 public class AcountSaftActivity extends Base2Activity {
 
@@ -96,7 +92,7 @@ public class AcountSaftActivity extends Base2Activity {
                     return;
                 }
                 if(from==Constants.ACCOUNT_SAFT){//帐号安全
-                    Intent intent = new Intent(AcountSaftActivity.this, RegistStep2Activity.class);
+                    Intent intent = new Intent(AcountSaftActivity.this, RegistStepTwoActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("mobile", mobile);
                     bundle.putString("captcha",code);

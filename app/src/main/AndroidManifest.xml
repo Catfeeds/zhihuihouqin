@@ -144,10 +144,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize"/>
 
         <activity
-            android:name=".ui.login.activity.RegistStep1Activity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".ui.login.activity.RegistStep2Activity"
+            android:name=".ui.login.activity.RegistStepTwoActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".ui.login.activity.AgreeActivity"

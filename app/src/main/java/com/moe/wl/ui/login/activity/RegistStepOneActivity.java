@@ -57,20 +57,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     TextView complaint;
 
 
- /*   @BindView(R.id.mTitleBar)
-    TitleBar mTitleBar;
-    @BindView(R.id.et_phone)
-    EditText etPhone;
-    @BindView(R.id.et_code)
-    EditText etCode;
-    @BindView(R.id.btn_getcode)
-    Button btnGetcode;
-    @BindView(R.id.cb_agreen)
-    CheckBox cbAgreen;
-    @BindView(R.id.bt_next)
-    Button btNext;
-    @BindView(R.id.tv_agreen)
-    TextView tvAgreen;*/
 
     private Handler handler = new Handler();
     public static final int MAX_TIME = 60;// 按钮 60秒内不能点击
@@ -122,7 +108,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
                 registTitle.setTitle("注册");
             } else if (from == Constants.BIND) {
                 registTitle.setTitle("绑定手机号");
-                tvNextStep.setText("完成");
             }
         }
     }
@@ -173,14 +158,8 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         }
 
         CommonUtil.closeSoftKeyboard(this, etCode);
-        if (from == Constants.BIND) {
-            // TODO 绑定手机号
-//            getPresenter().bindPhone(thirdType, mobile, thirdNum, 1, , );
-
-        } else if (from == Constants.REGIST || from == Constants.FORGET) {
-            // TODO 注册或修改密码
-            turnToPwdSet(captcha);
-        }
+        // TODO 注册或修改密码
+        turnToPwdSet(captcha);
     }
 
     private void turnToPwdSet(String captcha) {
@@ -190,7 +169,9 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         b.putString("thirdType", thirdType);
         b.putString("thirdNum", thirdNum);
         b.putInt("from", from);
-        UIManager.turnToAct(RegistStepOneActivity.this, RegistStep2Activity.class, b);
+        Intent intent=new Intent(this, RegistStepTwoActivity.class);
+        intent.putExtras(b);
+        startActivity(intent);
         finish();
     }
 
