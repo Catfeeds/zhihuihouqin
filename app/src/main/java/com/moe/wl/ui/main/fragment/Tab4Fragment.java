@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -587,13 +588,19 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
         unbinder1.unbind();
     }
 
+
+
     @Override
     public void getUserInfo(UserInfoBean bean) {
         if(bean!=null){
             UserInfoBean.UserinfoBean userinfo = bean.getUserinfo();
             if(userinfo!=null){
-                Glide.with(this).load(userinfo.getPhoto()).into(civHeader);
-                tvName.setText(userinfo.getNickname());
+                Glide.with(this).load(userinfo.getPhoto()).placeholder(R.drawable.avatar2).into(civHeader);
+                if (TextUtils.isEmpty(userinfo.getNickname())){
+                    tvName.setText("暂无昵称");
+                }else{
+                    tvName.setText(userinfo.getNickname());
+                }
                 if(userinfo.getAuthStatus()==0){
                     tvAuth.setText("认证完成");
                 }else{
