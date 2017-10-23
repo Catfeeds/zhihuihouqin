@@ -1,7 +1,7 @@
 package com.moe.wl.ui.main.activity.ActivityRegistration;
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,12 +13,15 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.adapter.SignUpPersonAdapter;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.ActivitySignListBean;
-import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +55,7 @@ public class ActivityDetailActivity extends Base2Activity {
     @BindView(R.id.tv_sign_up_num)
     TextView tvSignUpNum;
     @BindView(R.id.nsrv_sign_up)
-    NoSlideRecyclerView nsrvSignUp;
+    NoSlidingListView nsrvSignUp;
     @BindView(R.id.activity_detail)
     LinearLayout activityDetail;
     @BindView(R.id.sv)
@@ -69,6 +72,8 @@ public class ActivityDetailActivity extends Base2Activity {
     private String phoneNumber;
     private boolean isSign;
 
+    private List<ActivitySignListBean.MemberlistBean> data;
+
     @Override
     protected void initLayout() {
         setContentView(R.layout.activity_detail);
@@ -79,6 +84,9 @@ public class ActivityDetailActivity extends Base2Activity {
     protected void initView() {
         activitylistBean = (ActivityHomeBean.ActivitylistBean) getIntent().getSerializableExtra("activitylistBean");
         realName = SharedPrefHelper.getInstance().getRealName();
+        if (TextUtils.isEmpty(realName)){
+            realName = SharedPrefHelper.getInstance().getNickname();
+        }
         phoneNumber = SharedPrefHelper.getInstance().getPhoneNumber();
         //getSignData(activitylistBean.getAId(), realName, phoneNumber);
         getSignList(activitylistBean.getAId());
@@ -127,9 +135,12 @@ public class ActivityDetailActivity extends Base2Activity {
             }
 
             @Override
-            public void onNext(ActivitySignListBean o) {
-                if (o.getErrCode() == 0) {
-                    getSignListSucc(o);
+            public void onNext(ActivitySignListBean mResponse) {
+                if (mResponse.getErrCode() == 0) {
+                    data.addAll(mResponse.getMemberlist());
+                    activitySignListBean = mResponse;
+                    LogUtils.d("----------222------");
+                    rvAdapter.notifyDataSetChanged();
                 } else {
                     LogUtils.d("----------------");
                 }
@@ -137,21 +148,12 @@ public class ActivityDetailActivity extends Base2Activity {
         });
     }
 
-
-    //获取报名列表
-    public void getSignListSucc(ActivitySignListBean o) {
-        LogUtils.d("----------111------");
-        if (o != null) {
-            activitySignListBean = o;
-            LogUtils.d("----------222------");
-            rvAdapter.setData(o.getMemberlist());
-        }
-    }
-
     private void initRecycler() {
-        nsrvSignUp.setLayoutManager(new LinearLayoutManager(this));
+        data = new ArrayList<>();
         rvAdapter = new SignUpPersonAdapter(this);
+        rvAdapter.setItemList(data);
         nsrvSignUp.setAdapter(rvAdapter);
+
         // TODO: 2017/9/8 0008 根据服务端返回登录状态,修改登录字体
         isSign = false;
         if (isSign == true) {

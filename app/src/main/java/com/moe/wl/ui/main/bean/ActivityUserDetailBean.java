@@ -18,7 +18,7 @@ public class ActivityUserDetailBean {
     private String nation;
     private int errCode;
     private String mobile;
-    private Object username;
+    private String username;
 
     public String getMsg() {
         return msg;
@@ -52,11 +52,11 @@ public class ActivityUserDetailBean {
         this.mobile = mobile;
     }
 
-    public Object getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(Object username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 }

@@ -3,6 +3,7 @@
     android:id="@+id/activity_posted"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -24,12 +25,12 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:padding="3dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_activity_explain" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1px"
         android:layout_below="@+id/rl_title"
         android:background="@color/gray_lighter" />
 
@@ -45,7 +46,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,12 +74,13 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/gray_lighter" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -104,12 +107,13 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/gray_lighter" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -133,20 +137,12 @@
                     android:textSize="@dimen/sp_common" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/gray_trans" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
-
             <RelativeLayout
                 android:id="@+id/rl_time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -185,13 +181,14 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/gray_lighter" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,13 +212,14 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/gray_lighter" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -245,12 +243,13 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/gray_lighter" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -277,12 +276,13 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/gray_lighter" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -308,15 +308,12 @@
                     android:textSize="@dimen/sp_common" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/gray_trans" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -395,8 +392,6 @@
                             android:layout_weight="1"
                             android:numColumns="5"
                             android:paddingBottom="12dp"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="12dp"
                             android:paddingTop="4dp" />
 
                     </LinearLayout>
@@ -420,6 +415,7 @@
                     android:textColor="@color/tv_gray"
                     android:textSize="@dimen/sp_common" />
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
@@ -428,5 +424,7 @@
         style="@style/tvStyle_black_big"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"
+        android:background="@color/font_blue"
+        android:textColor="@color/white"
         android:text="提交审核" />
 </LinearLayout>

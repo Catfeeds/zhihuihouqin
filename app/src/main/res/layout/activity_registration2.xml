@@ -38,7 +38,8 @@
         android:id="@+id/tv_activity_posted"
         style="@style/tvStyle_blue_bigger"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@color/font_blue"
         android:layout_height="@dimen/bottom_height"
+        android:textColor="@color/white"
         android:text="活动发布" />
 </LinearLayout>

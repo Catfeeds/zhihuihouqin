@@ -186,14 +186,15 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    android:padding="@dimen/standard_padding">
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/white">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -220,14 +221,16 @@
                     android:layout_height="1px"
                     android:background="@color/gray_lighter" />
 
-                <com.moe.wl.ui.mywidget.NoSlideRecyclerView
+                <com.moe.wl.framework.widget.NoSlidingListView
                     android:id="@+id/nsrv_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:divider="@color/divider"
+                    android:dividerHeight="1px"/>
 
             </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>

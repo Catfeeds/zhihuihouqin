@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
@@ -14,7 +15,6 @@ import com.moe.wl.ui.main.bean.ActivitySignBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -52,7 +52,7 @@ public class FillInfoActivity extends Base2Activity {
     private void initData() {
         etPhone.setText(phone);
         etPhone.setSelection(etPhone.length());
-        tvName.setText("姓名: "+name);
+        tvName.setText("姓名："+name);
 
     }
 
