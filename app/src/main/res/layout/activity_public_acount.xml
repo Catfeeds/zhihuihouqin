@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_public_acount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:padding="@dimen/standard_padding"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="账户余额"
+            android:textSize="@dimen/sp_common"
+            android:textColor="@color/tv_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_wen"
+            android:src="@drawable/bule_doubt"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_acount_banlance"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_bigger_20"
+            android:text="0.0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:textSize="@dimen/sp_common"
+            android:text="元"/>
+    </LinearLayout>
+    <TextView
+        android:textSize="@dimen/sp_common"
+        android:textColor="@color/tv_black"
+        android:padding="@dimen/standard_padding"
+        android:text="对公账户只适用于办公室购买办公室用品、订水、或团体账户支付使用，不支持充值提现。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

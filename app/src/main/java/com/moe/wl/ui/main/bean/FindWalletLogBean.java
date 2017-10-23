@@ -8,8 +8,9 @@ import java.util.List;
 
 public class FindWalletLogBean {
 
+
     /**
-     * page : {"currPage":1,"list":[{"createtime":"2017-09-30 16:51:45","detail":null,"id":5,"money":1.25,"orderid":8,"ordertype":6,"ordertypename":"美容美发","uid":3,"usetype":2},{"createtime":"2017-09-30 15:43:19","detail":null,"id":4,"money":90,"orderid":2,"ordertype":18,"ordertypename":"订水服务","uid":3,"usetype":2}],"pageSize":10,"totalCount":2,"totalPage":1}
+     * page : {"currPage":1,"list":[{"createtime":"2017-09-30 16:51:45","detail":null,"id":5,"money":1.25,"orderid":8,"ordertype":6,"ordertypename":"预约理发","uid":3,"usetype":2},{"createtime":"2017-09-30 15:43:19","detail":null,"id":4,"money":90,"orderid":2,"ordertype":18,"ordertypename":"订水服务","uid":3,"usetype":2}],"pageSize":10,"totalCount":2,"totalPage":1}
      * errCode : 0
      * msg : success
      */
@@ -45,7 +46,7 @@ public class FindWalletLogBean {
     public static class PageBean {
         /**
          * currPage : 1
-         * list : [{"createtime":"2017-09-30 16:51:45","detail":null,"id":5,"money":1.25,"orderid":8,"ordertype":6,"ordertypename":"美容美发","uid":3,"usetype":2},{"createtime":"2017-09-30 15:43:19","detail":null,"id":4,"money":90,"orderid":2,"ordertype":18,"ordertypename":"订水服务","uid":3,"usetype":2}]
+         * list : [{"createtime":"2017-09-30 16:51:45","detail":null,"id":5,"money":1.25,"orderid":8,"ordertype":6,"ordertypename":"预约理发","uid":3,"usetype":2},{"createtime":"2017-09-30 15:43:19","detail":null,"id":4,"money":90,"orderid":2,"ordertype":18,"ordertypename":"订水服务","uid":3,"usetype":2}]
          * pageSize : 10
          * totalCount : 2
          * totalPage : 1
@@ -105,7 +106,7 @@ public class FindWalletLogBean {
              * money : 1.25
              * orderid : 8
              * ordertype : 6
-             * ordertypename : 美容美发
+             * ordertypename : 预约理发
              * uid : 3
              * usetype : 2
              */

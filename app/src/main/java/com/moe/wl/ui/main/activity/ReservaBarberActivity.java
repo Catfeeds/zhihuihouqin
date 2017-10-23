@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
@@ -61,10 +62,6 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     TextView tvShopName;
     @BindView(R.id.rv_reserva_date)
     NoSlideRecyclerView recyclerView;
-    @BindView(R.id.view_morning)
-    View viewMorning;
-    @BindView(R.id.view_after)
-    View viewAfter;
     @BindView(R.id.nsgv_barber)
     NoSlidingGridView nsgvBarber;
     @BindView(R.id.e_list)
@@ -225,13 +222,16 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                 @Override
                 public void onItemClickListener(int position) {
                     PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
-                    id = schedulelistBean.getId();
-                    barberid = schedulelistBean.getBarberid();
+                    int status = schedulelistBean.getStatus();
+                    if(status==1){//已经有预约了
+                        showToast("该时间段已经被预约");
+                        return;
+                    }else if(status==0){//没有预约
+                        id = schedulelistBean.getId();
+                        barberid = schedulelistBean.getBarberid();
+                    }
                 }
             });
-            for (int i = 0; i < timelist.size(); i++) {
-
-            }
         } else {
             showToast("PreOrderBean这个bean为空");
         }
@@ -281,7 +281,11 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                     showToast("请输入正确的手机号码");
                     return;
                 }
-
+                int amount = Integer.parseInt(price);
+                if(amount<=0){
+                    showToast("请选择服务项");
+                    return;
+                }
                 Order order = new Order(barberid, mobile, remark, price, id + "");
                 getPresenter().createOrder(order, list);//下单
 
@@ -291,15 +295,15 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
 
     @Override
     public void createOrederResult(CreateorderBean bean) {
-
+        LogUtils.i("预约理发师下单"+bean.getMsg()+bean.getErrCode());
         Intent intent = new Intent(this, PayFiveJiaoActivity.class);
         int orderid = bean.getOrderid();
         int ordertype = bean.getOrdertype();
         intent.putExtra("from", Constants.BARBER);
         intent.putExtra("pay",sumAll);
-        intent.putExtra("orderid",orderid);
+        intent.putExtra("orderid",orderid+"");
         intent.putExtra("ordercode","");
-        intent.putExtra("ordertype",ordertype);
+        intent.putExtra("ordertype",ordertype+"");
         startActivity(intent);
     }
 }

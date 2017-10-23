@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/rl_item"
     android:layout_height="wrap_content"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    >
-<TextView
-    android:id="@+id/tv_category"
-    android:text="夹克"
-    android:textColor="@color/tv_black"
-    android:textSize="@dimen/sp_big"
-    android:paddingBottom="12dp"
-    android:paddingTop="12dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_count"
-        android:text=""
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
+    android:orientation="vertical">
 
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <!--android:layout_marginRight="80dp"-->
-    <TextView
-        android:id="@+id/tv_price"
-        android:text="￥0.0"
-        android:visibility="gone"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding">
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="夹克"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80dp"
+            android:text="x1"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="￥0.0"
+
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+</LinearLayout>

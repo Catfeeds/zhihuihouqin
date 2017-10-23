@@ -54,8 +54,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
-
     <application
         android:name=".framework.application.SoftApplication"
         android:allowBackup="true"
@@ -65,11 +63,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.main.activity.MainActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-
-
+            android:launchMode="singleTask"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -114,15 +108,14 @@
         <activity
             android:name=".ui.login.activity.SplashAct"
             android:configChanges="orientation|keyboardHidden|locale"
-            android:theme="@style/splash"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.login.activity.GuideAct"
             android:configChanges="orientation|keyboardHidden|locale"
@@ -133,16 +126,15 @@
             android:exported="true"
             android:launchMode="singleTop" />
 
-        <!--微信分享回调 -->
-        <activity android:name=".wxapi.WXEntryActivity"
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.login.activity.LoginActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
-
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".ui.login.activity.RegistStep1Activity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -192,8 +184,9 @@
         <activity android:name=".ui.main.activity.Library.LibraryActivity" />
         <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
         <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
-        <activity android:name=".ui.main.activity.Library.BookConfirmOrderActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".ui.main.activity.Library.BookConfirmOrderActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity" />
         <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />
@@ -478,7 +471,7 @@
             android:name=".ui.main.activity.information.InformationDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.me.NativesActivity" />
-        <activity android:name=".ui.main.activity.me.DepartmentActivity"/>
+        <activity android:name=".ui.main.activity.me.DepartmentActivity" />
         <activity android:name=".ui.main.activity.me.OfficeidActivity" />
         <activity android:name=".ui.main.activity.me.CarTypeActivity" />
         <activity
@@ -488,6 +481,7 @@
             android:name=".ui.login.activity.AccountComplainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.DoctorConsultActivity" />
+        <activity android:name=".ui.main.activity.me.PublicAcountActivity"></activity>
     </application>
 
 </manifest>

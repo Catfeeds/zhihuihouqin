@@ -38,8 +38,11 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
     TextView tvTicketCount;
     @BindView(R.id.ll_recharge)
     LinearLayout llRecharge;
+    @BindView(R.id.ll_public_amount)
+    LinearLayout llPublicAcount;
     @BindView(R.id.ll_passward_management)
     LinearLayout llPasswardManagement;
+    private int publicRemain;
 
     @Override
     public MyPursePresenter createPresenter() {
@@ -73,18 +76,23 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
 
     }
 
-    @OnClick({ R.id.iv_wen ,R.id.ll_recharge, R.id.ll_passward_management})
+    @OnClick({ R.id.iv_wen ,R.id.ll_recharge, R.id.ll_passward_management,R.id.ll_public_amount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_wen:
                 Intent intent2=new Intent(this,BalanceExplainActivity.class);
                 startActivity(intent2);
                 break;
-            case R.id.ll_recharge:
+            case R.id.ll_recharge://充值
                 Intent intent=new Intent(this,RechargeActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_passward_management:
+            case R.id.ll_public_amount:
+                Intent intent3 = new Intent(this,PublicAcountActivity.class );
+                intent3.putExtra("publicRemain",publicRemain);
+                startActivity(intent3);
+                break;
+            case R.id.ll_passward_management://密码管理
                 Intent intent1=new Intent(this,PwdManageMentActivity.class);
                 startActivity(intent1);
                 break;
@@ -97,15 +105,16 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
     @Override
     public void getInfoSucc(UserWalletBean bean) {
         if(bean!=null){
+            publicRemain = bean.getPublicRemain();
             tvBalance.setText(bean.getPublicRemain()+"");//对公钱包余额
             tvQuota.setText(bean.getWalletRemain()+"元");//对私钱包余额
             tvTicketCount.setText(bean.getVoucherNum()+"张");//理发券数量
             int hasBuyAuth = bean.getHasBuyAuth();//是否有团购权限
             int payPasswordState = bean.getPayPasswordState();//是否有支付密码
             if(hasBuyAuth==1){//有团购权限
-
+                llPublicAcount.setVisibility(View.VISIBLE);
             }else{
-
+                llPublicAcount.setVisibility(View.GONE);
             }
 
         }

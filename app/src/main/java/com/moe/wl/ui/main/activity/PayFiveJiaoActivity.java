@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
@@ -21,12 +23,19 @@ import com.moe.wl.ui.main.model.PayModel;
 import com.moe.wl.ui.main.modelimpl.PayModelImpl;
 import com.moe.wl.ui.main.presenter.PayPresenter;
 import com.moe.wl.ui.main.view.PayView;
+import com.moe.wl.ui.mywidget.WalletPayDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lc.cn.thirdplatform.pay.alipay.AliPaySuccess;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
+import mvp.cn.util.ToastUtil;
 
 public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPresenter> implements PayView {
 
@@ -70,6 +79,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private String ordertype;
     private int from;
     private String orderid;
+    private int walletRemain;
+    private int pay;
+    private int voucherNum;
+    private int count;
 
     @Override
     public PayPresenter createPresenter() {
@@ -89,6 +102,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     @Override
     public void initView() {
+        EventBus.getDefault().register(this);
         initTitle();
         initData();
     }
@@ -98,8 +112,9 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         orderid = intent.getStringExtra("orderid");
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
-        from = intent.getIntExtra("orderWater", Constants.ORDERWATER);
-        int pay = intent.getIntExtra("pay", 0);
+        from = intent.getIntExtra("from", Constants.ORDERWATER);
+        pay = intent.getIntExtra("pay", 0);
+        count = pay / 5;
        /* LogUtils.i(ordercode);
         LogUtils.i(ordertype);*/
         tvNeedPay.setText("￥" + pay);
@@ -121,6 +136,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         unCheckPay();
         switch (view.getId()) {
             case R.id.rl_daijinquan_pay://代金券支付
+                paytype=5;
                 ivDaijinjuanCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.rl_banance_pay://余额支付
@@ -144,19 +160,48 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                         getPresenter().weiXinPay(orderid, ordercode, ordertype, 2);
                         break;
                     case 3:
-                        getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3);
+                        showPayDialog();
+                        break;
+                    case 4:
+                        //getPresenter().personalWalletPay(orderid, ordercode, ordertype, 4);
+                        break;
+                    case 5:
+                        // 代金券5元一张
+                        if(voucherNum<count){
+                            showToast("您的代金券不足");
+                            return;
+                        }else{
+                            getPresenter().personalWalletPay(orderid, ordercode, ordertype, 5,"",count);
+                        }
                         break;
                 }
-             /*   switch (from){
-                    case ORDERWATER:
-                        Intent intent=new Intent(this, SpPaySuccessActivity.class);
-                        break;
-                }
-                Intent intent = new Intent(this, SubmitSuccessActivity.class);
-                intent.putExtra("isPay",true);
-                startActivity(intent);*/
                 break;
         }
+    }
+    //钱包支付
+    private void showPayDialog() {
+        final WalletPayDialog payDialog = new WalletPayDialog(this).builder();
+        payDialog .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String pwd = payDialog.getPwd();
+                        if(pwd.length()==6){
+                            if(walletRemain<pay){
+                                showToast("您的余额不足");
+                                return ;
+                            }
+                            getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3,pwd,0);
+                        } else{
+                            showToast("您输入的密码有误");
+                        }
+                    }
+                }).setNegativeButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+        payDialog.show();
     }
 
     private void unCheckPay() {
@@ -173,7 +218,23 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
         finish();
     }
+    //支付宝支付成功
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(AliPaySuccess event) {
+        if (event!=null){
+                LogUtils.d("--------------支付订单----------");
+                Intent intent=new Intent(this, SubmitSuccessActivity.class);
+                intent.putExtra("isPay",true);
+                startActivity(intent);
+                finish();
+        }
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
     @Override
     public void weiXinPay(WeixinBean bean) {
         if (bean != null) {
@@ -188,15 +249,22 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     public void personalWallet(ActivityPostBean bean) {
         if (bean != null) {
             showToast("支付成功");
+            Intent intent = new Intent(this, SubmitSuccessActivity.class);
+            intent.putExtra("isPay",true);
+            startActivity(intent);
+            finish();
         }
     }
 
     @Override
     public void findUserWalletResult(UserWalletBean bean) {
         if(bean!=null){
-            int walletRemain = bean.getWalletRemain();//对私钱包余额
+            //对私钱包余额
+            walletRemain = bean.getWalletRemain();
             int publicRemain = bean.getPublicRemain();//对公钱包余额
-            tvAvailableBalance.setText("￥"+walletRemain);
+            voucherNum = bean.getVoucherNum();//理发券数量
+            tvAvailableBalance.setText("￥"+ walletRemain);
+            LogUtils.i("代金券的数量"+voucherNum);
         }
     }
 }

@@ -326,7 +326,7 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
         dialog.show();
         dialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
             @Override
-            public void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5) {
+            public void onConfirmClickListener(int i1, int i2, int i3, String i4, String i5) {
                 tvTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
             }
         });

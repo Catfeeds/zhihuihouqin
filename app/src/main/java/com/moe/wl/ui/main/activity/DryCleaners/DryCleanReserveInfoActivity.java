@@ -24,6 +24,7 @@ import com.moe.wl.ui.main.model.DryCleanReserveInfoModel;
 import com.moe.wl.ui.main.modelimpl.DryCleanReserveInfoModelImpl;
 import com.moe.wl.ui.main.presenter.DryCleanReserveInfoPresenter;
 import com.moe.wl.ui.main.view.DryCleanReserveInfoView;
+import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.CenterTimeDialog;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     private Observable observable;
     private List<ClothBean.PageEntity.ListEntity> listAll = new ArrayList<>();
     private int sum;
-    private CenterTimeDialog dialog;
+    private BottomTimeDialog dialog;
 
     @Override
     public void setContentLayout() {
@@ -172,11 +173,11 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                 getData(page + "", limit, true);
                 break;
             case R.id.rl_set_time:
-                dialog = new CenterTimeDialog(this, R.style.dialog_style);
+                dialog=new BottomTimeDialog(this,R.style.dialog_style);
                 dialog.show();
-                dialog.setListener2(new CenterTimeDialog.OnConfirmClickListener() {
+                dialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
                     @Override
-                    public void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5) {
+                    public void onConfirmClickListener(int i1, int i2, int i3, String i4, String i5) {
                         tvTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
                     }
                 });

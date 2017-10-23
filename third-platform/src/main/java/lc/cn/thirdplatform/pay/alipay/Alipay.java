@@ -1,12 +1,15 @@
 package lc.cn.thirdplatform.pay.alipay;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -74,6 +77,7 @@ public class Alipay {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(act, "支付成功", Toast.LENGTH_SHORT).show();
+                        EventBus.getDefault().post(new AliPaySuccess());
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(act, "支付失败-" + resultStatus, Toast.LENGTH_SHORT).show();

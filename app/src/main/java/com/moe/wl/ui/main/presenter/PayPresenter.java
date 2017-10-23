@@ -81,9 +81,10 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
             }
         });
     }
-    public void personalWalletPay(String orderid,String ordercode,String ordertype,int paytype) {
+    //钱包支付
+    public void personalWalletPay(String orderid,String ordercode,String ordertype,int paytype,String paypass,int count) {
         getView().showProgressDialog();
-        Observable request = getModel().pay(orderid,ordercode,ordertype,paytype);
+        Observable request = getModel().walletpay(orderid,ordercode,ordertype,paytype,paypass,count);
         getNetWork(request, new Subscriber<ActivityPostBean>() {
 
             @Override
@@ -107,6 +108,7 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
             }
         });
     }
+    //查询用户钱包
     public void findUserWallet() {
         getView().showProgressDialog();
         Observable request = getModel().getfindUserWallet();

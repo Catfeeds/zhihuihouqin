@@ -9,18 +9,17 @@
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/pay_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-         />
+        android:layout_height="@dimen/title_height" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:background="#1000" />
+        android:background="@color/bg_page" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="12dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,13 +44,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:background="#1000" />
+        android:background="@color/bg_page" />
 
     <RelativeLayout
         android:id="@+id/rl_banance_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tv_balance_pay"
@@ -64,22 +63,22 @@
 
         <ImageView
             android:id="@+id/iv_balance_pay_check"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/select" />
+            android:src="@drawable/unselect" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1000" />
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="12dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,22 +102,22 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:background="#1000" />
+        android:background="@color/bg_page" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:padding="10dp"
+        android:padding="12dp"
         android:text="其他支付方式"
         android:textColor="@color/tv_black"
         android:textSize="@dimen/sp_small" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:layout_marginLeft="55dp"
-        android:background="#1000" />
+        android:background="@color/gray_line" />
 
     <RelativeLayout
         android:id="@+id/rl_wx_pay"
@@ -129,8 +128,8 @@
 
         <ImageView
             android:id="@+id/iv_weixin_pay"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/recharge_wechat" />
 
         <TextView
@@ -146,8 +145,9 @@
 
         <ImageView
             android:id="@+id/iv_weixin_pay_check"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/unselect" />
@@ -157,9 +157,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:layout_marginLeft="55dp"
-        android:background="#1000" />
+        android:background="@color/gray_line" />
 
     <RelativeLayout
         android:id="@+id/rl_alipay"
@@ -169,8 +169,8 @@
 
         <ImageView
             android:id="@+id/iv_alpay"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/recharge_alipay" />
 
         <TextView
@@ -186,13 +186,62 @@
 
         <ImageView
             android:id="@+id/iv_alpay_check"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/unselect" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="55dp"
+        android:background="@color/gray_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_daijinquan_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_daijinquan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vouchers" />
+
+        <TextView
+            android:id="@+id/tv_daijinquan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/iv_daijinquan"
+            android:text="代金券支付"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small" />
+
+        <ImageView
+            android:id="@+id/iv_daijinjuan_check"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="2dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/unselect" />
 
-
+        <!-- <View
+             android:layout_width="match_parent"
+             android:layout_height="1dp"
+             android:layout_alignLeft="@+id/tv_daijinquan"
+             android:layout_below="@+id/tv_daijinquan"
+             android:layout_marginTop="12dp"
+             android:background="#1000" />-->
     </RelativeLayout>
 
     <FrameLayout
@@ -214,53 +263,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small" />
     </FrameLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="55dp"
-        android:background="#1000" />
-
-    <RelativeLayout
-        android:id="@+id/rl_daijinquan_pay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_daijinquan"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/tv_daijinquan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@+id/iv_daijinquan"
-            android:text="代金券支付"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small" />
-
-        <ImageView
-            android:id="@+id/iv_daijinjuan_check"
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/unselected" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/tv_daijinquan"
-            android:layout_below="@+id/tv_daijinquan"
-            android:layout_marginTop="12dp"
-            android:background="#1000" />
-    </RelativeLayout>
 
 
 </LinearLayout>

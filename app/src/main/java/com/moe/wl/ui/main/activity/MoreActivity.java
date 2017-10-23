@@ -55,7 +55,7 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
     @BindView(R.id.ll_title)
-    LinearLayout llTitle;
+    RelativeLayout llTitle;
 
     @BindView(R.id.title)
     TextView title;

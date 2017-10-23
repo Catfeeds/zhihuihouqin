@@ -18,4 +18,9 @@ public class RechargeAmountModelImpl implements RechargeAmountModel {
         Observable observable = RetrofitUtils.getInstance().generateChargeWalletOrder(money,paytype,ordertype);
         return observable;
     }
+    @Override
+    public Observable pay(String orderid,String orderCode, String orderType, int paytype) {
+        Observable observable = RetrofitUtils.getInstance().pay(orderid,orderCode,orderType,paytype);
+        return observable;
+    }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.BarberDetailActivity;
 
 import java.util.ArrayList;
@@ -124,7 +125,7 @@ public class BarberAdapter extends RecyclerView.Adapter {
                 tvBarberName.setText(barberlistBean.getName());
                 ratingBar.setRating(barberlistBean.getScore());
                 tvStarNum.setText(barberlistBean.getScore() + "");
-
+                OtherUtils.ratingBarColor(ratingBar,context);
                 int tatalcount = barberlistBean.getTatalcount();
                 int remaincount = barberlistBean.getRemaincount();
                 tvPercent.setText(remaincount + "/" + tatalcount);
