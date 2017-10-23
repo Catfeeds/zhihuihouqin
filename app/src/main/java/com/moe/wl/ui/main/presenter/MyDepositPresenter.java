@@ -3,6 +3,8 @@ package com.moe.wl.ui.main.presenter;
 import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
@@ -37,9 +39,9 @@ public class MyDepositPresenter extends MvpRxPresenter<MyDepositModel, MyDeposit
 
             @Override
             public void onNext(UserDepositBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
@@ -51,9 +53,71 @@ public class MyDepositPresenter extends MvpRxPresenter<MyDepositModel, MyDeposit
             }
         });
     }
-    public void generateChargeWalletOrder(double s,int s1,int s2) {
+
+    public void getOrderTime() {
         getView().showProgressDialog();
-        Observable request = getModel().generateChargeWalletOrder(s,s1,s2);
+        Observable request = getModel().getOrderTime();
+        getNetWork(request, new Subscriber<OrderWaterTimeBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(OrderWaterTimeBean mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getTimeSucc(mResponse);
+                } else {
+                    getView().showToast(mResponse.getMsg());
+                }
+            }
+        });
+    }
+
+    public void generateOrder(String realname, String mobile, int addressId, int sendTime,
+                              Object[] arr, String remark) {
+        getView().showProgressDialog();
+        Observable request = getModel().generateOrder(realname, mobile, addressId, sendTime + "", arr, remark);
+        getNetWork(request, new Subscriber<GenerateOrderWaterBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(GenerateOrderWaterBean bean) {
+                if (bean.getErrCode() == 0) {
+                    getView().generateOrderSucc(bean);
+                } else {
+                    getView().showToast(bean.getMsg());
+                }
+            }
+        });
+    }
+
+    public void generateChargeWalletOrder(double s, int s1, int s2) {
+        getView().showProgressDialog();
+        Observable request = getModel().generateChargeWalletOrder(s, s1, s2);
         getNetWork(request, new Subscriber<WalletOrderBean>() {
 
             @Override
@@ -77,6 +141,7 @@ public class MyDepositPresenter extends MvpRxPresenter<MyDepositModel, MyDeposit
             }
         });
     }
+
 
     @Override
     public void detachView(boolean retainInstance) {

@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
 import com.moe.wl.ui.main.bean.OrderWaterSumAndcount;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import com.moe.wl.R;
 
 /**
  * Created by 我的电脑 on 2017/9/26 0026.
@@ -33,8 +32,8 @@ public class OrderWaterFragment extends BaseFragment<QueryWaterListModel, QueryW
     @BindView(R.id.rv_water)
     XRecyclerView rvWater;
     private OrderWaterAdapter waterAdapter;
-    private int page=1;
-    private int limit=10;
+    private int page = 1;
+    private int limit = 20;
     private boolean isRefresh;
     private int id;
     private List<QueryWaterListBean.PageBean.ListBean> mList;
@@ -49,18 +48,20 @@ public class OrderWaterFragment extends BaseFragment<QueryWaterListModel, QueryW
         mList = new ArrayList<>();
         initWaterRecycler();
         Bundle bundle = getArguments();
-        if(bundle!=null){
+        if (bundle != null) {
             id = bundle.getInt("id");
-            getPresenter().queryWaterType(id,page,limit);
+            getPresenter().queryWaterType(id, page, limit);
         }
     }
-    public static OrderWaterFragment getInstance(int id){
-        OrderWaterFragment fragment=new OrderWaterFragment();
+
+    public static OrderWaterFragment getInstance(int id) {
+        OrderWaterFragment fragment = new OrderWaterFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("id",id);
+        bundle.putInt("id", id);
         fragment.setArguments(bundle);
         return fragment;
     }
+
     private void initWaterRecycler() {
         rvWater.setLayoutManager(new LinearLayoutManager(getActivity()));
         waterAdapter = new OrderWaterAdapter(getActivity());
@@ -71,26 +72,27 @@ public class OrderWaterFragment extends BaseFragment<QueryWaterListModel, QueryW
             @Override
             public void onRefresh() {
                 isRefresh = true;
-                page=1;
-                getPresenter().queryWaterType(id,page,limit);
+                page = 1;
+                getPresenter().queryWaterType(id, page, limit);
                 rvWater.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
-                isRefresh=false;
+                isRefresh = false;
                 page++;
-                getPresenter().queryWaterType(id,page,limit);
+                getPresenter().queryWaterType(id, page, limit);
                 rvWater.loadMoreComplete();
             }
         });
+        rvWater.setPullRefreshEnabled(false);
     }
 
     @Override
     public void queryWaterListSucc(QueryWaterListBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             final List<QueryWaterListBean.PageBean.ListBean> list = bean.getPage().getList();
-            if(isRefresh){
+            if (isRefresh) {
                 mList.clear();
             }
             mList.addAll(list);

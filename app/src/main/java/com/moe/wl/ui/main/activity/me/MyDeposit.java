@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
@@ -84,6 +86,16 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
 
     @Override
     public void getOrderResult(WalletOrderBean bean) {
+
+    }
+
+    @Override
+    public void getTimeSucc(OrderWaterTimeBean bean) {
+
+    }
+
+    @Override
+    public void generateOrderSucc(GenerateOrderWaterBean bean) {
 
     }
 }

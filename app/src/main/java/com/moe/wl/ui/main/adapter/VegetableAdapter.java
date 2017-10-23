@@ -63,7 +63,7 @@ public class VegetableAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 int num = entity.getNumber() + 1;
                 if (entity.getNumber() >= data.get(position).getRemain()) {
-                    ToastUtil.showToast(context, "该菜品已点最大数量！");
+                    ToastUtil.showToast(context, "该菜品已售罄！");
                     return;
                 }
                 if (addClickListener != null)

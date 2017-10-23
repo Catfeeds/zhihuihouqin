@@ -100,7 +100,8 @@ public class AddressAdapter extends BaseAdapter {
                     if (listen != null)
                         listen.onClick(data.get(selectPosition).getId(),
                                 data.get(selectPosition).getRealname(),
-                                data.get(selectPosition).getAddress());
+                                data.get(selectPosition).getAddress(),
+                                data.get(selectPosition).getMobile());
                     notifyDataSetChanged();
                 }
             });
@@ -126,7 +127,7 @@ public class AddressAdapter extends BaseAdapter {
     }
 
     public interface OnSelectClickListener {
-        void onClick(int id, String name, String address);
+        void onClick(int id, String name, String address, String phone);
     }
 
     public void setOnSelectClickListener(OnSelectClickListener listener) {

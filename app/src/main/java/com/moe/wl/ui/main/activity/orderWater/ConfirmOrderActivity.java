@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.orderWater;
 
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,7 +14,6 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
@@ -22,6 +22,8 @@ import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
+import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
+import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
@@ -30,22 +32,25 @@ import com.moe.wl.ui.main.modelimpl.MyDepositModelImpl;
 import com.moe.wl.ui.main.presenter.MyDepositPresenter;
 import com.moe.wl.ui.main.view.MyDepositView;
 import com.moe.wl.ui.mywidget.AlertDialog;
-import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.ui.mywidget.OrderWaterPayDialog;
+import com.moe.wl.ui.mywidget.OrderWaterSelectTimePop;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.ToastUtil;
 
-public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositView,MyDepositPresenter> implements MyDepositView {
+public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDepositView, MyDepositPresenter> implements MyDepositView {
 
     private static final int ADDRESSREQUESTCODE = 10;
     private static final int REMARKREUQESTCODE = 20;
@@ -53,12 +58,10 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
     TitleBar titleBar;
     @BindView(R.id.tv_username)
     TextView tvUsername;
-    @BindView(R.id.tv_sex)
-    TextView tvSex;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
     @BindView(R.id.ll_user_info)
-    LinearLayout llUserInfo;
+    RelativeLayout llUserInfo;
     @BindView(R.id.iv_address_logo)
     ImageView ivAddressLogo;
     @BindView(R.id.tv_address)
@@ -87,15 +90,23 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
     LinearLayout llYajin;
     @BindView(R.id.tv_ya_jin)
     TextView tvYaJIn;
+    @BindView(R.id.choose_address)
+    TextView choose_address;
     @BindView(R.id.activity_office_sp_confirm_order)
     LinearLayout activityOfficeSpConfirmOrder;
     private List<QueryWaterListBean.PageBean.ListBean> list;
     private ComfirmOrderWaterAdapter spOrderAdapter;
+
     private String address;
-    private String remark;
+    private int addressID;
+    private String userName;
+    private int timeID;
+    private String phone;
+    private String remark = "";
     private int sum;
-    private String ordercode;
-    private String ordertype;
+    private int deposit;
+    private String json;
+    private Object[] arr;
 
     @Override
     public MyDepositPresenter createPresenter() {
@@ -119,49 +130,33 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
         initTitle();
         //检测是否交押金
         getPresenter().getDepositInfo();
-
         Intent intent = getIntent();
-        String address = intent.getStringExtra("address");
-        String time = intent.getStringExtra("time");
-        String phone = intent.getStringExtra("phone");
-        ordercode = intent.getStringExtra("ordercode");
-        ordertype = intent.getStringExtra("ordertype");
-        tvPhone.setText(phone);
-        tvAddress.setText(address);
-        tvTime.setText(time);
-        String json = intent.getStringExtra("json");
+        // 处理传递过来的衣服数据
+        json = intent.getStringExtra("json");
         Gson gson = new Gson();
         list = gson.fromJson(json,
                 new TypeToken<List<QueryWaterListBean.PageBean.ListBean>>() {
                 }.getType());
-        initData();
-        initList();
-    }
-
-
-    private void showIsHasYajin() {
-        AlertDialog builder = new AlertDialog(this).builder();
-        builder.setTitle("温馨提示")
-                .setMsg("您好,您订的桶装水首次下单需缴纳人民币"+50+"元押金,押金可在最后申请退还,给您带来的不便请谅解")
-                .setPositiveButton("取消", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                })
-                .setNegativeButton("去缴纳", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //getPresenter().generateChargeWalletOrder(50,);
-
-                        Intent intent=new Intent(ConfirmOrderActivity.this,PayDepositActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .show();
-    }
-
-    private void initList() {
+        arr = new Object[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            QueryWaterListBean.PageBean.ListBean listBean = list.get(i);
+            int id = listBean.getId();
+            int count = listBean.getCount();
+            Map<String, Integer> map = new HashMap<>();
+            map.put("goodsid", id);
+            map.put("count", count);
+            arr[i] = map;
+        }
+        // 设置数据
+        sum = 0;
+        for (int i = 0; i < list.size(); i++) {
+            int count = list.get(i).getCount();
+            int price = list.get(i).getPrice();
+            sum += count * price;
+        }
+        tvShopAmout.setText("￥" + sum);
+        tvHowMuch.setText("实际付款￥" + sum);
+        // 初始化 列表
         rvOrderItem.setLayoutManager(new NoScrollLinearLayoutManager(this));
         spOrderAdapter = new ComfirmOrderWaterAdapter(this, list);
         rvOrderItem.setAdapter(spOrderAdapter);
@@ -172,81 +167,88 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
         titleBar.setTitle("确定订单");
     }
 
-    private void initData() {
-        tvUsername.setText(SharedPrefHelper.getInstance().getRealName());
-        //tvPhone.setText(SharedPrefHelper.getInstance().getPhoneNumber());
-        String sex = SharedPrefHelper.getInstance().getSex();
-        if ("男".equals(sex)) {
-            tvSex.setText("先生");
-        } else if ("女".equals(sex)) {
-            tvSex.setText("女士");
-        }
-        sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            int count = list.get(i).getCount();
-            int price = list.get(i).getPrice();
-            sum += count * price;
-        }
-        tvShopAmout.setText("￥" + sum);
-        tvHowMuch.setText("实际付款￥" + sum);
-
-    }
-
     @OnClick({R.id.ll_address, R.id.rl_expect_time, R.id.ll_write_other, R.id.tv_now_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_address:
                 Intent intent1 = new Intent(this, AddressManagerActivity.class);
+                intent1.putExtra("ID", addressID);
+                intent1.putExtra("addressName", address);
+                intent1.putExtra("Name", userName);
                 startActivityForResult(intent1, ADDRESSREQUESTCODE);
                 break;
             case R.id.rl_expect_time:
-                showPop();
+                getPresenter().getOrderTime();
                 break;
             case R.id.ll_write_other:
                 Intent intent = new Intent(this, RemarkActivity.class);
-                startActivityForResult(intent,REMARKREUQESTCODE);
+                intent.putExtra("remark", remark);
+                startActivityForResult(intent, REMARKREUQESTCODE);
                 break;
             case R.id.tv_now_pay:
-                showPayDialog();
-
+                if (deposit <= 0) { //没有交押金,
+                    showIsHasYajin();
+                } else {
+                    getData();
+                }
                 break;
         }
     }
 
-    private void showPayDialog() {
-        OrderWaterPayDialog payDialog = new OrderWaterPayDialog(this, R.style.dialog_style) ;
-            payDialog.show();
-            payDialog.setListener(new OrderWaterPayDialog.OnConfirmClickListener() {
-                @Override
-                public void onConfirmClickListener(boolean isPersonal) {
-                    if (isPersonal) {//个人支付
-                        Intent intent = new Intent(ConfirmOrderActivity.this, PayFiveJiaoActivity.class);
-                        intent.putExtra("pay", sum);
-                        intent.putExtra("from",Constants.ORDERWATER);
-                        intent.putExtra("orderid","");
-                        intent.putExtra("ordercode",ordercode);
-                        intent.putExtra("ordertype",ordertype);
-                        startActivity(intent);
-
-                    } else {//对公支付
-                        Intent intent2 = new Intent(ConfirmOrderActivity.this, SpPayActivity.class);
-                        intent2.putExtra("money", sum + "");
-                        startActivity(intent2);
-                    }
-                }
-            });
-
+    // 提交订单
+    private void getData() {
+        if (addressID == 0) {
+            ToastUtil.showToast(this, "请选择收货地址");
+            return;
+        }
+        if (timeID == 0) {
+            ToastUtil.showToast(this, "请选择送货时间");
+            return;
+        }
+        getPresenter().generateOrder(userName, phone, addressID, timeID, arr, remark);
     }
-    private void showPop() {
-        BottomTimeDialog dialog = new BottomTimeDialog(this, R.style.dialog_style);
-        dialog.show();
-        dialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
+
+    private void showPayDialog(final GenerateOrderWaterBean bean) {
+        OrderWaterPayDialog payDialog = new OrderWaterPayDialog(this, R.style.dialog_style);
+        payDialog.show();
+        payDialog.setListener(new OrderWaterPayDialog.OnConfirmClickListener() {
             @Override
-            public void onConfirmClickListener(int n_year, int n_month, int n_day, String n_min, String n_sec) {
-                LogUtils.i(n_year + " " + n_month + " " + n_day + " " + n_min + " " + n_sec);
-                tvTime.setText(n_year + "-" + n_month + "-" + n_day + " " + n_min + ":" + n_sec);
+            public void onConfirmClickListener(boolean isPersonal) {
+                if (isPersonal) {//个人支付
+                    Intent intent = new Intent(ConfirmOrderActivity.this, PayFiveJiaoActivity.class);
+                    intent.putExtra("pay", sum);
+                    intent.putExtra("from", Constants.ORDERWATER);
+                    intent.putExtra("orderid", bean.getOrderid());
+                    intent.putExtra("ordercode", bean.getOrdercode());
+                    intent.putExtra("ordertype", bean.getOrdertype());
+                    startActivity(intent);
+                } else {//对公支付
+                    Intent intent2 = new Intent(ConfirmOrderActivity.this, SpPayActivity.class);
+                    intent2.putExtra("money", sum + "");
+                    startActivity(intent2);
+                }
             }
         });
+    }
+
+    // 缴纳押金弹窗
+    private void showIsHasYajin() {
+        AlertDialog builder = new AlertDialog(this).builder();
+        builder.setTitle("温馨提示")
+                .setMsg("您好，您订的桶装水首次下单需缴纳人民币" + 50 + "元押金,押金可在最后申请退还，给您带来的不便请谅解")
+                .setPositiveButton("取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .setNegativeButton("去缴纳", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ConfirmOrderActivity.this, PayDepositActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -255,8 +257,15 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
         if (resultCode == RESULT_OK) {
             if (requestCode == ADDRESSREQUESTCODE) {
                 if (data != null) {
+                    choose_address.setVisibility(View.GONE);
+                    llUserInfo.setVisibility(View.VISIBLE);
                     address = data.getStringExtra("Address");
+                    addressID = data.getIntExtra("ID", 0);
+                    userName = data.getStringExtra("Name");
+                    phone = data.getStringExtra("Mobile");
                     tvAddress.setText("送至：" + address);
+                    tvUsername.setText(userName);
+                    tvPhone.setText(phone);
                 }
             }
         } else if (resultCode == Constants.REMARK) {
@@ -271,12 +280,14 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
 
     @Override
     public void getUserDepositResult(UserDepositBean bean) {
-        if(bean!=null){
-           int deposit= bean.getDeposit().getDeposit();
-            if(deposit<=0){//没有交押金,
-                showIsHasYajin();
-            }
+        if (bean != null) {
+            deposit = bean.getDeposit().getDeposit();
         }
+    }
+
+    @Override
+    public void generateOrderSucc(GenerateOrderWaterBean bean) {
+        showPayDialog(bean);
     }
 
     @Override
@@ -284,19 +295,31 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel,MyDepositV
 
     }
 
+    @Override
+    public void getTimeSucc(OrderWaterTimeBean bean) {
+        OrderWaterSelectTimePop pop = new OrderWaterSelectTimePop(this, bean, new OrderWaterSelectTimePop.OnSelectClick() {
+            @Override
+            public void onClick(int id, String time, boolean isAm) {
+                timeID = id;
+//                mTime = time;
+                tvTime.setText(time);
+            }
+        });
+        pop.showAtLocation(findViewById(R.id.activity_office_sp_confirm_order), Gravity.CENTER, 0, 0);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(MessageEvent event) {
-        if (event!=null){
-            if (event!=null && event.getCode()==MessageEvent.WECHAT_PAY){
+        if (event != null) {
+            if (event != null && event.getCode() == MessageEvent.WECHAT_PAY) {
                 LogUtils.d("--------------支付订单----------");
                 showToast("支付订单");
-                Intent intent=new Intent(this, SubmitSuccessActivity.class);
-                intent.putExtra("isPay",true);
+                Intent intent = new Intent(this, SubmitSuccessActivity.class);
+                intent.putExtra("isPay", true);
                 startActivity(intent);
                 finish();
             }
         }
-
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.moe.wl.ui.main.model;
 
-import org.json.JSONArray;
-
 import mvp.cn.rx.MvpModel;
 import rx.Observable;
 
@@ -13,7 +11,8 @@ import rx.Observable;
 public interface OrderInfoModel extends MvpModel {
 
     Observable getOrderTime();
-    Observable generateOrder(String realname, String mobile, int addressId , String sendTime,
+
+    Observable generateOrder(String realname, String mobile, int addressId, String sendTime,
                              Object[] arr, String remark);
 
 }
