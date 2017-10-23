@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.moe.wl.R;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.IndecatorAdapter;
@@ -23,8 +24,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
+/**
+ *
+ */
 public class OfficeCategoryActivity extends AppCompatActivity{
 
     @BindView(R.id.sp_category_title)

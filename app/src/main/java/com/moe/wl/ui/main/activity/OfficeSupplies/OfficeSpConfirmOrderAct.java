@@ -1,8 +1,6 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,27 +8,27 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.NumberUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.SpOrderAdapter;
 import com.moe.wl.ui.main.bean.ShopCarInfoBean;
 import com.moe.wl.ui.main.bean.SpCheckShopCarBean;
 import com.moe.wl.ui.main.bean.SpOrderBean;
+import com.moe.wl.ui.main.model.SpOrderModel;
 import com.moe.wl.ui.main.modelimpl.SpOrderModelImpl;
 import com.moe.wl.ui.main.presenter.SpOrderPresenter;
 import com.moe.wl.ui.main.view.SpOrderView;
 import com.moe.wl.ui.mywidget.BottomTimeDialog;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
+import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +36,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 
-import com.moe.wl.ui.main.model.SpOrderModel;
-import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
-
+/**
+ * 办公用品确认订单
+ */
 public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderView, SpOrderPresenter> implements SpOrderView {
 
     private static final int ADDRESSREQUESTCODE = 10;
@@ -161,8 +158,8 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
             int price = cartItemLists.get(i).getSku().getPrice();
             sum += count * price;
         }
-        tvShopAmout.setText("￥" + sum);
-        tvHowMuch.setText("实际付款￥" + sum);
+        tvShopAmout.setText("￥" + NumberUtils.keepPrecision(sum+"",2));
+        tvHowMuch.setText("实际付款￥" + NumberUtils.keepPrecision(sum+"",2));
 
     }
 

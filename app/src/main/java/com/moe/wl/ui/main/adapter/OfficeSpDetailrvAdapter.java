@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.ui.main.bean.SpDetailBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.bean.SpDetailBean;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -79,7 +80,7 @@ public class OfficeSpDetailrvAdapter extends RecyclerView.Adapter {
 
          public void setData(SpDetailBean.CommentListBean  commentlistBean) {
              GlideLoading.getInstance().loadImgUrlNyImgLoader(context,
-                     commentlistBean.getPhoto(),civUserPhoto);
+                     commentlistBean.getPhoto(),civUserPhoto,R.mipmap.ic_default_square);
              tvUserName.setText(commentlistBean.getRealname());
              userRatingBar.setRating((float) commentlistBean.getScore());
              tvTime.setText(commentlistBean.getCreatetime());

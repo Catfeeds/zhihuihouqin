@@ -7,23 +7,25 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Library.JieYueSuccActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.model.PostNeedModel;
+import com.moe.wl.ui.main.modelimpl.PostNeedModelImpl;
+import com.moe.wl.ui.main.presenter.PostNeedPresenter;
 import com.moe.wl.ui.main.view.PostNeedView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.ui.main.model.PostNeedModel;
-import com.moe.wl.ui.main.modelimpl.PostNeedModelImpl;
-import com.moe.wl.ui.main.presenter.PostNeedPresenter;
 
+/**
+ * 发布需求
+ */
 public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, PostNeedPresenter> implements PostNeedView {
-
 
     @BindView(R.id.title)
     TitleBar title;
@@ -76,6 +78,9 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
 
     private void initData() {
         realName = SharedPrefHelper.getInstance().getRealName();
+        if (TextUtils.isEmpty(realName)){
+            realName= SharedPrefHelper.getInstance().getNickname();
+        }
         phoneNumber = SharedPrefHelper.getInstance().getPhoneNumber();
         tvName.setText("姓名: " + realName);
         etPhone.setText(phoneNumber);

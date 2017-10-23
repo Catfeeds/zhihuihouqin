@@ -5,27 +5,31 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.OfficeIndexAdapter;
+import com.moe.wl.ui.main.adapter.OfficeSpAdapter;
 import com.moe.wl.ui.main.bean.OfficeIndexBean;
 import com.moe.wl.ui.main.model.OfficeIndexModel;
 import com.moe.wl.ui.main.modelimpl.OfficeIndexModelImpl;
 import com.moe.wl.ui.main.presenter.OfficeIndexPresenter;
 import com.moe.wl.ui.main.view.OfficeIndexView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.ui.main.adapter.OfficeSpAdapter;
 
+/**
+ * 办公用品首页
+ */
 public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel, OfficeIndexView, OfficeIndexPresenter> implements AdapterView.OnItemClickListener, OfficeIndexView {
 
 
@@ -39,6 +43,7 @@ public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel, Offic
     NoSlidingGridView nsgvSp;
 
     private OfficeSpAdapter officeSpAdapter;
+    private List<OfficeIndexBean.NewProductListBean> spList;
     private OfficeIndexAdapter indexAdapter;
 
     @Override
@@ -66,7 +71,9 @@ public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel, Offic
     }
 
     private void initNsgvSp() {
+        spList=new ArrayList<>();
         officeSpAdapter = new OfficeSpAdapter(this);
+        officeSpAdapter.setItemList(spList);
         nsgvSp.setAdapter(officeSpAdapter);
     }
 
@@ -101,11 +108,13 @@ public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel, Offic
         if (bean.getErrCode() == 0) {
             if (bean != null) {
                 GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getTopphoto(), ivOfficeBigPic);
+
                 List<OfficeIndexBean.CategoryListBean> categoryList = bean.getCategoryList();
                 Collections.reverse(categoryList);
                 indexAdapter.setData(categoryList);
-                List<OfficeIndexBean.NewProductListBean> newProductList = bean.getNewProductList();
-                officeSpAdapter.setData(newProductList);
+
+                spList.addAll(bean.getNewProductList());
+                officeSpAdapter.notifyDataSetChanged();
             }
         } else {
             LogUtils.i("获取办公首页出现为题:" + bean.getMsg());

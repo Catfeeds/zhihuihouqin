@@ -3,14 +3,15 @@
     android:id="@+id/activity_history"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page">
     <com.moe.wl.framework.widget.TitleBar
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:id="@+id/title"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter"/>
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_hostory"

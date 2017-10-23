@@ -1,19 +1,20 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.OfficeSpDetailrvAdapter;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
@@ -26,16 +27,17 @@ import com.moe.wl.ui.main.presenter.SpDetailPresenter;
 import com.moe.wl.ui.main.view.SpDetailView;
 import com.moe.wl.ui.mywidget.ShopCarDialog;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import mvp.cn.util.LogUtil;
-import mvp.cn.util.ToastUtil;
 
 
+/**
+ * 商品详情页
+ */
 public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, SpDetailPresenter> implements SpDetailView {
 
     private static final int ADDRESSREQUEST = 1;
@@ -43,17 +45,23 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     TitleBar spDetailTitle;
     @BindView(R.id.sp_detail_rv)
     XRecyclerView spDetailRv;
-    @BindView(R.id.tv_share)
-    TextView tvShare;
-    @BindView(R.id.tv_collect)
-    TextView tvCollect;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
+    @BindView(R.id.ll_share)
+    LinearLayout llShare;
+    @BindView(R.id.iv_collect)
+    ImageView ivCollect;
+    @BindView(R.id.ll_collect)
+    LinearLayout llCollect;
     @BindView(R.id.tv_add_car)
     TextView tvAddCar;
     @BindView(R.id.tv_now_buy)
     TextView tvNowBuy;
     @BindView(R.id.activity_sp_detail)
     LinearLayout activitySpDetail;
-    private SimpleImageBanner sib;
+
+    private SliderLayout sib;
+
     private TextView tvSpCategory;
     private TextView tvSpPrice;
     private TextView tvAddress;
@@ -106,7 +114,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         spDetailRv.setLoadingMoreEnabled(false);
         spDetailRv.setPullRefreshEnabled(false);
         View header = View.inflate(this, R.layout.sp_detail_header, null);
-        sib = (SimpleImageBanner) header.findViewById(R.id.h_banner_viewPager);
+        sib = (SliderLayout) header.findViewById(R.id.slider_layout);
         tvSpCategory = (TextView) header.findViewById(R.id.tv_sp_category);
         tvSpPrice = (TextView) header.findViewById(R.id.tv_sp_price);
         tvAddress = (TextView) header.findViewById(R.id.tv_address);
@@ -140,12 +148,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         spDetailTitle.setTitle("商品详情");
     }
 
-    @OnClick({R.id.tv_share, R.id.tv_collect, R.id.tv_add_car, R.id.tv_now_buy})
+    @OnClick({R.id.ll_share, R.id.ll_collect, R.id.tv_add_car, R.id.tv_now_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_share:
+            case R.id.ll_share:
                 break;
-            case R.id.tv_collect:
+            case R.id.ll_collect:
                 getPresenter().getCollectInfo(11, id);
                 break;
             case R.id.tv_add_car:
@@ -202,10 +210,10 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     public void getSpDetailSucc(SpDetailBean bean) {
         if (bean != null) {
             int favorNum = bean.getFavorNum();
-            if(favorNum==0){
-                tvCollect.setText("收藏");
-            }else{
-                tvCollect.setText("取消收藏");
+            if (favorNum == 0) {
+                ivCollect.setImageResource(R.drawable.collect);
+            } else {
+                ivCollect.setImageResource(R.drawable.collected);
             }
             SpDetailBean.ProductBean product = bean.getProduct();
             id = product.getId();
@@ -218,38 +226,46 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 tvSpPrice.setText("￥" + product.getPrice());
                 //tvAddress.setText("送至:"+product.get);
                 //获取轮播图
-                List<?> imgList = product.getImgList();
+                List<String> imgList = product.getImgList();
                 if (imgList.size() > 0) {
-                    ArrayList<BannerItem> list = new ArrayList<>();
+                    // TODO 轮播图数据
+                    HashMap<String, String> map = new HashMap<>();
                     for (int i = 0; i < imgList.size(); i++) {
-                        BannerItem item = new BannerItem();
-                        item.imgUrl = (String) imgList.get(i);
-                        LogUtil.log(item.imgUrl);
-                        list.add(item);
+                        String content = "";
+                        for (int j = 0; j < i; j++) {
+                            content = content + " ";
+                        }
+                        map.put(content, imgList.get(i));
                     }
-                    sib
-                            .setSource(list)
-                            .startScroll();
+                    initSliderLayout(map);
                 }
-                sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
-                    @Override
-                    public void onItemClick(int position) {
-                        ToastUtil.showToast(getActivity(), "position--->" + position);
-
-                    }
-                });
             }
         }
     }
 
     @Override
     public void getCollectResult(CollectBean bean) {
-        if(bean.getStatus()==0){
-            tvCollect.setText("收藏");
+        if (bean.getStatus() == 0) {
+            ivCollect.setImageResource(R.drawable.collect);
             showToast("取消收藏");
-        }else{
-            tvCollect.setText("取消收藏");
+        } else {
+            ivCollect.setImageResource(R.drawable.collected);
             showToast("收藏成功");
+        }
+
+    }
+
+    // 轮播图数据
+    private void initSliderLayout(HashMap<String, String> map) {
+        LogUtils.d("map的长度：" + map.size());
+        sib.setSystemUiVisibility(View.GONE);
+        sib.removeAllSliders();
+        for (String desc : map.keySet()) {
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            textSliderView
+                    .description(desc)
+                    .image(map.get(desc));
+            sib.addSlider(textSliderView);
         }
     }
 
@@ -268,18 +284,25 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
             } else {
                 Intent intent = new Intent(this, OfficeSpConfirmOrderAct.class);
                 intent.putExtra("count", mCount);
-                intent.putExtra("from","nowpay");
+                intent.putExtra("from", "nowpay");
                 List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();
                 ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
                 int price = skuListBean.getPrice();
-                intent.putExtra("price",price);
+                intent.putExtra("price", price);
                 intent.putExtra("position", mPositon);
-                intent.putExtra("skuListBean",skuListBean);
+                intent.putExtra("skuListBean", skuListBean);
                 startActivity(intent);
             }
 
         } else {
             LogUtils.i(bean.getMsg());
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

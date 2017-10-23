@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Window;
@@ -258,14 +257,8 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
      */
     public void dismissProgressDialog() {
         if (null != progressDialog && progressDialog.isShowing() == true) {
-            new Handler().postAtTime(new Runnable() {
-                @Override
-                public void run() {
-                    progressDialog.dismiss();
-                    progressDialog = null;
-                }
-            },2000);
-
+            progressDialog.dismiss();
+            progressDialog = null;
         }
     }
 

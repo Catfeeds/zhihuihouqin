@@ -3,7 +3,8 @@
     android:id="@+id/activity_office_sp_confirm_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_page">
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -11,12 +12,14 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_lighter" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,6 +29,7 @@
             android:id="@+id/ll_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical"
             android:paddingRight="16dp"
             android:paddingTop="8dp"
@@ -44,11 +48,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="有才"
+                    android:layout_marginRight="8dp"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
                 <TextView
                     android:id="@+id/tv_sex"
-                    android:layout_marginLeft="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="先生"
@@ -67,8 +71,7 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_address_logo"
@@ -80,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/turn_right" />
+                    android:src="@mipmap/ic_more" />
             </RelativeLayout>
 
             <TextView
@@ -93,20 +96,17 @@
                 android:textSize="@dimen/sp_common" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/gray_trans" />
-
         <RelativeLayout
             android:id="@+id/rl_expect_time"
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
             android:layout_height="60dp">
 
             <View
                 android:layout_width="4dp"
                 android:layout_height="match_parent"
-                android:background="#4294F7" />
+                android:background="@color/font_blue" />
 
             <ImageView
                 android:id="@+id/iv_clock"
@@ -137,22 +137,24 @@
                 android:textSize="@dimen/sp_small" />
         </RelativeLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/gray_trans" />
-        <com.moe.wl.ui.mywidget.NoSlideRecyclerView
-            android:id="@+id/rv_order_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
+                android:id="@+id/rv_order_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/gray_trans"/>
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"
             android:padding="16dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -183,13 +185,12 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/gray_trans"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:padding="16dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
@@ -202,23 +203,23 @@
                 android:layout_alignParentRight="true"
                 android:textSize="@dimen/sp_bigger"
                 android:textColor="@color/tv_black"
-                android:text="$23"
+                android:text="¥23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/gray_trans"/>
 
     </LinearLayout>
     </ScrollView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -227,10 +228,9 @@
             android:layout_height="match_parent"
             android:paddingLeft="16dp"
             android:layout_weight="2"
-            android:background="#999999"
             android:gravity="center_vertical"
             android:text="实付款￥0"
-            android:textColor="@color/tv_white"
+            android:textColor="@color/font_black"
             android:textSize="@dimen/sp_bigger" />
 
         <TextView
@@ -238,7 +238,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#0099FF"
+            android:background="@color/font_blue"
             android:gravity="center"
             android:text="立即支付"
             android:textColor="@color/tv_white"

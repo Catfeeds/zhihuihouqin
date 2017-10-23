@@ -3,7 +3,18 @@
     android:id="@+id/activity_shop_car"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_lighter" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,26 +22,15 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.moe.wl.framework.widget.TitleBar
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/gray_lighter" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray_trans"
             android:padding="@dimen/standard_padding">
 
             <ImageView
                 android:id="@+id/iv_store_select"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/unselected" />
 
             <TextView
@@ -51,11 +51,16 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -63,7 +68,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="5"
-            android:background="#999999"
             android:gravity="center_vertical">
 
             <LinearLayout
@@ -87,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:text="全选"
-                    android:textColor="@color/tv_white"
+                    android:textColor="@color/font_black"
                     android:textSize="@dimen/sp_common" />
             </LinearLayout>
 
@@ -103,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="合计:"
-                    android:textColor="@color/tv_white"
+                    android:textColor="@color/font_black"
                     android:textSize="@dimen/sp_bigger" />
 
                 <TextView
@@ -112,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="0.0"
-                    android:textColor="@color/tv_white"
+                    android:textColor="@color/font_black"
                     android:textSize="@dimen/sp_bigger" />
             </LinearLayout>
 
@@ -126,7 +130,7 @@
             android:background="#2EA7E0"
             android:gravity="center"
             android:text="去结算(0)"
-            android:textColor="@color/tv_white"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_bigger" />
     </LinearLayout>
 

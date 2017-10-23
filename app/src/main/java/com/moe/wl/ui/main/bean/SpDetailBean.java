@@ -121,7 +121,7 @@ public class SpDetailBean {
         private Object productImg;
         private String productname;
         private int status;
-        private List<?> imgList;
+        private List<String> imgList;
 
         public int getCategoryOneId() {
             return categoryOneId;
@@ -219,11 +219,11 @@ public class SpDetailBean {
             this.status = status;
         }
 
-        public List<?> getImgList() {
+        public List<String> getImgList() {
             return imgList;
         }
 
-        public void setImgList(List<?> imgList) {
+        public void setImgList(List<String> imgList) {
             this.imgList = imgList;
         }
     }

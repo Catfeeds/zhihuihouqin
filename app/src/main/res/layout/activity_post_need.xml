@@ -3,6 +3,7 @@
     android:id="@+id/activity_post_need"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,7 +19,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1px"
             android:background="@color/gray_lighter" />
 
         <TextView
@@ -27,19 +28,20 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:text="姓名:"
+            android:background="@color/white"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_common" />
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:background="@color/gray_trans" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:background="@color/white">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,15 +68,12 @@
                 android:textSize="@dimen/sp_common" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/gray_trans" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:layout_marginTop="5dp"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/tv_sp_name"
@@ -101,13 +100,13 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:background="@color/gray_trans"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/tv_sp_count"
@@ -133,35 +132,32 @@
                 android:textSize="@dimen/sp_common" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/gray_trans"/>
-
-        <TextView
-            android:id="@+id/tv_need_remark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="需求备注:"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common" />
-
         <LinearLayout
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
-            android:padding="8dp"
-            android:background="@drawable/shape_remark"
-            android:layout_height="180dp">
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:layout_height="180dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_need_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="需求备注:"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_common" />
+
             <EditText
                 android:id="@+id/et_write"
                 android:textSize="@dimen/sp_common"
                 android:textColor="@color/tv_black"
-                android:layout_marginLeft="8dp"
-                android:background="@null"
                 android:gravity="top"
-                android:layout_marginRight="8dp"
+                android:padding="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_remark"
                 android:hint="请输入你想要的商品详细内容..."
                 android:textColorHint="@color/tv_gray_light"
                 android:layout_width="match_parent"
@@ -174,7 +170,7 @@
         android:id="@+id/tv_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_blue_confirm"
+        android:background="@mipmap/bg_btn_blue_long"
         android:gravity="center"
         android:padding="12dp"
         android:layout_margin="16dp"
