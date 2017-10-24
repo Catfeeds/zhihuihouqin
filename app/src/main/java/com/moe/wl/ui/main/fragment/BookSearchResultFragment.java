@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.moe.wl.R;
@@ -25,7 +24,7 @@ import rx.Subscriber;
  * Created by 我的电脑 on 2017/9/9 0009.
  */
 
-public class BookPutAwayFragment extends BaseFragment2 {
+public class BookSearchResultFragment extends BaseFragment2 {
 
     @BindView(R.id.rv_book_list)
     RecyclerView rvBookList;
@@ -39,12 +38,12 @@ public class BookPutAwayFragment extends BaseFragment2 {
         return view;
     }
 
-    public static BookPutAwayFragment getInstant(String s, int typeId, int i) {
-        BookPutAwayFragment bookPutAwayFragment = new BookPutAwayFragment();
+    public static BookSearchResultFragment getInstant(String s, String typeId, int order) {
+        BookSearchResultFragment bookPutAwayFragment = new BookSearchResultFragment();
         Bundle bundle = new Bundle();
         bundle.putString("keyword", s);
-        bundle.putInt("typeId", typeId);
-        bundle.putInt("order", i);
+        bundle.putString("typeId", typeId);
+        bundle.putInt("order", order);
         bookPutAwayFragment.setArguments(bundle);
         return bookPutAwayFragment;
     }
@@ -55,19 +54,18 @@ public class BookPutAwayFragment extends BaseFragment2 {
         bookRvAdapter = new BookRvAdapter(getActivity());
         rvBookList.setAdapter(bookRvAdapter);
         Bundle bundle = getArguments();
-        Log.e("bundle", "唯恐吗");
 
         if (bundle != null) {
             String keyword = bundle.getString("keyword");
-            int typeId = bundle.getInt("typeId");
+            String typeId = bundle.getString("typeId");
             int order = bundle.getInt("order");
             getData(keyword, typeId, order);
 
         }
     }
 
-    private void getData(String keyword, int typeId, int order) {
-        Observable observable = RetrofitUtils.getInstance().getSearchBookList(keyword, typeId + "", order + "");
+    private void getData(String keyword, String typeId, int order) {
+        Observable observable = RetrofitUtils.getInstance().searchBookResult(typeId, keyword, order);
         showProgressDialog();
         observable.subscribe(new Subscriber<SearchBookListBean>() {
             @Override

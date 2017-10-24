@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 
 public class OrderWaterAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<QueryWaterListBean.PageBean.ListBean> data=new ArrayList<>();
+    private List<QueryWaterListBean.PageBean.ListBean> data = new ArrayList<>();
 
     public OrderWaterAdapter(Context mContext) {
         this.mContext = mContext;
@@ -40,7 +40,7 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        final int mPosition=position;
+        final int mPosition = position;
         if (data != null && data.size() > 0) {
             final QueryWaterListBean.PageBean.ListBean listBean = data.get(position);
             viewHolder.setData(listBean);
@@ -51,7 +51,7 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
                     count++;
                     listBean.setCount(count);
                     notifyDataSetChanged();
-                    if(listener!=null){
+                    if (listener != null) {
                         listener.onClickListener(listBean, listBean.getId(), true);
                     }
                 }
@@ -60,14 +60,14 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     int count = listBean.getCount();
-                    if(count>0){
+                    if (count > 0) {
                         count--;
-                    }else{
-                        count=0;
+                    } else {
+                        count = 0;
                     }
                     listBean.setCount(count);
                     notifyDataSetChanged();
-                    if(listener!=null){
+                    if (listener != null) {
                         listener.onClickListener(listBean, listBean.getId(), false);
                     }
                 }
@@ -77,7 +77,7 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(data!=null&&data.size()>0){
+        if (data != null && data.size() > 0) {
             return data.size();
         }
         return 0;
@@ -88,7 +88,7 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_item)
         ImageView ivItem;
         @BindView(R.id.tv_water_name)
@@ -110,27 +110,28 @@ public class OrderWaterAdapter extends RecyclerView.Adapter {
 
         public void setData(QueryWaterListBean.PageBean.ListBean data) {
             this.data = data;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,data.getImg(),ivItem);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, data.getImg(), ivItem);
             tvWaterName.setText(data.getName());
-            tvHowMuch.setText("￥"+data.getPrice());
+            tvHowMuch.setText("￥" + data.getPrice());
             int count = data.getCount();
             tvCount.setText(count + "");
-            if(count>0){
+            if (count > 0) {
                 ivMinus.setVisibility(View.VISIBLE);
                 tvCount.setVisibility(View.VISIBLE);
-            }else{
-                ivMinus.setVisibility(View.GONE);
-                tvCount.setVisibility(View.GONE);
+            } else {
+                ivMinus.setVisibility(View.INVISIBLE);
+                tvCount.setVisibility(View.INVISIBLE);
             }
         }
     }
+
     private OnClickListener listener;
 
     public void setListener(OnClickListener listener) {
         this.listener = listener;
     }
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void onClickListener(QueryWaterListBean.PageBean.ListBean bean, int id, boolean isAdd);
     }
 }

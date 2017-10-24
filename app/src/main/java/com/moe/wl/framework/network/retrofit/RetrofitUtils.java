@@ -1045,7 +1045,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("jieYueBook", "---》bookDetail");
         try {
-            Map<String, String> tempMap = new HashMap();
+            Map<String, String> tempMap = new HashMap<>();
             tempMap.put("invitegetbooktime", invitegetbooktime);
             tempMap.put("uname", uname);
             tempMap.put("umobile", umobile);
@@ -1065,7 +1065,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("jieYueBook", "---》bookDetail");
         try {
-            Map<String, String> tempMap = new HashMap();
+            Map<String, String> tempMap = new HashMap<>();
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1075,13 +1075,59 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 图书类别搜索
+     */
+    public static Observable getSearchData() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getSearchData(paramsMap));
+    }
+
+    /**
+     * 清空图书搜索历史
+     */
+    public static Observable clearHistory() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.clearHistory(paramsMap));
+    }
+
+    /**
+     * 搜索图书列表
+     */
+    public static Observable searchBookResult(String type, String keyword, int order) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("type", type);
+            tempMap.put("keyword", keyword);
+            tempMap.put("order", order);
+            tempMap.put("issearch", 1);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.searchBookResult(paramsMap));
+    }
+
+    /**
      * 图书借阅
      */
     public static Observable getJieyueTime() {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("getJieyueTime", "---》bookDetail");
         try {
-            Map<String, String> tempMap = new HashMap();
+            Map<String, String> tempMap = new HashMap<>();
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1097,7 +1143,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, Object> paramsMap = new HashMap<>();
         Log.e("getSearchBookList", "---》bookDetail");
         try {
-            Map<String, String> tempMap = new HashMap();
+            Map<String, String> tempMap = new HashMap<>();
             tempMap.put("keywords", keywords);
             tempMap.put("typeid", typeid);
             tempMap.put("order", order);
@@ -2832,7 +2878,7 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable walletPay(String orderid, String ordercode, String ordertype, int paytype, String paypassd,int count) {
+    public static Observable walletPay(String orderid, String ordercode, String ordertype, int paytype, String paypassd, int count) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -2841,8 +2887,8 @@ carcode	是	string	车牌号*/
             tempMap.put("ordertype", ordertype);
             tempMap.put("paytype", paytype + "");
             tempMap.put("orderid", orderid);
-            if(paytype==5){
-                tempMap.put("vouchercount",count+"");
+            if (paytype == 5) {
+                tempMap.put("vouchercount", count + "");
             }
             addParam(paramsMap, tempMap);
         } catch (Exception e) {

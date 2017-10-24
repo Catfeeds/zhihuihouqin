@@ -86,7 +86,11 @@ public class ExpertSelectTimeAdapter extends BaseAdapter {
 
         void setData(int position) {
             this.position = position;
-            text.setText(data.get(position).getStarttime() /*+ "-" + data.get(position).getEndtime()*/);
+            if (data.get(position).getStarttime() == null || "".equals(data.get(position).getStarttime())) {
+                text.setText("空");
+            } else {
+                text.setText(data.get(position).getStarttime() /*+ "-" + data.get(position).getEndtime()*/);
+            }
             if (data.get(position).getStatus() == 0) {
                 if (mPosition == position) {
                     text.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_blue_fill));

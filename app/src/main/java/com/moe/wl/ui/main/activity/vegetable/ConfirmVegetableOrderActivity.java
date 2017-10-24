@@ -12,6 +12,7 @@ import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.adapter.VegetableOrderAdapter;
+import com.moe.wl.ui.main.bean.FoodBean;
 import com.moe.wl.ui.main.bean.PayBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 import com.moe.wl.ui.main.model.ConfirmVegetableOrderModel;
@@ -115,9 +116,13 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         map.put("realname", SharedPrefHelper.getInstance().getRealName());
         map.put("mobile", SharedPrefHelper.getInstance().getPhoneNumber());
         map.put("getfoodtimeID", timeID);
-        VegetableBean.PageEntity.ListEntity[] listFood = new VegetableBean.PageEntity.ListEntity[list.size()];
+
+        FoodBean[] listFood = new FoodBean[list.size()];
         for (int i = 0; i < list.size(); i++) {
-            listFood[i] = list.get(i);
+            FoodBean json = new FoodBean();
+            json.setFoodid(list.get(i).getId());
+            json.setCount(list.get(i).getNumber());
+            listFood[i] = json;
         }
         map.put("foodList", listFood);
         getPresenter().ConfirmVegetableOrder(map);

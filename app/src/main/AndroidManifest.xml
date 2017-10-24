@@ -478,7 +478,15 @@
             android:name=".ui.login.activity.AccountComplainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.DoctorConsultActivity" />
-        <activity android:name=".ui.main.activity.me.PublicAcountActivity"></activity>
+        <activity
+            android:name=".ui.main.activity.me.PublicAcountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.Library.BookNewSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.Library.BookSearchResultActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

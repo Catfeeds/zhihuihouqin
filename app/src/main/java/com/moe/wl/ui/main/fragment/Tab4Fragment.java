@@ -267,8 +267,6 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
         tvName.setText(event.getNickName());
     }
 
-    ;
-
     @Override
     public void onStart() {
         super.onStart();

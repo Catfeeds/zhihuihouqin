@@ -15,17 +15,17 @@ public interface NetUrl {
     String commentOrder = "appuser/orderCommon/addComment"; // 订单评论
 
     //
-    String signup="appuser/user/login?";
-    String captcha="appuser/user/getCaptcha?";
-    String regist="appuser/user/register?";
-    String thirdLogin="appuser/user/thirdLogin?";
-    String positionList="appuser/user/positionlist";//职位列表
-    String nationlist="appuser/common/nationlist";//民族列表
-    String getdepartList="appuser/user/getdepartList";//部门列表
-    String getofficelist="appuser/user/getofficelist";//处室列表
-    String cartypelist="appuser/user/cartypelist";//车辆类别
-    String submitAuth="appuser/user/auth";
-    String bindPhone="appuser/user/bindMobile";
+    String signup = "appuser/user/login?";
+    String captcha = "appuser/user/getCaptcha?";
+    String regist = "appuser/user/register?";
+    String thirdLogin = "appuser/user/thirdLogin?";
+    String positionList = "appuser/user/positionlist";//职位列表
+    String nationlist = "appuser/common/nationlist";//民族列表
+    String getdepartList = "appuser/user/getdepartList";//部门列表
+    String getofficelist = "appuser/user/getofficelist";//处室列表
+    String cartypelist = "appuser/user/cartypelist";//车辆类别
+    String submitAuth = "appuser/user/auth";
+    String bindPhone = "appuser/user/bindMobile";
     String changePassWord = "appuser/user/updatePass";
     String accountComplain = "appuser/user/appeal"; // 账号申诉
 
@@ -48,8 +48,8 @@ public interface NetUrl {
 //    String cancelExpertsOrder = "appuser/ylfw/cancelexpertorder"; // 取消专家订单
 //    String deleteExpertsOrder = "appuser/ylfw/delexpertorder"; // 删除专家订单
     String orderExpertsDetail = "appuser/ylfw/expertorderdetail"; // 专家订单详情
-    String addexpertnotice="appuser/ylfw/addexpertnotice";//发送咨询消息
-    String expertnoticelist="appuser/ylfw/expertnoticelist";//获取咨询消息
+    String addexpertnotice = "appuser/ylfw/addexpertnotice";//发送咨询消息
+    String expertnoticelist = "appuser/ylfw/expertnoticelist";//获取咨询消息
 
     // 物业维修
     String wuyeHome = "appuser/bxwx/addOrder";
@@ -104,6 +104,9 @@ public interface NetUrl {
     String jieyue = "appuser/tsjyfw/bookorder";
     String jieyuetime = "appuser/tsjyfw/gettime";
     String searchCategory = "appuser/tsjyfw/gettypelist";
+    String getSearchData = "appuser/tsjyfw/tosearch";
+    String clearHistory = ""; // 清空搜索历史
+    String searchBookResult = "appuser/tsjyfw/search";
     String searchBookList = "appuser/tsjyfw/getbooklist";
     String bookOrderList = "appuser/tsjyfw/orderlist";
 //    String cancelBookOrder = "appuser/tsjyfw/cancelorder";
@@ -212,7 +215,7 @@ public interface NetUrl {
     String backDeposit ="appuser/wallet/backDeposit";
 
     //意见反馈
-    String saveAdvice="appuser/user/saveAdvice";
+    String saveAdvice = "appuser/user/saveAdvice";
     //我的收藏列表
     String findUserFavorList = "appuser/tfavor/findUserFavorList";
     //我的收藏

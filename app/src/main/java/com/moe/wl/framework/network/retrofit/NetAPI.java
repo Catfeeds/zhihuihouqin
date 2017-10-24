@@ -232,6 +232,21 @@ public interface NetAPI {
     @POST(NetUrl.searchCategory)
     Observable<SearchCategoryBean> getSearchCategory(@FieldMap Map<String, Object> map);
 
+    //查询图书搜索历史和类别
+    @FormUrlEncoded
+    @POST(NetUrl.getSearchData)
+    Observable<BookSearchDataBean> getSearchData(@FieldMap Map<String, Object> map);
+
+    //清空图书搜索历史
+    @FormUrlEncoded
+    @POST(NetUrl.clearHistory)
+    Observable<CollectBean> clearHistory(@FieldMap Map<String, Object> map);
+
+    //搜索图书结果
+    @FormUrlEncoded
+    @POST(NetUrl.searchBookResult)
+    Observable<SearchCategoryBean> searchBookResult(@FieldMap Map<String, Object> map);
+
     //查询书列表
     @FormUrlEncoded
     @POST(NetUrl.searchBookList)

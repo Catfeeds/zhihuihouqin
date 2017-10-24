@@ -67,9 +67,9 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     public void initView() {
         getPresenter().getBanner(3);
         again = getIntent().getBooleanExtra("again", false);
-        bookList= (List<BooklistBean>) getIntent().getSerializableExtra("list");
-        if (bookList!=null)
-        LogUtils.d("-------bookList----"+bookList.size());
+        bookList = (List<BooklistBean>) getIntent().getSerializableExtra("list");
+        if (bookList != null)
+            LogUtils.d("-------bookList----" + bookList.size());
         fragments = new ArrayList<>();
         fragments.add(LatestFragment.getInstance(again));
         fragments.add(HottestFragment.getInstance(again));
@@ -93,7 +93,7 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.iv_more_health_consult_search:
-                Intent intent1 = new Intent(this, BookSearchActivity.class);
+                Intent intent1 = new Intent(this, BookNewSearchActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.civ_recommend:

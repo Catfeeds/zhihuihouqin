@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -9,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
-
 
         <ImageView
             android:id="@+id/iv_item"
@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -57,8 +58,8 @@
                         android:id="@+id/iv_minus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/button_minus"
-                        android:visibility="gone" />
+                        android:src="@drawable/blue_minus"
+                        android:visibility="invisible" />
 
                     <TextView
                         android:id="@+id/tv_count"
@@ -66,16 +67,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/standard_padding"
                         android:layout_marginRight="@dimen/standard_padding"
-                        android:text="0"
+                        android:text="3"
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_bigger"
-                        android:visibility="gone" />
+                        android:visibility="invisible" />
 
                     <ImageView
                         android:id="@+id/iv_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/button_add" />
+                        android:src="@drawable/blue_add" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

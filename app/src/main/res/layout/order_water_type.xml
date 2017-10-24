@@ -2,17 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
-<TextView
-    android:id="@+id/tv_order_water_item"
-    android:layout_width="match_parent"
-    android:textSize="@dimen/sp_common"
-    android:textColor="@color/tv_black"
-    android:gravity="center"
-    android:text="桶装水"
-    android:layout_height="70dp" />
+
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue" />
+
+        <TextView
+            android:id="@+id/tv_order_water_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="桶装水"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common" />
+
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_lighter"/>
+        android:background="@color/gray_lighter" />
 </LinearLayout>

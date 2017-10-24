@@ -28,8 +28,8 @@ public class JieYueSuccActivity extends AppCompatActivity {
         if (from == 1) {
             tvBookSubmitDes.setText("感谢您的推荐");
         }else if(from==2){
-            tvBookSubmitDes.setText("您的申请已提交成功,我们会尽快审核完毕,审核后会以短信方式通知您,感谢您的配合");
-        }else if(from==3){
+            tvBookSubmitDes.setText("您的申请已提交成功，我们会尽快审核完毕，审核后会以短信方式通知您，感谢您的配合");
+        } else if (from == 3) {
             tvBookSubmitDes.setText("已经收到您的需求，我们会尽快采集购买，采购 后会及时联系您，给您带来的不便，敬请谅解！");
         }
 
