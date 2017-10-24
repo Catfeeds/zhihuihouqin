@@ -10,10 +10,10 @@ import android.widget.GridView;
 import android.widget.PopupWindow;
 
 import com.moe.wl.R;
-import com.moe.wl.ui.main.adapter.TimeAdapter;
 import com.moe.wl.ui.main.adapter.TimeSelectAdapter;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +26,8 @@ public class PopSelectTime extends PopupWindow {
     private OnSelectClick listene;
     private GridView am, pm;
     private JieYueTimeBean data;
-  /*  private final List<JieYueTimeBean.TimelistBean> list1;
-    private final List<JieYueTimeBean.TimelistBean> list2;*/
+    private List<JieYueTimeBean.AmListEntity> amList;
+    private List<JieYueTimeBean.PmListEntity> pmList;
 
     public PopSelectTime(Context context, JieYueTimeBean bean, OnSelectClick listener) {
         this.context = context;
@@ -36,21 +36,14 @@ public class PopSelectTime extends PopupWindow {
         view = LayoutInflater.from(context).inflate(R.layout.pop_select_time, null);
         am = (GridView) view.findViewById(R.id.grid_am);
         pm = (GridView) view.findViewById(R.id.grid_pm);
-        final List<JieYueTimeBean.AmListBean> amList = bean.getAmList();
-        final List<JieYueTimeBean.PmListBean> pmList = bean.getPmList();
-      /*  List<JieYueTimeBean.TimelistBean> timelist = bean.getTimelist();
-        list1 = new ArrayList();
-        list2 = new ArrayList();
-        if(timelist!=null)
-        for (int i = 0; i < timelist.size(); i++) {
-            if (timelist.get(i).getTypeid().equals("1")) {
-                list1.add(timelist.get(i));
-            } else if (timelist.get(i).getTypeid().equals("2")) {
-                list2.add(timelist.get(i));
-            }
-        }*/
-        TimeSelectAdapter anAdapter = new TimeSelectAdapter(context, amList);
-        TimeAdapter pnAdapter = new TimeAdapter(context, pmList);
+
+        amList = new ArrayList();
+        amList.addAll(bean.getAmList());
+        pmList = new ArrayList();
+        pmList.addAll(bean.getPmList());
+
+        TimeSelectAdapter anAdapter = new TimeSelectAdapter(context, bean, 1);
+        TimeSelectAdapter pnAdapter = new TimeSelectAdapter(context, bean, 2);
 
         am.setAdapter(anAdapter);
         pm.setAdapter(pnAdapter);

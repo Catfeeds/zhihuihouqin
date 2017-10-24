@@ -14,7 +14,7 @@ public class PayBean {
     private String createtime;
     private int paytype;
     private String ordercode;
-    private int totalMoney;
+    private double totalMoney;
 
     public String getCreatetime() {
         return createtime;
@@ -40,11 +40,11 @@ public class PayBean {
         this.paytype = paytype;
     }
 
-    public int getTotalMoney() {
+    public double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(int totalMoney) {
+    public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
     }
 

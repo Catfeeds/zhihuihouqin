@@ -1,6 +1,9 @@
 package com.moe.wl.ui.main.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -72,25 +75,17 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     LinearLayout activityPayFiveJiao;
     @BindView(R.id.tv_need_pay)
     TextView tvNeedPay;
+
     private int paytype;
+    private String payTypeName;
     private String ordercode;
     private String ordertype;
     private int from;
     private String orderid;
     private int walletRemain;
-    private int pay;
+    private float pay;
     private int voucherNum;
     private int count;
-
-    @Override
-    public PayPresenter createPresenter() {
-        return new PayPresenter();
-    }
-
-    @Override
-    public PayModel createModel() {
-        return new PayModelImpl();
-    }
 
     @Override
     public void setContentLayout() {
@@ -111,10 +106,13 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
         from = intent.getIntExtra("from", Constants.ORDERWATER);
-        pay = intent.getIntExtra("pay", 0);
-        count = pay / 5;
-       /* LogUtils.i(ordercode);
-        LogUtils.i(ordertype);*/
+        pay = intent.getFloatExtra("pay", 0f);
+        if (pay % 5 > 0) {
+            count = (int) (pay / 5) + 1;
+        } else {
+            count = (int) (pay / 5);
+        }
+        LogUtils.d("支付金额 ： " + pay);
         tvNeedPay.setText("￥" + pay);
         if (from == Constants.BARBER) {//是理发展示代金券
             rlDaijinquanPay.setVisibility(View.VISIBLE);
@@ -122,6 +120,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
+        MyReceiver receiver = new MyReceiver();//广播接受者实例
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("COM.ALIPAY.SUCCESS.BROADCAST");
+        registerReceiver(receiver, intentFilter);
     }
 
     private void initTitle() {
@@ -129,24 +131,31 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         payTitle.setTitle("支付");
     }
 
-    @OnClick({R.id.rl_daijinquan_pay,R.id.rl_banance_pay, R.id.rl_wx_pay, R.id.rl_alipay, R.id.bt_confirm})
+    @OnClick({R.id.rl_daijinquan_pay, R.id.rl_banance_pay, R.id.rl_wx_pay, R.id.rl_alipay, R.id.bt_confirm})
     public void onViewClicked(View view) {
-        unCheckPay();
         switch (view.getId()) {
             case R.id.rl_daijinquan_pay://代金券支付
-                paytype=5;
+                paytype = 5;
+                payTypeName = "代金券支付";
+                unCheckPay();
                 ivDaijinjuanCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.rl_banance_pay://余额支付
                 paytype = 3;
+                payTypeName = "余额支付";
+                unCheckPay();
                 ivBalancePayCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.rl_wx_pay://微信支付
                 paytype = 2;
+                payTypeName = "微信支付";
+                unCheckPay();
                 ivWeixinPayCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.rl_alipay://支付宝支付
                 paytype = 1;
+                payTypeName = "支付宝支付";
+                unCheckPay();
                 ivAlpayCheck.setImageResource(R.drawable.select);
                 break;
             case R.id.bt_confirm://确认支付，去顶支付成功进入支付成功界面
@@ -159,47 +168,47 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                         break;
                     case 3:
                         getPresenter().getIsHasPwd();
-
                         break;
                     case 4:
                         //getPresenter().personalWalletPay(orderid, ordercode, ordertype, 4);
                         break;
                     case 5:
                         // 代金券5元一张
-                        if(voucherNum<count){
+                        if (voucherNum < count) {
                             showToast("您的代金券不足");
                             return;
-                        }else{
-                            getPresenter().personalWalletPay(orderid, ordercode, ordertype, 5,"",count);
+                        } else {
+                            getPresenter().personalWalletPay(orderid, ordercode, ordertype, 5, "", count);
                         }
                         break;
                 }
                 break;
         }
     }
+
     //钱包支付
     private void showPayDialog() {
         final WalletPayDialog payDialog = new WalletPayDialog(this).builder();
-        payDialog .setPositiveButton("确认", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String pwd = payDialog.getPwd();
-                        if(pwd.length()==6){
-                            if(walletRemain<pay){
-                                showToast("您的余额不足");
-                                return ;
-                            }
-                            getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3,pwd,0);
-                        } else{
-                            showToast("您输入的密码有误");
-                        }
+        payDialog.setPositiveButton("确认", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pwd = payDialog.getPwd();
+                if (pwd.length() == 6) {
+                    if (walletRemain < pay) {
+                        showToast("您的余额不足");
+                        return;
                     }
-                }).setNegativeButton("取消", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, pwd, 0);
+                } else {
+                    showToast("您输入的密码有误");
+                }
+            }
+        }).setNegativeButton("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    }
-                });
+            }
+        });
         payDialog.show();
     }
 
@@ -217,23 +226,15 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
         finish();
     }
+
     //支付宝支付成功
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessage(AliPaySuccess event) {
-        if (event!=null){
-                LogUtils.d("--------------支付订单----------");
-                Intent intent=new Intent(this, SubmitSuccessActivity.class);
-                intent.putExtra("isPay",true);
-                startActivity(intent);
-                finish();
-        }
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public void weiXinPay(WeixinBean bean) {
         if (bean != null) {
@@ -249,7 +250,8 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         if (bean != null) {
             showToast("支付成功");
             Intent intent = new Intent(this, SubmitSuccessActivity.class);
-            intent.putExtra("isPay",true);
+            intent.putExtra("isPay", true);
+            intent.putExtra("from", from);
             startActivity(intent);
             finish();
         }
@@ -257,25 +259,56 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     @Override
     public void findUserWalletResult(UserWalletBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             //对私钱包余额
             walletRemain = bean.getWalletRemain();
             int publicRemain = bean.getPublicRemain();//对公钱包余额
             voucherNum = bean.getVoucherNum();//理发券数量
-            tvAvailableBalance.setText("￥"+ walletRemain);
-            LogUtils.i("代金券的数量"+voucherNum);
+            tvAvailableBalance.setText("￥" + walletRemain);
+            LogUtils.i("代金券的数量" + voucherNum);
         }
     }
 
     @Override
     public void isHasPwd(ActivityPostBean bean) {
-        if(bean !=null){
+        if (bean != null) {
             int errCode = bean.getErrCode();
-            if(errCode==0){
+            if (errCode == 0) {
                 showPayDialog();
-            }else if(errCode==1001){
-                getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3,"",0);
+            } else if (errCode == 1001) {
+                getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, "", 0);
             }
         }
+    }
+
+    public class MyReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intents) {
+            LogUtils.d("我接受到广播啦！！！");
+            Intent intent = new Intent(PayFiveJiaoActivity.this, SubmitSuccessActivity.class);
+            intent.putExtra("isPay", true);
+            intent.putExtra("payTypeName", payTypeName);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(AliPaySuccess event) {
+        LogUtils.d("--------------支付订单----------" + event == null ? "空" : "非空");
+        if (event != null) {
+        }
+    }
+
+    @Override
+    public PayPresenter createPresenter() {
+        return new PayPresenter();
+    }
+
+    @Override
+    public PayModel createModel() {
+        return new PayModelImpl();
     }
 }

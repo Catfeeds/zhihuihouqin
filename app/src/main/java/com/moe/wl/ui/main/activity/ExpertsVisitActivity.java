@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
@@ -161,7 +162,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvOrderPersonNum.setText(personNum + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间
         tvContent.setText(bean.getExpert().getBrief());// 简介
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getExpert().getPhoto(), ivDocPhoto);
+        LogUtils.d("Photo : " + bean.getExpert().getPhoto());
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getExpert().getPhoto(), ivDocPhoto, R.mipmap.ic_default_square);
         // 评论
         if (bean.getCommentlist() == null) {
             return;

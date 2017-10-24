@@ -159,7 +159,7 @@ public class OrderExpertsDetailBean {
             private String positionname;
             private String realname;
             private int remaincount;
-            private int score;
+            private float score;
             private String skilledinfo;
             private int valid;
             private String worktime;
@@ -252,11 +252,11 @@ public class OrderExpertsDetailBean {
                 this.remaincount = remaincount;
             }
 
-            public int getScore() {
+            public float getScore() {
                 return score;
             }
 
-            public void setScore(int score) {
+            public void setScore(float score) {
                 this.score = score;
             }
 

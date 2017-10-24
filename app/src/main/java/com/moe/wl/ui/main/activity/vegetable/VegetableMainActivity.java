@@ -95,7 +95,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             @Override
             public void onAddClick(int position, int num) {
                 data.get(position).setNumber(num);
-                int priceNumber = 0;
+                float priceNumber = 0f;
                 int vegetableNumber = 0;
                 for (int i = 0; i < data.size(); i++) {
                     priceNumber += data.get(i).getNumber() * data.get(i).getPrice();
@@ -112,7 +112,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         adapter.setOnMinusClickListener(new VegetableAdapter.OnMinusClickListener() {
             @Override
             public void onMinusClick(int position, int num) {
-                int priceNumber = 0;
+                float priceNumber = 0f;
                 int vegetableNumber = 0;
                 data.get(position).setNumber(num);
                 for (int i = 0; i < data.size(); i++) {

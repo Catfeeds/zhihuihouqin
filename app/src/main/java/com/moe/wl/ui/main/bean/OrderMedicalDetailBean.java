@@ -175,10 +175,10 @@ public class OrderMedicalDetailBean {
             private String photo;
             private String positionname;
             private String realname;
-            private Object remaincount;
-            private double score;
+            private int remaincount;
+            private float score;
             private String skilledinfo;
-            private Object totalcount;
+            private int totalcount;
 
             public Object getAvailable() {
                 return available;
@@ -236,19 +236,19 @@ public class OrderMedicalDetailBean {
                 this.realname = realname;
             }
 
-            public Object getRemaincount() {
+            public int getRemaincount() {
                 return remaincount;
             }
 
-            public void setRemaincount(Object remaincount) {
+            public void setRemaincount(int remaincount) {
                 this.remaincount = remaincount;
             }
 
-            public double getScore() {
+            public float getScore() {
                 return score;
             }
 
-            public void setScore(double score) {
+            public void setScore(float score) {
                 this.score = score;
             }
 
@@ -260,11 +260,11 @@ public class OrderMedicalDetailBean {
                 this.skilledinfo = skilledinfo;
             }
 
-            public Object getTotalcount() {
+            public int getTotalcount() {
                 return totalcount;
             }
 
-            public void setTotalcount(Object totalcount) {
+            public void setTotalcount(int totalcount) {
                 this.totalcount = totalcount;
             }
         }

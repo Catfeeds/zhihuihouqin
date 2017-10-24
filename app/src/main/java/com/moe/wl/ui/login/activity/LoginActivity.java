@@ -118,12 +118,18 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     @Override
     public void initView() {
+        if (SharedPrefHelper.getInstance().isRememberAccount()
+                && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getUserId())
+                && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getToken())) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
         initTitle();
         //  ShareSDK.initSDK(this);
         LogUtils.d("账号：" + SharedPrefHelper.getInstance().getPhoneNumber() + "密码：" + SharedPrefHelper.getInstance().getPassword());
         etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         etPsw.setText(SharedPrefHelper.getInstance().getPassword());
-        etPsw.requestFocus(); // 获取焦点 光标出现
+//        etPsw.requestFocus(); // 获取焦点 光标出现
         etPsw.setSelection(SharedPrefHelper.getInstance().getPassword().length());
         lCbRemenberPwd.setChecked(SharedPrefHelper.getInstance().isRememberPassWord());
         etUname.addTextChangedListener(new TextWatcher() {
@@ -288,9 +294,11 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     public void loginSuccess(LoginBean loginBean) {
         if (lCbRemenberPwd.isChecked()) {
             LogUtils.d("选中");
+            SharedPrefHelper.getInstance().setRememberAccount(true);
             SharedPrefHelper.getInstance().setPassword(etPsw.getText().toString().trim());
         } else {
             LogUtils.d("未选中");
+            SharedPrefHelper.getInstance().setRememberAccount(false);
             SharedPrefHelper.getInstance().setPassword("");
         }
         SharedPrefHelper.getInstance().setRememberPassWord(lCbRemenberPwd.isChecked());

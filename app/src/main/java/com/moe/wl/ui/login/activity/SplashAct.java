@@ -52,16 +52,18 @@ public class SplashAct extends FullscreenActivity<TestModel, TestView, TestPrese
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!TextUtils.isEmpty(SharedPrefHelper.getInstance().getUserId()) && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getToken())){
+                if (SharedPrefHelper.getInstance().isRememberAccount()
+                        && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getUserId())
+                        && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getToken())) {
                     startActivity(new Intent(SplashAct.this, MainActivity.class));
-                }else{
+                } else {
                     startActivity(new Intent(SplashAct.this, LoginActivity.class));
                 }
                 //参数1，第二个actvity进入时动画，参数2是第一个activity退出是动画
                 /*SplashAct.this.overridePendingTransition(R.anim.first,R.anim.second); //指定划入，划出动画；*/
                 finish();
             }
-        },2000);
+        }, 2000);
 
     }
 

@@ -19,43 +19,43 @@ import lc.cn.thirdplatform.R;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
-	private static final String TAG = "WXPayEntryActivity";
+    private static final String TAG = "WXPayEntryActivity";
 
-	private IWXAPI api;
+    private IWXAPI api;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.pay_result);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pay_result);
 
-		api = WXAPIFactory.createWXAPI(this, "wx723f038c9add02a3");
-		api.handleIntent(getIntent(), this);
-	}
+        api = WXAPIFactory.createWXAPI(this, "wx723f038c9add02a3");
+        api.handleIntent(getIntent(), this);
+    }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-		api.handleIntent(intent, this);
-	}
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
 
-	@Override
-	public void onReq(BaseReq req) {
-		
-	}
+    @Override
+    public void onReq(BaseReq req) {
 
-	@Override
-	public void onResp(BaseResp resp) {
-		LogUtils.d("error= "+resp.errCode);
-		if(resp.errCode==0){
-			//微信支付，不需要依赖于服务器端的通知，直接提示即可
-			Toast.makeText(this, "支付成功!", Toast.LENGTH_SHORT).show();
-			EventBus.getDefault().post(new MessageEvent(MessageEvent.WECHAT_PAY) );
-		}else if(resp.errCode==-1){
-			Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
-		}else if(resp.errCode==-2){
-			Toast.makeText(this, "取消支付", Toast.LENGTH_SHORT).show();
-		}
-		finish();
-	}
+    }
+
+    @Override
+    public void onResp(BaseResp resp) {
+        LogUtils.d("error= " + resp.errCode);
+        if (resp.errCode == 0) {
+            //微信支付，不需要依赖于服务器端的通知，直接提示即可
+            Toast.makeText(this, "支付成功!", Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new MessageEvent(MessageEvent.WECHAT_PAY));
+        } else if (resp.errCode == -1) {
+            Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
+        } else if (resp.errCode == -2) {
+            Toast.makeText(this, "取消支付", Toast.LENGTH_SHORT).show();
+        }
+        finish();
+    }
 }

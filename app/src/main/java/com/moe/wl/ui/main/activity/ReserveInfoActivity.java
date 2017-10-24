@@ -2,8 +2,6 @@ package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,13 +9,14 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
-public class ReserveInfoActivity extends AppCompatActivity {
+public class ReserveInfoActivity extends MyBaseActivity {
 
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
@@ -26,7 +25,7 @@ public class ReserveInfoActivity extends AppCompatActivity {
     @BindView(R.id.tv_user_phone)
     EditText tvUserPhone;
     @BindView(R.id.tv_confirm)
-    Button tvConfirm;
+    TextView tvConfirm;
     @BindView(R.id.activity_reserve_info)
     LinearLayout activityReserveInfo;
 

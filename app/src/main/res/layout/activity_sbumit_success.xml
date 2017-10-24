@@ -4,6 +4,7 @@
     android:id="@+id/activity_sbumit_success"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.moe.wl.ui.main.activity.SubmitSuccessActivity">
@@ -12,19 +13,19 @@
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="#1000" />
+        android:background="@color/white" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#1000" />
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 
     <ImageView
         android:id="@+id/iv_submit_or_pay"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:src="@drawable/selected" />
+        android:src="@drawable/submit_success" />
 
     <TextView
         android:id="@+id/tv_submit_success"
@@ -45,5 +46,5 @@
         android:paddingRight="20dp"
         android:paddingTop="8dp"
         android:text="查看订单"
-        android:textSize="20sp" />
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>

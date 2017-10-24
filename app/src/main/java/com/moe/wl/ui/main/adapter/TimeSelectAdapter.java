@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,22 +18,31 @@ import butterknife.ButterKnife;
 
 public class TimeSelectAdapter extends BaseAdapter {
     private Context mContext;
-    private List<JieYueTimeBean.AmListBean> mList;
+    private JieYueTimeBean data;
+    private int type;
 
-    public TimeSelectAdapter(Context context, List<JieYueTimeBean.AmListBean> mList) {
+    public TimeSelectAdapter(Context context, JieYueTimeBean data, int type) {
         this.mContext = context;
-        this.mList = mList;
+        this.data = data;
+        this.type = type;
     }
 
     @Override
     public int getCount() {
-
-        return mList.size();
+        if (type == 1) {
+            return data.getAmList().size();
+        } else {
+            return data.getPmList().size();
+        }
     }
 
     @Override
-    public JieYueTimeBean.AmListBean getItem(int position) {
-        return mList.get(position);
+    public Object getItem(int position) {
+        if (type == 1) {
+            return data.getAmList().get(position);
+        } else {
+            return data.getPmList().get(position);
+        }
     }
 
     @Override
@@ -45,7 +52,7 @@ public class TimeSelectAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_select_time, null);
             viewHolder = new ViewHolder(convertView);
@@ -54,9 +61,12 @@ public class TimeSelectAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if (mList != null && mList.size() > 0) {
-            viewHolder.setData(mList.get(position), position);
+        if (type == 1) {
+            viewHolder.time.setText(data.getAmList().get(position).getTimeperiod());
+        } else {
+            viewHolder.time.setText(data.getPmList().get(position).getTimeperiod());
         }
+
         return convertView;
     }
 
@@ -66,13 +76,6 @@ public class TimeSelectAdapter extends BaseAdapter {
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
-        }
-
-        public void setData(JieYueTimeBean.AmListBean timelistBean, int position) {
-            if (timelistBean != null) {
-                time.setText(timelistBean.getTimeperiod());
-
-            }
         }
     }
 }

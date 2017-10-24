@@ -245,7 +245,7 @@ public interface NetAPI {
     //搜索图书结果
     @FormUrlEncoded
     @POST(NetUrl.searchBookResult)
-    Observable<SearchCategoryBean> searchBookResult(@FieldMap Map<String, Object> map);
+    Observable<SearchBookListBean> searchBookResult(@FieldMap Map<String, Object> map);
 
     //查询书列表
     @FormUrlEncoded

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
@@ -94,6 +95,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
 //        ToastUtil.showToast(this, "Type: " + bean.getOrdertype() + "  ID:" + bean.getOrdercode());
         // TODO 去支付
         Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+        intent.putExtra("from", Constants.VEGETABLE);
         intent.putExtra("pay", priceNum);
         intent.putExtra("orderid", "");
         intent.putExtra("ordercode", bean.getOrdercode());
