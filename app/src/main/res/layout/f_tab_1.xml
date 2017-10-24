@@ -106,7 +106,7 @@
                 <com.moe.wl.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="200dp"
                     banner:bb_barColor="#00000000"
                     banner:bb_barPaddingBottom="5dp"
                     banner:bb_barPaddingLeft="10dp"

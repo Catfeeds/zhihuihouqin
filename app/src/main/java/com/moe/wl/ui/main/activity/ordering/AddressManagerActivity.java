@@ -43,6 +43,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
     private int addressId = 0;
     private String mAddress;
     private String name;
+    private String phone;
 
     @Override
     public AddressPresenter createPresenter() {
@@ -64,6 +65,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
     public void initView() {
         addressId = getIntent().getIntExtra("ID", 0);
         mAddress = getIntent().getStringExtra("addressName");
+        name = getIntent().getStringExtra("Name");
         data = new ArrayList<>();
         adapter = new AddressAdapter(this, data);
         listView.setAdapter(adapter);
@@ -82,10 +84,11 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
 
         adapter.setOnSelectClickListener(new AddressAdapter.OnSelectClickListener() {
             @Override
-            public void onClick(int id, String name, String address) {
+            public void onClick(int id, String name, String address, String mobile) {
                 AddressManagerActivity.this.name = name;
                 addressId = id;
                 mAddress = address;
+                phone = mobile;
             }
         });
         getPresenter().getAddress();
@@ -103,8 +106,9 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
             case R.id.back:
                 Intent intent1 = new Intent();
                 intent1.putExtra("ID", addressId);
-                intent1.putExtra("Name", mAddress);
+                intent1.putExtra("Name", name);
                 intent1.putExtra("Address", mAddress);
+                intent1.putExtra("Mobile", phone);
                 setResult(RESULT_OK, intent1);
                 finish();
                 break;

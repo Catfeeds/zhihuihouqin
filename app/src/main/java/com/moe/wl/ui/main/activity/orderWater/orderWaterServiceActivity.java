@@ -59,16 +59,6 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, Orde
     private int countNum;
 
     @Override
-    public OrderHomePresenter createPresenter() {
-        return new OrderHomePresenter();
-    }
-
-    @Override
-    public OrderHomeModel createModel() {
-        return new OrderHomeModelImpl();
-    }
-
-    @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_order_water_service);
         ButterKnife.bind(this);
@@ -140,7 +130,7 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, Orde
     @OnClick(R.id.tv_now_order)
     public void onViewClicked() {
         if (countNum > 0) {
-            Intent intent = new Intent(this, OrderInfoActivity.class);
+            Intent intent = new Intent(this, ConfirmOrderActivity.class);
             Gson gson = new Gson();
             String json = gson.toJson(list);
             intent.putExtra("json", json);
@@ -188,5 +178,15 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, Orde
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public OrderHomePresenter createPresenter() {
+        return new OrderHomePresenter();
+    }
+
+    @Override
+    public OrderHomeModel createModel() {
+        return new OrderHomeModelImpl();
     }
 }

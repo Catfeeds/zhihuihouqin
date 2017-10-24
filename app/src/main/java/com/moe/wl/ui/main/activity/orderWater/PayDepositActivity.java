@@ -43,8 +43,6 @@ public class PayDepositActivity extends AppCompatActivity {
         Intent intent=new Intent(this, PayFiveJiaoActivity.class);
         intent.putExtra("pay",50);
         intent.putExtra("from", Constants.ORDERWATER);
-//        intent.putExtra("ordercode",);
-//        intent.putExtra("ordertype",);
         startActivity(intent);
     }
 }

@@ -171,6 +171,7 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
             intent.putExtra("ordertype", ordertype);
             intent.putExtra("json", json);
             intent.putExtra("address", address);
+            intent.putExtra("addressID", id);
             String phone = phoneNumber.getText().toString().trim();
             intent.putExtra("phone", phone);
             intent.putExtra("time", mTime);

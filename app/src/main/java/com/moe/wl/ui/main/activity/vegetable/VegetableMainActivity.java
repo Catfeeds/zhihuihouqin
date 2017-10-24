@@ -120,7 +120,11 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                 price.setText("¥" + priceNumber);
 //                priceNum = priceNumber;
                 number = vegetableNumber;
-                submit.setText("去结算(" + vegetableNumber + ")");
+                if (number == 0) {
+                    submit.setText("去结算");
+                } else {
+                    submit.setText("去结算(" + vegetableNumber + ")");
+                }
             }
         });
         getPresenter().getVegetableData(page, "");
@@ -173,6 +177,10 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         }
         if (page == 1) {
             recycleView.refreshComplete();
+            number = 0;
+            vegetableNum.setText("共0份");
+            price.setText("¥0");
+            submit.setText("去结算");
             data.clear();
         } else {
             recycleView.loadMoreComplete();
