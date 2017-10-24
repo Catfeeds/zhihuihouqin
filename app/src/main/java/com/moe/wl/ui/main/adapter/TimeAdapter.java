@@ -15,14 +15,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by 我的电脑 on 2017/9/15 0015.
+ * 作者 Wang
+ * 日期 2017/10/24.
+ * 描述
  */
 
-public class TimeSelectAdapter extends BaseAdapter {
+public class TimeAdapter extends BaseAdapter {
     private Context mContext;
-    private List<JieYueTimeBean.AmListBean> mList;
+    private List<JieYueTimeBean.PmListBean> mList;
 
-    public TimeSelectAdapter(Context context, List<JieYueTimeBean.AmListBean> mList) {
+    public TimeAdapter(Context context, List<JieYueTimeBean.PmListBean> mList) {
         this.mContext = context;
         this.mList = mList;
     }
@@ -34,7 +36,7 @@ public class TimeSelectAdapter extends BaseAdapter {
     }
 
     @Override
-    public JieYueTimeBean.AmListBean getItem(int position) {
+    public JieYueTimeBean.PmListBean getItem(int position) {
         return mList.get(position);
     }
 
@@ -68,7 +70,7 @@ public class TimeSelectAdapter extends BaseAdapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(JieYueTimeBean.AmListBean timelistBean, int position) {
+        public void setData(JieYueTimeBean.PmListBean timelistBean, int position) {
             if (timelistBean != null) {
                 time.setText(timelistBean.getTimeperiod());
 

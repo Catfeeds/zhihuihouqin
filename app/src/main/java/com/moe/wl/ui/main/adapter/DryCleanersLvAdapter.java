@@ -112,6 +112,7 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
                 this.listBean = listBean;
                 tvYiwu.setText(listBean.getName());
                 tvMoney1.setText("￥" + listBean.getPrice());
+                tvCount1.setText(listBean.getCount()+"");
             }
         }
     }

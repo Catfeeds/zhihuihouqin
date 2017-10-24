@@ -10,10 +10,10 @@ import android.widget.GridView;
 import android.widget.PopupWindow;
 
 import com.moe.wl.R;
+import com.moe.wl.ui.main.adapter.TimeAdapter;
 import com.moe.wl.ui.main.adapter.TimeSelectAdapter;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +26,8 @@ public class PopSelectTime extends PopupWindow {
     private OnSelectClick listene;
     private GridView am, pm;
     private JieYueTimeBean data;
-    private final List<JieYueTimeBean.TimelistBean> list1;
-    private final List<JieYueTimeBean.TimelistBean> list2;
+  /*  private final List<JieYueTimeBean.TimelistBean> list1;
+    private final List<JieYueTimeBean.TimelistBean> list2;*/
 
     public PopSelectTime(Context context, JieYueTimeBean bean, OnSelectClick listener) {
         this.context = context;
@@ -36,19 +36,21 @@ public class PopSelectTime extends PopupWindow {
         view = LayoutInflater.from(context).inflate(R.layout.pop_select_time, null);
         am = (GridView) view.findViewById(R.id.grid_am);
         pm = (GridView) view.findViewById(R.id.grid_pm);
-        List<JieYueTimeBean.TimelistBean> timelist = bean.getTimelist();
+        final List<JieYueTimeBean.AmListBean> amList = bean.getAmList();
+        final List<JieYueTimeBean.PmListBean> pmList = bean.getPmList();
+      /*  List<JieYueTimeBean.TimelistBean> timelist = bean.getTimelist();
         list1 = new ArrayList();
         list2 = new ArrayList();
-
+        if(timelist!=null)
         for (int i = 0; i < timelist.size(); i++) {
             if (timelist.get(i).getTypeid().equals("1")) {
                 list1.add(timelist.get(i));
             } else if (timelist.get(i).getTypeid().equals("2")) {
                 list2.add(timelist.get(i));
             }
-        }
-        TimeSelectAdapter anAdapter = new TimeSelectAdapter(context, list1);
-        TimeSelectAdapter pnAdapter = new TimeSelectAdapter(context, list2);
+        }*/
+        TimeSelectAdapter anAdapter = new TimeSelectAdapter(context, amList);
+        TimeAdapter pnAdapter = new TimeAdapter(context, pmList);
 
         am.setAdapter(anAdapter);
         pm.setAdapter(pnAdapter);
@@ -57,7 +59,7 @@ public class PopSelectTime extends PopupWindow {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (listene != null)
-                    listene.onClick(list1.get(position).getTypeid(), list1.get(position).getTimeperiod());
+                    listene.onClick(amList.get(position).getTypeid(), amList.get(position).getTimeperiod());
                 dismiss();
             }
         });
@@ -66,7 +68,7 @@ public class PopSelectTime extends PopupWindow {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (listene != null)
-                    listene.onClick(list2.get(position).getTypeid(), list2.get(position).getTimeperiod());
+                    listene.onClick(pmList.get(position).getTypeid(), pmList.get(position).getTimeperiod());
                 dismiss();
             }
         });

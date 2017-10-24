@@ -15,6 +15,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.BookDetailBean;
 import com.moe.wl.ui.main.bean.BooklistBean;
@@ -116,6 +117,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
         tvBookName.setText(bean.getTitle());
         ratingBar.setRating(bean.getScore());
+        OtherUtils.ratingBarColor(ratingBar,this);
         tvStarNum.setText(bean.getScore() + "分");
         tvAuthor.setText(bean.getAuthor());
         tvChubanshe.setText(bean.getPublisher());
@@ -142,9 +144,14 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
 
     @Override
     public void getDetail(BookDetailBean bean) {
-        // TODO: 2017/9/28 0028 没有作者介绍和书籍介绍
         tvAuthorsIntroduceContent.setText(bean.getAuthorbrief());
         tvBookIntroduceContent.setText(bean.getContent());
+        int favorstatus = bean.getFavorstatus();
+        if(favorstatus==1){//收藏
+            ivCollect.setImageResource(R.drawable.collected);
+        }else if(favorstatus==0){//没有收藏
+            ivCollect.setImageResource(R.drawable.collect);
+        }
     }
 
     private void initTitle() {

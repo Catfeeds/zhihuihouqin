@@ -58,6 +58,7 @@ public class PayDetailAdapter extends RecyclerView.Adapter {
 
     public void setData(List<FindWalletLogBean.PageBean.ListBean> data) {
         this.mList = data;
+        notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{

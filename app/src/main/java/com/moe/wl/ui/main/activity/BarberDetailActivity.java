@@ -114,8 +114,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         id = barberlistBean.getId();
         System.out.println("理发师详情" + barberlistBean);
         if (barberlistBean != null) {
-            getPresenter().getData(barberlistBean.getId());
-
+            getPresenter().getData(barberlistBean.getId());//获得理发师详情
         }
 
         initTitle();
@@ -129,8 +128,8 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         System.out.println("理发师详情" + barberlistBean);
         if (detailBean != null) {
             tvBarberJieshaoContent.setText(detailBean.getBrief());
-            //tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
-            tvZuopinNum.setText("作品(" + detailBean.getWorklist().size()+ ")");
+            tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
+            /*tvZuopinNum.setText("作品(" + detailBean.getWorklist().size()+ ")");*/
             tvCommentNum.setText("用户评价("+detailBean.getCommentlist().size()+")");
             barberProductAdapter.setData(detailBean.getWorklist());//设置作品列表
             LogUtils.i("worklist===" + detailBean.getWorklist().size());

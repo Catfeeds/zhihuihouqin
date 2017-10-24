@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="充值收入"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <TextView
                 android:id="@+id/tv_createtime"
@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="+100"
+            android:textStyle="bold"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_common" />
 
@@ -47,6 +48,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="@color/gray_line" />
 </LinearLayout>

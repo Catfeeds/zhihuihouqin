@@ -8,20 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.activity.HairStyleDetailActivity;
+import com.moe.wl.ui.main.bean.WorklistBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.activity.HairStyleDetailActivity;
-import com.moe.wl.ui.main.bean.BarberDetailBean;
-import com.moe.wl.ui.main.bean.BarberWorkListBean;
-import com.moe.wl.ui.main.bean.WorklistBean;
 
 /**
  * Created by 我的电脑 on 2017/8/22 0022.
@@ -65,8 +62,6 @@ public class BarberProductAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         WorklistBean worklistBean = data.get(position);
-
-
         viewHolder.setData(worklistBean);
 
         return convertView;

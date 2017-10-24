@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -85,14 +86,15 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         if (counts != 0) {
             orderAdapter.setList(list);
         }
-        float sum = 0;
+        double sum = 0;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getCount() * list.get(i).getPrice();
         }
         tvUserName.setText(realName);
         tvPhoneNum.setText(mobile);
         tvTime.setText(time);
-        tvSum.setText("总金额￥" + sum);
+        DecimalFormat df = new DecimalFormat("###.00");
+        tvSum.setText("总金额￥" + df.format(sum));
     }
 
     private void commit() {

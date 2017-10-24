@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface RechargeModel extends MvpModel {
 
-    Observable getRechargeData();
+    Observable getRechargeData(String page,String limit);
 
 }

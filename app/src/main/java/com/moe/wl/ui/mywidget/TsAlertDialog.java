@@ -51,8 +51,7 @@ public class TsAlertDialog {
 		txt_msg.setVisibility(View.GONE);
 		btn_pos = (Button) view.findViewById(R.id.btn_pos);
 		btn_pos.setVisibility(View.GONE);
-		img_line = (ImageView) view.findViewById(R.id.img_line);
-		img_line.setVisibility(View.GONE);
+
 
 		// 定义Dialog布局和参数
 		dialog = new Dialog(context, R.style.AlertDialogStyle);

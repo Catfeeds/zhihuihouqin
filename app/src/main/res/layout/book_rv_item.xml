@@ -22,7 +22,7 @@
             <TextView
                 android:id="@+id/tv_book_name"
                 android:textColor="@color/black"
-                android:textSize="@dimen/sp_bigger"
+                android:textSize="@dimen/sp_big"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

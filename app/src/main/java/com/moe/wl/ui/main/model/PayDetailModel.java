@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface PayDetailModel extends MvpModel {
 
-    Observable getData();
+    Observable getData(String page,String limit);
 
 }

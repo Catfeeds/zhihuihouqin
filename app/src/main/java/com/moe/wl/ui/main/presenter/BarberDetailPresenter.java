@@ -31,6 +31,7 @@ public class BarberDetailPresenter extends MvpRxPresenter<BarberDetailModel, Bar
 
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 Log.e("Throwable",e.getMessage());
             }
 
@@ -62,6 +63,7 @@ public class BarberDetailPresenter extends MvpRxPresenter<BarberDetailModel, Bar
 
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 Log.e("Throwable",e.getMessage());
             }
 

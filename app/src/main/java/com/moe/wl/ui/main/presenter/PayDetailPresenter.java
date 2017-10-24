@@ -18,9 +18,9 @@ import rx.Subscriber;
 
 public class PayDetailPresenter extends MvpRxPresenter<PayDetailModel, PayDetailView> {
 
-    public void getPayDetailInfo() {
+    public void getPayDetailInfo(String page,String limit) {
         getView().showProgressDialog();
-        Observable request = getModel().getData();
+        Observable request = getModel().getData(page,limit);
         getNetWork(request, new Subscriber<FindWalletLogBean>() {
 
             @Override

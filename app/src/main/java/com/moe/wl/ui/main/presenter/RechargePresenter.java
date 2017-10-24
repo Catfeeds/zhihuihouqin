@@ -18,9 +18,9 @@ import rx.Subscriber;
 
 public class RechargePresenter extends MvpRxPresenter<RechargeModel, RechargeView> {
 
-    public void getData() {
+    public void getData(String page,String limit) {
         getView().showProgressDialog();
-        Observable request = getModel().getRechargeData();
+        Observable request = getModel().getRechargeData(page,limit);
         getNetWork(request, new Subscriber<FindChargeOrderBean>() {
 
             @Override
@@ -42,11 +42,11 @@ public class RechargePresenter extends MvpRxPresenter<RechargeModel, RechargeVie
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
-//                if (bean.getErrCode() == 0) {
-//                    getView().rechargeResult(bean);
-//                } else {
-//                    getView().showToast(bean.getMsg());
-//                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().rechargeResult(mResponse);
+                } else {
+                    getView().showToast(mResponse .getMsg());
+                }
             }
         });
     }

@@ -130,7 +130,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                 }
             }
         });
-        getPresenter().getVegetableData(page, "");
+//        getPresenter().getVegetableData(page, "");
     }
 
     @OnClick({R.id.submit, R.id.search})
@@ -195,15 +195,16 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
 
     @Override
     public void canOrderedResult(CanOrderedBean bean) {
+        LogUtils.i(bean.getErrCode()+"===================");
         if(bean!=null){
             int errCode = bean.getErrCode();
             String esg = bean.getEsg();
             String rule = bean.getRule();
             if(errCode==0){//可以预定
-
+                getPresenter().getVegetableData(page, "");
             }else if(errCode==1001){//不可以预定
                 TsAlertDialog dialog=new TsAlertDialog(this).builder();
-                dialog.setTitle(esg)
+                dialog.setTitle("提示")
                         .setMsg(rule)
                         .setPositiveButton("确定", new View.OnClickListener() {
                             @Override

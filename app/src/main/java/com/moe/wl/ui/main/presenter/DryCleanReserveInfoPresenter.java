@@ -20,7 +20,7 @@ import rx.Subscriber;
 
 public class DryCleanReserveInfoPresenter extends MvpRxPresenter<DryCleanReserveInfoModel, DryCleanReserveInfoView> {
 
-    public void getData(String page, String limit, final boolean getMore) {
+    public void getData(String page, String limit) {
         getView().showProgressDialog();
         LogUtil.log("DryCleanReserveInfoPresenter发出请求");
         Observable login = getModel().getData(page, limit);
@@ -44,7 +44,7 @@ public class DryCleanReserveInfoPresenter extends MvpRxPresenter<DryCleanReserve
                     return;
                 }
                 if (mResponse.getErrCode() == 0) {
-                    getView().OrderDryCleaner(mResponse, getMore);
+                    getView().OrderDryCleaner(mResponse);
                 } else {
                     getView().showToast(mResponse.getMsg());
                 }

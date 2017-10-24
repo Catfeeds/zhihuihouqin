@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.bean.BooklistBean;
 
 import java.util.ArrayList;
@@ -100,6 +101,7 @@ public class BookRvAdapter extends RecyclerView.Adapter {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, booklistBean.getImg(), ivBookPic, R.mipmap.ic_default_square);
             tvBookName.setText(booklistBean.getTitle());
             ratingBar.setRating(booklistBean.getScore());
+            OtherUtils.ratingBarColor(ratingBar, mContext);
             tvStarNum.setText(booklistBean.getScore() + "分");
             tvAuthor.setText("作者:" + booklistBean.getAuthor());
             tvChubanshe.setText(booklistBean.getPublisher());

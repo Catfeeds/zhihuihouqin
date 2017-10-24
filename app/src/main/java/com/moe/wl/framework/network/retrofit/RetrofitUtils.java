@@ -2999,12 +2999,13 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable findWalletLog() {
+    public static Observable findWalletLog(String page,String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("page",page);
+            tempMap.put("limit",limit);
             addParam(paramsMap, tempMap);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -3036,12 +3037,13 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable findChargeOrder() {
+    public static Observable findChargeOrder(String page,String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("page",page);
+            tempMap.put("limit",limit);
             addParam(paramsMap, tempMap);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

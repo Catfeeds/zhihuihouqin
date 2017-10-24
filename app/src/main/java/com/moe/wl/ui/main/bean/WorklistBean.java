@@ -23,7 +23,7 @@ public class WorklistBean {
     private String detailimg;
     private int id;
     private String name;
-    private int price;
+    private float price;
     private int showonindex;
     private String smallimg;
 
@@ -75,11 +75,11 @@ public class WorklistBean {
         this.name = name;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

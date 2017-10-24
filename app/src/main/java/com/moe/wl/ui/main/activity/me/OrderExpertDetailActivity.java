@@ -178,7 +178,7 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
         if (bean.getDoctor() != null) {
             name.setText(bean.getDoctor().getRealname());
             docPosition.setText(bean.getDoctor().getPositionname());
-            ratingBar.setRating((int) bean.getDoctor().getScore());
+            ratingBar.setRating((float) bean.getDoctor().getScore());
             score.setText("" + bean.getDoctor().getScore());
             number.setText("问诊量：" + bean.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + bean.getDoctor().getHospitalname());
@@ -211,11 +211,12 @@ public class OrderExpertDetailActivity extends AppCompatActivity {
         orderTime.setText("下单时间：" + data.getCreatetime());
         time.setText("预约时间：" + data.getScheduledate());
 //        state.setText("支付状态：" + (data.get == 0 ? "未支付" : "已支付"));
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getPhoto(), image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getPhoto(), image,R.mipmap.ic_default_rectangle);
         if (data.getDoctor() != null) {
             name.setText(data.getDoctor().getRealname());
             docPosition.setText(data.getDoctor().getPositionname());
-            ratingBar.setRating(data.getDoctor().getScore());
+            ratingBar.setRating((float)data.getDoctor().getScore());
+            OtherUtils.ratingBarColor(ratingBar,this);
             score.setText("" + data.getDoctor().getScore());
             number.setText("问诊量：" + data.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + data.getDoctor().getHospitalName());

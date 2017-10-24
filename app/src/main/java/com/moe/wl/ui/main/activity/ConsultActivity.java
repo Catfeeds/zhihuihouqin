@@ -1,15 +1,14 @@
 package com.moe.wl.ui.main.activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -36,7 +35,7 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
     @BindView(R.id.et_message)
     EditText etMessage;
     @BindView(R.id.btn_send)
-    Button btnSend;
+    TextView btnSend;
     @BindView(R.id.activity_consult)
     LinearLayout activityConsult;
     private BarberChatAdapter adapter;
@@ -93,6 +92,9 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
     public void onViewClicked() {
         //获取消息内容
         String content = etMessage.getText().toString().trim();
+        if(TextUtils.isEmpty(content)){
+            return;
+        }
         //调用presenter方法 发送消息
         presenter.sendMessage(id,content);
         //清空edittext

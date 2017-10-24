@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -83,6 +84,9 @@ public class DoctorConsultActivity extends BaseActivity<GetDocConsultListModel,G
     public void onViewClicked() {
         //获取消息内容
         String content = etMessage.getText().toString().trim();
+        if(TextUtils.isEmpty(content)){
+            return ;
+        }
         //调用presenter方法 发送消息
         presenter.sendMess(id,content);
         //清空edittext

@@ -12,8 +12,8 @@
         android:layout_height="@dimen/title_height"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000"/>
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"

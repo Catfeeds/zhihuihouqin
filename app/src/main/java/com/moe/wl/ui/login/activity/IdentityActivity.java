@@ -1,22 +1,16 @@
 package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.bean.Auth;
 import com.moe.wl.ui.login.bean.CarInfo;
@@ -239,8 +233,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     //认证成功
     @Override
     public void authSucc() {
-        SharedPrefHelper.getInstance().setRealName(name);
-        SharedPrefHelper.getInstance().setPhoneNumber(phone);
         Intent intent = new Intent(this, AuthSuccessActivity.class);
         startActivity(intent);
         finish();

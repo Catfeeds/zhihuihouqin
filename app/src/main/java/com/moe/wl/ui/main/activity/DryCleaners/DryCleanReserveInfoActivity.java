@@ -78,15 +78,12 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         initListView();
         tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
         etPhoneNum.setText(SharedPrefHelper.getInstance().getPhoneNumber());
-        getData(1 + "", limit, false);
+        getData(1 + "", limit);
     }
-
-    private void getListSucc(List<ClothBean.PageEntity.ListEntity> list, boolean getMore) {
+    private void getListSucc(List<ClothBean.PageEntity.ListEntity> list) {
         if (list != null) {
-            if (!getMore) {
+            if (page==1) {
                 listAll.clear();
-            } else {
-                LogUtils.i("获取更多数据成功");
             }
             listAll.addAll(list);
             lvAdapter.setData(listAll);
@@ -125,14 +122,15 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
             @Override
             public void onRefresh() {
                 page=1;
-                getData(page+"",limit+"",false);
+                getData(page+"",limit+"");
                 recyclerView.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                getData(page+"",limit+"",true);
+                LogUtils.i(page+"==============");
+                getData(page+"",limit+"");
                 recyclerView.loadMoreComplete();
             }
         });
@@ -200,10 +198,10 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     }
 
     @Override
-    public void OrderDryCleaner(ClothBean cleanBean, boolean getMore) {
+    public void OrderDryCleaner(ClothBean cleanBean) {
         if (cleanBean.getErrCode() == 0) {
             List<ClothBean.PageEntity.ListEntity> list = cleanBean.getPage().getList();
-            getListSucc(list, getMore);
+            getListSucc(list);
         } else {
             showToast(cleanBean.getMsg());
         }
@@ -224,7 +222,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         return new DryCleanReserveInfoPresenter();
     }
 
-    public void getData(String page, String limit, boolean getMore) {
-        getPresenter().getData(page, limit, getMore);
+    public void getData(String page, String limit) {
+        getPresenter().getData(page, limit);
     }
 }

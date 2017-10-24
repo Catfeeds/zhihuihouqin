@@ -11,7 +11,7 @@ import mvp.cn.common.MvpView;
 
 public interface DryCleanReserveInfoView extends MvpView {
 
-    void OrderDryCleaner(ClothBean cleanBean, boolean getMore);
+    void OrderDryCleaner(ClothBean cleanBean);
 
     void commitSucc(JieYueBean jieyueBean);
 

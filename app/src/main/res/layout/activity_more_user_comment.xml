@@ -11,8 +11,8 @@
         android:layout_height="@dimen/title_height"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#2000"/>
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_more_user_comment"
         android:layout_width="match_parent"
