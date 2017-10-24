@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.view;
 
+import com.moe.wl.ui.main.bean.CanOrderedBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 
 import mvp.cn.common.MvpView;
@@ -12,5 +13,5 @@ import mvp.cn.common.MvpView;
 public interface VegetableMainView extends MvpView {
 
     void getVegetableDataSucc(VegetableBean bean);
-
+void canOrderedResult(CanOrderedBean bean);
 }

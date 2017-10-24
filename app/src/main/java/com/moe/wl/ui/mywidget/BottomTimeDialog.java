@@ -101,9 +101,10 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
         this.month.setCyclic(true);
         this.month.addScrollingListener(scrollListener);
 
-        this.day = (WheelView) view.findViewById(R.id.day);
+        //this.day = (WheelView) view.findViewById(R.id.day);
         initDay(curYear, curMonth);
         this.day.setCyclic(true);
+        this.day.addScrollingListener(scrollListener);
 
         NumericWheelAdapter numericWheelAdapter3=new NumericWheelAdapter(ct,0, 23, "%02d");
         numericWheelAdapter3.setLabel("时");
@@ -289,6 +290,8 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
         NumericWheelAdapter numericWheelAdapter=new NumericWheelAdapter(ct,1, getDay(arg1, arg2), "%02d");
         numericWheelAdapter.setLabel("日");
         day.setViewAdapter(numericWheelAdapter);
+        /*day.setCyclic(true);
+        day.addScrollingListener(scrollListener);*/
     }
     private OnConfirmClickListener listener2;
 

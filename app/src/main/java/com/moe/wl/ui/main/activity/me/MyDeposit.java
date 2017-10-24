@@ -8,6 +8,7 @@ import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
@@ -48,7 +49,7 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
     @Override
     public void initView() {
         initTitle();
-        getPresenter().getDepositInfo();
+        getPresenter().getDepositInfo();//获取押金信息
     }
 
     private void initTitle() {
@@ -64,7 +65,7 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
                 .setPositiveButton("确定", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO: 2017/10/13 0013 还没有提供借口
+                        getPresenter().backDeposit();//返回押金
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {
@@ -87,6 +88,14 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
     @Override
     public void getOrderResult(WalletOrderBean bean) {
 
+    }
+
+    @Override
+    public void backDepositResult(ActivityPostBean bean) {
+        if(bean!=null){
+            showToast("退换押金成功，会在2~3个工作日将押金退还到账户");
+            finish();
+        }
     }
 
     @Override

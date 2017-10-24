@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -25,7 +25,6 @@ import com.moe.wl.ui.main.modelimpl.DryCleanReserveInfoModelImpl;
 import com.moe.wl.ui.main.presenter.DryCleanReserveInfoPresenter;
 import com.moe.wl.ui.main.view.DryCleanReserveInfoView;
 import com.moe.wl.ui.mywidget.BottomTimeDialog;
-import com.moe.wl.ui.mywidget.CenterTimeDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,10 +55,9 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     TextView tvSubmit;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.activity_dry_clean_reserve_info)
-    RelativeLayout activityDryCleanReserveInfo;
-    @BindView(R.id.tv_more)
-    TextView tvMore;
+
+   /* @BindView(R.id.tv_more)
+    TextView tvMore;*/
     private int page = 1;
     private String limit = "10";
     private DryCleanersLvAdapter lvAdapter;
@@ -121,7 +119,23 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         lvAdapter = new DryCleanersLvAdapter(this);
         recyclerView.setAdapter(lvAdapter);
-        recyclerView.setPullRefreshEnabled(false);
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                page=1;
+                getData(page+"",limit+"",false);
+                recyclerView.refreshComplete();
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                getData(page+"",limit+"",true);
+                recyclerView.loadMoreComplete();
+            }
+        });
     }
 
     private void initTitle() {
@@ -129,7 +143,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         titleBar.setTitle("干洗店");
     }
 
-    @OnClick({R.id.tv_submit, R.id.tv_more, R.id.rl_set_time})
+    @OnClick({R.id.tv_submit, /*R.id.tv_more,*/ R.id.rl_set_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_submit:
@@ -168,10 +182,10 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                 intent.putExtra("json", json);
                 startActivity(intent);
                 break;
-            case R.id.tv_more:
+           /* case R.id.tv_more:
                 page++;
                 getData(page + "", limit, true);
-                break;
+                break;*/
             case R.id.rl_set_time:
                 dialog=new BottomTimeDialog(this,R.style.dialog_style);
                 dialog.show();

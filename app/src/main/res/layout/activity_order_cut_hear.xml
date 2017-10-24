@@ -245,10 +245,10 @@
                 <View
                     android:background="@color/bg_page"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/bottom_height"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
             </LinearLayout>
         </ScrollView>
-
         <TextView
             android:id="@+id/tv_now_order"
             android:layout_width="match_parent"

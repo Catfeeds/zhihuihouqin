@@ -11,6 +11,7 @@ import rx.Observable;
 public interface MyDepositModel extends MvpModel {
 
     Observable getDepositInfo();
+    Observable backDeposit();
 
     Observable generateChargeWalletOrder(double s, int s1, int s2);
 

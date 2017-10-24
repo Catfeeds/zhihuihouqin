@@ -77,10 +77,30 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter {
 
             }else{//不是第一个条
                 FindChargeOrderBean.ListBean last = mList.get(position - 1);
-
-
+                String createtime1 = last.getCreatetime();
+                String[] str = createtime1.split("-");
+                /*String[] str1 = strings[2].split(" ");
+                String day1=str1[0];*/
+                    if(str[0].equals(strings[0])){//年份是否相同
+                        if(str[1].equals(strings[1])){//月份是否相同
+                            viewHolder.tvMonth.setVisibility(View.GONE);
+                        }else{
+                            viewHolder.tvMonth.setVisibility(View.VISIBLE);
+                            if(year.equals(strings[0])){//判断是否是当前年
+                                viewHolder.tvMonth.setText(strings[1]+"月");
+                            }else{
+                                viewHolder.tvMonth.setText(strings[0]+"年"+strings[1]+"月");
+                            }
+                        }
+                    }else {
+                        viewHolder.tvMonth.setVisibility(View.VISIBLE);
+                        if(year.equals(strings[0])){//判断是否是当前年
+                            viewHolder.tvMonth.setText(strings[1]+"月");
+                        }else{
+                            viewHolder.tvMonth.setText(strings[0]+"年"+strings[1]+"月");
+                        }
+                    }
             }
-
             viewHolder.tvWeek.setText(listBean.getWeekday());
             viewHolder.tvData.setText(strings[1]+"-"+day);//设置日期
             int paytype = listBean.getPaytype();
@@ -91,35 +111,6 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter {
             }
             viewHolder.tvAddAmount.setText("+"+money);
             viewHolder.tvRechargeAmount.setText("充值"+money+"元");
-           /* List<FindChargeOrderBean.ListBean.MonthListBean> monthList = listBean.getMonthList();
-            viewHolder.tvMonth.setText(monthName);//设置月份
-            for (int i = 0; i < monthList.size(); i++) {
-                View view = View.inflate(mContext, R.layout.recharge_item, null);
-                TextView tvWeek = (TextView) view.findViewById(R.id.tv_week);
-                TextView tvData = (TextView) view.findViewById(R.id.tv_data);
-                TextView tvAddAmount = (TextView) view.findViewById(R.id.tv_add_amount);
-                TextView tvRecharrgeAmount = (TextView) view.findViewById(R.id.tv_recharrge_amount);
-                TextView tvPayWay = (TextView) view.findViewById(R.id.tv_pay_way);
-
-                FindChargeOrderBean.ListBean.MonthListBean monthListBean = monthList.get(i);
-                int money = monthListBean.getMoney();
-                String weekday = monthListBean.getWeekday();
-                String monthDay = monthListBean.getMonthDay();
-                int paytype = monthListBean.getPaytype();
-                if (paytype == 1) {
-                    tvPayWay.setText("支付宝");
-                } else if (paytype == 2) {
-                    tvPayWay.setText("微信");
-                }
-                tvWeek.setText(weekday);
-                tvData.setText(monthDay);
-                tvAddAmount.setText("+" + money);
-                tvRecharrgeAmount.setText("充值" + money + "元");
-                viewHolder.llContainer.addView(view);
-            }
-
-*/
-
         }
     }
 

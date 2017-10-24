@@ -184,6 +184,7 @@ public interface NetUrl {
     String vegetableOrderList = "appuser/tdcfworder/findOrderList"; // 净菜订单列表
     String orderVegetableDetail = "appuser/tdcfworder/getOrderDetail"; // 获取净菜订单详情
 //    String getVegetableReason = "appuser/tdcfwordercancelreason/findReasonList"; // 获取取消原因列表
+    String canOrdered="appuser/tdcfworder/canOrdered";//判断是否可以预定
 //    String cancelVegetableOrder = "appuser/tdcfworder/orderCancel"; // 取消净菜订单
 //    String deleteVegetableOrder = ""; // 删除订单
 //    String commentVegetableOrder = "appuser/tdcfworder/addComment";  // 评论净菜订单
@@ -206,6 +207,9 @@ public interface NetUrl {
     String getUserInfo = "appuser/user/getUserinfo";
     String changeUserInfo = "appuser/user/modifyUserinfo";
     String upLoadHeader = "appuser/user/uploadPhoto";
+
+    //退换押金
+    String backDeposit ="appuser/wallet/backDeposit";
 
     //意见反馈
     String saveAdvice="appuser/user/saveAdvice";

@@ -1,9 +1,6 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.service.quicksettings.Tile;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,10 +73,10 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
 
     }
 
-    @OnClick({ R.id.iv_wen ,R.id.ll_recharge, R.id.ll_passward_management,R.id.ll_public_amount})
+    @OnClick({ R.id.iv_wen ,R.id.ll_recharge,R.id.ll_yajin, R.id.ll_passward_management,R.id.ll_public_amount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_wen:
+            case R.id.iv_wen://问号
                 Intent intent2=new Intent(this,BalanceExplainActivity.class);
                 startActivity(intent2);
                 break;
@@ -87,7 +84,11 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
                 Intent intent=new Intent(this,RechargeActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_public_amount:
+            case R.id.ll_yajin://我的押金
+                Intent intent4 = new Intent(this, MyDeposit.class);
+                startActivity(intent4);
+                break;
+            case R.id.ll_public_amount://对公账户
                 Intent intent3 = new Intent(this,PublicAcountActivity.class );
                 intent3.putExtra("publicRemain",publicRemain);
                 startActivity(intent3);

@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -86,7 +85,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         if (counts != 0) {
             orderAdapter.setList(list);
         }
-        int sum = 0;
+        float sum = 0;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getCount() * list.get(i).getPrice();
         }

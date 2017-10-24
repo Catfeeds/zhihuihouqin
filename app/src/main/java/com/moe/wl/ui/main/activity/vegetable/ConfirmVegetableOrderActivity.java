@@ -49,7 +49,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
 
     private VegetableOrderAdapter adapter;
 
-    private int priceNum = 0;
+    private float priceNum = 0;
     private int vegetableNum = 0;
 
     private int timeID = 0;

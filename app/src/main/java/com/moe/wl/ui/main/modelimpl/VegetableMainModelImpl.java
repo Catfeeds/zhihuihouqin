@@ -16,4 +16,10 @@ public class VegetableMainModelImpl implements VegetableMainModel {
         Observable observable = RetrofitUtils.getInstance().getVegetableData(page, keyword);
         return observable;
     }
+
+    @Override
+    public Observable canOrdered() {
+        Observable observable = RetrofitUtils.getInstance().canOrdered();
+        return observable;
+    }
 }

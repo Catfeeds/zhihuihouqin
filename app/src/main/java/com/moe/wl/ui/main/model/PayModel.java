@@ -13,5 +13,6 @@ public interface PayModel extends MvpModel {
     Observable pay(String orderid,String orderCode,String orderType,int paytype);
     Observable walletpay(String orderid,String orderCode,String orderType,int paytype,String paypass,int count);
     Observable getfindUserWallet();
+    Observable getData();//是否有支付密码
 
 }

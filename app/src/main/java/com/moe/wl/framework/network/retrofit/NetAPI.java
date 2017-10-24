@@ -718,6 +718,11 @@ public interface NetAPI {
     @POST(NetUrl.orderVegetableDetail)
     Observable<OrderVegetableDetailBean> orderVegetableDetail(@FieldMap Map<String, Object> map);
 
+    // 是否可以预定
+    @FormUrlEncoded
+    @POST(NetUrl.canOrdered)
+    Observable<CanOrderedBean> canOrdered(@FieldMap Map<String, Object> map);
+
     // 报修订单详情
     @FormUrlEncoded
     @POST(NetUrl.orderRepairsDetail)
@@ -788,6 +793,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.getUserDeposit)
     Observable<UserDepositBean> getUserDeposit(@FieldMap Map<String, Object> map);
+
+    //退回押金
+    @FormUrlEncoded
+    @POST(NetUrl.backDeposit)
+    Observable<ActivityPostBean> backDeposit(@FieldMap Map<String, Object> map);
 
     //是否有交易密码
     @FormUrlEncoded

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
@@ -35,7 +34,6 @@ import butterknife.OnClick;
 import lc.cn.thirdplatform.pay.alipay.AliPaySuccess;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
-import mvp.cn.util.ToastUtil;
 
 public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPresenter> implements PayView {
 
@@ -160,7 +158,8 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                         getPresenter().weiXinPay(orderid, ordercode, ordertype, 2);
                         break;
                     case 3:
-                        showPayDialog();
+                        getPresenter().getIsHasPwd();
+
                         break;
                     case 4:
                         //getPresenter().personalWalletPay(orderid, ordercode, ordertype, 4);
@@ -265,6 +264,18 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             voucherNum = bean.getVoucherNum();//理发券数量
             tvAvailableBalance.setText("￥"+ walletRemain);
             LogUtils.i("代金券的数量"+voucherNum);
+        }
+    }
+
+    @Override
+    public void isHasPwd(ActivityPostBean bean) {
+        if(bean !=null){
+            int errCode = bean.getErrCode();
+            if(errCode==0){
+                showPayDialog();
+            }else if(errCode==1001){
+                getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3,"",0);
+            }
         }
     }
 }

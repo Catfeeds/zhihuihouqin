@@ -39,7 +39,8 @@ public class PayDetailAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder holder1 = (ViewHolder) holder;
         FindWalletLogBean.PageBean.ListBean listBean = mList.get(position);
-        holder1.tvDetail.setText(listBean.getDetail());
+        String ordertypename = listBean.getOrdertypename();
+        holder1.tvDetail.setText(ordertypename);
         holder1.tvCreatetime.setText(listBean.getCreatetime());
         int usetype = listBean.getUsetype();
         if(usetype==1){//收入

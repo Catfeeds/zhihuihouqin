@@ -161,6 +161,37 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray_lighter" />
+    <LinearLayout
+        android:id="@+id/ll_yajin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/recharge" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:text="我的押金"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/turn_right" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
 
     <LinearLayout
         android:id="@+id/ll_recharge"

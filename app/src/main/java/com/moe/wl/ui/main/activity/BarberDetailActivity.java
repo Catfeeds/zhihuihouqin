@@ -17,7 +17,6 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberProductAdapter;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
 import com.moe.wl.ui.main.bean.BarberDetailBean;
-import com.moe.wl.ui.main.bean.BarberListsBean;
 import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.CommentlistBean;
@@ -34,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import mvp.cn.util.CallPhoneUtils;
 
 
 public class BarberDetailActivity extends BaseActivity<BarberDetailModel, BarberDetailView, BarberDetailPresenter> implements BarberDetailView {
@@ -131,7 +129,8 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         System.out.println("理发师详情" + barberlistBean);
         if (detailBean != null) {
             tvBarberJieshaoContent.setText(detailBean.getBrief());
-            tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
+            //tvZuopinNum.setText("作品(" + detailBean.getWorktotalcount() + ")");
+            tvZuopinNum.setText("作品(" + detailBean.getWorklist().size()+ ")");
             tvCommentNum.setText("用户评价("+detailBean.getCommentlist().size()+")");
             barberProductAdapter.setData(detailBean.getWorklist());//设置作品列表
             LogUtils.i("worklist===" + detailBean.getWorklist().size());

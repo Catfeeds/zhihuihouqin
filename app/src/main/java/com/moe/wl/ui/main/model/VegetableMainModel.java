@@ -17,5 +17,5 @@ public interface VegetableMainModel extends MvpModel {
      * @return
      */
     Observable getVegetableData(int page, String keyword);
-
+    Observable canOrdered();
 }

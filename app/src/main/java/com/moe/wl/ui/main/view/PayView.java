@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.view;
 
 import com.moe.wl.ui.main.bean.ActivityPostBean;
-import com.moe.wl.ui.main.bean.AddressBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.UserWalletBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
@@ -19,5 +18,6 @@ public interface PayView extends MvpView {
     void weiXinPay(WeixinBean bean);
     void personalWallet(ActivityPostBean bean);
     void findUserWalletResult(UserWalletBean bean);
+    void isHasPwd(ActivityPostBean bean);
 
 }

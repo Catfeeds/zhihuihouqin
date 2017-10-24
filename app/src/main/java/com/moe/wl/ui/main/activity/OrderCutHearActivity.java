@@ -21,7 +21,6 @@ import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.adapter.CutHearAdapter;
 import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.BarberlistBean;
-import com.moe.wl.ui.main.bean.ServiceBean;
 import com.moe.wl.ui.main.bean.ShopBean;
 import com.moe.wl.ui.main.model.ShopModel;
 import com.moe.wl.ui.main.modelimpl.ShopModelImpl;
@@ -38,7 +37,6 @@ import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
 import mvp.cn.util.LogUtil;
 import mvp.cn.util.StringUtil;
-import mvp.cn.util.ToastUtil;
 
 public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, ShopPresenter> implements ShopView {
 
@@ -89,7 +87,6 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     @Override
     public void initView() {
         getPresenter().getData();
-
         initTitle();
         initGrid();
     }

@@ -7,8 +7,6 @@ import java.util.List;
  */
 
 public class FindWalletLogBean {
-
-
     /**
      * page : {"currPage":1,"list":[{"createtime":"2017-09-30 16:51:45","detail":null,"id":5,"money":1.25,"orderid":8,"ordertype":6,"ordertypename":"预约理发","uid":3,"usetype":2},{"createtime":"2017-09-30 15:43:19","detail":null,"id":4,"money":90,"orderid":2,"ordertype":18,"ordertypename":"订水服务","uid":3,"usetype":2}],"pageSize":10,"totalCount":2,"totalPage":1}
      * errCode : 0
@@ -112,7 +110,7 @@ public class FindWalletLogBean {
              */
 
             private String createtime;
-            private String detail;
+            private Object detail;
             private int id;
             private double money;
             private int orderid;
@@ -129,11 +127,11 @@ public class FindWalletLogBean {
                 this.createtime = createtime;
             }
 
-            public String getDetail() {
+            public Object getDetail() {
                 return detail;
             }
 
-            public void setDetail(String detail) {
+            public void setDetail(Object detail) {
                 this.detail = detail;
             }
 

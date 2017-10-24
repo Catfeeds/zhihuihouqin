@@ -24,6 +24,7 @@ import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
@@ -306,6 +307,11 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
             }
         });
         pop.showAtLocation(findViewById(R.id.activity_office_sp_confirm_order), Gravity.CENTER, 0, 0);
+    }
+
+    @Override
+    public void backDepositResult(ActivityPostBean bean) {
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

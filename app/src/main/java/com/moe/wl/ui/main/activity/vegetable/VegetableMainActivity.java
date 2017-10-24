@@ -1,33 +1,35 @@
 package com.moe.wl.ui.main.activity.vegetable;
 
-import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+        import android.content.Intent;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.TextView;
 
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.adapter.VegetableAdapter;
-import com.moe.wl.ui.main.bean.VegetableBean;
-import com.moe.wl.ui.main.model.VegetableMainModel;
-import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
-import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
-import com.moe.wl.ui.main.view.VegetableMainView;
+        import com.jcodecraeer.xrecyclerview.XRecyclerView;
+        import com.moe.wl.R;
+        import com.moe.wl.framework.base.BaseActivity;
+        import com.moe.wl.framework.utils.LogUtils;
+        import com.moe.wl.framework.widget.TitleBar;
+        import com.moe.wl.ui.main.adapter.VegetableAdapter;
+        import com.moe.wl.ui.main.bean.CanOrderedBean;
+        import com.moe.wl.ui.main.bean.VegetableBean;
+        import com.moe.wl.ui.main.model.VegetableMainModel;
+        import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
+        import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
+        import com.moe.wl.ui.main.view.VegetableMainView;
+        import com.moe.wl.ui.mywidget.TsAlertDialog;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+        import java.io.Serializable;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import mvp.cn.util.ToastUtil;
+        import butterknife.BindView;
+        import butterknife.ButterKnife;
+        import butterknife.OnClick;
+        import mvp.cn.util.ToastUtil;
 
-import static com.moe.wl.R.id.num;
+        import static com.moe.wl.R.id.num;
 
 /**
  * 类描述：
@@ -66,6 +68,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
 
     @Override
     public void initView() {
+        getPresenter().canOrdered();//判断是否可以预约
         titleBar.setTitle("订餐");
         titleBar.setBack(true);
         data = new ArrayList<>();
@@ -188,6 +191,28 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         page = bean.getPage().getCurrPage();
         data.addAll(bean.getPage().getList());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void canOrderedResult(CanOrderedBean bean) {
+        if(bean!=null){
+            int errCode = bean.getErrCode();
+            String esg = bean.getEsg();
+            String rule = bean.getRule();
+            if(errCode==0){//可以预定
+
+            }else if(errCode==1001){//不可以预定
+                TsAlertDialog dialog=new TsAlertDialog(this).builder();
+                dialog.setTitle(esg)
+                        .setMsg(rule)
+                        .setPositiveButton("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        }).show();
+            }
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
@@ -135,6 +136,32 @@ public class MyDepositPresenter extends MvpRxPresenter<MyDepositModel, MyDeposit
             public void onNext(WalletOrderBean bean) {
                 if (bean.getErrCode() == 0) {
                     getView().getOrderResult(bean);
+                } else {
+                    getView().showToast(bean.getMsg());
+                }
+            }
+        });
+    }
+    public void backDeposit() {
+        getView().showProgressDialog();
+        Observable request = getModel().backDeposit();
+        getNetWork(request, new Subscriber<ActivityPostBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(ActivityPostBean bean) {
+                if (bean.getErrCode() == 0) {
+                    getView().backDepositResult(bean);
                 } else {
                     getView().showToast(bean.getMsg());
                 }

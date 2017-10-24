@@ -9,21 +9,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.adapter.VegetableSearchAdapter;
+import com.moe.wl.ui.main.bean.CanOrderedBean;
+import com.moe.wl.ui.main.bean.VegetableBean;
+import com.moe.wl.ui.main.model.VegetableMainModel;
 import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
 import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
+import com.moe.wl.ui.main.view.VegetableMainView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.bean.VegetableBean;
-import com.moe.wl.ui.main.model.VegetableMainModel;
-import com.moe.wl.ui.main.view.VegetableMainView;
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -96,6 +97,11 @@ public class VegetableSearchActivity extends BaseActivity<VegetableMainModel, Ve
         page = bean.getPage().getCurrPage();
         data.addAll(bean.getPage().getList());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void canOrderedResult(CanOrderedBean bean) {
+
     }
 
     private View.OnKeyListener onKeyListener = new View.OnKeyListener() {

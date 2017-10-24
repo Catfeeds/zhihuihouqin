@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.modelimpl;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.PayModel;
 
 import rx.Observable;
@@ -28,6 +27,11 @@ public class PayModelImpl implements PayModel {
     @Override
     public Observable getfindUserWallet() {
         Observable observable = RetrofitUtils.getInstance().findUserWallet();
+        return observable;
+    }
+    @Override
+    public Observable getData() {
+        Observable observable = RetrofitUtils.getInstance().hasPaypass();
         return observable;
     }
 }

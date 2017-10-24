@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_dry_clean_reserve_info"
     android:layout_width="match_parent"
+              android:orientation="vertical"
     android:background="@color/bg_page"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -158,14 +159,14 @@
             android:layout_height="1px"
             android:background="@color/gray_line" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/tv_more"
             style="@style/tvStyle_tv_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/standard_padding"
             android:background="@color/white"
-            android:text="更多" />
+            android:text="更多" />-->
 
         <View
             android:id="@+id/view3"
@@ -174,7 +175,6 @@
             android:layout_weight="1"
             />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"
@@ -205,4 +205,4 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp_bigger" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

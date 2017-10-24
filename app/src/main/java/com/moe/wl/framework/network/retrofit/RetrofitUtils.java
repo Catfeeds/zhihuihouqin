@@ -2641,7 +2641,19 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.orderVegetableDetail(paramsMap));
     }
-
+    /**
+     * 是否可以预约
+     */
+    public static Observable canOrdered() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.canOrdered(paramsMap));
+    }
 
     /**
      * 报修订单详情
@@ -3006,7 +3018,22 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.getUserDeposit(paramsMap));
     }
+    /**
+     * 查询押金
+     *
+     * @return
+     */
+    public static Observable backDeposit() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.backDeposit(paramsMap));
+    }
     /**
      * 是否有交易密码
      *

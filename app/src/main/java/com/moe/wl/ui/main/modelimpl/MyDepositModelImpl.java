@@ -36,4 +36,10 @@ public class MyDepositModelImpl implements MyDepositModel {
         Observable observable = RetrofitUtils.getInstance().generateOrder(realname,mobile,addressId,sendTime,arr,remark);
         return observable;
     }
+
+    @Override
+    public Observable backDeposit() {
+        Observable observable = RetrofitUtils.getInstance().backDeposit();
+        return observable;
+    }
 }

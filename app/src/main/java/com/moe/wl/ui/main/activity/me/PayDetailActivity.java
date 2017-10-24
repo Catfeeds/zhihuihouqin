@@ -1,7 +1,5 @@
 package com.moe.wl.ui.main.activity.me;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -62,7 +60,7 @@ public class PayDetailActivity extends BaseActivity<PayDetailModel,PayDetailView
     public void getPayDetailResult(FindWalletLogBean bean) {
         if(bean!=null){
             List<FindWalletLogBean.PageBean.ListBean> list = bean.getPage().getList();
-            //adapter.setData(list);
+            adapter.setData(list);
         }
     }
 }
