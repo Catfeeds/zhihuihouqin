@@ -170,7 +170,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                 getPresenter().getData(TYPE, bean.getId());
                 break;
             case R.id.tv_now_borrowing://立即借阅
-                if (bean.getBollowstatus() == 1) {
+//                if (bean.getBollowstatus() == 1) {
                     if (again){
                         //再次借阅的的直接进去确认订单页面
                         Intent intent = new Intent(this, BookConfirmOrderActivity.class);
@@ -185,9 +185,9 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                         startActivity(intent);
                         finish();
                     }
-                } else {
-                    showToast("此书已经被借阅,请选择其它书籍");
-                }
+//                } else {
+//                    showToast("此书已经被借阅,请选择其它书籍");
+//                }
                 break;
         }
     }

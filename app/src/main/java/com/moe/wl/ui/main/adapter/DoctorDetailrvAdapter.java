@@ -53,10 +53,15 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
+    public void onBindViewHolder(RecyclerView.ViewHolder holder1, int position) {
+        ViewHolder holder = (ViewHolder) holder1;
         CommentlistBean commentlistBean = data.get(position);
-        viewHolder.setData(commentlistBean);
+        GlideLoading.getInstance().loadImgUrlHeader(context, commentlistBean.getPhoto(), holder.civUserPhoto, R.mipmap.ic_default_square);
+        holder.tvUserName.setText(commentlistBean.getRealname());
+        holder.userRatingBar.setRating((float) commentlistBean.getScore());
+        OtherUtils.ratingBarColor(holder.userRatingBar, context);
+        holder.tvTime.setText(commentlistBean.getCreatetime());
+        holder.tvEvaluate.setText(commentlistBean.getContent());
     }
 
     @Override
@@ -86,15 +91,6 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-        }
-
-        public void setData(CommentlistBean commentlistBean) {
-            GlideLoading.getInstance().loadImgUrlHeader(context, commentlistBean.getPhoto(), civUserPhoto, R.mipmap.ic_default_square);
-            tvUserName.setText(commentlistBean.getRealname());
-            userRatingBar.setRating((float) commentlistBean.getScore());
-            OtherUtils.ratingBarColor(userRatingBar, context);
-            tvTime.setText(commentlistBean.getCreatetime());
-            tvEvaluate.setText(commentlistBean.getContent());
         }
     }
 }

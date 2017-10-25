@@ -104,15 +104,15 @@ public class CheckDryOrderBean {
 
         public static class ClothesListEntity {
 
-            private int price;
+            private double price;
             private int count;
             private String clothesName;
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

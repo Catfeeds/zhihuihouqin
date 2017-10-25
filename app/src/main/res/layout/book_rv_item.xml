@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp_small" />
+                android:textSize="@dimen/sp_small"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_book_name"

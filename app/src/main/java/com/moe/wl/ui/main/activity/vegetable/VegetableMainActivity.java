@@ -70,7 +70,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
     @Override
     public void initView() {
         getPresenter().canOrdered();//判断是否可以预约
-        titleBar.setTitle("订餐");
+        titleBar.setTitle("净菜预订");
         titleBar.setBack(true);
         data = new ArrayList<>();
         adapter = new VegetableAdapter(this, data);

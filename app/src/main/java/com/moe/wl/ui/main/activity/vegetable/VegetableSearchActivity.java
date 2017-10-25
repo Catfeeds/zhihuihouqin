@@ -91,6 +91,9 @@ public class VegetableSearchActivity extends BaseActivity<VegetableMainModel, Ve
         if (page == 1) {
             recycleView.refreshComplete();
             data.clear();
+            if (bean.getPage().getList().size() == 0) {
+                ToastUtil.showToast(this, "对不起，暂时不提供该净菜的预定。");
+            }
         } else {
             recycleView.loadMoreComplete();
         }

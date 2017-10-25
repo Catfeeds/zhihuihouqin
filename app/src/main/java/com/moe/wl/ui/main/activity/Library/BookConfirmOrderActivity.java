@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -167,7 +168,7 @@ public class BookConfirmOrderActivity extends Base2Activity {
                     startActivity(intent);
                     finish();
                 } else {
-                    LogUtils.i("问题:" + jieYueBean.getMsg());
+                    ToastUtil.showToast(BookConfirmOrderActivity.this, jieYueBean.getMsg());
                 }
             }
         });
