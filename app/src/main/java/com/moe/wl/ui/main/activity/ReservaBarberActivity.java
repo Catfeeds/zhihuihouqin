@@ -16,13 +16,13 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.Arith;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.ExpandableListAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimeAdapter;
-import com.moe.wl.ui.main.bean.BarberListsBean;
 import com.moe.wl.ui.main.bean.BarberlistBean;
 import com.moe.wl.ui.main.bean.CreateorderBean;
 import com.moe.wl.ui.main.bean.Itemid;
@@ -42,7 +42,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import mvp.cn.util.DateUtils;
 import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
 
@@ -91,7 +90,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     private int id;
     private String barberid;
     private List<Itemid> list;
-    private int sumAll;
+    private double sumAll;
     private OrderTimeAdapter orderTimeAdapter;
     private List<PreOrderBean.TimelistBean> timelist;
     private List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist;
@@ -117,7 +116,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         list = new ArrayList<>();
         barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
-        if(barberlistBean!=null){
+        if (barberlistBean != null) {
             getPresenter().getData(barberlistBean.getId());//预约信息数据加载
         }
         Glide.with(this).load(barberlistBean.getPhoto()).into(civBarberHeader);
@@ -186,14 +185,14 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                 @Override
                 public void onItemClickListener() {
                     list.clear();
-                    int sum = 0;
+                    double sum = 0;
                     int count = 0;
                     for (int i = 0; i < itemlist.size(); i++) {
                         PreOrderBean.ItemlistBeanX itemlistBeanX = itemlist.get(i);
                         List<PreOrderBean.ItemlistBeanX.ItemlistBean> itemlist1 = itemlistBeanX.getItemlist();
                         for (int j = 0; j < itemlist1.size(); j++) {
                             if (itemlist1.get(j).isSelect()) {
-                                sum += itemlist1.get(j).getPrice();
+                                sum = Arith.add(sum, itemlist1.get(j).getPrice());
                                 count++;
                                 int id = itemlist1.get(j).getId();
                                 list.add(new Itemid(id));
@@ -223,10 +222,10 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                 public void onItemClickListener(int position) {
                     PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
                     int status = schedulelistBean.getStatus();
-                    if(status==1){//已经有预约了
+                    if (status == 1) {//已经有预约了
                         showToast("该时间段已经被预约");
                         return;
-                    }else if(status==0){//没有预约
+                    } else if (status == 0) {//没有预约
                         id = schedulelistBean.getId();
                         barberid = schedulelistBean.getBarberid();
                     }
@@ -282,7 +281,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                     return;
                 }
                 int amount = Integer.parseInt(price);
-                if(amount<=0){
+                if (amount <= 0) {
                     showToast("请选择服务项");
                     return;
                 }
@@ -295,15 +294,15 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
 
     @Override
     public void createOrederResult(CreateorderBean bean) {
-        LogUtils.i("预约理发师下单"+bean.getMsg()+bean.getErrCode());
+        LogUtils.i("预约理发师下单" + bean.getMsg() + bean.getErrCode());
         Intent intent = new Intent(this, PayFiveJiaoActivity.class);
         int orderid = bean.getOrderid();
         int ordertype = bean.getOrdertype();
         intent.putExtra("from", Constants.BARBER);
-        intent.putExtra("pay",sumAll);
-        intent.putExtra("orderid",orderid+"");
-        intent.putExtra("ordercode","");
-        intent.putExtra("ordertype",ordertype+"");
+        intent.putExtra("pay", sumAll);
+        intent.putExtra("orderid", orderid + "");
+        intent.putExtra("ordercode", "");
+        intent.putExtra("ordertype", ordertype + "");
         startActivity(intent);
     }
 }

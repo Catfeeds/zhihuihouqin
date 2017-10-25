@@ -100,7 +100,7 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
     }
 
     private void initTitle() {
-        titleBar.setTitle("医疗服务");
+        titleBar.setTitle("健康档案");
         titleBar.setBack(true);
     }
 

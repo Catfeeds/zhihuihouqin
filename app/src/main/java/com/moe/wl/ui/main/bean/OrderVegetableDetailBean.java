@@ -37,20 +37,53 @@ public class OrderVegetableDetailBean {
 
     public static class DetailEntity {
 
-        private String createtime;
-        private int totalprice;
-        private int paytype;
-        private String taketime;
-        private int id;
+        private int count;
+        private double totalprice;
         private int status;
+        private int ordertype;
+        private String createtime;
+        private int id;
+        private String foodImg;
+        private double price;
         private int payStatus;
+        private int paytype;
         private String foodOriginal;
         private String ordercode;
+        private String taketime;
         private String foodName;
         private String serviceMobile;
-        private String foodImg;
-        private int count;
 
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public double getTotalprice() {
+            return totalprice;
+        }
+
+        public void setTotalprice(double totalprice) {
+            this.totalprice = totalprice;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public int getOrdertype() {
+            return ordertype;
+        }
+
+        public void setOrdertype(int ordertype) {
+            this.ordertype = ordertype;
+        }
 
         public String getCreatetime() {
             return createtime;
@@ -68,20 +101,20 @@ public class OrderVegetableDetailBean {
             this.id = id;
         }
 
-        public int getTotalprice() {
-            return totalprice;
+        public String getFoodImg() {
+            return foodImg;
         }
 
-        public void setTotalprice(int totalprice) {
-            this.totalprice = totalprice;
+        public void setFoodImg(String foodImg) {
+            this.foodImg = foodImg;
         }
 
-        public int getStatus() {
-            return status;
+        public double getPrice() {
+            return price;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setPrice(double price) {
+            this.price = price;
         }
 
         public int getPayStatus() {
@@ -116,6 +149,14 @@ public class OrderVegetableDetailBean {
             this.ordercode = ordercode;
         }
 
+        public String getTaketime() {
+            return taketime;
+        }
+
+        public void setTaketime(String taketime) {
+            this.taketime = taketime;
+        }
+
         public String getFoodName() {
             return foodName;
         }
@@ -130,30 +171,6 @@ public class OrderVegetableDetailBean {
 
         public void setServiceMobile(String serviceMobile) {
             this.serviceMobile = serviceMobile;
-        }
-
-        public String getTaketime() {
-            return taketime;
-        }
-
-        public void setTaketime(String taketime) {
-            this.taketime = taketime;
-        }
-
-        public String getFoodImg() {
-            return foodImg;
-        }
-
-        public void setFoodImg(String foodImg) {
-            this.foodImg = foodImg;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
         }
     }
 }

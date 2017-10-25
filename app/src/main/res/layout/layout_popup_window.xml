@@ -74,7 +74,7 @@
                 android:id="@+id/tv_health_service"
                 style="@style/shaptextstyle"
                 android:minWidth="100dp"
-                android:text="医疗服务" />
+                android:text="健康档案" />
 
             <TextView
                 android:id="@+id/tv_cut_hair"

@@ -182,7 +182,9 @@
             android:name=".ui.main.activity.property_maintenance.PropertyAintenanceActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name=".ui.main.activity.property_maintenance.OrderTimeActivity" />
-        <activity android:name=".ui.main.activity.Library.LibraryActivity" />
+        <activity
+            android:name=".ui.main.activity.Library.LibraryActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
         <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
         <activity
@@ -490,6 +492,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.Library.BookSearchResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderVegetableDetailActivity"
             android:screenOrientation="portrait" />
     </application>
 

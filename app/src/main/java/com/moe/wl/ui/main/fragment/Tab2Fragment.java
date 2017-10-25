@@ -47,7 +47,7 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
     private String[] serviceTypes = {/*"我的应用",*/ "餐饮服务", "生活服务", "资产管理", "机关办公",
             "金融服务", "物业服务", "健康服务", "出入管理", "即时信息"};
 
-    /*List<String> MyApps = Arrays.asList("医疗服务", "物业维修", "图书馆", "活动报名", "美容美发",
+    /*List<String> MyApps = Arrays.asList("健康档案", "物业维修", "图书馆", "活动报名", "美容美发",
             "干洗店", "办公用品");
     List<Integer> MyAppPhotos = Arrays.asList(R.drawable.health_service,
             R.drawable.property_maintenance, R.drawable.library,
@@ -124,7 +124,7 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
     private List<ServiceDataBean> healthData;
     List<Integer> healthID = Arrays.asList(47, 48, 49, 50);
     List<String> healthService = Arrays.asList(
-            "健康管理", "医疗服务", "专家坐诊", "计生管理");
+            "健康管理", "健康档案", "专家坐诊", "计生管理");
     List<Integer> healthServicePhotos = Arrays.asList(
             R.drawable.health_manger, R.drawable.health_service,
             R.drawable.experts_visit, R.drawable.family_planning_manager);

@@ -1,10 +1,8 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -75,7 +73,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     private int id;
     private String barberid;
     private List<Itemid> list;
-    private int sumAll;
+    private double sumAll;
     private List<PreOrderBean.TimelistBean> timelist;
     private OrderTimeAdapter orderTimeAdapter;
     private List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist;

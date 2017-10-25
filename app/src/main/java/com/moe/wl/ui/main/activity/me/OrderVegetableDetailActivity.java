@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.activity.vegetable.VegetableMainActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -31,7 +31,7 @@ import rx.Subscriber;
  * 类描述：净菜订单详情页
  * 作者：Shixhe On 2017/10/10 0010
  */
-public class OrderVegetableDetailActivity extends AppCompatActivity {
+public class OrderVegetableDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
@@ -91,7 +91,7 @@ public class OrderVegetableDetailActivity extends AppCompatActivity {
         }
         number.setText("x" + data.getDetail().getCount());
         itemName.setText(data.getDetail().getFoodName());
-        price.setText("¥" + data.getDetail().getTotalprice());
+        price.setText("¥" + data.getDetail().getPrice());
         allPrice.setText("总计：¥" + data.getDetail().getTotalprice());
         practicePrice.setText("¥" + data.getDetail().getTotalprice());
         time.setText("取货时间：" + data.getDetail().getTaketime());

@@ -209,7 +209,7 @@ public class ServiceIntentUtils {
             case 47: //47	健康管理
 
                 break;
-            case 48: //48	医疗服务
+            case 48: //48	健康档案
                 return HealthServerceActivity.class;
 //                break;
             case 49: //49	专家坐诊

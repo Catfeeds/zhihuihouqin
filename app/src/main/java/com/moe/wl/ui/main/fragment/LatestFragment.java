@@ -19,7 +19,6 @@ import com.moe.wl.ui.main.modelimpl.LibraryHomeModelImpl;
 import com.moe.wl.ui.main.presenter.LibraryHomePresenter;
 import com.moe.wl.ui.main.view.LibraryHomeView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,7 +38,7 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel, LibraryHomeVi
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity= (LibraryActivity) activity;
+        this.activity = (LibraryActivity) activity;
     }
 
     @Override
@@ -56,19 +55,22 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel, LibraryHomeVi
         bookRvAdapter.setMyCallBack(new BookRvAdapter.MyCallBack() {
             @Override
             public void cb(BooklistBean bookListvBean, String BookID, boolean again) {
-                if (activity.bookList!=null && activity.bookList.size()>0){
+                Intent intent = new Intent(getActivity(), BookDescriptionActivity.class);
+                intent.putExtra("bean", bookListvBean);
+                intent.putExtra("again", again);
+                if (activity.bookList != null && activity.bookList.size() > 0) {
                     for (int i = 0; i < activity.bookList.size(); i++) {
-                        if (bookListvBean.getId().equals( activity.bookList.get(i).getId())){
+                        if (bookListvBean.getId().equals(activity.bookList.get(i).getId())) {
                             showToast("已经添加了此书");
                             return;
                         }
                     }
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
+                } else {
+                    getActivity().startActivity(intent);
                 }
-                Intent intent = new Intent(getActivity(), BookDescriptionActivity.class);
-                intent.putExtra("bean",(Serializable)bookListvBean);
-                intent.putExtra("again", again);
-                getActivity().startActivity(intent);
-                getActivity().finish();
+
             }
         });
     }

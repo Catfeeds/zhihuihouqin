@@ -104,7 +104,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
     private int timeID;
     private String phone;
     private String remark = "";
-    private int sum;
+    private double sum;
     private int deposit;
     private String json;
     private Object[] arr;

@@ -43,7 +43,7 @@ public class OrderMealDetailBean implements Serializable {
         private int id;
         private int count;
         private String address;
-        private int totalprice;
+        private double totalprice;
         private int status;
         private int payStatus;
         private String sendTime;
@@ -91,11 +91,11 @@ public class OrderMealDetailBean implements Serializable {
             this.address = address;
         }
 
-        public int getTotalprice() {
+        public double getTotalprice() {
             return totalprice;
         }
 
-        public void setTotalprice(int totalprice) {
+        public void setTotalprice(double totalprice) {
             this.totalprice = totalprice;
         }
 

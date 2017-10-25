@@ -41,11 +41,13 @@ public class OrderDryClearDetailBean {
 
         private String createtime;
         private int id;
-        private int totalprice;
+        private double totalprice;
         private int payStatus;
         private int status;
         private int logStatus;
         private int paytype;
+        private int isEvaluated;
+        private int ordertype;
         private String ordercode;
         private String serviceMobile;
         private List<ClothesListEntity> clothesList;
@@ -66,11 +68,11 @@ public class OrderDryClearDetailBean {
             this.id = id;
         }
 
-        public int getTotalprice() {
+        public double getTotalprice() {
             return totalprice;
         }
 
-        public void setTotalprice(int totalprice) {
+        public void setTotalprice(double totalprice) {
             this.totalprice = totalprice;
         }
 
@@ -106,6 +108,22 @@ public class OrderDryClearDetailBean {
             this.paytype = paytype;
         }
 
+        public int getIsEvaluated() {
+            return isEvaluated;
+        }
+
+        public void setIsEvaluated(int isEvaluated) {
+            this.isEvaluated = isEvaluated;
+        }
+
+        public int getOrdertype() {
+            return ordertype;
+        }
+
+        public void setOrdertype(int ordertype) {
+            this.ordertype = ordertype;
+        }
+
         public String getOrdercode() {
             return ordercode;
         }
@@ -132,15 +150,15 @@ public class OrderDryClearDetailBean {
 
         public static class ClothesListEntity {
 
-            private int price;
+            private double price;
             private int count;
             private String clothesName;
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

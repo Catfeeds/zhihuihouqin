@@ -46,8 +46,8 @@ public class PayUpMessageAdapter extends RecyclerView.Adapter {
                 title.append("网络报修");
                 break;
 
-            case 2: // 医疗服务
-                title.append("医疗服务");
+            case 2: // 健康档案
+                title.append("健康档案");
                 break;
 
             case 3: // 图书借阅

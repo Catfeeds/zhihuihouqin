@@ -38,8 +38,8 @@ public class OrderWaterDetailBean {
     public static class DetailEntity {
 
         private int count;
-        private int price;
-        private int totalprice;
+        private double price;
+        private double totalprice;
         private int status;
         private String receiverMobile;
         private String img;
@@ -63,11 +63,11 @@ public class OrderWaterDetailBean {
             this.count = count;
         }
 
-        public int getTotalprice() {
+        public double getTotalprice() {
             return totalprice;
         }
 
-        public void setTotalprice(int totalprice) {
+        public void setTotalprice(double totalprice) {
             this.totalprice = totalprice;
         }
 
@@ -183,11 +183,11 @@ public class OrderWaterDetailBean {
             this.serviceMobile = serviceMobile;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
     }
