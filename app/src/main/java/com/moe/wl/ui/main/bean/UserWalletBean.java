@@ -19,8 +19,8 @@ public class UserWalletBean {
     private int voucherNum;
     private int hasBuyAuth;
     private int payPasswordState;
-    private int  publicRemain;
-    private int walletRemain;
+    private double  publicRemain;
+    private double walletRemain;
     private int errCode;
     private String msg;
 
@@ -48,19 +48,19 @@ public class UserWalletBean {
         this.payPasswordState = payPasswordState;
     }
 
-    public int getPublicRemain() {
+    public double getPublicRemain() {
         return publicRemain;
     }
 
-    public void setPublicRemain(int publicRemain) {
+    public void setPublicRemain(double publicRemain) {
         this.publicRemain = publicRemain;
     }
 
-    public int getWalletRemain() {
+    public double getWalletRemain() {
         return walletRemain;
     }
 
-    public void setWalletRemain(int walletRemain) {
+    public void setWalletRemain(double walletRemain) {
         this.walletRemain = walletRemain;
     }
 

@@ -224,8 +224,9 @@ public interface NetUrl {
     String generateChargeWalletOrder = "appuser/wallet/generateChargeWalletOrder";//生成充值订单
     String findWalletLog = "appuser/wallet/findWalletLog";//明细
     String hasPaypass = "appuser/wallet/hasPaypass";//是否有商品交易密码
-    String checkOldPassword = "appuser/wallet/checkOldPassword";
-    String modifyCode = "appuser/wallet/modifyCode";
+    String checkOldPassword = "appuser/wallet/checkOldPassword";//检测是否有密码
+    String modifyCode = "appuser/wallet/modifyCode";//修改密码
+    String findPurchaseAccountList="appuser/wallet/findPurchaseAccountList";//查询对公账户列表
 
     /*------------------------------办公室预订模块------------------------------------------------*/
     String officelist = "appuser/hysfwconferenceroom/findConferenceList";  //办公室列表

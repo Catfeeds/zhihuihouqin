@@ -76,7 +76,14 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     public void initView() {
         initTitle();
         initListView();
-        tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
+        String realName = SharedPrefHelper.getInstance().getRealName();
+        String nickname = SharedPrefHelper.getInstance().getNickname();
+        if(TextUtils.isEmpty(realName)){//真实姓名没有显示昵称
+            tvUserName.setText(nickname);
+        }else{
+            tvUserName.setText(realName);
+        }
+
         etPhoneNum.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         getData(1 + "", limit);
     }

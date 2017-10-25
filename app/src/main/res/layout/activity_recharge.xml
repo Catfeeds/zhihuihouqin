@@ -17,7 +17,7 @@
         android:background="@color/gray_lighter"/>
     <TextView
         android:text="充值金额"
-        android:textSize="@dimen/sp_bigger_20"
+        android:textSize="@dimen/sp_bigger"
         android:textColor="@color/black"
         android:padding="16dp"
         android:layout_width="match_parent"
@@ -35,13 +35,14 @@
             android:background="@null"
             android:hint="请输入充值金额"
             android:textColorHint="@color/gray"
-            android:textSize="@dimen/sp_big"
+            android:textSize="@dimen/sp_common"
+            android:inputType="number"
             android:textColor="@color/tv_black"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <TextView
         android:text="充值越多,返利越多"
-        android:textSize="@dimen/sp_big"
+        android:textSize="@dimen/sp_common"
         android:textColor="@color/tv_black"
         android:padding="16dp"
         android:layout_width="match_parent"

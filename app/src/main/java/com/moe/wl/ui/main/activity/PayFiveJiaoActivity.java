@@ -17,6 +17,7 @@ import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.me.AcountSaftActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.UserWalletBean;
@@ -25,6 +26,7 @@ import com.moe.wl.ui.main.model.PayModel;
 import com.moe.wl.ui.main.modelimpl.PayModelImpl;
 import com.moe.wl.ui.main.presenter.PayPresenter;
 import com.moe.wl.ui.main.view.PayView;
+import com.moe.wl.ui.mywidget.TsAlertDialog;
 import com.moe.wl.ui.mywidget.WalletPayDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -75,6 +77,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     LinearLayout activityPayFiveJiao;
     @BindView(R.id.tv_need_pay)
     TextView tvNeedPay;
+    @BindView(R.id.rl_banance)
+    RelativeLayout rlBanance;
+    @BindView(R.id.rl_banance_pay)
+    RelativeLayout rlBanancePay;
 
     private int paytype;
     private String payTypeName;
@@ -82,7 +88,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private String ordertype;
     private int from;
     private String orderid;
-    private int walletRemain;
+    private double walletRemain;
     private float pay;
     private int voucherNum;
     private int count;
@@ -117,7 +123,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         tvNeedPay.setText("￥" + pay);
         if (from == Constants.BARBER) {//是理发展示代金券
             rlDaijinquanPay.setVisibility(View.VISIBLE);
-        } else {
+        }else if(from==Constants.RECHARGE){//钱包充值
+            rlBanance.setVisibility(View.GONE);
+            rlBanancePay.setVisibility(View.GONE);
+        } else{
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
@@ -200,7 +209,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                         showToast("您的余额不足");
                         return;
                     }
-                    getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, pwd, 0);
+                    getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, pwd, 0);//钱包支付
                 } else {
                     showToast("您输入的密码有误");
                 }
@@ -265,7 +274,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         if (bean != null) {
             //对私钱包余额
             walletRemain = bean.getWalletRemain();
-            int publicRemain = bean.getPublicRemain();//对公钱包余额
+            double publicRemain = bean.getPublicRemain();//对公钱包余额
             voucherNum = bean.getVoucherNum();//理发券数量
             tvAvailableBalance.setText("￥" + walletRemain);
             LogUtils.i("代金券的数量" + voucherNum);
@@ -273,13 +282,31 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void isHasPwd(ActivityPostBean bean) {
+        LogUtils.i("没有设置支付密码===============");
         if (bean != null) {
             int errCode = bean.getErrCode();
             if (errCode == 0) {
                 showPayDialog();
-            } else if (errCode == 1001) {
-                getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, "", 0);
+            } else if (errCode == 1) {//没有支付密码
+                LogUtils.i("没有设置支付密码===============");
+                TsAlertDialog dialog=new TsAlertDialog(this).builder();
+                dialog.setTitle("提示")
+                        .setMsg("为了保护你财产的安全请先设置支付密码");
+                dialog.setPositiveButton("设置支付密码", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent =new Intent(PayFiveJiaoActivity.this,AcountSaftActivity.class);
+                        intent.putExtra("from", Constants.SET_PWD);
+                        startActivity(intent);
+                    }
+                }).show();
+                //getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, "", 0);//钱包支付
             }
         }
     }

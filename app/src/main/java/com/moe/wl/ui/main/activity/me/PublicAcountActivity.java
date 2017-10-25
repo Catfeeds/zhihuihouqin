@@ -1,44 +1,77 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.adapter.PublicAcountAdapter;
+import com.moe.wl.ui.main.bean.PurchaseAccountListBean;
+import com.moe.wl.ui.main.model.PublicAcountModel;
+import com.moe.wl.ui.main.modelimpl.PublicAcountModelImpl;
+import com.moe.wl.ui.main.presenter.PublicAcountPresenter;
+import com.moe.wl.ui.main.view.PublicAcountView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class PublicAcountActivity extends AppCompatActivity {
+public class PublicAcountActivity extends BaseActivity<PublicAcountModel,PublicAcountView,PublicAcountPresenter>implements PublicAcountView {
 
     @BindView(R.id.title)
     TitleBar title;
     @BindView(R.id.iv_wen)
     ImageView ivWen;
-    @BindView(R.id.tv_acount_banlance)
-    TextView tvAcountBanlance;
+    @BindView(R.id.rv_public)
+    RecyclerView rvPublic;
+    @BindView(R.id.activity_public_acount)
+    LinearLayout activityPublicAcount;
+    private PublicAcountAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_public_acount);
-        ButterKnife.bind(this);
-        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
-        Intent intent = getIntent();
-        int publicRemain = intent.getIntExtra("publicRemain", 0);
-        title.setBack(true);
-        title.setTitle("对公账户");
-        tvAcountBanlance.setText(publicRemain+"");
+    public PublicAcountPresenter createPresenter() {
+        return new PublicAcountPresenter();
     }
 
-    @OnClick(R.id.iv_wen)
-    public void onViewClicked() {
-        Intent intent2=new Intent(this,BalanceExplainActivity.class);
-        startActivity(intent2);
+    @Override
+    public void setContentLayout() {
+        setContentView(R.layout.activity_public_acount);
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initView() {
+        title.setBack(true);
+        title.setTitle("对公账户");
+        getPresenter().getPurchaseAccountList();
+        rvPublic.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PublicAcountAdapter(this);
+        rvPublic.setAdapter(adapter);
+        ivWen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(PublicAcountActivity.this, BalanceExplainActivity.class);
+                startActivity(intent2);
+            }
+        });
+    }
+
+    @Override
+    public PublicAcountModel createModel() {
+        return new PublicAcountModelImpl();
+    }
+
+    @Override
+    public void findList(PurchaseAccountListBean bean) {
+        if(bean!=null){
+            List<PurchaseAccountListBean.AccountListBean> accountList = bean.getAccountList();
+            adapter.setData(accountList);
+        }
     }
 }

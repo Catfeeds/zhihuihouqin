@@ -13,7 +13,7 @@ public class BooklistBean implements Serializable{
     private String id;
     private String img;
     private String publisher;
-    private int score;
+    private double score;
     private String shortbrief;
     private String title;
     private int typeid;
@@ -59,11 +59,11 @@ public class BooklistBean implements Serializable{
         this.publisher = publisher;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

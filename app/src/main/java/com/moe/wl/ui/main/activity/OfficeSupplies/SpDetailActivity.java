@@ -154,7 +154,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
             case R.id.ll_share:
                 break;
             case R.id.ll_collect:
-                getPresenter().getCollectInfo(11, id);
+                getPresenter().getCollectInfo(2, id);
                 break;
             case R.id.tv_add_car:
                 showPop(true);

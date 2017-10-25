@@ -787,7 +787,19 @@ public interface NetAPI {
     //我的收藏
     @FormUrlEncoded
     @POST(NetUrl.findUserFavorList)
-    Observable<McNoticeListResponse> findUserFavorList(@FieldMap Map<String, Object> map);
+    Observable<InformationClazzBean> findUserFavorList1(@FieldMap Map<String, Object> map);
+
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<OfficeCollect> findUserFavorList2(@FieldMap Map<String, Object> map);
+
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<BarberWorkListBean> findUserFavorList3(@FieldMap Map<String, Object> map);
+
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<InformationClazzBean> findUserFavorList4(@FieldMap Map<String, Object> map);
 
     //修改用户信息
     @FormUrlEncoded
@@ -833,6 +845,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.checkOldPassword)
     Observable<ActivityPostBean> checkOldPassword(@FieldMap Map<String, Object> map);
+
+    //查询对公账户列表
+    @FormUrlEncoded
+    @POST(NetUrl.findPurchaseAccountList)
+    Observable<PurchaseAccountListBean> findPurchaseAccountList(@FieldMap Map<String, Object> map);
 
     //修改支付密码
     @FormUrlEncoded

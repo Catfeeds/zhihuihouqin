@@ -25,8 +25,6 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
     TitleBar title;
     @BindView(R.id.tv_balance)
     TextView tvBalance;
-    @BindView(R.id.tv_quota)
-    TextView tvQuota;
     @BindView(R.id.iv_wen)
     ImageView ivWen;
     @BindView(R.id.ll_haircut_ticket)
@@ -39,7 +37,9 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
     LinearLayout llPublicAcount;
     @BindView(R.id.ll_passward_management)
     LinearLayout llPasswardManagement;
-    private int publicRemain;
+    @BindView(R.id.ll_yajin)
+    LinearLayout llYajin;
+    private double publicRemain;
 
     @Override
     public MyPursePresenter createPresenter() {
@@ -70,9 +70,7 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
                 startActivity(intent);
             }
         });
-
     }
-
     @OnClick({ R.id.iv_wen ,R.id.ll_recharge,R.id.ll_yajin, R.id.ll_passward_management,R.id.ll_public_amount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -107,16 +105,19 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
     public void getInfoSucc(UserWalletBean bean) {
         if(bean!=null){
             publicRemain = bean.getPublicRemain();
-            tvBalance.setText(bean.getPublicRemain()+"");//对公钱包余额
-            tvQuota.setText(bean.getWalletRemain()+"元");//对私钱包余额
+            tvBalance.setText(bean.getWalletRemain()+"");//钱包余额
             tvTicketCount.setText(bean.getVoucherNum()+"张");//理发券数量
             int hasBuyAuth = bean.getHasBuyAuth();//是否有团购权限
             int payPasswordState = bean.getPayPasswordState();//是否有支付密码
-            if(hasBuyAuth==1){//有团购权限
+            llPublicAcount.setVisibility(View.VISIBLE);
+            llYajin.setVisibility(View.VISIBLE);
+           /* if(hasBuyAuth==1){//有团购权限
                 llPublicAcount.setVisibility(View.VISIBLE);
+                llYajin.setVisibility(View.VISIBLE);
             }else{
                 llPublicAcount.setVisibility(View.GONE);
-            }
+                llYajin.setVisibility(View.GONE);
+            }*/
 
         }
 

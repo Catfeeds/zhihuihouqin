@@ -46,7 +46,7 @@ public class MyCollectActivity extends AppCompatActivity {
 
     private void initFragment() {
         fragments = new ArrayList<>();
-
+//1: 公告，2：办公，3：理发作品，4：图书，5：专家，6：活动，7：发型师
         fragments.add(McNoticeFragment.getInstance("1"));
         fragments.add(McNoticeFragment.getInstance("2"));
         fragments.add(McNoticeFragment.getInstance("3"));
@@ -54,9 +54,7 @@ public class MyCollectActivity extends AppCompatActivity {
         fragments.add(McNoticeFragment.getInstance("5"));
         fragments.add(McNoticeFragment.getInstance("6"));
         fragments.add(McNoticeFragment.getInstance("7"));
-        fragments.add(McNoticeFragment.getInstance("8"));
-        fragments.add(McNoticeFragment.getInstance("9"));
-        fragments.add(McNoticeFragment.getInstance("10"));
+
 
     }
 

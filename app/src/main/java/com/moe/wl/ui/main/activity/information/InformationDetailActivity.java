@@ -59,7 +59,7 @@ public class InformationDetailActivity extends AppCompatActivity {
     private CommentPop pop;
     private InformationCommentAdapter adapter;
 
-    private int serviceType = 11;
+    private int serviceType = 1;
 
     private boolean isCollect = false;
 

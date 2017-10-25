@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class BarberDetailActivity extends BaseActivity<BarberDetailModel, BarberDetailView, BarberDetailPresenter> implements BarberDetailView {
 
     private static final int CALL_PHONE_REQUEST_CODE = 10;
-    private static final int Type=7;
+    private static final int Type=3;
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
     @BindView(R.id.civ_barber_header_photo)

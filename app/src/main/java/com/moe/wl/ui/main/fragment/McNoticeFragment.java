@@ -8,8 +8,11 @@ import android.view.View;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
-import com.moe.wl.ui.main.adapter.NoticeAdapter;
-import com.moe.wl.ui.main.bean.McNoticeListResponse;
+import com.moe.wl.ui.main.adapter.BarberCollectAdapter;
+import com.moe.wl.ui.main.adapter.OfficeCollectAdapter;
+import com.moe.wl.ui.main.bean.InformationClazzBean;
+import com.moe.wl.ui.main.bean.OfficeCollect;
+import com.moe.wl.ui.main.bean.WorklistBean;
 import com.moe.wl.ui.main.model.McNocticeModel;
 import com.moe.wl.ui.main.modelimpl.McNoticeModelImpl;
 import com.moe.wl.ui.main.presenter.McNoticePresenter;
@@ -72,11 +75,34 @@ public class McNoticeFragment extends BaseFragment<McNocticeModel,McNoticeView,M
     }
 
     @Override
-    public void getCollect(List<McNoticeListResponse.PageBean.ListBean> list) {
+    public void getCollect1(List<InformationClazzBean.NoticeTypeListEntity> list) {
+
+    }
+
+    @Override//办公用品
+    public void getCollect2(List<OfficeCollect.ListBean> list) {
+        if(list!=null){
+            rvCollect.setLayoutManager(new LinearLayoutManager(getActivity()));
+            OfficeCollectAdapter adapter=new OfficeCollectAdapter(getActivity());
+            rvCollect.setAdapter(adapter);
+            adapter.setData(list);
+        }
+    }
+
+    @Override
+    public void getCollect3(List<WorklistBean> worklist) {
+        rvCollect.setLayoutManager(new LinearLayoutManager(getActivity()));
+        BarberCollectAdapter adapter=new BarberCollectAdapter(getActivity());
+        rvCollect.setAdapter(adapter);
+        adapter.setData(worklist);
+    }
+
+   /* @Override
+    public void getCollect1(List<McNoticeListResponse.PageBean.ListBean> list) {
         if(list!=null){
             NoticeAdapter adapter = new NoticeAdapter(getActivity(),type);
             rvCollect.setAdapter(adapter);
             adapter.setData(list);
         }
-    }
+    }*/
 }

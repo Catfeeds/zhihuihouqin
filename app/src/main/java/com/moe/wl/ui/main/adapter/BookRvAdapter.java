@@ -93,13 +93,11 @@ public class BookRvAdapter extends RecyclerView.Adapter {
                 }
             });
         }
-
-
         public void setData(BooklistBean booklistBean) {
             this.bookListvBean = booklistBean;
             GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, booklistBean.getImg(), ivBookPic, R.mipmap.ic_default_square);
             tvBookName.setText(booklistBean.getTitle());
-            ratingBar.setRating(booklistBean.getScore());
+            ratingBar.setRating(((float) booklistBean.getScore()));
             OtherUtils.ratingBarColor(ratingBar, mContext);
             tvStarNum.setText(booklistBean.getScore() + "分");
             tvAuthor.setText("作者:" + booklistBean.getAuthor());

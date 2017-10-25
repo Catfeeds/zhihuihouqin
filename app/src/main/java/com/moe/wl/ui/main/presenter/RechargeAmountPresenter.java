@@ -21,9 +21,9 @@ import rx.Subscriber;
 
 public class RechargeAmountPresenter extends MvpRxPresenter<RechargeAmountModel, RechargeAmountView> {
 
-    public void rechargeAmount(double money,int paytype,int ordertype) {
+    public void rechargeAmount(double money,int ordertype) {
         getView().showProgressDialog();
-        Observable request = getModel().getData(money,paytype,ordertype);
+        Observable request = getModel().getData(money,ordertype);
         getNetWork(request, new Subscriber<WalletOrderBean>() {
 
             @Override

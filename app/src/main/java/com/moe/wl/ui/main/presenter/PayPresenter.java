@@ -162,7 +162,7 @@ public class PayPresenter extends MvpRxPresenter<PayModel, PayView> {
                 }
                 if (mResponse.getErrCode() == 0) {
                     getView().isHasPwd(mResponse);
-                } else if(mResponse.getErrCode()==1001){
+                } else if(mResponse.getErrCode()==1){
                     getView().isHasPwd(mResponse);
                 }
             }

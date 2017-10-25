@@ -1,21 +1,17 @@
 package com.moe.wl.ui.main.activity.me;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.bean.WeixinBean;
@@ -25,14 +21,9 @@ import com.moe.wl.ui.main.presenter.RechargeAmountPresenter;
 import com.moe.wl.ui.main.view.RechargeAmountView;
 import com.moe.wl.ui.mywidget.BottomRechargeDialog;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import lc.cn.thirdplatform.pay.alipay.AliPaySuccess;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
 import mvp.cn.util.ToastUtil;
@@ -47,6 +38,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
     TextView tvConfirmPay;
     private static  final int ORDERTYPE=19;
     private BottomRechargeDialog dialog;
+    private String amount;
 
     @Override
     public RechargeAmountPresenter createPresenter() {
@@ -66,7 +58,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+       // EventBus.getDefault().register(this);
         initTitle();
     }
 
@@ -85,31 +77,44 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
 
     @OnClick(R.id.tv_confirm_pay)
     public void onViewClicked() {
-        final String amount = etScannerAmount.getText().toString().trim();
+        amount = etScannerAmount.getText().toString().trim();
         if(TextUtils.isEmpty(amount)){
             ToastUtil.showToast(this,"请输入充值金额");
             return ;
         }
-        dialog = new BottomRechargeDialog(this, R.style.dialog_style);
+        double amount1 = Double.parseDouble(amount);
+        getPresenter().rechargeAmount(amount1,ORDERTYPE);
+       /* dialog = new BottomRechargeDialog(this, R.style.dialog_style);
         dialog.setAmount(amount);
         dialog.show();
         dialog.setListener(new BottomRechargeDialog.OnConfirmClickListener() {
             @Override
             public void onConfirmClickListener(String money,int paytype) {
-                double amount1 = Double.parseDouble(amount);
-                getPresenter().rechargeAmount(amount1,paytype,ORDERTYPE);
+
             }
-        });
+        });*/
     }
 
     @Override
     public void rechargeResult(WalletOrderBean bean) {
-        // TODO: 2017/10/13 0013 生成订单结果
+        if(bean!=null){
+            String ordercode = bean.getOrdercode();
+            int orderid = bean.getOrderid();
+            int ordertype = bean.getOrdertype();
+            float money = Float.parseFloat(amount);
+            Intent intent=new Intent(this, PayFiveJiaoActivity.class);
+            intent.putExtra("orderid",orderid+"");
+            intent.putExtra("ordercode",ordercode);
+            intent.putExtra("ordertype",ordertype+"");
+            intent.putExtra("from", Constants.RECHARGE);
+            intent.putExtra("pay",money);
+            startActivity(intent);
+            finish();
+        }
+      /*  // TODO: 2017/10/13 0013 生成订单结果
         LogUtils.i(bean.getPaytype()+"---------");
         LogUtils.i(bean.getOrdertype()+"-----======----");
-        String ordercode = bean.getOrdercode();
-        int orderid = bean.getOrderid();
-        int ordertype = bean.getOrdertype();
+
         int paytype = bean.getPaytype();
         switch (paytype) {
             case 1:
@@ -119,9 +124,9 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
                 getPresenter().weiXinPay(orderid+"", ordercode, ordertype+"", 2);
                 break;
         }
-        dialog.dismiss();
+        dialog.dismiss();*/
     }
-    //支付宝支付成功
+   /* //支付宝支付成功
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(AliPaySuccess event) {
         if (event!=null){
@@ -131,13 +136,13 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
+    }*/
     @Override
     public void aliPay(AlipayBean bean) {
         if (bean != null) {

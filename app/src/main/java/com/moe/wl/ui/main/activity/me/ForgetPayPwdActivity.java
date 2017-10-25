@@ -1,8 +1,5 @@
 package com.moe.wl.ui.main.activity.me;
 
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -97,13 +94,7 @@ public class ForgetPayPwdActivity extends BaseActivity<ChangePayPwdModel,ChangeP
     @Override
     public void modifyCodeResult(ActivityPostBean bean) {
         showToast("设置密码成功");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(2000);
-                finish();
-            }
-        }).start();
+        finish();
     }
 
     @Override

@@ -6,9 +6,9 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
-import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
@@ -29,6 +29,7 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
     TextView tvMoney;
     @BindView(R.id.tv_return_depoosit)
     TextView tvReturnDepoosit;
+    private int deposit1;
 
     @Override
     public MyDepositPresenter createPresenter() {
@@ -59,7 +60,10 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
 
     @OnClick(R.id.tv_return_depoosit)
     public void onViewClicked() {
-
+        if(deposit1==0){
+            showToast("你还没有交押金");
+            return;
+        }
         final AlertDialog dialog = new AlertDialog(this).builder();
         dialog.setBigMsg("退还押金,您下次订购桶装水时还需要缴纳押金")
                 .setPositiveButton("确定", new View.OnClickListener() {
@@ -80,8 +84,8 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
     public void getUserDepositResult(UserDepositBean bean) {
         if (bean != null) {
             UserDepositBean.DepositBean deposit = bean.getDeposit();
-            int deposit1 = deposit.getDeposit();
-            tvMoney.setText(deposit1);
+            deposit1 = deposit.getDeposit();
+            tvMoney.setText(deposit1 +"");
         }
     }
 

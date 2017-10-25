@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.TitleBar;
@@ -34,6 +35,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sbumit_success);
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
         ButterKnife.bind(this);
         initTitle();
         //设置字体加粗

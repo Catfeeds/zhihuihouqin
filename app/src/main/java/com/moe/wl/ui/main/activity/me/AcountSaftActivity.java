@@ -99,12 +99,15 @@ public class AcountSaftActivity extends Base2Activity {
                     bundle.putInt("from",Constants.FORGET);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    finish();
                 }else if(from==Constants.CHANGE_PWD){//修改支付密码
                     Intent intent=new Intent(this,ChangePayPwdActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if(from==Constants.FORGET_PWD||from==Constants.SET_PWD){//忘记密码||设置密码
                     Intent intent=new Intent(this,ForgetPayPwdActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 finish();
                 break;

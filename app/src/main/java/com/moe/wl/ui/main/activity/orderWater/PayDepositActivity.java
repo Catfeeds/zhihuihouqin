@@ -41,7 +41,8 @@ public class PayDepositActivity extends AppCompatActivity {
     public void onViewClicked() {
         // TODO: 2017/10/16 0016 需要传递ordercode,ordertype
         Intent intent=new Intent(this, PayFiveJiaoActivity.class);
-        intent.putExtra("pay",50);
+        float pay=50;
+        intent.putExtra("pay",pay);
         intent.putExtra("from", Constants.ORDERWATER);
         startActivity(intent);
     }

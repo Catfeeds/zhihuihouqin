@@ -12,6 +12,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.FindChargeOrderBean;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter {
             FindChargeOrderBean.ListBean listBean = mList.get(position);
             String createtime = listBean.getCreatetime();//2017-10-20 11:11:11
             String monthName = listBean.getMonthName();
-            int money = listBean.getMoney();
+            double  money = listBean.getMoney();
             /*String[] strings = createtime.split("-");
             String[] strings1 = strings[2].split(" ");
             String day=strings1[0];
@@ -121,7 +122,8 @@ public class RechargeRecordAdapter extends RecyclerView.Adapter {
                 viewHolder.tvPayWay.setText("微信");
             }
             viewHolder.tvAddAmount.setText("+" + money);
-            viewHolder.tvRechargeAmount.setText("充值" + money + "元");
+            DecimalFormat df = new DecimalFormat("###.00");
+            viewHolder.tvRechargeAmount.setText("充值" +df.format(money)+ "元");
         }
     }
 

@@ -116,7 +116,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getImg(), ivBookPic, R.mipmap.ic_default_book);
 
         tvBookName.setText(bean.getTitle());
-        ratingBar.setRating(bean.getScore());
+        ratingBar.setRating(((float) bean.getScore()));
         OtherUtils.ratingBarColor(ratingBar,this);
         tvStarNum.setText(bean.getScore() + "分");
         tvAuthor.setText(bean.getAuthor());

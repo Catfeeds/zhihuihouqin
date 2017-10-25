@@ -2985,7 +2985,16 @@ carcode	是	string	车牌号*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return getObservable(api.findUserFavorList(paramsMap));
+        if(serviceType.equals("1")){
+            return getObservable(api.findUserFavorList1(paramsMap));
+        }else if(serviceType.equals("2")){
+            return getObservable(api.findUserFavorList2(paramsMap));
+        }else if(serviceType.equals("3")){
+            return getObservable(api.findUserFavorList3(paramsMap));
+        } else if (serviceType.equals("4")) {
+            return getObservable(api.findUserFavorList4(paramsMap));
+        }
+        return null;
     }
 
 
@@ -3055,12 +3064,12 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable generateChargeWalletOrder(double money, int paytype, int ordertype) {
+    public static Observable generateChargeWalletOrder(double money,int ordertype) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
             tempMap.put("money", money + "");
-            tempMap.put("paytype", paytype + "");
+           // tempMap.put("paytype", paytype + "");
             tempMap.put("ordertype", ordertype + "");
             addParam(paramsMap, tempMap);
 
@@ -3175,6 +3184,21 @@ carcode	是	string	车牌号*/
         return getObservable(api.modifyCode(paramsMap));
     }
 
+    /**
+     * 查询对公账户列表
+     *
+     * @return
+     */
+    public static Observable findPurchaseAccountList() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findPurchaseAccountList(paramsMap));
+    }
     /**
      * 意见反馈
      *

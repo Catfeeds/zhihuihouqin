@@ -59,28 +59,28 @@
                     android:textSize="@dimen/sp_common" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="私人额度"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_common" />
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="私人额度"
+                     android:textColor="@color/white"
+                     android:textSize="@dimen/sp_common" />
 
-                <TextView
-                    android:id="@+id/tv_quota"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="350元"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_common" />
-            </LinearLayout>
+                 <TextView
+                     android:id="@+id/tv_quota"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="8dp"
+                     android:text="350元"
+                     android:textColor="@color/white"
+                     android:textSize="@dimen/sp_common" />
+             </LinearLayout>-->
         </LinearLayout>
 
         <ImageView
