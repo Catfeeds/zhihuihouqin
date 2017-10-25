@@ -18,12 +18,12 @@
 
         <ImageView
             android:id="@+id/iv_add_or_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
-            android:padding="3dp"
+            android:padding="5dp"
             android:src="@drawable/delete_app"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 

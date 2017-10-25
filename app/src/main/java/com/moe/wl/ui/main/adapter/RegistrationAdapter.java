@@ -11,7 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.activity.DoctorDetailActivity;
+import com.moe.wl.ui.main.activity.medicalService.DoctorDetailActivity;
 import com.moe.wl.ui.main.bean.DoctorListBean;
 
 import java.util.ArrayList;

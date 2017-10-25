@@ -7,9 +7,27 @@ package com.moe.wl.ui.main.bean;
  */
 
 public class CanOrderedBean {
-    private int errCode;
-    private String esg;
+
+    private int status;
     private String rule;
+    private int errCode;
+    private String msg;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getRule() {
+        return rule;
+    }
+
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
 
     public int getErrCode() {
         return errCode;
@@ -19,19 +37,11 @@ public class CanOrderedBean {
         this.errCode = errCode;
     }
 
-    public String getEsg() {
-        return esg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setEsg(String esg) {
-        this.esg = esg;
-    }
-
-    public String getRule() {
-        return rule;
-    }
-
-    public void setRule(String rule) {
-        this.rule = rule;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

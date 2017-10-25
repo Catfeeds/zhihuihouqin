@@ -1,4 +1,4 @@
-package com.moe.wl.ui.main.activity;
+package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +11,10 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
+import com.moe.wl.ui.main.activity.ReserveInfoActivity;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
 import com.moe.wl.ui.main.adapter.ExpertSelectTimeAdapter;
 import com.moe.wl.ui.main.bean.CommentlistBean;
@@ -162,20 +163,17 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvOrderPersonNum.setText(personNum + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间
         tvContent.setText(bean.getExpert().getBrief());// 简介
-        LogUtils.d("Photo : " + bean.getExpert().getPhoto());
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getExpert().getPhoto(), ivDocPhoto, R.mipmap.ic_default_square);
         // 评论
-        if (bean.getCommentlist() == null) {
-            return;
+        if (bean.getCommentlist() != null) {
+            data.addAll(bean.getCommentlist());
+            adapter.notifyDataSetChanged();
         }
-        data.addAll(bean.getCommentlist());
-        adapter.notifyDataSetChanged();
         // 时间
-        if (bean.getSchedules() == null) {
-            return;
+        if (bean.getSchedules() != null) {
+            timeData.addAll(bean.getSchedules());
+            timeAdapter.notifyDataSetChanged();
         }
-        timeData.addAll(bean.getSchedules());
-        timeAdapter.notifyDataSetChanged();
     }
 
     @Override

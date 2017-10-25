@@ -1,24 +1,22 @@
 package com.moe.wl.ui.main.bean;
 
-import java.util.List;
-
 /**
- * Created by 我的电脑 on 2017/9/5 0005.
+ * 类描述：
+ * 作者：Shixhe On 2017/10/25 0025
  */
 
-public class MoreListBean {
+public class MedicalDetailBean {
 
-    private String msg;
     private int errCode;
-    private List<InfolistBean> infolist;
+    private String msg;
+    private InfoEntity info;
 
-    @Override
-    public String toString() {
-        return "MoreListBean{" +
-                "msg='" + msg + '\'' +
-                ", errCode=" + errCode +
-                ", infolist=" + infolist +
-                '}';
+    public int getErrCode() {
+        return errCode;
+    }
+
+    public void setErrCode(int errCode) {
+        this.errCode = errCode;
     }
 
     public String getMsg() {
@@ -29,36 +27,31 @@ public class MoreListBean {
         this.msg = msg;
     }
 
-    public int getErrCode() {
-        return errCode;
+    public InfoEntity getInfo() {
+        return info;
     }
 
-    public void setErrCode(int errCode) {
-        this.errCode = errCode;
+    public void setInfo(InfoEntity info) {
+        this.info = info;
     }
 
-    public List<InfolistBean> getInfolist() {
-        return infolist;
-    }
+    public static class InfoEntity {
 
-    public void setInfolist(List<InfolistBean> infolist) {
-        this.infolist = infolist;
-    }
-
-   /* public static class InfolistBean {
-        *//**
-         * createtime : 2018-08-16 00:00
-         * id : 1
-         * source : 健康
-         * title : 健康每一天
-         * url : http://www.baidu.com
-         *//*
-
+        private String content;
         private String createtime;
         private int id;
+        private String imgs;
         private String source;
         private String title;
         private String url;
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
 
         public String getCreatetime() {
             return createtime;
@@ -74,6 +67,14 @@ public class MoreListBean {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public String getImgs() {
+            return imgs;
+        }
+
+        public void setImgs(String imgs) {
+            this.imgs = imgs;
         }
 
         public String getSource() {
@@ -99,5 +100,5 @@ public class MoreListBean {
         public void setUrl(String url) {
             this.url = url;
         }
-    }*/
+    }
 }

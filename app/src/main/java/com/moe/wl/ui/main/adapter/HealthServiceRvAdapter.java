@@ -9,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.activity.HealthConsultDetailActivity;
+import com.moe.wl.ui.main.activity.medicalService.HealthConsultDetailActivity;
+import com.moe.wl.ui.main.bean.InfolistBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-
-import com.moe.wl.ui.main.bean.InfolistBean;
 
 /**
  * Created by 我的电脑 on 2017/8/15 0015.
@@ -91,14 +90,8 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, HealthConsultDetailActivity.class);
-                    intent.putExtra("url", infolistBean.getUrl());
-                    String title = infolistBean.getTitle();
-                    String imgs = infolistBean.getImgs();
-                    String source = infolistBean.getSource();
-                    String createtime = infolistBean.getCreatetime();
                     intent.putExtra("id", infolistBean.getId());
-                    intent.putExtra("createtime",createtime);
-                    intent.putExtra("title",title);
+//                    intent.putExtra("Data", infolistBean);
                     context.startActivity(intent);
                 }
             });
@@ -106,7 +99,7 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
 
         public void setData(InfolistBean infolistBean) {
             this.infolistBean = infolistBean;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, infolistBean.getImgs(), ivHealthServiceItem);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, infolistBean.getImg(), ivHealthServiceItem, R.mipmap.ic_default_square);
             tvHealthServiceTitle.setText(infolistBean.getTitle());
             tvTime.setText(infolistBean.getCreatetime());
             tvBumen.setText(infolistBean.getSource());

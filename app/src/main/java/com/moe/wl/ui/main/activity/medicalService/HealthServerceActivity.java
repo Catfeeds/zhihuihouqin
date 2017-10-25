@@ -1,4 +1,4 @@
-package com.moe.wl.ui.main.activity;
+package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.RegistrationActivity;
 import com.moe.wl.ui.main.adapter.HealthServiceRvAdapter;
 import com.moe.wl.ui.main.bean.HealthServerceHomeBean;
 import com.moe.wl.ui.main.model.HealthServerceModel;
@@ -21,6 +22,7 @@ import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.ToastUtil;
 
 /**
  * 医疗服务主页面
@@ -87,6 +89,7 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
                 break;
 
             case R.id.archives: // 健康档案
+                ToastUtil.showToast(this, "敬请期待！");
                 break;
 
             case R.id.experts: // 专家坐诊

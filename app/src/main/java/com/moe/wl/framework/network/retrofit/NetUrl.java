@@ -41,15 +41,12 @@ public interface NetUrl {
     String expertDetail = "appuser/ylfw/expertdetail"; // 专家详情
     String expertComment = "appuser/ylfw/getexpertcomment"; // 专家评论
     String expertOrder = "appuser/ylfw/addexpertOrder"; // 专家下单
-    //    String cancelMedicalOrder = "appuser/ylfw/cancelorder"; // 取消医疗订单
-//    String deleteMedicalOrder = ""; // 删除医疗订单
     String orderMedicalDetail = "appuser/ylfw/orderdetail"; // 医疗订单详情
-    //    String commentMedicalOrder = "appuser/ylfw/addcomment"; // 评论医疗订单
-//    String cancelExpertsOrder = "appuser/ylfw/cancelexpertorder"; // 取消专家订单
-//    String deleteExpertsOrder = "appuser/ylfw/delexpertorder"; // 删除专家订单
     String orderExpertsDetail = "appuser/ylfw/expertorderdetail"; // 专家订单详情
     String addexpertnotice = "appuser/ylfw/addexpertnotice";//发送咨询消息
     String expertnoticelist = "appuser/ylfw/expertnoticelist";//获取咨询消息
+    String getMedicalDetail = "appuser/healthyinfo/detail"; // 获取资讯详情
+    String commentMedicalDetail = "appuser/healthyinfo/addcomment"; // 评论资讯
 
     // 物业维修
     String wuyeHome = "appuser/bxwx/addOrder";

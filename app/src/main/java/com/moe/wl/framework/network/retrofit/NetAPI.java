@@ -116,6 +116,16 @@ public interface NetAPI {
     @POST(NetUrl.more)
     Observable<MoreListBean> getMoreList(@FieldMap Map<String, Object> map);
 
+    // 获取资讯详情
+    @FormUrlEncoded
+    @POST(NetUrl.getMedicalDetail)
+    Observable<MedicalDetailBean> getMedicalDetail(@FieldMap Map<String, Object> map);
+
+    // 评论资讯
+    @FormUrlEncoded
+    @POST(NetUrl.commentMedicalDetail)
+    Observable<CollectBean> commentMedicalDetail(@FieldMap Map<String, Object> map);
+
     //医生列表
     @FormUrlEncoded
     @POST(NetUrl.doctorList)

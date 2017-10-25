@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberAdapter;
 import com.moe.wl.ui.main.bean.BarberListsBean;
@@ -17,8 +19,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
 
 public class BarberActivity extends BaseActivity<BarberListModel, BarberListView, BarberListPresenter> implements BarberListView {
 
@@ -53,7 +53,7 @@ public class BarberActivity extends BaseActivity<BarberListModel, BarberListView
         Intent intent = getIntent();
         address = intent.getStringExtra("address");
         shopName = intent.getStringExtra("shopName");
-        System.out.println("理发师"+address+"==="+shopName);
+        System.out.println("理发师" + address + "===" + shopName);
         initTitle();
         initRecycler();
     }
@@ -64,9 +64,9 @@ public class BarberActivity extends BaseActivity<BarberListModel, BarberListView
             listBean.getBarberlist();
             listBean.getBarberlist();
             List<BarberlistBean> barberlist = listBean.getBarberlist();
-            barberAdapter.setData(barberlist,address,shopName);
-        }else{
-            System.out.println("理发师"+listBean+"为空");
+            barberAdapter.setData(barberlist, address, shopName);
+        } else {
+            System.out.println("理发师" + listBean + "为空");
         }
     }
 

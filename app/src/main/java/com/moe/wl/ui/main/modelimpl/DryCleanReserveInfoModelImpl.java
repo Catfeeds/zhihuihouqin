@@ -15,14 +15,14 @@ public class DryCleanReserveInfoModelImpl implements DryCleanReserveInfoModel {
 
     @Override
     public Observable getData(String page,String limit) {
-        Log.e("CollectModelImpl","请求数据-->login");
+        Log.e("MedicalDetailModelImpl","请求数据-->login");
         Observable observer = RetrofitUtils.getInstance().orderDryCleaner(page,limit);
         return observer ;
     }
 
     @Override
     public Observable CommitData(String mobile, String expectarrivaItme, String clothList) {
-        Log.e("CollectModelImpl","请求数据-->login");
+        Log.e("MedicalDetailModelImpl","请求数据-->login");
         Observable observer = RetrofitUtils.getInstance().dryOrderCommit(mobile,expectarrivaItme,
                 clothList);
         return observer ;

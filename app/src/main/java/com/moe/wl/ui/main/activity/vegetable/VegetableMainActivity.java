@@ -1,35 +1,36 @@
 package com.moe.wl.ui.main.activity.vegetable;
 
-        import android.content.Intent;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.TextView;
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-        import com.jcodecraeer.xrecyclerview.XRecyclerView;
-        import com.moe.wl.R;
-        import com.moe.wl.framework.base.BaseActivity;
-        import com.moe.wl.framework.utils.LogUtils;
-        import com.moe.wl.framework.widget.TitleBar;
-        import com.moe.wl.ui.main.adapter.VegetableAdapter;
-        import com.moe.wl.ui.main.bean.CanOrderedBean;
-        import com.moe.wl.ui.main.bean.VegetableBean;
-        import com.moe.wl.ui.main.model.VegetableMainModel;
-        import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
-        import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
-        import com.moe.wl.ui.main.view.VegetableMainView;
-        import com.moe.wl.ui.mywidget.TsAlertDialog;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.Arith;
+import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.adapter.VegetableAdapter;
+import com.moe.wl.ui.main.bean.CanOrderedBean;
+import com.moe.wl.ui.main.bean.VegetableBean;
+import com.moe.wl.ui.main.model.VegetableMainModel;
+import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
+import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
+import com.moe.wl.ui.main.view.VegetableMainView;
+import com.moe.wl.ui.mywidget.TsAlertDialog;
 
-        import java.io.Serializable;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-        import butterknife.BindView;
-        import butterknife.ButterKnife;
-        import butterknife.OnClick;
-        import mvp.cn.util.ToastUtil;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import mvp.cn.util.ToastUtil;
 
-        import static com.moe.wl.R.id.num;
+import static com.moe.wl.R.id.num;
 
 /**
  * 类描述：
@@ -52,7 +53,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
     Button submit;
 
     private int number = 0; // 总份数
-//    private int priceNum = 0;// 总价格
+//    private float priceNum = 0;// 总价格
 
     private int page = 1;
 
@@ -95,13 +96,14 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             @Override
             public void onAddClick(int position, int num) {
                 data.get(position).setNumber(num);
-                float priceNumber = 0f;
+                double priceNumber = 0;
                 int vegetableNumber = 0;
                 for (int i = 0; i < data.size(); i++) {
-                    priceNumber += data.get(i).getNumber() * data.get(i).getPrice();
+                    priceNumber = Arith.add(priceNumber, data.get(i).getNumber() * data.get(i).getPrice());
                     vegetableNumber += data.get(i).getNumber();
                 }
                 vegetableNum.setText("共" + vegetableNumber + "份");
+                LogUtils.d("总价钱 ： " + priceNumber);
                 price.setText("¥" + priceNumber);
 //                priceNum = priceNumber;
                 number = vegetableNumber;
@@ -112,11 +114,11 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         adapter.setOnMinusClickListener(new VegetableAdapter.OnMinusClickListener() {
             @Override
             public void onMinusClick(int position, int num) {
-                float priceNumber = 0f;
+                double priceNumber = 0;
                 int vegetableNumber = 0;
                 data.get(position).setNumber(num);
                 for (int i = 0; i < data.size(); i++) {
-                    priceNumber += data.get(i).getNumber() * data.get(i).getPrice();
+                    priceNumber = Arith.add(priceNumber, data.get(i).getNumber() * data.get(i).getPrice());
                     vegetableNumber += data.get(i).getNumber();
                 }
                 vegetableNum.setText("共" + vegetableNumber + "份");
@@ -195,15 +197,14 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
 
     @Override
     public void canOrderedResult(CanOrderedBean bean) {
-        LogUtils.i(bean.getErrCode()+"===================");
-        if(bean!=null){
-            int errCode = bean.getErrCode();
-            String esg = bean.getEsg();
+        LogUtils.i(bean.getErrCode() + "===================");
+        if (bean != null) {
+            int status = bean.getStatus();
             String rule = bean.getRule();
-            if(errCode==0){//可以预定
+            if (status == 1) {//可以预定
                 getPresenter().getVegetableData(page, "");
-            }else if(errCode==1001){//不可以预定
-                TsAlertDialog dialog=new TsAlertDialog(this).builder();
+            } else if (status == 0) {//不可以预定
+                TsAlertDialog dialog = new TsAlertDialog(this).builder();
                 dialog.setTitle("提示")
                         .setMsg(rule)
                         .setPositiveButton("确定", new View.OnClickListener() {

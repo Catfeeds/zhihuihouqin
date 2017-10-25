@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,8 +87,8 @@ public class BookRvAdapter extends RecyclerView.Adapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (callBack!=null){
-                        callBack.cb(bookListvBean,bookListvBean.getId(),again);
+                    if (callBack != null) {
+                        callBack.cb(bookListvBean, bookListvBean.getId(), again);
                     }
                 }
             });
@@ -108,21 +107,21 @@ public class BookRvAdapter extends RecyclerView.Adapter {
             tvBookDes.setText(booklistBean.getShortbrief());
             if (booklistBean.getBollowstatus() == 1) {
                 tvState.setText("在架上");
-                tvState.setTextColor(Color.parseColor("#36CCAE"));
+                tvState.setTextColor(mContext.getResources().getColor(R.color.blue));
             } else {
                 tvState.setText("已借出");
-                tvState.setTextColor(Color.parseColor("#F95759"));
+                tvState.setTextColor(mContext.getResources().getColor(R.color.tv_red));
             }
 
         }
     }
 
-    public interface MyCallBack{
-        void cb(BooklistBean bookListvBean,String BookID,boolean again);
+    public interface MyCallBack {
+        void cb(BooklistBean bookListvBean, String BookID, boolean again);
     }
 
-    public void setMyCallBack(MyCallBack callBack){
-        this.callBack=callBack;
+    public void setMyCallBack(MyCallBack callBack) {
+        this.callBack = callBack;
     }
 
 }

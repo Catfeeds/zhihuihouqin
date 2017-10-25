@@ -1,16 +1,20 @@
 package com.moe.wl.ui.main.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 我的电脑 on 2017/9/5 0005.
  */
 
-public class InfolistBean {
+public class InfolistBean implements Serializable {
+
     private String createtime;
     private int id;
+    private String img;
     private String source;
     private String title;
     private String url;
-    private String imgs;
+    private String content;
 
     public String getCreatetime() {
         return createtime;
@@ -26,6 +30,14 @@ public class InfolistBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getSource() {
@@ -52,11 +64,11 @@ public class InfolistBean {
         this.url = url;
     }
 
-    public String getImgs() {
-        return imgs;
+    public String getContent() {
+        return content;
     }
 
-    public void setImgs(String imgs) {
-        this.imgs = imgs;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

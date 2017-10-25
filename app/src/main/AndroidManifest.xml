@@ -63,7 +63,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.main.activity.MainActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -130,7 +130,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.activity.LoginActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
+            android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -144,13 +144,15 @@
             android:name=".ui.login.activity.AgreeActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ui.login.activity.RegistSuccessActivity" />
-        <activity android:name=".ui.main.activity.HealthServerceActivity" />
-        <activity android:name=".ui.main.activity.MoreHealthConsultActivity" />
+        <activity android:name=".ui.main.activity.medicalService.HealthServerceActivity" />
+        <activity android:name=".ui.main.activity.medicalService.MoreHealthConsultActivity" />
         <activity android:name=".ui.main.activity.OrderCutHearActivity" />
         <activity android:name=".ui.main.activity.RegistrationActivity" />
-        <activity android:name=".ui.main.activity.DoctorDetailActivity" />
-        <activity android:name=".ui.main.activity.ExpertsVisitActivity" />
-        <activity android:name=".ui.main.activity.HealthConsultDetailActivity" />
+        <activity android:name=".ui.main.activity.medicalService.DoctorDetailActivity" />
+        <activity android:name=".ui.main.activity.medicalService.ExpertsVisitActivity" />
+        <activity
+            android:name=".ui.main.activity.medicalService.HealthConsultDetailActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.main.activity.SubmitSuccessActivity" />
         <activity android:name=".ui.main.activity.ServiceOrderActivity" />
         <activity android:name=".ui.main.activity.MoreUSerCommentActivity" />
@@ -220,7 +222,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".ui.login.activity.PositionActivity" />
         <activity android:name=".ui.login.activity.AuthSuccessActivity" />
-        <activity android:name=".ui.main.activity.HealthSearchActivity" />
+        <activity android:name=".ui.main.activity.medicalService.HealthSearchActivity" />
         <activity
             android:name=".ui.main.activity.ordering.OrderingActivity"
             android:screenOrientation="portrait"
@@ -479,7 +481,7 @@
         <activity
             android:name=".ui.login.activity.AccountComplainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.DoctorConsultActivity" />
+        <activity android:name=".ui.main.activity.medicalService.DoctorConsultActivity" />
         <activity
             android:name=".ui.main.activity.me.PublicAcountActivity"
             android:screenOrientation="portrait" />

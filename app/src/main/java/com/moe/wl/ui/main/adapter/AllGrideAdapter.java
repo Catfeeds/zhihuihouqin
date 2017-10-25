@@ -101,7 +101,7 @@ public class AllGrideAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (ServiceIntentUtils.goService(data.get(position).getId()) == null) {
-                    ToastUtil.showToast(mContext, "该服务暂未开放！");
+                    ToastUtil.showToast(mContext, "敬请期待！");
                     return;
                 }
                 mContext.startActivity(new Intent(mContext, ServiceIntentUtils.goService(data.get(position).getId())));

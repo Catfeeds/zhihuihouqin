@@ -22,6 +22,7 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:background="@color/white"
         app:tabIndicatorColor="@color/font_blue"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="@color/font_blue"
@@ -35,6 +36,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_book"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
 
 </LinearLayout>

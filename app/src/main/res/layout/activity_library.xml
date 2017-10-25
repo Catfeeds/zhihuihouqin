@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
         <com.moe.wl.framework.widget.TitleBar
             android:id="@+id/more_health_consult_title"
@@ -17,11 +19,12 @@
 
         <ImageView
             android:id="@+id/iv_more_health_consult_search"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="12dp"
+            android:padding="3dp"
             android:src="@drawable/search" />
     </RelativeLayout>
 
@@ -36,19 +39,21 @@
         android:id="@+id/tab_book"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        app:tabIndicatorColor="@color/tv_red"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/blue"
         app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="@color/tv_red"
+        app:tabSelectedTextColor="@color/blue"
         app:tabTextColor="@color/tv_black" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter" />
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_book"

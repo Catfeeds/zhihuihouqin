@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.moe.wl.R;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.activity.Library.BookDescriptionActivity;
 import com.moe.wl.ui.main.adapter.BookRvAdapter;
 import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.bean.SearchBookListBean;
@@ -60,8 +62,18 @@ public class BookSearchResultFragment extends BaseFragment2 {
             String typeId = bundle.getString("typeId");
             int order = bundle.getInt("order");
             getData(keyword, typeId, order);
-
         }
+
+        bookRvAdapter.setMyCallBack(new BookRvAdapter.MyCallBack() {
+            @Override
+            public void cb(BooklistBean bookListvBean, String BookID, boolean again) {
+                Intent intent = new Intent(getActivity(), BookDescriptionActivity.class);
+                intent.putExtra("bean", bookListvBean);
+                intent.putExtra("again", again);
+                getActivity().startActivity(intent);
+            }
+        });
+
     }
 
     private void getData(String keyword, String typeId, int order) {

@@ -675,6 +675,44 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 资讯详情
+     *
+     * @return
+     */
+    public static Observable getMedicalDetail(int id) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("id", id + "");
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getMedicalDetail(paramsMap));
+    }
+
+
+    /**
+     * 添加资讯详情评论
+     *
+     * @return
+     */
+    public static Observable commentMedicalDetail(int id, String content) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("infoid", id);
+            tempMap.put("content", content);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.commentMedicalDetail(paramsMap));
+    }
+
+    /**
      * 获取医生评论列表
      *
      * @return

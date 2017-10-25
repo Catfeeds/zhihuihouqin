@@ -89,7 +89,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         }
 
         public void setData(CommentlistBean commentlistBean) {
-            GlideLoading.getInstance().loadImgUrlHeader(context, commentlistBean.getImgs(), civUserPhoto, R.mipmap.ic_default_square);
+            GlideLoading.getInstance().loadImgUrlHeader(context, commentlistBean.getPhoto(), civUserPhoto, R.mipmap.ic_default_square);
             tvUserName.setText(commentlistBean.getRealname());
             userRatingBar.setRating((float) commentlistBean.getScore());
             OtherUtils.ratingBarColor(userRatingBar, context);

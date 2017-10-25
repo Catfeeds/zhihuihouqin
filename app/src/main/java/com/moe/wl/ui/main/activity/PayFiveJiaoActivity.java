@@ -86,6 +86,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private float pay;
     private int voucherNum;
     private int count;
+    private MyReceiver receiver;
 
     @Override
     public void setContentLayout() {
@@ -120,7 +121,8 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
-        MyReceiver receiver = new MyReceiver();//广播接受者实例
+        //广播接受者实例
+        receiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("COM.ALIPAY.SUCCESS.BROADCAST");
         registerReceiver(receiver, intentFilter);
@@ -232,6 +234,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     @Override
     public void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(receiver);
         EventBus.getDefault().unregister(this);
     }
 

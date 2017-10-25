@@ -21,15 +21,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp">
-
-            <TextView
-                android:id="@+id/tv_book_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_big" />
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tv_state"
@@ -37,8 +30,19 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/green"
                 android:textSize="@dimen/sp_small" />
+
+            <TextView
+                android:id="@+id/tv_book_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_state"
+                android:maxLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_big" />
+
         </RelativeLayout>
 
         <LinearLayout
@@ -67,7 +71,7 @@
                 android:layout_marginLeft="3dp"
                 android:text="4.9分"
                 android:textColor="@color/yellow"
-                android:textSize="@dimen/sp_small" />
+                android:textSize="@dimen/sp_smaller" />
         </LinearLayout>
 
         <TextView
@@ -76,8 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:gravity="center_vertical"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small" />
+            android:textColor="@color/tv_gray"
+            android:textSize="@dimen/sp_smaller" />
 
         <TextView
             android:id="@+id/tv_chubanshe"
@@ -85,8 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:gravity="center_vertical"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small" />
+            android:textColor="@color/tv_gray"
+            android:textSize="@dimen/sp_smaller" />
 
         <TextView
             android:id="@+id/tv_book_des"
@@ -95,7 +99,7 @@
             android:layout_marginTop="3dp"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small" />
+            android:textColor="@color/tv_gray"
+            android:textSize="@dimen/sp_smaller" />
     </LinearLayout>
 </LinearLayout>

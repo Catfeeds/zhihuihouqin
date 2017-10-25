@@ -104,13 +104,6 @@ public class InformationDetailActivity extends AppCompatActivity {
                     }
                 });
                 pop.showAtLocation(findViewById(R.id.main), Gravity.BOTTOM, 0, 0);
-//                pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss() {
-//                        CommonUtil.hideSoftKeyboard(InformationDetailActivity.this);
-//                    }
-//                });
-//                popupInputMethodWindow();
                 break;
         }
     }

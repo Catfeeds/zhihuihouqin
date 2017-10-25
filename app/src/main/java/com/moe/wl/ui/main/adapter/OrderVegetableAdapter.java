@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.activity.me.OrderOfficeDetailActivity;
+import com.moe.wl.ui.main.activity.me.OrderVegetableDetailActivity;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
 
 import java.util.List;
@@ -80,7 +80,7 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderOfficeDetailActivity.class);
+                Intent intent = new Intent(context, OrderVegetableDetailActivity.class);
                 intent.putExtra("OrderID", data.get(position).getId());
                 context.startActivity(intent);
             }

@@ -1,4 +1,4 @@
-package com.moe.wl.ui.main.activity;
+package com.moe.wl.ui.main.activity.medicalService;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

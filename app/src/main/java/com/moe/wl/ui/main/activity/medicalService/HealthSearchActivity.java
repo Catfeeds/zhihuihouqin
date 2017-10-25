@@ -1,4 +1,4 @@
-package com.moe.wl.ui.main.activity;
+package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.adapter.HealthServiceRvAdapter;
@@ -25,7 +26,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import mvp.cn.util.ToastUtil;
 
 /**
