@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,7 +21,6 @@ import com.moe.wl.ui.main.view.HairStyleDetailView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
         HairStyleDetailView, HairStyleDetailPresenter> implements HairStyleDetailView {
@@ -42,7 +40,7 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
     private BottomSheetDialog dialog;
     private int favorstatus;
     private int workid;
-    private static final int Type=7;
+    private static final int Type=3;
 
     @Override
     public HairStyleDetailPresenter createPresenter() {

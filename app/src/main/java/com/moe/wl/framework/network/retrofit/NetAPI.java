@@ -785,22 +785,34 @@ public interface NetAPI {
     Observable<MyCollectBean> addFavor(@FieldMap Map<String, Object> map);
 
     //我的收藏
+    //公告
     @FormUrlEncoded
     @POST(NetUrl.findUserFavorList)
-    Observable<InformationClazzBean> findUserFavorList1(@FieldMap Map<String, Object> map);
-
+    Observable<InforMationCollect> findUserFavorList1(@FieldMap Map<String, Object> map);
+    //办公用品收藏
     @FormUrlEncoded
     @POST(NetUrl.findUserFavorList)
     Observable<OfficeCollect> findUserFavorList2(@FieldMap Map<String, Object> map);
-
+    //理发作品收藏
     @FormUrlEncoded
     @POST(NetUrl.findUserFavorList)
-    Observable<BarberWorkListBean> findUserFavorList3(@FieldMap Map<String, Object> map);
-
+    Observable<BarberProductCollect> findUserFavorList3(@FieldMap Map<String, Object> map);
+    //图书收藏
     @FormUrlEncoded
     @POST(NetUrl.findUserFavorList)
-    Observable<InformationClazzBean> findUserFavorList4(@FieldMap Map<String, Object> map);
-
+    Observable<BookCollect> findUserFavorList4(@FieldMap Map<String, Object> map);
+    //专家收藏
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<HealthServerceHomeBean> findUserFavorList5(@FieldMap Map<String, Object> map);
+    //活动收藏
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<ActivityHomeBean> findUserFavorList6(@FieldMap Map<String, Object> map);
+    //理发师收藏
+    @FormUrlEncoded
+    @POST(NetUrl.findUserFavorList)
+    Observable<BarberCollect> findUserFavorList7(@FieldMap Map<String, Object> map);
     //修改用户信息
     @FormUrlEncoded
     @POST(NetUrl.changeUserInfo)

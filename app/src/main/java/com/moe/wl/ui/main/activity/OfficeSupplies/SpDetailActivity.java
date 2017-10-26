@@ -103,7 +103,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         intiTitle();
         intiRecycler();
         getPresenter().getSpDetail(id + "");
-        getPresenter().getShopCarInfo(id + "");
+//        getPresenter().getShopCarInfo(id + "");
     }
 
     private void intiRecycler() {
@@ -208,6 +208,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
 
     @Override
     public void getSpDetailSucc(SpDetailBean bean) {
+        getPresenter().getShopCarInfo(id + "");//获取购物车信息
         if (bean != null) {
             int favorNum = bean.getFavorNum();
             if (favorNum == 0) {

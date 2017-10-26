@@ -7,7 +7,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
+import com.moe.wl.ui.main.bean.InformationBean;
+import com.moe.wl.ui.main.bean.ListEntity;
+import com.moe.wl.ui.main.model.InformationModel;
+import com.moe.wl.ui.main.modelimpl.InformationModelImpl;
 import com.moe.wl.ui.main.presenter.InformationPresenter;
 import com.moe.wl.ui.main.view.InformationView;
 
@@ -17,13 +24,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.LogUtils;
-import com.moe.wl.ui.main.bean.InformationBean;
-import com.moe.wl.ui.main.model.InformationModel;
-import com.moe.wl.ui.main.modelimpl.InformationModelImpl;
-
 import mvp.cn.util.ToastUtil;
 
 /**
@@ -40,7 +40,7 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
     XRecyclerView recycleView;
 
     private HomeNsrlv1Adapter adapter;
-    private List<InformationBean.PageEntity.ListEntity> data;
+    private List<ListEntity> data;
 
     private int page = 1;
     private String content;

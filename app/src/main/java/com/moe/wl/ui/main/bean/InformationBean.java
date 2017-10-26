@@ -85,7 +85,7 @@ public class InformationBean {
             this.list = list;
         }
 
-        public static class ListEntity {
+        /*public static class ListEntity {
 
             private String content;
             private String createtime;
@@ -177,6 +177,6 @@ public class InformationBean {
             public void setUrl(String url) {
                 this.url = url;
             }
-        }
+        }*/
     }
 }

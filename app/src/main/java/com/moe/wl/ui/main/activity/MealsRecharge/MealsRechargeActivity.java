@@ -1,12 +1,7 @@
 package com.moe.wl.ui.main.activity.MealsRecharge;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -30,7 +25,6 @@ import com.moe.wl.ui.main.view.MealsRechargeView;
 import com.moe.wl.ui.mywidget.BottomQuerybalanceDialog;
 import com.moe.wl.ui.mywidget.BottomRechargeDialog;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
+import lc.cn.thirdplatform.pay.alipay.PayListener;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
 
 public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,MealsRechargeView,MealsRechargePresenter> implements MealsRechargeView {
@@ -188,7 +183,17 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
     public void aliPay(AlipayBean bean) {
         if(bean!=null){
             String payLink = bean.getPayLink();
-            new Alipay(MealsRechargeActivity.this).doPay(payLink);
+            new Alipay(MealsRechargeActivity.this).doPay(payLink, new PayListener() {
+                @Override
+                public void paySuccess() {
+
+                }
+
+                @Override
+                public void payFail() {
+
+                }
+            });
         }
     }
 

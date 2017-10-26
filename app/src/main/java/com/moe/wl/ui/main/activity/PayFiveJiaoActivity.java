@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.moe.wl.R;
@@ -38,6 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lc.cn.thirdplatform.pay.alipay.AliPaySuccess;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
+import lc.cn.thirdplatform.pay.alipay.PayListener;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
 
 public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPresenter> implements PayView {
@@ -89,10 +91,12 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private int from;
     private String orderid;
     private double walletRemain;
-    private float pay;
+    private double pay;
     private int voucherNum;
     private int count;
     private MyReceiver receiver;
+    private String createtime;
+    private int ordertype1;
 
     @Override
     public void setContentLayout() {
@@ -112,8 +116,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         orderid = intent.getStringExtra("orderid");
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
+        createtime = intent.getStringExtra("time");
+        ordertype1 = intent.getIntExtra("ordertype", -1);
         from = intent.getIntExtra("from", Constants.ORDERWATER);
-        pay = intent.getFloatExtra("pay", 0f);
+        pay = intent.getDoubleExtra("pay", 0);
         if (pay % 5 > 0) {
             count = (int) (pay / 5) + 1;
         } else {
@@ -233,7 +239,25 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     @Override
     public void aliPay(AlipayBean bean) {
         if (bean != null) {
-            new Alipay(this).doPay(bean.getPayLink());
+            new Alipay(this).doPay(bean.getPayLink(), new PayListener() {
+                @Override
+                public void paySuccess() {
+                    Intent intent = new Intent(PayFiveJiaoActivity.this,AliPaySuccAct.class);
+                    intent.putExtra("ordertype",ordertype1);
+                    intent.putExtra("createtime",createtime);
+                    intent.putExtra("paytype",paytype);
+                    intent.putExtra("ordercode",ordercode);
+                    intent.putExtra("money",pay);
+                    startActivity(intent);
+
+                }
+
+                @Override
+                public void payFail() {
+                    Toast.makeText(PayFiveJiaoActivity.this, "支付失败了" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                }
+            });
         }
         finish();
     }

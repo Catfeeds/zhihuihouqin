@@ -91,8 +91,8 @@ public class BarberGridAdapter extends BaseAdapter {
             int status = schedulelistBean.getStatus();
             tvBarberGridItem.setText(starttime + "-" + endtime);
             if(status==1){//已经预约
-                tvBarberGridItem.setBackgroundColor(Color.parseColor("#F6F6F6"));
-                tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
+                tvBarberGridItem.setBackgroundColor(Color.parseColor("#E1E1E1"));
+                tvBarberGridItem.setTextColor(Color.GRAY);
             }else if(status==0){//没有预约
                 tvBarberGridItem.setBackgroundColor(Color.WHITE);
                 if (selectPosition == position) {

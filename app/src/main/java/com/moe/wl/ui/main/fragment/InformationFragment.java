@@ -5,10 +5,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
 import com.moe.wl.ui.main.bean.InformationBean;
+import com.moe.wl.ui.main.bean.ListEntity;
 import com.moe.wl.ui.main.model.InformationModel;
 import com.moe.wl.ui.main.modelimpl.InformationModelImpl;
 import com.moe.wl.ui.main.presenter.InformationPresenter;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import com.moe.wl.R;
 
 /**
  * 类描述：今日菜谱Fragment（早餐 午餐 晚餐）
@@ -30,7 +31,8 @@ public class InformationFragment extends BaseFragment<InformationModel, Informat
     @BindView(R.id.recycleView)
     XRecyclerView recycleView;
 
-    private List<InformationBean.PageEntity.ListEntity> data;
+   // private List<InformationBean.PageEntity.ListEntity> data;
+    private List<ListEntity> data;
     private HomeNsrlv1Adapter adapter;
 
     private int page = 1;

@@ -107,6 +107,7 @@
                 android:layout_height="1px"
                 android:background="@color/gray_line"/>
             <LinearLayout
+                android:id="@+id/ll_call_phone"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 android:layout_width="match_parent"

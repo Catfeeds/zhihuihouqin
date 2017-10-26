@@ -3,8 +3,12 @@ package com.moe.wl.ui.main.presenter;
 import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.ui.main.bean.BarberWorkListBean;
-import com.moe.wl.ui.main.bean.InformationClazzBean;
+import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.BarberCollect;
+import com.moe.wl.ui.main.bean.BarberProductCollect;
+import com.moe.wl.ui.main.bean.BookCollect;
+import com.moe.wl.ui.main.bean.HealthServerceHomeBean;
+import com.moe.wl.ui.main.bean.InforMationCollect;
 import com.moe.wl.ui.main.bean.OfficeCollect;
 import com.moe.wl.ui.main.model.McNocticeModel;
 import com.moe.wl.ui.main.view.McNoticeView;
@@ -24,7 +28,7 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
         getView().showProgressDialog();
         Observable request = getModel().findUserFavorList(type);
        if(type.equals("1")) {
-           getNetWork(request, new Subscriber<InformationClazzBean>() {
+           getNetWork(request, new Subscriber<InforMationCollect>() {
                @Override
                public void onCompleted() {
                    getView().dismissProgressDialog();
@@ -37,7 +41,7 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
                }
 
                @Override
-               public void onNext(InformationClazzBean mResponse) {
+               public void onNext(InforMationCollect mResponse) {
                    if (mResponse == null)
                        return;
                    if (mResponse.getErrCode() == 2) {
@@ -45,7 +49,7 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
                        return;
                    }
                    if (mResponse.getErrCode() == 0) {
-                       getView().getCollect1(mResponse.getNoticeTypeList());
+                       getView().getCollect1(mResponse.getList());
                    } else {
                        getView().showToast(mResponse.getMsg());
                    }
@@ -81,7 +85,36 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
                }
            });
        }else if("3".equals(type)){//理发收藏
-           getNetWork(request, new Subscriber<BarberWorkListBean>() {
+           getNetWork(request, new Subscriber<BarberProductCollect>() {
+               @Override
+               public void onCompleted() {
+                   getView().dismissProgressDialog();
+               }
+
+               @Override
+               public void onError(Throwable e) {
+                   getView().dismissProgressDialog();
+                   Log.e("Throwable", e.getMessage());
+               }
+
+               @Override
+               public void onNext(BarberProductCollect mResponse) {
+                   if (mResponse == null)
+                       return;
+                   if (mResponse.getErrCode() == 2) {
+                       getView().reLogin(Constants.LOGIN_ERROR);
+                       return;
+                   }
+                   if (mResponse.getErrCode() == 0) {
+                       getView().getCollect3(mResponse.getList());
+                   } else {
+                       getView().showToast(mResponse.getMsg());
+                   }
+               }
+           });
+       }
+       else if("4".equals(type)){//图书收藏
+           getNetWork(request, new Subscriber<BookCollect>() {
 
                @Override
                public void onCompleted() {
@@ -95,7 +128,7 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
                }
 
                @Override
-               public void onNext(BarberWorkListBean mResponse) {
+               public void onNext(BookCollect mResponse) {
                    if (mResponse == null)
                        return;
                    if (mResponse.getErrCode() == 2) {
@@ -103,7 +136,93 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
                        return;
                    }
                    if (mResponse.getErrCode() == 0) {
-                       getView().getCollect3(mResponse.getWorklist());
+                       getView().getCollect4(mResponse.getList());
+                   } else {
+                       getView().showToast(mResponse.getMsg());
+                   }
+               }
+           });
+       }else if("5".equals(type)){//专家收藏
+           getNetWork(request, new Subscriber<HealthServerceHomeBean>() {
+
+               @Override
+               public void onCompleted() {
+                   getView().dismissProgressDialog();
+               }
+
+               @Override
+               public void onError(Throwable e) {
+                   getView().dismissProgressDialog();
+                   Log.e("Throwable", e.getMessage());
+               }
+
+               @Override
+               public void onNext(HealthServerceHomeBean mResponse) {
+                   if (mResponse == null)
+                       return;
+                   if (mResponse.getErrCode() == 2) {
+                       getView().reLogin(Constants.LOGIN_ERROR);
+                       return;
+                   }
+                   if (mResponse.getErrCode() == 0) {
+                       getView().getCollect5(mResponse.getInfolist());
+                   } else {
+                       getView().showToast(mResponse.getMsg());
+                   }
+               }
+           });
+       }else if("6".equals(type)){//活动收藏
+           getNetWork(request, new Subscriber<ActivityHomeBean>() {
+
+               @Override
+               public void onCompleted() {
+                   getView().dismissProgressDialog();
+               }
+
+               @Override
+               public void onError(Throwable e) {
+                   getView().dismissProgressDialog();
+                   Log.e("Throwable", e.getMessage());
+               }
+
+               @Override
+               public void onNext(ActivityHomeBean mResponse) {
+                   if (mResponse == null)
+                       return;
+                   if (mResponse.getErrCode() == 2) {
+                       getView().reLogin(Constants.LOGIN_ERROR);
+                       return;
+                   }
+                   if (mResponse.getErrCode() == 0) {
+                       getView().getCollect6(mResponse.getActivitylist());
+                   } else {
+                       getView().showToast(mResponse.getMsg());
+                   }
+               }
+           });
+       }else if("7".equals(type)){//理发师收藏
+           getNetWork(request, new Subscriber<BarberCollect>() {
+               @Override
+               public void onCompleted() {
+                   getView().dismissProgressDialog();
+               }
+
+               @Override
+               public void onError(Throwable e) {
+                   getView().dismissProgressDialog();
+                   Log.e("Throwable", e.getMessage());
+               }
+
+               @Override
+               public void onNext(BarberCollect mResponse) {
+                   if (mResponse == null)
+                       return;
+                   if (mResponse.getErrCode() == 2) {
+                       getView().reLogin(Constants.LOGIN_ERROR);
+                       return;
+                   }
+                   if (mResponse.getErrCode() == 0) {
+                       getView().getCollect7(mResponse.getList());
                    } else {
                        getView().showToast(mResponse.getMsg());
                    }

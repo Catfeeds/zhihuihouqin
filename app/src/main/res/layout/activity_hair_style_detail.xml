@@ -25,7 +25,7 @@
             android:id="@+id/iv_hair_style"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:src="@mipmap/ic_default_rectangle"/>
 
         <TextView

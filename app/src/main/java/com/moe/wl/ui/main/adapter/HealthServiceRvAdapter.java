@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 public class HealthServiceRvAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<InfolistBean> data;
+    private List<InfolistBean> data= new ArrayList<>();
     private int mType = 0;
 
     public HealthServiceRvAdapter(Context context) {
@@ -66,9 +66,14 @@ public class HealthServiceRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (mType != 0)
-            return data.size() > 4 ? 4 : data.size();
-        return data.size();
+        //if (mType != 0)
+        if(data!=null){
+            return data.size();
+        }else{
+            return 0;
+        }
+            //return data.size() > 4 ? 4 : data.size();
+//        return data.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -33,12 +33,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import mvp.cn.util.CallPhoneUtils;
 
 
 public class BarberDetailActivity extends BaseActivity<BarberDetailModel, BarberDetailView, BarberDetailPresenter> implements BarberDetailView {
 
     private static final int CALL_PHONE_REQUEST_CODE = 10;
-    private static final int Type=3;
+    private static final int Type=7;
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
     @BindView(R.id.civ_barber_header_photo)
@@ -79,6 +80,8 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
     TextView tvNowOrder;
     @BindView(R.id.activity_barber_detail)
     LinearLayout activityBarberDetail;
+    @BindView(R.id.ll_call_phone)
+    LinearLayout llCallPhone;
     private String address;
     private BarberlistBean barberlistBean;
     private DoctorDetailrvAdapter rvAdapter;
@@ -139,7 +142,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             //初始化收藏状太
             if(detailBean.getFavorstatus()==0){
                 ivCollect.setImageResource(R.drawable.collect);
-            }else{
+            }else if(detailBean.getFavorstatus()==1){
                 ivCollect.setImageResource(R.drawable.collected);
             }
         }
@@ -183,7 +186,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         titleBar.setTitle("发型师详情");
     }
 
-    @OnClick({R.id.tv_barber_jieshao_content, R.id.iv_call_barber_phone, R.id.tv_more_zuopin, R.id.tv_more_comment, R.id.iv_collect, R.id.zixun, R.id.tv_now_order})
+    @OnClick({R.id.tv_barber_jieshao_content, R.id.ll_call_phone, R.id.tv_more_zuopin, R.id.tv_more_comment, R.id.iv_collect, R.id.zixun, R.id.tv_now_order})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_barber_jieshao_content://介绍
@@ -193,7 +196,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
                 startActivity(intent2);
                 break;
             case R.id.iv_call_barber_phone:
-                //CallPhoneUtils.callPhone(barberlistBean.getMobile(), this);
+                CallPhoneUtils.callPhone(barberlistBean.getMobile(), this);
                 break;
             case R.id.tv_more_zuopin:
                 Intent intent = new Intent(this, BarberMoreProductActivity.class);

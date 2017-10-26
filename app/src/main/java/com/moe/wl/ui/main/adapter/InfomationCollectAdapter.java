@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.activity.information.InformationDetailActivity;
-import com.moe.wl.ui.main.bean.ListEntity;
+import com.moe.wl.ui.main.bean.InforMationCollect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +22,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by 我的电脑 on 2017/8/14 0014.
+ * 作者 Wang
+ * 日期 2017/10/26.
+ * 描述
  */
 
-public class HomeNsrlv1Adapter extends RecyclerView.Adapter {
+public class InfomationCollectAdapter extends RecyclerView.Adapter {
+    private Context mContext;
+    private List<InforMationCollect.ListBean> data = new ArrayList<>();
 
-    private Context context;
-    private List<ListEntity> data;
-    private int i = 0;
-
-    public HomeNsrlv1Adapter() {
-        data = new ArrayList<>();
-        i = 1;
-    }
-
-    public HomeNsrlv1Adapter(Context context, List<ListEntity> data) {
-        this.context = context;
-        this.data = data;
+    public InfomationCollectAdapter(Context mContext) {
+        this.mContext = mContext;
     }
 
     @Override
@@ -48,34 +42,38 @@ public class HomeNsrlv1Adapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder1, final int position) {
-        if (i == 1)
-            return;
-        ViewHolder holder = (ViewHolder) holder1;
-        holder.tvFirstrvTitle.setText(data.get(position).getTitle());
-        holder.tvFirstrvTime.setText(data.get(position).getCreatetime());
-        holder.tvFirstrvDes.setText(data.get(position).getSource());
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getImg(), holder.ivFirstrvLogo);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        ViewHolder holder1 = (ViewHolder) holder;
+        holder1.tvFirstrvTitle.setText(data.get(position).getTitle());
+        holder1.tvFirstrvTime.setText(data.get(position).getCreatetime());
+        holder1.tvFirstrvDes.setText(data.get(position).getSource());
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, data.get(position).getImg(), holder1.ivFirstrvLogo);
 
-        holder.item.setOnClickListener(new View.OnClickListener() {
+        holder1.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, InformationDetailActivity.class);
+                Intent intent = new Intent(mContext, InformationDetailActivity.class);
                 intent.putExtra("ID", data.get(position).getId());
-                context.startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        if (i == 1)
-            return 3;
-        return data.size();
+        if (data != null) {
+            return data.size();
+        } else {
+            return 0;
+        }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public void setData(List<InforMationCollect.ListBean> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.iv_firstrv_logo)
         ImageView ivFirstrvLogo;
         @BindView(R.id.tv_firstrv_title)

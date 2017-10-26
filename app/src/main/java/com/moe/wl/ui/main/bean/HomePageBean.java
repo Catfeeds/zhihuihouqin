@@ -11,7 +11,7 @@ public class HomePageBean {
 
     private int errCode;
     private String msg;
-    private List<InformationBean.PageEntity.ListEntity> noticeList;
+    private List<ListEntity> noticeList;
     private List<ServiceListEntity> serviceList;
     private List<BxwxOrderList> bxwxOrderList;
     private List<ActivityHomeBean.ActivitylistBean> activityList;
@@ -33,11 +33,11 @@ public class HomePageBean {
         this.msg = msg;
     }
 
-    public List<InformationBean.PageEntity.ListEntity> getNoticeList() {
+    public List<ListEntity> getNoticeList() {
         return noticeList;
     }
 
-    public void setNoticeList(List<InformationBean.PageEntity.ListEntity> noticeList) {
+    public void setNoticeList(List<ListEntity> noticeList) {
         this.noticeList = noticeList;
     }
 

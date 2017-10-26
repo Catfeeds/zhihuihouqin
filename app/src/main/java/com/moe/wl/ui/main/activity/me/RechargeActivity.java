@@ -25,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
+import lc.cn.thirdplatform.pay.alipay.PayListener;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
 import mvp.cn.util.ToastUtil;
 
@@ -146,7 +147,17 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
     @Override
     public void aliPay(AlipayBean bean) {
         if (bean != null) {
-            new Alipay(this).doPay(bean.getPayLink());
+            new Alipay(this).doPay(bean.getPayLink(), new PayListener() {
+                @Override
+                public void paySuccess() {
+
+                }
+
+                @Override
+                public void payFail() {
+
+                }
+            });
         }
         finish();
     }

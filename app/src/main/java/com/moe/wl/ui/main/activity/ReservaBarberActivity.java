@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.Arith;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
@@ -113,6 +114,8 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
 
     @Override
     public void initView() {
+        String mobile = SharedPrefHelper.getInstance().getMobile();
+        etMobile.setText(mobile);
         list = new ArrayList<>();
         barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
@@ -280,7 +283,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                     showToast("请输入正确的手机号码");
                     return;
                 }
-                int amount = Integer.parseInt(price);
+                double amount = Double.parseDouble(price);
                 if (amount <= 0) {
                     showToast("请选择服务项");
                     return;

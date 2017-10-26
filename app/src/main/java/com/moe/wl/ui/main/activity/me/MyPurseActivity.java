@@ -109,15 +109,15 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
             tvTicketCount.setText(bean.getVoucherNum()+"张");//理发券数量
             int hasBuyAuth = bean.getHasBuyAuth();//是否有团购权限
             int payPasswordState = bean.getPayPasswordState();//是否有支付密码
-            llPublicAcount.setVisibility(View.VISIBLE);
-            llYajin.setVisibility(View.VISIBLE);
-           /* if(hasBuyAuth==1){//有团购权限
+            /*llPublicAcount.setVisibility(View.VISIBLE);
+            llYajin.setVisibility(View.VISIBLE);*/
+            if(hasBuyAuth==1){//有团购权限
                 llPublicAcount.setVisibility(View.VISIBLE);
                 llYajin.setVisibility(View.VISIBLE);
             }else{
                 llPublicAcount.setVisibility(View.GONE);
                 llYajin.setVisibility(View.GONE);
-            }*/
+            }
 
         }
 

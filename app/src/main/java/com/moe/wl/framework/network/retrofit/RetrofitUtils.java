@@ -2985,14 +2985,20 @@ carcode	是	string	车牌号*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(serviceType.equals("1")){
+        if(serviceType.equals("1")){//公告收藏
             return getObservable(api.findUserFavorList1(paramsMap));
-        }else if(serviceType.equals("2")){
+        }else if(serviceType.equals("2")){//办公用品收藏
             return getObservable(api.findUserFavorList2(paramsMap));
-        }else if(serviceType.equals("3")){
+        }else if(serviceType.equals("3")){//理发收藏
             return getObservable(api.findUserFavorList3(paramsMap));
-        } else if (serviceType.equals("4")) {
+        } else if (serviceType.equals("4")) {//图书收藏
             return getObservable(api.findUserFavorList4(paramsMap));
+        } else if (serviceType.equals("5")) {//专家收藏
+            return getObservable(api.findUserFavorList5(paramsMap));
+        } else if (serviceType.equals("6")) {//专家收藏
+            return getObservable(api.findUserFavorList6(paramsMap));
+        } else if (serviceType.equals("7")) {//发型师收藏
+            return getObservable(api.findUserFavorList7(paramsMap));
         }
         return null;
     }

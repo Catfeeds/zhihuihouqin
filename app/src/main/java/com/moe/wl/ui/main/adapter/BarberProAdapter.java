@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.activity.OfficeSupplies.SpDetailActivity;
-import com.moe.wl.ui.main.bean.OfficeCollect;
+import com.moe.wl.ui.main.activity.HairStyleDetailActivity;
+import com.moe.wl.ui.main.bean.BarberProductCollect;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,15 +21,15 @@ import butterknife.ButterKnife;
 
 /**
  * 作者 Wang
- * 日期 2017/10/25.
+ * 日期 2017/10/26.
  * 描述
  */
 
-public class OfficeCollectAdapter extends RecyclerView.Adapter {
+public class BarberProAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<OfficeCollect.ListBean> data = new ArrayList<>();
+    private List<BarberProductCollect.ListBean> data;
 
-    public OfficeCollectAdapter(Context mContext) {
+    public BarberProAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -44,56 +43,59 @@ public class OfficeCollectAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        if (data != null) {
-            OfficeCollect.ListBean listBean = data.get(position);
-            viewHolder.setData(listBean, position);
+        if(data!=null){
+            BarberProductCollect.ListBean listBean = data.get(position);
+            viewHolder.setData(listBean,position);
         }
     }
 
     @Override
     public int getItemCount() {
-        if (data != null) {
+        if(data!=null){
             return data.size();
-        } else {
+        }else{
             return 0;
         }
     }
 
-    public void setData(List<OfficeCollect.ListBean> data) {
+    public void setData(List<BarberProductCollect.ListBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.ic_sp_photo)
         ImageView icSpPhoto;
         @BindView(R.id.tv_sp_des)
         TextView tvSpDes;
         @BindView(R.id.tv_price)
         TextView tvPrice;
-        private OfficeCollect.ListBean bean;
-        private int mPosition;
+         private BarberProductCollect.ListBean data;
+         private int id;
 
-        ViewHolder(View view) {
+         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, SpDetailActivity.class);
-                    intent.putExtra("id", bean.getId());
-                    intent.putExtra("position", mPosition);
+                    Intent intent = new Intent(mContext, HairStyleDetailActivity.class);
+                    intent.putExtra("workid", id);
+                    intent.putExtra("img",data.getDetailimg());
+                    intent.putExtra("price",data.getPrice());
+                    intent.putExtra("name",data.getName());
+                    intent.putExtra("brief",data.getBrief());
                     mContext.startActivity(intent);
                 }
             });
         }
 
-        public void setData(OfficeCollect.ListBean listBean, int position) {
-            this.bean=listBean;
-            this.mPosition=position;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, listBean.getProductImg(), icSpPhoto, R.mipmap.ic_default_square);
-            tvSpDes.setText(listBean.getProductname());
-            tvPrice.setText(listBean.getPricerange());
+        public void setData(BarberProductCollect.ListBean listBean, int position) {
+            this.data=listBean;
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,listBean.getDetailimg(),icSpPhoto,R.mipmap.ic_default_square);
+            tvSpDes.setText(listBean.getName());
+            tvPrice.setText("￥" +listBean.getPrice());
+            id = listBean.getId();
         }
     }
 }

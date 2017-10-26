@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
@@ -96,6 +97,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
 
     @Override
     public void initView() {
+        etMobile.setText(SharedPrefHelper.getInstance().getMobile());
         list = new ArrayList<>();
         barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");

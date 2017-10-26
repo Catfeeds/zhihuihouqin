@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.activity.HairStyleDetailActivity;
-import com.moe.wl.ui.main.bean.WorklistBean;
+import com.moe.wl.ui.main.bean.BarberCollect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class BarberCollectAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<WorklistBean> data=new ArrayList<>();
+    private List<BarberCollect.ListBean> data=new ArrayList<>();
 
     public BarberCollectAdapter(Context mContext) {
         this.mContext = mContext;
@@ -45,8 +43,8 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         if(data!=null){
-            WorklistBean worklistBean = data.get(position);
-            viewHolder.setData(worklistBean,position);
+            BarberCollect.ListBean listBean = data.get(position);
+            viewHolder.setData(listBean,position);
         }
     }
 
@@ -59,7 +57,7 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void setData(List<WorklistBean> data) {
+    public void setData(List<BarberCollect.ListBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -71,32 +69,20 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
         TextView tvSpDes;
         @BindView(R.id.tv_price)
         TextView tvPrice;
-        private WorklistBean data;
+        private BarberCollect.ListBean data;
         private int id;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mContext, HairStyleDetailActivity.class);
-                    intent.putExtra("workid", id);
-                    intent.putExtra("img",data.getDetailimg());
-                    intent.putExtra("price",data.getPrice());
-                    intent.putExtra("name",data.getName());
-                    intent.putExtra("brief",data.getBrief());
-                    mContext.startActivity(intent);
-                }
-            });
         }
 
-        public void setData(WorklistBean worklistBean, int position) {
-            this.data=worklistBean;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,worklistBean.getDetailimg(),icSpPhoto,R.mipmap.ic_default_square);
-            tvSpDes.setText(worklistBean.getName());
-            tvPrice.setText("￥" +worklistBean.getPrice());
-            id = worklistBean.getId();
+        public void setData(BarberCollect.ListBean listBean, int position) {
+            this.data=listBean;
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,listBean.getPhoto(),icSpPhoto,R.mipmap.ic_default_square);
+            tvSpDes.setText(listBean.getName());
+            tvPrice.setText("￥" +listBean.getPrice());
+            id = listBean.getId();
         }
     }
 }

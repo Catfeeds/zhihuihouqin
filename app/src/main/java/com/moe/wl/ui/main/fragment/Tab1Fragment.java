@@ -28,7 +28,7 @@ import com.moe.wl.ui.main.adapter.HomeNsrlv2Adapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.HomePageBean;
-import com.moe.wl.ui.main.bean.InformationBean;
+import com.moe.wl.ui.main.bean.ListEntity;
 import com.moe.wl.ui.main.model.HomePageModel;
 import com.moe.wl.ui.main.modelimpl.HomePageModelImpl;
 import com.moe.wl.ui.main.presenter.HomePagePresenter;
@@ -98,7 +98,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     private List<HomePageBean.ServiceListEntity> serviceData; // 服务
     //    private List<HomePageBean.CarouselListEntity> roastingData; // 轮播图
     private List<ActivityHomeBean.ActivitylistBean> activeData; // 活动
-    private List<InformationBean.PageEntity.ListEntity> informationData; // 公告
+    private List<ListEntity> informationData; // 公告
     private List<HomePageBean.BxwxOrderList> bxData; // 报修
 
     private HomeNsrlv1Adapter adapter1;

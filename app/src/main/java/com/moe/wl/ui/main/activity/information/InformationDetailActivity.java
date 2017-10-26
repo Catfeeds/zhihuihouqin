@@ -149,6 +149,12 @@ public class InformationDetailActivity extends AppCompatActivity {
             public void onNext(InformationDetailBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
                     setUI(orderBean);
+                    int favorNum = orderBean.getFavorNum();
+                    if(favorNum==0){
+                        collect.setImageResource(R.drawable.collect);
+                    }else if(favorNum==1){
+                        collect.setImageResource(R.drawable.collected);
+                    }
                 }
             }
         });
@@ -196,6 +202,12 @@ public class InformationDetailActivity extends AppCompatActivity {
             @Override
             public void onNext(CollectBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
+                    int status = orderBean.getStatus();
+                    if(status==0){
+                        collect.setImageResource(R.drawable.collect);
+                    }else if(status==1){
+                        collect.setImageResource(R.drawable.collected);
+                    }
                     ToastUtil.showToast(InformationDetailActivity.this, "收藏成功！");
                 } else {
                     ToastUtil.showToast(InformationDetailActivity.this, orderBean.getMsg());

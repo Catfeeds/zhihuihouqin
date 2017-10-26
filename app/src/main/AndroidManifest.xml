@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.moe.wl"> <!-- 二维码 -->
+          package="com.moe.wl"> <!-- 二维码 -->
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="18"/>
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
      
     <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <!-- 允许程序改变网络连接状态 -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <!-- 读取联系人权限，上传联系人需要用到此权限 -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- 外存储读权限，构建语法需要用到此权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- 配置权限，用来记录应用配置信息 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <!-- 电话权限 -->
     <!-- 加入访问权限 -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <!-- 否则不能监听每个状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <!-- shareSDK  去重 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
 
     <!-- 照相机,相册 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <!-- 微信支付 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".framework.application.SoftApplication"
@@ -63,7 +63,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.main.activity.MainActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -83,18 +83,18 @@
 
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
             <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="Mob-AppKey"
-            android:value="219a3d64f60de" />
+            android:value="219a3d64f60de"/>
         <meta-data
             android:name="Mob-AppSecret"
-            android:value="f3e26991676930f8f3d355e809979aa9" />
+            android:value="f3e26991676930f8f3d355e809979aa9"/>
 
         <!-- 微信分享回调 -->
         <!--
@@ -110,296 +110,295 @@
             android:configChanges="orientation|keyboardHidden|locale"
             android:screenOrientation="portrait"
             android:theme="@style/splash">
-
         </activity>
         <activity
             android:name=".ui.login.activity.GuideAct"
             android:configChanges="orientation|keyboardHidden|locale"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"/>
 
         <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.login.activity.RegistStepTwoActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ui.login.activity.AgreeActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.login.activity.RegistSuccessActivity" />
-        <activity android:name=".ui.main.activity.medicalService.HealthServerceActivity" />
-        <activity android:name=".ui.main.activity.medicalService.MoreHealthConsultActivity" />
-        <activity android:name=".ui.main.activity.OrderCutHearActivity" />
-        <activity android:name=".ui.main.activity.RegistrationActivity" />
-        <activity android:name=".ui.main.activity.medicalService.DoctorDetailActivity" />
-        <activity android:name=".ui.main.activity.medicalService.ExpertsVisitActivity" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ui.login.activity.RegistSuccessActivity"/>
+        <activity android:name=".ui.main.activity.medicalService.HealthServerceActivity"/>
+        <activity android:name=".ui.main.activity.medicalService.MoreHealthConsultActivity"/>
+        <activity android:name=".ui.main.activity.OrderCutHearActivity"/>
+        <activity android:name=".ui.main.activity.RegistrationActivity"/>
+        <activity android:name=".ui.main.activity.medicalService.DoctorDetailActivity"/>
+        <activity android:name=".ui.main.activity.medicalService.ExpertsVisitActivity"/>
         <activity
             android:name=".ui.main.activity.medicalService.HealthConsultDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.SubmitSuccessActivity" />
-        <activity android:name=".ui.main.activity.ServiceOrderActivity" />
-        <activity android:name=".ui.main.activity.MoreUSerCommentActivity" />
-        <activity android:name=".ui.main.activity.ReserveInfoActivity" />
-        <activity android:name=".ui.main.activity.ConfirmOrderActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.SubmitSuccessActivity"/>
+        <activity android:name=".ui.main.activity.ServiceOrderActivity"/>
+        <activity android:name=".ui.main.activity.MoreUSerCommentActivity"/>
+        <activity android:name=".ui.main.activity.ReserveInfoActivity"/>
+        <activity android:name=".ui.main.activity.ConfirmOrderActivity"/>
         <activity
             android:name=".ui.main.activity.BarberActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".ui.main.activity.ReservaBarberActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <!-- 二维码 -->
         <activity
             android:name=".zxing.android.CaptureActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name=".ui.main.activity.PayFiveJiaoActivity" />
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity android:name=".ui.main.activity.PayFiveJiaoActivity"/>
         <activity
             android:name=".ui.main.activity.MoreActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.BarberDetailActivity" />
-        <activity android:name=".ui.main.activity.BarberMoreProductActivity" />
-        <activity android:name=".ui.main.activity.HairStyleDetailActivity" />
-        <activity android:name=".ui.main.activity.BarberJianjieActivity" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.main.activity.BarberDetailActivity"/>
+        <activity android:name=".ui.main.activity.BarberMoreProductActivity"/>
+        <activity android:name=".ui.main.activity.HairStyleDetailActivity"/>
+        <activity android:name=".ui.main.activity.BarberJianjieActivity"/>
         <activity
             android:name=".ui.main.activity.property_maintenance.PropertyAintenanceActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.main.activity.property_maintenance.OrderTimeActivity" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.main.activity.property_maintenance.OrderTimeActivity"/>
         <activity
             android:name=".ui.main.activity.Library.LibraryActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
-        <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.Library.BookDescriptionActivity"/>
+        <activity android:name=".ui.main.activity.Library.BorrowOrderActivity"/>
         <activity
             android:name=".ui.main.activity.Library.BookConfirmOrderActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.SignUpPersonActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.FillInfoActivity" />
+            android:launchMode="singleTask"/>
+        <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity"/>
+        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity"/>
+        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity"/>
+        <activity android:name=".ui.main.activity.ActivityRegistration.SignUpPersonActivity"/>
+        <activity android:name=".ui.main.activity.ActivityRegistration.FillInfoActivity"/>
         <activity
             android:name=".ui.main.activity.ActivityRegistration.ActivityPostedActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.PostedNotesActivity" />
-        <activity android:name=".ui.login.activity.RegistStepOneActivity" />
-        <activity android:name=".ui.main.activity.DryCleaners.DryCleanersActivity" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".ui.main.activity.ActivityRegistration.PostedNotesActivity"/>
+        <activity android:name=".ui.login.activity.RegistStepOneActivity"/>
+        <activity android:name=".ui.main.activity.DryCleaners.DryCleanersActivity"/>
         <activity
             android:name=".ui.main.activity.DryCleaners.DryCleanReserveInfoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity" />
-        <activity android:name=".ui.main.activity.DryCleaners.SubmitResultActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSuppliesActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity"/>
+        <activity android:name=".ui.main.activity.DryCleaners.SubmitResultActivity"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSuppliesActivity"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity"/>
         <activity
             android:name=".ui.main.activity.OfficeSupplies.OrderRemarkActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.DeliveryAddressActivity" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.DeliveryAddressActivity"/>
         <activity
             android:name=".ui.main.activity.OfficeSupplies.BianJiAddressActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpPayActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpPayActivity"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity"/>
         <activity
             android:name=".ui.login.activity.IdentityActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.login.activity.PositionActivity" />
-        <activity android:name=".ui.login.activity.AuthSuccessActivity" />
-        <activity android:name=".ui.main.activity.medicalService.HealthSearchActivity" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".ui.login.activity.PositionActivity"/>
+        <activity android:name=".ui.login.activity.AuthSuccessActivity"/>
+        <activity android:name=".ui.main.activity.medicalService.HealthSearchActivity"/>
         <activity
             android:name=".ui.main.activity.ordering.OrderingActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ui.main.activity.ordering.OrderingSuccessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.ordering.AddressManagerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.nutritionalmeal.NutritionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.nutritionalmeal.TodayRecipeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.nutritionalmeal.NutritionMoreActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.ordering.AddAddressActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.complain.ComplainHistoryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.complain.SubmitComplainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.complain.SubmitComplainSuccessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.complain.ComplainReplyActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.complain.ComplainHistoryDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.information.InformationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.information.InformationModuleManagerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.information.SearchInformationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.vegetable.VegetableMainActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.Library.JieYueSuccActivity" />
-        <activity android:name=".ui.main.activity.Library.BookSearchActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.Library.JieYueSuccActivity"/>
+        <activity android:name=".ui.main.activity.Library.BookSearchActivity"/>
         <activity
             android:name=".ui.main.activity.me.LaiFangActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".ui.main.activity.me.LaifangshiyouActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.main.activity.me.PersonalInfoActivity" />
-        <activity android:name=".ui.main.activity.me.SexActivity" />
-        <activity android:name=".ui.main.activity.me.MyCollectActivity" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity android:name=".ui.main.activity.me.PersonalInfoActivity"/>
+        <activity android:name=".ui.main.activity.me.SexActivity"/>
+        <activity android:name=".ui.main.activity.me.MyCollectActivity"/>
         <activity
             android:name=".ui.main.activity.me.SettingAct"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.me.AboutUsActivity" />
-        <activity android:name=".ui.main.activity.me.VersionActivity" />
-        <activity android:name=".ui.main.activity.me.MsgSettingActivity" />
-        <activity android:name=".ui.main.activity.me.AcountSaftActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.me.AboutUsActivity"/>
+        <activity android:name=".ui.main.activity.me.VersionActivity"/>
+        <activity android:name=".ui.main.activity.me.MsgSettingActivity"/>
+        <activity android:name=".ui.main.activity.me.AcountSaftActivity"/>
         <activity
             android:name=".ui.main.activity.ordering.CancelOrderingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.DryCleaners.DryToCommentAct" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.ShopCarActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpConfirmOrderAct" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct" />
-        <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity" />
-        <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.main.activity.DryCleaners.DryToCommentAct"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.ShopCarActivity"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpConfirmOrderAct"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct"/>
+        <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity"/>
+        <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity"/>
         <activity
             android:name=".ui.main.activity.vegetable.VegetableSearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.OfficeSupplies.RemarkActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ui.main.activity.OfficeSupplies.PostNeedActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".ui.main.activity.OfficeSupplies.HistoryActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.CheckHistoryPostItemAct" />
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.main.activity.OfficeSupplies.CheckHistoryPostItemAct"/>
         <activity
             android:name=".ui.main.activity.message.SystemMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.PayUpMessageActivity"
             android:hardwareAccelerated="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.OrderMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.ComplainMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.CommentMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.AuditMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.ActiveMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.MessageDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.message.PayUpMessageDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.property_maintenance.ProPerrtyPostSuccAct"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.orderWater.orderWaterServiceActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.ComplainSystemActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.EnergyAndemissions.EnergySavingActivity" />
-        <activity android:name=".ui.main.activity.RoomReservation.RoomReservationActivity" />
-        <activity android:name=".ui.main.activity.NowReservaBarberActivity" />
-        <activity android:name=".ui.main.activity.me.MyPurseActivity" />
-        <activity android:name=".ui.main.activity.me.RechargeActivity" />
-        <activity android:name=".ui.main.activity.me.RechargeRecordActivity" />
-        <activity android:name=".ui.main.activity.me.PwdManageMentActivity" />
-        <activity android:name=".ui.main.activity.me.ChangePayPwdActivity" />
-        <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity" />
-        <activity android:name=".ui.main.activity.me.PayDetailActivity" />
-        <activity android:name=".ui.main.activity.me.MyDeposit" />
-        <activity android:name=".ui.main.activity.me.BalanceExplainActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.EnergyAndemissions.EnergySavingActivity"/>
+        <activity android:name=".ui.main.activity.RoomReservation.RoomReservationActivity"/>
+        <activity android:name=".ui.main.activity.NowReservaBarberActivity"/>
+        <activity android:name=".ui.main.activity.me.MyPurseActivity"/>
+        <activity android:name=".ui.main.activity.me.RechargeActivity"/>
+        <activity android:name=".ui.main.activity.me.RechargeRecordActivity"/>
+        <activity android:name=".ui.main.activity.me.PwdManageMentActivity"/>
+        <activity android:name=".ui.main.activity.me.ChangePayPwdActivity"/>
+        <activity android:name=".ui.main.activity.me.ForgetPayPwdActivity"/>
+        <activity android:name=".ui.main.activity.me.PayDetailActivity"/>
+        <activity android:name=".ui.main.activity.me.MyDeposit"/>
+        <activity android:name=".ui.main.activity.me.BalanceExplainActivity"/>
         <activity
             android:name=".ui.main.activity.orderWater.OrderInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.orderWater.ConfirmOrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.orderWater.PersonalPayActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.ConsultActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderCommentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderWaterDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderBookDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderOfficeDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderExpertDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderHairCutDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderMealDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.MealsRecharge.MealsRechargeActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <!--
              <meta-data
@@ -411,91 +410,93 @@
         <!-- 办公室预订模块 -->
         <activity
             android:name=".ui.home.activity.office.OfficeListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.office.OfficeDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.office.SubscribeInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.office.AffirmOrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.office.SubmitSuccActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.office.SubscribeDefeatedActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.office.SubscribeTimeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <!-- 节能减排模块 -->
         <activity
             android:name=".ui.home.activity.saving.SavingActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.orderWater.PayDepositActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.orderWater.PayDepositActivity"/>
         <activity
             android:name=".ui.home.activity.saving.InformationActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.saving.InfoDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.saving.StatisticsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.saving.RankingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.saving.ComparisonActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.saving.CalendarActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.activity.saving.SelectDateActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!-- 干洗店订单详情 -->
         <activity
             android:name=".ui.main.activity.me.OrderDryDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!-- 报修订单详情页面 -->
         <activity
             android:name=".ui.main.activity.me.OrderRepairDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!-- 固定餐预订页面 -->
         <activity
             android:name=".ui.main.activity.ordering.FixedOrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!-- 信息公告详情 -->
         <activity
             android:name=".ui.main.activity.information.InformationDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.me.NativesActivity" />
-        <activity android:name=".ui.main.activity.me.DepartmentActivity" />
-        <activity android:name=".ui.main.activity.me.OfficeidActivity" />
-        <activity android:name=".ui.main.activity.me.CarTypeActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.me.NativesActivity"/>
+        <activity android:name=".ui.main.activity.me.DepartmentActivity"/>
+        <activity android:name=".ui.main.activity.me.OfficeidActivity"/>
+        <activity android:name=".ui.main.activity.me.CarTypeActivity"/>
         <activity
             android:name=".ui.main.activity.me.OrderCommentSuccessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.login.activity.AccountComplainActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.medicalService.DoctorConsultActivity" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.medicalService.DoctorConsultActivity"/>
         <activity
             android:name=".ui.main.activity.me.PublicAcountActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.Library.BookNewSearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.Library.BookSearchResultActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.main.activity.me.OrderVegetableDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.AliPaySuccAct">
+        </activity>
     </application>
 
 </manifest>

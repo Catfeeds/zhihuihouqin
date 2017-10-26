@@ -206,7 +206,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
             ToastUtil.showToast(this, "请选择送货时间");
             return;
         }
-        getPresenter().generateOrder(userName, phone, addressID, timeID, arr, remark);
+        getPresenter().generateOrder(userName, phone, addressID, timeID, arr, remark);//下单
     }
 
     private void showPayDialog(final GenerateOrderWaterBean bean) {
@@ -222,6 +222,8 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
                     intent.putExtra("orderid", bean.getOrderid());
                     intent.putExtra("ordercode", bean.getOrdercode());
                     intent.putExtra("ordertype", bean.getOrdertype());
+                    intent.putExtra("time",bean.getCreatetime());
+                    intent.putExtra("ordertype",bean.getOrdertype());
                     startActivity(intent);
                 } else {//对公支付
                     Intent intent2 = new Intent(ConfirmOrderActivity.this, SpPayActivity.class);
