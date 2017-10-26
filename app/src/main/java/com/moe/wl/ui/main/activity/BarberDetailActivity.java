@@ -195,7 +195,7 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
                 intent2.putExtra("content", content);
                 startActivity(intent2);
                 break;
-            case R.id.iv_call_barber_phone:
+            case R.id.ll_call_phone:
                 CallPhoneUtils.callPhone(barberlistBean.getMobile(), this);
                 break;
             case R.id.tv_more_zuopin:
