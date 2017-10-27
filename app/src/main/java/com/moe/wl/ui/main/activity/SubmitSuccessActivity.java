@@ -97,7 +97,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
                 intent.putExtra("state", orderExperts);
                 break;
 
-            case Constants.DRYCLEANER://干洗店
+            case Constants.DRYCLEANER://洗衣店
                 intent.putExtra("state", orderDryCleaner);
                 break;
 

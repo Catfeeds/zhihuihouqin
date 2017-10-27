@@ -105,7 +105,7 @@ public class BarberProductAdapter extends BaseAdapter {
 
         public void setData(WorklistBean worklistBean) {
             this.data = worklistBean;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, worklistBean.getDetailimg(),ivProductPhoto);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, worklistBean.getSmallimg(),ivProductPhoto);
             tvProductDes.setText(worklistBean.getName());
             LogUtils.i("worklistbean===" + worklistBean.getName() + "   " + worklistBean.getPrice());
             tvMoney.setText("￥" + worklistBean.getPrice());

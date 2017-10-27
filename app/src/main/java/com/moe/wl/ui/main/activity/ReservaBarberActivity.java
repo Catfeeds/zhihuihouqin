@@ -117,6 +117,8 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         String mobile = SharedPrefHelper.getInstance().getMobile();
         etMobile.setText(mobile);
         list = new ArrayList<>();
+        timelist=new ArrayList<>();
+        schedulelist=new ArrayList<>();
         barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
         if (barberlistBean != null) {
@@ -209,9 +211,18 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                 }
             });
 
-            timelist = preOrderBean.getTimelist();
-            orderTimeAdapter.setData(timelist);
-            orderTimeAdapter.setListener(new OrderTimeAdapter.OnItemClickListener() {
+            //timelist = preOrderBean.getTimelist();
+            if (preOrderBean.getTimelist()!=null){
+                timelist.addAll(preOrderBean.getTimelist());
+                orderTimeAdapter.notifyDataSetChanged();
+            }
+            if (preOrderBean.getTimelist().size()>0&& preOrderBean.getTimelist().get(0)!=null){
+                schedulelist.clear();
+                schedulelist.addAll(preOrderBean.getTimelist().get(0).getSchedulelist());
+                gridAdapter.setData(schedulelist);
+            }
+            //orderTimeAdapter.setData(timelist);
+            /*orderTimeAdapter.setListener(new OrderTimeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
                     PreOrderBean.TimelistBean timelistBean = timelist.get(position);
@@ -219,7 +230,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                     gridAdapter.setData(schedulelist);
 
                 }
-            });
+            });*/
             gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
@@ -257,7 +268,15 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
-        orderTimeAdapter = new OrderTimeAdapter(this);
+        orderTimeAdapter = new OrderTimeAdapter(this, timelist, new OrderTimeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                PreOrderBean.TimelistBean timelistBean = timelist.get(position);
+                schedulelist.clear();
+                schedulelist.addAll(timelistBean.getSchedulelist());
+                gridAdapter.setData(schedulelist);
+            }
+        });
         recyclerView.setAdapter(orderTimeAdapter);
     }
 
@@ -290,7 +309,6 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                 }
                 Order order = new Order(barberid, mobile, remark, price, id + "");
                 getPresenter().createOrder(order, list);//下单
-
                 break;
         }
     }
@@ -304,8 +322,11 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         intent.putExtra("from", Constants.BARBER);
         intent.putExtra("pay", sumAll);
         intent.putExtra("orderid", orderid + "");
-        intent.putExtra("ordercode", "");
+        intent.putExtra("ordercode", bean.getOrdercode());
         intent.putExtra("ordertype", ordertype + "");
+        intent.putExtra("time",bean.getCreatetime());
+        //intent.putExtra("from",Constants.BARBER);
+        //intent.putExtra("ordertype",6);//订单类型为理发
         startActivity(intent);
     }
 }

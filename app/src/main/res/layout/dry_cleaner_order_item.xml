@@ -20,6 +20,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text=""
+            android:layout_marginRight="4dp"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
 
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="80dp"
+            android:layout_marginRight="60dp"
             android:text="x1"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
@@ -36,9 +37,11 @@
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
+            android:minWidth="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="￥0.0"
+            android:gravity="right"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small" />
     </LinearLayout>

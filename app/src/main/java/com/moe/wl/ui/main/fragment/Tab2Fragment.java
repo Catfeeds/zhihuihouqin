@@ -67,7 +67,7 @@ public class Tab2Fragment extends BaseFragment<Tab2Model, Tab2View, Tab2Presente
     private List<ServiceDataBean> lifeData;
     List<Integer> lifeID = Arrays.asList(7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
     List<String> lifeService = Arrays.asList(
-            "图书馆", "美容美发", "干洗店", "订水服务",
+            "图书馆", "美容美发", "洗衣店", "订水服务",
             "托管班", "母婴室", "除甲醛", "邮政包裹",
             "团购服务", "招待所服务", "办公室绿植", "洗车服务",
             "车辆保养", "车辆年检", "车辆保险");

@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -75,7 +75,7 @@ public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
 
     static class ViewHolder {
         @BindView(R.id.rl_item)
-        RelativeLayout rlItem;
+        LinearLayout rlItem;
         @BindView(R.id.tv_category)
         TextView tvCategory;
         @BindView(R.id.tv_count)

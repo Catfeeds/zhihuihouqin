@@ -1,9 +1,6 @@
 package com.moe.wl.ui.main.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +11,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
@@ -36,7 +34,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import lc.cn.thirdplatform.pay.alipay.AliPaySuccess;
 import lc.cn.thirdplatform.pay.alipay.Alipay;
 import lc.cn.thirdplatform.pay.alipay.PayListener;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
@@ -91,7 +88,6 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     private double pay;
     private int voucherNum;
     private int count;
-    private MyReceiver receiver;
     private String createtime;
     private int ordertype1;
 
@@ -114,9 +110,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
         createtime = intent.getStringExtra("time");
-        ordertype1 = intent.getIntExtra("ordertype", -1);
+       // ordertype1 = intent.getIntExtra("ordertype", -1);
         from = intent.getIntExtra("from", Constants.ORDERWATER);
         pay = intent.getDoubleExtra("pay", 0);
+        LogUtils.i("ordertype======  "+ordertype);
         if (pay % 5 > 0) {
             count = (int) (pay / 5) + 1;
         } else {
@@ -133,11 +130,11 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
-        //广播接受者实例
+       /* //广播接受者实例
         receiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("COM.ALIPAY.SUCCESS.BROADCAST");
-        registerReceiver(receiver, intentFilter);
+        registerReceiver(receiver, intentFilter);*/
     }
 
     private void initTitle() {
@@ -180,7 +177,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                     case 2:
                         getPresenter().weiXinPay(orderid, ordercode, ordertype, 2);
                         break;
-                    case 3:
+                    case 3://钱包支付
                         getPresenter().getIsHasPwd();
                         break;
                     case 4:
@@ -240,19 +237,21 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                 @Override
                 public void paySuccess() {
                     Intent intent = new Intent(PayFiveJiaoActivity.this,AliPaySuccAct.class);
+                    int ordertype1 = Integer.parseInt(ordertype);
                     intent.putExtra("ordertype",ordertype1);
                     intent.putExtra("createtime",createtime);
                     intent.putExtra("paytype",paytype);
                     intent.putExtra("ordercode",ordercode);
                     intent.putExtra("money",pay);
                     startActivity(intent);
-
+                    finish();
                 }
 
                 @Override
                 public void payFail() {
                     Toast.makeText(PayFiveJiaoActivity.this, "支付失败了" , Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
+                    //Intent intent = new Intent();
+                    finish();
                 }
             });
         }
@@ -264,7 +263,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+        //unregisterReceiver(receiver);
         EventBus.getDefault().unregister(this);
     }
 
@@ -282,9 +281,13 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     public void personalWallet(ActivityPostBean bean) {
         if (bean != null) {
             showToast("支付成功");
-            Intent intent = new Intent(this, SubmitSuccessActivity.class);
-            intent.putExtra("isPay", true);
-            intent.putExtra("from", from);
+            Intent intent = new Intent(this, AliPaySuccAct.class);
+            int ordertype1 = Integer.parseInt(ordertype);
+            intent.putExtra("ordertype",ordertype1);
+            intent.putExtra("createtime",createtime);
+            intent.putExtra("paytype",paytype);
+            intent.putExtra("ordercode",ordercode);
+            intent.putExtra("money",pay);
             startActivity(intent);
             finish();
         }
@@ -332,7 +335,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
     }
 
-    public class MyReceiver extends BroadcastReceiver {
+   /* public class MyReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intents) {
@@ -344,14 +347,29 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             finish();
         }
 
-    }
+    }*/
+   @Subscribe(threadMode = ThreadMode.MAIN)
+   public void onMessage(MessageEvent event) {
+       if (event != null) {
+           if (event != null && event.getCode() == MessageEvent.WECHAT_PAY) {
+             /*  LogUtils.d("--------------支付订单----------");
+               showToast("支付订单");
+               Intent intent = new Intent(this, SubmitSuccessActivity.class);
+               intent.putExtra("isPay", true);
+               startActivity(intent);
+               finish();*/
+               Intent intent = new Intent(PayFiveJiaoActivity.this,AliPaySuccAct.class);
+               int ordertype1 = Integer.parseInt(ordertype);
+               intent.putExtra("ordertype",ordertype1);
+               intent.putExtra("createtime",createtime);
+               intent.putExtra("paytype",paytype);
+               intent.putExtra("ordercode",ordercode);
+               intent.putExtra("money",pay);
+               startActivity(intent);
+           }
+       }
+   }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessage(AliPaySuccess event) {
-        LogUtils.d("--------------支付订单----------" + event == null ? "空" : "非空");
-        if (event != null) {
-        }
-    }
 
     @Override
     public PayPresenter createPresenter() {

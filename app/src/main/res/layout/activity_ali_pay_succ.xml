@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:text="缴费类型"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common"
+            android:textSize="@dimen/sp_small"
             />
 
         <TextView
@@ -113,7 +113,7 @@
 
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textSize="@dimen/sp_small"
             />
     </LinearLayout>
 
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:text="交易时间"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common"
+            android:textSize="@dimen/sp_small"
             />
 
         <TextView
@@ -142,7 +142,7 @@
             android:layout_marginLeft="8dp"
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textSize="@dimen/sp_small"
             />
     </LinearLayout>
 
@@ -161,7 +161,7 @@
             android:layout_height="wrap_content"
             android:text="支付方式"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common"
+            android:textSize="@dimen/sp_small"
             />
 
         <TextView
@@ -169,10 +169,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textSize="@dimen/sp_small"
             />
     </LinearLayout>
 
@@ -192,7 +191,7 @@
             android:layout_height="wrap_content"
             android:text="交易单号"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common"
+            android:textSize="@dimen/sp_small"
             />
 
         <TextView
@@ -202,7 +201,7 @@
             android:layout_marginLeft="8dp"
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
+            android:textSize="@dimen/sp_small"
             />
     </LinearLayout>
 

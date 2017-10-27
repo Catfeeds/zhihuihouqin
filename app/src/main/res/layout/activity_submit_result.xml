@@ -39,7 +39,7 @@
         android:layout_height="wrap_content" />
     <TextView
         android:layout_marginTop="8dp"
-        android:text="很荣幸为您服务,请将衣服送至干洗店"
+        android:text="很荣幸为您服务,请将衣服送至洗衣店"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/tv_black"
         android:textSize="@dimen/sp_small"

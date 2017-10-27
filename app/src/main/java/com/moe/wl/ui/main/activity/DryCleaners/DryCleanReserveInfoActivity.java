@@ -145,7 +145,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
 
     private void initTitle() {
         titleBar.setBack(true);
-        titleBar.setTitle("干洗店");
+        titleBar.setTitle("洗衣店");
     }
 
     @OnClick({R.id.tv_submit, /*R.id.tv_more,*/ R.id.rl_set_time})

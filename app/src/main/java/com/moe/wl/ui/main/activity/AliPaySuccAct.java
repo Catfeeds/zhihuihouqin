@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 
 import butterknife.BindView;
@@ -38,23 +40,77 @@ public class AliPaySuccAct extends AppCompatActivity {
         setContentView(R.layout.activity_ali_pay_succ);
         ButterKnife.bind(this);
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
+        title.setTitle("支付成功");
+        title.setBack(true);
         /*intent.putExtra("ordertype",ordertype1);
                     intent.putExtra("createtime",createtime);
                     intent.putExtra("paytype",paytype);
                     intent.putExtra("ordercode",ordercode);
                     intent.putExtra("money",pay);*/
         Intent intent = getIntent();
-        //订单类型
+        //订单类型serviceType服务类型 ： 1:网络报修，2：医疗服务，3：图书借阅，4：餐费充值，5：团队活动，6：预约理发，7会议室预定，8：办公用品，
+        // 9：订餐，10：营养套餐，11：信息公布，12：意见反馈 ，13：健康资讯，14：专家坐诊 15：工作餐 16：干洗 17 : 医疗服务预约挂号挂号单号 18订水服务
         ordertype = intent.getIntExtra("ordertype", -1);
         createtime = intent.getStringExtra("createtime");
         int paytype = intent.getIntExtra("paytype", 0);
+        String ordercode = intent.getStringExtra("ordercode");
         double money = intent.getDoubleExtra("money", 0);
-        howMuch.setText("￥"+money);
-       /* if(ordertype==)
-        tvPayType.setText();*/
+        LogUtils.i("ordertype"+ordertype+"createtime"+createtime+"paytype"+paytype+"ordercode"+ordercode+"money"+money);
+        howMuch.setText("￥" + money);
+        // TODO: 2017/10/26 订单类型需要增加
+        if (ordertype == 6) {//理发
+            tvPayType.setText("理发服务");
+        }else if(ordertype==4){
+            tvPayType.setText("餐费充值");
+        }else if(ordertype ==8){//办公
+            tvPayType.setText("办公用品");
+        }else if(ordertype==18){//定水服务
+            tvPayType.setText("订水服务");
+        }
+        tvTime.setText(createtime);
+        tvOrdercode.setText(ordercode);
+        if(paytype==1){//支付宝支付
+            tvPayWay.setText("支付宝");
+        }else if(paytype==2){
+            tvPayWay.setText("微信");
+        }else if(paytype==3){
+            tvPayWay.setText("钱包支付");
+        }else if(paytype==4){
+            tvPayWay.setText("集体账户支付");
+        }else if(paytype==5){
+            tvPayWay.setText("代金券支付");
+        }
+
     }
 
     @OnClick(R.id.tv_bt)
     public void onClick() {
+        switch (ordertype){
+            case 4://餐费充值
+                Intent intent=new Intent(this,ServiceOrderActivity.class);
+                intent.putExtra("from", Constants.MEALSPAY);
+                intent.putExtra("index",0);
+                startActivity(intent);
+                break;
+            case 6://理发
+                Intent intent1=new Intent(this,ServiceOrderActivity.class);
+                intent1.putExtra("from", Constants.HAIRCUTS);
+                intent1.putExtra("index",0);
+                startActivity(intent1);
+                break;
+            case 8://办公用品
+                Intent intent2=new Intent(this,ServiceOrderActivity.class);
+                intent2.putExtra("from", Constants.OFFICESUPPLIES);
+                intent2.putExtra("index",0);
+                startActivity(intent2);
+                break;
+            case 18://订水服务
+                Intent intent3=new Intent(this,ServiceOrderActivity.class);
+                intent3.putExtra("from", Constants.ORDERWATER);
+                intent3.putExtra("index",0);
+                startActivity(intent3);
+                break;
+
+        }
     }
 }

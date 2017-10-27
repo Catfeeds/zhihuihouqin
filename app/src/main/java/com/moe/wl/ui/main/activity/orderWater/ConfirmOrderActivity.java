@@ -12,15 +12,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.Arith;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.SpPayActivity;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
-import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
@@ -38,10 +35,6 @@ import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.ui.mywidget.OrderWaterPayDialog;
 import com.moe.wl.ui.mywidget.OrderWaterSelectTimePop;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -129,7 +122,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         initTitle();
         //检测是否交押金
         getPresenter().getDepositInfo();
@@ -320,7 +313,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(MessageEvent event) {
         if (event != null) {
             if (event != null && event.getCode() == MessageEvent.WECHAT_PAY) {
@@ -338,6 +331,6 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
+    }*/
 
 }

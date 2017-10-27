@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.moe.wl.R;
+import com.moe.wl.ui.main.bean.PreOrderBean;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.ui.main.bean.PreOrderBean;
 
 /**
  * Created by 我的电脑 on 2017/8/23 0023.
@@ -25,20 +25,22 @@ public class OrderTimeAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private int selectPosition = 0;
     private String s2;
-    private List<PreOrderBean.TimelistBean> mList=new ArrayList<>();
+    private List<PreOrderBean.TimelistBean> mList;/*=new ArrayList<>();*/
 
     public int getmPosition() {
         return selectPosition;
     }
 
-    public OrderTimeAdapter(Context context) {
+    public OrderTimeAdapter(Context context, List<PreOrderBean.TimelistBean> list, OnItemClickListener listener) {
         this.mContext = context;
+        this.mList=list;
+        this.listener=listener;
     }
 
-    public void setData(List<PreOrderBean.TimelistBean> list) {
+   /* public void setData(List<PreOrderBean.TimelistBean> list) {
         this.mList=list;
         notifyDataSetChanged();
-    }
+    }*/
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

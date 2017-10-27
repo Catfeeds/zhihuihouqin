@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.PayUpMessageBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 import static com.moe.wl.R.id.pay_type;
 
@@ -81,7 +81,7 @@ public class PayUpMessageDetailActivity extends AppCompatActivity {
                 break;
 
             case 7: // 干洗店
-                title.append("干洗店");
+                title.append("洗衣店");
                 break;
 
             case 8: // 办公用品

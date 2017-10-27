@@ -99,8 +99,10 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
 
     @Override
     public void initView() {
-        etMobile.setText(SharedPrefHelper.getInstance().getMobile());
+        timelist=new ArrayList<>();
+        schedulelist = new ArrayList<>();
         list = new ArrayList<>();
+        etMobile.setText(SharedPrefHelper.getInstance().getMobile());
         barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
         address = getIntent().getStringExtra("address");
         initgride();
@@ -182,9 +184,17 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                     tvHowMuch.setText("￥" + sum);
                 }
             });
-            timelist = preOrderBean.getTimelist();
-            orderTimeAdapter.setData(timelist);
-            orderTimeAdapter.setListener(new OrderTimeAdapter.OnItemClickListener() {
+        if (preOrderBean.getTimelist()!=null){
+            timelist.addAll(preOrderBean.getTimelist());
+            orderTimeAdapter.notifyDataSetChanged();
+        }
+        if (preOrderBean.getTimelist().size()>0&& preOrderBean.getTimelist().get(0)!=null){
+            schedulelist.clear();
+            schedulelist.addAll(preOrderBean.getTimelist().get(0).getSchedulelist());
+            gridAdapter.setData(schedulelist);
+        }
+            //orderTimeAdapter.setData(timelist);
+           /* orderTimeAdapter.setListener(new OrderTimeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClickListener(int position) {
                     PreOrderBean.TimelistBean timelistBean = timelist.get(position);
@@ -192,21 +202,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                     gridAdapter.setData(schedulelist);
 
                 }
-            });
-            gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClickListener(int position) {
-                    PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
-                    int status = schedulelistBean.getStatus();
-                    if (status == 1) {//已经有预约了
-                        showToast("该时间段已经被预约");
-                        return;
-                    } else if (status == 0) {//没有预约
-                        id = schedulelistBean.getId();
-                        barberid = schedulelistBean.getBarberid();
-                    }
-                }
-            });
+            });*/
     }
 
     @Override//下单成功
@@ -228,6 +224,20 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     //预约时间
     private void initgride() {
         gridAdapter = new BarberGridAdapter();
+        gridAdapter.setListener(new BarberGridAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
+                int status = schedulelistBean.getStatus();
+                if (status == 1) {//已经有预约了
+                    showToast("该时间段已经被预约");
+                    return;
+                } else if (status == 0) {//没有预约
+                    id = schedulelistBean.getId();
+                    barberid = schedulelistBean.getBarberid();
+                }
+            }
+        });
         nsgvBarber.setAdapter(gridAdapter);
     }
 
@@ -235,7 +245,15 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL, false));
-        orderTimeAdapter = new OrderTimeAdapter(this);
+        orderTimeAdapter = new OrderTimeAdapter(this, timelist, new OrderTimeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                PreOrderBean.TimelistBean timelistBean = timelist.get(position);
+                schedulelist.clear();
+                schedulelist.addAll(timelistBean.getSchedulelist());
+                gridAdapter.setData(schedulelist);
+            }
+        });
         recyclerView.setAdapter(orderTimeAdapter);
 
     }

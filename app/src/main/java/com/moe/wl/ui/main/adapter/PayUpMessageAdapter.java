@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.ui.main.bean.PayUpMessageBean;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
 
 /**
  * 类描述：缴费列表Adapter
@@ -67,7 +67,7 @@ public class PayUpMessageAdapter extends RecyclerView.Adapter {
                 break;
 
             case 7: // 干洗店
-                title.append("干洗店");
+                title.append("洗衣店");
                 break;
 
             case 8: // 办公用品

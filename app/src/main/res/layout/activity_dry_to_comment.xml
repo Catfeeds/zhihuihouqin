@@ -21,7 +21,7 @@
         android:textSize="@dimen/sp_big"
         android:padding="@dimen/standard_padding"
         android:textColor="@color/tv_black"
-        android:text="干洗店"
+        android:text="洗衣店"
         android:background="@color/gray_trans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

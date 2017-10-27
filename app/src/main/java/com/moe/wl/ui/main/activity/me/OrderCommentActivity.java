@@ -164,7 +164,7 @@ public class OrderCommentActivity extends AppCompatActivity {
                 break;
 
             case Constants.DRYCLEANER:
-                name.setText("干洗店");
+                name.setText("洗衣店");
                 textOne.setText("干洗质量");
                 textTwo.setText("服务评价");
                 break;

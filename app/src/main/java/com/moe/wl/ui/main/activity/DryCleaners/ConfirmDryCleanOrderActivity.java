@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -90,7 +91,11 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getCount() * list.get(i).getPrice();
         }
-        tvUserName.setText(realName);
+        if(!TextUtils.isEmpty(realName)){
+            tvUserName.setText(realName);
+        }else{
+            tvUserName.setText(SharedPrefHelper.getInstance().getNickname());
+        }
         tvPhoneNum.setText(mobile);
         tvTime.setText(time);
         DecimalFormat df = new DecimalFormat("###.00");
