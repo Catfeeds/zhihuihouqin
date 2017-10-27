@@ -172,7 +172,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
 
     private void initTitle() {
         titleBar.setBack(true);
-        titleBar.setTitle("店铺");
+        titleBar.setTitle("美容美发");
     }
 
     @OnClick({R.id.tv_barber_num, R.id.tv_now_order, R.id.ll_call})

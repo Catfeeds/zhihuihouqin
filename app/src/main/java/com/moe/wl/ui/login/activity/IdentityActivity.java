@@ -22,6 +22,7 @@ import com.moe.wl.ui.main.activity.me.CarTypeActivity;
 import com.moe.wl.ui.main.activity.me.DepartmentActivity;
 import com.moe.wl.ui.main.activity.me.NativesActivity;
 import com.moe.wl.ui.main.activity.me.OfficeidActivity;
+import com.moe.wl.ui.main.activity.me.SexActivity;
 import com.moe.wl.ui.main.adapter.CarAdapter;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
@@ -41,48 +42,57 @@ import static java.lang.reflect.Modifier.NATIVE;
 public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPresenter> implements AuthView {
 
     private static final int REQUESTPOSTIONCODE = 10;
+    private static final int SEXREQUESTCODE = 11;
     @BindView(R.id.title)
     TitleBar title;
     @BindView(R.id.tv_name)
     EditText tvName;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.rl_sex)
+    RelativeLayout rlSex;
     @BindView(R.id.tv_native)
     TextView tvNative;
     @BindView(R.id.rl_native)
     RelativeLayout rlNative;
+    @BindView(R.id.tv_birth)
+    EditText tvBirth;
     @BindView(R.id.tv_phone)
     EditText tvPhone;
-    @BindView(R.id.tv_identity_num)
-    EditText tvIdentityNum;
     @BindView(R.id.tv_position)
     TextView tvPosition;
     @BindView(R.id.iv_position)
     ImageView ivPosition;
     @BindView(R.id.rl_positon)
     RelativeLayout rlPositon;
-    @BindView(R.id.et_build_num)
-    EditText etBuildNum;
-    @BindView(R.id.tv_room_num)
-    EditText tvRoomNum;
-    @BindView(R.id.tv_officeid)
-    TextView tvOfficeid;
-    @BindView(R.id.rl_officeid)
-    RelativeLayout rlOfficeid;
     @BindView(R.id.tv_department_num)
     TextView tvDepartmentNum;
     @BindView(R.id.rl_department_num)
     RelativeLayout rlDepartmentNum;
+    @BindView(R.id.tv_officeid)
+    TextView tvOfficeid;
+    @BindView(R.id.rl_officeid)
+    RelativeLayout rlOfficeid;
+    @BindView(R.id.et_add_time)
+    EditText etAddTime;
+    @BindView(R.id.et_come_depart_time)
+    EditText etComeDepartTime;
+    @BindView(R.id.tv_room_num)
+    EditText tvRoomNum;
     @BindView(R.id.tv_office_phone)
     EditText tvOfficePhone;
-    /*@BindView(R.id.tv_car_type)
-    TextView tvCarType;*/
-   /* @BindView(R.id.rl_car_type)
-    RelativeLayout rlCarType;*/
     @BindView(R.id.rv_chepaihao)
     NoSlideRecyclerView rvChepaihao;
     @BindView(R.id.tv_add_car_num)
     TextView tvAddCarNum;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
+    @BindView(R.id.et_build_num)
+    EditText etBuildNum;
+    @BindView(R.id.tv_e_mail)
+    EditText e_mail;
+
+
 
     private int positionId;
     private String name;
@@ -105,7 +115,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
             , "Y", "Z");
     private String preCarCode;
     private int MAX_NUM = 5;
-    private String officeid;
+    private int officeid;
 
 
     private List<CarInfo> carList;
@@ -113,12 +123,15 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     public int nationId;
     private int departId;
     private CarInfo carInfos;
-    public static final int DEPARTMENT=100;
-    public static final int OFFICEID=101;
-    public static final int CARTYPE=102;
+    public static final int DEPARTMENT = 100;
+    public static final int OFFICEID = 101;
+    public static final int CARTYPE = 102;
     private int carTypeId;
-    private int MAX_IDNUM=18;
+    private int MAX_IDNUM = 18;
     private int index;
+    private int roomnum;
+    private String nation;
+    private String sex;
 
     @Override
     public AuthPresenter createPresenter() {
@@ -139,9 +152,9 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     @Override
     public void initView() {
         title.setBack(true);
-        title.setTitle("身份认证");
+        title.setTitle("身份信息");
         carList = new ArrayList<>();
-        carList.add(new CarInfo("","",""));
+        carList.add(new CarInfo("", "", ""));
         initList();
     }
 
@@ -153,81 +166,19 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         carAdapter.setData(carList);
         carAdapter.setListener(new CarAdapter.OnCarTypeItemClick() {
             @Override
-            public void onCarTypeItemClick(CarInfo carInfo,int position) {
+            public void onCarTypeItemClick(CarInfo carInfo, int position) {
                 showToast("点击了");
                 index = position;
                 Intent intent4 = new Intent(IdentityActivity.this, CarTypeActivity.class);
                 startActivityForResult(intent4, CARTYPE);
                 for (int i = 0; i < carList.size(); i++) {
-                    if(i==position){
+                    if (i == position) {
                         CarInfo carInfo1 = carList.get(position);
-                        carInfo1.setCartypeid(carTypeId+"");
+                        carInfo1.setCartypeid(carTypeId + "");
                     }
                 }
             }
         });
-
-    }
-
-    @OnClick({R.id.tv_add_car_num,R.id.rl_native, R.id.rl_positon, R.id.rl_officeid, R.id.rl_department_num, /*R.id.rl_car_type,*/ R.id.tv_commit})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_add_car_num:
-                carList.add(new CarInfo("","",""));
-                carAdapter.setData(carList);
-
-                break;
-            case R.id.rl_native:
-                Intent intent = new Intent(this, NativesActivity.class);
-                startActivityForResult(intent, NATIVE);
-                break;
-            case R.id.rl_positon:
-                Intent intent1 = new Intent(this, PositionActivity.class);
-                startActivityForResult(intent1, REQUESTPOSTIONCODE);
-                break;
-            case R.id.rl_officeid:
-                Intent intent2 = new Intent(this, OfficeidActivity.class);
-                startActivityForResult(intent2, OFFICEID);
-                break;
-            case R.id.rl_department_num:
-                Intent intent3 = new Intent(this, DepartmentActivity.class);
-                startActivityForResult(intent3, DEPARTMENT);
-                break;
-            case R.id.tv_commit:
-                name = tvName.getText().toString().trim();
-                phone = tvPhone.getText().toString().trim();
-                identityNum = tvIdentityNum.getText().toString().trim();
-                roomNum = tvRoomNum.getText().toString().trim();
-                officePhone = tvOfficePhone.getText().toString().trim();
-                String buildNum = etBuildNum.getText().toString().trim();
-
-                boolean mobilePhoneVerify = VerifyCheck.isMobilePhoneVerify(phone);
-                if (!mobilePhoneVerify) {
-                    showToast("请输入正确的手机号码");
-                    return;
-                }
-                boolean idCardVerify = VerifyCheck.isIDCardVerify(identityNum);
-                if (!idCardVerify) {
-                    showToast("请核对身份证号");
-                    return;
-                }
-                Log.e("info", name + "==" + identityNum + "==" + positionId + "==" + roomNum + "==" + officePhone + "==" + carType + "=="
-                        + preCarCode + "==" + chePaiHao);
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
-                        || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(buildNum)) {
-                    showToast("请将信息填写完整");
-                    return;
-                } else if (!isPhoneChecked(phone)) {
-                    return;
-                } else {//, natives
-                    Auth auth = new Auth(officeid, departId+"", buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
-                    //List<CarInfo> carList = new ArrayList();
-                    //carList.add(new CarInfo(carType, preCarCode, chePaiHao));
-                    getPresenter().getData(auth, carList);
-                    break;
-                }
-
-        }
     }
 
     //认证成功
@@ -264,10 +215,16 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                         tvPosition.setText(position);
                     }
                     break;
+                case SEXREQUESTCODE:
+                    if (data != null) {
+                        sex = data.getStringExtra("sex");
+                        tvSex.setText(sex);
+                    }
+                    break;
                 case NATIVE:
                     if (data != null) {
                         nationId = data.getIntExtra("id", 0);
-                        String nation = data.getStringExtra("nation");
+                        nation = data.getStringExtra("nation");
                         tvNative.setText(nation);
                     }
                     break;
@@ -282,7 +239,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     if (data != null) {
                         int bgypright = data.getIntExtra("bgypright", 0);
                         int departid = data.getIntExtra("departid", 0);
-                         officeid = data.getIntExtra("id", 0)+"";
+                        officeid = data.getIntExtra("id", 0) ;
                         String officeName = data.getStringExtra("name");
                         tvOfficeid.setText(officeName);
                     }
@@ -291,10 +248,78 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     if (data != null) {
                         carTypeId = data.getIntExtra("id", 0);
                         String typename = data.getStringExtra("typename");
-                        carAdapter.setTypeName(typename,index);
+                        carAdapter.setTypeName(typename, index);
                     }
                     break;
             }
+        }
+    }
+
+    @OnClick({R.id.rl_sex, R.id.rl_native, R.id.rl_positon, R.id.rl_department_num, R.id.rl_officeid, R.id.tv_add_car_num, R.id.tv_commit})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rl_sex:
+                Intent intent = new Intent(this, SexActivity.class);
+                intent.putExtra("sex", tvSex.getText().toString().trim());
+                startActivityForResult(intent, SEXREQUESTCODE);
+                break;
+            case R.id.rl_native:
+                Intent intent4 = new Intent(this, NativesActivity.class);
+                startActivityForResult(intent4, NATIVE);
+                break;
+            case R.id.rl_positon:
+                Intent intent1 = new Intent(this, PositionActivity.class);
+                startActivityForResult(intent1, REQUESTPOSTIONCODE);
+                break;
+            case R.id.rl_department_num:
+                Intent intent3 = new Intent(this, DepartmentActivity.class);
+                startActivityForResult(intent3, DEPARTMENT);
+                break;
+            case R.id.rl_officeid:
+                Intent intent2 = new Intent(this, OfficeidActivity.class);
+                startActivityForResult(intent2, OFFICEID);
+                break;
+            case R.id.tv_add_car_num:
+                carList.add(new CarInfo("", "", ""));
+                carAdapter.setData(carList);
+                break;
+            case R.id.tv_commit:
+                name = tvName.getText().toString().trim();
+                phone = tvPhone.getText().toString().trim();
+                int mobile = Integer.parseInt(phone);
+                //identityNum = tvIdentityNum.getText().toString().trim();
+                roomNum = tvRoomNum.getText().toString().trim();
+                roomnum = Integer.parseInt(roomNum);
+                officePhone = tvOfficePhone.getText().toString().trim();
+                 String buildNum = etBuildNum.getText().toString().trim();
+                int buildnum = Integer.parseInt(buildNum);
+                String E_mail = e_mail.getText().toString().trim();
+                String sex = tvSex.getText().toString().trim();
+                String birth = tvBirth.getText().toString().trim();
+                String comenDepartTime = etComeDepartTime.getText().toString().trim();
+                String time = etAddTime.getText().toString().trim();
+
+                boolean mobilePhoneVerify = VerifyCheck.isMobilePhoneVerify(phone);
+                if (!mobilePhoneVerify) {
+                    showToast("请输入正确的手机号码");
+                    return;
+                }
+                Log.e("info", name + "==" + identityNum + "==" + positionId + "==" + roomNum + "==" + officePhone + "==" + carType + "=="
+                        + preCarCode + "==" + chePaiHao);
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
+                        || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(buildNum)) {
+                    showToast("请将信息填写完整");
+                    return;
+                } else if (!isPhoneChecked(phone)) {
+                    return;
+                } else {
+                    Auth auth = new Auth(officeid,departId,buildnum,roomnum,name,mobile,positionId,officePhone,nation,E_mail,sex,birth,comenDepartTime,time);
+                    //Auth auth = new Auth(officeid, departId + "", buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
+                    //List<CarInfo> carList = new ArrayList();
+                    //carList.add(new CarInfo(carType, preCarCode, chePaiHao));
+                    getPresenter().getData(auth, carList);
+                }
+                break;
         }
     }
 }

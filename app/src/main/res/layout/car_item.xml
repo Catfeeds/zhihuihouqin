@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="车辆类型"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
         android:padding="@dimen/standard_padding"
         android:text="车牌号"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger" />
+        android:textSize="@dimen/sp_small" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
             android:drawableRight="@drawable/group_down"
             android:text="京A"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <EditText
             android:id="@+id/et_chepaihao"
@@ -82,7 +82,7 @@
             android:hint="车牌号后五位"
             android:textColorHint="@color/tv_gray"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
     </RelativeLayout>-->
     <View
         android:layout_width="match_parent"

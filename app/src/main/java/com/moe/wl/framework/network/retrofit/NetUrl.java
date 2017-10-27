@@ -24,7 +24,7 @@ public interface NetUrl {
     String getdepartList = "appuser/user/getdepartList";//部门列表
     String getofficelist = "appuser/user/getofficelist";//处室列表
     String cartypelist = "appuser/user/cartypelist";//车辆类别
-    String submitAuth = "appuser/user/auth";
+    String submitAuth = "appuser/user/auth";//个人认证
     String bindPhone = "appuser/user/bindMobile";
     String changePassWord = "appuser/user/updatePass";
     String accountComplain = "appuser/user/appeal"; // 账号申诉

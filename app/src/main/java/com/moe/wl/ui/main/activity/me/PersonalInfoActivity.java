@@ -113,6 +113,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     private String buildNum;
     private String roomNum;
     private String sex;
+    private UserInfoBean.UserinfoEntity userinfo;
 
     @Override
     public UserInfoPresenter createPresenter() {
@@ -425,7 +426,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     @Override
     public void getUserInfoSucc(UserInfoBean bean) {
         if (bean != null) {
-            UserInfoBean.UserinfoEntity userinfo = bean.getUserinfo();
+            userinfo = bean.getUserinfo();
             if (userinfo.getSex() == 1) {
                 tvSex.setText("男");
             } else {
@@ -440,8 +441,6 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
             tvPhone.setText(userinfo.getMobile());
             tvPosition.setText(userinfo.getPosition());
             etBuildNum.setText(userinfo.getBuildnum());
-            //通知头像和昵称发生变化
-            EventBus.getDefault().post(new ChangeUserInfo(url, userinfo.getNickname(), userinfo.getPosition()));
         }
     }
 
@@ -473,12 +472,14 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     @Override
     public void upLoadHeaderResult(UpLoadHeaderBean bean) {
         if (bean.getErrCode() == 0) {
-            showToast("上传头像成功了");
+            showToast("上传头像成功");
             url = bean.getUrl();
             //提交头像成功,缓存头像并保存
             File file = mFile.getAbsoluteFile();
             Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             iv_header.setImageBitmap(bitmap);
+            //通知头像和昵称发生变化
+            EventBus.getDefault().post(new ChangeUserInfo(url, userinfo.getNickname(), userinfo.getPosition()));
         } else {
             showToast("上传头像失败了");
         }
