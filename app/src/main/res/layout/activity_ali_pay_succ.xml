@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.moe.wl.ui.main.activity.AliPaySuccAct"
-    >
+    tools:context="com.moe.wl.ui.main.activity.AliPaySuccAct">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        />
+        android:layout_height="@dimen/title_height" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"/>
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_page"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="@color/bg_page"
-        android:padding="@dimen/standard_padding"
-        >
+        android:padding="@dimen/standard_padding">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/selected"
-            />
+            android:src="@drawable/select" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,23 +37,20 @@
             android:layout_marginLeft="8dp"
             android:text="支付成功"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common"
-            />
+            android:textSize="@dimen/sp_common" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"
-        />
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/white"
         android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,8 +58,7 @@
             android:layout_marginLeft="8dp"
             android:text="支付"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common"
-            />
+            android:textSize="@dimen/sp_common" />
 
         <TextView
             android:id="@+id/how_much"
@@ -77,33 +68,29 @@
             android:layout_marginTop="8dp"
             android:text="￥0.0"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            />
+            android:textSize="@dimen/sp_big" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"
-        />
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        >
+        android:paddingRight="@dimen/standard_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="缴费类型"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_payType"
@@ -113,27 +100,24 @@
 
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        >
+        android:paddingRight="@dimen/standard_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="交易时间"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -142,27 +126,24 @@
             android:layout_marginLeft="8dp"
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        >
+        android:paddingRight="@dimen/standard_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="支付方式"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_pay_way"
@@ -171,28 +152,25 @@
             android:layout_marginLeft="8dp"
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="8dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:layout_marginBottom="40dp"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        >
+        android:paddingLeft="@dimen/normal_padding"
+        android:paddingRight="@dimen/normal_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="交易单号"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_ordercode"
@@ -201,8 +179,7 @@
             android:layout_marginLeft="8dp"
             android:gravity="right"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_small"
-            />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 
     <TextView
@@ -210,11 +187,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_padding"
-        android:background="@color/bt"
+        android:background="@drawable/bg_blue_rounded"
         android:gravity="center"
-        android:padding="@dimen/standard_padding"
+        android:padding="@dimen/normal_padding"
         android:text="查看订单"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_common"
-        />
+        android:textSize="@dimen/sp_common" />
 </LinearLayout>

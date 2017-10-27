@@ -102,7 +102,7 @@ public interface NetUrl {
     String jieyuetime = "appuser/tsjyfw/gettime";
     String searchCategory = "appuser/tsjyfw/gettypelist";
     String getSearchData = "appuser/tsjyfw/tosearch";
-    String clearHistory = ""; // 清空搜索历史
+    String clearHistory = "appuser/tsjyfw/cleansearchhistory"; // 清空搜索历史
     String searchBookResult = "appuser/tsjyfw/search";
     String searchBookList = "appuser/tsjyfw/getbooklist";
     String bookOrderList = "appuser/tsjyfw/orderlist";

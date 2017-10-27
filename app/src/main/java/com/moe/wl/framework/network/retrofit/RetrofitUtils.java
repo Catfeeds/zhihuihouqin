@@ -78,6 +78,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         String timestamp = DateUtil.getCurrentDateTimeyyyyMMddHHmmss();
         paramsMap.put("timestamp", timestamp);
         LogUtils.d("token==" + SharedPrefHelper.getInstance().getToken());
+        LogUtils.d("timestamp==" + timestamp);
         if (SharedPrefHelper.getInstance().getToken() != null && !SharedPrefHelper.getInstance().getToken().equals("")) {
             paramsMap.put(TOKEN, SharedPrefHelper.getInstance().getToken());
         } else {
@@ -1004,7 +1005,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Log.e("getLibraryHomeData", "---》home");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
-            tempMap.put("position", position + "");
+            tempMap.put("order", position + "");
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -1020,7 +1021,6 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      */
     public static Observable getRecommandResult(String title, String author, String publisher, String remark) {
         Map<String, Object> paramsMap = new HashMap<>();
-        Log.e("getLibraryHomeData", "---》home");
         try {
             Map<String, String> tempMap = new HashMap<String, String>();
             tempMap.put("title", title);
@@ -1143,14 +1143,14 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 搜索图书列表
      */
-    public static Observable searchBookResult(String type, String keyword, int order) {
+    public static Observable searchBookResult(String type, String keyword, int order, int issearch) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("type", type);
             tempMap.put("keyword", keyword);
             tempMap.put("order", order);
-            tempMap.put("issearch", 1);
+            tempMap.put("issearch", issearch);
             addParams(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();

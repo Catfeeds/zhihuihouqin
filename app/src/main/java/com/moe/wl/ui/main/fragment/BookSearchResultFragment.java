@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,10 @@ public class BookSearchResultFragment extends BaseFragment2 {
     Unbinder unbinder;
     private BookRvAdapter bookRvAdapter;
 
+    private int order;
+    private String keyword;
+    private String typeId;
+
     @Override
     public View setLayout() {
         View view = View.inflate(getActivity(), R.layout.book_list_fragment, null);
@@ -46,8 +51,25 @@ public class BookSearchResultFragment extends BaseFragment2 {
         bundle.putString("keyword", s);
         bundle.putString("typeId", typeId);
         bundle.putInt("order", order);
+//        if (order == 1) {
+//            bundle.putInt("issearch", 1);
+//        } else {
+//            bundle.putInt("issearch", 0);
+//        }
         bookPutAwayFragment.setArguments(bundle);
         return bookPutAwayFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            LogUtils.d("initView()方法！！");
+            keyword = bundle.getString("keyword");
+            typeId = bundle.getString("typeId");
+            order = bundle.getInt("order");
+        }
     }
 
     @Override
@@ -55,14 +77,7 @@ public class BookSearchResultFragment extends BaseFragment2 {
         rvBookList.setLayoutManager(new LinearLayoutManager(getActivity()));
         bookRvAdapter = new BookRvAdapter(getActivity());
         rvBookList.setAdapter(bookRvAdapter);
-        Bundle bundle = getArguments();
-
-        if (bundle != null) {
-            String keyword = bundle.getString("keyword");
-            String typeId = bundle.getString("typeId");
-            int order = bundle.getInt("order");
-            getData(keyword, typeId, order);
-        }
+        getData(keyword, typeId, order);
 
         bookRvAdapter.setMyCallBack(new BookRvAdapter.MyCallBack() {
             @Override
@@ -73,11 +88,10 @@ public class BookSearchResultFragment extends BaseFragment2 {
                 getActivity().startActivity(intent);
             }
         });
-
     }
 
     private void getData(String keyword, String typeId, int order) {
-        Observable observable = RetrofitUtils.getInstance().searchBookResult(typeId, keyword, order);
+        Observable observable = RetrofitUtils.getInstance().searchBookResult(typeId, keyword, order, 0);
         showProgressDialog();
         observable.subscribe(new Subscriber<SearchBookListBean>() {
             @Override

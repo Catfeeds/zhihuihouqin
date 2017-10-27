@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.adapter.SearchHistoryAdapter;
 import com.moe.wl.ui.main.adapter.MySpinnerAdapter;
 import com.moe.wl.ui.main.bean.BookSearchDataBean;
 import com.moe.wl.ui.main.bean.CollectBean;
+import com.moe.wl.ui.main.bean.SearchBookListBean;
 import com.moe.wl.ui.main.model.BookSearchModel;
 import com.moe.wl.ui.main.modelimpl.BookSearchModelImpl;
 import com.moe.wl.ui.main.presenter.BookSearchDataPresenter;
@@ -26,6 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * 类描述：图书搜索页面
@@ -107,7 +111,7 @@ public class BookNewSearchActivity extends BaseActivity<BookSearchModel, BookSea
 
     @Override
     public void clearHistorySucc(CollectBean bean) {
-        ToastUtil.showToast(this, "清空搜索历史成功！");
+        ToastUtil.showToast(this, "清空搜索历史成功");
         data.clear();
         adapter.notifyDataSetChanged();
         clearHistory.setVisibility(View.GONE);
@@ -117,7 +121,7 @@ public class BookNewSearchActivity extends BaseActivity<BookSearchModel, BookSea
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.clear_history:
-
+                getPresenter().clearHistory();
                 break;
 
             case R.id.search:
@@ -129,12 +133,31 @@ public class BookNewSearchActivity extends BaseActivity<BookSearchModel, BookSea
                     ToastUtil.showToast(this, "请选择搜索类别");
                     return;
                 }
+                getSearch();
                 Intent intent = new Intent(this, BookSearchResultActivity.class);
                 intent.putExtra("keyword", etSearch.getText().toString().trim());
                 intent.putExtra("type", type);
                 startActivity(intent);
                 break;
         }
+    }
+
+    // 这个方法什么鸡毛卵用没有  不知道怎么的就是想请求一下接口
+    private void getSearch() {
+        Observable observable = RetrofitUtils.getInstance().searchBookResult(type, etSearch.getText().toString().trim(), 1, 1);
+        observable.subscribe(new Subscriber<SearchBookListBean>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(SearchBookListBean bookListBean) {
+            }
+        });
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.BookSearchDataBean;
+import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.model.BookSearchModel;
 import com.moe.wl.ui.main.view.BookSearchView;
 
@@ -44,6 +45,40 @@ public class BookSearchDataPresenter extends MvpRxPresenter<BookSearchModel, Boo
                 }
                 if (mResponse.getErrCode() == 0) {
                     getView().getSearchDataSucc(mResponse);
+                } else {
+                    getView().showToast(mResponse.getMsg());
+                }
+            }
+        });
+    }
+
+    // 清空搜索历史
+    public void clearHistory() {
+        getView().showProgressDialog();
+        Observable request = getModel().clearHistory();
+        getNetWork(request, new Subscriber<CollectBean>() {
+
+            @Override
+            public void onCompleted() {
+                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().dismissProgressDialog();
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(CollectBean mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().clearHistorySucc(mResponse);
                 } else {
                     getView().showToast(mResponse.getMsg());
                 }

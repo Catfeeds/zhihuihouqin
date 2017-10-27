@@ -34,15 +34,14 @@
                 android:id="@+id/tv_money1"
                 style="@style/tvStyle_text_black"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:text="￥8" />
+                android:layout_marginRight="10dp" />
 
             <ImageView
                 android:id="@+id/iv_minus1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/button_minus" />
+                android:src="@drawable/blue_minus" />
 
             <TextView
                 android:id="@+id/tv_count1"
@@ -51,6 +50,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:minWidth="18dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="0"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/button_add" />
+                android:src="@drawable/blue_add" />
         </LinearLayout>
     </LinearLayout>
 

@@ -146,7 +146,7 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
                                 intent.putExtra("OrderingID", data.getId());
                             }
                             startActivity(intent);
-                        }  else if (state == 5) {
+                        } else if (state == 5) {
                             // 删除订单
                             if (type == 1) {
                                 deleteMedicalOrder(bean.getId());
@@ -174,7 +174,7 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         orderTime.setText("下单时间：" + bean.getCreatetime());
         time.setText("预约时间：" + bean.getScheduledate());
 //        state.setText("支付状态：" + (data.get == 0 ? "未支付" : "已支付"));
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getPhoto(), image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getPhoto(), image, R.mipmap.ic_default_square);
         if (bean.getDoctor() != null) {
             name.setText(bean.getDoctor().getRealname());
             docPosition.setText(bean.getDoctor().getPositionname());
@@ -211,12 +211,12 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         orderTime.setText("下单时间：" + data.getCreatetime());
         time.setText("预约时间：" + data.getScheduledate());
 //        state.setText("支付状态：" + (data.get == 0 ? "未支付" : "已支付"));
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getPhoto(), image,R.mipmap.ic_default_rectangle);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getPhoto(), image, R.mipmap.ic_default_square);
         if (data.getDoctor() != null) {
             name.setText(data.getDoctor().getRealname());
             docPosition.setText(data.getDoctor().getPositionname());
-            ratingBar.setRating((float)data.getDoctor().getScore());
-            OtherUtils.ratingBarColor(ratingBar,this);
+            ratingBar.setRating((float) data.getDoctor().getScore());
+            OtherUtils.ratingBarColor(ratingBar, this);
             score.setText("" + data.getDoctor().getScore());
             number.setText("问诊量：" + data.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + data.getDoctor().getHospitalName());

@@ -115,7 +115,7 @@ public class InformationDetailActivity extends AppCompatActivity {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getNoticeInfo().getImg(), image);
             title.setText(bean.getNoticeInfo().getTitle());
             time.setText(bean.getNoticeInfo().getCreatetime());
-            from.setText(bean.getNoticeInfo().getSource());
+            from.setText("来源：" + bean.getNoticeInfo().getSource());
             content.setText(Html.fromHtml(bean.getNoticeInfo().getContent()));
         }
 

@@ -597,9 +597,17 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             SharedPrefHelper.getInstance().setuserPhoto(userinfo.getPhoto());
             GlideLoading.getInstance().loadImgUrlHeader(getActivity(), userinfo.getPhoto(), civHeader, R.mipmap.ic_default_square);
             if (TextUtils.isEmpty(userinfo.getNickname())) {
-                tvName.setText(userinfo.getPosition() + "~" + "暂无昵称");
+                if (TextUtils.isEmpty(userinfo.getPosition())) {
+                    tvName.setText("职位" + "~" + "暂无昵称");
+                } else {
+                    tvName.setText(userinfo.getPosition() + "~" + "暂无昵称");
+                }
             } else {
-                tvName.setText(userinfo.getPosition() + "~" + userinfo.getNickname());
+                if (TextUtils.isEmpty(userinfo.getPosition())) {
+                    tvName.setText("职位" + "~" + userinfo.getNickname());
+                } else {
+                    tvName.setText(userinfo.getPosition() + "~" + userinfo.getNickname());
+                }
             }
             switch (userinfo.getAuthStatus()) {
                 case 0: // 未提交认证
@@ -613,6 +621,9 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                     break;
                 case 3: // 认证不通过
                     tvAuth.setText("认证不通过");
+                    break;
+                default:
+                    tvAuth.setText("未认证");
                     break;
             }
         }

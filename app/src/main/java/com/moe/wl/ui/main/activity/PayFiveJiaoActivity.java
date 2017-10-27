@@ -110,10 +110,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
         createtime = intent.getStringExtra("time");
-       // ordertype1 = intent.getIntExtra("ordertype", -1);
+        // ordertype1 = intent.getIntExtra("ordertype", -1);
         from = intent.getIntExtra("from", Constants.ORDERWATER);
         pay = intent.getDoubleExtra("pay", 0);
-        LogUtils.i("ordertype======  "+ordertype);
+        LogUtils.i("ordertype======  " + ordertype);
         if (pay % 5 > 0) {
             count = (int) (pay / 5) + 1;
         } else {
@@ -123,10 +123,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         tvNeedPay.setText("￥" + pay);
         if (from == Constants.BARBER) {//是理发展示代金券
             rlDaijinquanPay.setVisibility(View.VISIBLE);
-        }else if(from==Constants.RECHARGE){//钱包充值
+        } else if (from == Constants.RECHARGE) {//钱包充值
             rlBanance.setVisibility(View.GONE);
             rlBanancePay.setVisibility(View.GONE);
-        } else{
+        } else {
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
@@ -236,20 +236,20 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             new Alipay(this).doPay(bean.getPayLink(), new PayListener() {
                 @Override
                 public void paySuccess() {
-                    Intent intent = new Intent(PayFiveJiaoActivity.this,AliPaySuccAct.class);
+                    Intent intent = new Intent(PayFiveJiaoActivity.this, AliPaySuccAct.class);
                     int ordertype1 = Integer.parseInt(ordertype);
-                    intent.putExtra("ordertype",ordertype1);
-                    intent.putExtra("createtime",createtime);
-                    intent.putExtra("paytype",paytype);
-                    intent.putExtra("ordercode",ordercode);
-                    intent.putExtra("money",pay);
+                    intent.putExtra("ordertype", ordertype1);
+                    intent.putExtra("createtime", createtime);
+                    intent.putExtra("paytype", paytype);
+                    intent.putExtra("ordercode", ordercode);
+                    intent.putExtra("money", pay);
                     startActivity(intent);
                     finish();
                 }
 
                 @Override
                 public void payFail() {
-                    Toast.makeText(PayFiveJiaoActivity.this, "支付失败了" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PayFiveJiaoActivity.this, "支付失败了", Toast.LENGTH_SHORT).show();
                     //Intent intent = new Intent();
                     finish();
                 }
@@ -283,11 +283,11 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             showToast("支付成功");
             Intent intent = new Intent(this, AliPaySuccAct.class);
             int ordertype1 = Integer.parseInt(ordertype);
-            intent.putExtra("ordertype",ordertype1);
-            intent.putExtra("createtime",createtime);
-            intent.putExtra("paytype",paytype);
-            intent.putExtra("ordercode",ordercode);
-            intent.putExtra("money",pay);
+            intent.putExtra("ordertype", ordertype1);
+            intent.putExtra("createtime", createtime);
+            intent.putExtra("paytype", paytype);
+            intent.putExtra("ordercode", ordercode);
+            intent.putExtra("money", pay);
             startActivity(intent);
             finish();
         }
@@ -318,14 +318,13 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             if (errCode == 0) {
                 showPayDialog();
             } else if (errCode == 1) {//没有支付密码
-                LogUtils.i("没有设置支付密码===============");
-                TsAlertDialog dialog=new TsAlertDialog(this).builder();
+                TsAlertDialog dialog = new TsAlertDialog(this).builder();
                 dialog.setTitle("提示")
                         .setMsg("为了保护你财产的安全请先设置支付密码");
                 dialog.setPositiveButton("设置支付密码", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent =new Intent(PayFiveJiaoActivity.this,AcountSaftActivity.class);
+                        Intent intent = new Intent(PayFiveJiaoActivity.this, AcountSaftActivity.class);
                         intent.putExtra("from", Constants.SET_PWD);
                         startActivity(intent);
                     }
@@ -335,40 +334,40 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
     }
 
-   /* public class MyReceiver extends BroadcastReceiver {
+    /* public class MyReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intents) {
-            LogUtils.d("我接受到广播啦！！！");
-            Intent intent = new Intent(PayFiveJiaoActivity.this, SubmitSuccessActivity.class);
-            intent.putExtra("isPay", true);
-            intent.putExtra("payTypeName", payTypeName);
-            startActivity(intent);
-            finish();
-        }
+         @Override
+         public void onReceive(Context context, Intent intents) {
+             LogUtils.d("我接受到广播啦！！！");
+             Intent intent = new Intent(PayFiveJiaoActivity.this, SubmitSuccessActivity.class);
+             intent.putExtra("isPay", true);
+             intent.putExtra("payTypeName", payTypeName);
+             startActivity(intent);
+             finish();
+         }
 
-    }*/
-   @Subscribe(threadMode = ThreadMode.MAIN)
-   public void onMessage(MessageEvent event) {
-       if (event != null) {
-           if (event != null && event.getCode() == MessageEvent.WECHAT_PAY) {
+     }*/
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(MessageEvent event) {
+        if (event != null) {
+            if (event != null && event.getCode() == MessageEvent.WECHAT_PAY) {
              /*  LogUtils.d("--------------支付订单----------");
                showToast("支付订单");
                Intent intent = new Intent(this, SubmitSuccessActivity.class);
                intent.putExtra("isPay", true);
                startActivity(intent);
                finish();*/
-               Intent intent = new Intent(PayFiveJiaoActivity.this,AliPaySuccAct.class);
-               int ordertype1 = Integer.parseInt(ordertype);
-               intent.putExtra("ordertype",ordertype1);
-               intent.putExtra("createtime",createtime);
-               intent.putExtra("paytype",paytype);
-               intent.putExtra("ordercode",ordercode);
-               intent.putExtra("money",pay);
-               startActivity(intent);
-           }
-       }
-   }
+                Intent intent = new Intent(PayFiveJiaoActivity.this, AliPaySuccAct.class);
+                int ordertype1 = Integer.parseInt(ordertype);
+                intent.putExtra("ordertype", ordertype1);
+                intent.putExtra("createtime", createtime);
+                intent.putExtra("paytype", paytype);
+                intent.putExtra("ordercode", ordercode);
+                intent.putExtra("money", pay);
+                startActivity(intent);
+            }
+        }
+    }
 
 
     @Override

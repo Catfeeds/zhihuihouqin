@@ -5,7 +5,6 @@ import com.moe.wl.ui.home.activity.office.OfficeListActivity;
 import com.moe.wl.ui.home.activity.saving.SavingActivity;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityRegistrationActivity;
 import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
-import com.moe.wl.ui.main.activity.medicalService.HealthServerceActivity;
 import com.moe.wl.ui.main.activity.Library.LibraryActivity;
 import com.moe.wl.ui.main.activity.MealsRecharge.MealsRechargeActivity;
 import com.moe.wl.ui.main.activity.MoreActivity;
@@ -13,6 +12,9 @@ import com.moe.wl.ui.main.activity.OfficeSupplies.OfficeSuppliesActivity;
 import com.moe.wl.ui.main.activity.OrderCutHearActivity;
 import com.moe.wl.ui.main.activity.complain.SubmitComplainActivity;
 import com.moe.wl.ui.main.activity.information.InformationActivity;
+import com.moe.wl.ui.main.activity.me.LaiFangActivity;
+import com.moe.wl.ui.main.activity.medicalService.ExpertsVisitActivity;
+import com.moe.wl.ui.main.activity.medicalService.HealthServerceActivity;
 import com.moe.wl.ui.main.activity.nutritionalmeal.NutritionActivity;
 import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
@@ -213,7 +215,7 @@ public class ServiceIntentUtils {
                 return HealthServerceActivity.class;
 //                break;
             case 49: //49	专家坐诊
-//                return ExpertsVisitActivity.class;
+                return ExpertsVisitActivity.class;
 
             case 50: //50	计生管理
 
@@ -222,8 +224,8 @@ public class ServiceIntentUtils {
 
                 break;
             case 52: //52	来访人员出入
+                return LaiFangActivity.class;
 
-                break;
             case 53: //53	内部车辆出入
 
                 break;
