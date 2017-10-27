@@ -23,10 +23,10 @@ import mvp.cn.util.ToastUtil;
 public class ExpertSelectTimeAdapter extends BaseAdapter {
 
     private Context context;
-    private List<ExpertDetailBean.SchedulesEntity> data;
+    private List<ExpertDetailBean.SchedulesEntity.SchedulelistEntity> data;
     private OnClickListener listener;
 
-    public ExpertSelectTimeAdapter(Context context, List<ExpertDetailBean.SchedulesEntity> data, OnClickListener listener) {
+    public ExpertSelectTimeAdapter(Context context, List<ExpertDetailBean.SchedulesEntity.SchedulelistEntity> data, OnClickListener listener) {
         this.context = context;
         this.data = data;
         this.listener = listener;
@@ -79,7 +79,7 @@ public class ExpertSelectTimeAdapter extends BaseAdapter {
                     }
                     mPosition = position;
                     notifyDataSetChanged();
-                    listener.onClick(data.get(position).getId(), data.get(position).getStarttime()/* + "-" + data.get(position).getEndtime()*/);
+                    listener.onClick(data.get(position).getId(), data.get(position).getStarttime() + "-" + data.get(position).getEndtime());
                 }
             });
         }
@@ -89,12 +89,12 @@ public class ExpertSelectTimeAdapter extends BaseAdapter {
             if (data.get(position).getStarttime() == null || "".equals(data.get(position).getStarttime())) {
                 text.setText("空");
             } else {
-                text.setText(data.get(position).getStarttime() /*+ "-" + data.get(position).getEndtime()*/);
+                text.setText(data.get(position).getStarttime() + "-" + data.get(position).getEndtime());
             }
             if (data.get(position).getStatus() == 0) {
                 if (mPosition == position) {
-                    text.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_blue_fill));
-                    text.setTextColor(context.getResources().getColor(R.color.white));
+                    text.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_button_white));
+                    text.setTextColor(context.getResources().getColor(R.color.blue));
                 } else {
                     text.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_button_white));
                     text.setTextColor(context.getResources().getColor(R.color.tv_black));

@@ -6,15 +6,8 @@ package com.moe.wl.ui.main.bean;
 
 public class UserInfoBean {
 
-
-    /**
-     * errCode : 0
-     * userinfo : {"id":1,"position":null,"sex":null,"nickname":"小张","tel":null,"photo":"http://avatar.csdn.net/C/1/8/1_u013083576.jpg","roomnum":null,"mobile":"13244243212","authStatus":0,"buildnum":"101"}
-     * msg : success
-     */
-
     private int errCode;
-    private UserinfoBean userinfo;
+    private UserinfoEntity userinfo;
     private String msg;
 
     public int getErrCode() {
@@ -25,11 +18,11 @@ public class UserInfoBean {
         this.errCode = errCode;
     }
 
-    public UserinfoBean getUserinfo() {
+    public UserinfoEntity getUserinfo() {
         return userinfo;
     }
 
-    public void setUserinfo(UserinfoBean userinfo) {
+    public void setUserinfo(UserinfoEntity userinfo) {
         this.userinfo = userinfo;
     }
 
@@ -41,38 +34,21 @@ public class UserInfoBean {
         this.msg = msg;
     }
 
-    public static class UserinfoBean {
-        /**
-         * id : 1
-         * position : null
-         * sex : null
-         * nickname : 小张
-         * tel : null
-         * photo : http://avatar.csdn.net/C/1/8/1_u013083576.jpg
-         * roomnum : null
-         * mobile : 13244243212
-         * authStatus : 0
-         * buildnum : 101
-         */
+    public static class UserinfoEntity {
 
-        private int id;
         private String position;
-        private int  sex;
+        private String office;
+        private int sex;
         private String nickname;
+        private String depart;
         private String tel;
+        private int buildnum;
         private String photo;
-        private int  roomnum;
-        private String mobile;
+        private String roomnum;
+        private int id;
+        private int hasBuyAuth;
         private int authStatus;
-        private String buildnum;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
+        private String mobile;
 
         public String getPosition() {
             return position;
@@ -80,6 +56,14 @@ public class UserInfoBean {
 
         public void setPosition(String position) {
             this.position = position;
+        }
+
+        public String getOffice() {
+            return office;
+        }
+
+        public void setOffice(String office) {
+            this.office = office;
         }
 
         public int getSex() {
@@ -98,12 +82,28 @@ public class UserInfoBean {
             this.nickname = nickname;
         }
 
+        public String getDepart() {
+            return depart;
+        }
+
+        public void setDepart(String depart) {
+            this.depart = depart;
+        }
+
         public String getTel() {
             return tel;
         }
 
         public void setTel(String tel) {
             this.tel = tel;
+        }
+
+        public int getBuildnum() {
+            return buildnum;
+        }
+
+        public void setBuildnum(int buildnum) {
+            this.buildnum = buildnum;
         }
 
         public String getPhoto() {
@@ -114,20 +114,28 @@ public class UserInfoBean {
             this.photo = photo;
         }
 
-        public int getRoomnum() {
+        public String getRoomnum() {
             return roomnum;
         }
 
-        public void setRoomnum(int roomnum) {
+        public void setRoomnum(String roomnum) {
             this.roomnum = roomnum;
         }
 
-        public String getMobile() {
-            return mobile;
+        public int getId() {
+            return id;
         }
 
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getHasBuyAuth() {
+            return hasBuyAuth;
+        }
+
+        public void setHasBuyAuth(int hasBuyAuth) {
+            this.hasBuyAuth = hasBuyAuth;
         }
 
         public int getAuthStatus() {
@@ -138,12 +146,12 @@ public class UserInfoBean {
             this.authStatus = authStatus;
         }
 
-        public String getBuildnum() {
-            return buildnum;
+        public String getMobile() {
+            return mobile;
         }
 
-        public void setBuildnum(String buildnum) {
-            this.buildnum = buildnum;
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
         }
     }
 }

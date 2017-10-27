@@ -15,7 +15,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_light" />
+        android:background="@color/gray_line" />
 
 
     <LinearLayout
@@ -37,14 +37,15 @@
             android:textSize="@dimen/sp_big" />
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/tb_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@color/blue"
         android:gravity="center"
+        android:padding="12dp"
         android:text="确定"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_bigger" />
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>

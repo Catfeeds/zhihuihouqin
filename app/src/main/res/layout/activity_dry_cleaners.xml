@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:banner="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_dry_cleaners"
-    android:orientation="vertical"
-    android:background="@color/bg_page"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    android:orientation="vertical">
+
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/dry_cleaners_title"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"/>
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"/>
+        android:background="@color/gray_line" />
     <!--轮播图占位-->
     <com.moe.wl.framework.widget.SimpleImageBanner
         android:id="@+id/h_banner_viewPager"
@@ -45,27 +46,27 @@
         banner:bb_scale="0.5625"
         banner:bb_textColor="#ffffff"
         banner:bb_textSize="13.5sp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_margin="8dp">
+        android:layout_margin="12dp"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="澳店干洗"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big" />
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
             android:layout_alignParentRight="true"
+            android:layout_margin="4dp"
             app:cardCornerRadius="8dp">
+
             <ImageView
                 android:id="@+id/iv_cut_hear_logo"
                 android:layout_width="90dp"
@@ -74,17 +75,19 @@
                 android:src="@mipmap/ic_default_rectangle" />
         </android.support.v7.widget.CardView>
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="@color/white"
-        android:padding="8dp">
+        android:padding="12dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -108,17 +111,19 @@
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="12dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -146,20 +151,20 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_line" />
 
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/ll_call"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="12dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -177,11 +182,11 @@
 
             <TextView
                 android:id="@+id/tv_phone"
-                android:textColor="@color/tv_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1234567890"
-                android:textSize="18sp" />
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_big" />
         </LinearLayout>
 
         <ImageView
@@ -193,19 +198,21 @@
             android:layout_marginRight="8dp"
             android:src="@drawable/turn_right" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/bg_page"
-        />
+        android:background="@color/bg_page" />
+
     <TextView
         android:id="@+id/tv_now_order"
-        android:background="@drawable/bt"
-        android:text="立即预约"
-        android:textColor="#fff"
-        android:gravity="center"
-        android:textSize="@dimen/sp_bigger"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_height" />
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="立即预约"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>

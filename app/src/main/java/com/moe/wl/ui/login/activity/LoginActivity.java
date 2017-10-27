@@ -1,5 +1,6 @@
 package com.moe.wl.ui.login.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -126,11 +128,32 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         }
         initTitle();
         //  ShareSDK.initSDK(this);
-        LogUtils.d("账号：" + SharedPrefHelper.getInstance().getPhoneNumber() + "密码：" + SharedPrefHelper.getInstance().getPassword());
         etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         etPsw.setText(SharedPrefHelper.getInstance().getPassword());
-//        etPsw.requestFocus(); // 获取焦点 光标出现
         etPsw.setSelection(SharedPrefHelper.getInstance().getPassword().length());
+        etUname.setCursorVisible(false);
+        etUname.setOnTouchListener(new View.OnTouchListener() {
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                    etUname.setCursorVisible(true);// 再次点击显示光标
+                }
+                return false;
+            }
+        });
+        etPsw.setOnTouchListener(new View.OnTouchListener() {
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                    etUname.setCursorVisible(true);// 再次点击显示光标
+                }
+                return false;
+            }
+        });
         lCbRemenberPwd.setChecked(SharedPrefHelper.getInstance().isRememberPassWord());
         etUname.addTextChangedListener(new TextWatcher() {
             @Override

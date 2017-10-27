@@ -43,12 +43,12 @@ public class ComfirmOrderWaterAdapter extends RecyclerView.Adapter {
         QueryWaterListBean.PageBean.ListBean listBean = mList.get(position);
         String img = listBean.getImg();
         int count = listBean.getCount();
-        int price = listBean.getPrice();
+        double price = listBean.getPrice();
         String name = listBean.getName();
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,img,viewHolder.ivPic);
-        viewHolder.tvCount.setText("x"+count);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, img, viewHolder.ivPic);
+        viewHolder.tvCount.setText("x" + count);
         viewHolder.tvDes.setText(name);
-        viewHolder.tvSum.setText("￥"+price);
+        viewHolder.tvSum.setText("￥" + price);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ComfirmOrderWaterAdapter extends RecyclerView.Adapter {
         return mList.size();
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_pic)
         ImageView ivPic;
         @BindView(R.id.tv_des)

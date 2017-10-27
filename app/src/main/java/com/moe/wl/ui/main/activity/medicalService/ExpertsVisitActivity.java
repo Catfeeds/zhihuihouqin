@@ -1,6 +1,8 @@
 package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
 import com.moe.wl.ui.main.activity.ReserveInfoActivity;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
 import com.moe.wl.ui.main.adapter.ExpertSelectTimeAdapter;
+import com.moe.wl.ui.main.adapter.ExpertSelectTimeDayAdapter;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.model.ExpertDetailModel;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
@@ -69,17 +73,21 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     TextView skilledInfo;
     @BindView(R.id.grid_view)
     NoSlidingGridView gridView;
+    @BindView(R.id.recycleView1)
+    RecyclerView recycleView1;
     @BindView(R.id.switch_button)
     SwitchButton switchButton;
 
     private List<CommentlistBean> data;
     private DoctorDetailrvAdapter adapter;
+    private ExpertSelectTimeDayAdapter dayAdapter;
     private ExpertSelectTimeAdapter timeAdapter;
 
     private int doctorID;
 
     private ExpertDetailBean.ExpertEntity entity;
-    private List<ExpertDetailBean.SchedulesEntity> timeData;
+    private List<ExpertDetailBean.SchedulesEntity> timeDayData;
+    private List<ExpertDetailBean.SchedulesEntity.SchedulelistEntity> timeData;
 
     private int timeID = 0;
     private String time;
@@ -92,7 +100,22 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     @Override
     public void initView() {
         entity = new ExpertDetailBean.ExpertEntity();
+        timeDayData = new ArrayList<>();
         timeData = new ArrayList<>();
+
+        dayAdapter = new ExpertSelectTimeDayAdapter(this, timeDayData, new ExpertSelectTimeDayAdapter.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                timeData.clear();
+                timeData.addAll(timeDayData.get(position).getSchedulelist());
+                timeAdapter.notifyDataSetChanged();
+            }
+        });
+
+        recycleView1.setLayoutManager(new LinearLayoutManager(
+                this, LinearLayoutManager.HORIZONTAL, false));
+        recycleView1.setAdapter(dayAdapter);
+
         timeAdapter = new ExpertSelectTimeAdapter(this, timeData, new ExpertSelectTimeAdapter.OnClickListener() {
             @Override
             public void onClick(int id, String timeString) {
@@ -100,8 +123,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 time = timeString;
             }
         });
-        gridView.setAdapter(timeAdapter);
 
+        gridView.setAdapter(timeAdapter);
         data = new ArrayList<>();
         adapter = new DoctorDetailrvAdapter(this, data, 1);
         recycleView.setLayoutManager(new NoScrollLinearLayoutManager(this));
@@ -159,8 +182,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvStarNum.setText(bean.getExpert().getScore() + "");// 分数
         ratingBar.setRating((float) bean.getExpert().getScore());
         skilledInfo.setText("擅长：" + bean.getExpert().getSkilledinfo());// 擅长
-        String personNum = bean.getExpert().getRemaincount() == null ? "0" : bean.getExpert().getRemaincount();
-        tvOrderPersonNum.setText(personNum + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
+        tvOrderPersonNum.setText(bean.getExpert().getRemaincount() + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间
         tvContent.setText(bean.getExpert().getBrief());// 简介
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getExpert().getPhoto(), ivDocPhoto, R.mipmap.ic_default_square);
@@ -169,10 +191,14 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
             data.addAll(bean.getCommentlist());
             adapter.notifyDataSetChanged();
         }
-        // 时间
+        // 时间(天)
         if (bean.getSchedules() != null) {
-            timeData.addAll(bean.getSchedules());
-            timeAdapter.notifyDataSetChanged();
+            timeDayData.addAll(bean.getSchedules());
+            dayAdapter.notifyDataSetChanged();
+            if (bean.getSchedules().size() > 0 && bean.getSchedules().get(0).getSchedulelist() != null) {
+                timeData.addAll(bean.getSchedules().get(0).getSchedulelist());
+                timeAdapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -186,4 +212,10 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         return new ExpertDetailModelImpl();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

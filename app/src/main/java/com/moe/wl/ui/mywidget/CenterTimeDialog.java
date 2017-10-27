@@ -7,15 +7,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.ui.main.wheelView.OnWheelScrollListener;
+import com.moe.wl.ui.main.wheelView.WheelView;
 import com.moe.wl.ui.main.wheelView.adapter.NumericWheelAdapter;
 
 import java.util.Calendar;
-
-import com.moe.wl.R;
-
-import com.moe.wl.ui.main.wheelView.OnWheelScrollListener;
-import com.moe.wl.ui.main.wheelView.WheelView;
 
 public class CenterTimeDialog extends Dialog implements View.OnClickListener {
 
@@ -25,9 +23,9 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
     private WheelView time;
     private WheelView min;
     private WheelView sec;
-    private int mYear=1996;
-    private int mMonth=0;
-    private int mDay=1;
+    private int mYear = 1996;
+    private int mMonth = 0;
+    private int mDay = 1;
     private Context ct;
     private int n_year;
     private int n_day;
@@ -63,18 +61,18 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         curYear = norYear;
-        curMonth = month+1;
+        curMonth = month + 1;
         curDate = day;
         curHour = 00;
         curMin = 00;
 
-        NumericWheelAdapter numericWheelAdapter1=new NumericWheelAdapter(ct,norYear,norYear+20 );
+        NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(ct, norYear, norYear + 20);
         numericWheelAdapter1.setLabel("年");
         year.setViewAdapter(numericWheelAdapter1);
         year.setCyclic(true);//是否可循环滑动
         year.addScrollingListener(scrollListener);
 
-        NumericWheelAdapter numericWheelAdapter2=new NumericWheelAdapter(ct,1, 12, "%02d");
+        NumericWheelAdapter numericWheelAdapter2 = new NumericWheelAdapter(ct, 1, 12, "%02d");
         numericWheelAdapter2.setLabel("月");
         this.month.setViewAdapter(numericWheelAdapter2);
         this.month.setCyclic(true);
@@ -84,13 +82,13 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         initDay(curYear, curMonth);
         this.day.setCyclic(true);
 
-        NumericWheelAdapter numericWheelAdapter3=new NumericWheelAdapter(ct,0, 23, "%02d");
+        NumericWheelAdapter numericWheelAdapter3 = new NumericWheelAdapter(ct, 0, 23, "%02d");
         numericWheelAdapter3.setLabel("时");
         min.setViewAdapter(numericWheelAdapter3);
         min.setCyclic(true);
         min.addScrollingListener(scrollListener);
 
-        NumericWheelAdapter numericWheelAdapter4=new NumericWheelAdapter(ct,0, 59, "%02d");
+        NumericWheelAdapter numericWheelAdapter4 = new NumericWheelAdapter(ct, 0, 59, "%02d");
         numericWheelAdapter4.setLabel("分");
         sec.setViewAdapter(numericWheelAdapter4);
         sec.setCyclic(true);
@@ -103,7 +101,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         min.setVisibleItems(7);
         sec.setVisibleItems(7);
 
-        year.setCurrentItem(curYear -2017);
+        year.setCurrentItem(curYear - 2017);
         this.month.setCurrentItem(curMonth - 1);
         this.day.setCurrentItem(curDate - 1);
         min.setCurrentItem(curHour);
@@ -137,16 +135,16 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
             curYear = year.getCurrentItem() + 2017;//月
             curMonth = month.getCurrentItem() + 1;
             curDate = day.getCurrentItem() + 1;
-            curHour = min.getCurrentItem() ;
-            curMin = sec.getCurrentItem() ;
+            curHour = min.getCurrentItem();
+            curMin = sec.getCurrentItem();
 
             //initDay(n_year, n_month);
             initDay(curYear, curMonth);
 
         }
     };
+
     /**
-     *
      * @param year
      * @param month
      * @return
@@ -181,13 +179,15 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         }
         return day;
     }
+
     /**
      */
     private void initDay(int arg1, int arg2) {
-        NumericWheelAdapter numericWheelAdapter=new NumericWheelAdapter(ct,1, getDay(arg1, arg2), "%02d");
+        NumericWheelAdapter numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(arg1, arg2), "%02d");
         numericWheelAdapter.setLabel("日");
         day.setViewAdapter(numericWheelAdapter);
     }
+
     private OnConfirmClickListener listener2;
 
     public void setListener2(OnConfirmClickListener listener2) {
@@ -196,23 +196,23 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-           case R.id.tv_cancel:
-               dismiss();
-            break;
+        switch (v.getId()) {
+            case R.id.tv_cancel:
+                dismiss();
+                break;
             case R.id.tv_confirm:
-                LogUtils.i(curYear+" "+curMonth+" "+curDate+" "+curHour+" "+curMin);
-                if(listener2!=null){
-                    listener2.onConfirmClickListener(curYear,curMonth,curDate,curHour,curMin);
-                }else{
+                LogUtils.i(curYear + " " + curMonth + " " + curDate + " " + curHour + " " + curMin);
+                if (listener2 != null) {
+                    listener2.onConfirmClickListener(curYear, curMonth, curDate, curHour, curMin);
+                } else {
                     LogUtils.i("listerner2为空");
                 }
                 dismiss();
-            break;
+                break;
         }
     }
 
-    public interface OnConfirmClickListener{
+    public interface OnConfirmClickListener {
         void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5);
     }
 }

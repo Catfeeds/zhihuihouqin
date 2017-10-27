@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_lai_fang"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -14,29 +15,43 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/laifang_title"
-        android:background="@color/gray_lighter" />
+        android:layout_height="1px"
+        android:layout_below="@id/laifang_title"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/tv_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:paddingBottom="@dimen/normal_padding"
+        android:paddingTop="@dimen/normal_padding"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_big" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/view"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_commit"
+        android:layout_below="@id/view">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -47,26 +62,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:ellipsize="end"
                     android:gravity="right"
                     android:hint="请输入姓名"
+                    android:maxLines="1"
                     android:textColor="@color/tv_black"
-                    android:textColorHint="@color/tv_gray"
+                    android:textColorHint="@color/gray"
                     android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -77,27 +94,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:ellipsize="end"
                     android:gravity="right"
-                    android:inputType="number"
                     android:hint="请输入手机号"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:textColor="@color/tv_black"
-                    android:textColorHint="@color/tv_gray"
+                    android:textColorHint="@color/gray"
                     android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -108,52 +127,67 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:ellipsize="end"
                     android:gravity="right"
                     android:hint="请输入房间号"
                     android:inputType="number"
+                    android:maxLines="1"
                     android:textColor="@color/tv_black"
-                    android:textColorHint="@color/tv_gray"
+                    android:textColorHint="@color/gray"
                     android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/rl_laifangshiyou"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_padding">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="来访事由" />
+
+                <TextView
+                    android:id="@+id/text_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/turn_right" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/gray_trans" />
+                android:layout_height="5dp"
+                android:background="@color/gray_line" />
 
             <RelativeLayout
                 android:id="@+id/rl_revice_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -182,17 +216,17 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <RelativeLayout
                 android:id="@+id/rl_likai_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -220,8 +254,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -229,7 +263,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/tvStyle_black_small"
+                    style="@style/tvStyle_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -243,7 +277,7 @@
                     android:layout_marginLeft="8dp"
                     android:checkedButton="@+id/b1"
                     android:orientation="horizontal"
-                    android:padding="@dimen/standard_padding">
+                    android:padding="@dimen/normal_padding">
                     <!--默认选中b1-->
                     <RadioButton
                         android:id="@+id/rb_once"
@@ -284,23 +318,23 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@color/gray_trans" />
+                    android:layout_height="5dp"
+                    android:background="@color/gray_line" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding"
+                android:padding="@dimen/normal_padding"
                 android:text="车辆信息"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:id="@+id/rl_car_type"
@@ -308,7 +342,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -322,27 +356,29 @@
                     android:id="@+id/et_car_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="right"
                     android:hint="请输入车辆类型"
+                    android:maxLines="1"
                     android:textColor="@color/tv_black"
-                    android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_common" />
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/sp_small" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray_lighter" />
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding"
+                android:padding="@dimen/normal_padding"
                 android:text="车牌号"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -377,26 +413,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/gray_trans"
-                android:gravity="top"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:padding="@dimen/standard_padding"
-                android:text="提示:占无车辆信息可以填写" />
+                android:text="提示:暂无车辆信息可以填写"
+                android:textColor="@color/tv_gray"
+                android:textSize="@dimen/sp_smaller" />
         </LinearLayout>
     </ScrollView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_lighter" />
-
-    <TextView
-        android:id="@+id/tv_commit"
-        style="@style/tvStyle_tv_black"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:text="提交"
-        android:textSize="@dimen/sp_big" />
-</LinearLayout>
+</RelativeLayout>

@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_item"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="10dp">
 
         <ImageView
+            android:id="@+id/image"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/search" />
+            android:layout_alignParentRight="true"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_toLeftOf="@id/num"
+            android:layout_toRightOf="@id/image"
+            android:maxLines="2"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_big" />
 
         <TextView
             android:id="@+id/content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_alignLeft="@id/title"
+            android:layout_below="@id/title"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/image"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:textColor="@color/tv_black"
+            android:maxLines="2"
+            android:textColor="@color/tv_gray"
+            android:textSize="@dimen/sp_small" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/image"
+            android:layout_alignLeft="@id/title"
+            android:textColor="@color/red"
             android:textSize="@dimen/sp_big" />
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

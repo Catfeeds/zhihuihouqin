@@ -103,6 +103,11 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="tvStyle_small">
+        <item name="android:textColor">@color/tv_black</item>
+        <item name="android:textSize">@dimen/sp_small</item>
+    </style>
+
     <style name="tvStyle_black_smaller">
         <item name="android:textColor">@color/tv_black</item>
         <item name="android:textSize">@dimen/sp_smaller</item>

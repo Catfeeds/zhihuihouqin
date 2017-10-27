@@ -9,6 +9,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.Arith;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
@@ -21,6 +22,7 @@ import com.moe.wl.ui.main.modelimpl.ConfirmVegetableOrderModelImpl;
 import com.moe.wl.ui.main.presenter.ConfirmVegetableOrderPresenter;
 import com.moe.wl.ui.main.view.ConfirmVegetableOrderView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +53,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
 
     private VegetableOrderAdapter adapter;
 
-    private float priceNum = 0;
+    private double priceNum = 0;
     private int vegetableNum = 0;
 
     private int timeID = 0;
@@ -78,13 +80,14 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         list = new ArrayList<>();
         data = (List<VegetableBean.PageEntity.ListEntity>) getIntent().getSerializableExtra("Data");
         for (int i = 0; i < data.size(); i++) {
-            priceNum += data.get(i).getPrice() * data.get(i).getNumber();
+            priceNum = Arith.add(priceNum, data.get(i).getPrice() * data.get(i).getNumber());
             vegetableNum += data.get(i).getNumber();
             if (data.get(i).getNumber() > 0) {
                 list.add(data.get(i));
             }
         }
-        price.setText("¥" + priceNum);
+        DecimalFormat df = new DecimalFormat("###.00");
+        price.setText("¥" + df.format(priceNum));
         submit.setText("去结算(" + vegetableNum + ")");
         adapter = new VegetableOrderAdapter(this, list);
         listView.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.moe.wl.ui.main.activity;
+package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Intent;
 import android.view.View;
@@ -12,6 +12,7 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.bean.ExpertOrderBean;
 import com.moe.wl.ui.main.model.ExpertOrderModel;
@@ -89,10 +90,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
         OtherUtils.ratingBarColor(ratingBar, this);
         ratingBar.setRating((float) entity.getScore());
         tvStarNum.setText(entity.getScore() + "");
-        if (entity.getRemaincount() != null && entity.getInvitetotalcount() > 0)
-            reservationNum.setText(Integer.parseInt(entity.getRemaincount()) + 1 + "/" + entity.getInvitetotalcount());
-        else
-            reservationNum.setText("0/" + entity.getInvitetotalcount());
+        reservationNum.setText(Integer.parseInt(entity.getRemaincount() + 1 + "/" + entity.getInvitetotalcount()));
     }
 
     @OnClick(R.id.tv_commit)

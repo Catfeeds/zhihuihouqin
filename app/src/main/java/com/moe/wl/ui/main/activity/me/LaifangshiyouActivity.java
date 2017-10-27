@@ -1,34 +1,31 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.widget.TitleBar;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import com.moe.wl.R;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.model.SaveAdviceModel;
 import com.moe.wl.ui.main.modelimpl.SaveAdviceModelImpl;
 import com.moe.wl.ui.main.presenter.SaveAdvicePresenter;
 import com.moe.wl.ui.main.view.SaveAdviceView;
 
-public class LaifangshiyouActivity extends BaseActivity<SaveAdviceModel,SaveAdviceView,SaveAdvicePresenter> implements SaveAdviceView {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class LaifangshiyouActivity extends BaseActivity<SaveAdviceModel, SaveAdviceView, SaveAdvicePresenter> implements SaveAdviceView {
 
     @BindView(R.id.title)
     TitleBar title;
     @BindView(R.id.et_shiyou)
     EditText etShiyou;
-    @BindView(R.id.tb_confirm)
-    Button tbConfirm;
+
     private String from;
+    private String reason = "";
 
     @Override
     public SaveAdvicePresenter createPresenter() {
@@ -49,6 +46,7 @@ public class LaifangshiyouActivity extends BaseActivity<SaveAdviceModel,SaveAdvi
     @Override
     public void initView() {
         from = getIntent().getStringExtra("from");
+        reason = getIntent().getStringExtra("arriveReason");
         initTitle();
     }
 
@@ -59,6 +57,8 @@ public class LaifangshiyouActivity extends BaseActivity<SaveAdviceModel,SaveAdvi
             title.setBack(true);
         } else {
             etShiyou.setHint("请输入来访事由");
+            etShiyou.setText(reason);
+//            etShiyou.setSelection(reason.length());
             title.setTitle("来访事由");
             title.setBack(true);
         }
@@ -81,7 +81,7 @@ public class LaifangshiyouActivity extends BaseActivity<SaveAdviceModel,SaveAdvi
 
     @Override
     public void saveAdviceResult(ActivityPostBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             showToast("提交反馈成功");
         }
     }

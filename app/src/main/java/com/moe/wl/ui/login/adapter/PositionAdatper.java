@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.ui.login.bean.PositionListBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.ui.login.bean.PositionListBean;
 
 /**
  * Created by 我的电脑 on 2017/9/4 0004.
@@ -38,8 +39,8 @@ public class PositionAdatper extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        if(date!=null){
-            viewHolder.setDate(date.get(position),position);
+        if (date != null) {
+            viewHolder.setDate(date.get(position), position);
 
         }
     }
@@ -52,14 +53,14 @@ public class PositionAdatper extends RecyclerView.Adapter {
         return 0;
     }
 
-    private int selectPosition=0;
+    private int selectPosition = -1;
 
     public void setDate(List<PositionListBean.PositionlistBean> date) {
         this.date = date;
         notifyDataSetChanged();
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_position)
         TextView tvPosition;
         @BindView(R.id.iv_select)
@@ -72,8 +73,8 @@ public class PositionAdatper extends RecyclerView.Adapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectPosition=mPosition;
-                    if(lister!=null){
+                    selectPosition = mPosition;
+                    if (lister != null) {
                         lister.itemClickLister(selectPosition);
                     }
                     notifyDataSetChanged();
@@ -83,22 +84,23 @@ public class PositionAdatper extends RecyclerView.Adapter {
         }
 
         public void setDate(PositionListBean.PositionlistBean positionlistBean, int position) {
-            this.mPosition=position;
+            this.mPosition = position;
             tvPosition.setText(positionlistBean.getName());
-            if(selectPosition==position){
+            if (selectPosition == position) {
                 ivSelect.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 ivSelect.setVisibility(View.GONE);
             }
         }
     }
+
     private OnClickLister lister;
 
     public void setLister(OnClickLister lister) {
         this.lister = lister;
     }
 
-    public interface OnClickLister{
+    public interface OnClickLister {
         void itemClickLister(int position);
     }
 }

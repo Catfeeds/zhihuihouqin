@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,8 +53,6 @@ public class SettingAct extends Base2Activity {
     RelativeLayout rlVersion;
     @BindView(R.id.rl_about_us)
     RelativeLayout rlAboutUs;
-    @BindView(R.id.bt_out_login)
-    Button btOutLogin;
     @BindView(R.id.activity_setting)
     LinearLayout activitySetting;
 

@@ -10,20 +10,12 @@ import java.util.List;
 
 public class ExpertDetailBean implements Serializable {
 
-    private String msg;
     private ExpertEntity expert;
-    private int totalcommentcount;
     private int errCode;
-    private List<CommentlistBean> commentlist;
+    private int totalcommentcount;
+    private String msg;
     private List<SchedulesEntity> schedules;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    private List<CommentlistBean> commentlist;
 
     public ExpertEntity getExpert() {
         return expert;
@@ -31,14 +23,6 @@ public class ExpertDetailBean implements Serializable {
 
     public void setExpert(ExpertEntity expert) {
         this.expert = expert;
-    }
-
-    public int getTotalcommentcount() {
-        return totalcommentcount;
-    }
-
-    public void setTotalcommentcount(int totalcommentcount) {
-        this.totalcommentcount = totalcommentcount;
     }
 
     public int getErrCode() {
@@ -49,12 +33,20 @@ public class ExpertDetailBean implements Serializable {
         this.errCode = errCode;
     }
 
-    public List<CommentlistBean> getCommentlist() {
-        return commentlist;
+    public int getTotalcommentcount() {
+        return totalcommentcount;
     }
 
-    public void setCommentlist(List<CommentlistBean> commentlist) {
-        this.commentlist = commentlist;
+    public void setTotalcommentcount(int totalcommentcount) {
+        this.totalcommentcount = totalcommentcount;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public List<SchedulesEntity> getSchedules() {
@@ -63,6 +55,14 @@ public class ExpertDetailBean implements Serializable {
 
     public void setSchedules(List<SchedulesEntity> schedules) {
         this.schedules = schedules;
+    }
+
+    public List<CommentlistBean> getCommentlist() {
+        return commentlist;
+    }
+
+    public void setCommentlist(List<CommentlistBean> commentlist) {
+        this.commentlist = commentlist;
     }
 
     public static class ExpertEntity implements Serializable {
@@ -77,8 +77,8 @@ public class ExpertDetailBean implements Serializable {
         private String photo;
         private String positionname;
         private String realname;
-        private String remaincount;
-        private double score;
+        private int remaincount;
+        private int score;
         private String skilledinfo;
         private int valid;
         private String worktime;
@@ -99,6 +99,14 @@ public class ExpertDetailBean implements Serializable {
             this.consultcount = consultcount;
         }
 
+        public String getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(String createtime) {
+            this.createtime = createtime;
+        }
+
         public String getHospitalName() {
             return hospitalName;
         }
@@ -113,6 +121,14 @@ public class ExpertDetailBean implements Serializable {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public int getInvitetotalcount() {
+            return invitetotalcount;
+        }
+
+        public void setInvitetotalcount(int invitetotalcount) {
+            this.invitetotalcount = invitetotalcount;
         }
 
         public String getMobile() {
@@ -147,11 +163,19 @@ public class ExpertDetailBean implements Serializable {
             this.realname = realname;
         }
 
-        public double getScore() {
+        public int getRemaincount() {
+            return remaincount;
+        }
+
+        public void setRemaincount(int remaincount) {
+            this.remaincount = remaincount;
+        }
+
+        public int getScore() {
             return score;
         }
 
-        public void setScore(double score) {
+        public void setScore(int score) {
             this.score = score;
         }
 
@@ -163,12 +187,123 @@ public class ExpertDetailBean implements Serializable {
             this.skilledinfo = skilledinfo;
         }
 
+        public int getValid() {
+            return valid;
+        }
+
+        public void setValid(int valid) {
+            this.valid = valid;
+        }
+
         public String getWorktime() {
             return worktime;
         }
 
         public void setWorktime(String worktime) {
             this.worktime = worktime;
+        }
+    }
+
+    public static class SchedulesEntity implements Serializable {
+
+        private String scheduleDate;
+        private List<SchedulelistEntity> schedulelist;
+
+        public String getScheduleDate() {
+            return scheduleDate;
+        }
+
+        public void setScheduleDate(String scheduleDate) {
+            this.scheduleDate = scheduleDate;
+        }
+
+        public List<SchedulelistEntity> getSchedulelist() {
+            return schedulelist;
+        }
+
+        public void setSchedulelist(List<SchedulelistEntity> schedulelist) {
+            this.schedulelist = schedulelist;
+        }
+
+        public static class SchedulelistEntity implements Serializable {
+
+            private String endtime;
+            private int id;
+            private int periodtype;
+            private String starttime;
+            private int status;
+
+            public String getEndtime() {
+                return endtime;
+            }
+
+            public void setEndtime(String endtime) {
+                this.endtime = endtime;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getPeriodtype() {
+                return periodtype;
+            }
+
+            public void setPeriodtype(int periodtype) {
+                this.periodtype = periodtype;
+            }
+
+            public String getStarttime() {
+                return starttime;
+            }
+
+            public void setStarttime(String starttime) {
+                this.starttime = starttime;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+        }
+    }
+
+    /*public static class CommentlistEntity implements Serializable {
+
+        private int anonymous;
+        private String content;
+        private String createtime;
+        private int doctorid;
+        private int id;
+        private String imgs;
+        private int orderid;
+        private String photo;
+        private String realname;
+        private int score;
+        private int servicescore;
+        private int uid;
+
+        public int getAnonymous() {
+            return anonymous;
+        }
+
+        public void setAnonymous(int anonymous) {
+            this.anonymous = anonymous;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
         }
 
         public String getCreatetime() {
@@ -179,45 +314,12 @@ public class ExpertDetailBean implements Serializable {
             this.createtime = createtime;
         }
 
-        public int getInvitetotalcount() {
-            return invitetotalcount;
+        public int getDoctorid() {
+            return doctorid;
         }
 
-        public void setInvitetotalcount(int invitetotalcount) {
-            this.invitetotalcount = invitetotalcount;
-        }
-
-        public String getRemaincount() {
-            return remaincount;
-        }
-
-        public void setRemaincount(String remaincount) {
-            this.remaincount = remaincount;
-        }
-
-        public int getValid() {
-            return valid;
-        }
-
-        public void setValid(int valid) {
-            this.valid = valid;
-        }
-    }
-
-    public static class SchedulesEntity implements Serializable {
-
-        private String endtime;
-        private int id;
-        private int periodtype;
-        private String starttime;
-        private int status;
-
-        public String getEndtime() {
-            return endtime;
-        }
-
-        public void setEndtime(String endtime) {
-            this.endtime = endtime;
+        public void setDoctorid(int doctorid) {
+            this.doctorid = doctorid;
         }
 
         public int getId() {
@@ -228,28 +330,60 @@ public class ExpertDetailBean implements Serializable {
             this.id = id;
         }
 
-        public int getPeriodtype() {
-            return periodtype;
+        public String getImgs() {
+            return imgs;
         }
 
-        public void setPeriodtype(int periodtype) {
-            this.periodtype = periodtype;
+        public void setImgs(String imgs) {
+            this.imgs = imgs;
         }
 
-        public String getStarttime() {
-            return starttime;
+        public int getOrderid() {
+            return orderid;
         }
 
-        public void setStarttime(String starttime) {
-            this.starttime = starttime;
+        public void setOrderid(int orderid) {
+            this.orderid = orderid;
         }
 
-        public int getStatus() {
-            return status;
+        public String getPhoto() {
+            return photo;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setPhoto(String photo) {
+            this.photo = photo;
         }
-    }
+
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
+        }
+
+        public int getServicescore() {
+            return servicescore;
+        }
+
+        public void setServicescore(int servicescore) {
+            this.servicescore = servicescore;
+        }
+
+        public int getUid() {
+            return uid;
+        }
+
+        public void setUid(int uid) {
+            this.uid = uid;
+        }
+    }*/
 }

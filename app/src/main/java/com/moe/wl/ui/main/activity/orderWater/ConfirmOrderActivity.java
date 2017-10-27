@@ -14,6 +14,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.Arith;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
@@ -22,9 +23,9 @@ import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
-import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
@@ -42,6 +43,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,9 +154,11 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
         sum = 0;
         for (int i = 0; i < list.size(); i++) {
             int count = list.get(i).getCount();
-            int price = list.get(i).getPrice();
-            sum += count * price;
+            double price = list.get(i).getPrice();
+            sum = Arith.add(sum, count * price);
         }
+        BigDecimal bg = new BigDecimal(sum);
+        sum = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         tvShopAmout.setText("￥" + sum);
         tvHowMuch.setText("实际付款￥" + sum);
         // 初始化 列表

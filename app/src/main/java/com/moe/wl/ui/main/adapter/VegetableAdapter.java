@@ -28,6 +28,7 @@ public class VegetableAdapter extends RecyclerView.Adapter {
     private List<VegetableBean.PageEntity.ListEntity> data;
     private OnAddClickListener addClickListener;
     private OnMinusClickListener minusClickListener;
+    private OnImageClickListener imageClickListener;
 
     public VegetableAdapter(Context context, List<VegetableBean.PageEntity.ListEntity> data) {
         this.context = context;
@@ -92,6 +93,14 @@ public class VegetableAdapter extends RecyclerView.Adapter {
             }
         });
 
+        h.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageClickListener!=null)
+                    imageClickListener.onImageClick(data.get(position).getImg());
+            }
+        });
+
     }
 
     @Override
@@ -137,5 +146,13 @@ public class VegetableAdapter extends RecyclerView.Adapter {
 
     public interface OnMinusClickListener {
         void onMinusClick(int position, int num);
+    }
+
+    public void setOnImageClickListener(OnImageClickListener imageClickListener) {
+        this.imageClickListener = imageClickListener;
+    }
+
+    public interface OnImageClickListener {
+        void onImageClick(String imageUrl);
     }
 }

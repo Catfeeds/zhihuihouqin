@@ -13,22 +13,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.activity.PositionActivity;
-import com.moe.wl.ui.login.bean.UserInfo;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.ChangeUserInfo;
 import com.moe.wl.ui.main.bean.UpLoadHeaderBean;
@@ -54,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
+import mvp.cn.util.ToastUtil;
 
 public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoView, UserInfoPresenter> implements UserInfoView {
 
@@ -101,7 +98,6 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
 
     private boolean isEdit = false;
     private int positionId;
-    private String sex;
     private int sexid;
     private Bitmap mBitmap;
     protected static final int CHOOSE_PICTURE = 0;
@@ -116,6 +112,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     private String tel;
     private String buildNum;
     private String roomNum;
+    private String sex;
 
     @Override
     public UserInfoPresenter createPresenter() {
@@ -144,8 +141,8 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         titleBar.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isEdit = !isEdit;
-                if (isEdit) {//可编辑
+                if (!isEdit) {//可编辑
+                    isEdit = !isEdit;
                     tvNicheng.setFocusableInTouchMode(true);
                     tvNicheng.setFocusable(true);
                     tvNicheng.requestFocus();
@@ -164,9 +161,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                     rlSex.setClickable(true);
                     rlPosition.setClickable(true);
                     rlHeader.setClickable(true);
-
                     titleBar.setTitleRight("完成");
-
                 } else {//不可编辑
                     tvNicheng.setFocusable(false);
                     tvNicheng.setFocusableInTouchMode(false);
@@ -196,11 +191,10 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         });
         //获取用户信息
         getPresenter().getUserInfo();
-
     }
 
     private void userInfoCheck() {
-        String sex = tvSex.getText().toString();
+        sex = tvSex.getText().toString();
         if ("男".equals(sex)) {
             sexid = 1;
         } else {
@@ -216,11 +210,16 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
             showToast("请将个人信息填写完整");
             return;
         }
+        isEdit = !isEdit;
         getPresenter().changeUserInfo(sexid, nickname, url, positionId, tel, roomNum, phone, buildNum);
     }
 
     @OnClick({R.id.rl_header, R.id.rl_sex, R.id.rl_position})
     public void onViewClicked(View view) {
+        if (!isEdit) {
+            ToastUtil.showToast(this, "点击编辑后才可修改资料");
+            return;
+        }
         switch (view.getId()) {
             case R.id.rl_header:
                 final StringListDialog dialog = new StringListDialog(this, R.style.dialog_style);
@@ -252,6 +251,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                 break;
             case R.id.rl_sex:
                 Intent intent = new Intent(this, SexActivity.class);
+                intent.putExtra("sex", tvSex.getText().toString().trim());
                 startActivityForResult(intent, SEXREQUESTCODE);
                 break;
             case R.id.rl_position:
@@ -276,7 +276,6 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.CAMERA)
                 .request();
-
     }
 
     @Override
@@ -294,7 +293,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         // 将拍照所得的相片保存到SD卡根目录
         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
         startActivityForResult(openCameraIntent, TAKE_PICTURE);
-        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
     }
 
     @PermissionSuccess(requestCode = 200)
@@ -304,17 +303,17 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         openAlbumIntent.setType("image/*");
         //用startActivityForResult方法，待会儿重写onActivityResult()方法，拿到图片做裁剪操作
         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
-        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
     }
 
     @PermissionFail(requestCode = 100)
     public void doFailSomething() {
-        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
 
     @PermissionFail(requestCode = 200)
     public void doFailSomething2() {
-        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -326,6 +325,10 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                     cutImage(tempUri); // 对图片进行裁剪处理
                     break;
                 case CHOOSE_PICTURE:
+                    if (data.getData() == null) {
+                        LogUtils.d("Data为空！");
+                        return;
+                    }
                     cutImage(data.getData()); // 对图片进行裁剪处理
                     break;
                 case CROP_SMALL_PICTURE:
@@ -422,13 +425,13 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     @Override
     public void getUserInfoSucc(UserInfoBean bean) {
         if (bean != null) {
-            UserInfoBean.UserinfoBean userinfo = bean.getUserinfo();
+            UserInfoBean.UserinfoEntity userinfo = bean.getUserinfo();
             if (userinfo.getSex() == 1) {
                 tvSex.setText("男");
             } else {
                 tvSex.setText("女");
             }
-            url=userinfo.getPhoto();
+            url = userinfo.getPhoto();
             Glide.with(this).load(url).into(iv_header);
             tvNicheng.setText(userinfo.getNickname());
             tvId.setText(userinfo.getId() + "");
@@ -438,9 +441,8 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
             tvPosition.setText(userinfo.getPosition());
             etBuildNum.setText(userinfo.getBuildnum());
             //通知头像和昵称发生变化
-            EventBus.getDefault().post(new ChangeUserInfo(url,userinfo.getNickname()));
+            EventBus.getDefault().post(new ChangeUserInfo(url, userinfo.getNickname(), userinfo.getPosition()));
         }
-
     }
 
     //修改用户信息结果
@@ -454,16 +456,15 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                 SharedPrefHelper.getInstance().setPhoneNumber(phone);
                 SharedPrefHelper.getInstance().setuserPhoto(url);
                 SharedPrefHelper.getInstance().setNickname(nickName);
-                if(sexid==1){
+                if (sexid == 1) {
                     SharedPrefHelper.getInstance().setSex("男");
-                }else{
+                } else {
                     SharedPrefHelper.getInstance().setSex("女");
                 }
-
                 //通知头像和昵称发生变化
-                EventBus.getDefault().post(new ChangeUserInfo(url,nickName));
+                EventBus.getDefault().post(new ChangeUserInfo(url, nickName, tvPosition.getText().toString()));
             } else {
-                showToast("修改信息失败了");
+                showToast("修改信息失败");
             }
         }
     }

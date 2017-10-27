@@ -36,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="￥0.5"
             android:textColor="@color/tv_red"
             android:textSize="@dimen/sp_small" />
     </RelativeLayout>
@@ -124,14 +123,18 @@
         android:id="@+id/rl_wx_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp">
 
 
         <ImageView
             android:id="@+id/iv_weixin_pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/recharge_wechat" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/pay_wechat" />
 
         <TextView
             android:id="@+id/tv_weixin_pay"
@@ -148,9 +151,9 @@
             android:id="@+id/iv_weixin_pay_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
             android:src="@drawable/unselect" />
 
 
@@ -166,13 +169,17 @@
         android:id="@+id/rl_alipay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp">
 
         <ImageView
             android:id="@+id/iv_alpay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/recharge_alipay" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/pay_ali" />
 
         <TextView
             android:id="@+id/tv_alpay"
@@ -190,8 +197,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="2dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
             android:src="@drawable/unselect" />
 
 
@@ -207,8 +214,8 @@
         android:id="@+id/rl_daijinquan_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_daijinquan"
@@ -230,10 +237,10 @@
         <ImageView
             android:id="@+id/iv_daijinjuan_check"
             android:layout_width="wrap_content"
-            android:layout_marginRight="2dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
             android:src="@drawable/unselect" />
 
         <!-- <View
@@ -251,18 +258,18 @@
         android:layout_weight="1"
         android:background="@color/gray_trans">
 
-        <Button
+        <TextView
             android:id="@+id/bt_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="24dp"
-            android:background="@color/gray"
+            android:background="@drawable/bg_blue_rounded"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="12dp"
             android:text="确定"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_small" />
+            android:textSize="@dimen/sp_big" />
     </FrameLayout>
 
 

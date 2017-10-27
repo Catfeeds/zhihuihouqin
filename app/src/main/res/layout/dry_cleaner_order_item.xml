@@ -2,21 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_padding">
+        android:orientation="horizontal"
+        android:padding="@dimen/normal_padding">
 
         <TextView
             android:id="@+id/tv_category"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="夹克"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text=""
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_count"
@@ -26,7 +31,7 @@
             android:layout_marginRight="80dp"
             android:text="x1"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -34,10 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="￥0.0"
-
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common" />
-    </RelativeLayout>
+            android:textSize="@dimen/sp_small" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

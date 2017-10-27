@@ -10,6 +10,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
+import com.moe.wl.ui.main.activity.medicalService.ConfirmOrderActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

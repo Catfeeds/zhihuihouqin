@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -37,8 +36,6 @@ import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscriber;
 
-import static com.moe.wl.R.id.laifang_title;
-
 public class LaiFangActivity extends Base2Activity {
 
     private static final int LAIFANGSHIYOUREQUEST = 10;
@@ -53,8 +50,6 @@ public class LaiFangActivity extends Base2Activity {
     EditText etPhone;
     @BindView(R.id.et_room_num)
     EditText etRoomNum;
-    @BindView(R.id.rl_laifangshiyou)
-    RelativeLayout rlLaifangshiyou;
     @BindView(R.id.arrave_time)
     TextView arraveTime;
     @BindView(R.id.rl_revice_time)
@@ -86,7 +81,9 @@ public class LaiFangActivity extends Base2Activity {
     @BindView(R.id.tv_commit)
     TextView tvCommit;
     @BindView(R.id.activity_lai_fang)
-    LinearLayout activityLaiFang;
+    RelativeLayout activityLaiFang;
+    @BindView(R.id.text_reason)
+    TextView textReason;
 
     private String str;
     private List<String> lists = Arrays.asList("京", "津", "冀", "晋", "蒙", "辽",
@@ -149,8 +146,6 @@ public class LaiFangActivity extends Base2Activity {
             }
         };
         etChepaihao.addTextChangedListener(watcher);
-
-
     }
 
     @OnClick({R.id.tv_commit, R.id.tv_shengfen, R.id.rl_laifangshiyou, R.id.rl_revice_time, R.id.rl_likai_time})
@@ -164,6 +159,7 @@ public class LaiFangActivity extends Base2Activity {
                 break;
             case R.id.rl_laifangshiyou:
                 Intent intent = new Intent(this, LaifangshiyouActivity.class);
+                intent.putExtra("arriveReason", shiyou);
                 startActivityForResult(intent, LAIFANGSHIYOUREQUEST);
                 break;
             case R.id.rl_revice_time:
@@ -189,17 +185,17 @@ public class LaiFangActivity extends Base2Activity {
 
         String telRegex = "[1][358]\\d{9}";
 
-        if(!mobile.matches(telRegex)){
+        if (!mobile.matches(telRegex)) {
             showToast("请输入正确的手机号");
-            return ;
+            return;
         }
-        if(TextUtils.isEmpty(username)||TextUtils.isEmpty(arriveTime)||TextUtils.isEmpty(roomunm)||
-                TextUtils.isEmpty(shengfen)||TextUtils.isEmpty(shiyou)||TextUtils.isEmpty(tvleaveTime)||
-                TextUtils.isEmpty(carType)){
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(arriveTime) || TextUtils.isEmpty(roomunm) ||
+                TextUtils.isEmpty(shengfen) || TextUtils.isEmpty(shiyou) || TextUtils.isEmpty(tvleaveTime) ||
+                TextUtils.isEmpty(carType)) {
             showToast("请将信息填写完整");
-            return ;
+            return;
         }
-        Observable observable = RetrofitUtils.getInstance().postBaifagnInfo(username, mobile, roomunm, shiyou, arriveTime, tvleaveTime, visitperiod+"", carType, str);
+        Observable observable = RetrofitUtils.getInstance().postBaifagnInfo(username, mobile, roomunm, shiyou, arriveTime, tvleaveTime, visitperiod + "", carType, str);
         showProgressDialog();
         observable.subscribe(new Subscriber<ActivityPostBean>() {
             @Override
@@ -233,10 +229,21 @@ public class LaiFangActivity extends Base2Activity {
         dialog.setListener2(new CenterTimeDialog.OnConfirmClickListener() {
             @Override
             public void onConfirmClickListener(int i1, int i2, int i3, int i4, int i5) {
-                if (isArrive) {
-                    arraveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                String hour, minute;
+                if (i4 < 10) {
+                    hour = "0" + i4;
                 } else {
-                    leaveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                    hour = "" + i4;
+                }
+                if (i5 < 10) {
+                    minute = "0" + i5;
+                } else {
+                    minute = "" + i5;
+                }
+                if (isArrive) {
+                    arraveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute);
+                } else {
+                    leaveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute);
                 }
 
             }
@@ -255,13 +262,13 @@ public class LaiFangActivity extends Base2Activity {
         // 设置窗口的内容页面,alertdialog.xml文件中定义view内容
         window.setContentView(R.layout.view_car_alertdialog);
         GridView gv = (GridView) window.findViewById(R.id.gv_car_num);
-        ArrayAdapter<String> adapter = null;
+        ArrayAdapter<String> adapter;
         if (isFirst) {
             str = "";
-            tvShengfen.setText(str);
-            adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, R.id.tv_item, lists);
+//            tvShengfen.setText(str);
+            adapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, R.id.tv_item, lists);
         } else {
-            adapter = new ArrayAdapter<String>(this, R.layout.simple_list_item_1, R.id.tv_item, listTwo);
+            adapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, R.id.tv_item, listTwo);
 
         }
         gv.setAdapter(adapter);
@@ -273,9 +280,9 @@ public class LaiFangActivity extends Base2Activity {
                     show(false);
                 } else {
                     str += listTwo.get(position);
+                    tvShengfen.setText(str);
                 }
                 dlg.cancel();
-                tvShengfen.setText(str);
             }
         });
     }
@@ -286,6 +293,7 @@ public class LaiFangActivity extends Base2Activity {
         if (data != null) {
             if (requestCode == LAIFANGSHIYOUREQUEST && resultCode == Constants.SHIYOU) {
                 shiyou = data.getStringExtra("shiyou");
+                textReason.setText(shiyou);
             }
         }
     }

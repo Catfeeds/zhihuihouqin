@@ -14,6 +14,8 @@ import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
 import com.moe.wl.ui.main.activity.me.LaiFangActivity;
@@ -45,7 +47,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     // 我的报修 标题
     private static final String orderRepairs = "待接单,已接单,已完成,待评价,已取消";
     // 办公用品 标题
-    private static final String orderOfficeSupplies = "已下单,配送中,已完成,待评价,已取消";
+    private static final String orderOfficeSupplies = "待发货,配送中,已完成,待评价,已取消";
     // 我的订餐 标题
     private static final String orderFood = "已下单,已完成,待评价,已取消";
     // 理发订单 标题
@@ -242,7 +244,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
-        sysColor=R.color.font_blue;
+        sysColor = R.color.font_blue;
         setContentView(R.layout.f_tab4);
     }
 
@@ -261,7 +263,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeUserInfo event) {
         Glide.with(getActivity()).load(event.getUrl()).placeholder(R.drawable.avatar2).into(civHeader);
-        tvName.setText(event.getNickName());
+        tvName.setText(event.getPosition() + "~" + event.getNickName());
     }
 
     @Override
@@ -542,7 +544,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 goServiceActivity(4, Constants.CONFERENCE, orderConference);
                 break;
 
-            case R.id.rl_laifang_person: // 来访
+            case R.id.rl_laifang_person: // 来访人员
                 Intent intent5 = new Intent(getActivity(), LaiFangActivity.class);
                 startActivity(intent5);
                 break;
@@ -583,26 +585,35 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
         unbinder1.unbind();
     }*/
 
-
-
     @Override
     public void getUserInfo(UserInfoBean bean) {
-        if(bean!=null){
-            UserInfoBean.UserinfoBean userinfo = bean.getUserinfo();
-            if(userinfo!=null){
-                Glide.with(this).load(userinfo.getPhoto()).placeholder(R.drawable.avatar2).into(civHeader);
-                if (TextUtils.isEmpty(userinfo.getNickname())){
-                    tvName.setText("暂无昵称");
-                }else{
-                    tvName.setText(userinfo.getNickname());
-                }
-                if(userinfo.getAuthStatus()==0){
-                    tvAuth.setText("认证完成");
-                }else{
-                    tvAuth.setText("未完成认证");
-                }
+        UserInfoBean.UserinfoEntity userinfo = bean.getUserinfo();
+        if (userinfo != null) {
+//            Glide.with(this).load(userinfo.getPhoto()).placeholder(R.drawable.avatar2).into(civHeader);
+            SharedPrefHelper.getInstance().setHasBuyAuth(userinfo.getHasBuyAuth());
+            SharedPrefHelper.getInstance().setAuthStatus(userinfo.getAuthStatus());
+            SharedPrefHelper.getInstance().setNickname(userinfo.getNickname());
+            SharedPrefHelper.getInstance().setuserPhoto(userinfo.getPhoto());
+            GlideLoading.getInstance().loadImgUrlHeader(getActivity(), userinfo.getPhoto(), civHeader, R.mipmap.ic_default_square);
+            if (TextUtils.isEmpty(userinfo.getNickname())) {
+                tvName.setText(userinfo.getPosition() + "~" + "暂无昵称");
+            } else {
+                tvName.setText(userinfo.getPosition() + "~" + userinfo.getNickname());
             }
-
+            switch (userinfo.getAuthStatus()) {
+                case 0: // 未提交认证
+                    tvAuth.setText("未提交认证");
+                    break;
+                case 1: // 认证待审核
+                    tvAuth.setText("认证待审核");
+                    break;
+                case 2: // 认证完成
+                    tvAuth.setText("认证完成");
+                    break;
+                case 3: // 认证不通过
+                    tvAuth.setText("认证不通过");
+                    break;
+            }
         }
     }
 }

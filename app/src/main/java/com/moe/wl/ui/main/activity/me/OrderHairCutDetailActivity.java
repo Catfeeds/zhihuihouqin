@@ -106,6 +106,7 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
             case 3: // 3：已完成
                 states.setText("已完成");
                 right.setText("再次预约");
+                right.setVisibility(View.GONE);
                 break;
             case 4: // 4：待评价
                 states.setText("待评价");

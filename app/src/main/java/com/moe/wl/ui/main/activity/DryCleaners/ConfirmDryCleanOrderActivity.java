@@ -35,7 +35,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
 
 
     @BindView(R.id.activity_confirm_dry_clean_order)
-    LinearLayout activityConfirmDryCleanOrder;
+    RelativeLayout activityConfirmDryCleanOrder;
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
     @BindView(R.id.tv_user_name)

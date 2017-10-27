@@ -2,6 +2,8 @@ package com.moe.wl.ui.main.activity.vegetable;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,9 +21,11 @@ import com.moe.wl.ui.main.model.VegetableMainModel;
 import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
 import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
 import com.moe.wl.ui.main.view.VegetableMainView;
+import com.moe.wl.ui.mywidget.ShowBigPhotoPop;
 import com.moe.wl.ui.mywidget.TsAlertDialog;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
-
-import static com.moe.wl.R.id.num;
 
 /**
  * 类描述：
@@ -45,7 +47,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
     TitleBar titleBar;
     @BindView(R.id.recycleView)
     XRecyclerView recycleView;
-    @BindView(num)
+    @BindView(R.id.num)
     TextView vegetableNum;
     @BindView(R.id.price)
     TextView price;
@@ -53,7 +55,10 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
     Button submit;
 
     private int number = 0; // 总份数
-//    private float priceNum = 0;// 总价格
+    //    private float priceNum = 0;// 总价格
+    private boolean move;
+    private LinearLayoutManager mLinearLayoutManager;
+    private int mPosition;
 
     private int page = 1;
 
@@ -74,9 +79,9 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         titleBar.setBack(true);
         data = new ArrayList<>();
         adapter = new VegetableAdapter(this, data);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recycleView.setLayoutManager(layoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recycleView.setLayoutManager(mLinearLayoutManager);
         recycleView.setAdapter(adapter);
 
         recycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -92,6 +97,14 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                 getPresenter().getVegetableData(page, "");
             }
         });
+        adapter.setOnImageClickListener(new VegetableAdapter.OnImageClickListener() {
+            @Override
+            public void onImageClick(String imageUrl) {
+                ShowBigPhotoPop pop = new ShowBigPhotoPop(VegetableMainActivity.this, imageUrl);
+                pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+            }
+        });
+
         adapter.setOnAddClickListener(new VegetableAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int position, int num) {
@@ -103,9 +116,10 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                     vegetableNumber += data.get(i).getNumber();
                 }
                 vegetableNum.setText("共" + vegetableNumber + "份");
+                DecimalFormat df = new DecimalFormat("###.00");
+                price.setText("¥" + df.format(priceNumber));
                 LogUtils.d("总价钱 ： " + priceNumber);
                 price.setText("¥" + priceNumber);
-//                priceNum = priceNumber;
                 number = vegetableNumber;
                 submit.setText("去结算(" + vegetableNumber + ")");
             }
@@ -122,8 +136,8 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                     vegetableNumber += data.get(i).getNumber();
                 }
                 vegetableNum.setText("共" + vegetableNumber + "份");
-                price.setText("¥" + priceNumber);
-//                priceNum = priceNumber;
+                DecimalFormat df = new DecimalFormat("###.00");
+                price.setText("¥" + df.format(priceNumber));
                 number = vegetableNumber;
                 if (number == 0) {
                     submit.setText("去结算");
@@ -132,6 +146,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                 }
             }
         });
+        recycleView.setOnScrollListener(new RecyclerViewListener());
 //        getPresenter().getVegetableData(page, "");
     }
 
@@ -144,7 +159,6 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             case R.id.search:
                 startActivityForResult(new Intent(VegetableMainActivity.this, VegetableSearchActivity.class), REQUEST_SEARCH);
                 break;
-
         }
     }
 
@@ -155,10 +169,50 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             if (requestCode == REQUEST_SEARCH) {
                 for (int i = 0; i < data.size(); i++) {
                     if (data.get(i).getId() == datas.getIntExtra("VegetableID", 0)) {
-                        LogUtils.d("  ID=" + data.get(i).getId() + "  i=" + i);
-                        recycleView.scrollToPosition(i + 1);
+                        mPosition = i + 1;
+                        moveToPosition(i + 1);
                         return;
                     }
+                }
+            }
+        }
+    }
+
+    private void moveToPosition(int n) {
+        //先从RecyclerView的LayoutManager中获取第一项和最后一项的Position
+        int firstItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int lastItem = mLinearLayoutManager.findLastVisibleItemPosition();
+        //然后区分情况
+        if (n <= firstItem) {
+            //当要置顶的项在当前显示的第一个项的前面时
+            recycleView.scrollToPosition(n);
+        } else if (n <= lastItem) {
+            //当要置顶的项已经在屏幕上显示时
+            int top = recycleView.getChildAt(n - firstItem).getTop();
+            recycleView.scrollBy(0, top);
+        } else {
+            //当要置顶的项在当前显示的最后一项的后面时
+            recycleView.scrollToPosition(n);
+            //这里这个变量是用在RecyclerView滚动监听里面的
+            move = true;
+        }
+
+    }
+
+    class RecyclerViewListener extends RecyclerView.OnScrollListener {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            //在这里进行第二次滚动（最后的100米！）
+            if (move) {
+                move = false;
+                //获取要置顶的项在当前屏幕的位置，mIndex是记录的要置顶项在RecyclerView中的位置
+                int n = mPosition - mLinearLayoutManager.findFirstVisibleItemPosition();
+                if (0 <= n && n < recycleView.getChildCount()) {
+                    //获取要置顶的项顶部离RecyclerView顶部的距离
+                    int top = recycleView.getChildAt(n).getTop();
+                    //最后的移动
+                    recycleView.scrollBy(0, top);
                 }
             }
         }

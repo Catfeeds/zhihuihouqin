@@ -37,6 +37,7 @@ public class SharedPrefHelper {
         sharedPreferences = SoftApplication.softApplication.getSharedPreferences(SP_FILE_NAME, Context.MODE_PRIVATE);
     }
 
+    // 电话
     public void setPhoneNumber(String phoneNumber) {
         sharedPreferences.edit().putString("phoneNumber", phoneNumber).commit();
     }
@@ -45,6 +46,7 @@ public class SharedPrefHelper {
         return sharedPreferences.getString("phoneNumber", "");
     }
 
+    // 设置密码
     public void setPassword(String password) {
         sharedPreferences.edit().putString("password", password).commit();
     }
@@ -53,6 +55,7 @@ public class SharedPrefHelper {
         return sharedPreferences.getString("password", "");
     }
 
+    // 是否记住密码
     public void setRememberAccount(boolean bool) {
         sharedPreferences.edit().putBoolean("rememberAccount", bool).commit();
     }
@@ -105,6 +108,23 @@ public class SharedPrefHelper {
     public void setRyToken(String token) {
         sharedPreferences.edit().putString("rytoken", token).commit();
     }
+
+    // 是否有团购权限
+    public int getHasBuyAuth() {
+        return sharedPreferences.getInt("HasBuyAuth", 0);
+    }
+    public void setHasBuyAuth(int hasBuyAuth) {
+        sharedPreferences.edit().putInt("HasBuyAuth", hasBuyAuth).apply();
+    }
+    // 是否认证过
+    public int getAuthStatus() {
+        return sharedPreferences.getInt("AuthStatus", 0);
+    }
+    public void setAuthStatus(int authStatus) {
+        sharedPreferences.edit().putInt("AuthStatus", authStatus).apply();
+    }
+
+
 
     /**
      * 游客登录
@@ -175,6 +195,7 @@ public class SharedPrefHelper {
     public void setMobile(String mobile) {
         sharedPreferences.edit().putString("mobile", mobile).commit();
     }
+
     public void setRememberPassWord(boolean b) {
         sharedPreferences.edit().putBoolean("rememberPw", b).commit();
     }
@@ -184,22 +205,26 @@ public class SharedPrefHelper {
     }
 
     public void saveTime(String time) {
-        sharedPreferences.edit().putString("time",time).commit();
+        sharedPreferences.edit().putString("time", time).commit();
     }
-    public String getTime(){
-        return sharedPreferences.getString("time","");
+
+    public String getTime() {
+        return sharedPreferences.getString("time", "");
     }
-    public void saveBookName(String bookName){
-        sharedPreferences.edit().putString("bookName",bookName).commit();
+
+    public void saveBookName(String bookName) {
+        sharedPreferences.edit().putString("bookName", bookName).commit();
     }
+
     public String getBookName() {
-        return sharedPreferences.getString("bookName","");
+        return sharedPreferences.getString("bookName", "");
     }
 
     public void saveBookId(String bookId) {
-        sharedPreferences.edit().putString("bookId",bookId).commit();
+        sharedPreferences.edit().putString("bookId", bookId).commit();
     }
-    public String getBookId(){
-        return sharedPreferences.getString("bookId","");
+
+    public String getBookId() {
+        return sharedPreferences.getString("bookId", "");
     }
 }

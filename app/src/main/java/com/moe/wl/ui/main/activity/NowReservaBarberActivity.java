@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.Arith;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
@@ -32,6 +33,7 @@ import com.moe.wl.ui.main.view.PreOrderBarberView;
 import com.moe.wl.ui.mywidget.NoScrollExpandableListView;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,8 +153,6 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
 
     @Override
     public void getBarberInfo(PreOrderBean preOrderBean) {
-        if (preOrderBean != null) {
-
             //理发类型数据
             final List<PreOrderBean.ItemlistBeanX> itemlist = preOrderBean.getItemlist();
             ExpandableListAdapter adapter = new ExpandableListAdapter(this, itemlist);
@@ -161,14 +161,14 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                 @Override
                 public void onItemClickListener() {
                     list.clear();
-                    int sum = 0;
+                    double sum = 0;
                     int count = 0;
                     for (int i = 0; i < itemlist.size(); i++) {
                         PreOrderBean.ItemlistBeanX itemlistBeanX = itemlist.get(i);
                         List<PreOrderBean.ItemlistBeanX.ItemlistBean> itemlist1 = itemlistBeanX.getItemlist();
                         for (int j = 0; j < itemlist1.size(); j++) {
                             if (itemlist1.get(j).isSelect()) {
-                                sum += itemlist1.get(j).getPrice();
+                                sum = Arith.add(sum, itemlist1.get(j).getPrice());
                                 int id = itemlist1.get(j).getId();
                                 list.add(new Itemid(id));
                                 count++;
@@ -176,7 +176,8 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                         }
                     }
                     //设置支付总额,服务数量
-                    sumAll = sum;
+                    BigDecimal bg = new BigDecimal(sum);
+                    sumAll = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     tvSumService.setText("共" + count + "项服务 合计：");
                     tvHowMuch.setText("￥" + sum);
                 }
@@ -197,19 +198,15 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                 public void onItemClickListener(int position) {
                     PreOrderBean.TimelistBean.SchedulelistBean schedulelistBean = schedulelist.get(position);
                     int status = schedulelistBean.getStatus();
-                    if(status==1){//已经有预约了
+                    if (status == 1) {//已经有预约了
                         showToast("该时间段已经被预约");
                         return;
-                    }else if(status==0){//没有预约
+                    } else if (status == 0) {//没有预约
                         id = schedulelistBean.getId();
                         barberid = schedulelistBean.getBarberid();
                     }
                 }
             });
-
-        } else {
-            showToast("PreOrderBean这个bean为空");
-        }
     }
 
     @Override//下单成功
@@ -265,7 +262,7 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
                     return;
                 }
                 float amount = Float.parseFloat(price);
-                if(amount<=0){
+                if (amount <= 0) {
                     showToast("请选择服务项");
                     return;
                 }

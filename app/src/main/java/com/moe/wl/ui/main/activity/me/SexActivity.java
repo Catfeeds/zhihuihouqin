@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 
 public class SexActivity extends AppCompatActivity {
 
@@ -44,6 +43,13 @@ public class SexActivity extends AppCompatActivity {
     private void initTitle() {
         title.setBack(true);
         title.setTitle("性别");
+        if ("男".equals(getIntent().getStringExtra("sex"))) {
+            ivSelectMan.setVisibility(View.VISIBLE);
+            ivSelectGirl.setVisibility(View.GONE);
+        } else if("女".equals(getIntent().getStringExtra("sex"))) {
+            ivSelectMan.setVisibility(View.GONE);
+            ivSelectGirl.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick({R.id.rl_man, R.id.rl_girl})
@@ -62,17 +68,16 @@ public class SexActivity extends AppCompatActivity {
 
     private void selectManOrGirl(boolean selectMan) {
         intent = new Intent();
-        if(selectMan){
+        if (selectMan) {
             ivSelectMan.setVisibility(View.VISIBLE);
             ivSelectGirl.setVisibility(View.GONE);
-            intent.putExtra("sex","男");
+            intent.putExtra("sex", "男");
             setResult(RESULT_OK, intent);
-        }else{
+        } else {
             ivSelectMan.setVisibility(View.GONE);
             ivSelectGirl.setVisibility(View.VISIBLE);
-            intent.putExtra("sex","女");
+            intent.putExtra("sex", "女");
             setResult(RESULT_OK, intent);
         }
-
     }
 }
