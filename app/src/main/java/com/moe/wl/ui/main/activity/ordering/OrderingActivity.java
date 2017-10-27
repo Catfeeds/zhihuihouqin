@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
@@ -25,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 
 /**
  * 类描述：
@@ -178,7 +178,7 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
             ToastUtil.showToast(this, "工作餐份数为0");
             return;
         }
-        if (!OtherUtils.phoneNumber(phone_number.getText().toString().trim())) {
+        if (!VerifyCheck.isMobilePhoneVerify(phone_number.getText().toString().trim())) {
             ToastUtil.showToast(this, "手机号信息不正确");
             return;
         }

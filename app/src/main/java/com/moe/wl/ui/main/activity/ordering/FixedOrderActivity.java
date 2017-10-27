@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.SelectTimeBean;
@@ -27,6 +26,7 @@ import com.moe.wl.ui.main.view.OrderingView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 
 /**
  * 类描述：
@@ -157,7 +157,7 @@ public class FixedOrderActivity extends BaseActivity<OrderingModel, OrderingView
             ToastUtil.showToast(this, "工作餐份数为0");
             return;
         }
-        if (!OtherUtils.phoneNumber(et_phone.getText().toString().trim())) {
+        if (!VerifyCheck.isMobilePhoneVerify(et_phone.getText().toString().trim())) {
             ToastUtil.showToast(this, "手机号信息不正确");
             return;
         }

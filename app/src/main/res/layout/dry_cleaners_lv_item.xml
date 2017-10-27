@@ -4,24 +4,25 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/standard_padding">
+
         <TextView
             android:id="@+id/tv_yiwu"
-            android:textSize="@dimen/sp_small"
-            android:textColor="@color/tv_black"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginRight="10dp"
-            android:text="dsfsdsfdsfdsfsdffdsfsdffdsfsdffdsfgdsfgdfgdfgfgfd" />
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,8 +33,8 @@
             <TextView
                 android:id="@+id/tv_money1"
                 style="@style/tvStyle_text_black"
-                android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
                 android:text="￥8" />
 
             <ImageView
@@ -64,6 +65,7 @@
                 android:src="@drawable/button_add" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"

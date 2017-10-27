@@ -39,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.DateUtil;
+import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -244,6 +245,8 @@ public class OrderCommentActivity extends AppCompatActivity {
                             Intent intent = new Intent(OrderCommentActivity.this, OrderCommentSuccessActivity.class);
                             startActivity(intent);
                             finish();
+                        } else {
+                            ToastUtil.showToast(OrderCommentActivity.this, orderBean.getMsg());
                         }
                     }
                 });

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:background="@color/background">
 
@@ -26,7 +27,7 @@
             android:background="@color/white" />
 
         <TextView
-            android:id="@+id/cancel_order"
+            android:id="@+id/left"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_order_button"
@@ -41,7 +42,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/comment"
+            android:id="@+id/right"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -54,38 +55,6 @@
             android:text="评论"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/delete_order"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="删除"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/again_order"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="再次预订"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big"
             android:visibility="gone" />
     </LinearLayout>
 

@@ -416,7 +416,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:padding="@dimen/standard_padding"
-                android:text="提示:暂无车辆信息可以填写"
+                android:text="提示:暂无车辆信息可不填写"
                 android:textColor="@color/tv_gray"
                 android:textSize="@dimen/sp_smaller" />
         </LinearLayout>

@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
 
@@ -213,9 +212,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void onResume() {
+        super.onResume();
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.blue), true);
     }
 }

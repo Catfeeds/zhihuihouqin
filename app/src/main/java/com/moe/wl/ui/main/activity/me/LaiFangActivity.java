@@ -33,6 +33,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DateUtil;
+import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -100,6 +103,7 @@ public class LaiFangActivity extends Base2Activity {
     private CenterTimeDialog dialog;
     private int MAX_NUM = 5;
     private int visitperiod;
+    private String arriveTime;
 
     @Override
     protected void initLayout() {
@@ -183,10 +187,8 @@ public class LaiFangActivity extends Base2Activity {
 
         String str = shengfen + chepaihao;
 
-        String telRegex = "[1][358]\\d{9}";
-
-        if (!mobile.matches(telRegex)) {
-            showToast("请输入正确的手机号");
+        if (!VerifyCheck.isMobilePhoneVerify(mobile)) {
+            showToast("请输入正确的手机号码");
             return;
         }
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(arriveTime) || TextUtils.isEmpty(roomunm) ||
@@ -240,10 +242,31 @@ public class LaiFangActivity extends Base2Activity {
                 } else {
                     minute = "" + i5;
                 }
+                arriveTime = i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute;
                 if (isArrive) {
-                    arraveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute);
+                    switch (DateUtil.compareDate(arriveTime, DateUtil.getTimeyyyyMMddHHmm())) {
+                        case 1:
+                            arraveTime.setText(arriveTime);
+                            break;
+                        case 2:
+                            ToastUtil.showToast(LaiFangActivity.this, "预计到达时间已过！");
+                            break;
+                        default:
+                            arraveTime.setText(arriveTime);
+                            break;
+                    }
                 } else {
-                    leaveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute);
+                    switch (DateUtil.compareDate(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute, arriveTime)) {
+                        case 1:
+                            leaveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute);
+                            break;
+                        case 2:
+                            ToastUtil.showToast(LaiFangActivity.this, "离开时间不能早于到达时间！");
+                            break;
+                        default:
+                            leaveTime.setText(i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute);
+                            break;
+                    }
                 }
 
             }

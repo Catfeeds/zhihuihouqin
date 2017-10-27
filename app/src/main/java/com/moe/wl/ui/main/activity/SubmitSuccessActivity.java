@@ -112,6 +112,10 @@ public class SubmitSuccessActivity extends AppCompatActivity {
             case Constants.CONFERENCE: // 会议室
                 intent.putExtra("state", orderConference);
                 break;
+
+            default:
+                intent.putExtra("state", orderRepairs);
+                break;
         }
         startActivity(intent);
     }
@@ -119,7 +123,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
     // 我的报修 标题
     private static final String orderRepairs = "待接单,已接单,已完成,待评价,已取消";
     // 办公用品 标题
-    private static final String orderOfficeSupplies = "已下单,配送中,已完成,待评价,已取消";
+    private static final String orderOfficeSupplies = "待发货,配送中,已完成,待评价,已取消";
     // 我的订餐 标题
     private static final String orderFood = "已下单,已完成,待评价,已取消";
     // 理发订单 标题

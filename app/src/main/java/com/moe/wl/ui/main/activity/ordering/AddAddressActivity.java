@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.model.AddAddressModel;
 import com.moe.wl.ui.main.modelimpl.AddAddressModelImpl;
@@ -18,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 
 /**
  * 类描述：
@@ -105,7 +105,7 @@ public class AddAddressActivity extends BaseActivity<AddAddressModel, AddAddress
             return;
         }
 
-        if (!OtherUtils.phoneNumber(mobile.getText().toString().trim())) {
+        if (!VerifyCheck.isMobilePhoneVerify(mobile.getText().toString().trim())) {
             ToastUtil.showToast(this, "手机号信息不正确");
             return;
         }
@@ -114,10 +114,9 @@ public class AddAddressActivity extends BaseActivity<AddAddressModel, AddAddress
             ToastUtil.showToast(this, "地址不能为空！");
             return;
         }
-        String telRegex = "[1][358]\\d{9}";
         String phone = mobile.getText().toString().trim();
-        if(!phone.matches(telRegex)){
-            showToast("请输入正确的手机号");
+        if(!VerifyCheck.isMobilePhoneVerify(phone)){
+            showToast("请输入正确的手机号码");
             return ;
         }
         if (type == 1)

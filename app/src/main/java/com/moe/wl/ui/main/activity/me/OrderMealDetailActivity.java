@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -30,7 +30,7 @@ import rx.Subscriber;
  * 类描述：订餐订单详情页面
  * 作者：Shixhe On 2017/10/12 0012
  */
-public class OrderMealDetailActivity extends AppCompatActivity {
+public class OrderMealDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;

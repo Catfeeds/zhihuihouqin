@@ -2,7 +2,6 @@ package com.moe.wl.framework.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.widget.RatingBar;
@@ -25,7 +24,7 @@ public class OtherUtils {
 
     // 手机号正则
     public static boolean phoneNumber(String mobile) {
-        String telRegex = "[1][358]\\d{9}";
+        String telRegex = "[1][3578]\\d{9}";
         if (!mobile.matches(telRegex)) {
             LogUtils.d("不匹配！！！");
             return false;

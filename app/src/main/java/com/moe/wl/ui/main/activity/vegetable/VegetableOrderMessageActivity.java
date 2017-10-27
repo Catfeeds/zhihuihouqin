@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 
 /**
  * 类描述：
@@ -77,8 +78,8 @@ public class VegetableOrderMessageActivity extends BaseActivity<VegetableOrderMe
     }
 
     private void confirm() {
-        if (phoneNumber.getText().toString().trim().length() == 0) {
-            ToastUtil.showToast(this, "请输入手机号！");
+        if (!VerifyCheck.isMobilePhoneVerify(phoneNumber.getText().toString().trim())) {
+            ToastUtil.showToast(this, "请输入正确的手机号码");
             return;
         }
         if (timeID == 0) {

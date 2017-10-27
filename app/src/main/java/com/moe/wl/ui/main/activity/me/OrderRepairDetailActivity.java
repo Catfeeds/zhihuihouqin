@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -16,6 +15,7 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -34,7 +34,7 @@ import rx.Subscriber;
  * 类描述：报修订单详情页
  * 作者：Shixhe On 2017/10/17 0017
  */
-public class OrderRepairDetailActivity extends AppCompatActivity {
+public class OrderRepairDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;

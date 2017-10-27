@@ -15,7 +15,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.DryCleanersLvAdapter;
 import com.moe.wl.ui.main.bean.ClothBean;
@@ -32,7 +31,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
+import mvp.cn.util.DateUtil;
+import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 
 public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInfoModel,
         DryCleanReserveInfoView, DryCleanReserveInfoPresenter> implements DryCleanReserveInfoView {
@@ -56,12 +57,11 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     @BindView(R.id.tv_time)
     TextView tvTime;
 
-   /* @BindView(R.id.tv_more)
-    TextView tvMore;*/
+    /* @BindView(R.id.tv_more)
+     TextView tvMore;*/
     private int page = 1;
     private String limit = "10";
     private DryCleanersLvAdapter lvAdapter;
-    private Observable observable;
     private List<ClothBean.PageEntity.ListEntity> listAll = new ArrayList<>();
     private int sum;
     private BottomTimeDialog dialog;
@@ -78,19 +78,22 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         initListView();
         String realName = SharedPrefHelper.getInstance().getRealName();
         String nickname = SharedPrefHelper.getInstance().getNickname();
-        if(TextUtils.isEmpty(realName)){//真实姓名没有显示昵称
+        if (TextUtils.isEmpty(realName)) {//真实姓名没有显示昵称
             tvUserName.setText(nickname);
-        }else{
+        } else {
             tvUserName.setText(realName);
         }
 
         etPhoneNum.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         getData(1 + "", limit);
     }
+
     private void getListSucc(List<ClothBean.PageEntity.ListEntity> list) {
         if (list != null) {
-            if (page==1) {
+            if (page == 1) {
                 listAll.clear();
+                sum = 0;
+                tvSum.setText("共" + sum + "件");
             }
             listAll.addAll(list);
             lvAdapter.setData(listAll);
@@ -128,16 +131,15 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                page=1;
-                getData(page+"",limit+"");
+                page = 1;
+                getData(page + "", limit + "");
                 recyclerView.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
-                LogUtils.i(page+"==============");
-                getData(page+"",limit+"");
+                getData(page + "", limit + "");
                 recyclerView.loadMoreComplete();
             }
         });
@@ -154,21 +156,14 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
             case R.id.tv_submit:
                 String mobile = etPhoneNum.getText().toString().trim();
                 String time = tvTime.getText().toString().trim();
-                if(TextUtils.isEmpty(mobile)){
-                    showToast("请输入电话号码");
+                if (!VerifyCheck.isMobilePhoneVerify(mobile)) {
+                    showToast("请输入正确的手机号码");
                     return;
                 }
-                if(TextUtils.isEmpty(time)){
+                if (TextUtils.isEmpty(time)) {
                     showToast("请选择时间");
                     return;
                 }
-                String telRegex = "[1][358]\\d{9}";
-
-                if(!mobile.matches(telRegex)){
-                    showToast("请输入正确的手机号");
-                    return ;
-                }
-
                 Gson gson = new Gson();
                 List<ClothBean.PageEntity.ListEntity> mList = new ArrayList<>();
                 for (int i = 0; i < listAll.size(); i++) {
@@ -178,7 +173,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                 }
                 String json = gson.toJson(mList);
                 if (sum <= 0) {
-                    showToast("您没有下单,请下单后在提交");
+                    showToast("您没有下单，请下单后在提交");
                     return;
                 }
                 Intent intent = new Intent(this, ConfirmDryCleanOrderActivity.class);
@@ -192,12 +187,22 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                 getData(page + "", limit, true);
                 break;*/
             case R.id.rl_set_time:
-                dialog=new BottomTimeDialog(this,R.style.dialog_style);
+                dialog = new BottomTimeDialog(this, R.style.dialog_style);
                 dialog.show();
                 dialog.setListener2(new BottomTimeDialog.OnConfirmClickListener() {
                     @Override
                     public void onConfirmClickListener(int i1, int i2, int i3, String i4, String i5) {
-                        tvTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                        switch (DateUtil.compareDate(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5, DateUtil.getTimeyyyyMMddHHmm())) {
+                            case 1:
+                                tvTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                                break;
+                            case 2:
+                                ToastUtil.showToast(DryCleanReserveInfoActivity.this, "预计送达时间已过！");
+                                break;
+                            default:
+                                tvTime.setText(i1 + "-" + i2 + "-" + i3 + " " + i4 + ":" + i5);
+                                break;
+                        }
                     }
                 });
                 break;

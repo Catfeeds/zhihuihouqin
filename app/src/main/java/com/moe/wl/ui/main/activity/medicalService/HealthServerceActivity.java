@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
@@ -102,6 +103,12 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
     private void initTitle() {
         titleBar.setTitle("健康档案");
         titleBar.setBack(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.white), true);
     }
 
     @Override

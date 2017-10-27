@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -16,6 +15,7 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CircleImageView;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.OrderCutHearActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -33,7 +33,7 @@ import rx.Subscriber;
  * 类描述：理发订单详情页
  * 作者：Shixhe On 2017/10/11 0011
  */
-public class OrderHairCutDetailActivity extends AppCompatActivity {
+public class OrderHairCutDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
@@ -75,6 +75,8 @@ public class OrderHairCutDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        titleBar.setBack(true);
+        titleBar.setTitle("订单详情");
         progressDialog = new CustomerDialog(this, R.style.dialog_style);
         data = (OrderHairCutBean.OrderlistEntity) getIntent().getSerializableExtra("Data");
         if (data == null) {

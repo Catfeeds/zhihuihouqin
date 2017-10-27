@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
@@ -90,7 +91,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
         OtherUtils.ratingBarColor(ratingBar, this);
         ratingBar.setRating((float) entity.getScore());
         tvStarNum.setText(entity.getScore() + "");
-        reservationNum.setText(Integer.parseInt(entity.getRemaincount() + 1 + "/" + entity.getInvitetotalcount()));
+        reservationNum.setText(entity.getRemaincount() + 1 + "/" + entity.getInvitetotalcount());
     }
 
     @OnClick(R.id.tv_commit)
@@ -117,6 +118,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
     @Override
     public void submitExpertOrderSucc(ExpertOrderBean bean) {
         Intent intent = new Intent(this, SubmitSuccessActivity.class);
+        intent.putExtra("from", Constants.EXPERTS);
         startActivity(intent);
         finish();
     }

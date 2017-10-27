@@ -203,7 +203,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
 
                 boolean mobilePhoneVerify = VerifyCheck.isMobilePhoneVerify(phone);
                 if (!mobilePhoneVerify) {
-                    showToast("请输入正确的手机号");
+                    showToast("请输入正确的手机号码");
                     return;
                 }
                 boolean idCardVerify = VerifyCheck.isIDCardVerify(identityNum);

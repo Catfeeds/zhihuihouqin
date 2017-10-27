@@ -21,6 +21,7 @@ import com.moe.wl.ui.main.view.PostNeedView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.VerifyCheck;
 
 /**
  * 发布需求
@@ -105,10 +106,9 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
         String remark = etWrite.getText().toString().trim();
         String spName = etSpName.getText().toString().trim();
         String spCount = etSpCount.getText().toString().trim();
-        String telRegex = "[1][358]\\d{9}";
 
-        if(!phone.matches(telRegex)){
-            showToast("请输入正确的手机号");
+        if(!VerifyCheck.isMobilePhoneVerify(phone)){
+            showToast("请输入正确的手机号码");
             return ;
         }
         if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||

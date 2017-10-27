@@ -78,7 +78,7 @@ public class AccountComplainActivity extends BaseActivity<AccountComplainModel, 
             return;
         }
         if (!VerifyCheck.isMobilePhoneVerify(phoneNumber.getText().toString().trim())) {
-            ToastUtil.showToast(this, "请输入正确的手机号");
+            ToastUtil.showToast(this, "请输入正确的手机号码");
             return;
         }
         if (!VerifyCheck.isIDCardVerify(idCard.getText().toString().trim())) {
