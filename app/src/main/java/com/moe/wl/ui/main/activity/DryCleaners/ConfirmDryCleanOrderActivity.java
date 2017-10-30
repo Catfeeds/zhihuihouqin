@@ -10,11 +10,13 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
+import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.adapter.ConfirmDryCleanOrderAdapter;
 import com.moe.wl.ui.main.bean.ClothBean;
 import com.moe.wl.ui.main.bean.JieYueBean;
@@ -134,7 +136,9 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
             @Override
             public void onNext(JieYueBean o) {
                 if (o.getErrCode() == 0) {
-                    Intent intent = new Intent(ConfirmDryCleanOrderActivity.this, SubmitResultActivity.class);
+                    Intent intent = new Intent(ConfirmDryCleanOrderActivity.this, SubmitSuccessActivity.class);
+                    intent.putExtra("index",0);
+                    intent.putExtra("from", Constants.DRYCLEANER);
                     startActivity(intent);
                 } else {
 

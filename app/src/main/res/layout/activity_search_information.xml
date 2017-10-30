@@ -69,8 +69,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="@color/gray_lighter" />
+        android:layout_height="4dp"
+        android:background="@color/bg_page" />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/recycleView"

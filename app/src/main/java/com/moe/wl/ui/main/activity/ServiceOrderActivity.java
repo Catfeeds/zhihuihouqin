@@ -170,14 +170,14 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 pop.showAsDropDown(view, 0, 0);
-                ivUpOrDown.setImageResource(R.drawable.drawer_arrow_down);
+                ivUpOrDown.setImageResource(R.drawable.drawer_arrow_up);
             }
         });
 
         pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                ivUpOrDown.setImageResource(R.drawable.drawer_arrow_up);
+                ivUpOrDown.setImageResource(R.drawable.drawer_arrow_down);
             }
         });
     }

@@ -119,6 +119,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
     public void submitExpertOrderSucc(ExpertOrderBean bean) {
         Intent intent = new Intent(this, SubmitSuccessActivity.class);
         intent.putExtra("from", Constants.EXPERTS);
+        intent.putExtra("index",0);
         startActivity(intent);
         finish();
     }

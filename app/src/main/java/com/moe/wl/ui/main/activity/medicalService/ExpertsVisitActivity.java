@@ -20,6 +20,7 @@ import com.moe.wl.ui.main.activity.ReserveInfoActivity;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
 import com.moe.wl.ui.main.adapter.ExpertSelectTimeAdapter;
 import com.moe.wl.ui.main.adapter.ExpertSelectTimeDayAdapter;
+import com.moe.wl.ui.main.adapter.ExpertTimeAdapter;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.model.ExpertDetailModel;
@@ -70,17 +71,18 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     RecyclerView recycleView;
     @BindView(R.id.skilledinfo)
     TextView skilledInfo;
-    @BindView(R.id.grid_view)
-    NoSlidingGridView gridView;
+    /*@BindView(R.id.grid_view)
+    NoSlidingGridView gridView;*/
     @BindView(R.id.recycleView1)
     RecyclerView recycleView1;
     @BindView(R.id.switch_button)
     SwitchButton switchButton;
+    @BindView(R.id.rv_time)
+    RecyclerView rvTime;
 
     private List<CommentlistBean> data;
     private DoctorDetailrvAdapter adapter;
     private ExpertSelectTimeDayAdapter dayAdapter;
-    private ExpertSelectTimeAdapter timeAdapter;
 
     private int doctorID;
 
@@ -90,6 +92,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
 
     private int timeID = 0;
     private String time;
+    private ExpertTimeAdapter timeAdapter;
 
     @Override
     public void setContentLayout() {
@@ -115,15 +118,23 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 this, LinearLayoutManager.HORIZONTAL, false));
         recycleView1.setAdapter(dayAdapter);
 
-        timeAdapter = new ExpertSelectTimeAdapter(this, timeData, new ExpertSelectTimeAdapter.OnClickListener() {
+        rvTime.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        timeAdapter = new ExpertTimeAdapter(this, timeData, new ExpertTimeAdapter.OnClickListener() {
             @Override
             public void onClick(int id, String timeString) {
                 timeID = id;
                 time = timeString;
             }
         });
-
-        gridView.setAdapter(timeAdapter);
+       /* this.timeAdapter = new ExpertSelectTimeAdapter(this, timeData, new ExpertSelectTimeAdapter.OnClickListener() {
+            @Override
+            public void onClick(int id, String timeString) {
+                timeID = id;
+                time = timeString;
+            }
+        });*/
+rvTime.setAdapter(timeAdapter);
+        //gridView.setAdapter(timeAdapter);
         data = new ArrayList<>();
         adapter = new DoctorDetailrvAdapter(this, data, 1);
         recycleView.setLayoutManager(new NoScrollLinearLayoutManager(this));

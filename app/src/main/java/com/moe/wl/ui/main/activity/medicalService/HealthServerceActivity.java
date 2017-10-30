@@ -94,8 +94,8 @@ public class HealthServerceActivity extends BaseActivity<HealthServerceModel, He
                 break;
 
             case R.id.experts: // 专家坐诊
-                Intent intent3 = new Intent(HealthServerceActivity.this, ExpertsVisitActivity.class);
-                startActivity(intent3);
+                /*Intent intent3 = new Intent(HealthServerceActivity.this, ExpertsVisitActivity.class);
+                startActivity(intent3);*/
                 break;
         }
     }

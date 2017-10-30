@@ -40,6 +40,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:paddingBottom="12dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
+                android:text="就诊人信息"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_big" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -87,7 +103,7 @@
                     android:layout_marginLeft="12dp"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:text="电话号"
+                    android:text="手机号"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 

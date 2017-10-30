@@ -2,7 +2,6 @@ package com.moe.wl.ui.main.bean;
 
 /**
  * 类描述：服务Bean
- * 作者：Shixhe On 2017/9/22 0022
  */
 
 public class ServiceDataBean {

@@ -160,10 +160,10 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                     showToast("请输入正确的手机号码");
                     return;
                 }
-                if (TextUtils.isEmpty(time)) {
+               /* if (TextUtils.isEmpty(time)) {
                     showToast("请选择时间");
                     return;
-                }
+                }*/
                 Gson gson = new Gson();
                 List<ClothBean.PageEntity.ListEntity> mList = new ArrayList<>();
                 for (int i = 0; i < listAll.size(); i++) {

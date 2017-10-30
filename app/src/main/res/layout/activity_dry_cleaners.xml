@@ -102,7 +102,7 @@
             android:layout_marginLeft="10dp"
             android:text="地址： "
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_common" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:text="机关教育部业务楼右侧100米"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_common" />
     </LinearLayout>
 
     <View
@@ -138,7 +138,7 @@
             android:layout_marginLeft="10dp"
             android:text="营业时间： "
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_common" />
 
         <TextView
             android:id="@+id/tv_work_time"
@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:text="8:00----21:00"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_common" />
     </LinearLayout>
 
     <View
@@ -179,7 +179,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="服务热线： "
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_common" />
 
             <TextView
                 android:id="@+id/tv_phone"
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:text="1234567890"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_common" />
         </LinearLayout>
 
         <ImageView
@@ -199,12 +199,20 @@
             android:layout_marginRight="8dp"
             android:src="@drawable/turn_right" />
     </RelativeLayout>
-
-    <View
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/bg_page"
+    >
+    <TextView
+        android:textColor="@color/gray"
+        android:text="温馨提示..."
+        android:layout_margin="@dimen/standard_padding"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/bg_page" />
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_common"/>
+</LinearLayout>
 
     <TextView
         android:id="@+id/tv_now_order"
