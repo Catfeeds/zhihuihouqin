@@ -2920,8 +2920,8 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            Md5Util.getMD5(paypassd);
-            tempMap.put("paypass", paypassd);
+            String md5 = Md5Util.getMD5(paypassd);
+            tempMap.put("paypass", md5);
             tempMap.put("ordercode", ordercode);
             tempMap.put("ordertype", ordertype);
             tempMap.put("paytype", paytype + "");

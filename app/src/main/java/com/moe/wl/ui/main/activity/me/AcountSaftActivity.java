@@ -136,7 +136,10 @@ public class AcountSaftActivity extends Base2Activity {
                 if(captchaBean.errCode==0){
                     showToast("获取验证码成功");
                     LogUtils.i("验证码"+captchaBean.captcha);
-                }else{
+                }else if(captchaBean.errCode==1010){
+                    showToast(captchaBean.msg);
+                }
+                else{
                     showToast("获取验证码失败了");
                 }
             }
