@@ -22,10 +22,10 @@
 
     <ImageView
         android:id="@+id/iv_submit_or_pay"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:src="@drawable/selected" />
+        android:src="@drawable/submit_success" />
 
     <TextView
         android:id="@+id/tv_submit_success"
@@ -38,14 +38,14 @@
     <TextView
         android:id="@+id/tv_check_order"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/standard_padding"
         android:layout_marginRight="@dimen/standard_padding"
         android:layout_marginTop="60dp"
-        android:background="@drawable/shape_blue_confirm"
-        android:textColor="@color/white"
+        android:background="@drawable/bg_blue_rounded"
         android:gravity="center"
-     android:padding="@dimen/standard_padding"
+        android:padding="@dimen/standard_padding"
         android:text="查看订单"
+        android:textColor="@color/white"
         android:textSize="@dimen/sp_big" />
 </LinearLayout>
