@@ -56,10 +56,10 @@ public class SubmitSuccessActivity extends AppCompatActivity {
         titleBar.setBack(true);
         if (isPay) {
             titleBar.setTitle("支付成功");
-            ivSubmitOrPay.setImageResource(R.drawable.selected);
+            ivSubmitOrPay.setImageResource(R.drawable.submit_success);
         } else {
             titleBar.setTitle("提交成功");
-            ivSubmitOrPay.setImageResource(R.drawable.unselected);
+            ivSubmitOrPay.setImageResource(R.drawable.submit_success);
         }
     }
 

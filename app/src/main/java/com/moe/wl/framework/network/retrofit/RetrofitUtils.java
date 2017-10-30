@@ -1704,18 +1704,15 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable spOrder(String addressid, String expectedTime, String remark, String productList,
-                                     String skuid, String count) {
+    public static Observable spOrder(String addressid, String expectedTime, String remark, List productList) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<>();
+            Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("addressid", addressid);
             tempMap.put("expectedTime", expectedTime);
             tempMap.put("remark", remark);
             tempMap.put("productList", productList);
-            tempMap.put("skuid", skuid);
-            tempMap.put("count", count);
-            addParam(paramsMap, tempMap);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -3040,6 +3037,23 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
+            addParam(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.findUserWallet(paramsMap));
+    }
+    /**
+     * 对公钱包信息
+     *
+     * @return
+     */
+    public static Observable findUserWallet1(String serviceType) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("serviceType",serviceType);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {

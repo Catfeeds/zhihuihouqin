@@ -110,7 +110,6 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         ordercode = intent.getStringExtra("ordercode");
         ordertype = intent.getStringExtra("ordertype");
         createtime = intent.getStringExtra("time");
-        // ordertype1 = intent.getIntExtra("ordertype", -1);
         from = intent.getIntExtra("from", Constants.ORDERWATER);
         pay = intent.getDoubleExtra("pay", 0);
         LogUtils.i("ordertype======  " + ordertype);
@@ -173,6 +172,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                         getPresenter().weiXinPay(orderid, ordercode, ordertype, 2);
                         break;
                     case 3://钱包支付
+                        if (walletRemain < pay) {
+                            showToast("您的余额不足");
+                            return;
+                        }
                         getPresenter().getIsHasPwd();
                         break;
                     case 4:
@@ -200,10 +203,6 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             public void onClick(View v) {
                 String pwd = payDialog.getPwd();
                 if (pwd.length() == 6) {
-                    if (walletRemain < pay) {
-                        showToast("您的余额不足");
-                        return;
-                    }
                     getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, pwd, 0);//钱包支付
                 } else {
                     showToast("您输入的密码有误");
@@ -329,19 +328,6 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
     }
 
-    /* public class MyReceiver extends BroadcastReceiver {
-
-         @Override
-         public void onReceive(Context context, Intent intents) {
-             LogUtils.d("我接受到广播啦！！！");
-             Intent intent = new Intent(PayFiveJiaoActivity.this, SubmitSuccessActivity.class);
-             intent.putExtra("isPay", true);
-             intent.putExtra("payTypeName", payTypeName);
-             startActivity(intent);
-             finish();
-         }
-
-     }*/
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(MessageEvent event) {
         if (event != null) {

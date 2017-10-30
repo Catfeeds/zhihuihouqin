@@ -86,7 +86,7 @@ public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel, Offic
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("办公用品");
-        titleBar.setTitleRight("发布需求");
+        titleBar.setTitleRight("其他需求");
         titleBar.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

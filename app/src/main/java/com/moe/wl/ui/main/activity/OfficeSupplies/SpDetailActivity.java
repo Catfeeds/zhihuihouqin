@@ -181,6 +181,9 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                         mCount = count;
                         if (count > 0) {
                             getPresenter().shopCar(id + "", count + "");
+                            shopCarDialog.dismiss();
+                        }else{
+                            showToast("您还没有选择购买的商品");
                         }
                     }
                 });
@@ -227,16 +230,17 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 tvSpPrice.setText("￥" + product.getPrice());
                 //tvAddress.setText("送至:"+product.get);
                 //获取轮播图
-                List<String> imgList = product.getImgList();
-                if (imgList.size() > 0) {
+                List<SpDetailBean.ProductBean.ImgEntityListBean> imgEntityList = product.getImgEntityList();
+                //List<String> imgList = product.getImgList();
+                if (imgEntityList.size() > 0) {
                     // TODO 轮播图数据
                     HashMap<String, String> map = new HashMap<>();
-                    for (int i = 0; i < imgList.size(); i++) {
+                    for (int i = 0; i < imgEntityList.size(); i++) {
                         String content = "";
                         for (int j = 0; j < i; j++) {
                             content = content + " ";
                         }
-                        map.put(content, imgList.get(i));
+                        map.put(content, imgEntityList.get(i).getImg());
                     }
                     initSliderLayout(map);
                 }
@@ -298,12 +302,5 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         } else {
             LogUtils.i(bean.getMsg());
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

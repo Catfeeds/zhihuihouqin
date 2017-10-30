@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -79,6 +80,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     TextView lIvWeibo;
     @BindView(R.id.l_iv_qq)
     TextView lIvQq;
+    @BindView(R.id.scrollview)
+    ScrollView scrollView;
 
     private String mobile;
     private String pwd;
@@ -120,6 +123,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
 
     @Override
     public void initView() {
+        scrollView.smoothScrollTo(0,20);
+        scrollView.setFocusable(true);
         if (SharedPrefHelper.getInstance().isRememberAccount()
                 && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getUserId())
                 && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getToken())) {

@@ -8,8 +8,9 @@ import java.util.List;
 
 public class SpDetailBean {
 
+
     /**
-     * product : {"categoryOneId":1,"categoryTwoId":2,"createtime":"2017-08-17 15:13:20","id":1,"imgList":[],"imgs":null,"mainskuid":1,"onsaleTime":"2017-08-16 15:18:38","price":null,"pricerange":"1.0-5.99","productImg":null,"productname":"夹子","status":1}
+     * product : {"categoryOneId":1,"categoryTwoId":2,"createtime":"2017-08-17 15:13:20","id":1,"imgList":[],"imgs":null,"mainskuid":1,"onsaleTime":"2017-08-16 15:18:38","price":null,"pricerange":"1.0-5.99","productImg":null,"productname":"夹子","status":1,"imgEntityList":[{"id":29,"img":"http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201710271509083707756.png","productId":8,"sort":1},{"id":30,"img":"http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201710271509083716382.jpg","productId":8,"sort":2}]}
      * rateGood : 0
      * commentTotal : 0
      * favorNum : 0
@@ -107,6 +108,7 @@ public class SpDetailBean {
          * productImg : null
          * productname : 夹子
          * status : 1
+         * imgEntityList : [{"id":29,"img":"http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201710271509083707756.png","productId":8,"sort":1},{"id":30,"img":"http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201710271509083716382.jpg","productId":8,"sort":2}]
          */
 
         private int categoryOneId;
@@ -121,7 +123,8 @@ public class SpDetailBean {
         private Object productImg;
         private String productname;
         private int status;
-        private List<String> imgList;
+        private List<?> imgList;
+        private List<ImgEntityListBean> imgEntityList;
 
         public int getCategoryOneId() {
             return categoryOneId;
@@ -219,12 +222,66 @@ public class SpDetailBean {
             this.status = status;
         }
 
-        public List<String> getImgList() {
+        public List<?> getImgList() {
             return imgList;
         }
 
-        public void setImgList(List<String> imgList) {
+        public void setImgList(List<?> imgList) {
             this.imgList = imgList;
+        }
+
+        public List<ImgEntityListBean> getImgEntityList() {
+            return imgEntityList;
+        }
+
+        public void setImgEntityList(List<ImgEntityListBean> imgEntityList) {
+            this.imgEntityList = imgEntityList;
+        }
+
+        public static class ImgEntityListBean {
+            /**
+             * id : 29
+             * img : http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201710271509083707756.png
+             * productId : 8
+             * sort : 1
+             */
+
+            private int id;
+            private String img;
+            private int productId;
+            private int sort;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public int getProductId() {
+                return productId;
+            }
+
+            public void setProductId(int productId) {
+                this.productId = productId;
+            }
+
+            public int getSort() {
+                return sort;
+            }
+
+            public void setSort(int sort) {
+                this.sort = sort;
+            }
         }
     }
 

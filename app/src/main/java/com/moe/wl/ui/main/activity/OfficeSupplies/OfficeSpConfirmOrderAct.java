@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,7 +32,9 @@ import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,16 +49,18 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     private static final int REMARKREUQESTCODE = 20;
     @BindView(R.id.title)
     TitleBar title;
+    @BindView(R.id.iv_address_logo)
+    ImageView ivAddressLogo;
+    @BindView(R.id.choose_address)
+    TextView chooseAddress;
     @BindView(R.id.tv_username)
     TextView tvUsername;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
-    @BindView(R.id.ll_user_info)
-    LinearLayout llUserInfo;
-    @BindView(R.id.iv_address_logo)
-    ImageView ivAddressLogo;
     @BindView(R.id.tv_address)
     TextView tvAddress;
+    @BindView(R.id.ll_user_info)
+    RelativeLayout llUserInfo;
     @BindView(R.id.ll_address)
     LinearLayout llAddress;
     @BindView(R.id.iv_clock)
@@ -66,6 +71,8 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     RelativeLayout rlExpectTime;
     @BindView(R.id.rv_order_item)
     NoSlideRecyclerView rvOrderItem;
+    @BindView(R.id.tv_other_need)
+    TextView tvOtherNeed;
     @BindView(R.id.ll_write_other)
     LinearLayout llWriteOther;
     @BindView(R.id.tv_shop_amout)
@@ -74,12 +81,9 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     TextView tvHowMuch;
     @BindView(R.id.tv_now_pay)
     TextView tvNowPay;
-    @BindView(R.id.tv_sex)
-    TextView tvSex;
-    @BindView(R.id.tv_other_need)
-     TextView tvOtherNeed;
     @BindView(R.id.activity_office_sp_confirm_order)
     LinearLayout activityOfficeSpConfirmOrder;
+
     private String remark;
     private String address;
     private List<SpCheckShopCarBean.CartItemsBean> cartItemLists = new ArrayList<>();
@@ -88,7 +92,14 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     private int price;
     private String from;
     private SpOrderAdapter spOrderAdapter;
-
+    private long ordercode;
+    private String createtime;
+    private int ordertype;
+    private int orderid;
+    private int addressID;
+    private String userName;
+    private String phone;
+    private List<Object> productList;
 
 
     @Override
@@ -111,21 +122,23 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     public void initView() {
         Intent intent = getIntent();
         from = intent.getStringExtra("from");
-        if (from.equals("nowpay")) {
+        if (from.equals("nowpay")) {//来自立即购买
             price = intent.getIntExtra("price", -1);
             count = intent.getIntExtra("count", -1);
             ShopCarInfoBean.SkuListBean skuListBean = (ShopCarInfoBean.SkuListBean) intent.getSerializableExtra("skuListBean");
             String mainimg = skuListBean.getMainimg();
             String cataName = skuListBean.getSkuname();
+            int id = skuListBean.getId();//?????????库存id
             SpCheckShopCarBean.CartItemsBean bean = new SpCheckShopCarBean.CartItemsBean();
             SpCheckShopCarBean.CartItemsBean.SkuBean skuBean = new SpCheckShopCarBean.CartItemsBean.SkuBean();
             bean.setSku(skuBean);
+            bean.setSkuid(id);
             skuBean.setMainimg(mainimg);
             skuBean.setCataName(cataName);
             bean.setCount(count);
             bean.getSku().setPrice(price);
             cartItemLists.add(bean);
-        } else {
+        } else {//来自购物车
             String json = intent.getStringExtra("json");
             Gson gson = new Gson();
             List<SpCheckShopCarBean.CartItemsBean> list = gson.fromJson(json, new TypeToken<List<SpCheckShopCarBean.CartItemsBean>>() {
@@ -135,6 +148,7 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
         initTitle();
         initData();
         initRecycler();
+        productList = new ArrayList<>();
     }
 
     private void initRecycler() {
@@ -144,22 +158,14 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     }
 
     private void initData() {
-        tvUsername.setText(SharedPrefHelper.getInstance().getRealName());
-        tvPhone.setText(SharedPrefHelper.getInstance().getPhoneNumber());
-        String sex = SharedPrefHelper.getInstance().getSex();
-        if ("男".equals(sex)) {
-            tvSex.setText("先生");
-        } else if ("女".equals(sex)) {
-            tvSex.setText("女士");
-        }
         int sum = 0;
         for (int i = 0; i < cartItemLists.size(); i++) {
             int count = cartItemLists.get(i).getCount();
             int price = cartItemLists.get(i).getSku().getPrice();
             sum += count * price;
         }
-        tvShopAmout.setText("￥" + NumberUtils.keepPrecision(sum+"",2));
-        tvHowMuch.setText("实际付款￥" + NumberUtils.keepPrecision(sum+"",2));
+        tvShopAmout.setText("￥" + NumberUtils.keepPrecision(sum + "", 2));
+        tvHowMuch.setText("实际付款￥" + NumberUtils.keepPrecision(sum + "", 2));
 
     }
 
@@ -173,6 +179,9 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
         switch (view.getId()) {
             case R.id.ll_address:
                 Intent intent1 = new Intent(this, AddressManagerActivity.class);
+                intent1.putExtra("ID", addressID);
+                intent1.putExtra("addressName", address);
+                intent1.putExtra("Name", userName);
                 startActivityForResult(intent1, ADDRESSREQUESTCODE);
                 break;
             case R.id.rl_expect_time:
@@ -183,20 +192,35 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
                 startActivityForResult(intent2, REMARKREUQESTCODE);
                 break;
             case R.id.tv_now_pay:
-                if(TextUtils.isEmpty(address)){
+                if (TextUtils.isEmpty(address)) {
                     showToast("请选择送货地址");
                     return;
                 }
                 String time = tvTime.getText().toString().trim();
-                if(TextUtils.isEmpty(time)){
+                if (TextUtils.isEmpty(time)) {
                     showToast("请选择期望送货时间");
                     return;
                 }
-                Intent intent = new Intent(this, SpPayActivity.class);
-                String money = tvHowMuch.getText().toString().trim();
-                String[] s=money.split("￥");
-                intent.putExtra("money", s[1]);
-                startActivity(intent);
+                //拼接订单
+                for (int i = 0; i < cartItemLists.size(); i++) {
+                    SpCheckShopCarBean.CartItemsBean cartItemsBean = cartItemLists.get(i);
+                    Map<String,Integer> map=new HashMap<>();
+                    if(cartItemsBean!=null){
+                        map.put("skuid",cartItemsBean.getSkuid());
+                        map.put("count",cartItemsBean.getCount());
+                        productList.add(map);
+                    }
+                }
+                if(productList.size()<=0){
+                    showToast("您还没有选择购买的商品");
+                    return ;
+                }
+                if(TextUtils.isEmpty(remark)){
+                    remark="";
+                }
+                //生成订单
+                getPresenter().getOrder(addressID+"",time,remark,productList);
+
                 break;
         }
     }
@@ -223,6 +247,17 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
                     address = data.getStringExtra("Address");
                     tvAddress.setText("送至：" + address);
                 }
+                if (data != null) {
+                    chooseAddress.setVisibility(View.GONE);
+                    llUserInfo.setVisibility(View.VISIBLE);
+                    address = data.getStringExtra("Address");
+                    addressID = data.getIntExtra("ID", 0);
+                    userName = data.getStringExtra("Name");
+                    phone = data.getStringExtra("Mobile");
+                    tvAddress.setText("送至：" + address);
+                    tvUsername.setText(userName);
+                    tvPhone.setText(phone);
+                }
             }
         } else if (resultCode == Constants.REMARK) {
             if (requestCode == REMARKREUQESTCODE) {
@@ -234,9 +269,26 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
         }
     }
 
-    @Override
+    @Override//生成订单成功
     public void getOrderInfoSucc(SpOrderBean bean) {
+        if (bean != null) {
+            orderid = bean.getOrderid();
+            ordercode = bean.getOrdercode();
+            createtime = bean.getCreatetime();
+            ordertype = bean.getOrdertype();
 
+            Intent intent = new Intent(this, SpPayActivity.class);
+            String money = tvHowMuch.getText().toString().trim();
+            String[] strings = money.split("￥");
+            double pay = Double.parseDouble(strings[1]);
+            intent.putExtra("orderid", orderid + "");
+            intent.putExtra("ordercode", ordercode + "");
+            intent.putExtra("ordertype", ordertype + "");
+            intent.putExtra("time", createtime);
+            intent.putExtra("from", Constants.OFFICESUPPLIES);
+            intent.putExtra("pay", pay);
+            startActivity(intent);
+        }
     }
 
 }

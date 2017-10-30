@@ -7,6 +7,8 @@ import com.moe.wl.ui.main.bean.SpOrderBean;
 import com.moe.wl.ui.main.model.SpOrderModel;
 import com.moe.wl.ui.main.view.SpOrderView;
 
+import java.util.List;
+
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
 import rx.Subscriber;
@@ -18,10 +20,9 @@ import rx.Subscriber;
 
 public class SpOrderPresenter extends MvpRxPresenter<SpOrderModel, SpOrderView> {
 
-    public void getOrder(String addressid,String expectedTime,String remark,String productList,
-                           String skuid,String count) {
+    public void getOrder(String addressid,String expectedTime,String remark,List productList) {
         getView().showProgressDialog();
-        Observable request = getModel().getData(addressid,expectedTime,remark,productList,skuid,count);
+        Observable request = getModel().getData(addressid,expectedTime,remark,productList);
         getNetWork(request, new Subscriber<SpOrderBean>() {
 
             @Override
@@ -39,7 +40,8 @@ public class SpOrderPresenter extends MvpRxPresenter<SpOrderModel, SpOrderView> 
                 if (mResponse==null)
                     return;
                 if (mResponse.getErrCode()==2){
-                    getView().reLogin(Constants.LOGIN_ERROR);
+                    //getView().reLogin(Constants.LOGIN_ERROR);
+                    getView().showToast(mResponse.getMsg());
                     return;
                 }
                 if (mResponse.getErrCode() == 0) {

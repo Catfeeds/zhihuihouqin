@@ -1,7 +1,8 @@
 package com.moe.wl.ui.main.modelimpl;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
-import com.moe.wl.ui.main.model.PayModel;
+import com.moe.wl.ui.main.model.AddressModel;
+import com.moe.wl.ui.main.model.SpPayModel;
 
 import rx.Observable;
 
@@ -10,17 +11,11 @@ import rx.Observable;
  * 作者：Shixhe On 2017/9/7 0007
  */
 
-public class PayModelImpl implements PayModel {
+public class SpPayModelImpl implements SpPayModel {
 
     @Override
-    public Observable pay(String orderid,String orderCode, String orderType, int paytype) {
-        Observable observable = RetrofitUtils.getInstance().pay(orderid,orderCode,orderType,paytype);
-        return observable;
-    }
-
-    @Override
-    public Observable getfindUserWallet() {
-        Observable observable = RetrofitUtils.getInstance().findUserWallet();
+    public Observable getData(String type) {
+        Observable observable = RetrofitUtils.getInstance().findUserWallet1(type);
         return observable;
     }
 

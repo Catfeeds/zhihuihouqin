@@ -156,7 +156,6 @@ public class ShopCarDialog extends Dialog {
              if(listener!=null){
                  listener.onItemClickListener(count,cid,position);
              }
-                dismiss();
                 break;
         }
     }

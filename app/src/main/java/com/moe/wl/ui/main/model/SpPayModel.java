@@ -8,10 +8,9 @@ import rx.Observable;
  * 作者：Shixhe On 2017/9/4 0004
  */
 
-public interface PayModel extends MvpModel {
+public interface SpPayModel extends MvpModel {
 
-    Observable pay(String orderid,String orderCode,String orderType,int paytype);
-    Observable getfindUserWallet();
+    Observable getData(String type);
     Observable walletpay(String orderid,String orderCode,String orderType,int paytype,String paypass,int count);
     Observable getData();//是否有支付密码
 
