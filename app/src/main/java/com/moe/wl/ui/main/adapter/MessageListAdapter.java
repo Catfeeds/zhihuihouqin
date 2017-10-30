@@ -9,13 +9,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.bean.MessageBean;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.bean.MessageBean;
 
 /**
  * 类描述：
@@ -63,6 +65,11 @@ public class MessageListAdapter extends BaseAdapter {
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!OtherUtils.isAuth()){
+                    // 没有认证
+                    OtherUtils.showAuth(context);
+                    return;
+                }
                 switch (data.get(position).getTargetType()) {
                     case 1: // 1: 报修聊天
 

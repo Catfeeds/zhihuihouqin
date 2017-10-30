@@ -160,8 +160,8 @@ public class BookConfirmOrderActivity extends Base2Activity {
 
             @Override
             public void onNext(JieYueBean jieYueBean) {
-                SharedPrefHelper.getInstance().saveBookName(null);
-                SharedPrefHelper.getInstance().saveBookId(null);
+//                SharedPrefHelper.getInstance().saveBookName(null);
+//                SharedPrefHelper.getInstance().saveBookId(null);
                 SharedPrefHelper.getInstance().saveTime(null);
                 if (jieYueBean.getErrCode() == 0) {
                     Intent intent = new Intent(BookConfirmOrderActivity.this, JieYueSuccActivity.class);

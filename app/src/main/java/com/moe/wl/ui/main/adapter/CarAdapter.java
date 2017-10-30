@@ -1,18 +1,13 @@
 package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,7 +27,7 @@ import butterknife.ButterKnife;
 
 public class CarAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<CarInfo>  data=new ArrayList<>();
+    private List<CarInfo> data = new ArrayList<>();
     private List<String> lists = Arrays.asList("京", "津", "冀", "晋", "蒙", "辽",
             "吉", "黑", "沪", "苏", "浙", "皖"
             , "闽", "赣", "鲁", "豫", "鄂", "湘"
@@ -46,8 +41,9 @@ public class CarAdapter extends RecyclerView.Adapter {
     private String typeName;
     private int index;
 
-    public CarAdapter(Context mContext) {
+    public CarAdapter(Context mContext, List<CarInfo> data) {
         this.mContext = mContext;
+        this.data = data;
     }
 
     @Override
@@ -58,9 +54,45 @@ public class CarAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.setData(data.get(position),position,typeName);
+
+        viewHolder.rlCarType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (carListener != null) {
+                    carListener.onChooseCarClick(position);
+                }
+            }
+        });
+
+        viewHolder.tvShengfen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numberListener != null) {
+                    numberListener.onChooseNumberClick(position);
+                }
+            }
+        });
+
+        viewHolder.etChepaihao.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (textListener != null){
+                    textListener.onTextChange(editable.toString(), position);
+                }
+            }
+        });
     }
 
     @Override
@@ -68,124 +100,54 @@ public class CarAdapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    public void setData(List<CarInfo> data) {
-        this.data = data;
-        notifyDataSetChanged();
-    }
-private int selectPosition=0;
-
-    public void setTypeName(String typeName,int index) {
-        this.typeName = typeName;
-        this.index=index;
-        notifyDataSetChanged();
-    }
+    private int selectPosition = -1;
 
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_shengfen)
         TextView tvShengfen;
         @BindView(R.id.et_chepaihao)
         EditText etChepaihao;
-         @BindView(R.id.rl_car_type)
-         RelativeLayout rlCarType;
-         @BindView(R.id.tv_car_type)
-         TextView tvCarType;
-         private int mPosition;
-         private String str;
-         private CarInfo carInfo;
-         private int MAX_NUM=5;
+        @BindView(R.id.rl_car_type)
+        RelativeLayout rlCarType;
+        @BindView(R.id.tv_car_type)
+        TextView tvCarType;
 
-         ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-             rlCarType.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     selectPosition=mPosition;
-                     if(listener!=null){
-                         CarInfo carInfo = data.get(mPosition);
-                         carInfo.setPrecarcode(str);
-                         String s = etChepaihao.getText().toString().trim();
-                         carInfo.setSuffixcarcode(s);
-                         listener.onCarTypeItemClick(carInfo,selectPosition);
-                     }
-                 }
-             });
-
-             tvShengfen.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     showShengFenDialog();
-                 }
-             });
-             TextWatcher watcher = new TextWatcher() {
-                 @Override
-                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                 }
-
-                 @Override
-                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                 }
-
-                 @Override
-                 public void afterTextChanged(Editable s) {
-                     //编辑框内容变化之后会调用该方法，s为编辑框内容变化后的内容
-                     if (s.length() > MAX_NUM) {
-                         s.delete(MAX_NUM, s.length());
-                     }
-                 }
-             };
-             etChepaihao.addTextChangedListener(watcher);
         }
 
-        public  void setData(CarInfo carInfo, int position,String typeName) {
-            this.mPosition = position;
-            this.carInfo=carInfo;
-            if(index==position)
-            tvCarType.setText(typeName);
-        }
-         private void showShengFenDialog() {
-             show(true);
-         }
-
-         private void show(final boolean isFirst) {
-             final AlertDialog dlg = new AlertDialog.Builder(mContext).create();
-             dlg.show();
-             Window window = dlg.getWindow();
-             // *** 主要就是在这里实现这种效果的.
-             // 设置窗口的内容页面,alertdialog.xml文件中定义view内容
-             window.setContentView(R.layout.view_car_alertdialog);
-             GridView gv = (GridView) window.findViewById(R.id.gv_car_num);
-             ArrayAdapter<String> adapter = null;
-             if (isFirst) {
-                 str = "";
-                 tvShengfen.setText(str);
-                 adapter = new ArrayAdapter<String>(mContext, R.layout.simple_list_item_1, R.id.tv_item, lists);
-             } else {
-                 adapter = new ArrayAdapter<String>(mContext, R.layout.simple_list_item_1, R.id.tv_item, listTwo);
-             }
-             gv.setAdapter(adapter);
-             gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                 @Override
-                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                     if (isFirst) {
-                         str += lists.get(position);
-                         show(false);
-                     } else {
-                         str += listTwo.get(position);
-                     }
-                     dlg.cancel();
-                     tvShengfen.setText(str);
-                 }
-             });
-         }
-    }
-    private OnCarTypeItemClick listener;
-
-    public void setListener(OnCarTypeItemClick listener) {
-        this.listener = listener;
     }
 
-    public interface  OnCarTypeItemClick{
-        void onCarTypeItemClick(CarInfo carInfo,int position);
+    private OnChooseCarListener carListener;
+    private OnChooseNumberListener numberListener;
+    private OnTextListener textListener;
+
+    // 选择车辆条目监听
+    public void setChooseCarListener(OnChooseCarListener listener) {
+        this.carListener = listener;
     }
+
+    public interface OnChooseCarListener {
+        void onChooseCarClick(int position);
+    }
+
+    // 车牌号前缀监听
+    public void setOnChooseNumberListener(OnChooseNumberListener listener) {
+        this.numberListener = listener;
+    }
+
+    public interface OnChooseNumberListener {
+        void onChooseNumberClick(int position);
+    }
+
+    // 车牌号变化监听
+    public void setTextListener(OnTextListener textListener) {
+        this.textListener = textListener;
+    }
+
+    public interface OnTextListener {
+        void onTextChange(String content, int position);
+    }
+
 }

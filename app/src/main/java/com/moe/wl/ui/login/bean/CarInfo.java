@@ -8,15 +8,24 @@ public class CarInfo {
     /* "cartypeid":"1",
             "precarcode":"12",
             "suffixcarcode":"23"*/
-    private String cartypeid;
-    private String precarcode;
-    private String suffixcarcode;
+    private int cartypeid;
+    private String carName = "";
+    private String precarcode = "";
+    private String suffixcarcode = "";
 
-    public String getCartypeid() {
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
+
+    public int getCartypeid() {
         return cartypeid;
     }
 
-    public void setCartypeid(String cartypeid) {
+    public void setCartypeid(int cartypeid) {
         this.cartypeid = cartypeid;
     }
 
@@ -36,9 +45,4 @@ public class CarInfo {
         this.suffixcarcode = suffixcarcode;
     }
 
-    public CarInfo(String cartypeid, String precarcode, String suffixcarcode) {
-        this.cartypeid = cartypeid;
-        this.precarcode = precarcode;
-        this.suffixcarcode = suffixcarcode;
-    }
 }

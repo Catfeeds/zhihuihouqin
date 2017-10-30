@@ -92,7 +92,7 @@ public class RechargeAmountAdapter extends BaseAdapter {
                 tvSelectMoney.setBackgroundResource(R.drawable.shape_blue_confirm);
                 tvSelectMoney.setTextColor(Color.WHITE);
             }else{
-                tvSelectMoney.setBackgroundResource(R.drawable.shape_bule_line);
+                tvSelectMoney.setBackgroundResource(R.drawable.shape_blue_line);
                 tvSelectMoney.setTextColor(Color.parseColor("#333333"));
             }
         }

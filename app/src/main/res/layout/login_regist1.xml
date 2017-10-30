@@ -119,10 +119,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_pact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
+        android:visibility="gone"
         android:gravity="center_vertical">
         <!-- android:button="@drawable/selector_check"-->
         <CheckBox
@@ -131,7 +133,10 @@
             android:layout_height="wrap_content"
             android:button="@drawable/check_box_button"
             android:checked="true"
+            android:gravity="center_vertical"
+            android:paddingBottom="3dp"
             android:paddingLeft="6dp"
+            android:paddingTop="3dp"
             android:text="我同意"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_smaller" />
@@ -141,7 +146,10 @@
             style="@style/tvStyle_blue_smaller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:paddingBottom="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="3dp" />
     </LinearLayout>
 
     <TextView
@@ -161,12 +169,12 @@
 
     <LinearLayout
         android:id="@+id/ll_complain"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

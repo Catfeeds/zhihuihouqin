@@ -4,6 +4,7 @@
     android:id="@+id/activity_registration2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -22,7 +23,7 @@
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider_layout"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="186dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_default_rectangle" />
 
@@ -35,7 +36,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_line" />
 
     <TextView
         android:id="@+id/tv_activity_posted"

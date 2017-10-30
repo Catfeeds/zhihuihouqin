@@ -16,6 +16,7 @@ import com.moe.wl.framework.base.BaseFragment;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
 import com.moe.wl.ui.main.activity.me.LaiFangActivity;
@@ -305,6 +306,16 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.tv_vegetable_five, R.id.tv_conference_one, R.id.tv_conference_two, R.id.tv_conference_three, R.id.tv_conference_four,
             R.id.tv_conference_five, R.id.rl_conference})
     public void onViewClicked(View view) {
+        if (view.getId() == R.id.ll_personal_auth) {
+            Intent intent3 = new Intent(getActivity(), IdentityActivity.class);
+            startActivity(intent3);
+            return;
+        }
+        if (!OtherUtils.isAuth()) {
+            // 没有认证
+            OtherUtils.showAuth(getActivity());
+            return;
+        }
         switch (view.getId()) {
             case R.id.ll_my_packge:
                 Intent intent = new Intent(getActivity(), MyPurseActivity.class);
@@ -313,11 +324,6 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             case R.id.ll_my_collect:
                 Intent intent2 = new Intent(getActivity(), MyCollectActivity.class);
                 startActivity(intent2);
-                break;
-
-            case R.id.ll_personal_auth:
-                Intent intent3 = new Intent(getActivity(), IdentityActivity.class);
-                startActivity(intent3);
                 break;
 
             case R.id.civ_header: // 个人信息

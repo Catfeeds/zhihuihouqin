@@ -5,12 +5,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.moe.wl.R;
-import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 
 /**
  * 类描述：
@@ -19,23 +19,31 @@ import com.moe.wl.framework.imageload.GlideLoading;
 
 public class ShowHintPop extends PopupWindow {
 
-    ImageView image;
-    private RelativeLayout bg;
     private Context context;
     private View view;
 
-    public ShowHintPop(Context context, String imageUrl) {
+    private TextView content;
+    private CheckBox isShowNext;
+    private TextView iKnow;
+
+    public ShowHintPop(final Context context, final String cont, final int serviceType) {
 
         this.context = context;
-        view = LayoutInflater.from(context).inflate(R.layout.pop_show_big_photo, null);
-        image = (ImageView) view.findViewById(R.id.image);
-        bg = (RelativeLayout) view.findViewById(R.id.bg);
+        view = LayoutInflater.from(context).inflate(R.layout.pop_show_hint, null);
+        content = (TextView) view.findViewById(R.id.content);
+        isShowNext = (CheckBox) view.findViewById(R.id.next_show);
+        iKnow = (TextView) view.findViewById(R.id.i_know);
 
-        GlideLoading.getInstance().loadImgUrlHeader(context, imageUrl, image, R.mipmap.ic_default_square);
+        if (cont == null) {
+            content.setText("空");
+        } else {
+            content.setText(cont);
+        }
 
-        bg.setOnClickListener(new View.OnClickListener() {
+        iKnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPrefHelper.getInstance().setServiceHint(serviceType, isShowNext.isChecked());
                 dismiss();
             }
         });

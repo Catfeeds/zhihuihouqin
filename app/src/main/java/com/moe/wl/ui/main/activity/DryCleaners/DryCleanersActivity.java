@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BannerItem;
@@ -19,6 +22,7 @@ import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
 import com.moe.wl.ui.main.presenter.BannerPresenter;
 import com.moe.wl.ui.main.view.BannerView;
 import com.moe.wl.ui.mywidget.AlertDialog;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 
 import java.util.ArrayList;
 
@@ -53,6 +57,8 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
     LinearLayout activityDryCleaners;
     @BindView(R.id.ll_call)
     LinearLayout llCall;
+    @BindView(R.id.message_hint)
+    TextView hint;
 
     @Override
     public void setContentLayout() {
@@ -162,9 +168,17 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         tvPhone.setText(mobile);
         call(mobile);
 
+        if (bean.getRemind() == null) {
+            hint.setText("空");
+        } else {
+            hint.setText(bean.getRemind());
+        }
+
         // TODO 弹温馨出提示窗
-
-
+        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.DRYCLEANER)) {
+            ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.DRYCLEANER);
+            pop.showAtLocation(findViewById(R.id.activity_dry_cleaners), Gravity.CENTER, 0, 0);
+        }
     }
 
     @Override

@@ -59,7 +59,8 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     TextView complaint;
     @BindView(R.id.ll_complain)
     LinearLayout ll_complain;
-
+    @BindView(R.id.ll_pact)
+    LinearLayout ll_pact;
 
     private Handler handler = new Handler();
     public static final int MAX_TIME = 60;// 按钮 60秒内不能点击
@@ -129,6 +130,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
                 ll_complain.setVisibility(View.VISIBLE);
             } else if (from == Constants.REGIST) {
                 registTitle.setTitle("注册");
+                ll_pact.setVisibility(View.VISIBLE);
             } else if (from == Constants.BIND) {
                 registTitle.setTitle("绑定手机号");
             }
@@ -300,7 +302,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         return true;
     }
 
-   /**
+    /**
      * 校验验证码,下一步
      *
      * @param captcha

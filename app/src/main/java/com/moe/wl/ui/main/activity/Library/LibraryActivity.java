@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,6 +14,8 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BookPagerAdapter;
@@ -24,6 +27,7 @@ import com.moe.wl.ui.main.model.BannerModel;
 import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
 import com.moe.wl.ui.main.presenter.BannerPresenter;
 import com.moe.wl.ui.main.view.BannerView;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,7 +110,6 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
                 }
                 break;
         }
-
     }
 
     @Override
@@ -123,6 +126,11 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
                 textSliderView.description(desc).image(map.get(desc));
                 sliderLayout.addSlider(textSliderView);
             }
+        }
+        // TODO 弹温馨出提示窗
+        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.BOOK)) {
+            ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.BOOK);
+            pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
         }
     }
 

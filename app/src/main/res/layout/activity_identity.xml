@@ -1,52 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/activity_identity"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/bg_page"
-              android:orientation="vertical"
-    >
+    android:id="@+id/activity_identity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        />
+        android:background="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"
-        />
+        android:background="@color/gray_line" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="姓名"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/tv_name"
@@ -58,118 +52,109 @@
                     android:hint="请输入姓名"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
+
             <RelativeLayout
                 android:id="@+id/rl_sex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="性别"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_sex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_small"
-                        />
+                        android:textSize="@dimen/sp_small" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/turn_right"
-                        />
+                        android:src="@drawable/turn_right" />
                 </LinearLayout>
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"/>
+                android:background="@color/gray_line" />
+
             <RelativeLayout
                 android:id="@+id/rl_native"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="民族"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_native"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_small"
-                        />
+                        android:textSize="@dimen/sp_small" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/turn_right"
-                        />
+                        android:src="@drawable/turn_right" />
                 </LinearLayout>
             </RelativeLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1px"
-    android:background="@color/gray_line"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="出生日期"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/tv_birth"
@@ -178,34 +163,31 @@
                     android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="请输入出生日期"
+                    android:hint="填写出生日期"
                     android:inputType="number"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="电话"
+                    android:text="手机号"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/tv_phone"
@@ -214,213 +196,197 @@
                     android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="请输入电话号"
+                    android:hint="填写手机号"
                     android:inputType="number"
+                    android:maxLength="11"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
-           <!-- <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center_vertical"
+                 android:orientation="horizontal"
+                 android:padding="@dimen/normal_padding"
+                 >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="身份证号"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="身份证号"
+                     android:textColor="@color/tv_black"
+                     android:textSize="@dimen/sp_small"
+                     />
 
-                <EditText
-                    android:id="@+id/tv_identity_num"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="填写身份证号"
-                    android:maxLength="18"
-                    android:textColor="@color/tv_black"
-                    android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
-            </LinearLayout>
+                 <EditText
+                     android:id="@+id/tv_identity_num"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_alignParentRight="true"
+                     android:background="@null"
+                     android:gravity="right"
+                     android:hint="填写身份证号"
+                     android:maxLength="18"
+                     android:textColor="@color/tv_black"
+                     android:textColorHint="@color/tv_gray"
+                     android:textSize="@dimen/sp_small"
+                     />
+             </LinearLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray_line"
-                />-->
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="1px"
+                 android:background="@color/gray_line"
+                 />-->
 
             <RelativeLayout
                 android:id="@+id/rl_positon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="职位"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_small"
-                        />
+                        android:textSize="@dimen/sp_small" />
 
                     <ImageView
                         android:id="@+id/iv_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/turn_right"
-                        />
+                        android:src="@drawable/turn_right" />
                 </LinearLayout>
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
             <RelativeLayout
                 android:id="@+id/rl_department_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="部门号"
+                    android:text="部门"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_department_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_small"
-                        />
+                        android:textSize="@dimen/sp_small" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/turn_right"
-                        />
+                        android:src="@drawable/turn_right" />
                 </LinearLayout>
 
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
             <RelativeLayout
                 android:id="@+id/rl_officeid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="处室号"
+                    android:text="处室"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_officeid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_small"
-                        />
+                        android:textSize="@dimen/sp_small" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:src="@drawable/turn_right"
-                        />
+                        android:src="@drawable/turn_right" />
                 </LinearLayout>
 
             </RelativeLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/gray_line"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_line" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="参加工作时间"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/et_add_time"
@@ -432,28 +398,27 @@
                     android:hint="填写参加工作时间"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"/>
+                android:background="@color/gray_line" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="来部时间"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/et_come_depart_time"
@@ -465,50 +430,45 @@
                     android:hint="填写来部时间"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
+
             <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:gravity="center_vertical"
-                          android:orientation="horizontal"
-                          android:padding="@dimen/standard_padding"
-                          >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/normal_padding">
 
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="楼号"
-                              android:textColor="@color/tv_black"
-                              android:textSize="@dimen/sp_small"
-                              />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="楼号"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
 
-                          <EditText
-                              android:id="@+id/et_build_num"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_alignParentRight="true"
-                              android:background="@null"
-                              android:gravity="right"
-                              android:hint="填写楼号"
-                              android:textColor="@color/tv_black"
-                              android:textColorHint="@color/tv_gray"
-                              android:textSize="@dimen/sp_small"
-                              />
-                      </LinearLayout>
+                <EditText
+                    android:id="@+id/et_build_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="填写楼号"
+                    android:textColor="@color/tv_black"
+                    android:textColorHint="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
 
             <LinearLayout
@@ -516,16 +476,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="办公房间号"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/tv_room_num"
@@ -537,30 +495,27 @@
                     android:hint="填写房间号"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="办公室座机"
+                    android:text="办公电话"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/tv_office_phone"
@@ -568,34 +523,31 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="填写办公室座机"
+                    android:hint="填写办公电话"
                     android:inputType="number"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="工作邮箱"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
 
                 <EditText
                     android:id="@+id/tv_e_mail"
@@ -607,47 +559,38 @@
                     android:inputType="number"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray_line"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/bg_page"
-                />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg_page" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding"
+                android:padding="@dimen/normal_padding"
                 android:text="其他"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_common"
-                />
+                android:textSize="@dimen/sp_common" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
             <!--<RelativeLayout
                 android:id="@+id/rl_car_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -686,13 +629,12 @@
             <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                 android:id="@+id/rv_chepaihao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
             <!--
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/standard_padding"
+                            android:padding="@dimen/normal_padding"
                             android:text="车牌号"
                             android:textColor="@color/tv_black"
                             android:textSize="@dimen/sp_bigger" />
@@ -731,22 +673,19 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/gray_line"
-                />
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/standard_padding">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/continue_add"
-                    />
+                    android:background="@drawable/continue_add" />
 
                 <TextView
                     android:id="@+id/tv_add_car_num"
@@ -755,36 +694,34 @@
                     android:layout_gravity="center_horizontal"
                     android:text="添加车辆"
                     android:textColor="@color/tv_gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:textSize="@dimen/sp_smaller" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@color/gray_lighter"
-                android:padding="@dimen/standard_padding"
-                >
+                android:padding="@dimen/standard_padding">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="提示:暂无车辆信息可不填写,若多车辆信息可不填写,若多车辆可点击下方添加惊醒多辆车提交认证"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/sp_small"
-                    />
+                    android:text="提示:暂无车辆信息可不填写，若多车辆信息可不填写，若多车辆可点击下方添加，进行多辆车提交认证"
+                    android:textColor="@color/tv_gray"
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <TextView
         android:id="@+id/tv_commit"
-        style="@style/tvStyle_tv_black"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_height"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:paddingBottom="@dimen/normal_padding"
+        android:paddingTop="@dimen/normal_padding"
         android:text="提交"
-        android:textSize="@dimen/sp_big"
-        />
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_small" />
 </LinearLayout>

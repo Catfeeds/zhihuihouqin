@@ -12,7 +12,7 @@ public class SharedPrefHelper {
     /**
      * SharedPreferences的名字
      */
-    private static final String SP_FILE_NAME = "APPLICATION_SP";
+    public static final String SP_FILE_NAME = "APPLICATION_SP";
     private static SharedPrefHelper sharedPrefHelper = null;
     private static SharedPreferences sharedPreferences;
     /**
@@ -113,17 +113,19 @@ public class SharedPrefHelper {
     public int getHasBuyAuth() {
         return sharedPreferences.getInt("HasBuyAuth", 0);
     }
+
     public void setHasBuyAuth(int hasBuyAuth) {
         sharedPreferences.edit().putInt("HasBuyAuth", hasBuyAuth).apply();
     }
+
     // 是否认证过
     public int getAuthStatus() {
         return sharedPreferences.getInt("AuthStatus", 0);
     }
+
     public void setAuthStatus(int authStatus) {
         sharedPreferences.edit().putInt("AuthStatus", authStatus).apply();
     }
-
 
 
     /**
@@ -212,19 +214,13 @@ public class SharedPrefHelper {
         return sharedPreferences.getString("time", "");
     }
 
-    public void saveBookName(String bookName) {
-        sharedPreferences.edit().putString("bookName", bookName).commit();
+    // 电话
+    public void setServiceHint(int serviceType, boolean isShow) {
+        sharedPreferences.edit().putBoolean("ServiceHint" + serviceType, isShow).commit();
     }
 
-    public String getBookName() {
-        return sharedPreferences.getString("bookName", "");
+    public boolean getServiceHint(int serviceType) {
+        return sharedPreferences.getBoolean("ServiceHint" + serviceType, false);
     }
 
-    public void saveBookId(String bookId) {
-        sharedPreferences.edit().putString("bookId", bookId).commit();
-    }
-
-    public String getBookId() {
-        return sharedPreferences.getString("bookId", "");
-    }
 }

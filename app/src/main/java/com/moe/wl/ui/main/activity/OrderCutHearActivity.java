@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -12,8 +13,9 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
@@ -26,6 +28,7 @@ import com.moe.wl.ui.main.model.ShopModel;
 import com.moe.wl.ui.main.modelimpl.ShopModelImpl;
 import com.moe.wl.ui.main.presenter.ShopPresenter;
 import com.moe.wl.ui.main.view.ShopView;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,38 +115,41 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
 
     @Override
     public void getServiceInfo(BannerResponse bean) {
-        if(bean!=null){
+        if (bean != null) {
             //获取轮播图
             BannerResponse.ServiceInfoBean infoBean = bean.getServiceInfo();
             //ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
-            if(infoBean!=null){
-            String detailphoto = infoBean.getDetailphoto();
-            if(detailphoto!=null) {
-                String[] urls = detailphoto.split(",");
-                List<?> imgList = Arrays.asList(urls);
-                if (imgList.size() > 0) {
-                    ArrayList<BannerItem> list = new ArrayList<>();
-                    for (int i = 0; i < imgList.size(); i++) {
-                        BannerItem item = new BannerItem();
-                        item.imgUrl = (String) imgList.get(i);
-                        LogUtil.log(item.imgUrl);
-                        list.add(item);
+            if (infoBean != null) {
+                String detailphoto = infoBean.getDetailphoto();
+                if (detailphoto != null) {
+                    String[] urls = detailphoto.split(",");
+                    List<?> imgList = Arrays.asList(urls);
+                    if (imgList.size() > 0) {
+                        ArrayList<BannerItem> list = new ArrayList<>();
+                        for (int i = 0; i < imgList.size(); i++) {
+                            BannerItem item = new BannerItem();
+                            item.imgUrl = (String) imgList.get(i);
+                            LogUtil.log(item.imgUrl);
+                            list.add(item);
+                        }
+                        sib
+                                .setSource(list)
+                                .startScroll();
                     }
-                    sib
-                            .setSource(list)
-                            .startScroll();
-                }
-                sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
-                    @Override
-                    public void onItemClick(int position) {
+                    sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
+                        @Override
+                        public void onItemClick(int position) {
                         /*ToastUtil.showToast(getActivity(), "position--->" + position);*/
 
-                    }
-                });
-
-            }else{
-                LogUtils.i("detailphoto==="+"为null");
+                        }
+                    });
+                }
             }
+
+            // TODO 弹温馨出提示窗
+            if (!SharedPrefHelper.getInstance().getServiceHint(Constants.HAIRCUTS)) {
+                ShowHintPop pop = new ShowHintPop(this, infoBean.getRemind(), Constants.HAIRCUTS);
+                pop.showAtLocation(findViewById(R.id.activity_order_cut_hear), Gravity.CENTER, 0, 0);
             }
         }
 
@@ -159,11 +165,11 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 BarberlistBean barberlistBean = barberlist.get(position);
                 String place = shopBean.getPlace();
                 String tradename = shopBean.getTradename();
-                Intent intent=new Intent(OrderCutHearActivity.this, BarberDetailActivity.class);
+                Intent intent = new Intent(OrderCutHearActivity.this, BarberDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("address",place);
-                bundle.putString("shopName",tradename);
-                bundle.putSerializable("barberlistBean",barberlistBean);
+                bundle.putString("address", place);
+                bundle.putString("shopName", tradename);
+                bundle.putSerializable("barberlistBean", barberlistBean);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -181,7 +187,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
             case R.id.tv_barber_num:
                 Intent intent = new Intent(this, BarberActivity.class);
                 String place = tvAddress.getText().toString().trim();
-                intent.putExtra("address",place);
+                intent.putExtra("address", place);
                 intent.putExtra("shopName", shopBean.getTradename());
                 startActivity(intent);
                 break;

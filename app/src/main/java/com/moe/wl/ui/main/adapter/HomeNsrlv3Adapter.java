@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityDetailActivity;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 
@@ -88,6 +89,11 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!OtherUtils.isAuth()){
+                        // 没有认证
+                        OtherUtils.showAuth(mContext);
+                        return;
+                    }
                     Intent intent = new Intent(mContext, ActivityDetailActivity.class);
                     intent.putExtra("activitylistBean", activitylistBean);
                     mContext.startActivity(intent);

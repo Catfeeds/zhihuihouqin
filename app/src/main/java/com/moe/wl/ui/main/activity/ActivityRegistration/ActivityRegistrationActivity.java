@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +14,9 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
@@ -23,6 +26,7 @@ import com.moe.wl.ui.main.model.BannerModel;
 import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
 import com.moe.wl.ui.main.presenter.BannerPresenter;
 import com.moe.wl.ui.main.view.BannerView;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,6 +158,12 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
                 textSliderView.description(desc).image(map.get(desc));
                 sliderLayout.addSlider(textSliderView);
             }
+        }
+
+        // TODO 弹温馨出提示窗
+        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.TEAMACTIVE)) {
+            ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.TEAMACTIVE);
+            pop.showAtLocation(findViewById(R.id.activity_registration2), Gravity.CENTER, 0, 0);
         }
     }
 

@@ -5,38 +5,18 @@ package com.moe.wl.ui.login.bean;
  */
 
 public class Auth {
-    /**
-     * officeid : 1
-     * departid : 1
-     * buildnum : 1
-     * roomnum : 121
-     * name : 12332
-     * mobile : 13269770032
-     * idcard : 111212130d
-     * positionid : 132
-     * roomid : 302
-     * officetel : 123
-     * nation : 1
-     * email : 123.@123.com
-     * sex : 1
-     * birthday : 2017-09-09
-     * startworktime : 2017-09-09
-     * ldtime : 2017-09-09
-     */
 
     private int officeid;
     private int departid;
-    private int buildnum;
-    private int roomnum;
+    private String buildnum;
+    private String roomnum;
     private String name;
-    private int mobile;
-    private String idcard;
+    private String mobile;
     private int positionid;
-    private int roomid;
     private String officetel;
     private String nation;
     private String email;
-    private String sex;
+    private int sex;
     private String birthday;
     private String startworktime;
     private String ldtime;
@@ -57,19 +37,19 @@ public class Auth {
         this.departid = departid;
     }
 
-    public int getBuildnum() {
+    public String getBuildnum() {
         return buildnum;
     }
 
-    public void setBuildnum(int buildnum) {
+    public void setBuildnum(String buildnum) {
         this.buildnum = buildnum;
     }
 
-    public int getRoomnum() {
+    public String getRoomnum() {
         return roomnum;
     }
 
-    public void setRoomnum(int roomnum) {
+    public void setRoomnum(String roomnum) {
         this.roomnum = roomnum;
     }
 
@@ -81,20 +61,12 @@ public class Auth {
         this.name = name;
     }
 
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public String getIdcard() {
-        return idcard;
-    }
-
-    public void setIdcard(String idcard) {
-        this.idcard = idcard;
     }
 
     public int getPositionid() {
@@ -103,14 +75,6 @@ public class Auth {
 
     public void setPositionid(int positionid) {
         this.positionid = positionid;
-    }
-
-    public int getRoomid() {
-        return roomid;
-    }
-
-    public void setRoomid(int roomid) {
-        this.roomid = roomid;
     }
 
     public String getOfficetel() {
@@ -137,11 +101,11 @@ public class Auth {
         this.email = email;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
@@ -169,56 +133,22 @@ public class Auth {
         this.ldtime = ldtime;
     }
 
-    public Auth(int officeid, int departid, int buildnum, int roomnum, String name, int mobile,/* String idcard,*/ int positionid, String officetel, String nation, String email, String sex, String birthday, String startworktime, String ldtime) {
-        this.officeid = officeid;
-        this.departid = departid;
-        this.buildnum = buildnum;
-        this.roomnum = roomnum;
-        this.name = name;
-        this.mobile = mobile;
-        this.idcard = idcard;
-        this.positionid = positionid;
-        this.officetel = officetel;
-        this.nation = nation;
-        this.email = email;
-        this.sex = sex;
+    public Auth(String birthday, String buildnum, int departid, String email, String ldtime, String mobile, String name,
+                      String nation, int officeid, String officetel, int positionid, String roomnum, int sex, String startworktime) {
         this.birthday = birthday;
-        this.startworktime = startworktime;
-        this.ldtime = ldtime;
-    }
-    /* *//* "officeid":1,
-        "departid":1,
-        "buildnum":1,
-        "roomnum":121,
-        "name":12332,
-        "mobile":13269770032,
-        "idcard":"111212130d",
-        "positionid":132,
-        "roomid":302,
-        "officetel":"123",
-        "nation":"1"*//*
-    private String officeid;
-    private String departid;
-    private String buildnum;
-    private String roomnum;
-    private String name;
-    private String mobile;
-    private String idcard;
-    private String positionid;
-    private String roomid;
-    private String officetel;
-//    private String nation;
-*//*, String nation*/
-/*    public Auth(String officeid, String departid, String buildnum, String roomnum, String name, String mobile, String idcard, String positionid, String officetel) {
-        this.officeid = officeid;
-        this.departid = departid;
         this.buildnum = buildnum;
-        this.roomnum = roomnum;
-        this.name = name;
+        this.departid = departid;
+        this.email = email;
+        this.ldtime = ldtime;
         this.mobile = mobile;
-        this.idcard = idcard;
-        this.positionid = positionid;
+        this.name = name;
+        this.nation = nation;
+        this.officeid = officeid;
         this.officetel = officetel;
-//        this.nation = nation;
-    }*/
+        this.positionid = positionid;
+        this.roomnum = roomnum;
+        this.sex = sex;
+        this.startworktime = startworktime;
+    }
+
 }

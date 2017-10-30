@@ -1,10 +1,15 @@
 package com.moe.wl.ui.login.activity;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -93,16 +98,14 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     EditText e_mail;
 
 
-
     private int positionId;
     private String name;
     private String phone;
     private String identityNum;
     private String roomNum;
     private String officePhone;
-    private String carType;
-    private String chePaiHao;
-    private String str = "";
+    //    private String carType;
+//    private String chePaiHao;
     private List<String> lists = Arrays.asList("京", "津", "冀", "晋", "蒙", "辽",
             "吉", "黑", "沪", "苏", "浙", "皖"
             , "闽", "赣", "鲁", "豫", "鄂", "湘"
@@ -126,7 +129,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     public static final int DEPARTMENT = 100;
     public static final int OFFICEID = 101;
     public static final int CARTYPE = 102;
-    private int carTypeId;
     private int MAX_IDNUM = 18;
     private int index;
     private int roomnum;
@@ -154,29 +156,68 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         title.setBack(true);
         title.setTitle("身份信息");
         carList = new ArrayList<>();
-        carList.add(new CarInfo("", "", ""));
+        carList.add(new CarInfo());
         initList();
     }
 
     private void initList() {
-
         rvChepaihao.setLayoutManager(new NoScrollLinearLayoutManager(this));
-        carAdapter = new CarAdapter(this);
+        carAdapter = new CarAdapter(this, carList);
         rvChepaihao.setAdapter(carAdapter);
-        carAdapter.setData(carList);
-        carAdapter.setListener(new CarAdapter.OnCarTypeItemClick() {
+//        carAdapter.setData(carList);
+        carAdapter.setChooseCarListener(new CarAdapter.OnChooseCarListener() {
             @Override
-            public void onCarTypeItemClick(CarInfo carInfo, int position) {
-                showToast("点击了");
+            public void onChooseCarClick(int position) {
                 index = position;
-                Intent intent4 = new Intent(IdentityActivity.this, CarTypeActivity.class);
-                startActivityForResult(intent4, CARTYPE);
-                for (int i = 0; i < carList.size(); i++) {
-                    if (i == position) {
-                        CarInfo carInfo1 = carList.get(position);
-                        carInfo1.setCartypeid(carTypeId + "");
-                    }
+                Intent intent = new Intent(IdentityActivity.this, CarTypeActivity.class);
+                startActivityForResult(intent, CARTYPE);
+            }
+        });
+        carAdapter.setOnChooseNumberListener(new CarAdapter.OnChooseNumberListener() {
+            @Override
+            public void onChooseNumberClick(int position) {
+                index = position;
+                show(true, position);
+            }
+        });
+        carAdapter.setTextListener(new CarAdapter.OnTextListener() {
+            @Override
+            public void onTextChange(String content, int position) {
+                carList.get(position).setSuffixcarcode(content);
+            }
+        });
+    }
+
+    private String str;
+
+    private void show(final boolean isFirst, final int position) {
+        final AlertDialog dlg = new AlertDialog.Builder(this).create();
+        dlg.show();
+        Window window = dlg.getWindow();
+        // *** 主要就是在这里实现这种效果的.
+        // 设置窗口的内容页面,alertdialog.xml文件中定义view内容
+        window.setContentView(R.layout.view_car_alertdialog);
+        GridView gv = (GridView) window.findViewById(R.id.gv_car_num);
+        ArrayAdapter<String> adapter;
+        if (isFirst) {
+            str = "";
+            adapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, R.id.tv_item, lists);
+        } else {
+            adapter = new ArrayAdapter<>(this, R.layout.simple_list_item_1, R.id.tv_item, listTwo);
+        }
+        gv.setAdapter(adapter);
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int po, long id) {
+                if (isFirst) {
+                    str += lists.get(po);
+                    show(false, position);
+                } else {
+                    str += listTwo.get(po);
+                    carList.get(position).setPrecarcode(str);
+                    carAdapter.notifyDataSetChanged();
                 }
+                dlg.cancel();
             }
         });
     }
@@ -239,16 +280,18 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     if (data != null) {
                         int bgypright = data.getIntExtra("bgypright", 0);
                         int departid = data.getIntExtra("departid", 0);
-                        officeid = data.getIntExtra("id", 0) ;
+                        officeid = data.getIntExtra("id", 0);
                         String officeName = data.getStringExtra("name");
                         tvOfficeid.setText(officeName);
                     }
                     break;
                 case CARTYPE:
                     if (data != null) {
-                        carTypeId = data.getIntExtra("id", 0);
-                        String typename = data.getStringExtra("typename");
-                        carAdapter.setTypeName(typename, index);
+                        int carTypeId = data.getIntExtra("id", 0);
+                        String carName = data.getStringExtra("typename");
+                        carList.get(index).setCartypeid(carTypeId);
+                        carList.get(index).setCarName(carName);
+                        carAdapter.notifyDataSetChanged();
                     }
                     break;
             }
@@ -263,35 +306,41 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 intent.putExtra("sex", tvSex.getText().toString().trim());
                 startActivityForResult(intent, SEXREQUESTCODE);
                 break;
+
             case R.id.rl_native:
                 Intent intent4 = new Intent(this, NativesActivity.class);
                 startActivityForResult(intent4, NATIVE);
                 break;
+
             case R.id.rl_positon:
                 Intent intent1 = new Intent(this, PositionActivity.class);
                 startActivityForResult(intent1, REQUESTPOSTIONCODE);
                 break;
+
             case R.id.rl_department_num:
                 Intent intent3 = new Intent(this, DepartmentActivity.class);
                 startActivityForResult(intent3, DEPARTMENT);
                 break;
+
             case R.id.rl_officeid:
                 Intent intent2 = new Intent(this, OfficeidActivity.class);
                 startActivityForResult(intent2, OFFICEID);
                 break;
+
             case R.id.tv_add_car_num:
-                carList.add(new CarInfo("", "", ""));
-                carAdapter.setData(carList);
+                carList.add(new CarInfo());
+                carAdapter.notifyDataSetChanged();
                 break;
+
             case R.id.tv_commit:
                 name = tvName.getText().toString().trim();
                 phone = tvPhone.getText().toString().trim();
-                int mobile = Integer.parseInt(phone);
+//                int mobile = Integer.parseInt(phone);
                 //identityNum = tvIdentityNum.getText().toString().trim();
                 roomNum = tvRoomNum.getText().toString().trim();
                 roomnum = Integer.parseInt(roomNum);
                 officePhone = tvOfficePhone.getText().toString().trim();
-                 String buildNum = etBuildNum.getText().toString().trim();
+                String buildNum = etBuildNum.getText().toString().trim();
                 int buildnum = Integer.parseInt(buildNum);
                 String E_mail = e_mail.getText().toString().trim();
                 String sex = tvSex.getText().toString().trim();
@@ -304,8 +353,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                     showToast("请输入正确的手机号码");
                     return;
                 }
-                Log.e("info", name + "==" + identityNum + "==" + positionId + "==" + roomNum + "==" + officePhone + "==" + carType + "=="
-                        + preCarCode + "==" + chePaiHao);
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
                         || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(buildNum)) {
                     showToast("请将信息填写完整");
@@ -313,10 +360,11 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                 } else if (!isPhoneChecked(phone)) {
                     return;
                 } else {
-                    Auth auth = new Auth(officeid,departId,buildnum,roomnum,name,mobile,positionId,officePhone,nation,E_mail,sex,birth,comenDepartTime,time);
-                    //Auth auth = new Auth(officeid, departId + "", buildNum, roomNum, name, phone, identityNum, positionId + "", officePhone);
-                    //List<CarInfo> carList = new ArrayList();
-                    //carList.add(new CarInfo(carType, preCarCode, chePaiHao));
+                    Auth auth = new Auth(birth, buildNum, departId, E_mail, comenDepartTime,
+                            phone, name, nation, officeid, officePhone, positionId, roomNum, "男".equals(sex) ? 1 : 0, time);
+                    for (int i = 0; i < carList.size(); i++) {
+
+                    }
                     getPresenter().getData(auth, carList);
                 }
                 break;

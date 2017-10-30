@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.me.OrderRepairDetailActivity;
 import com.moe.wl.ui.main.bean.HomePageBean;
 
@@ -76,6 +77,11 @@ public class HomeNsrlv2Adapter extends RecyclerView.Adapter {
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!OtherUtils.isAuth()){
+                    // 没有认证
+                    OtherUtils.showAuth(context);
+                    return;
+                }
                 Intent intent = new Intent(context, OrderRepairDetailActivity.class);
                 intent.putExtra("OrderID", data.get(position).getId());
                 intent.putExtra("State", data.get(position).getOrderstatus());

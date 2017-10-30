@@ -32,7 +32,6 @@ import butterknife.OnClick;
  */
 public class OfficeSuppliesActivity extends BaseActivity<OfficeIndexModel, OfficeIndexView, OfficeIndexPresenter> implements AdapterView.OnItemClickListener, OfficeIndexView {
 
-
     @BindView(R.id.office_supplies_title)
     TitleBar titleBar;
     @BindView(R.id.iv_office_big_pic)

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.ui.main.activity.message.ActiveMessageActivity;
 import com.moe.wl.ui.main.activity.message.AuditMessageActivity;
@@ -76,7 +77,7 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
-        sysColor=R.color.white;
+        sysColor = R.color.white;
         setContentView(R.layout.f_tab3);
     }
 
@@ -153,6 +154,11 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
 
     @OnClick({R.id.already_read, R.id.system, R.id.comment, R.id.pay_up, R.id.audit, R.id.active, R.id.order, R.id.complain})
     public void onViewClicked(View view) {
+        if (!OtherUtils.isAuth()) {
+            // 没有认证
+            OtherUtils.showAuth(getActivity());
+            return;
+        }
         switch (view.getId()) {
             case R.id.already_read: //  已读
 
@@ -185,7 +191,6 @@ public class Tab3Fragment extends BaseFragment<Tab3Model, Tab3View, Tab3Presente
             case R.id.complain: //  意见投诉
                 startActivity(new Intent(getActivity(), ComplainMessageActivity.class));
                 break;
-
         }
     }
 

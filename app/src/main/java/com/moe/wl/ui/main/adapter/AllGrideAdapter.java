@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.ui.main.bean.ServiceDataBean;
 
@@ -100,6 +101,11 @@ public class AllGrideAdapter extends BaseAdapter {
         holder.ivAppLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!OtherUtils.isAuth()){
+                    // 没有认证
+                    OtherUtils.showAuth(mContext);
+                    return;
+                }
                 if (ServiceIntentUtils.goService(data.get(position).getId()) == null) {
                     ToastUtil.showToast(mContext, "敬请期待！");
                     return;

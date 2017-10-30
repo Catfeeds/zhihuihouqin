@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.SimpleImageBanner;
@@ -155,6 +156,11 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
         gridViewCatogary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (!OtherUtils.isAuth()){
+                    // 没有认证
+                    OtherUtils.showAuth(getActivity());
+                    return;
+                }
                 if (ServiceIntentUtils.goService(serviceData.get(position).getId()) == null) {
                     return;
                 }

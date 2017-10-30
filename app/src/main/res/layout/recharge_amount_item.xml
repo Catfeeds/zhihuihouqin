@@ -10,7 +10,7 @@
         android:layout_height="40dp"
         android:layout_margin="12dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/shape_bule_line"
+        android:background="@drawable/shape_blue_line"
         android:gravity="center"
         android:text="50"
         android:textColor="@color/tv_black"
