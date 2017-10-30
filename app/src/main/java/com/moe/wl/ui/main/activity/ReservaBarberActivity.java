@@ -117,9 +117,10 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         String mobile = SharedPrefHelper.getInstance().getMobile();
         etMobile.setText(mobile);
         list = new ArrayList<>();
-        timelist=new ArrayList<>();
-        schedulelist=new ArrayList<>();
+        timelist = new ArrayList<>();
+        schedulelist = new ArrayList<>();
         barberlistBean = (BarberlistBean) getIntent().getSerializableExtra("barberlistBean");
+        barberid = barberlistBean.getId() + "";
         address = getIntent().getStringExtra("address");
         if (barberlistBean != null) {
             getPresenter().getData(barberlistBean.getId());//预约信息数据加载
@@ -212,11 +213,11 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
             });
 
             //timelist = preOrderBean.getTimelist();
-            if (preOrderBean.getTimelist()!=null){
+            if (preOrderBean.getTimelist() != null) {
                 timelist.addAll(preOrderBean.getTimelist());
                 orderTimeAdapter.notifyDataSetChanged();
             }
-            if (preOrderBean.getTimelist().size()>0&& preOrderBean.getTimelist().get(0)!=null){
+            if (preOrderBean.getTimelist().size() > 0 && preOrderBean.getTimelist().get(0) != null) {
                 schedulelist.clear();
                 schedulelist.addAll(preOrderBean.getTimelist().get(0).getSchedulelist());
                 gridAdapter.setData(schedulelist);
@@ -241,7 +242,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                         return;
                     } else if (status == 0) {//没有预约
                         id = schedulelistBean.getId();
-                        barberid = schedulelistBean.getBarberid();
+//                        barberid = schedulelistBean.getBarberid();
                     }
                 }
             });
@@ -324,7 +325,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         intent.putExtra("orderid", orderid + "");
         intent.putExtra("ordercode", bean.getOrdercode());
         intent.putExtra("ordertype", ordertype + "");
-        intent.putExtra("time",bean.getCreatetime());
+        intent.putExtra("time", bean.getCreatetime());
         //intent.putExtra("from",Constants.BARBER);
         //intent.putExtra("ordertype",6);//订单类型为理发
         startActivity(intent);

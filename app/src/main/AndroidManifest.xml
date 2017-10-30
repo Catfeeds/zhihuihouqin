@@ -128,7 +128,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.activity.LoginActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize|stateHidden|stateVisible">
+            <!--android:windowSoftInputMode="|adjustResize"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -155,7 +156,6 @@
         <activity android:name=".ui.main.activity.ServiceOrderActivity" />
         <activity android:name=".ui.main.activity.MoreUSerCommentActivity" />
         <activity android:name=".ui.main.activity.ReserveInfoActivity" />
-        <activity android:name=".ui.main.activity.ConfirmOrderActivity" />
         <activity
             android:name=".ui.main.activity.BarberActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
@@ -496,7 +496,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.AliPaySuccAct"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.medicalService.ConfirmOrderActivity"
             android:screenOrientation="portrait" />

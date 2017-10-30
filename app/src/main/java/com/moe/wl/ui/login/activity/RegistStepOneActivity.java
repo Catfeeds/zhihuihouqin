@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -55,7 +57,8 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     TextView tvNextStep;
     @BindView(R.id.complaint)
     TextView complaint;
-
+    @BindView(R.id.ll_complain)
+    LinearLayout ll_complain;
 
 
     private Handler handler = new Handler();
@@ -82,6 +85,26 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     public void initView() {
         tvAgreen.setText("《智慧后勤用户服务协议》");
         registTitle.setBack(true);
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() > 0) {
+                    ivUname.setVisibility(View.VISIBLE);
+                } else {
+                    ivUname.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         getPerfromData();
     }
 
@@ -93,7 +116,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
     @Override
     public RegistStep1Model createModel() {
         return new RegistStep1ModelImpl();
-
     }
 
     private void getPerfromData() {
@@ -104,6 +126,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             thirdNum = extras.getString("thirdNum");
             if (from == Constants.FORGET) {
                 registTitle.setTitle("找回密码");
+                ll_complain.setVisibility(View.VISIBLE);
             } else if (from == Constants.REGIST) {
                 registTitle.setTitle("注册");
             } else if (from == Constants.BIND) {
@@ -169,7 +192,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         b.putString("thirdType", thirdType);
         b.putString("thirdNum", thirdNum);
         b.putInt("from", from);
-        Intent intent=new Intent(this, RegistStepTwoActivity.class);
+        Intent intent = new Intent(this, RegistStepTwoActivity.class);
         intent.putExtras(b);
         startActivity(intent);
         finish();
@@ -194,13 +217,11 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         if (!isPhoneChecked(mobile)) {
             return;
         }
-        doTimer();
         if (from == 0) {
             getPresenter().getData(mobile, 0);
         } else {
             getPresenter().getData(mobile, 1);
         }
-//        doGetCodeRequest(mobile);
     }
 
 
@@ -228,6 +249,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
 
     @Override
     public void success(CaptchaBean captchaBean) {
+        doTimer();
         if (captchaBean != null) {
             Log.e("captcha=====", captchaBean.captcha);
             this.mCaptcha = captchaBean.captcha;
@@ -246,7 +268,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         ButterKnife.bind(this);
     }
 
-
     public class MyRunnable implements Runnable {
 
         @SuppressLint("NewApi")
@@ -260,7 +281,6 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
             }
         }
     }
-
 
     /**
      * 手机号校验
@@ -280,10 +300,7 @@ public class RegistStepOneActivity extends BaseActivity<RegistStep1Model, Regist
         return true;
     }
 
-   /*
-
-
-    *//**
+   /**
      * 校验验证码,下一步
      *
      * @param captcha

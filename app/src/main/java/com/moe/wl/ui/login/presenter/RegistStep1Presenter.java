@@ -6,6 +6,7 @@ import com.moe.wl.framework.widget.bean.BindPhoneBean;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.model.RegistStep1Model;
 import com.moe.wl.ui.login.view.RegistStep1View;
+
 import mvp.cn.rx.MvpRxPresenter;
 import mvp.cn.util.LogUtil;
 import rx.Subscriber;
@@ -36,12 +37,10 @@ public class RegistStep1Presenter extends MvpRxPresenter<RegistStep1Model, Regis
                     //成功
                     getView().showToast("请求成功");
                     getView().success(captchaBean);
-                } else if (captchaBean.errCode == 1) {
-                    Log.e("errcode", "其他" + captchaBean.msg);
                 } else if (captchaBean.errCode == 2) {
-                    Log.e("errcode", "token已过期");
+                } else {
+                    getView().showToast(captchaBean.msg);
                 }
-
             }
         });
     }

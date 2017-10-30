@@ -199,7 +199,7 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     }
 
     private void initTitle() {
-        titleBar.setBack(true);
+//        titleBar.setBack(true);
         titleBar.setTitle("登录");
     }
 
