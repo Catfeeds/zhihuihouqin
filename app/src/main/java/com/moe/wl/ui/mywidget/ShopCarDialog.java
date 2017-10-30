@@ -63,6 +63,8 @@ public class ShopCarDialog extends Dialog {
     private List<ShopCarInfoBean.SkuListBean> itemList;
     private int cid;
     private int position;
+    private int selectPosition;
+    private ShopCarInfoBean.SkuListBean skuListBean;
 
 
     public ShopCarDialog(Context context, int theme) {
@@ -104,25 +106,27 @@ public class ShopCarDialog extends Dialog {
 
         for (int j = 0; j < flowLayout.getChildCount(); j++) {
             final int index=j;
+            this.selectPosition=index;
             flowLayout.getChildAt(j).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String s = ((TextView) flowLayout.getChildAt(index)).getText().toString();
-                    ShopCarInfoBean.SkuListBean skuListBean = itemList.get(index);
+                    skuListBean = itemList.get(index);
                     int id = skuListBean.getId();//库存id
                     cid = id;
                     GlideLoading.getInstance().loadImgUrlNyImgLoader(ct,
                             skuListBean.getMainimg(),ivPic);
-                    price.setText("￥"+skuListBean.getPrice());
-                    tvKucun.setText("库存"+skuListBean.getStore()+"件");
+                    price.setText("￥"+ skuListBean.getPrice());
+                    tvKucun.setText("库存"+ skuListBean.getStore()+"件");
                    int in=index;
                     position=in;
                     for (int i = 0; i < flowLayout.getChildCount(); i++) {
                         if(i==in){
-                            ((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#FF5111"));
+                            ((TextView) flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_blue_confirm);
                             ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#ffffff"));
                         }else{
-                            ((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#F6F5F5"));
+                            //((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#F6F5F5"));
+                            ((TextView) flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_gray_content);
                             ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#333333"));
                         }
                     }
@@ -161,6 +165,8 @@ public class ShopCarDialog extends Dialog {
     }
 
     private void doAdd() {
+        int store = skuListBean.getStore();
+        if(store>count)//判断库存数量
          count++;
         tvSum.setText(count+"");
     }
