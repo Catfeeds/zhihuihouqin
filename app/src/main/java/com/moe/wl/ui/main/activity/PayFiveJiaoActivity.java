@@ -130,11 +130,6 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
-       /* //广播接受者实例
-        receiver = new MyReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("COM.ALIPAY.SUCCESS.BROADCAST");
-        registerReceiver(receiver, intentFilter);*/
     }
 
     private void initTitle() {

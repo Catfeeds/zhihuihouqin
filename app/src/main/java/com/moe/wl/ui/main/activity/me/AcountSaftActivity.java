@@ -83,7 +83,7 @@ public class AcountSaftActivity extends Base2Activity {
                     return;
                 }
                 getCaptcha(mobile);
-                doTimer();
+
                 break;
             case R.id.bt_next:
                 String code = etCode.getText().toString().trim();
@@ -135,6 +135,7 @@ public class AcountSaftActivity extends Base2Activity {
             public void onNext(CaptchaBean captchaBean) {
                 if(captchaBean.errCode==0){
                     showToast("获取验证码成功");
+                    doTimer();//计时
                     LogUtils.i("验证码"+captchaBean.captcha);
                 }else if(captchaBean.errCode==1010){
                     showToast(captchaBean.msg);
