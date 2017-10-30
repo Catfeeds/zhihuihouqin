@@ -51,6 +51,7 @@ public class BannerResponse extends BaseResponse{
         private String smallimg;
         private String topphoto;
         private String tradename;
+        private String remind;
 
         public String getBusinesshour() {
             return businesshour;
@@ -146,6 +147,14 @@ public class BannerResponse extends BaseResponse{
 
         public void setTradename(String tradename) {
             this.tradename = tradename;
+        }
+
+        public String getRemind() {
+            return remind;
+        }
+
+        public void setRemind(String remind) {
+            this.remind = remind;
         }
     }
 }

@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="@dimen/standard_padding">
+                    android:padding="@dimen/normal_padding">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="地址： "
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
 
                     <TextView
                         android:id="@+id/tv_address"
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
 
                 <View
@@ -147,8 +147,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="@dimen/standard_padding"
-                    >
+                    android:padding="@dimen/normal_padding">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -162,15 +161,14 @@
                         android:layout_marginLeft="10dp"
                         android:text="营业时间： "
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
 
                     <TextView
                         android:id="@+id/tv_work_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
 
                 <View
@@ -188,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="@dimen/standard_padding">
+                        android:padding="@dimen/normal_padding">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -202,7 +200,7 @@
                             android:layout_marginLeft="10dp"
                             android:text="服务热线： "
                             android:textColor="@color/tv_black"
-                            android:textSize="@dimen/sp_common" />
+                            android:textSize="@dimen/sp_small" />
 
                         <TextView
                             android:id="@+id/tv_phone"
@@ -210,7 +208,7 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:textColor="@color/tv_black"
-                            android:textSize="@dimen/sp_common" />
+                            android:textSize="@dimen/sp_small" />
                     </LinearLayout>
 
                     <ImageView
@@ -254,7 +252,7 @@
                         android:textSize="@dimen/sp_small" />
                 </LinearLayout>
 
-                <GridView
+                <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/shop_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

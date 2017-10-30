@@ -49,6 +49,7 @@ public class UserInfoBean {
         private int hasBuyAuth;
         private int authStatus;
         private String mobile;
+        private String realname;
 
         public String getPosition() {
             return position;
@@ -152,6 +153,14 @@ public class UserInfoBean {
 
         public void setMobile(String mobile) {
             this.mobile = mobile;
+        }
+
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
         }
     }
 }

@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="16dp"
     android:gravity="center_horizontal"
-    android:layout_margin="16dp">
-<de.hdodenhof.circleimageview.CircleImageView
-    android:id="@+id/civ_barber_photo"
-    android:src="@mipmap/ic_default_rectangle"
-    android:layout_width="60dp"
-    android:layout_height="60dp" />
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_barber_photo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@mipmap/ic_default_square" />
+
     <TextView
         android:id="@+id/tv_barber_name"
-        android:text="阿晓"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="阿晓"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
+
     <TextView
         android:id="@+id/tv_position"
-        android:text="总监"
-        android:textSize="@dimen/sp_big"
-        android:textColor="@color/tv_black"
-        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="总监"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
 </LinearLayout>

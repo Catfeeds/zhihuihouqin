@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BannerItem;
@@ -57,7 +57,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     @BindView(R.id.tv_barber_num)
     TextView tvBarberNum;
     @BindView(R.id.shop_grid)
-    GridView shopGrid;
+    NoSlidingGridView shopGrid;
     @BindView(R.id.tv_now_order)
     TextView tvNowOrder;
     @BindView(R.id.ll_call)

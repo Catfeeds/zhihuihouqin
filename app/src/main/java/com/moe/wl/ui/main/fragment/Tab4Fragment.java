@@ -595,7 +595,8 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             SharedPrefHelper.getInstance().setAuthStatus(userinfo.getAuthStatus());
             SharedPrefHelper.getInstance().setNickname(userinfo.getNickname());
             SharedPrefHelper.getInstance().setuserPhoto(userinfo.getPhoto());
-            GlideLoading.getInstance().loadImgUrlHeader(getActivity(), userinfo.getPhoto(), civHeader, R.mipmap.ic_default_square);
+            SharedPrefHelper.getInstance().setRealName(userinfo.getRealname());
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), userinfo.getPhoto(), civHeader/*, R.mipmap.ic_default_square*/);
             if (TextUtils.isEmpty(userinfo.getNickname())) {
                 if (TextUtils.isEmpty(userinfo.getPosition())) {
                     tvName.setText("职位" + "~" + "暂无昵称");

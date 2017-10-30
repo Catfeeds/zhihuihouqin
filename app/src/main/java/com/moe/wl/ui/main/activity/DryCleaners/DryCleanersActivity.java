@@ -161,6 +161,10 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         tvWorkTime.setText(businesshour);
         tvPhone.setText(mobile);
         call(mobile);
+
+        // TODO 弹温馨出提示窗
+
+
     }
 
     @Override

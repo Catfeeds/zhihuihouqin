@@ -56,7 +56,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder1, int position) {
         ViewHolder holder = (ViewHolder) holder1;
         CommentlistBean commentlistBean = data.get(position);
-        GlideLoading.getInstance().loadImgUrlHeader(context, commentlistBean.getPhoto(), holder.civUserPhoto, R.mipmap.ic_default_square);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, commentlistBean.getPhoto(), holder.civUserPhoto/*, R.mipmap.ic_default_square*/);
         holder.tvUserName.setText(commentlistBean.getRealname());
         holder.userRatingBar.setRating((float) commentlistBean.getScore());
         OtherUtils.ratingBarColor(holder.userRatingBar, context);
