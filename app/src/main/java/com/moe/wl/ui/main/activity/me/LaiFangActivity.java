@@ -242,8 +242,8 @@ public class LaiFangActivity extends Base2Activity {
                 } else {
                     minute = "" + i5;
                 }
-                arriveTime = i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute;
                 if (isArrive) {
+                    arriveTime = i1 + "-" + i2 + "-" + i3 + " " + hour + ":" + minute;
                     switch (DateUtil.compareDate(arriveTime, DateUtil.getTimeyyyyMMddHHmm())) {
                         case 1:
                             arraveTime.setText(arriveTime);

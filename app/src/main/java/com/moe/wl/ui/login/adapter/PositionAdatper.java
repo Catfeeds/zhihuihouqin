@@ -41,7 +41,6 @@ public class PositionAdatper extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder) holder;
         if (date != null) {
             viewHolder.setDate(date.get(position), position);
-
         }
     }
 
@@ -78,7 +77,6 @@ public class PositionAdatper extends RecyclerView.Adapter {
                         lister.itemClickLister(selectPosition);
                     }
                     notifyDataSetChanged();
-
                 }
             });
         }

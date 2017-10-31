@@ -29,10 +29,8 @@ public class OtherUtils {
     public static boolean phoneNumber(String mobile) {
         String telRegex = "[1][3578]\\d{9}";
         if (!mobile.matches(telRegex)) {
-            LogUtils.d("不匹配！！！");
             return false;
         }
-        LogUtils.d("匹配！！！");
         return true;
     }
 

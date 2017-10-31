@@ -135,7 +135,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
     // 专家坐诊 标题
     private static final String orderExperts = "已预约,服务中,已完成,待评价,已取消";
     //  洗衣店 标题
-    private static final String orderDryCleaner = "已下单,服务中,已完成,待评价,已取消";
+    private static final String orderDryCleaner = "已下单,已受理,已完成,待评价,已取消";
     // 图书订单 标题
     private static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
     // 净菜订单 标题

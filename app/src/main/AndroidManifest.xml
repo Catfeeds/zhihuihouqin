@@ -128,10 +128,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.activity.LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            >
+            android:windowSoftInputMode="stateVisible|adjustResize">
             <!--android:windowSoftInputMode="adjustResize|stateHidden|stateVisible"-->
-            <!---->
+            <!--android:windowSoftInputMode="|adjustResize"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

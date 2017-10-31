@@ -142,7 +142,7 @@ public class OrderBookFragment extends BaseFragment2 {
                     recyclerView.loadMoreComplete();
                 }
                 if (orderBean.getErrCode() == 0) {
-                    orderList = orderBean.getOrderlist();
+                    orderList.addAll(orderBean.getOrderlist());
                     bookOrderAdapter.setData(orderList, state);
                 } else {
                     ToastUtil.showToast(getActivity(), orderBean.getMsg());

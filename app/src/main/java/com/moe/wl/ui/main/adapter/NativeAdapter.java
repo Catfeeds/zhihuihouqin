@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
-import com.moe.wl.ui.login.adapter.PositionAdatper;
-import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.main.bean.NationslistBean;
 
 import java.util.ArrayList;
@@ -52,7 +50,7 @@ public class NativeAdapter extends RecyclerView.Adapter {
         return mList.size();
     }
 
-    private int selectPosition = 0;
+    private int selectPosition = -1;
 
     public void setData(List<NationslistBean.NationlistBean> data) {
         this.mList = data;

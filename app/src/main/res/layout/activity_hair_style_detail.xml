@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_hair_style_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_default_rectangle"/>
+            android:src="@mipmap/ic_default_rectangle" />
 
         <TextView
             android:id="@+id/tv_hair_style_name"

@@ -152,7 +152,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:text="个人认证"
+                                android:text="身份信息"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
@@ -1200,7 +1200,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="服务中"
+                                android:text="已受理"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 

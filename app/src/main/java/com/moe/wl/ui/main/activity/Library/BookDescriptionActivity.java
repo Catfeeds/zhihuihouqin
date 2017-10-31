@@ -25,8 +25,6 @@ import com.moe.wl.ui.main.modelimpl.BookDetailModelImpl;
 import com.moe.wl.ui.main.presenter.BookDetailPresenter;
 import com.moe.wl.ui.main.view.BookDetailView;
 
-import java.io.Serializable;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -80,6 +78,8 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     private boolean again;
     private static final int TYPE = 4;
 
+    private String content;
+
     @Override
     public BookDetailPresenter createPresenter() {
         return new BookDetailPresenter();
@@ -99,12 +99,13 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     @Override
     public void initView() {
         Intent intent = getIntent();
+        content = intent.getStringExtra("content");
         bean = (BooklistBean) intent.getSerializableExtra("bean");
         again = intent.getBooleanExtra("again", false);
 
-        if (bean!=null && !TextUtils.isEmpty(bean.getId())){
+        if (bean != null && !TextUtils.isEmpty(bean.getId())) {
             getPresenter().getDetail(bean.getId());
-        }else{
+        } else {
             finish();
         }
 
@@ -116,16 +117,18 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getImg(), ivBookPic, R.mipmap.ic_default_book);
         tvBookName.setText(bean.getTitle());
         ratingBar.setRating(((float) bean.getScore()));
-        OtherUtils.ratingBarColor(ratingBar,this);
+        OtherUtils.ratingBarColor(ratingBar, this);
         tvStarNum.setText(bean.getScore() + "分");
         tvAuthor.setText(bean.getAuthor());
         tvChubanshe.setText(bean.getPublisher());
 
         if (bean.getBollowstatus() == 1) {
+            tvNowBorrowing.setBackgroundColor(getResources().getColor(R.color.blue));
             tvState.setText("在架上");
             tvState.setTextColor(Color.parseColor("#36CCAE"));
         } else {
             tvState.setText("已借出");
+            tvNowBorrowing.setBackgroundColor(getResources().getColor(R.color.gray));
             tvState.setTextColor(Color.parseColor("#F95759"));
         }
     }
@@ -144,11 +147,11 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     @Override
     public void getDetail(BookDetailBean bean) {
         tvAuthorsIntroduceContent.setText(bean.getAuthorbrief());
-        tvBookIntroduceContent.setText(bean.getContent());
+        tvBookIntroduceContent.setText(content);
         int favorstatus = bean.getFavorstatus();
-        if(favorstatus==1){//收藏
+        if (favorstatus == 1) {//收藏
             ivCollect.setImageResource(R.drawable.collected);
-        }else if(favorstatus==0){//没有收藏
+        } else if (favorstatus == 0) {//没有收藏
             ivCollect.setImageResource(R.drawable.collect);
         }
     }
@@ -169,24 +172,24 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
                 getPresenter().getData(TYPE, bean.getId());
                 break;
             case R.id.tv_now_borrowing://立即借阅
-//                if (bean.getBollowstatus() == 1) {
-                    if (again){
+                if (bean.getBollowstatus() == 1) {
+                    if (again) {
                         //再次借阅的的直接进去确认订单页面
                         Intent intent = new Intent(this, BookConfirmOrderActivity.class);
-                        intent.putExtra("bean", (Serializable) bean);
-                        LogUtils.d("---------------again-------------------"+again);
+                        intent.putExtra("bean", bean);
+                        LogUtils.d("---------------again-------------------" + again);
                         intent.putExtra("again", again);
                         startActivity(intent);
                         finish();
-                    }else{
+                    } else {
                         Intent intent = new Intent(this, BorrowOrderActivity.class);
-                        intent.putExtra("bean", (Serializable) bean);
+                        intent.putExtra("bean", bean);
                         startActivity(intent);
                         finish();
                     }
-//                } else {
+                } else {
 //                    showToast("此书已经被借阅,请选择其它书籍");
-//                }
+                }
                 break;
         }
     }

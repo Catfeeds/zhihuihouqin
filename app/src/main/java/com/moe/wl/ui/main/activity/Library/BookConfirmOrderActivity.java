@@ -89,7 +89,7 @@ public class BookConfirmOrderActivity extends Base2Activity {
         if (TextUtils.isEmpty(realName)){
             realName=SharedPrefHelper.getInstance().getNickname();
         }
-        mobile = SharedPrefHelper.getInstance().getMobile();
+        mobile = getIntent().getStringExtra("mobile");
 
         tvName.setText(realName);
         tvPhoneNum.setText(mobile);

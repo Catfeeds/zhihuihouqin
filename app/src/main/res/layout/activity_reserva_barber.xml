@@ -3,12 +3,13 @@
     android:id="@+id/activity_reserva_barber"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/reserve_info_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/white" />
 
     <View
@@ -209,8 +210,8 @@
                     android:layout_marginLeft="12dp"
                     android:background="@null"
                     android:gravity="right"
-                    android:inputType="number"
                     android:hint="请输入手机号码"
+                    android:inputType="number"
                     android:text=""
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"

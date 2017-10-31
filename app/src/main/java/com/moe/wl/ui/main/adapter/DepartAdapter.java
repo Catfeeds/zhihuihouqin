@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
-import com.moe.wl.ui.login.adapter.PositionAdatper;
 import com.moe.wl.ui.main.bean.DepartsListBean;
-import com.moe.wl.ui.main.bean.NationslistBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +21,9 @@ import butterknife.ButterKnife;
  * Created by 我的电脑 on 2017/10/19 0019.
  */
 
-public class DepartAdapter extends RecyclerView.Adapter{
+public class DepartAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<DepartsListBean.DepartListBean> data=new ArrayList<>();
+    private List<DepartsListBean.DepartListBean> data = new ArrayList<>();
 
     public DepartAdapter(Context mContext) {
         this.mContext = mContext;
@@ -56,7 +54,9 @@ public class DepartAdapter extends RecyclerView.Adapter{
         this.data = data;
         notifyDataSetChanged();
     }
-    private int selectPosition=0;
+
+    private int selectPosition = -1;
+
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_position)
         TextView tvPosition;

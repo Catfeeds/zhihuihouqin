@@ -18,9 +18,9 @@ import rx.Subscriber;
 
 public class OfficeNumPresenter extends MvpRxPresenter<OfficeNumModel, OfficeNumView> {
 
-    public void getOfficeNum() {
+    public void getOfficeNum(int departid) {
         getView().showProgressDialog();
-        Observable request = getModel().getOfficeList();
+        Observable request = getModel().getOfficeList(departid);
         getNetWork(request, new Subscriber<OfficeslistBean>() {
 
             @Override

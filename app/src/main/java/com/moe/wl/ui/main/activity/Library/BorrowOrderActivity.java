@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,11 +19,10 @@ import com.moe.wl.ui.main.bean.BooklistBean;
 import com.moe.wl.ui.main.bean.JieYueTimeBean;
 import com.moe.wl.ui.mywidget.PopSelectTime;
 
-import java.io.Serializable;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.VerifyCheck;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -38,7 +38,7 @@ public class BorrowOrderActivity extends Base2Activity {
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_phone_num)
-    TextView tvPhoneNum;
+    EditText tvPhoneNum;
     @BindView(R.id.iv_take_book_time)
     ImageView ivTakeBookTime;
     @BindView(R.id.tv_confirm)
@@ -80,7 +80,6 @@ public class BorrowOrderActivity extends Base2Activity {
         titleBar.setBack(true);
     }
 
-
     @OnClick({R.id.rl_time, R.id.tv_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -88,12 +87,17 @@ public class BorrowOrderActivity extends Base2Activity {
                 showWindow();
                 break;
             case R.id.tv_confirm:
-                if (TextUtils.isEmpty(myTime)){
+                if (TextUtils.isEmpty(myTime)) {
                     showToast("请先选择预计取书时间");
                     return;
                 }
+                if (!VerifyCheck.isMobilePhoneVerify(tvPhoneNum.getText().toString().trim())) {
+                    showToast("请输入正确的手机号码");
+                    return;
+                }
                 Intent intent = new Intent(this, BookConfirmOrderActivity.class);
-                intent.putExtra("bean", (Serializable) bean);
+                intent.putExtra("mobile", tvPhoneNum.getText().toString().trim());
+                intent.putExtra("bean", bean);
                 intent.putExtra("time", myTime);
                 startActivity(intent);
                 finish();
@@ -106,10 +110,10 @@ public class BorrowOrderActivity extends Base2Activity {
             @Override
             public void onClick(String typeid, String time) {
                 if (typeid.equals("1")) {
-                    myTime="上午 " + time;
+                    myTime = "上午 " + time;
                     tvTime.setText(myTime);
                 } else {
-                    myTime="下午 " + time;
+                    myTime = "下午 " + time;
                     tvTime.setText(myTime);
                 }
             }

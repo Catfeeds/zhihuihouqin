@@ -3,7 +3,6 @@ package com.moe.wl.ui.login.activity;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -31,6 +30,7 @@ import com.moe.wl.ui.main.activity.me.SexActivity;
 import com.moe.wl.ui.main.adapter.CarAdapter;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
+import com.moe.wl.ui.mywidget.TimeSelecterDayDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +39,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import mvp.cn.util.StringUtil;
 import mvp.cn.util.VerifyCheck;
 
 import static java.lang.reflect.Modifier.NATIVE;
@@ -61,7 +60,7 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     @BindView(R.id.rl_native)
     RelativeLayout rlNative;
     @BindView(R.id.tv_birth)
-    EditText tvBirth;
+    TextView tvBirth;
     @BindView(R.id.tv_phone)
     EditText tvPhone;
     @BindView(R.id.tv_position)
@@ -79,9 +78,9 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     @BindView(R.id.rl_officeid)
     RelativeLayout rlOfficeid;
     @BindView(R.id.et_add_time)
-    EditText etAddTime;
+    TextView etAddTime;
     @BindView(R.id.et_come_depart_time)
-    EditText etComeDepartTime;
+    TextView etComeDepartTime;
     @BindView(R.id.tv_room_num)
     EditText tvRoomNum;
     @BindView(R.id.tv_office_phone)
@@ -97,11 +96,8 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
     @BindView(R.id.tv_e_mail)
     EditText e_mail;
 
-
-    private int positionId;
     private String name;
     private String phone;
-    private String identityNum;
     private String roomNum;
     private String officePhone;
     //    private String carType;
@@ -116,20 +112,16 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
             , "G", "H", "I", "J", "K", "L"
             , "M", "N", "O", "P", "Q", "R", "X"
             , "Y", "Z");
-    private String preCarCode;
-    private int MAX_NUM = 5;
-    private int officeid;
-
 
     private List<CarInfo> carList;
     private CarAdapter carAdapter;
-    public int nationId;
-    private int departId;
-    private CarInfo carInfos;
+    public int nationId; // 民族ID
+    private int positionId; // 职务ID
+    private int departId; // 部门ID
+    private int officeId; // 处室ID
     public static final int DEPARTMENT = 100;
     public static final int OFFICEID = 101;
     public static final int CARTYPE = 102;
-    private int MAX_IDNUM = 18;
     private int index;
     private int roomnum;
     private String nation;
@@ -222,25 +214,31 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         });
     }
 
+    //时间选择器
+    private void selectTime(final int type) {
+        TimeSelecterDayDialog dialog = new TimeSelecterDayDialog(this, R.style.dialog_style);
+        dialog.show();
+        dialog.setListener2(new TimeSelecterDayDialog.OnConfirmClickListener() {
+            @Override
+            public void onConfirmClickListener(int i1, String i2, String i3) {
+                String time = i1 + "-" + i2 + "-" + i3;
+                if (type == 1) {
+                    tvBirth.setText(time);
+                } else if (type == 2) {
+                    etAddTime.setText(time);
+                } else {
+                    etComeDepartTime.setText(time);
+                }
+            }
+        });
+    }
+
     //认证成功
     @Override
     public void authSucc() {
         Intent intent = new Intent(this, AuthSuccessActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    //电话检测
-    private boolean isPhoneChecked(String mobile) {
-        if (StringUtil.isNullOrEmpty(mobile)) {
-            showToast("请输入手机号");
-            return false;
-        }
-        if (!VerifyCheck.isMobilePhoneVerify(mobile)) {
-            showToast("请输入正确的手机号码");
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -250,7 +248,6 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
             switch (requestCode) {
                 case REQUESTPOSTIONCODE:
                     if (data != null) {
-                        Log.e("positionId", "职位类型id:" + positionId);
                         positionId = data.getIntExtra("positionId", 0);
                         String position = data.getStringExtra("position");
                         tvPosition.setText(position);
@@ -274,13 +271,14 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
                         departId = data.getIntExtra("id", 0);
                         String depart = data.getStringExtra("depart");
                         tvDepartmentNum.setText(depart);
+                        showToast("请重新选择处室");
+                        officeId = 0;
+                        tvOfficeid.setText("");
                     }
                     break;
                 case OFFICEID:
                     if (data != null) {
-                        int bgypright = data.getIntExtra("bgypright", 0);
-                        int departid = data.getIntExtra("departid", 0);
-                        officeid = data.getIntExtra("id", 0);
+                        officeId = data.getIntExtra("id", 0);
                         String officeName = data.getStringExtra("name");
                         tvOfficeid.setText(officeName);
                     }
@@ -298,33 +296,50 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
         }
     }
 
-    @OnClick({R.id.rl_sex, R.id.rl_native, R.id.rl_positon, R.id.rl_department_num, R.id.rl_officeid, R.id.tv_add_car_num, R.id.tv_commit})
+    @OnClick({R.id.rl_sex, R.id.rl_native, R.id.rl_positon, R.id.rl_department_num, R.id.rl_officeid, R.id.tv_add_car_num, R.id.tv_commit            , R.id.ll_birth, R.id.ll_join_job, R.id.ll_arrive_office})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rl_sex:
+            case R.id.rl_sex: // 选择性别
                 Intent intent = new Intent(this, SexActivity.class);
-                intent.putExtra("sex", tvSex.getText().toString().trim());
+//                intent.putExtra("sex", tvSex.getText().toString().trim());
                 startActivityForResult(intent, SEXREQUESTCODE);
                 break;
 
-            case R.id.rl_native:
+            case R.id.rl_native: // 选择民族
                 Intent intent4 = new Intent(this, NativesActivity.class);
                 startActivityForResult(intent4, NATIVE);
                 break;
 
-            case R.id.rl_positon:
+            case R.id.rl_positon: // 选择职务
                 Intent intent1 = new Intent(this, PositionActivity.class);
                 startActivityForResult(intent1, REQUESTPOSTIONCODE);
                 break;
 
-            case R.id.rl_department_num:
+            case R.id.rl_department_num: // 选择部门
                 Intent intent3 = new Intent(this, DepartmentActivity.class);
                 startActivityForResult(intent3, DEPARTMENT);
                 break;
 
-            case R.id.rl_officeid:
+            case R.id.rl_officeid: // 选择处室
+                if (departId == 0) {
+                    showToast("请先选择部门");
+                    return;
+                }
                 Intent intent2 = new Intent(this, OfficeidActivity.class);
+                intent2.putExtra("DepartId", departId);
                 startActivityForResult(intent2, OFFICEID);
+                break;
+
+            case R.id.ll_birth:
+                selectTime(1);
+                break;
+
+            case R.id.ll_join_job:
+                selectTime(2);
+                break;
+
+            case R.id.ll_arrive_office:
+                selectTime(3);
                 break;
 
             case R.id.tv_add_car_num:
@@ -334,39 +349,76 @@ public class IdentityActivity extends BaseActivity<AuthModel, AuthView, AuthPres
 
             case R.id.tv_commit:
                 name = tvName.getText().toString().trim();
-                phone = tvPhone.getText().toString().trim();
-//                int mobile = Integer.parseInt(phone);
-                //identityNum = tvIdentityNum.getText().toString().trim();
-                roomNum = tvRoomNum.getText().toString().trim();
-                roomnum = Integer.parseInt(roomNum);
-                officePhone = tvOfficePhone.getText().toString().trim();
-                String buildNum = etBuildNum.getText().toString().trim();
-                int buildnum = Integer.parseInt(buildNum);
-                String E_mail = e_mail.getText().toString().trim();
+                if (TextUtils.isEmpty(name)) {
+                    showToast("请填写姓名");
+                    return;
+                }
                 String sex = tvSex.getText().toString().trim();
+                if (TextUtils.isEmpty(sex)) {
+                    showToast("请选择性别");
+                    return;
+                }
+                if (nationId == 0) {
+                    showToast("请选择民族");
+                    return;
+                }
                 String birth = tvBirth.getText().toString().trim();
-                String comenDepartTime = etComeDepartTime.getText().toString().trim();
-                String time = etAddTime.getText().toString().trim();
-
-                boolean mobilePhoneVerify = VerifyCheck.isMobilePhoneVerify(phone);
-                if (!mobilePhoneVerify) {
+                if (TextUtils.isEmpty(birth)) {
+                    showToast("请选择出生日期");
+                    return;
+                }
+                phone = tvPhone.getText().toString().trim();
+                if (!VerifyCheck.isMobilePhoneVerify(phone)) {
                     showToast("请输入正确的手机号码");
                     return;
                 }
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(identityNum) || TextUtils.isEmpty(positionId + "")
-                        || TextUtils.isEmpty(roomNum) || TextUtils.isEmpty(officePhone) || TextUtils.isEmpty(buildNum)) {
-                    showToast("请将信息填写完整");
+                if (positionId == 0) {
+                    showToast("请选择职务");
                     return;
-                } else if (!isPhoneChecked(phone)) {
-                    return;
-                } else {
-                    Auth auth = new Auth(birth, buildNum, departId, E_mail, comenDepartTime,
-                            phone, name, nation, officeid, officePhone, positionId, roomNum, "男".equals(sex) ? 1 : 0, time);
-                    for (int i = 0; i < carList.size(); i++) {
-
-                    }
-                    getPresenter().getData(auth, carList);
                 }
+                if (departId == 0) {
+                    showToast("请选择部门");
+                    return;
+                }
+                if (officeId == 0) {
+                    showToast("请选择处室");
+                    return;
+                }
+                String joinJobTime = etAddTime.getText().toString().trim();
+                if (TextUtils.isEmpty(joinJobTime)) {
+                    showToast("请选择参加工作时间");
+                    return;
+                }
+                String arriveTime = etComeDepartTime.getText().toString().trim();
+                if (TextUtils.isEmpty(arriveTime)) {
+                    showToast("请选择来部时间");
+                    return;
+                }
+                String buildNum = etBuildNum.getText().toString().trim();
+                if (TextUtils.isEmpty(buildNum)) {
+                    showToast("请填写楼号");
+                    return;
+                }
+                roomNum = tvRoomNum.getText().toString().trim();
+                if (TextUtils.isEmpty(roomNum)) {
+                    showToast("请填写办公房间号");
+                    return;
+                }
+                officePhone = tvOfficePhone.getText().toString().trim();
+                if (TextUtils.isEmpty(officePhone)) {
+                    showToast("请填写办公电话");
+                    return;
+                }
+                String eMail = e_mail.getText().toString().trim();
+                if (!VerifyCheck.isEmailVerify(eMail)) {
+                    showToast("请填写正确的工作邮箱");
+                    return;
+                }
+                Auth auth = new Auth(birth, buildNum, departId, eMail, arriveTime, phone, name, nationId,
+                        officeId, officePhone, positionId, roomNum, "男".equals(sex) ? 1 : 0, joinJobTime);
+//                for (int i = 0; i < carList.size(); i++) {
+//                }
+                getPresenter().getData(auth, carList);
                 break;
         }
     }

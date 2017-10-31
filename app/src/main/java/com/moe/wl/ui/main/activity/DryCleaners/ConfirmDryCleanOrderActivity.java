@@ -100,7 +100,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         }
         tvPhoneNum.setText(mobile);
         tvTime.setText(time);
-        DecimalFormat df = new DecimalFormat("###.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         tvSum.setText("总金额￥" + df.format(sum));
     }
 

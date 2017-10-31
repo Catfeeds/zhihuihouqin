@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.vegetable;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.Arith;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.VegetableAdapter;
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.CanOrderedBean;
 import com.moe.wl.ui.main.bean.VegetableBean;
 import com.moe.wl.ui.main.model.VegetableMainModel;
@@ -22,6 +26,7 @@ import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
 import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
 import com.moe.wl.ui.main.view.VegetableMainView;
 import com.moe.wl.ui.mywidget.ShowBigPhotoPop;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 import com.moe.wl.ui.mywidget.TsAlertDialog;
 
 import java.io.Serializable;
@@ -33,6 +38,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * 类描述：
@@ -116,10 +123,8 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                     vegetableNumber += data.get(i).getNumber();
                 }
                 vegetableNum.setText("共" + vegetableNumber + "份");
-                DecimalFormat df = new DecimalFormat("###.00");
+                DecimalFormat df = new DecimalFormat("#0.00");
                 price.setText("¥" + df.format(priceNumber));
-                LogUtils.d("总价钱 ： " + priceNumber);
-                price.setText("¥" + priceNumber);
                 number = vegetableNumber;
                 submit.setText("去结算(" + vegetableNumber + ")");
             }
@@ -136,7 +141,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                     vegetableNumber += data.get(i).getNumber();
                 }
                 vegetableNum.setText("共" + vegetableNumber + "份");
-                DecimalFormat df = new DecimalFormat("###.00");
+                DecimalFormat df = new DecimalFormat("#0.00");
                 price.setText("¥" + df.format(priceNumber));
                 number = vegetableNumber;
                 if (number == 0) {
@@ -251,24 +256,53 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
 
     @Override
     public void canOrderedResult(CanOrderedBean bean) {
-        LogUtils.i(bean.getErrCode() + "===================");
-        if (bean != null) {
-            int status = bean.getStatus();
-            String rule = bean.getRule();
-            if (status == 1) {//可以预定
-                getPresenter().getVegetableData(page, "");
-            } else if (status == 0) {//不可以预定
-                TsAlertDialog dialog = new TsAlertDialog(this).builder();
-                dialog.setTitle("提示")
-                        .setMsg(rule)
-                        .setPositiveButton("确定", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                finish();
-                            }
-                        }).show();
+        int status = bean.getStatus();
+        String rule = bean.getRule();
+        if (status == 1) {//可以预定
+            if (!SharedPrefHelper.getInstance().getServiceHint(Constants.VEGETABLE)) {
+                getHint();
             }
+            getPresenter().getVegetableData(page, "");
+        } else if (status == 0) {//不可以预定
+            TsAlertDialog dialog = new TsAlertDialog(this).builder();
+            dialog.setTitle("提示")
+                    .setMsg(rule)
+                    .setPositiveButton("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    }).show();
         }
+    }
+
+    private void getHint() {
+        Observable observable = RetrofitUtils.getInstance().getBanner(Constants.VEGETABLE);
+        observable.subscribe(new Subscriber<BannerResponse>() {
+
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BannerResponse mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.errCode == 0) {
+
+                    // TODO 弹温馨出提示窗
+                        ShowHintPop pop = new ShowHintPop(VegetableMainActivity.this, mResponse.getServiceInfo().getRemind(), Constants.VEGETABLE);
+                        pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                } else {
+                    ToastUtil.showToast(VegetableMainActivity.this, mResponse.msg);
+                }
+            }
+        });
     }
 
     @Override

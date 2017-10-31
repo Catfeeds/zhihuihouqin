@@ -8,12 +8,6 @@ import java.util.List;
 
 public class OfficeslistBean {
 
-    /**
-     * officelist : [{"bgypright":1,"departid":1,"departname":"司局1","id":1,"name":"人事部","typename":null},{"bgypright":1,"departid":1,"departname":"司局1","id":2,"name":"研发部","typename":null},{"bgypright":1,"departid":2,"departname":"司局2","id":3,"name":"人事部","typename":null},{"bgypright":0,"departid":2,"departname":"司局2","id":4,"name":"研发部","typename":null},{"bgypright":0,"departid":2,"departname":"司局2","id":5,"name":"1223","typename":null}]
-     * errCode : 0
-     * msg : success
-     */
-
     private int errCode;
     private String msg;
     private List<OfficelistBean> officelist;

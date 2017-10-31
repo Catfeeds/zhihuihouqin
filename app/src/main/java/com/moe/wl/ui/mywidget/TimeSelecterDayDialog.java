@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 import mvp.cn.util.ScreenUtils;
 
-public class BottomTimeDialog extends Dialog implements View.OnClickListener {
+public class TimeSelecterDayDialog extends Dialog implements View.OnClickListener {
 
     private WheelView year;
     private WheelView month;
@@ -29,30 +29,21 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
     private WheelView sec;
     private TextView tv_title;
 
-    private int mYear = 1996;
-    private int mMonth = 0;
-    private int mDay = 1;
     private Context ct;
-    private int n_year;
-    private int n_day;
-    private int n_min;
-    private int n_sec;
     private int curYear;
     private int curMonth;
     private int curDate;
-    private int curHour;
-    private int curMin;
 
     private String title;
     private NumericWheelAdapter numericWheelAdapter;
 
-    public BottomTimeDialog(Context context, int theme) {
+    public TimeSelecterDayDialog(Context context, int theme) {
         super(context, theme);
         this.ct = context;
         initView();
     }
 
-    public BottomTimeDialog(Context context, String title, int theme) {
+    public TimeSelecterDayDialog(Context context, String title, int theme) {
         super(context, theme);
         this.ct = context;
         this.title = title;
@@ -71,66 +62,54 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
         min = (WheelView) view.findViewById(R.id.min);
         sec = (WheelView) view.findViewById(R.id.sec);
 
+        time.setVisibility(View.GONE);
+        min.setVisibility(View.GONE);
+        sec.setVisibility(View.GONE);
+
         tvCancel.setOnClickListener(this);
         tvConfirm.setOnClickListener(this);
         Calendar c = Calendar.getInstance();
         int norYear = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
         curYear = norYear;
         curMonth = month + 1;
         curDate = day;
-        curHour = hour;
-        curMin = minute;
 
         if (!TextUtils.isEmpty(title)) {
             tv_title.setText(title);
         }
 
-
         LogUtils.d("-----------------滑轮初始化--------------------");
 
-        NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(ct, norYear, norYear + 20);
+        // 年
+        NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(ct, 1945, norYear);
         numericWheelAdapter1.setLabel("年");
         year.setViewAdapter(numericWheelAdapter1);
         year.setCyclic(true);//是否可循环滑动
         year.addScrollingListener(scrollListener);
 
+        // 月
         NumericWheelAdapter numericWheelAdapter2 = new NumericWheelAdapter(ct, 1, 12, "%02d");
         numericWheelAdapter2.setLabel("月");
         this.month.setViewAdapter(numericWheelAdapter2);
         this.month.setCyclic(true);
         this.month.addScrollingListener(scrollListener);
 
-        //this.day = (WheelView) view.findViewById(R.id.day);
-        initDay(curYear, curMonth);
-
-        NumericWheelAdapter numericWheelAdapter3 = new NumericWheelAdapter(ct, 0, 23, "%02d");
-        numericWheelAdapter3.setLabel("时");
-        min.setViewAdapter(numericWheelAdapter3);
-        min.setCyclic(true);
-        min.addScrollingListener(scrollListener);
-
-        NumericWheelAdapter numericWheelAdapter4 = new NumericWheelAdapter(ct, 0, 59, "%02d");
-        numericWheelAdapter4.setLabel("分");
-        sec.setViewAdapter(numericWheelAdapter4);
-        sec.setCyclic(true);
-        sec.addScrollingListener(scrollListener);
+        // 日
+        numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(curYear, curMonth), "%02d");
+        numericWheelAdapter.setLabel("日");
+        this.day.setViewAdapter(numericWheelAdapter);
+        this.day.setCyclic(true);
+        this.day.addScrollingListener(scrollListener);
 
         year.setVisibleItems(7);//设置显示行数
         this.month.setVisibleItems(7);
         this.day.setVisibleItems(7);
-//		time.setVisibleItems(7);
-        min.setVisibleItems(7);
-        sec.setVisibleItems(7);
 
-        year.setCurrentItem(curYear - 2017);
+        year.setCurrentItem(curYear - 1945);
         this.month.setCurrentItem(curMonth - 1);
         this.day.setCurrentItem(curDate - 1);
-        min.setCurrentItem(curHour);
-        sec.setCurrentItem(curMin);
 
         int width = ScreenUtils.getScreenWidth(ct);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, -2);
@@ -145,89 +124,6 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
 
     }
 
-    /**
-     * 是否显示年滑轮
-     */
-    public void showYear(boolean bln) {
-        if (year != null) {
-            if (bln) {
-                year.setVisibility(View.VISIBLE);
-            } else {
-                year.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    /**
-     * 是否显示月滑轮
-     */
-    public void showMonth(boolean bln) {
-        if (month != null) {
-            if (bln) {
-                month.setVisibility(View.VISIBLE);
-            } else {
-                month.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    /**
-     * 是否显示日滑轮
-     */
-    public void showDay(boolean bln) {
-        if (day != null) {
-            if (bln) {
-                day.setVisibility(View.VISIBLE);
-            } else {
-                day.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    /**
-     * 是否显示小时滑轮
-     */
-    public void showHour(boolean bln) {
-        if (time != null) {
-            if (bln) {
-                time.setVisibility(View.VISIBLE);
-            } else {
-                time.setVisibility(View.GONE);
-                min.setVisibility(View.GONE);
-                sec.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    /**
-     * 是否显示分钟滑轮
-     */
-    public void showMin(boolean bln) {
-        if (min != null) {
-            if (bln) {
-                min.setVisibility(View.VISIBLE);
-            } else {
-                min.setVisibility(View.GONE);
-                sec.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    /**
-     * 是否显示秒钟滑轮
-     */
-    public void showSec(boolean bln) {
-        if (sec != null) {
-            if (bln) {
-                sec.setVisibility(View.VISIBLE);
-            } else {
-                sec.setVisibility(View.GONE);
-            }
-        }
-    }
-
-
-    private int n_month;
     OnWheelScrollListener scrollListener = new OnWheelScrollListener() {
 
         @Override
@@ -237,17 +133,16 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
 
         @Override
         public void onScrollingFinished(WheelView wheel) {
-            // 年
-            curYear = year.getCurrentItem() + 2017; // 月
-            curMonth = month.getCurrentItem() + 1;
+            //年
+            curYear = year.getCurrentItem() + 1945;
+            curMonth = month.getCurrentItem() + 1;// 月
             curDate = day.getCurrentItem() + 1;
-            curHour = min.getCurrentItem();
-            curMin = sec.getCurrentItem();
 
-//            initDay(curYear, curMonth);
             numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(curYear, curMonth), "%02d");
             numericWheelAdapter.setLabel("日");
-            BottomTimeDialog.this.day.setViewAdapter(numericWheelAdapter);
+            TimeSelecterDayDialog.this.day.setViewAdapter(numericWheelAdapter);
+//            TimeSelecterDayDialog.this.day.setCyclic(true);
+//            TimeSelecterDayDialog.this.day.addScrollingListener(scrollListener);
         }
     };
 
@@ -257,8 +152,8 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
      * @return
      */
     private int getDay(int year, int month) {
-        int day = 30;
-        boolean flag = false;
+        int day;
+        boolean flag;
         switch (year % 4) {
             case 0:
                 flag = true;
@@ -290,11 +185,8 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
     /**
      */
     private void initDay(int arg1, int arg2) {
-        numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(arg1, arg2), "%02d");
-        numericWheelAdapter.setLabel("日");
-        day.setViewAdapter(numericWheelAdapter);
-        day.setCyclic(true);
-        day.addScrollingListener(scrollListener);
+        /*day.setCyclic(true);
+        day.addScrollingListener(scrollListener);*/
     }
 
     private OnConfirmClickListener listener2;
@@ -310,24 +202,21 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.tv_confirm:
-                LogUtils.i(curYear + " " + curMonth + " " + curDate + " " + curHour + " " + curMin);
-                String hour = "";
-                String min = "";
+                LogUtils.i(curYear + " " + curMonth + " " + curDate);
+                String mouth;
+                String min;
                 if (listener2 != null) {
-                    if (curHour < 10) {
-                        hour = "0" + curHour;
+                    if (curMonth < 10) {
+                        mouth = "0" + curMonth;
                     } else {
-                        hour = curHour + "";
+                        mouth = curMonth + "";
                     }
-                    if (curMin < 10) {
-                        min = "0" + curMin;
+                    if (curDate < 10) {
+                        min = "0" + curDate;
                     } else {
-                        min = curMin + "";
+                        min = curDate + "";
                     }
-
-                    listener2.onConfirmClickListener(curYear, curMonth, curDate, hour, min);
-                } else {
-                    LogUtils.i("listerner2为空");
+                    listener2.onConfirmClickListener(curYear, mouth, min);
                 }
                 dismiss();
                 break;
@@ -335,6 +224,6 @@ public class BottomTimeDialog extends Dialog implements View.OnClickListener {
     }
 
     public interface OnConfirmClickListener {
-        void onConfirmClickListener(int i1, int i2, int i3, String i4, String i5);
+        void onConfirmClickListener(int i1, String i2, String i3);
     }
 }

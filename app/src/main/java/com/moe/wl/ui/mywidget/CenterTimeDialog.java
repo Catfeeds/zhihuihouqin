@@ -81,6 +81,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         this.day = (WheelView) view.findViewById(R.id.day);
         initDay(curYear, curMonth);
         this.day.setCyclic(true);
+        this.day.addScrollingListener(scrollListener);
 
         NumericWheelAdapter numericWheelAdapter3 = new NumericWheelAdapter(ct, 0, 23, "%02d");
         numericWheelAdapter3.setLabel("时");

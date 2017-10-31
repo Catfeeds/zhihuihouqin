@@ -48,7 +48,7 @@ public class PositionActivity extends BaseActivity<PositionListModel, PositionLi
     public void initView() {
         getPresenter().getData();
         mTitleBar.setBack(true);
-        mTitleBar.setTitle("职位");
+        mTitleBar.setTitle("职务");
         rvItemContainer.setLayoutManager(new LinearLayoutManager(this));
         positionAdatper = new PositionAdatper(this);
         rvItemContainer.setAdapter(positionAdatper);

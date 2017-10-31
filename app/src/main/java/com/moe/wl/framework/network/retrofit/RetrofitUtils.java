@@ -518,11 +518,12 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 处室列表
      */
-    public static Observable getofficelist() {
+    public static Observable getofficelist(int departid) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<String, String>();
-            addParam(paramsMap, tempMap);
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("departid", departid);
+            addParams(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
@@ -177,6 +178,7 @@ public class RegistStepTwoActivity extends BaseActivity<RegistStep2Model, Regist
 //        } else if (errCode == 0) {
         showToast("注册成功");
         Intent intent = new Intent(this, RegistSuccessActivity.class);
+        SharedPrefHelper.getInstance().setToken(registBean.getToken());
         startActivity(intent);
 //        Intent intent1 = new Intent();
 //        intent1.putExtra("mobile", mMobile);

@@ -13,6 +13,7 @@ public class RegistBean {
 
     private String msg;
     private int errCode;
+    private String token;
 
     public String getMsg() {
         return msg;
@@ -28,5 +29,13 @@ public class RegistBean {
 
     public void setErrCode(int errCode) {
         this.errCode = errCode;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

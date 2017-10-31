@@ -81,7 +81,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     @BindView(R.id.l_iv_qq)
     TextView lIvQq;
 
-
     private String mobile;
     private String pwd;
 
@@ -131,8 +130,14 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         initTitle();
         //  ShareSDK.initSDK(this);
         etUname.setText(SharedPrefHelper.getInstance().getPhoneNumber());
+        if (SharedPrefHelper.getInstance().getPhoneNumber().length() > 0) {
+            allCancle.setVisibility(View.VISIBLE);
+        }
         etPsw.setText(SharedPrefHelper.getInstance().getPassword());
         etPsw.setSelection(SharedPrefHelper.getInstance().getPassword().length());
+        if (SharedPrefHelper.getInstance().getPassword().length() > 0) {
+            clearPassWord.setVisibility(View.VISIBLE);
+        }
         etUname.setCursorVisible(false);
         etUname.setOnTouchListener(new View.OnTouchListener() {
 

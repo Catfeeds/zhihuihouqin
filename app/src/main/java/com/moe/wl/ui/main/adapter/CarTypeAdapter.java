@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.ui.main.bean.CartypeslistBean;
-import com.moe.wl.ui.main.bean.OfficeslistBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class CarTypeAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<CartypeslistBean.CartypelistBean> data=new ArrayList<>();
+    private List<CartypeslistBean.CartypelistBean> data = new ArrayList<>();
 
     public CarTypeAdapter(Context mContext) {
         this.mContext = mContext;
@@ -48,7 +47,7 @@ public class CarTypeAdapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    private int selectPosition=0;
+    private int selectPosition = -1;
 
     public void setData(List<CartypeslistBean.CartypelistBean> data) {
         this.data = data;

@@ -143,6 +143,7 @@
                 android:background="@color/gray_line" />
 
             <LinearLayout
+                android:id="@+id/ll_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -156,18 +157,23 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
 
-                <EditText
+                <TextView
                     android:id="@+id/tv_birth"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="填写出生日期"
-                    android:inputType="number"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/turn_right" />
+
             </LinearLayout>
 
             <View
@@ -257,7 +263,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="职位"
+                    android:text="职务"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
 
@@ -375,6 +381,7 @@
                 android:background="@color/gray_line" />
 
             <LinearLayout
+                android:id="@+id/ll_join_job"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -388,17 +395,22 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_add_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="填写参加工作时间"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/turn_right" />
             </LinearLayout>
 
             <View
@@ -407,6 +419,7 @@
                 android:background="@color/gray_line" />
 
             <LinearLayout
+                android:id="@+id/ll_arrive_office"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -420,17 +433,23 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_come_depart_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:background="@null"
                     android:gravity="right"
-                    android:hint="填写来部时间"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/turn_right" />
+
             </LinearLayout>
 
             <View
@@ -556,7 +575,6 @@
                     android:background="@null"
                     android:gravity="right"
                     android:hint="填写工作邮箱"
-                    android:inputType="number"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/tv_gray"
                     android:textSize="@dimen/sp_small" />

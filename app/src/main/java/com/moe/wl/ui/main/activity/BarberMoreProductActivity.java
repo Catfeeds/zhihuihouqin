@@ -2,9 +2,16 @@ package com.moe.wl.ui.main.activity;
 
 import android.widget.GridView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BarberProductAdapter;
+import com.moe.wl.ui.main.bean.BarberDetailBean;
+import com.moe.wl.ui.main.bean.BarberWorkListBean;
 import com.moe.wl.ui.main.bean.WorklistBean;
+import com.moe.wl.ui.main.model.BarberPoductListModel;
+import com.moe.wl.ui.main.modelimpl.BarberProductListModelImpl;
+import com.moe.wl.ui.main.presenter.BarberProductListPresenter;
 import com.moe.wl.ui.main.view.BarberProductListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -12,15 +19,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.main.bean.BarberDetailBean;
-import com.moe.wl.ui.main.bean.BarberWorkListBean;
-import com.moe.wl.ui.main.model.BarberPoductListModel;
-import com.moe.wl.ui.main.modelimpl.BarberProductListModelImpl;
-import com.moe.wl.ui.main.presenter.BarberProductListPresenter;
 
-public class BarberMoreProductActivity extends BaseActivity<BarberPoductListModel,BarberProductListView,BarberProductListPresenter> implements BarberProductListView  {
+public class BarberMoreProductActivity extends BaseActivity<BarberPoductListModel, BarberProductListView, BarberProductListPresenter> implements BarberProductListView {
 
     @BindView(R.id.more_product_title)
     TitleBar titleBar;
@@ -50,7 +50,7 @@ public class BarberMoreProductActivity extends BaseActivity<BarberPoductListMode
     @Override
     public void initView() {
         int id = getIntent().getIntExtra("id", 0);
-        getPresenter().getData(id+"",1+"",10+"");
+        getPresenter().getData(id + "", 1 + "", 10 + "");
         initTitle();
         initGrid();
     }
@@ -67,7 +67,7 @@ public class BarberMoreProductActivity extends BaseActivity<BarberPoductListMode
 
     @Override
     public void getBarberListSucc(BarberWorkListBean listBean) {
-        if(listBean!=null){
+        if (listBean != null) {
             List<WorklistBean> worklist = listBean.getWorklist();
             barberProductAdapter.setMoreData(worklist);
         }

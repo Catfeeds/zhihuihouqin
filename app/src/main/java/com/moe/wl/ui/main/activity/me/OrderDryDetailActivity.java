@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +13,7 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderDryClearDetailAdapter;
@@ -33,7 +33,7 @@ import rx.Subscriber;
  * 类描述：洗衣店订单详情页
  * 作者：Shixhe On 2017/10/10 0010
  */
-public class OrderDryDetailActivity extends AppCompatActivity {
+public class OrderDryDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.left)
     TextView left;

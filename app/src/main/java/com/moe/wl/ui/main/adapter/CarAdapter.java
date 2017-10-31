@@ -57,6 +57,9 @@ public class CarAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
 
+        viewHolder.tvCarType.setText(data.get(position).getCarName());
+        viewHolder.tvShengfen.setText(data.get(position).getPrecarcode());
+
         viewHolder.rlCarType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

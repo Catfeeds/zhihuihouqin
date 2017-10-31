@@ -10,6 +10,6 @@ import rx.Observable;
 
 public interface OfficeNumModel extends MvpModel {
 
-    Observable getOfficeList();
+    Observable getOfficeList(int departid);
 
 }

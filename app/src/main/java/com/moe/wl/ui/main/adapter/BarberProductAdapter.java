@@ -25,17 +25,17 @@ import butterknife.ButterKnife;
  */
 
 public class BarberProductAdapter extends BaseAdapter {
-    private  Context mContext;
-    private List<WorklistBean> data=new ArrayList<>();
+    private Context mContext;
+    private List<WorklistBean> data = new ArrayList<>();
     private int id;
 
     public BarberProductAdapter(Context context) {
-        this.mContext=context;
+        this.mContext = context;
     }
 
     @Override
     public int getCount() {
-        if(data!=null){
+        if (data != null) {
             return data.size();
         }
         return 0;
@@ -69,7 +69,7 @@ public class BarberProductAdapter extends BaseAdapter {
 
     public void setData(List<WorklistBean> data) {
         this.data = data;
-        LogUtils.i("data:=="+data.size());
+        LogUtils.i("data:==" + data.size());
         notifyDataSetChanged();
     }
 
@@ -94,10 +94,10 @@ public class BarberProductAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, HairStyleDetailActivity.class);
                     intent.putExtra("workid", id);
-                    intent.putExtra("img",data.getDetailimg());
-                    intent.putExtra("price",data.getPrice());
-                    intent.putExtra("name",data.getName());
-                    intent.putExtra("brief",data.getBrief());
+                    intent.putExtra("img", data.getDetailimg());
+                    intent.putExtra("price", data.getPrice());
+                    intent.putExtra("name", data.getName());
+                    intent.putExtra("brief", data.getBrief());
                     mContext.startActivity(intent);
                 }
             });
@@ -105,7 +105,7 @@ public class BarberProductAdapter extends BaseAdapter {
 
         public void setData(WorklistBean worklistBean) {
             this.data = worklistBean;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, worklistBean.getSmallimg(),ivProductPhoto);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, worklistBean.getSmallimg(), ivProductPhoto);
             tvProductDes.setText(worklistBean.getName());
             LogUtils.i("worklistbean===" + worklistBean.getName() + "   " + worklistBean.getPrice());
             tvMoney.setText("￥" + worklistBean.getPrice());

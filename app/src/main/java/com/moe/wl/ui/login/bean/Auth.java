@@ -14,7 +14,7 @@ public class Auth {
     private String mobile;
     private int positionid;
     private String officetel;
-    private String nation;
+    private int nation;
     private String email;
     private int sex;
     private String birthday;
@@ -85,11 +85,11 @@ public class Auth {
         this.officetel = officetel;
     }
 
-    public String getNation() {
+    public int getNation() {
         return nation;
     }
 
-    public void setNation(String nation) {
+    public void setNation(int nation) {
         this.nation = nation;
     }
 
@@ -134,7 +134,7 @@ public class Auth {
     }
 
     public Auth(String birthday, String buildnum, int departid, String email, String ldtime, String mobile, String name,
-                      String nation, int officeid, String officetel, int positionid, String roomnum, int sex, String startworktime) {
+                      int nation, int officeid, String officetel, int positionid, String roomnum, int sex, String startworktime) {
         this.birthday = birthday;
         this.buildnum = buildnum;
         this.departid = departid;

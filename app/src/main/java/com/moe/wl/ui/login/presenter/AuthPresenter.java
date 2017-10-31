@@ -22,43 +22,43 @@ import rx.Subscriber;
 public class AuthPresenter extends MvpRxPresenter<AuthModel, AuthView> {
 
 
-    public void getData(Auth auth,List<CarInfo> list) {
+    public void getData(Auth auth, List<CarInfo> list) {
         LogUtil.log("MainPresenter发出请求");
         getView().showProgressDialog();
-        getModel().submitAuth(auth,list)
+        getModel().submitAuth(auth, list)
                 .subscribe(new Subscriber<SubmitAuthBean>() {
-            @Override
-            public void onCompleted() {
-                getView().dismissProgressDialog();
-            }
+                    @Override
+                    public void onCompleted() {
+                        getView().dismissProgressDialog();
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                getView().dismissProgressDialog();
-                Log.e("错误信息", e.getMessage());
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().dismissProgressDialog();
+                        Log.e("错误信息", e.getMessage());
+                    }
 
-            @Override
-            public void onNext(SubmitAuthBean submitAuthBean) {
-                if (submitAuthBean==null)
-                    return;
-                if (submitAuthBean.getErrCode()==2){
-                    getView().reLogin(Constants.LOGIN_ERROR);
-                    return;
-                }
-                if (submitAuthBean.getErrCode() == 0) {
-                    getView().authSucc();
-                } else if (submitAuthBean.getErrCode() == 1015) {
-                    getView().showToast(submitAuthBean.getMsg());
-                } else if (submitAuthBean.getErrCode() == 1016) {
-                    getView().showToast(submitAuthBean.getMsg());
-                } else if (submitAuthBean.getErrCode() == 1017) {
-                    getView().showToast(submitAuthBean.getMsg());
-                }else{
-                    getView().showToast(submitAuthBean.getMsg());
-                }
-            }
-        });
+                    @Override
+                    public void onNext(SubmitAuthBean submitAuthBean) {
+                        if (submitAuthBean == null)
+                            return;
+                        if (submitAuthBean.getErrCode() == 2) {
+                            getView().reLogin(Constants.LOGIN_ERROR);
+                            return;
+                        }
+                        if (submitAuthBean.getErrCode() == 0) {
+                            getView().authSucc();
+                        } else if (submitAuthBean.getErrCode() == 1015) {
+                            getView().showToast(submitAuthBean.getMsg());
+                        } else if (submitAuthBean.getErrCode() == 1016) {
+                            getView().showToast(submitAuthBean.getMsg());
+                        } else if (submitAuthBean.getErrCode() == 1017) {
+                            getView().showToast(submitAuthBean.getMsg());
+                        } else {
+                            getView().showToast(submitAuthBean.getMsg());
+                        }
+                    }
+                });
     }
 
     @Override

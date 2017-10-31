@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -31,6 +30,8 @@ public class OfficeidActivity extends BaseActivity<OfficeNumModel, OfficeNumView
     RecyclerView rvItemContainer;
     private OfficeNumAdapter adapter;
 
+    private int departid;
+
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_position);
@@ -41,7 +42,8 @@ public class OfficeidActivity extends BaseActivity<OfficeNumModel, OfficeNumView
     public void initView() {
         title.setBack(true);
         title.setTitle("处室号");
-        getPresenter().getOfficeNum();
+        departid = getIntent().getIntExtra("DepartId", 0);
+        getPresenter().getOfficeNum(departid);
         rvItemContainer.setLayoutManager(new LinearLayoutManager(this));
         adapter = new OfficeNumAdapter(this);
         rvItemContainer.setAdapter(adapter);
@@ -49,7 +51,7 @@ public class OfficeidActivity extends BaseActivity<OfficeNumModel, OfficeNumView
 
     @Override
     public void getOfficeNumResult(OfficeslistBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             final List<OfficeslistBean.OfficelistBean> officelist = bean.getOfficelist();
 
             adapter.setData(officelist);
@@ -62,11 +64,11 @@ public class OfficeidActivity extends BaseActivity<OfficeNumModel, OfficeNumView
                     int departid = officelistBean.getDepartid();
                     int id = officelistBean.getId();
                     Intent intent = new Intent();
-                    intent.putExtra("bgypright",bgypright);
-                    intent.putExtra("name",name);
-                    intent.putExtra("departid",departid);
-                    intent.putExtra("id",id);
-                    setResult(RESULT_OK,intent);
+                    intent.putExtra("bgypright", bgypright);
+                    intent.putExtra("name", name);
+                    intent.putExtra("departid", departid);
+                    intent.putExtra("id", id);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             });

@@ -2,7 +2,6 @@ package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,12 +9,13 @@ import android.widget.RelativeLayout;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SexActivity extends AppCompatActivity {
+public class SexActivity extends MyBaseActivity {
 
     @BindView(R.id.title)
     TitleBar title;
@@ -43,13 +43,20 @@ public class SexActivity extends AppCompatActivity {
     private void initTitle() {
         title.setBack(true);
         title.setTitle("性别");
-        if ("男".equals(getIntent().getStringExtra("sex"))) {
-            ivSelectMan.setVisibility(View.VISIBLE);
-            ivSelectGirl.setVisibility(View.GONE);
-        } else if("女".equals(getIntent().getStringExtra("sex"))) {
-            ivSelectMan.setVisibility(View.GONE);
-            ivSelectGirl.setVisibility(View.VISIBLE);
-        }
+      /*title.setTitleRight("确定");
+        title.setOnRightclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
+//        if ("男".equals(getIntent().getStringExtra("sex"))) {
+//            ivSelectMan.setVisibility(View.VISIBLE);
+//            ivSelectGirl.setVisibility(View.GONE);
+//        } else if("女".equals(getIntent().getStringExtra("sex"))) {
+//            ivSelectMan.setVisibility(View.GONE);
+//            ivSelectGirl.setVisibility(View.VISIBLE);
+//        }
     }
 
     @OnClick({R.id.rl_man, R.id.rl_girl})

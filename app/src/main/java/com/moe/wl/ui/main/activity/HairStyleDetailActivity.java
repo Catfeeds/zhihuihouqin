@@ -40,7 +40,7 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
     private BottomSheetDialog dialog;
     private int favorstatus;
     private int workid;
-    private static final int Type=3;
+    private static final int Type = 3;
 
     @Override
     public HairStyleDetailPresenter createPresenter() {
@@ -51,6 +51,7 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
     public HairStyleDetailModel createModel() {
         return new HairStyleDetailModelImpl();
     }
+
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_hair_style_detail);
@@ -61,14 +62,14 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
     public void initView() {
         initTitle();
         Intent intent = getIntent();
-        int workid =intent .getIntExtra("workid", -1);
+        int workid = intent.getIntExtra("workid", -1);
         String img = intent.getStringExtra("img");
         String name = intent.getStringExtra("name");
-        int price = intent.getIntExtra("price", 0);
+        double price = intent.getDoubleExtra("price", 0);
         String brief = intent.getStringExtra("brief");
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this,img,ivHairStyle);
-        tvHairStyleName.setText("名称："+name);
-        tvHowMuch.setText("价格：￥"+price);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, img, ivHairStyle);
+        tvHairStyleName.setText("名称：" + name);
+        tvHowMuch.setText("价格：￥" + price);
         tvHairStyleDes.setText(brief);
         getPresenter().getdata(workid);
     }
@@ -76,16 +77,16 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("发型详情");
-        if(favorstatus==0){
+        if (favorstatus == 0) {
             titleBar.setTitleRight("收藏");
-        }else{
+        } else {
             titleBar.setTitleRight("取消收藏");
         }
 
         titleBar.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               getPresenter().collect(Type,workid);
+                getPresenter().collect(Type, workid);
             }
         });
     }
@@ -95,16 +96,17 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
         workid = bean.getWorkid();
         favorstatus = bean.getFavorstatus();//0为收藏  1已收藏
     }
+
     @Override
     public void collectSucc(CollectBean bean) {
-        LogUtils.i("collect state:=="+bean.getStatus());
-        if(bean.getStatus()==0){
+        LogUtils.i("collect state:==" + bean.getStatus());
+        if (bean.getStatus() == 0) {
             titleBar.setTitleRight("收藏");
             showToast("取消收藏");
-        }else if(bean.getStatus()==1){
+        } else if (bean.getStatus() == 1) {
             titleBar.setTitleRight("取消收藏");
             showToast("收藏成功");
-        }else{
+        } else {
             showToast("未知异常");
         }
     }

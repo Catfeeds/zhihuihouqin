@@ -3,6 +3,8 @@ package com.moe.wl.ui.main.activity.medicalService;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,15 +14,17 @@ import android.widget.TextView;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
-import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
 import com.moe.wl.ui.main.activity.ReserveInfoActivity;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
-import com.moe.wl.ui.main.adapter.ExpertSelectTimeAdapter;
 import com.moe.wl.ui.main.adapter.ExpertSelectTimeDayAdapter;
 import com.moe.wl.ui.main.adapter.ExpertTimeAdapter;
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.CommentlistBean;
 import com.moe.wl.ui.main.bean.ExpertDetailBean;
 import com.moe.wl.ui.main.model.ExpertDetailModel;
@@ -28,6 +32,7 @@ import com.moe.wl.ui.main.modelimpl.ExpertDetailModelImpl;
 import com.moe.wl.ui.main.presenter.ExpertDetailPresenter;
 import com.moe.wl.ui.main.view.ExpertDetailView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;
@@ -36,6 +41,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * 专家详情页面
@@ -118,7 +125,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 this, LinearLayoutManager.HORIZONTAL, false));
         recycleView1.setAdapter(dayAdapter);
 
-        rvTime.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        rvTime.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         timeAdapter = new ExpertTimeAdapter(this, timeData, new ExpertTimeAdapter.OnClickListener() {
             @Override
             public void onClick(int id, String timeString) {
@@ -133,7 +140,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 time = timeString;
             }
         });*/
-rvTime.setAdapter(timeAdapter);
+        rvTime.setAdapter(timeAdapter);
         //gridView.setAdapter(timeAdapter);
         data = new ArrayList<>();
         adapter = new DoctorDetailrvAdapter(this, data, 1);
@@ -141,6 +148,9 @@ rvTime.setAdapter(timeAdapter);
         recycleView.setAdapter(adapter);
         OtherUtils.ratingBarColor(ratingBar, this);
         getPresenter().getExpertDetail();
+        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.EXPERTS)) {
+            getHint();
+        }
     }
 
     @OnClick({R.id.iv_doc_detail_back, R.id.iv_doc_detail_consult, R.id.tv_now_order, R.id.tv_check_all})
@@ -210,6 +220,35 @@ rvTime.setAdapter(timeAdapter);
                 timeAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    // 获取服务信息  用于弹出窗
+    private void getHint() {
+        Observable observable = RetrofitUtils.getInstance().getBanner(Constants.EXPERTS);
+        observable.subscribe(new Subscriber<BannerResponse>() {
+
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BannerResponse mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.errCode == 0) {
+                    // TODO 弹温馨出提示窗
+                    ShowHintPop pop = new ShowHintPop(ExpertsVisitActivity.this, mResponse.getServiceInfo().getRemind(), Constants.EXPERTS);
+                    pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                } else {
+                    ToastUtil.showToast(ExpertsVisitActivity.this, mResponse.msg);
+                }
+            }
+        });
     }
 
     @Override

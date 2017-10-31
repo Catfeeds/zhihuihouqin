@@ -3,25 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_barber_more_product"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    android:orientation="vertical">
+
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/more_product_title"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"/>
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"/>
+        android:background="@color/gray_line" />
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <GridView
             android:id="@+id/more_product_grid"
-            android:numColumns="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:numColumns="2" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
