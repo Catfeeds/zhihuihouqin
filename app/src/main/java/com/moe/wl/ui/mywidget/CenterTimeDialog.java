@@ -78,7 +78,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         this.month.setCyclic(true);
         this.month.addScrollingListener(scrollListener);
 
-        this.day = (WheelView) view.findViewById(R.id.day);
+        //this.day = (WheelView) view.findViewById(R.id.day);
         initDay(curYear, curMonth);
         this.day.setCyclic(true);
         this.day.addScrollingListener(scrollListener);
