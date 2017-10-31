@@ -89,10 +89,10 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     private List<SpCheckShopCarBean.CartItemsBean> cartItemLists = new ArrayList<>();
 
     private int count;
-    private int price;
+    private double price;
     private String from;
     private SpOrderAdapter spOrderAdapter;
-    private long ordercode;
+    private String ordercode;
     private String createtime;
     private int ordertype;
     private int orderid;
@@ -121,9 +121,25 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     @Override
     public void initView() {
         Intent intent = getIntent();
+        //获得用户的信息
+         addressID = intent.getIntExtra("ID", 1);
+         userName = intent.getStringExtra("Name");
+         address = intent.getStringExtra("Address");
+         phone = intent.getStringExtra("Mobile");
+        //设置个人信息
+        tvUsername.setText(userName);
+        tvPhone.setText(phone);
+        tvAddress.setText(address);
+        if(!TextUtils.isEmpty(userName)||!TextUtils.isEmpty(phone)||!TextUtils.isEmpty(address)){
+            chooseAddress.setVisibility(View.GONE);
+        }else{
+            chooseAddress.setVisibility(View.VISIBLE);
+
+        }
+
         from = intent.getStringExtra("from");
         if (from.equals("nowpay")) {//来自立即购买
-            price = intent.getIntExtra("price", -1);
+            price =intent.getDoubleExtra("price",0);
             count = intent.getIntExtra("count", -1);
             ShopCarInfoBean.SkuListBean skuListBean = (ShopCarInfoBean.SkuListBean) intent.getSerializableExtra("skuListBean");
             String mainimg = skuListBean.getMainimg();
@@ -136,7 +152,7 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
             skuBean.setMainimg(mainimg);
             skuBean.setCataName(cataName);
             bean.setCount(count);
-            bean.getSku().setPrice(price);
+            bean.getSku().setPrice(this.price);
             cartItemLists.add(bean);
         } else {//来自购物车
             String json = intent.getStringExtra("json");
@@ -158,10 +174,10 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     }
 
     private void initData() {
-        int sum = 0;
+        double sum = 0;
         for (int i = 0; i < cartItemLists.size(); i++) {
             int count = cartItemLists.get(i).getCount();
-            int price = cartItemLists.get(i).getSku().getPrice();
+            double price = cartItemLists.get(i).getSku().getPrice();
             sum += count * price;
         }
         tvShopAmout.setText("￥" + NumberUtils.keepPrecision(sum + "", 2));

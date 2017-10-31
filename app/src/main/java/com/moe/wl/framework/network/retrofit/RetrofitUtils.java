@@ -3176,8 +3176,8 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            Md5Util.getMD5(pwd);
-            tempMap.put("paypass", pwd);
+            String md5 = Md5Util.getMD5(pwd);
+            tempMap.put("paypass", md5);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -3195,8 +3195,8 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            Md5Util.getMD5(pwd);
-            tempMap.put("code", pwd);
+            String md5 = Md5Util.getMD5(pwd);
+            tempMap.put("code", md5);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {

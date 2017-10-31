@@ -42,6 +42,8 @@
                 android:layout_marginTop="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="扁头票夹大号铁夹5号文具夹办公必备"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />

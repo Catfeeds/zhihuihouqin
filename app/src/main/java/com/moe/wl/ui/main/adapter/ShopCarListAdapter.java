@@ -53,7 +53,7 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
                 //this.count=count;
                 SpCheckShopCarBean.CartItemsBean.SkuBean sku = cartItemsBean.getSku();
                 String mainimg = sku.getMainimg();//图片
-                int price = sku.getPrice();
+                double price = sku.getPrice();
                 String skuname = sku.getSkuname();
                 GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, mainimg, viewHolder.ivPic);
                 viewHolder.tvCount.setText(count + "");
@@ -64,9 +64,9 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
                     cartItemsBean.setSeclect(isSelect);
                 }*/
                 if (cartItemsBean.isSeclect()) {
-                    viewHolder.ivItemSelect.setImageResource(R.drawable.selected);
+                    viewHolder.ivItemSelect.setImageResource(R.drawable.select);
                 } else {
-                    viewHolder.ivItemSelect.setImageResource(R.drawable.unselected);
+                    viewHolder.ivItemSelect.setImageResource(R.drawable.unselect);
                 }
             }
         //数量增加
@@ -76,7 +76,8 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
                 int count = cartItemsBean.getCount();
                 count++;
                 int store = cartItemsBean.getSku().getStore();
-                if(count<store){
+                //判断库存数量是否少于选中数量
+                if(count<=store){
                     cartItemsBean.setCount(count);
                 }else{
                     ToastUtil.showToast(mContext,"库存量剩余"+store+"个");
@@ -104,10 +105,10 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
                 notifyDataSetChanged();
             }
         });
-            viewHolder.ivItemSelect.setOnClickListener(new View.OnClickListener() {
+            /*ivItemSelect*/
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     cartItemsBean.setSeclect(!cartItemsBean.isSeclect());
                     notifyDataSetChanged();
                     if(listener!=null){
@@ -157,11 +158,11 @@ public class ShopCarListAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_des)
         TextView tvDes;
         @BindView(R.id.tv_minus)
-        TextView tvMinus;
+        ImageView tvMinus;
         @BindView(R.id.tv_count)
         TextView tvCount;
         @BindView(R.id.tv_add)
-        TextView tvAdd;
+        ImageView tvAdd;
 
         ViewHolder(View view) {
             super(view);

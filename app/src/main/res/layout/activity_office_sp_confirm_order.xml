@@ -30,6 +30,7 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="60dp"
             android:orientation="horizontal"
             android:paddingBottom="6dp"
             android:paddingLeft="12dp"
@@ -103,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:background="@color/white"
-            android:layout_height="60dp">
+            android:layout_height="50dp">
 
             <View
                 android:layout_width="4dp"
@@ -116,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_margin="16dp"
-                android:src="@drawable/address" />
+                android:src="@drawable/arrive_time" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,7 +126,7 @@
                 android:layout_toRightOf="@id/iv_clock"
                 android:text="期望送货时间"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_common" />
+                android:textSize="@dimen/sp_small" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -157,10 +158,10 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_marginTop="5dp"
-            android:padding="16dp">
+            android:padding="@dimen/normal_padding">
             <TextView
                 android:layout_width="wrap_content"
-                android:textSize="@dimen/sp_common"
+                android:textSize="@dimen/sp_small"
                 android:text="订单备注"
                 android:textColor="@color/tv_black"
                 android:layout_height="wrap_content" />
@@ -175,7 +176,7 @@
                 <TextView
                     android:id="@+id/tv_other_need"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/sp_common"
+                    android:textSize="@dimen/sp_small"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/tv_gray"
@@ -190,22 +191,22 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:padding="16dp"
+            android:padding="@dimen/normal_padding"
             android:layout_marginTop="5dp"
             android:background="@color/white"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
-                android:textSize="@dimen/sp_big"
+                android:textSize="@dimen/sp_common"
                 android:textColor="@color/tv_black"
                 android:text="商品金额"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_shop_amout"
                 android:layout_alignParentRight="true"
-                android:textSize="@dimen/sp_big"
+                android:textSize="@dimen/sp_common"
                 android:textColor="@color/tv_black"
-                android:text="¥23"
+                android:text="¥0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
@@ -228,12 +229,12 @@
             android:id="@+id/tv_how_much"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingLeft="16dp"
+            android:paddingLeft="@dimen/normal_padding"
             android:layout_weight="2"
             android:gravity="center_vertical"
             android:text="实付款￥0"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
         <TextView
             android:id="@+id/tv_now_pay"
@@ -244,6 +245,6 @@
             android:gravity="center"
             android:text="立即支付"
             android:textColor="@color/tv_white"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
     </LinearLayout>
 </LinearLayout>

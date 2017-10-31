@@ -21,21 +21,33 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/gray_lighter" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="姓名:"
-            android:background="@color/white"
-            android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_common" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="姓名:"
+        android:background="@color/white"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_common" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text=""
+        android:gravity="right"
+        android:background="@color/white"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_common" />
+</LinearLayout>
         <View
             android:layout_width="wrap_content"
             android:layout_height="1px"
-            android:background="@color/gray_trans" />
+            android:background="@color/gray_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,7 +113,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray_trans"/>
+            android:background="@color/gray_line"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

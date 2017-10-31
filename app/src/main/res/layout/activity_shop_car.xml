@@ -23,6 +23,8 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_caoshi"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/standard_padding">
@@ -31,7 +33,7 @@
                 android:id="@+id/iv_store_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/unselected" />
+                android:background="@drawable/unselect" />
 
             <TextView
                 android:id="@+id/store"
@@ -41,7 +43,7 @@
                 android:layout_marginLeft="@dimen/standard_padding"
                 android:text="机关超市"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_common" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -50,6 +52,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_null"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="您的购物车里还没有商品"
+        android:textSize="@dimen/sp_common"
+        android:textColor="@color/tv_gray"/>
 
     <View
         android:layout_width="match_parent"
@@ -58,7 +71,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:orientation="horizontal">
@@ -79,11 +92,11 @@
 
                 <ImageView
                     android:id="@+id/iv_select_all"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/standard_padding"
-                    android:src="@drawable/selected"
+                    android:src="@drawable/select"
                     android:visibility="gone" />
 
                 <TextView
@@ -92,7 +105,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="全选"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/sp_common" />
+                    android:textSize="@dimen/sp_big" />
             </LinearLayout>
 
             <LinearLayout
@@ -108,7 +121,7 @@
                     android:layout_marginLeft="16dp"
                     android:text="合计:"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
                 <TextView
                     android:id="@+id/tv_sum"
@@ -117,7 +130,7 @@
                     android:layout_marginLeft="16dp"
                     android:text="0.0"
                     android:textColor="@color/font_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
             </LinearLayout>
 
         </LinearLayout>
@@ -131,7 +144,7 @@
             android:gravity="center"
             android:text="去结算(0)"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
     </LinearLayout>
 
 </LinearLayout>

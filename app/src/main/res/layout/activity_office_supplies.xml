@@ -62,6 +62,7 @@
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/nsgv_sp"
+                    android:padding="@dimen/standard_padding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_office_category"
     android:orientation="vertical"
+    android:background="@color/bg_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.moe.wl.framework.widget.TitleBar
@@ -14,21 +15,22 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#2000" />
+         />
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_category"
         app:tabSelectedTextColor="@color/bg_category"
         app:tabIndicatorColor="@color/bg_category"
         app:tabIndicatorHeight="2dp"
         app:tabMode="scrollable"
+        android:background="@color/white"
         app:tabTextColor="@color/tv_black"
 
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/gray_lighter"/>
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_page"
         android:layout_width="match_parent"

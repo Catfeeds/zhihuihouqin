@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/tv_time"

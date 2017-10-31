@@ -70,7 +70,6 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     private ImageView dot;
     public int position;
     private OfficeSpDetailrvAdapter detailrvAdapter;
-    private int id;
     private int index;
     private ShopCarDialog shopCarDialog;
     private int mPositon;
@@ -78,6 +77,12 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     private int mCount;
     private ShopCarInfoBean shopCarInfoBean;
     private boolean mIsAddShopCar;
+    private LinearLayout address;
+    private int id;
+    private String mobile;
+    private String name;
+    private String addressName;
+    private int id1;
 
     @Override
     public SpDetailPresenter createPresenter() {
@@ -117,10 +122,10 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         sib = (SliderLayout) header.findViewById(R.id.slider_layout);
         tvSpCategory = (TextView) header.findViewById(R.id.tv_sp_category);
         tvSpPrice = (TextView) header.findViewById(R.id.tv_sp_price);
+        address = (LinearLayout) header.findViewById(R.id.ll_address);
         tvAddress = (TextView) header.findViewById(R.id.tv_address);
         tvComment = (TextView) header.findViewById(R.id.tv_comment);
         tvCommnetRate = (TextView) header.findViewById(R.id.tv_comment_rate);
-        dot = (ImageView) header.findViewById(R.id.iv_three_dot);
         LinearLayout more = (LinearLayout) header.findViewById(R.id.ll_more_comment);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +136,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
             }
         });
         //选择地址
-        dot.setOnClickListener(new View.OnClickListener() {
+        address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SpDetailActivity.this, AddressManagerActivity.class);
@@ -202,7 +207,14 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         } else {
             if (requestCode == ADDRESSREQUEST) {
                 if (data != null) {
-                    String addressName = data.getStringExtra("Address");
+                    /*  intent1.putExtra("ID", addressId);
+                intent1.putExtra("Name", name);
+                intent1.putExtra("Address", mAddress);
+                intent1.putExtra("Mobile", phone);*/
+                    id1 = data.getIntExtra("ID", 1);
+                    mobile = data.getStringExtra("Mobile");
+                    name = data.getStringExtra("Name");//姓名
+                    addressName = data.getStringExtra("Address");
                     tvAddress.setText(addressName);
                 }
             }
@@ -283,7 +295,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     @Override
     public void getShopCar(ActivityPostBean bean) {
         if (bean != null) {
-            if (mIsAddShopCar == true) {
+            if (mIsAddShopCar == true) {//是购物车
                 Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
                 startActivity(intent);
             } else {
@@ -292,10 +304,15 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 intent.putExtra("from", "nowpay");
                 List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();
                 ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
-                int price = skuListBean.getPrice();
+                double price = skuListBean.getPrice();
                 intent.putExtra("price", price);
                 intent.putExtra("position", mPositon);
                 intent.putExtra("skuListBean", skuListBean);
+               //传递个人信息
+                intent.putExtra("Mobile",mobile);
+                intent.putExtra("ID",id1);
+                intent.putExtra("Name",name);
+                intent.putExtra("Address",addressName);
                 startActivity(intent);
             }
 

@@ -66,6 +66,7 @@ public class OfficeCategoryActivity extends AppCompatActivity{
         }.getType());
         LogUtils.i("list ==="+list);
         categorys = new ArrayList<>();
+        if(list!=null)
         for (int i = 0; i < list.size(); i++) {
             OfficeIndexBean.CategoryListBean categoryListBean = list.get(i);
             if(categoryListBean!=null){

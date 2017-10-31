@@ -63,7 +63,7 @@ public class ShopCarInfoBean {
         private int firstcataid;
         private int id;
         private String mainimg;
-        private int price;
+        private double price;
         private int productid;
         private Object secondcataid;
         private String skuname;
@@ -110,11 +110,11 @@ public class ShopCarInfoBean {
             this.mainimg = mainimg;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

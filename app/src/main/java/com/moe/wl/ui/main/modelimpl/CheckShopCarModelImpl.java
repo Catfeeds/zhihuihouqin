@@ -11,13 +11,13 @@ import rx.Observable;
 
 public class CheckShopCarModelImpl implements CheckShopCarModel {
 
-    @Override
+    @Override//查询购物车
     public Observable checkShopCar() {
         Observable observable = RetrofitUtils.getInstance().checkShopCar();
         return observable;
     }
 
-    @Override
+    @Override//删除购物车里的商品项
     public Observable cancelItem(int[] arr) {
         Observable observable = RetrofitUtils.getInstance().cancelItem(arr);
         return observable;

@@ -83,7 +83,7 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
             realName= SharedPrefHelper.getInstance().getNickname();
         }
         phoneNumber = SharedPrefHelper.getInstance().getPhoneNumber();
-        tvName.setText("姓名: " + realName);
+        tvName.setText(realName);
         etPhone.setText(phoneNumber);
     }
 
@@ -109,6 +109,11 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
 
         if(!VerifyCheck.isMobilePhoneVerify(phone)){
             showToast("请输入正确的手机号码");
+            return ;
+        }
+        int count = Integer.parseInt(spCount);
+        if(count<=0){
+            showToast("商品数量不能少于1件");
             return ;
         }
         if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||

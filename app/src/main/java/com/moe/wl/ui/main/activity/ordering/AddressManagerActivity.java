@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -35,6 +36,8 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
     Button btn_add;
     @BindView(R.id.list_view)
     ListView listView;
+    @BindView(R.id.tv_confirm)
+    TextView tvConfirm;
 
     private AddressAdapter adapter;
     //    private AddressBean data;
@@ -94,7 +97,7 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
         getPresenter().getAddress();
     }
 
-    @OnClick({R.id.btn_add, R.id.back})
+    @OnClick({R.id.btn_add, R.id.tv_confirm,R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_add:
@@ -103,13 +106,16 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
                 startActivityForResult(intent, REQUEST_ADD_ADDRESS);
                 break;
 
-            case R.id.back:
+            case R.id.tv_confirm:
                 Intent intent1 = new Intent();
                 intent1.putExtra("ID", addressId);
                 intent1.putExtra("Name", name);
                 intent1.putExtra("Address", mAddress);
                 intent1.putExtra("Mobile", phone);
                 setResult(RESULT_OK, intent1);
+                finish();
+                break;
+            case R.id.back:
                 finish();
                 break;
         }

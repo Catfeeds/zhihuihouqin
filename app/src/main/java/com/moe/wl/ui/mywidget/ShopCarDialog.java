@@ -43,11 +43,11 @@ public class ShopCarDialog extends Dialog {
     @BindView(R.id.tv_count)
     TextView tvCount;
     @BindView(R.id.minus)
-    TextView minus;
+    ImageView minus;
     @BindView(R.id.tv_sum)
     TextView tvSum;
     @BindView(R.id.tv_add)
-    TextView tvAdd;
+    ImageView tvAdd;
     @BindView(R.id.rl_count)
     RelativeLayout rlCount;
     @BindView(R.id.view2)
@@ -110,7 +110,8 @@ public class ShopCarDialog extends Dialog {
             flowLayout.getChildAt(j).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String s = ((TextView) flowLayout.getChildAt(index)).getText().toString();
+                    count=0;
+                    //String s = ((TextView) flowLayout.getChildAt(index)).getText().toString();
                     skuListBean = itemList.get(index);
                     int id = skuListBean.getId();//库存id
                     cid = id;
@@ -126,7 +127,7 @@ public class ShopCarDialog extends Dialog {
                             ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#ffffff"));
                         }else{
                             //((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#F6F5F5"));
-                            ((TextView) flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_gray_content);
+                            ((TextView) flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_gray_content_light);
                             ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#333333"));
                         }
                     }
@@ -136,7 +137,6 @@ public class ShopCarDialog extends Dialog {
         flowLayout.getChildAt(0).performClick();
 
     }
-
 
     private OnItemClickListener listener;
 

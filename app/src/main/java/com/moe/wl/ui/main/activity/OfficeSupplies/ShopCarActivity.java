@@ -49,6 +49,10 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
     LinearLayout llSelectAll;
     @BindView(R.id.ll_sum)
     LinearLayout llSum;
+    @BindView(R.id.ll_caoshi)
+    LinearLayout llCaoshi;
+    @BindView(R.id.tv_null)
+    TextView tvNull;
     private boolean isEdit = false;
     private boolean isSelectAll;
     private boolean isStoreSelect=false;
@@ -87,7 +91,7 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
         for (int i = 0; i <cartItems.size() ; i++) {
             boolean seclect = cartItems.get(i).isSeclect();
             int count1 = cartItems.get(i).getCount();
-            int price = cartItems.get(i).getSku().getPrice();
+            double price = cartItems.get(i).getSku().getPrice();
             if(seclect){
                 count++;
                 sum+=count1*price;
@@ -157,9 +161,9 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
 
     private void changeSelectback() {
         if (isStoreSelect) {
-            ivStoreSelect.setBackgroundResource(R.drawable.selected);
+            ivStoreSelect.setBackgroundResource(R.drawable.select);
         } else {
-            ivStoreSelect.setBackgroundResource(R.drawable.unselected);
+            ivStoreSelect.setBackgroundResource(R.drawable.unselect);
         }
     }
 
@@ -199,7 +203,7 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
                     }else{
                         showToast("你还没有选择结算的商品");
                     }
-                } else {
+                } else {//删除项
                     List<Integer> list=new ArrayList<>();
                     for (int i = 0; i <cartItems.size() ; i++) {
                         SpCheckShopCarBean.CartItemsBean cartItemsBean = cartItems.get(i);
@@ -222,6 +226,14 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
     public void checkShopCar(SpCheckShopCarBean bean) {
         if (bean != null) {
             cartItems = bean.getCartItems();
+            //判断购物车商品条目数
+            if(cartItems.size()<=0){
+                llCaoshi.setVisibility(View.GONE);
+                tvNull.setVisibility(View.VISIBLE);
+            }else{
+                llCaoshi.setVisibility(View.VISIBLE);
+                tvNull.setVisibility(View.GONE);
+            }
             initData();
             listAdapter.setData(cartItems);
             listAdapter.setListener(new ShopCarListAdapter.OnClickListener() {

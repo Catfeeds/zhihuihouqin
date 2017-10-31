@@ -26,6 +26,16 @@
             android:text="送货地址"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big" />
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:layout_marginRight="@dimen/normal_padding"
+            android:layout_centerVertical="true"
+            android:textColor="@color/tv_black"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/sp_common"/>
 
     </RelativeLayout>
 

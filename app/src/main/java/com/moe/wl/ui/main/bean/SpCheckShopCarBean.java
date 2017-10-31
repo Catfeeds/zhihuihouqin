@@ -146,7 +146,7 @@ public class SpCheckShopCarBean {
             private Object firstcataid;
             private int id;
             private String mainimg;
-            private int price;
+            private double price;
             private Object productid;
             private Object secondcataid;
             private String skuname;
@@ -193,11 +193,11 @@ public class SpCheckShopCarBean {
                 this.mainimg = mainimg;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

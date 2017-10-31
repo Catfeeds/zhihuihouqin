@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.moe.wl.framework.base.BaseActivity;
@@ -49,6 +50,8 @@ public class SpPayActivity extends BaseActivity<SpPayModel,SpPayView,SpPayPresen
     TextView tvNowPay;
     @BindView(R.id.activity_sp_pay)
     LinearLayout activitySpPay;
+    @BindView(R.id.rl_select)
+    RelativeLayout rlSelect;
     private boolean isCheck=false;
     private double publicRemain;
     private String orderid;
@@ -97,10 +100,10 @@ public class SpPayActivity extends BaseActivity<SpPayModel,SpPayView,SpPayPresen
         payTitle.setTitle("支付");
     }
 
-    @OnClick({R.id.iv_pay_check, R.id.tv_now_pay})
+    @OnClick({R.id.rl_select, R.id.tv_now_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_pay_check:
+            case R.id.rl_select:
                 checkSelect();
                 break;
             case R.id.tv_now_pay:
@@ -184,7 +187,6 @@ public class SpPayActivity extends BaseActivity<SpPayModel,SpPayView,SpPayPresen
             public void onClick(View v) {
                 String pwd = payDialog.getPwd();
                 if (pwd.length() == 6) {
-
                     getPresenter().personalWalletPay(orderid, ordercode, ordertype, payType, pwd, 0);//钱包支付
                 } else {
                     showToast("您输入的密码有误");
