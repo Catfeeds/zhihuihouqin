@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Library.JieYueSuccActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
@@ -31,6 +32,8 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
     TextView tvEdit;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.et_name)
+    TextView name;
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.tv_sp_name)
@@ -58,6 +61,7 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
     private int productcount;
     private String createtime;
     private String remark;
+    private boolean isEnableEdit;
 
     @Override
     public PostNeedPresenter createPresenter() {
@@ -78,7 +82,8 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
     @Override
     public void initView() {
         Intent intent = getIntent();
-        status = intent.getIntExtra("status", -1);
+        //审核的状态
+        status = intent.getIntExtra("status", 1);
         HistoryPostBean.PageBean.ListBean listBean = (HistoryPostBean.PageBean.ListBean) intent.getSerializableExtra("ListBean");
         status=listBean.getStatus();
         mobile = listBean.getMobile();
@@ -92,22 +97,16 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
 
     private void initData() {
         realName = SharedPrefHelper.getInstance().getRealName();
-        tvName.setText("姓名: " + realName);
+        name.setText( realName);
         etPhone.setText(mobile);
         etSpName.setText(productname);
-        etSpCount.setText(productcount+"个");
+        etSpCount.setText(productcount+"");
         etWrite.setText(remark);
-        if(isEdit==false){
-            etPhone.setFocusable(false);
-            etSpCount.setFocusable(false);
-            etSpName.setFocusable(false);
-            etWrite.setFocusable(false);
-            etPhone.setFocusableInTouchMode(false);
-            etSpCount.setFocusableInTouchMode(false);
-            etSpName.setFocusableInTouchMode(false);
-            etWrite.setFocusableInTouchMode(false);
-            tvCommit.setEnabled(false);
-        }else{
+        edit();
+    }
+
+    private void edit() {
+        if(isEdit){
             etPhone.setFocusable(true);
             etSpCount.setFocusable(true);
             etSpName.setFocusable(true);
@@ -120,7 +119,17 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
             etSpCount.requestFocus();
             etSpName.requestFocus();
             etWrite.requestFocus();
-            tvCommit.setEnabled(true);
+            //tvCommit.setEnabled(true);
+        }else{
+            etPhone.setFocusable(false);
+            etSpCount.setFocusable(false);
+            etSpName.setFocusable(false);
+            etWrite.setFocusable(false);
+            etPhone.setFocusableInTouchMode(false);
+            etSpCount.setFocusableInTouchMode(false);
+            etSpName.setFocusableInTouchMode(false);
+            etWrite.setFocusableInTouchMode(false);
+            //tvCommit.setEnabled(false);
         }
     }
 
@@ -128,6 +137,8 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
         title.setBack(true);
         title.setTitle("其他需求");
         if(status==2||status==3){
+            isEdit=false;
+            isEnableEdit = false;
             tvEdit.setEnabled(false);
             tvEdit.setTextColor(Color.GRAY);
             if(status==2){
@@ -137,27 +148,37 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
                 tvCommit.setText("审核成功");
                 tvCommit.setBackgroundColor(Color.parseColor("#00CC33"));//审核成功
             }
+            tvCommit.setEnabled(false);
 
         }else if(status==1||status==4){
             if(status==1){
+                tvCommit.setText("未审核");
                 tvCommit.setBackgroundColor(Color.parseColor("#03A7DA"));//未审核
             }else{
+                tvCommit.setText("审核失败");
                 tvCommit.setBackgroundColor(Color.parseColor("#FF2F2F"));//审核失败
             }
-            tvCommit.setText("重新审核");
+            isEnableEdit = true;
+            //tvCommit.setText("重新审核");
             tvEdit.setEnabled(true);
+            tvCommit.setEnabled(true);
             tvEdit.setTextColor(Color.parseColor("#333333"));
         }
         tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEdit==false){
+                if(isEdit){
                     tvEdit.setText("编辑");
-                    tvEdit.setTextColor(Color.parseColor("#333333"));
+                    tvCommit.setText("审核失败");
+                    //tvEdit.setTextColor(Color.parseColor("#333333"));
                 }else{
-                    tvEdit.setTextColor(Color.GRAY);
+                    tvEdit.setText("完成");
+                    tvCommit.setText("重新审核");
+                    //tvEdit.setTextColor(Color.GRAY);
                 }
                 isEdit=!isEdit;
+                edit();
+                LogUtils.i("isEdit==="+isEdit);
             }
         });
 
@@ -165,11 +186,16 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
 
     @OnClick(R.id.tv_commit)
     public void onViewClicked() {
-        String phone = etPhone.getText().toString().trim();
-        String remark = etWrite.getText().toString().trim();
-        String spName = etSpName.getText().toString().trim();
-        String spCount = etSpCount.getText().toString().trim();
-        getPresenter().post(realName, phone, remark, spName, spCount);
+        if(isEdit){
+            String phone = etPhone.getText().toString().trim();
+            String remark = etWrite.getText().toString().trim();
+            String spName = etSpName.getText().toString().trim();
+            String spCount = etSpCount.getText().toString().trim();
+            getPresenter().post(realName, phone, remark, spName, spCount);
+        }else{
+            Intent intent = new Intent(this, CheckFailActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -178,15 +204,10 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
             Intent intent = new Intent(this, JieYueSuccActivity.class);
             intent.putExtra("from",3);
             startActivity(intent);
+            finish();
         } else {
             showToast(bean.getMsg());
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_check_fail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_page"
+    android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_fail"
+            android:textSize="@dimen/sp_small"
+            android:textColor="@color/tv_black"
+            android:padding="@dimen/normal_padding"
+            android:text="一日，我与上帝一同出行。 路过一条河时，我看到水里有一个人在挣扎，我指着那个人问：“上帝，为什么你不去救那个人，难道他没有向你祈祷吗？”上帝回答：“不，他向我祈祷了两次，但我也救了他两次——第一次我让一根圆木从他身边漂过，他没有去抓。第二次我让一个人划着竹筏从他身边经过，他又不肯去抓那个人向他伸出的手。你让我怎样去救他，难道非得我亲手去把他拉上来？”我哑口无言。"
+            android:gravity="top"
+            android:layout_gravity="top"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -109,7 +109,7 @@
             android:name=".ui.login.activity.SplashAct"
             android:configChanges="orientation|keyboardHidden|locale"
             android:screenOrientation="portrait"
-            android:theme="@style/splash"></activity>
+            android:theme="@style/splash" />
         <activity
             android:name=".ui.login.activity.GuideAct"
             android:configChanges="orientation|keyboardHidden|locale"
@@ -129,8 +129,9 @@
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustResize">
-            <!--android:windowSoftInputMode="adjustResize|stateHidden|stateVisible"-->
-            <!--android:windowSoftInputMode="|adjustResize"-->
+
+            <!-- android:windowSoftInputMode="adjustResize|stateHidden|stateVisible" -->
+            <!-- android:windowSoftInputMode="|adjustResize" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -501,6 +502,7 @@
         <activity
             android:name=".ui.main.activity.medicalService.ConfirmOrderActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.activity.OfficeSupplies.CheckFailActivity"></activity>
     </application>
 
 </manifest>

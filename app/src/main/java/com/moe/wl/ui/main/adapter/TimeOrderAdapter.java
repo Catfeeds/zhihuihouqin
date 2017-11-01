@@ -30,7 +30,7 @@ public class TimeOrderAdapter extends RecyclerView.Adapter {
     public TimeOrderAdapter(Context mContext) {
         this.mContext = mContext;
     }
-   /* public String getTime() {
+    /*public String getTime() {
         String s = s2.substring(2, s2.length());
         return s+"/"+weeks.get(selectPosition);
     }*/
@@ -70,20 +70,20 @@ public class TimeOrderAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     selectPosition = mPosition;
                     notifyDataSetChanged();
-                    /*if(listener!=null){
+                    if(listener!=null){
                         listener.onItemClickListener(selectPosition);
-                    }*/
+                    }
                 }
             });
         }
         public void setData(String s, String s1, int position) {
+            mPosition=position;
             tvWorkday.setText(s);
             tvDay.setText(s1);
             if (selectPosition == position) {
                 llTime.setBackgroundColor(Color.parseColor("#00CCFF"));
                 tvWorkday.setTextColor(Color.WHITE);
                 tvDay.setTextColor(Color.WHITE);
-
             } else {
                 llTime.setBackgroundColor(Color.WHITE);
                 tvWorkday.setTextColor(Color.parseColor("#333333"));
@@ -97,5 +97,14 @@ public class TimeOrderAdapter extends RecyclerView.Adapter {
         this.week = week;
         this.date = date;
         notifyDataSetChanged();
+    }
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClickListener(int position);
     }
 }
