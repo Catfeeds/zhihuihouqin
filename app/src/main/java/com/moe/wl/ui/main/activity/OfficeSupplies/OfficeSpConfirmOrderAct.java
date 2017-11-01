@@ -132,9 +132,9 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
         tvAddress.setText(address);
         if(!TextUtils.isEmpty(userName)||!TextUtils.isEmpty(phone)||!TextUtils.isEmpty(address)){
             chooseAddress.setVisibility(View.GONE);
+            llUserInfo.setVisibility(View.VISIBLE);
         }else{
             chooseAddress.setVisibility(View.VISIBLE);
-
         }
 
         from = intent.getStringExtra("from");

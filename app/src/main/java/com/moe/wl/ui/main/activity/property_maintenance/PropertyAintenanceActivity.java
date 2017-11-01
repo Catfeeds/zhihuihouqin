@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -118,7 +119,11 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         imageAdapter = new GridViewImageAdapter(this, pics, new GridViewImageAdapter.OnAddPhotoClickListener() {
             @Override
             public void onClick() {
-                //打开
+                /*//打开图片选择界面
+                PictureSelector.create(PropertyAintenanceActivity.this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .forResult(PictureConfig.CHOOSE_REQUEST);*/
+               //打开
                 dialog = new StringListDialog(PropertyAintenanceActivity.this, R.style.dialog_style);
                 List<String> itemList = new ArrayList<>();
                 itemList.add("相机拍摄");
@@ -245,8 +250,28 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     public void getRepairItemSucc(RepairItmeBean bean) {
         initGrid(bean);
     }
-
-    /**
+   /* @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    for(LocalMedia s:selectList){
+                        pics.add(s.getPath());
+                    }
+                    Log.e("onActivityResult=====", selectList.size()+"");
+                    break;
+            }
+        }
+    }*/
+      /**
      * 相机拍照
      */
     private void doTakePhoto() {
@@ -293,9 +318,9 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * 相册选取
-     */
+
+//     * 相册选取
+
     private void doPickPhotoFromGallery() {
         PermissionGen.with(this)
                 .addRequestCode(200)
@@ -307,7 +332,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     @PermissionSuccess(requestCode = 200)
     public void getPhotoSucc() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//**//**//**//*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
     }
 
@@ -341,6 +366,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                         //好像是android多媒体数据库的封装接口，具体的看Android文档
                         Cursor cursor = managedQuery(data.getData(), proj, null, null, null);
                         //按我个人理解 这个是获得用户选择的图片的索引值
+//                        if(cursor!=null)
                         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                         //将光标移至开头 ，这个很重要，不小心很容易引起越界
                         cursor.moveToFirst();

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
@@ -461,7 +462,8 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                     SharedPrefHelper.getInstance().setSex("女");
                 }
                 //通知头像和昵称发生变化
-                EventBus.getDefault().post(new ChangeUserInfo(url, nickName, tvPosition.getText().toString()));
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.HEADERCHANGE,url,nickName,tvPosition.getText().toString()) );
+                //EventBus.getDefault().post(new ChangeUserInfo(url, nickName, tvPosition.getText().toString()));
             } else {
                 showToast("修改信息失败");
             }

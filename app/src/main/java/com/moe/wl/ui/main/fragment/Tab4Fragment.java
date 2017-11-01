@@ -13,9 +13,11 @@ import com.bumptech.glide.Glide;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
@@ -247,36 +249,35 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     public void setContentLayout(Bundle savedInstanceState) {
         sysColor = R.color.font_blue;
         setContentView(R.layout.f_tab4);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        LogUtils.i("onResume"+"走了吗");
+        getPresenter().getData();//获取用户信息
         StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.font_blue), true);
     }
 
     @Override
     public void initView(View v) {
-        getPresenter().getData();//获取用户信息
+
     }
 
     //更改头像和昵称
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ChangeUserInfo event) {
+    public void onMessageEvent(MessageEvent event) {
         showToast("更改了用户头像");
-        Glide.with(getActivity()).load(event.getUrl()).placeholder(R.drawable.avatar2).into(civHeader);
-        tvName.setText(event.getPosition() + "~" + event.getNickName());
+        if(event.HEADERCHANGE==event.getCode()){
+            Glide.with(getActivity()).load(event.getParam1()).placeholder(R.drawable.avatar2).into(civHeader);
+            tvName.setText(event.getParam3() + "~" + event.getParam2());
+        }
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 

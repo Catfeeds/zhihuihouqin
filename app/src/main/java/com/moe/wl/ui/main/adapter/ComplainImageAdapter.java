@@ -14,6 +14,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.LogUtils;
 
 /**
@@ -58,8 +59,8 @@ public class ComplainImageAdapter extends BaseAdapter {
         }
 
         LogUtils.d("position:" + position + "  内容： " + data.get(position));
-        Glide.with(context).load(data.get(position)).placeholder(R.drawable.add_dotted_line).into(holder.image);
-//        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position), holder.image);
+       // Glide.with(context).load(data.get(position)).placeholder(R.drawable.add_dotted_line).into(holder.image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position), holder.image);
 
         return convertView;
     }
