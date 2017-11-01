@@ -97,23 +97,30 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
         time.setText("取货时间：" + data.getDetail().getTaketime());
         orderId.setText("订单号：" + data.getDetail().getOrdercode());
         orderTime.setText("下单时间：" + data.getDetail().getCreatetime());
-        String pay = "";
-        switch (data.getDetail().getPaytype()) { // 1：支付宝，2：微信，3：个人钱包，4：集体账户，5：个人代金券（理发）
-            case 1:
-                pay = "支付宝";
-                break;
-            case 2:
-                pay = "微信";
-                break;
-            case 3:
-                pay = "个人钱包";
-                break;
-            case 4:
-                pay = "集体账户";
-                break;
-            case 5:
-                pay = "个人代金券";
-                break;
+        String pay;
+        if (data.getDetail().getPayStatus() == 1) {
+            switch (data.getDetail().getPaytype()) { // 1：支付宝，2：微信，3：个人钱包，4：集体账户，5：个人代金券（理发）
+                case 1:
+                    pay = "支付宝";
+                    break;
+                case 2:
+                    pay = "微信";
+                    break;
+                case 3:
+                    pay = "个人钱包";
+                    break;
+                case 4:
+                    pay = "集体账户";
+                    break;
+                case 5:
+                    pay = "个人代金券";
+                    break;
+                default:
+                    pay = "其他方式";
+                    break;
+            }
+        } else {
+            pay = "未支付";
         }
         orderType.setText("支付方式：" + pay);
 

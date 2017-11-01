@@ -82,6 +82,11 @@ public class TimeSelecterDayDialog extends Dialog implements View.OnClickListene
 
         LogUtils.d("-----------------滑轮初始化--------------------");
 
+        // 日
+        initDay();
+        this.day.setCyclic(true);
+        this.day.addScrollingListener(scrollListener);
+
         // 年
         NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(ct, 1945, norYear);
         numericWheelAdapter1.setLabel("年");
@@ -96,18 +101,11 @@ public class TimeSelecterDayDialog extends Dialog implements View.OnClickListene
         this.month.setCyclic(true);
         this.month.addScrollingListener(scrollListener);
 
-        // 日
-        numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(curYear, curMonth), "%02d");
-        numericWheelAdapter.setLabel("日");
-        this.day.setViewAdapter(numericWheelAdapter);
-        this.day.setCyclic(true);
-        this.day.addScrollingListener(scrollListener);
-
         year.setVisibleItems(7);//设置显示行数
         this.month.setVisibleItems(7);
         this.day.setVisibleItems(7);
 
-        year.setCurrentItem(curYear - 1945);
+        year.setCurrentItem(norYear - 1945);
         this.month.setCurrentItem(curMonth - 1);
         this.day.setCurrentItem(curDate - 1);
 
@@ -134,15 +132,10 @@ public class TimeSelecterDayDialog extends Dialog implements View.OnClickListene
         @Override
         public void onScrollingFinished(WheelView wheel) {
             //年
-            curYear = year.getCurrentItem() + 1945;
-            curMonth = month.getCurrentItem() + 1;// 月
-            curDate = day.getCurrentItem() + 1;
-
-            numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(curYear, curMonth), "%02d");
-            numericWheelAdapter.setLabel("日");
-            TimeSelecterDayDialog.this.day.setViewAdapter(numericWheelAdapter);
-//            TimeSelecterDayDialog.this.day.setCyclic(true);
-//            TimeSelecterDayDialog.this.day.addScrollingListener(scrollListener);
+            curYear = year.getCurrentItem() + 1945;//月
+            curMonth = month.getCurrentItem() + 1;
+            initDay();
+            curDate = Integer.parseInt(numericWheelAdapter.getItemText(day.getCurrentItem()).toString());
         }
     };
 
@@ -184,9 +177,10 @@ public class TimeSelecterDayDialog extends Dialog implements View.OnClickListene
 
     /**
      */
-    private void initDay(int arg1, int arg2) {
-        /*day.setCyclic(true);
-        day.addScrollingListener(scrollListener);*/
+    private void initDay() {
+        numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(curYear, curMonth), "%02d");
+        numericWheelAdapter.setLabel("日");
+        day.setViewAdapter(numericWheelAdapter);
     }
 
     private OnConfirmClickListener listener2;

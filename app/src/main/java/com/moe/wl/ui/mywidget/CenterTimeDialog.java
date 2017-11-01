@@ -23,19 +23,13 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
     private WheelView time;
     private WheelView min;
     private WheelView sec;
-    private int mYear = 1996;
-    private int mMonth = 0;
-    private int mDay = 1;
     private Context ct;
-    private int n_year;
-    private int n_day;
-    private int n_min;
-    private int n_sec;
     private int curYear;
     private int curMonth;
     private int curDate;
     private int curHour;
     private int curMin;
+    private NumericWheelAdapter numericWheelAdapter;
 
     public CenterTimeDialog(Context context, int theme) {
         super(context, theme);
@@ -60,11 +54,17 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         int norYear = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
         curYear = norYear;
         curMonth = month + 1;
         curDate = day;
-        curHour = 00;
-        curMin = 00;
+        curHour = hour;
+        curMin = minute;
+
+        initDay();
+        this.day.setCyclic(true);
+        this.day.addScrollingListener(scrollListener);
 
         NumericWheelAdapter numericWheelAdapter1 = new NumericWheelAdapter(ct, norYear, norYear + 20);
         numericWheelAdapter1.setLabel("年");
@@ -77,11 +77,6 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         this.month.setViewAdapter(numericWheelAdapter2);
         this.month.setCyclic(true);
         this.month.addScrollingListener(scrollListener);
-
-        //this.day = (WheelView) view.findViewById(R.id.day);
-        initDay(curYear, curMonth);
-        this.day.setCyclic(true);
-        this.day.addScrollingListener(scrollListener);
 
         NumericWheelAdapter numericWheelAdapter3 = new NumericWheelAdapter(ct, 0, 23, "%02d");
         numericWheelAdapter3.setLabel("时");
@@ -102,7 +97,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         min.setVisibleItems(7);
         sec.setVisibleItems(7);
 
-        year.setCurrentItem(curYear - 2017);
+        year.setCurrentItem(0);
         this.month.setCurrentItem(curMonth - 1);
         this.day.setCurrentItem(curDate - 1);
         min.setCurrentItem(curHour);
@@ -122,7 +117,6 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
 
     }
 
-    private int n_month;
     OnWheelScrollListener scrollListener = new OnWheelScrollListener() {
 
         @Override
@@ -135,13 +129,10 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
             //年
             curYear = year.getCurrentItem() + 2017;//月
             curMonth = month.getCurrentItem() + 1;
-            curDate = day.getCurrentItem() + 1;
+            initDay();
+            curDate = Integer.parseInt(numericWheelAdapter.getItemText(day.getCurrentItem()).toString());
             curHour = min.getCurrentItem();
             curMin = sec.getCurrentItem();
-
-            //initDay(n_year, n_month);
-            initDay(curYear, curMonth);
-
         }
     };
 
@@ -183,8 +174,8 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
 
     /**
      */
-    private void initDay(int arg1, int arg2) {
-        NumericWheelAdapter numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(arg1, arg2), "%02d");
+    private void initDay() {
+        numericWheelAdapter = new NumericWheelAdapter(ct, 1, getDay(curYear, curMonth), "%02d");
         numericWheelAdapter.setLabel("日");
         day.setViewAdapter(numericWheelAdapter);
     }

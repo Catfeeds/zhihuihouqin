@@ -53,7 +53,7 @@
         android:layout_marginTop="20dp"
         android:paddingRight="12dp"
         android:paddingTop="8dp"
-        android:text="返回首页"
+        android:text="返回订单首页"
         android:textColor="@color/tv_gray"
         android:textSize="@dimen/sp_big" />
 

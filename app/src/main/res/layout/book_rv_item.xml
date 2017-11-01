@@ -21,8 +21,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="3dp">
 
             <TextView
                 android:id="@+id/tv_state"
@@ -30,8 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textSize="@dimen/sp_small"
-                android:visibility="gone" />
+                android:textSize="@dimen/sp_small"/>
 
             <TextView
                 android:id="@+id/tv_book_name"

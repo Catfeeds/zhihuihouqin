@@ -201,7 +201,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         payDialog.setPositiveButton("确认", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pwd = payDialog.getPwd();
+                String pwd = payDialog.getPwd() + "";
                 if (pwd.length() == 6) {
                     getPresenter().personalWalletPay(orderid, ordercode, ordertype, 3, pwd, 0);//钱包支付
                 } else {

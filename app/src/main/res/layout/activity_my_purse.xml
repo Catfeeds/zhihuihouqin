@@ -3,12 +3,14 @@
     android:id="@+id/activity_my_purse"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height" />
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
 
     <View
         android:layout_width="match_parent"
@@ -19,45 +21,63 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="#FF9966"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/standard_padding"
-            android:text="我的余额"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_common" />
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/standard_padding"
+                android:text="我的余额"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_common" />
+
+            <ImageView
+                android:id="@+id/iv_wen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_padding"
+                android:background="@drawable/selecter_doubt"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="500"
+                    android:layout_centerInParent="true"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_biggest" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/tv_balance"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/tv_balance"
                     android:text="元"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_common" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <!-- <LinearLayout
                  android:layout_width="match_parent"
@@ -83,12 +103,6 @@
              </LinearLayout>-->
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_wen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_padding"
-            android:background="@drawable/selecter_doubt" />
     </LinearLayout>
 
     <View
@@ -120,23 +134,28 @@
 
         <TextView
             android:id="@+id/tv_ticket_count"
-            android:text=""
-            android:textSize="@dimen/sp_common"
-            android:textColor="@color/tv_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_common" />
     </LinearLayout>
+
     <View
+        android:id="@+id/view_amount"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_lighter"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/ll_public_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/standard_padding">
+        android:padding="@dimen/standard_padding"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -157,17 +176,22 @@
             android:layout_height="wrap_content"
             android:src="@drawable/turn_right" />
     </LinearLayout>
+
     <View
+        android:id="@+id/view_yajin"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_line"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/ll_yajin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/standard_padding">
+        android:padding="@dimen/standard_padding"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -188,10 +212,11 @@
             android:layout_height="wrap_content"
             android:src="@drawable/turn_right" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"/>
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:id="@+id/ll_recharge"
@@ -253,9 +278,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/turn_right" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/gray_trans"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:background="@color/gray_trans" />
 </LinearLayout>

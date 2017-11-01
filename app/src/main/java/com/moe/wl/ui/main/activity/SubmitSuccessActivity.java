@@ -118,6 +118,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
                 break;
         }
         startActivity(intent);
+        finish();
     }
 
     // 我的报修 标题

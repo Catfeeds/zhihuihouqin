@@ -140,6 +140,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
                     intent.putExtra("index",0);
                     intent.putExtra("from", Constants.DRYCLEANER);
                     startActivity(intent);
+                    finish();
                 } else {
 
                 }

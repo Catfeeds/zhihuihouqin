@@ -20,6 +20,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 我的/我的收藏页面
+ */
+
 public class MyCollectActivity extends AppCompatActivity {
 
     @BindView(R.id.title)

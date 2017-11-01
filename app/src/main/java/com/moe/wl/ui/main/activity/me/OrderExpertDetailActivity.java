@@ -174,8 +174,8 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         orderTime.setText("下单时间：" + bean.getCreatetime());
         time.setText("预约时间：" + bean.getScheduledate());
 //        state.setText("支付状态：" + (data.get == 0 ? "未支付" : "已支付"));
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getPhoto(), image, R.mipmap.ic_default_square);
         if (bean.getDoctor() != null) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getDoctor().getPhoto(), image, R.mipmap.ic_default_square);
             name.setText(bean.getDoctor().getRealname());
             docPosition.setText(bean.getDoctor().getPositionname());
             ratingBar.setRating((float) bean.getDoctor().getScore());
@@ -211,8 +211,8 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         orderTime.setText("下单时间：" + data.getCreatetime());
         time.setText("预约时间：" + data.getScheduledate());
 //        state.setText("支付状态：" + (data.get == 0 ? "未支付" : "已支付"));
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getPhoto(), image, R.mipmap.ic_default_square);
         if (data.getDoctor() != null) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getDoctor().getPhoto(), image, R.mipmap.ic_default_square);
             name.setText(data.getDoctor().getRealname());
             docPosition.setText(data.getDoctor().getPositionname());
             ratingBar.setRating((float) data.getDoctor().getScore());

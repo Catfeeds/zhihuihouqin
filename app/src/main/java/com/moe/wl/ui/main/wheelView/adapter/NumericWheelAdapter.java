@@ -86,8 +86,11 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
         if (index >= 0 && index < getItemsCount()) {
             int value = minValue + index;
             return format != null ? String.format(format, value) : Integer.toString(value);
+        } else {
+            int value = (index - minValue) % (getItemsCount() - 1);
+            return format != null ? String.format(format, value + minValue) : Integer.toString(value);
         }
-        return null;
+//        return null;
     }
 
     @Override
