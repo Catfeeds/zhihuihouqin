@@ -13,8 +13,6 @@ import android.widget.LinearLayout;
 import com.moe.wl.R;
 import com.moe.wl.ui.mywidget.gridpasswordview.GridPasswordView;
 
-import mvp.cn.util.ToastUtil;
-
 /**
  * Created by 我的电脑 on 2017/10/23 0023.
  */
@@ -92,7 +90,9 @@ public class WalletPayDialog {
         btn_pos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(v);
+                if (listener != null) {
+                    listener.onClick(v);
+                }
                 dialog.dismiss();
             }
         });

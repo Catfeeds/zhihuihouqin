@@ -4,57 +4,64 @@
     android:id="@+id/activity_sbumit_success"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:background="@color/bg_page"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
+
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
-        android:background="#1000"
-        android:layout_height="@dimen/title_height"/>
-    <View android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="#1000" />
+
+    <View
+        android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_line"/>
+        android:background="@color/gray_line" />
+
     <ImageView
         android:id="@+id/iv_submit_or_pay"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/selected"
         android:layout_width="60dp"
-        android:layout_height="60dp" />
-    <TextView
-        android:id="@+id/tv_submit_success"
-        android:text="提交完成"
-        android:textSize="@dimen/sp_bigger"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/selected" />
 
     <TextView
-        android:text="恭喜您,提交成功"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_small"
+        android:id="@+id/tv_submit_success"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="提交完成"
+        android:textSize="@dimen/sp_bigger" />
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="恭喜您,提交成功"
+        android:textColor="@color/tv_black"
+        android:textSize="@dimen/sp_small" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="8dp"
         android:text="很荣幸为您服务,请将衣服送至洗衣店"
-        android:layout_gravity="center_horizontal"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_small"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="@dimen/sp_small" />
+
     <TextView
         android:id="@+id/tv_check_order"
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/standard_padding"
         android:background="@drawable/shape_blue_confirm"
+        android:gravity="center"
         android:text="查看订单"
         android:textColor="@color/white"
-        android:gravity="center"
-        android:textSize="@dimen/sp_big"
-        android:layout_margin="@dimen/standard_padding"
-        android:layout_height="50dp" />
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>
 

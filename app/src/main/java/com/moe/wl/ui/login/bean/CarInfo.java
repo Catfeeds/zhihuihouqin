@@ -10,7 +10,7 @@ public class CarInfo {
             "suffixcarcode":"23"*/
     private int cartypeid;
     private String carName = "";
-    private String precarcode = "";
+    private String precarcode = "京A";
     private String suffixcarcode = "";
 
     public String getCarName() {

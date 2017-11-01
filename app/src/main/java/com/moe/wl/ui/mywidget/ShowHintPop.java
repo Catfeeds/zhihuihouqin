@@ -2,6 +2,7 @@ package com.moe.wl.ui.mywidget;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 
 /**
- * 类描述：
+ * 类描述：每个子项目的弹出窗
  * 作者：Shixhe On 2017/9/1 0001
  */
 
@@ -37,7 +38,7 @@ public class ShowHintPop extends PopupWindow {
         if (cont == null) {
             content.setText("空");
         } else {
-            content.setText(cont);
+            content.setText(Html.fromHtml(cont));
         }
 
         iKnow.setOnClickListener(new View.OnClickListener() {

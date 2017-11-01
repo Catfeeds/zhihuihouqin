@@ -191,9 +191,8 @@ public class LaiFangActivity extends Base2Activity {
             showToast("请输入正确的手机号码");
             return;
         }
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(arriveTime) || TextUtils.isEmpty(roomunm) ||
-                TextUtils.isEmpty(shengfen) || TextUtils.isEmpty(shiyou) || TextUtils.isEmpty(tvleaveTime) ||
-                TextUtils.isEmpty(carType)) {
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(arriveTime) || TextUtils.isEmpty(roomunm)
+                || TextUtils.isEmpty(shiyou) || TextUtils.isEmpty(tvleaveTime)) {
             showToast("请将信息填写完整");
             return;
         }

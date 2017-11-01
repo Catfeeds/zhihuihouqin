@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -66,8 +65,6 @@ public class OrderCommentActivity extends AppCompatActivity {
     NoSlidingGridView gridView;
     @BindView(R.id.radio_button)
     CheckBox radioButton;
-    @BindView(R.id.submit)
-    Button submit;
     @BindView(R.id.title_bar)
     TitleBar titleBar;
     @BindView(R.id.main)

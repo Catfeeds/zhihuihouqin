@@ -213,13 +213,13 @@ public class NowReservaBarberActivity extends BaseActivity<NowOrderBarberModel, 
             Intent intent = new Intent(this, PayFiveJiaoActivity.class);
             intent.putExtra("from", Constants.BARBER);
             intent.putExtra("pay", sumAll);
+            intent.putExtra("time", bean.getCreatetime());
             intent.putExtra("orderid", orderid + "");
-            intent.putExtra("ordercode", "");
+            intent.putExtra("ordercode", bean.getOrdercode());
             intent.putExtra("ordertype", ordertype + "");
             startActivity(intent);
         }
     }
-
 
     //预约时间
     private void initgride() {

@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -171,7 +172,7 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         if (bean.getRemind() == null) {
             hint.setText("空");
         } else {
-            hint.setText(bean.getRemind());
+            hint.setText(Html.fromHtml(bean.getRemind()));
         }
 
         // TODO 弹温馨出提示窗

@@ -19,7 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPursePresenter> implements MyPurseView {
+/**
+ * 我的钱包页面
+ */
+
+public class MyPurseActivity extends BaseActivity<MyPurseModel, MyPurseView, MyPursePresenter> implements MyPurseView {
 
     @BindView(R.id.title)
     TitleBar title;
@@ -39,6 +43,11 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
     LinearLayout llPasswardManagement;
     @BindView(R.id.ll_yajin)
     LinearLayout llYajin;
+    @BindView(R.id.view_amount)
+    View view_amount;
+    @BindView(R.id.view_yajin)
+    View view_yajin;
+
     private double publicRemain;
 
     @Override
@@ -66,20 +75,21 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
         title.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MyPurseActivity.this,PayDetailActivity.class);
+                Intent intent = new Intent(MyPurseActivity.this, PayDetailActivity.class);
                 startActivity(intent);
             }
         });
     }
-    @OnClick({ R.id.iv_wen ,R.id.ll_recharge,R.id.ll_yajin, R.id.ll_passward_management,R.id.ll_public_amount})
+
+    @OnClick({R.id.iv_wen, R.id.ll_recharge, R.id.ll_yajin, R.id.ll_passward_management, R.id.ll_public_amount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_wen://问号
-                Intent intent2=new Intent(this,BalanceExplainActivity.class);
+                Intent intent2 = new Intent(this, BalanceExplainActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.ll_recharge://充值
-                Intent intent=new Intent(this,RechargeActivity.class);
+                Intent intent = new Intent(this, RechargeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_yajin://我的押金
@@ -87,12 +97,12 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
                 startActivity(intent4);
                 break;
             case R.id.ll_public_amount://对公账户
-                Intent intent3 = new Intent(this,PublicAcountActivity.class );
-                intent3.putExtra("publicRemain",publicRemain);
+                Intent intent3 = new Intent(this, PublicAcountActivity.class);
+                intent3.putExtra("publicRemain", publicRemain);
                 startActivity(intent3);
                 break;
             case R.id.ll_passward_management://密码管理
-                Intent intent1=new Intent(this,PwdManageMentActivity.class);
+                Intent intent1 = new Intent(this, PwdManageMentActivity.class);
                 startActivity(intent1);
                 break;
         }
@@ -103,23 +113,25 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel,MyPurseView,MyPur
      */
     @Override
     public void getInfoSucc(UserWalletBean bean) {
-        if(bean!=null){
+        if (bean != null) {
             publicRemain = bean.getPublicRemain();
-            tvBalance.setText(bean.getWalletRemain()+"");//钱包余额
-            tvTicketCount.setText(bean.getVoucherNum()+"张");//理发券数量
+            tvBalance.setText(bean.getWalletRemain() + "");//钱包余额
+            tvTicketCount.setText(bean.getVoucherNum() + "张");//理发券数量
             int hasBuyAuth = bean.getHasBuyAuth();//是否有团购权限
             int payPasswordState = bean.getPayPasswordState();//是否有支付密码
             /*llPublicAcount.setVisibility(View.VISIBLE);
             llYajin.setVisibility(View.VISIBLE);*/
-            if(hasBuyAuth==1){//有团购权限
+            if (hasBuyAuth == 1) {//有团购权限
                 llPublicAcount.setVisibility(View.VISIBLE);
+                view_amount.setVisibility(View.VISIBLE);
                 llYajin.setVisibility(View.VISIBLE);
-            }else{
+                view_yajin.setVisibility(View.VISIBLE);
+            } else {
                 llPublicAcount.setVisibility(View.GONE);
+                view_amount.setVisibility(View.GONE);
                 llYajin.setVisibility(View.GONE);
+                view_yajin.setVisibility(View.GONE);
             }
-
         }
-
     }
 }
