@@ -582,7 +582,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="8dp"
                                 android:layout_toRightOf="@+id/iv_child_img4"
-                                android:text="理发订单"
+                                android:text="美容美发"
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
 

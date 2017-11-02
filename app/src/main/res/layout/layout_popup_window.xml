@@ -71,17 +71,24 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_experts_visit"
+                style="@style/shaptextstyle"
+                android:minWidth="100dp"
+                android:text="专家坐诊" />
+
+            <TextView
                 android:id="@+id/tv_health_service"
                 style="@style/shaptextstyle"
                 android:minWidth="100dp"
-                android:text="健康档案" />
+                android:text="健康档案"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_cut_hair"
                 style="@style/shaptextstyle"
                 android:layout_centerHorizontal="true"
                 android:minWidth="100dp"
-                android:text="理发" />
+                android:text="美容美发" />
 
             <TextView
                 android:id="@+id/tv_dry_cleaner"
@@ -98,22 +105,15 @@
             android:background="@color/white">
 
             <TextView
-                android:id="@+id/tv_experts_visit"
-                style="@style/shaptextstyle"
-                android:minWidth="100dp"
-                android:text="专家坐诊" />
-
-            <TextView
                 android:id="@+id/tv_book_order"
                 style="@style/shaptextstyle"
-                android:layout_centerHorizontal="true"
                 android:minWidth="100dp"
                 android:text="图书订单" />
 
             <TextView
                 android:id="@+id/tv_office"
                 style="@style/shaptextstyle"
-                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
                 android:minWidth="100dp"
                 android:text="会议室订单" />
         </RelativeLayout>
