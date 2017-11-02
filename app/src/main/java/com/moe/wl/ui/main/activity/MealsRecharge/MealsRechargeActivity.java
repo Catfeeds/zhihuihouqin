@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.activity.MealsRecharge;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -9,9 +10,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.adapter.RechargeAmountAdapter;
 import com.moe.wl.ui.main.bean.AlipayBean;
 import com.moe.wl.ui.main.bean.ChargeOrderBean;
@@ -54,6 +57,8 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
     private BottomQuerybalanceDialog dialog;
     private RechargeAmountAdapter adapter;
     private List<String> datas= Arrays.asList("50","100","200","300","400","500");
+    private String rechargeMoney;
+    private double remainSum;
 
     @Override
     public MealsRechargePresenter createPresenter() {
@@ -75,7 +80,6 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
     public void initView() {
         initTitle();
         getPresenter().getFindRemain();//查看余额
-
         adapter = new RechargeAmountAdapter(this);
         gvRechargeAmount.setAdapter(adapter);
         adapter.setData(datas);
@@ -94,8 +98,8 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
         title.setOnRightclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent intent=new Intent(MealsRechargeActivity.this,RechargeOrederActivity.class);
-                startActivity(intent);*/
+                Intent intent=new Intent(MealsRechargeActivity.this,RechargeOrederActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -104,7 +108,11 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_confirm://支付
-                BottomRechargeDialog dialog = new BottomRechargeDialog(this, R.style.dialog_style);
+                rechargeMoney = tvRechargeMoney.getText().toString().trim();
+                String cardNum = etPhone.getText().toString().toString().trim();
+                getPresenter().generateChargeOrder(rechargeMoney,0,cardNum);
+
+               /* BottomRechargeDialog dialog = new BottomRechargeDialog(this, R.style.dialog_style);
                 String rechargeMoney = tvRechargeMoney.getText().toString().trim();
                 dialog.setAmount(rechargeMoney);
                 dialog.show();
@@ -116,7 +124,7 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
                         getPresenter().generateChargeOrder(money,paytype,cardNum);
 
                     }
-                });
+                });*/
                 break;
             case R.id.tv_check_balance://查询余额
                 this.dialog = new BottomQuerybalanceDialog(this, R.style.dialog_style);
@@ -152,8 +160,9 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
         if(bean!=null){
             FindRemainBean.CfEntityBean cfEntity = bean.getCfEntity();
             if(cfEntity!=null){
-                int remainSum = cfEntity.getRemainSum();//余额
-                int subsidySum = cfEntity.getSubsidySum();//补贴金额
+                //余额
+                remainSum = cfEntity.getRemainSum();
+                double subsidySum = cfEntity.getSubsidySum();//补贴金额
                 if(dialog!=null){
                     dialog.setData(remainSum,subsidySum);
                 }
@@ -167,7 +176,18 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
     @Override
     public void generateChargeOrder(ChargeOrderBean bean) {
         if(bean!=null){
-            int paytype = bean.getPaytype();
+            Intent intent=new Intent(this, PayFiveJiaoActivity.class);
+            String ordercode = bean.getOrdercode();
+            int ordertype = bean.getOrdertype();
+            String createtime = bean.getCreatetime();
+            intent.putExtra("ordercode",ordercode);
+            intent.putExtra("ordertype",ordertype+"");
+            intent.putExtra("time",createtime);
+            intent.putExtra("from", Constants.MEALSPAY);
+            double pay = Double.parseDouble(rechargeMoney);
+            intent.putExtra("pay",pay);
+            startActivity(intent);
+           /* int paytype = bean.getPaytype();
             switch (paytype){
                 case ZHIFUBAO:
                     getPresenter().aliPay("",bean.getOrdercode()+"" ,bean.getOrdertype()+"",paytype);
@@ -175,11 +195,11 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
                 case WEIXIN:
                     getPresenter().weiXinPay("",bean.getOrdercode()+"" ,bean.getOrdertype()+"",paytype);
                     break;
-            }
+            }*/
         }
     }
 
-    @Override
+   /* @Override
     public void aliPay(AlipayBean bean) {
         if(bean!=null){
             String payLink = bean.getPayLink();
@@ -205,5 +225,5 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
             new WecatPay(MealsRechargeActivity.this).doPay(json);
         }
 
-    }
+    }*/
 }

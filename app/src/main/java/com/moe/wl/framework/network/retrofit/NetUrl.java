@@ -192,7 +192,8 @@ public interface NetUrl {
     //餐费充值
     String findLastCardNum = "appuser/usercfczorder/findLastCardNum";//最后充值卡号
     String findRemain = "appuser/usercfczorder/findRemain";//查询余额
-    String generateChargeOrder = "appuser/usercfczorder/generateChargeOrder";
+    String generateChargeOrder = "appuser/usercfczorder/generateChargeOrder";//生成充值订单
+    String getChargeOrder="appuser/usercfczorder/findChargeOrder";//获得充值订单
     String pay = "appuser/pay";//支付
 
     // 服务

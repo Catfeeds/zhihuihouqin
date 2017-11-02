@@ -688,6 +688,11 @@ public interface NetAPI {
     @POST(NetUrl.generateChargeOrder)
     Observable<ChargeOrderBean> generateChargeOrder(@FieldMap Map<String, Object> map);
 
+    // 查询充值订单
+    @FormUrlEncoded
+    @POST(NetUrl.getChargeOrder)
+    Observable<GetChargeOrderBean> getChargeOrder(@FieldMap Map<String, Object> map);
+
     // 支付宝支付
     @FormUrlEncoded
     @POST(NetUrl.pay)

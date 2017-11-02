@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recharge_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_page"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
+<TextView
+    android:padding="@dimen/normal_padding"
+    android:id="@+id/tv_content"
+    android:gravity="top"
+    android:textSize="@dimen/sp_small"
+    android:textColor="@color/tv_black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+</LinearLayout>

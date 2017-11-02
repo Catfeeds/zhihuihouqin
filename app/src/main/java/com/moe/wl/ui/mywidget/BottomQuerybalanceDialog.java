@@ -75,7 +75,7 @@ public class BottomQuerybalanceDialog extends Dialog {
         }
     }
 
-    public void setData(int remainSum, int subsidySum) {
+    public void setData(double remainSum, double subsidySum) {
         tvMoney.setText(remainSum+"");
         tvButieAmount.setText(subsidySum+"元");
     }

@@ -122,7 +122,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         tvNeedPay.setText("￥" + pay);
         if (from == Constants.BARBER) {//是理发展示代金券
             rlDaijinquanPay.setVisibility(View.VISIBLE);
-        } else if (from == Constants.RECHARGE) {//钱包充值
+        } else if (from == Constants.RECHARGE||from==Constants.MEALSPAY) {//钱包充值
             rlBanance.setVisibility(View.GONE);
             rlBanancePay.setVisibility(View.GONE);
         } else {

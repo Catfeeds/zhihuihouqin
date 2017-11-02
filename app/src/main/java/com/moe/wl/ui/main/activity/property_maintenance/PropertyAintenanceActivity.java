@@ -332,7 +332,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     @PermissionSuccess(requestCode = 200)
     public void getPhotoSucc() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//**//**//**//*");
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
     }
 

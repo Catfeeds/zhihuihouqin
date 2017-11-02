@@ -6,6 +6,7 @@ package com.moe.wl.ui.main.bean;
 
 public class FindRemainBean {
 
+
     /**
      * errCode : 0
      * cfEntity : {"cardNum":"1233221231","entityCardNumber":null,"id":1,"remainSum":10,"subsidySum":200,"userId":11}
@@ -53,8 +54,8 @@ public class FindRemainBean {
         private String cardNum;
         private Object entityCardNumber;
         private int id;
-        private int remainSum;
-        private int subsidySum;
+        private double remainSum;
+        private double subsidySum;
         private int userId;
 
         public String getCardNum() {
@@ -81,19 +82,19 @@ public class FindRemainBean {
             this.id = id;
         }
 
-        public int getRemainSum() {
+        public double getRemainSum() {
             return remainSum;
         }
 
-        public void setRemainSum(int remainSum) {
+        public void setRemainSum(double remainSum) {
             this.remainSum = remainSum;
         }
 
-        public int getSubsidySum() {
+        public double getSubsidySum() {
             return subsidySum;
         }
 
-        public void setSubsidySum(int subsidySum) {
+        public void setSubsidySum(double subsidySum) {
             this.subsidySum = subsidySum;
         }
 

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="395"
+        android:text="0"
         android:textColor="#FF9933"
         android:textSize="@dimen/sp_biggest" />
     <TextView
@@ -59,7 +59,7 @@
             android:layout_marginTop="8dp"
             android:text="补贴金额"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
         <TextView
             android:id="@+id/tv_butie_amount"
@@ -68,9 +68,9 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:gravity="right"
-            android:text="200元"
+            android:text="0元"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
     </LinearLayout>
 
     <View
@@ -95,7 +95,7 @@
                 android:layout_marginTop="8dp"
                 android:text="余额提现"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
             android:paddingTop="4dp"
             android:text="提现"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
     </RelativeLayout>
 
     <View
@@ -138,5 +138,5 @@
         android:padding="16dp"
         android:text="取消"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger" />
+        android:textSize="@dimen/sp_big" />
 </LinearLayout>

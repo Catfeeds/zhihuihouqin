@@ -18,7 +18,7 @@ public class ChargeOrderBean {
     private int errCode;
     private String msg;
     private int ordertype;
-    private long ordercode;
+    private String ordercode;
     private String createtime;
     private int paytype;
 
@@ -46,11 +46,11 @@ public class ChargeOrderBean {
         this.ordertype = ordertype;
     }
 
-    public long getOrdercode() {
+    public String getOrdercode() {
         return ordercode;
     }
 
-    public void setOrdercode(long ordercode) {
+    public void setOrdercode(String ordercode) {
         this.ordercode = ordercode;
     }
 

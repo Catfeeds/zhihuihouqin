@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_meals_recharge"
-    android:background="@color/gray_trans"
+    android:background="@color/bg_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,7 +14,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@color/gray_line" />
+        />
     <EditText
         android:id="@+id/et_phone"
         android:hint="请输入餐卡号码"
@@ -46,12 +46,13 @@
         android:textSize="@dimen/sp_bigger"
         android:layout_marginBottom="40dp"
         android:textStyle="bold"
+        android:padding="@dimen/normal_padding"
         android:text="50"
         android:layout_margin="@dimen/standard_padding"
         android:background="@drawable/shape_commit_white"
         android:paddingLeft="@dimen/standard_padding"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_confirm"
         android:gravity="center"
@@ -63,14 +64,15 @@
         android:layout_margin="@dimen/standard_padding"
         android:background="@drawable/shape_confirm_yellow"
         android:paddingLeft="@dimen/standard_padding"
+        android:padding="@dimen/normal_padding"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_check_balance"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="@dimen/sp_bigger"
+        android:textSize="@dimen/sp_big"
         android:textColor="#0099FF"
         android:gravity="center_horizontal|bottom"
         android:paddingBottom="20dp"

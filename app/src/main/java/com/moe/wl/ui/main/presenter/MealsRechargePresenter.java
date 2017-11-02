@@ -109,7 +109,7 @@ public class MealsRechargePresenter extends MvpRxPresenter<MealsRechargeModel, M
             }
         });
     }
-    public void aliPay(String orderid,String ordercode,String ordertype,int paytype) {
+   /* public void aliPay(String orderid,String ordercode,String ordertype,int paytype) {
         getView().showProgressDialog();
         Observable request = getModel().pay(orderid,ordercode,ordertype,paytype);
         getNetWork(request, new Subscriber<AlipayBean>() {
@@ -160,7 +160,7 @@ public class MealsRechargePresenter extends MvpRxPresenter<MealsRechargeModel, M
                 }
             }
         });
-    }
+    }*/
 
     @Override
     public void detachView(boolean retainInstance) {

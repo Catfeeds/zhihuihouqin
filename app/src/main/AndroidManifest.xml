@@ -502,7 +502,9 @@
         <activity
             android:name=".ui.main.activity.medicalService.ConfirmOrderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.CheckFailActivity"></activity>
+        <activity android:name=".ui.main.activity.OfficeSupplies.CheckFailActivity" />
+        <activity android:name=".ui.main.activity.MealsRecharge.RechargeOrederActivity" />
+        <activity android:name=".ui.main.activity.MealsRecharge.RechargeContentAct"></activity>
     </application>
 
 </manifest>

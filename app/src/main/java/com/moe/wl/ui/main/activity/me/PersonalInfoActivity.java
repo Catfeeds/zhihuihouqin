@@ -301,7 +301,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     @PermissionSuccess(requestCode = 200)
     public void doSomething2() {
         Intent openAlbumIntent = new Intent(
-                Intent.ACTION_GET_CONTENT);
+                Intent.ACTION_PICK);//ACTION_GET_CONTENT
         openAlbumIntent.setType("image/*");
         //用startActivityForResult方法，待会儿重写onActivityResult()方法，拿到图片做裁剪操作
         startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);

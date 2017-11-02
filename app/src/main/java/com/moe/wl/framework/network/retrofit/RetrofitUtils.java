@@ -2862,6 +2862,25 @@ carcode	是	string	车牌号*/
     }
 
     /**
+     * 查询充值订单
+     *
+     * @return
+     */
+    public static Observable getChargeOrder(int page,int limit,int type) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, String> tempMap = new HashMap<>();
+            tempMap.put("page",page+"");
+            tempMap.put("limit",limit+"");
+            tempMap.put("isUnderway",type+"");
+            addParam(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getChargeOrder(paramsMap));
+    }
+
+    /**
      * 生成订单
      *
      * @return
@@ -2871,7 +2890,7 @@ carcode	是	string	车牌号*/
         try {
             Map<String, String> tempMap = new HashMap<>();
             tempMap.put("money", money);
-            tempMap.put("paytype", paytype + "");
+            //tempMap.put("paytype", paytype + "");
             tempMap.put("cardNum", cardNum);
             addParam(paramsMap, tempMap);
         } catch (Exception e) {

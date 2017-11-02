@@ -19,7 +19,7 @@ public interface MealsRechargeView extends MvpView {
     void getfindLastCardNumResult(LastCardNumBean bean);
     void getFindRemain(FindRemainBean bean);
     void generateChargeOrder(ChargeOrderBean bean);
-    void aliPay(AlipayBean bean);
-    void weiXinPay(WeixinBean bean);
+//    void aliPay(AlipayBean bean);
+//    void weiXinPay(WeixinBean bean);
 
 }
