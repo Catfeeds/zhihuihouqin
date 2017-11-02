@@ -1,13 +1,18 @@
 package com.moe.wl.framework.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RatingBar;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.me.OrderCommentActivity;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -44,8 +49,18 @@ public class OtherUtils {
 
     // 展示认证弹窗
     public static void showAuth(final Context context) {
+        String message;
+        if (SharedPrefHelper.getInstance().getAuthStatus() == 0) {
+            message = "您的账号未认证，请先提交认证";
+        } else if (SharedPrefHelper.getInstance().getAuthStatus() == 1) {
+            message = "您的账号正在进行认证，请等待审核";
+        } else if (SharedPrefHelper.getInstance().getAuthStatus() == 3) {
+            message = "您的账号认证未通过，请重新提交审核";
+        } else {
+            message = "您的账号未认证，请先提交认证";
+        }
         AlertDialog dialog = new AlertDialog(context);
-        dialog.builder().setMsg("您的账号未认证，请先提交认证").setPositiveButton("确定", new View.OnClickListener() {
+        dialog.builder().setMsg(message).setPositiveButton("确定", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, IdentityActivity.class);
@@ -56,9 +71,37 @@ public class OtherUtils {
 
     // 是否认证
     public static boolean isAuth() {
-//        if (SharedPrefHelper.getInstance().getRealName() == null || "".equals(SharedPrefHelper.getInstance().getRealName())) {
-//            return false;
-//        }
+        if (SharedPrefHelper.getInstance().getAuthStatus() != 2) {
+            return false;
+        }
         return true;
     }
+
+    // 获取图片URI转路径
+    public static String getRealFilePath(Context context, final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null) {
+            LogUtils.d("获取图片的路径：1");
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            LogUtils.d("获取图片的路径：2");
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            LogUtils.d("获取图片的路径：3");
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
 }

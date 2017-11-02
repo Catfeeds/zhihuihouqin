@@ -17,7 +17,6 @@ import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
@@ -26,7 +25,6 @@ import com.moe.wl.ui.main.activity.me.MyCollectActivity;
 import com.moe.wl.ui.main.activity.me.MyPurseActivity;
 import com.moe.wl.ui.main.activity.me.PersonalInfoActivity;
 import com.moe.wl.ui.main.activity.me.SettingAct;
-import com.moe.wl.ui.main.bean.ChangeUserInfo;
 import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.model.Tab4Model;
 import com.moe.wl.ui.main.modelimpl.Tab4ModelImpl;
@@ -255,7 +253,6 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.i("onResume"+"走了吗");
         getPresenter().getData();//获取用户信息
         StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.font_blue), true);
     }

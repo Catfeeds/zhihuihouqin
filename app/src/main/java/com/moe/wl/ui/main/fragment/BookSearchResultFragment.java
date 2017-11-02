@@ -83,6 +83,7 @@ public class BookSearchResultFragment extends BaseFragment2 {
             @Override
             public void cb(BooklistBean bookListvBean, String BookID, boolean again) {
                 Intent intent = new Intent(getActivity(), BookDescriptionActivity.class);
+                intent.putExtra("content", bookListvBean.getShortbrief());
                 intent.putExtra("bean", bookListvBean);
                 intent.putExtra("again", again);
                 getActivity().startActivity(intent);

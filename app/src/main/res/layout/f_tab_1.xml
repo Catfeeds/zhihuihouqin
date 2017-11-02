@@ -74,12 +74,11 @@
         android:layout_height="1px"
         android:background="@color/divider"/>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ll_head"
-        android:layout_below="@+id/ll_head">
+        banner:layout_behavior="@string/appbar_scrolling_view_behavior">
         <!--<android.support.v7.widget.RecyclerView
             android:id="@+id/rv_home"
             android:layout_width="match_parent"
@@ -265,6 +264,6 @@
 
             </LinearLayout>
         </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

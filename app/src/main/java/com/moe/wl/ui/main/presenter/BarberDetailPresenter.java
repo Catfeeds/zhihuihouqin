@@ -32,29 +32,30 @@ public class BarberDetailPresenter extends MvpRxPresenter<BarberDetailModel, Bar
             @Override
             public void onError(Throwable e) {
                 getView().dismissProgressDialog();
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(BarberDetailBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
-                if(mResponse.getErrCode()==0){
+                if (mResponse.getErrCode() == 0) {
                     getView().getBarberDetailSucc(mResponse);
-                }else{
+                } else {
                     getView().showToast(mResponse.getMsg());
                 }
             }
         });
     }
-    public void collect(int type,int i) {
+
+    public void collect(int type, int i) {
         getView().showProgressDialog();
         LogUtil.log("BarberDetailPresenter发出请求");
-        Observable login = getModel().collect(type,i);
+        Observable login = getModel().collect(type, i);
         getNetWork(login, new Subscriber<CollectBean>() {
             @Override
             public void onCompleted() {
@@ -64,14 +65,20 @@ public class BarberDetailPresenter extends MvpRxPresenter<BarberDetailModel, Bar
             @Override
             public void onError(Throwable e) {
                 getView().dismissProgressDialog();
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(CollectBean listBean) {
-                if(listBean.getErrCode()==0){
+                if (listBean == null)
+                    return;
+                if (listBean.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (listBean.getErrCode() == 0) {
                     getView().collectSucc(listBean);
-                }else{
+                } else {
                     getView().showToast(listBean.getMsg());
                 }
             }

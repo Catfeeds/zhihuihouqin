@@ -134,6 +134,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
 //                right.setText("已完成");
                 break;
             case 3: // 3：已完成
+                left.setVisibility(View.VISIBLE);
                 right.setText("再次预订");
                 break;
             case 4: // 4：待评价
@@ -169,7 +170,8 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
                 break;
 
             case R.id.left:
-                // TODO 在线沟通
+                // TODO 立即评论
+                OtherUtils.gotoComment(OrderVegetableDetailActivity.this, data.getDetail().getId(), Constants.VEGETABLE);
                 break;
 
         }

@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.me.OrderVegetableDetailActivity;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
 
@@ -49,22 +51,30 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
         holder.orderNumber.setText("订单号：" + data.get(position).getOrdercode());
-        holder.name.setText(data.get(position).getFoodName());
-        GlideLoading.getInstance().loadImgUrlHeader(context, data.get(position).getFoodImg(), holder.image);
+        if (data.get(position).getFoodName() == null || "".equals(data.get(position).getFoodName())) {
+            holder.name.setText("未指定理发师");
+        } else {
+            holder.name.setText(data.get(position).getFoodName());
+        }
+        GlideLoading.getInstance().loadImgUrlHeader(context, data.get(position).getFoodImg(), holder.image, R.mipmap.ic_default_square);
         holder.content.setText(data.get(position).getFoodOriginal());
 //        holder.merNumber.setText("净菜套餐等" + data.get(position).get + "件商品");
 
         switch (state) {
             case 0:
+                holder.left.setVisibility(View.GONE);
                 holder.order.setText("取消订单");
                 break;
             case 2:
+                holder.left.setVisibility(View.VISIBLE);
                 holder.order.setText("再次预订");
                 break;
             case 3:
+                holder.left.setVisibility(View.GONE);
                 holder.order.setText("立即评价");
                 break;
             case 4:
+                holder.left.setVisibility(View.GONE);
                 holder.order.setText("删除订单");
                 break;
         }
@@ -83,6 +93,13 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
                 Intent intent = new Intent(context, OrderVegetableDetailActivity.class);
                 intent.putExtra("OrderID", data.get(position).getId());
                 context.startActivity(intent);
+            }
+        });
+
+        holder.left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OtherUtils.gotoComment(context, data.get(position).getId(), Constants.VEGETABLE);
             }
         });
 
@@ -114,6 +131,8 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
         TextView content;
         @BindView(R.id.order)
         TextView order;
+        @BindView(R.id.left)
+        TextView left;
         @BindView(R.id.item)
         LinearLayout item;
 

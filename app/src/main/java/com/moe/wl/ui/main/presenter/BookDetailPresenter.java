@@ -67,6 +67,12 @@ public class BookDetailPresenter extends MvpRxPresenter<BookDetailModel, BookDet
 
             @Override
             public void onNext(BookDetailBean listBean) {
+                if (listBean == null)
+                    return;
+                if (listBean.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (listBean.getErrCode() == 0) {
                     getView().getDetail(listBean);
                 } else {

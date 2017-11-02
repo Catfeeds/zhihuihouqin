@@ -52,8 +52,8 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     View view;
     @BindView(R.id.ll_app)
     LinearLayout llApp;
-    @BindView(R.id.rl_title)
-    RelativeLayout rlTitle;
+//    @BindView(R.id.rl_title)
+//    RelativeLayout rlTitle;
     @BindView(R.id.ll_title)
     RelativeLayout llTitle;
 
@@ -612,8 +612,8 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     }
 
     private void setVisibility() {
-        rlTitle.setVisibility(View.VISIBLE);
-        llTitle.setVisibility(View.GONE);
+//        rlTitle.setVisibility(View.VISIBLE);
+//        llTitle.setVisibility(View.GONE);
         llApp.setVisibility(View.VISIBLE);
     }
 

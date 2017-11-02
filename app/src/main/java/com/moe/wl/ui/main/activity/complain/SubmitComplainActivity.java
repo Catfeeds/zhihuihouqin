@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.complain;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
@@ -147,20 +147,9 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
 
                 case TAKE_PHOTO_ALBUM:// 相册
                     if (data != null) {
-                        String[] proj = {MediaStore.Images.Media.DATA};
-
-                        //好像是android多媒体数据库的封装接口，具体的看Android文档
-                        Cursor cursor = getContentResolver().query(data.getData(), proj, null, null, null);
-                        //按我个人理解 这个是获得用户选择的图片的索引值
-                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        //将光标移至开头 ，这个很重要，不小心很容易引起越界
-                        cursor.moveToFirst();
-                        //最后根据索引值获取图片路径
-                        String path = cursor.getString(column_index);
-                        LogUtils.d("返回的图片地址：" + path);
-                        paths.add(0, path);
+                        LogUtils.d(" URI : " + data.getData() + " Path : " + data.getData().getPath());
+                        paths.add(0, OtherUtils.getRealFilePath(SubmitComplainActivity.this, data.getData()));
                         imageAdapter.notifyDataSetChanged();
-//                        cropImageUri(data.getData());
                     }
                     break;
 
@@ -226,8 +215,9 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
     private void takePhotoAlbum() {
         pop.dismiss();
 //        imageUri = Uri.parse(imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName);
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK/*, MediaStore.Images.Media.EXTERNAL_CONTENT_URI*/);
+//        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        intent.setType("image/*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
     }
 

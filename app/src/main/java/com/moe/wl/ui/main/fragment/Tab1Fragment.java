@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
@@ -30,18 +33,13 @@ import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.HomePageBean;
 import com.moe.wl.ui.main.bean.ListEntity;
+import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.model.HomePageModel;
 import com.moe.wl.ui.main.modelimpl.HomePageModelImpl;
 import com.moe.wl.ui.main.presenter.HomePagePresenter;
 import com.moe.wl.ui.main.view.HomePageView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.zxing.android.CaptureActivity;
-import com.scwang.smartrefresh.header.MaterialHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +49,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import mvp.cn.util.LogUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by hh on 2016/5/18.
@@ -73,7 +73,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     @BindView(R.id.pullToRefreshScrollView)
     ScrollView sv;
     @BindView(R.id.id_swipe)
-    SmartRefreshLayout refreshLayout;
+    SwipeRefreshLayout swipeRefresh;
     Unbinder unbinder;
     @BindView(R.id.nsrlv1)
     RecyclerView nsrlv1;
@@ -111,6 +111,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void setContentLayout(Bundle savedInstanceState) {
         sysColor = R.color.white;
         setContentView(R.layout.f_tab_1);
+        getUserInfo();
     }
 
     @Override
@@ -118,6 +119,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
         super.onResume();
         StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
         sib.computeScroll();
+//        refreshLayout.setEnableRefresh(true);
     }
 
     @Override
@@ -156,7 +158,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
         gridViewCatogary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!OtherUtils.isAuth()){
+                if (!OtherUtils.isAuth()) {
                     // 没有认证
                     OtherUtils.showAuth(getActivity());
                     return;
@@ -186,7 +188,40 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
 //        }
 //    }
 
+    private void getUserInfo() {
+        if (SharedPrefHelper.getInstance().getAuthStatus() != 2) {
+            Observable observable = RetrofitUtils.getInstance().getUserInfo();
+            observable.subscribe(new Subscriber<UserInfoBean>() {
+                @Override
+                public void onCompleted() {
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                }
+
+                @Override
+                public void onNext(UserInfoBean bean) {
+                    SharedPrefHelper.getInstance().setAuthStatus(bean.getUserinfo().getAuthStatus());
+                }
+            });
+        }
+    }
+
     private void setRefresh() {
+        // 下拉刷新
+        swipeRefresh.setColorSchemeResources(new int[]{R.color.blue, R.color.red, R.color.gress_green});//设置刷新进度条颜色
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 处理刷新逻辑
+                getPresenter().getHomePageData();
+            }
+        });
+    }
+
+    // 设置下拉刷新
+    /*private void setRefresh() {
         //设置 Header 为 Material风格
         refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()).setShowBezierWave(true));
         //设置 Footer 为 球脉冲Scale
@@ -206,7 +241,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
                 refreshlayout.finishRefresh(2000);
             }
         });
-    }
+    }*/
 
     @Override
     public void getHomePageSucc(HomePageBean bean) {
@@ -222,6 +257,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
 //                    map.put(content, bean.getCarouselList().get(i).getImgs());
 //                }
 //            }
+            swipeRefresh.setRefreshing(false);
             ArrayList<BannerItem> list = new ArrayList<>();
             for (int i = 0; i < bean.getCarouselList().size(); i++) {
                 BannerItem item = new BannerItem();
@@ -265,6 +301,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void onPause() {
         super.onPause();
         sib.pauseScroll();
+//        refreshLayout.setEnableRefresh(false);
     }
 
     @OnClick({R.id.iv_two_dimension_code, R.id.iv_search})

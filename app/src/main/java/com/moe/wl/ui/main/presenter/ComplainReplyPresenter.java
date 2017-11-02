@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.presenter;
 import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.ComplainReplyBean;
 import com.moe.wl.ui.main.model.ComplainReplyModel;
@@ -37,9 +36,9 @@ public class ComplainReplyPresenter extends MvpRxPresenter<ComplainReplyModel, C
 
             @Override
             public void onNext(ComplainReplyBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
@@ -69,7 +68,12 @@ public class ComplainReplyPresenter extends MvpRxPresenter<ComplainReplyModel, C
 
             @Override
             public void onNext(CollectBean listBean) {
-                LogUtils.d("编辑地址", listBean.getErrCode() + "  " + listBean.getMsg());
+                if (listBean == null)
+                    return;
+                if (listBean.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (listBean.getErrCode() == 0) {
                     getView().feedbackMessage();
                 } else {

@@ -37,9 +37,9 @@ public class CheckShopCarPresenter extends MvpRxPresenter<CheckShopCarModel, Che
 
             @Override
             public void onNext(SpCheckShopCarBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
@@ -51,6 +51,7 @@ public class CheckShopCarPresenter extends MvpRxPresenter<CheckShopCarModel, Che
             }
         });
     }
+
     public void cancelItem(int[] arr) {
         getView().showProgressDialog();
         Observable request = getModel().cancelItem(arr);
@@ -69,6 +70,12 @@ public class CheckShopCarPresenter extends MvpRxPresenter<CheckShopCarModel, Che
 
             @Override
             public void onNext(ActivityPostBean bean) {
+                if (bean == null)
+                    return;
+                if (bean.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (bean.getErrCode() == 0) {
                     getView().cancelSucc(bean);
                 } else {

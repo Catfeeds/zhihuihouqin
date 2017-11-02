@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.Library;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -125,11 +124,11 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
         if (bean.getBollowstatus() == 1) {
             tvNowBorrowing.setBackgroundColor(getResources().getColor(R.color.blue));
             tvState.setText("在架上");
-            tvState.setTextColor(Color.parseColor("#36CCAE"));
+            tvState.setTextColor(getResources().getColor(R.color.blue));
         } else {
             tvState.setText("已借出");
             tvNowBorrowing.setBackgroundColor(getResources().getColor(R.color.gray));
-            tvState.setTextColor(Color.parseColor("#F95759"));
+            tvState.setTextColor(getResources().getColor(R.color.tv_red));
         }
     }
 

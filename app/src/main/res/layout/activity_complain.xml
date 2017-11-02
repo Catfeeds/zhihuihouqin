@@ -37,15 +37,17 @@
         android:layout_below="@id/rl_top"
         android:background="@color/gray_lighter" />
 
-    <Button
+    <TextView
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_button_white"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:padding="@dimen/normal_padding"
         android:text="提交"
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_big" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -108,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingBottom="5dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
@@ -230,8 +232,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:paddingBottom="6dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:paddingTop="6dp">
 
                 <TextView

@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -509,8 +510,10 @@ DateUtil {
             Date dt1 = df.parse(data1);
             Date dt2 = df.parse(data2);
             if (dt1.getTime() > dt2.getTime()) { // dt1比dt2晚
+                Log.e("时间对比", "dt1比dt2晚");
                 return 1;
             } else if (dt1.getTime() < dt2.getTime()) { // dt1比dt2早
+                Log.e("时间对比", "dt1比dt2早");
                 return 2;
             } else {
                 return 0;

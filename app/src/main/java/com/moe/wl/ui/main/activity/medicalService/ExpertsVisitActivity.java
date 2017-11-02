@@ -201,7 +201,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvHospital.setText(bean.getExpert().getHospitalName());// 医院名
         tvStarNum.setText(bean.getExpert().getScore() + "");// 分数
         ratingBar.setRating((float) bean.getExpert().getScore());
-        skilledInfo.setText("擅长：" + bean.getExpert().getSkilledinfo());// 擅长
+        skilledInfo.setText(/*"擅长：" + */bean.getExpert().getSkilledinfo());// 擅长
         tvOrderPersonNum.setText(bean.getExpert().getRemaincount() + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间
         tvContent.setText(bean.getExpert().getBrief());// 简介

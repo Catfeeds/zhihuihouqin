@@ -17,10 +17,10 @@ import rx.Subscriber;
 public class BookUpAwayPresenter extends MvpRxPresenter<BookUpAwayModel, BookUpAwayView> {
 
 
-    public void getData(String s,String s1,String s2) {
-        Log.e("BookUpAwayPresenter","处理数据");
+    public void getData(String s, String s1, String s2) {
+        Log.e("BookUpAwayPresenter", "处理数据");
         getView().showProgressDialog();
-        getModel().getBookList(s,s1,s2).subscribe(new Subscriber<SearchBookListBean>() {
+        getModel().getBookList(s, s1, s2).subscribe(new Subscriber<SearchBookListBean>() {
             @Override
             public void onCompleted() {
                 getView().dismissProgressDialog();
@@ -29,21 +29,21 @@ public class BookUpAwayPresenter extends MvpRxPresenter<BookUpAwayModel, BookUpA
             @Override
             public void onError(Throwable e) {
                 getView().dismissProgressDialog();
-                Log.e("Throwable",e.getMessage());
+                Log.e("Throwable", e.getMessage());
             }
 
             @Override
             public void onNext(SearchBookListBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
-                if(mResponse.getErrCode()==0){
+                if (mResponse.getErrCode() == 0) {
                     getView().getBookListSucc(mResponse);
-                }else{
-                    Log.e("SearchBookListBean",mResponse.getMsg());
+                } else {
+                    Log.e("SearchBookListBean", mResponse.getMsg());
                 }
             }
         });

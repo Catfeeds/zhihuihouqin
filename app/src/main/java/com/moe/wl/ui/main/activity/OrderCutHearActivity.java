@@ -120,7 +120,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
             BannerResponse.ServiceInfoBean infoBean = bean.getServiceInfo();
             //ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
             if (infoBean != null) {
-                String detailphoto = infoBean.getDetailphoto();
+                String detailphoto = infoBean.getTopphoto();
                 if (detailphoto != null) {
                     String[] urls = detailphoto.split(",");
                     List<?> imgList = Arrays.asList(urls);

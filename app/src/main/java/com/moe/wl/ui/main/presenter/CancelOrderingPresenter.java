@@ -37,9 +37,9 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
 
             @Override
             public void onNext(ReasonBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
@@ -71,6 +71,12 @@ public class CancelOrderingPresenter extends MvpRxPresenter<CancelOrderingModel,
 
             @Override
             public void onNext(CollectBean o) {
+                if (o == null)
+                    return;
+                if (o.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
                 if (o.getErrCode() == 0) {
                     getView().cancelOrder(o);
                 } else {

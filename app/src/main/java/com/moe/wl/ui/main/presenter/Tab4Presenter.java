@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.presenter;
 
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.model.Tab4Model;
@@ -32,10 +33,12 @@ public class Tab4Presenter extends MvpRxPresenter<Tab4Model, Tab4View> {
 
             @Override
             public void onNext(UserInfoBean bean) {
-                if(bean.getErrCode()==0){
+                if (bean.getErrCode() == 0) {
                     getView().getUserInfo(bean);
-                }else{
-                    LogUtils.d(bean.getMsg());
+                } else if(bean.getErrCode() == 2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    getView().showToast(bean.getMsg());
                 }
             }
         });

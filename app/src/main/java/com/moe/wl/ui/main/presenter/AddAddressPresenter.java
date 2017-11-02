@@ -36,9 +36,9 @@ public class AddAddressPresenter extends MvpRxPresenter<AddAddressModel, AddAddr
 
             @Override
             public void onNext(CollectBean listBean) {
-                if (listBean==null)
+                if (listBean == null)
                     return;
-                if (listBean.getErrCode()==2){
+                if (listBean.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
@@ -71,6 +71,8 @@ public class AddAddressPresenter extends MvpRxPresenter<AddAddressModel, AddAddr
                 LogUtils.d("编辑地址", listBean.getErrCode() + "  " + listBean.getMsg());
                 if (listBean.getErrCode() == 0) {
                     getView().editAddressSucc();
+                } else if (listBean.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
                 } else {
                     getView().showToast(listBean.getMsg());
                 }
@@ -98,6 +100,8 @@ public class AddAddressPresenter extends MvpRxPresenter<AddAddressModel, AddAddr
                 LogUtils.d("删除地址", listBean.getErrCode() + "  " + listBean.getMsg());
                 if (listBean.getErrCode() == 0) {
                     getView().deleteAddressSucc();
+                } else if (listBean.getErrCode() == 2) {
+                    getView().reLogin(Constants.LOGIN_ERROR);
                 } else {
                     getView().showToast(listBean.getMsg());
                 }
