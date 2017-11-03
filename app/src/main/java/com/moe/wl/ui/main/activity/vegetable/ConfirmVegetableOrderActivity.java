@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.vegetable;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -29,6 +30,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import mvp.cn.util.ToastUtil;
+import mvp.cn.util.VerifyCheck;
 
 /**
  * 类描述：
@@ -39,7 +42,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.phone_number)
-    TextView phoneNumber;
+    EditText phoneNumber;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.list_view)
@@ -69,14 +72,14 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
     public void initView() {
         titleBar.setTitle("确认订单");
         titleBar.setBack(true);
-        timeID = getIntent().getIntExtra("TimeID", 0);
+//        timeID = getIntent().getIntExtra("TimeID", 0);
         if (SharedPrefHelper.getInstance().getRealName() == null || "".equals(SharedPrefHelper.getInstance().getRealName())) {
             userName.setText(SharedPrefHelper.getInstance().getNickname());
         } else {
             userName.setText(SharedPrefHelper.getInstance().getRealName());
         }
         tvTime.setText(getIntent().getStringExtra("Time"));
-        phoneNumber.setText(getIntent().getStringExtra("PhoneNumber"));
+        phoneNumber.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         list = new ArrayList<>();
         data = (List<VegetableBean.PageEntity.ListEntity>) getIntent().getSerializableExtra("Data");
         for (int i = 0; i < data.size(); i++) {
@@ -99,11 +102,11 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         // TODO 去支付
         Intent intent = new Intent(this, PayFiveJiaoActivity.class);
         intent.putExtra("from", Constants.VEGETABLE);
-        intent.putExtra("pay", priceNum);
+        intent.putExtra("pay", bean.getTotalMoney());
         intent.putExtra("orderid", "");
         intent.putExtra("ordercode", bean.getOrdercode());
         intent.putExtra("ordertype", bean.getOrdertype() + "");
-        intent.putExtra("time",bean.getCreatetime());
+        intent.putExtra("time", bean.getCreatetime());
         startActivity(intent);
     }
 
@@ -118,9 +121,13 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
 
     // 结算方法
     private void confirm() {
+        if (!VerifyCheck.isMobilePhoneVerify(phoneNumber.getText().toString().trim())) {
+            ToastUtil.showToast(this, "请输入正确的手机号码");
+            return;
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("realname", SharedPrefHelper.getInstance().getRealName());
-        map.put("mobile", SharedPrefHelper.getInstance().getPhoneNumber());
+        map.put("mobile", phoneNumber.getText().toString().trim());
         map.put("getfoodtimeID", timeID);
 
         FoodBean[] listFood = new FoodBean[list.size()];

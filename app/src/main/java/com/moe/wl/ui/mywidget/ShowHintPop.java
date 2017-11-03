@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 
 /**
  * 类描述：每个子项目的弹出窗
@@ -26,14 +27,17 @@ public class ShowHintPop extends PopupWindow {
     private TextView content;
     private CheckBox isShowNext;
     private TextView iKnow;
+    private ScrollViewBottom scroll;
 
     public ShowHintPop(final Context context, final String cont, final int serviceType) {
 
         this.context = context;
         view = LayoutInflater.from(context).inflate(R.layout.pop_show_hint, null);
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         content = (TextView) view.findViewById(R.id.content);
         isShowNext = (CheckBox) view.findViewById(R.id.next_show);
         iKnow = (TextView) view.findViewById(R.id.i_know);
+        scroll = (ScrollViewBottom) view.findViewById(R.id.scroll);
 
         if (cont == null) {
             content.setText("空");
@@ -46,6 +50,23 @@ public class ShowHintPop extends PopupWindow {
             public void onClick(View view) {
                 SharedPrefHelper.getInstance().setServiceHint(serviceType, isShowNext.isChecked());
                 dismiss();
+            }
+        });
+        LogUtils.d("是否可依向下滚动？" + scroll.canScrollVertically(-1));
+        if (scroll.canScrollVertically(0)) {
+            iKnow.setVisibility(View.INVISIBLE);
+        } else {
+            iKnow.setVisibility(View.VISIBLE);
+        }
+
+        scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
+            @Override
+            public void onScrollBottom(boolean isBottom) {
+                if (isBottom) {
+                    iKnow.setVisibility(View.VISIBLE);
+                } else {
+                    iKnow.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -80,4 +101,6 @@ public class ShowHintPop extends PopupWindow {
             }
         });*/
     }
+
+
 }

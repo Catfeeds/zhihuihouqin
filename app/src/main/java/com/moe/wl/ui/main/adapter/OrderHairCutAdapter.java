@@ -48,8 +48,16 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getPhoto(), holder.header);
-        holder.userName.setText(data.get(position).getRealname());
+        if (data.get(position).getPhoto() == null || "".equals(data.get(position).getPhoto())) {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getPhoto(), holder.header);
+        } else {
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getPhoto(), holder.header);
+        }
+        if (data.get(position).getRealname() == null || "".equals(data.get(position).getRealname())){
+            holder.userName.setText("理发师");
+        } else {
+            holder.userName.setText(data.get(position).getRealname());
+        }
         holder.orderNumber.setText("订  单  号：" + data.get(position).getOrdercode());
         holder.time.setText("预约时间：" + data.get(position).getInvitetime());
         holder.arriveTime.setText("下单时间：" + data.get(position).getCreatetime());

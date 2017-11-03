@@ -233,7 +233,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             ToastUtil.showToast(this, "您还没有点餐！");
             return;
         }
-        Intent intent = new Intent(this, VegetableOrderMessageActivity.class);
+        Intent intent = new Intent(this, ConfirmVegetableOrderActivity.class);
         intent.putExtra("Data", (Serializable) data);
         startActivity(intent);
     }

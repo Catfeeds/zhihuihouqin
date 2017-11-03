@@ -111,7 +111,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         ordertype = intent.getStringExtra("ordertype");
         createtime = intent.getStringExtra("time");
         from = intent.getIntExtra("from", Constants.ORDERWATER);
-        pay = intent.getDoubleExtra("pay", 0);
+        pay = intent.getDoubleExtra("pay", 0.00);
         LogUtils.i("ordertype======  " + ordertype);
         if (pay % 5 > 0) {
             count = (int) (pay / 5) + 1;
