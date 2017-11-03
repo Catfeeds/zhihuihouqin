@@ -79,7 +79,7 @@ public class OrderCommentActivity extends AppCompatActivity {
     RatingBar ratingTwo;
 
     private GridViewImageAdapter adapter;
-    private List<String> paths;
+    private ArrayList<String> paths;
 
     private AddPhotoPop pop;
 

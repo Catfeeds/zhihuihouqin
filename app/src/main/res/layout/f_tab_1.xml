@@ -96,13 +96,13 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <!--轮播图-->
-               <!-- <com.daimajia.slider.library.SliderLayout
+                <com.daimajia.slider.library.SliderLayout
                     android:id="@+id/slider_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@mipmap/ic_default_rectangle"/>-->
+                    android:layout_height="200dp"
+                    android:background="@mipmap/ic_default_rectangle"/>
 
-                <com.moe.wl.framework.widget.SimpleImageBanner
+               <!-- <com.moe.wl.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="186dp"
@@ -128,7 +128,7 @@
                     banner:bb_period="5"
                     banner:bb_scale="0.5625"
                     banner:bb_textColor="#ffffff"
-                    banner:bb_textSize="13.5sp" />
+                    banner:bb_textSize="13.5sp" />-->
 
                 <!--<com.lc.model.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"

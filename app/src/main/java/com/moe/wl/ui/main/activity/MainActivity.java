@@ -1,10 +1,14 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.moe.wl.ui.main.fragment.Tab1Fragment;
 import com.moe.wl.ui.main.fragment.Tab2Fragment;
@@ -27,6 +31,18 @@ import mvp.cn.util.ToastUtil;
 public class MainActivity extends BaseActivity<MainModel, MainView, MainPresenter> implements MainView {
 
     private static final int SCANNING_CODE = 1001;
+    // 定义一个变量，来标识是否退出
+    private static boolean isExit = false;
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+
 
     @BindView(R.id.m_frameLayout)
     FrameLayout mFrameLayout;
@@ -50,7 +66,27 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
 
         getData();
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getActivity(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
     /**
      * 底部导航栏的点击
      * 未登录状态下

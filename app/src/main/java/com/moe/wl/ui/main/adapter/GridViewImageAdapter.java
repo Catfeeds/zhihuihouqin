@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,10 +24,10 @@ import butterknife.ButterKnife;
 public class GridViewImageAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> paths;
+    private ArrayList<String> paths;
     private OnAddPhotoClickListener listener;
 
-    public GridViewImageAdapter(Context context, List<String> paths, OnAddPhotoClickListener listener) {
+    public GridViewImageAdapter(Context context, ArrayList<String> paths, OnAddPhotoClickListener listener) {
         this.context = context;
         this.paths = paths;
         this.listener = listener;
@@ -75,7 +76,8 @@ public class GridViewImageAdapter extends BaseAdapter {
                 }
             });
         } else {
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(context, paths.get(position), holder.image);
+            Glide.with(context).load( paths.get(position)).into(holder.image);
+           // GlideLoading.getInstance().loadImgUrlNyImgLoader(context, paths.get(position), holder.image);
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

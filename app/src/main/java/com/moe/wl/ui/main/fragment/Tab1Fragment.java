@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -16,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
@@ -42,6 +47,7 @@ import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.zxing.android.CaptureActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,10 +70,10 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     ImageView ivSearch;*/
     /*@BindView(R.id.h_banner_viewPager)
     SimpleImageBanner hBannerViewPager;*/
-//    @BindView(R.id.slider_layout)
-//    SliderLayout sliderLayout;
-    @BindView(R.id.h_banner_viewPager)
-    SimpleImageBanner sib;
+    @BindView(R.id.slider_layout)
+    SliderLayout sliderLayout;
+   /* @BindView(R.id.h_banner_viewPager)
+    SimpleImageBanner sib;*/
     @BindView(R.id.gridView_catogary)
     NoSlidingGridView gridViewCatogary;
     @BindView(R.id.pullToRefreshScrollView)
@@ -107,6 +113,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     private HomeNsrlv3Adapter adapter3;
     private HomeAdapter homeAdapter;
 
+
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
         sysColor = R.color.white;
@@ -118,9 +125,10 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void onResume() {
         super.onResume();
         StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
-        sib.computeScroll();
+        //sib.computeScroll();
 //        refreshLayout.setEnableRefresh(true);
     }
+
 
     @Override
     public void initView(View v) {
@@ -247,18 +255,18 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void getHomePageSucc(HomePageBean bean) {
         if (bean.getCarouselList() != null) {
             // TODO 轮播图数据
-//            HashMap<String, String> map = new HashMap<>();
-//            for (int i = 0; i < bean.getCarouselList().size(); i++) {
-//                String content = "";
-//                for (int j = 0; j < i; j++) {
-//                    content = content + " ";
-//                }
-//                if (bean.getCarouselList().get(i).getImgs() != null && !"".equals(bean.getCarouselList().get(i).getImgs())) {
-//                    map.put(content, bean.getCarouselList().get(i).getImgs());
-//                }
-//            }
             swipeRefresh.setRefreshing(false);
-            ArrayList<BannerItem> list = new ArrayList<>();
+            sliderLayout.removeAllSliders();
+            for (int i = 0; i < bean.getCarouselList().size(); i++) {
+                String imgs = bean.getCarouselList().get(i).getImgs();
+                //map.put("", imgs);
+                TextSliderView textSliderView = new TextSliderView(getActivity());
+                textSliderView.description("").image(imgs);
+                sliderLayout.addSlider(textSliderView);
+            }
+
+
+           /* ArrayList<BannerItem> list = new ArrayList<>();
             for (int i = 0; i < bean.getCarouselList().size(); i++) {
                 BannerItem item = new BannerItem();
                 item.imgUrl = bean.getCarouselList().get(i).getImgs();
@@ -268,7 +276,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
             sib
                     .setSource(list)
                     .startScroll();
-//            initSliderLayout(map);
+//            initSliderLayout(map);*/
         }
         if (bean.getServiceList() != null) {
             // TODO 填充服务数据
@@ -300,7 +308,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     @Override
     public void onPause() {
         super.onPause();
-        sib.pauseScroll();
+        //sib.pauseScroll();
 //        refreshLayout.setEnableRefresh(false);
     }
 

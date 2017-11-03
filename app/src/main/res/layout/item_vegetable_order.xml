@@ -15,7 +15,7 @@
         android:paddingBottom="12dp"
         android:paddingTop="12dp"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_common" />
 
     <TextView
         android:id="@+id/vegetable_number"
@@ -26,7 +26,7 @@
         android:paddingTop="12dp"
         android:text="x12"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_common" />
 
     <TextView
         android:id="@+id/vegetable_price"
@@ -38,6 +38,6 @@
         android:paddingBottom="12dp"
         android:paddingTop="12dp"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_common" />
 
 </LinearLayout>

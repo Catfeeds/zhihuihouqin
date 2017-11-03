@@ -50,7 +50,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         if (resp.errCode == 0) {
             //微信支付，不需要依赖于服务器端的通知，直接提示即可
             Toast.makeText(this, "支付成功!", Toast.LENGTH_SHORT).show();
-            EventBus.getDefault().post(new MessageEvent(MessageEvent.WECHAT_PAY));
+            //EventBus.getDefault().post(new MessageEvent(MessageEvent.WECHAT_PAY));
+            EventBus.getDefault().postSticky(new MessageEvent(MessageEvent.WECHAT_PAY));
         } else if (resp.errCode == -1) {
             Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
         } else if (resp.errCode == -2) {

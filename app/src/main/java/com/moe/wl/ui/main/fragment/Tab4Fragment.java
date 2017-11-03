@@ -17,6 +17,7 @@ import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
@@ -263,12 +264,13 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     }
 
     //更改头像和昵称
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         showToast("更改了用户头像");
         if(event.HEADERCHANGE==event.getCode()){
-            Glide.with(getActivity()).load(event.getParam1()).placeholder(R.drawable.avatar2).into(civHeader);
-            tvName.setText(event.getParam3() + "~" + event.getParam2());
+//            LogUtils.i("更改了用户头像================"+"url="+event.getParam1());
+//            Glide.with(getActivity()).load(event.getParam1()).placeholder(R.drawable.avatar2).into(civHeader);
+//            tvName.setText(event.getParam3() + "~" + event.getParam2());
         }
     }
 

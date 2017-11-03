@@ -70,6 +70,8 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     private CutHearAdapter adapter;
     private ShopBean shopBean;
     private List<BarberlistBean> barberlist;
+    private BannerResponse bean;
+    private BannerResponse.ServiceInfoBean infoBean;
 
     @Override
     public ShopPresenter createPresenter() {
@@ -117,7 +119,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     public void getServiceInfo(BannerResponse bean) {
         if (bean != null) {
             //获取轮播图
-            BannerResponse.ServiceInfoBean infoBean = bean.getServiceInfo();
+            infoBean = bean.getServiceInfo();
             //ServiceBean.ServiceInfoBean infoBean= bean.getServiceInfo();
             if (infoBean != null) {
                 String detailphoto = infoBean.getTopphoto();
@@ -145,14 +147,19 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                     });
                 }
             }
+            showHint(infoBean);
 
-            // TODO 弹温馨出提示窗
-            if (!SharedPrefHelper.getInstance().getServiceHint(Constants.HAIRCUTS)) {
-                ShowHintPop pop = new ShowHintPop(this, infoBean.getRemind(), Constants.HAIRCUTS);
-                pop.showAtLocation(findViewById(R.id.activity_order_cut_hear), Gravity.CENTER, 0, 0);
-            }
+
         }
 
+    }
+
+    private void showHint(BannerResponse.ServiceInfoBean infoBean) {
+        // TODO 弹温馨出提示窗
+        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.HAIRCUTS)) {
+            ShowHintPop pop = new ShowHintPop(this, infoBean.getRemind(), Constants.HAIRCUTS);
+            pop.showAtLocation(findViewById(R.id.activity_order_cut_hear), Gravity.CENTER, 0, 0);
+        }
     }
 
     private void initGrid() {
@@ -181,7 +188,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
         titleBar.setTitle("美容美发");
     }
 
-    @OnClick({R.id.tv_barber_num, R.id.tv_now_order, R.id.ll_call})
+    @OnClick({R.id.tv_barber_num, R.id.tv_now_order, R.id.ll_call,R.id.iv_hint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_barber_num:
@@ -190,6 +197,10 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 intent.putExtra("address", place);
                 intent.putExtra("shopName", shopBean.getTradename());
                 startActivity(intent);
+                break;
+            case R.id.iv_hint:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.BARBER,false);
+                showHint(infoBean);
                 break;
             case R.id.tv_now_order:
                 Intent intent1 = new Intent(this, NowReservaBarberActivity.class);

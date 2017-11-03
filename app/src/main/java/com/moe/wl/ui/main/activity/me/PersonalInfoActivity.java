@@ -462,7 +462,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                     SharedPrefHelper.getInstance().setSex("女");
                 }
                 //通知头像和昵称发生变化
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.HEADERCHANGE,url,nickName,tvPosition.getText().toString()) );
+                EventBus.getDefault().postSticky(new MessageEvent(MessageEvent.HEADERCHANGE,url,nickName,tvPosition.getText().toString()) );
                 //EventBus.getDefault().post(new ChangeUserInfo(url, nickName, tvPosition.getText().toString()));
             } else {
                 showToast("修改信息失败");

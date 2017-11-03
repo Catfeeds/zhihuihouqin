@@ -77,11 +77,8 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
     private void initTitle() {
         titleBar.setBack(true);
         titleBar.setTitle("发型详情");
-        if (favorstatus == 0) {
-            titleBar.setTitleRight("收藏");
-        } else {
-            titleBar.setTitleRight("取消收藏");
-        }
+        getCollectStatus();
+
 
         titleBar.setOnRightclickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +88,19 @@ public class HairStyleDetailActivity extends BaseActivity<HairStyleDetailModel,
         });
     }
 
+    private void getCollectStatus() {
+        if (favorstatus == 0) {
+            titleBar.setTitleRight("收藏");
+        } else if(favorstatus==1){
+            titleBar.setTitleRight("取消收藏");
+        }
+    }
+
     @Override
     public void getDataSucc(BarberProductDetailBean bean) {
         workid = bean.getWorkid();
         favorstatus = bean.getFavorstatus();//0为收藏  1已收藏
+        getCollectStatus();
     }
 
     @Override

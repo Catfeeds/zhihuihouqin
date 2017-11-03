@@ -328,7 +328,8 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    //@Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onMessage(MessageEvent event) {
         if (event != null) {
             if (event != null && event.getCode() == MessageEvent.WECHAT_PAY) {
@@ -346,6 +347,7 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
                 intent.putExtra("ordercode", ordercode);
                 intent.putExtra("money", pay);
                 startActivity(intent);
+                finish();
             }
         }
     }

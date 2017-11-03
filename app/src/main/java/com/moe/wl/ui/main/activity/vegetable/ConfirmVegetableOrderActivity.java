@@ -103,6 +103,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         intent.putExtra("orderid", "");
         intent.putExtra("ordercode", bean.getOrdercode());
         intent.putExtra("ordertype", bean.getOrdertype() + "");
+        intent.putExtra("time",bean.getCreatetime());
         startActivity(intent);
     }
 

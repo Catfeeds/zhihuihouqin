@@ -155,11 +155,15 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
 //        getPresenter().getVegetableData(page, "");
     }
 
-    @OnClick({R.id.submit, R.id.search})
+    @OnClick({R.id.submit, R.id.search,R.id.iv_hint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.submit:
                 submitOrder();
+                break;
+            case R.id.iv_hint:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.VEGETABLE,false);
+                getHint();
                 break;
             case R.id.search:
                 startActivityForResult(new Intent(VegetableMainActivity.this, VegetableSearchActivity.class), REQUEST_SEARCH);

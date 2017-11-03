@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -42,10 +43,10 @@ public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleIma
         View inflate = View.inflate(mContext, R.layout.adapter_simple_image, null);
         ImageView iv = (ImageView) inflate.findViewById(R.id.iv);
         final BannerItem item = mDatas.get(position);
-//        int itemWidth = mDisplayMetrics.widthPixels;
-//        int itemHeight = (int) (itemWidth * 360 * 1.0f / 640);
-//        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        iv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, itemHeight));
+        //int itemWidth = mDisplayMetrics.widthPixels;
+        //int itemHeight = (int) (itemWidth * 360 * 1.0f / 640);
+        //iv.setScaleType(ImageView.ScaleType.FIT_XY);
+        //iv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, itemHeight));
 
         String imgUrl = item.imgUrl;
 
@@ -53,8 +54,8 @@ public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleIma
             //GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,imgUrl,iv);
             Glide.with(mContext)
                     .load(imgUrl)
-//                    .override(itemWidth, itemHeight)
-//                    .centerCrop()
+                   // .override(itemWidth, itemHeight)
+                   // .centerCrop()
                     .placeholder(R.mipmap.ic_default_rectangle)
                     .into(iv);
 

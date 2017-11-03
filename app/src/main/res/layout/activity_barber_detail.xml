@@ -68,12 +68,12 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sp_common" />
 
-                        <View
+                       <!-- <View
                             android:layout_width="1dp"
                             android:layout_height="12dp"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
-                            android:background="@color/gray_lighter" />
+                            android:background="@color/gray_lighter" />-->
 
                         <TextView
                             android:id="@+id/tv_barber_shop"

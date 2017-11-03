@@ -58,14 +58,16 @@ public class AliPaySuccAct extends MyBaseActivity {
         LogUtils.i("ordertype" + ordertype + "createtime" + createtime + "paytype" + paytype + "ordercode" + ordercode + "money" + money);
         howMuch.setText("￥" + money);
         // TODO: 2017/10/26 订单类型需要增加
-        if (ordertype == 6) {//理发
+        if (ordertype == Constants.HAIRCUTS) {//理发
             tvPayType.setText("理发服务");
-        } else if (ordertype == 4) {
+        } else if (ordertype == Constants.MEALSPAY) {
             tvPayType.setText("餐费充值");
-        } else if (ordertype == 8) {//办公
+        } else if (ordertype == Constants.OFFICESUPPLIES) {//办公
             tvPayType.setText("办公用品");
-        } else if (ordertype == 18) {//定水服务
+        } else if (ordertype == Constants.ORDERWATER) {//定水服务
             tvPayType.setText("订水服务");
+        } else if(ordertype==Constants.VEGETABLE){//净菜预定
+            tvPayType.setText("净菜预定");
         }
         tvTime.setText(createtime);
         tvOrdercode.setText(ordercode);

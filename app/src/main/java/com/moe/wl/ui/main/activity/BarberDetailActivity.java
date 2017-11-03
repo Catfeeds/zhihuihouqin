@@ -149,8 +149,8 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
         if (barberlistBean != null) {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, barberlistBean.getPhoto(), civBarberHeaderPhoto);
             tvBarberName.setText(barberlistBean.getName());
-            tvChenghao.setText("号称: " + barberlistBean.getPositionName());
-            tvBarberShop.setText(shopName);
+            tvChenghao.setText( barberlistBean.getPositionName());
+            //tvBarberShop.setText(shopName);
             tvBarberAddress.setText("地址: " + address);
             tvBarberPhone.setText("电话: " + barberlistBean.getMobile());
         }

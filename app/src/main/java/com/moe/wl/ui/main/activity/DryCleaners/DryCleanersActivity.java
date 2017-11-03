@@ -60,6 +60,9 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
     LinearLayout llCall;
     @BindView(R.id.message_hint)
     TextView hint;
+    @BindView(R.id.iv_show_dialog)
+    ImageView IvShowDialog;
+    private BannerResponse.ServiceInfoBean bean;
 
     @Override
     public void setContentLayout() {
@@ -138,10 +141,14 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         titleBar.setTitle("店铺");
     }
 
-    @OnClick({R.id.iv_hot_phone, R.id.tv_now_order})
+    @OnClick({R.id.iv_hot_phone, R.id.tv_now_order,R.id.iv_show_dialog})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_hot_phone:
+                break;
+            case R.id.iv_show_dialog:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.DRYCLEANER,false);
+                showHint(bean);
                 break;
             case R.id.tv_now_order:
                 Intent intent = new Intent(this, DryCleanReserveInfoActivity.class);
@@ -152,6 +159,7 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
 
     @Override
     public void setData(BannerResponse.ServiceInfoBean bean) {
+        this.bean=bean;
         String topphoto = bean.getTopphoto();//轮播图
         String[] topPhotos = topphoto.split(",");
         String name = bean.getTradename();//店名
@@ -174,7 +182,12 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         } else {
             hint.setText(Html.fromHtml(bean.getRemind()));
         }
+        showHint(bean);
 
+
+    }
+
+    private void showHint(BannerResponse.ServiceInfoBean bean) {
         // TODO 弹温馨出提示窗
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.DRYCLEANER)) {
             ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.DRYCLEANER);

@@ -7,12 +7,24 @@
     android:layout_height="match_parent"
     android:background="@color/bg_page"
     android:orientation="vertical">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/dry_cleaners_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/white" />
+    <ImageView
+        android:id="@+id/iv_show_dialog"
+        android:src="@drawable/bule_doubt"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/normal_padding"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"
@@ -216,6 +228,7 @@
                 android:background="@color/bg_page">
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/message_hint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

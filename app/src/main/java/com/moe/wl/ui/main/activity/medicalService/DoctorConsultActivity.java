@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -77,9 +78,8 @@ public class DoctorConsultActivity extends BaseActivity<GetDocConsultListModel,G
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("在线咨询");
+        title.setTitle("专家咨询");
     }
-
     @OnClick(R.id.btn_send)
     public void onViewClicked() {
         //获取消息内容

@@ -234,13 +234,13 @@
                 android:layout_margin="@dimen/standard_padding"
                 android:background="@drawable/shap_text"
                 android:padding="@dimen/standard_padding">
-
                 <EditText
                     android:id="@+id/et_scanner"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
                     android:gravity="top"
+                    android:minHeight="60dp"
                     android:hint="你想对你的设计师说..."
                     android:textColorHint="@color/gray_light"
                     android:textSize="@dimen/sp_common" />

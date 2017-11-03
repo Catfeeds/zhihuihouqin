@@ -17,6 +17,7 @@ import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
+import com.moe.wl.framework.utils.TabIndicator;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.BookPagerAdapter;
 import com.moe.wl.ui.main.bean.BannerResponse;
@@ -60,6 +61,7 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     private List<Fragment> fragments;
     private boolean again;  //是否是再次借阅
     public List<BooklistBean> bookList; //之前借阅的书籍
+    private BannerResponse.ServiceInfoBean bean;
 
     @Override
     public void setContentLayout() {
@@ -86,6 +88,13 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
         vpBook.setAdapter(pagerAdapter);
         tabBook.setupWithViewPager(vpBook);
         pagerAdapter.setFragments(fragments);
+        tabBook.post(new Runnable() {
+            @Override
+            public void run() {
+                TabIndicator.setIndicator(tabBook, 60, 60);
+            }
+        });
+
     }
 
     private void initTitle() {
@@ -93,12 +102,16 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
         titleBar.setBack(true);
     }
 
-    @OnClick({R.id.iv_more_health_consult_search, R.id.civ_recommend})
+    @OnClick({R.id.iv_more_health_consult_search, R.id.civ_recommend,R.id.iv_hint})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.iv_more_health_consult_search:
                 Intent intent1 = new Intent(this, BookNewSearchActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.iv_hint:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.BOOK,false);
+                showHint(bean);
                 break;
             case R.id.civ_recommend:
                 if (again) {
@@ -115,18 +128,20 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     @Override
     public void setData(BannerResponse.ServiceInfoBean bean) {
         if (bean != null && !TextUtils.isEmpty(bean.getTopphoto())) {
+            this.bean=bean;
             String[] strings = bean.getTopphoto().split(",");
-            HashMap<String, String> map = new HashMap<>();
-            for (int i = 0; i < strings.length; i++) {
-                map.put("", strings[i]);
-            }
             sliderLayout.removeAllSliders();
-            for (String desc : map.keySet()) {
+            for (int i = 0; i < strings.length; i++) {
                 TextSliderView textSliderView = new TextSliderView(getActivity());
-                textSliderView.description(desc).image(map.get(desc));
+                textSliderView.description("").image(strings[i]);
                 sliderLayout.addSlider(textSliderView);
             }
         }
+        showHint(bean);
+
+    }
+
+    private void showHint(BannerResponse.ServiceInfoBean bean) {
         // TODO 弹温馨出提示窗
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.BOOK)) {
             ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.BOOK);
