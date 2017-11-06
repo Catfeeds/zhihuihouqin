@@ -17,11 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.base.MessageEvent;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
@@ -117,16 +117,6 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     private UserInfoBean.UserinfoEntity userinfo;
 
     @Override
-    public UserInfoPresenter createPresenter() {
-        return new UserInfoPresenter();
-    }
-
-    @Override
-    public UserInfoModel createModel() {
-        return new UserInfoModelImpl();
-    }
-
-    @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_personal_info);
         ButterKnife.bind(this);
@@ -183,11 +173,9 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                     rlPosition.setClickable(false);
                     rlHeader.setClickable(false);
 
-                    titleBar.setTitleRight("编辑");
                     //修改用户信息
                     /*用户信息检测*/
                     userInfoCheck();
-
                 }
             }
         });
@@ -212,6 +200,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
             showToast("请将个人信息填写完整");
             return;
         }
+        titleBar.setTitleRight("编辑");
         isEdit = !isEdit;
         getPresenter().changeUserInfo(sexid, nickname, url, positionId, tel, roomNum, phone, buildNum);
     }
@@ -434,12 +423,19 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                 tvSex.setText("女");
             }
             url = userinfo.getPhoto();
-            Glide.with(this).load(url).into(iv_header);
+            SharedPrefHelper.getInstance().setuserPhoto(url);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(this, url, iv_header, R.mipmap.ic_default_square);
+//            Glide.with(this).load(url).into(iv_header);
             tvNicheng.setText(userinfo.getNickname());
+            SharedPrefHelper.getInstance().setNickname(userinfo.getNickname());
+
             tvId.setText(userinfo.getId() + "");
             etOfficePhone.setText(userinfo.getTel());
             etRoomNum.setText(userinfo.getRoomnum() + "");
+
             tvPhone.setText(userinfo.getMobile());
+            SharedPrefHelper.getInstance().setPhoneNumber(userinfo.getMobile());
+
             tvPosition.setText(userinfo.getPosition());
             etBuildNum.setText(userinfo.getBuildnum());
         }
@@ -485,5 +481,15 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         } else {
             showToast("上传头像失败了");
         }
+    }
+
+    @Override
+    public UserInfoPresenter createPresenter() {
+        return new UserInfoPresenter();
+    }
+
+    @Override
+    public UserInfoModel createModel() {
+        return new UserInfoModelImpl();
     }
 }

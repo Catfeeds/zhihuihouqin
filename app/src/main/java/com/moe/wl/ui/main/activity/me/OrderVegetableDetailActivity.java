@@ -135,6 +135,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
                 break;
             case 3: // 3：已完成
                 left.setVisibility(View.VISIBLE);
+                left.setText("立即评论");
                 right.setText("再次预订");
                 break;
             case 4: // 4：待评价

@@ -5,8 +5,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import com.moe.wl.R;
-
 /**
  * Created by hh on 2017/6/13.
  */
@@ -41,10 +39,10 @@ public class GlideLoading {
     }
 
     public void loadImgUrlHeader(Context ct, String url, ImageView iv) {
-        Glide.with(ct).load(url).placeholder(R.drawable.visitor_discrepancy).into(iv);
+        Glide.with(ct).load(url).into(iv);
     }
 
     public void loadImgUrlHeader(Context ct, String url, ImageView iv,int defaultImg) {
-        Glide.with(ct).load(url).placeholder(defaultImg).into(iv);
+        Glide.with(ct).load(url).dontAnimate().placeholder(defaultImg).into(iv);
     }
 }

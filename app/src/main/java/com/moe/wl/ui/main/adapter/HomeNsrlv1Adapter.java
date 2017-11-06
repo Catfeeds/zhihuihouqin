@@ -56,7 +56,7 @@ public class HomeNsrlv1Adapter extends RecyclerView.Adapter {
         holder.tvFirstrvTitle.setText(data.get(position).getTitle());
         holder.tvFirstrvTime.setText(data.get(position).getCreatetime());
         holder.tvFirstrvDes.setText(data.get(position).getSource());
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getImg(), holder.ivFirstrvLogo);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getImg(), holder.ivFirstrvLogo, R.mipmap.ic_default_square);
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
