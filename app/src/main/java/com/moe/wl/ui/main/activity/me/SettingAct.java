@@ -1,8 +1,6 @@
 package com.moe.wl.ui.main.activity.me;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
@@ -19,6 +17,7 @@ import com.moe.wl.framework.utils.DataClearUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.activity.LoginActivity;
 import com.moe.wl.ui.main.activity.Base2Activity;
+import com.moe.wl.ui.mywidget.AlertDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,31 +66,27 @@ public class SettingAct extends Base2Activity {
         initTitle();
         setCacheSize();
         float versionCode = getVersionCode(this);
-        tvVersion.setText(versionCode+"");
+        tvVersion.setText("v" + versionCode + "");
     }
 
     private void initTitle() {
         title.setTitle("系统设置");
         title.setBack(true);
     }
+
     /**
      * 获取软件版本号
      *
      * @param context
      * @return
      */
-    private float getVersionCode(Context context)
-    {
+    private float getVersionCode(Context context) {
         float versionCode = 0;
-        try
-        {
+        try {
             // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-            versionCode = Float.valueOf(getPackageManager().getPackageInfo(
-                    getPackageName(), 0).versionCode);
+            versionCode = Float.valueOf(getPackageManager().getPackageInfo(getPackageName(), 0).versionCode);
             //getPackageManager().getPackageInfo(getPackageName(),0).versionCode
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return versionCode;
@@ -113,7 +108,7 @@ public class SettingAct extends Base2Activity {
         switch (view.getId()) {
             case R.id.rl_account_saft:
                 Intent intent = new Intent(this, AcountSaftActivity.class);
-                intent.putExtra("from",Constants.ACCOUNT_SAFT);
+                intent.putExtra("from", Constants.ACCOUNT_SAFT);
                 startActivity(intent);
                 break;
             case R.id.rl_msg_setting:
@@ -140,12 +135,21 @@ public class SettingAct extends Base2Activity {
                 startActivity(intent6);
                 break;
             case R.id.bt_out_login:
-                SharedPrefHelper.getInstance().setToken("");
-                SharedPrefHelper.getInstance().setPassword("");
-                Intent intent7 = new Intent(SettingAct.this, LoginActivity.class);
-                intent7.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent7);
+                AlertDialog dialog = new AlertDialog(SettingAct.this);
+                dialog.builder()
+                        .setTitle("提示")
+                        .setMsg("是否退出登录？")
+                        .setPositiveButton("是", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPrefHelper.getInstance().setToken("");
+                        SharedPrefHelper.getInstance().setPassword("");
+                        Intent intent7 = new Intent(SettingAct.this, LoginActivity.class);
+                        intent7.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent7);
+                    }
+                }).setNegativeButton("否", null).show();
                 break;
         }
     }
@@ -156,7 +160,8 @@ public class SettingAct extends Base2Activity {
             //getPresenter().getServicePhone();
             return;
         }
-        new com.moe.wl.ui.mywidget.AlertDialog(SettingAct.this).builder()
+        new AlertDialog(SettingAct.this).builder()
+                .setTitle("提示")
                 .setMsg("拨打电话" + phone)
                 .setPositiveButton("确认", new View.OnClickListener() {
                     @Override
@@ -171,12 +176,14 @@ public class SettingAct extends Base2Activity {
     }
 
     private void clearCache() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog builder = new AlertDialog(this);
 
-        builder.setTitle("是否清理缓存数据").setPositiveButton("是", new DialogInterface.OnClickListener() {
-
+        builder.builder()
+                .setTitle("提示")
+                .setMsg("是否清理缓存数据")
+                .setPositiveButton("是", new View.OnClickListener() {
             @Override
-            public void onClick(final DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 showProgressDialog("正在清理,请稍后");
                 DataClearUtils.cleanApplicationData(SettingAct.this);
                 new Handler().postDelayed(new Runnable() {
@@ -187,13 +194,7 @@ public class SettingAct extends Base2Activity {
                     }
                 }, 1000);
             }
-        }).setNegativeButton("否", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).show();
+        }).setNegativeButton("否", null).show();
     }
 
 }

@@ -57,7 +57,7 @@
             android:background="@color/white"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
-            android:src="@drawable/button_add" />
+            android:src="@drawable/continue_add" />
 
     </LinearLayout>
 

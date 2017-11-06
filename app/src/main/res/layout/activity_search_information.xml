@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:paddingRight="12dp">
@@ -15,18 +15,15 @@
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/shape_back"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:src="@mipmap/back" />
+            android:padding="5dp"
+            android:src="@drawable/back" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/background_edit"
             android:gravity="center_vertical"
             android:orientation="horizontal">

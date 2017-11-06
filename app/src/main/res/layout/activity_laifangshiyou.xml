@@ -34,18 +34,18 @@
             android:padding="8dp"
             android:textColor="@color/tv_black"
             android:textColorHint="@color/gray"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tb_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/blue"
+        android:layout_margin="12dp"
+        android:background="@drawable/bg_blue_rounded"
         android:gravity="center"
         android:padding="12dp"
         android:text="确定"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_small" />
 </LinearLayout>

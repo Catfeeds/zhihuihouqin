@@ -181,6 +181,8 @@ public class OrderDryFragment extends BaseFragment2 {
             public void onError(Throwable e) {
                 LogUtils.i("获取订单出现问题    " + e.toString());
                 dismissProgressDialog();
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
             }
 
             @Override
@@ -195,6 +197,10 @@ public class OrderDryFragment extends BaseFragment2 {
                     }
                     listAll.addAll(list);
                     dryCleanAdapter.setData(listAll, state);
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(orderBean.getMsg());
                 }
             }
         });

@@ -86,12 +86,16 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     SwitchButton switchButton;
     @BindView(R.id.rv_time)
     RecyclerView rvTime;
+    @BindView(R.id.hint)
+    ImageView hint;
 
     private List<CommentlistBean> data;
     private DoctorDetailrvAdapter adapter;
     private ExpertSelectTimeDayAdapter dayAdapter;
 
     private int doctorID;
+    private String doctorName;
+    private String doctorImage;
 
     private ExpertDetailBean.ExpertEntity entity;
     private List<ExpertDetailBean.SchedulesEntity> timeDayData;
@@ -153,7 +157,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         }
     }
 
-    @OnClick({R.id.iv_doc_detail_back, R.id.iv_doc_detail_consult, R.id.tv_now_order, R.id.tv_check_all})
+    @OnClick({R.id.iv_doc_detail_back, R.id.iv_doc_detail_consult, R.id.tv_now_order, R.id.tv_check_all, R.id.hint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_doc_detail_back:
@@ -162,6 +166,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
             case R.id.iv_doc_detail_consult: // 咨询
                 Intent intent1 = new Intent(this, DoctorConsultActivity.class);
                 intent1.putExtra("doctorid", doctorID);
+                intent1.putExtra("Name", doctorName);
+                intent1.putExtra("Image", doctorImage);
                 startActivity(intent1);
                 break;
             case R.id.tv_now_order://
@@ -185,6 +191,9 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                 intent.putExtra("id", doctorID);
                 startActivity(intent);
                 break;
+            case R.id.hint:
+                getHint();
+                break;
         }
     }
 
@@ -197,6 +206,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         doctorID = bean.getExpert().getId();
         tvSeeing.setText(bean.getExpert().getConsultcount() + "");// 问诊量
         tvDoctorName.setText(bean.getExpert().getRealname());// 医生名
+        doctorName = bean.getExpert().getRealname();
         tvDoctorPosition.setText(bean.getExpert().getPositionname());// 职位名
         tvHospital.setText(bean.getExpert().getHospitalName());// 医院名
         tvStarNum.setText(bean.getExpert().getScore() + "");// 分数
@@ -206,6 +216,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间
         tvContent.setText(bean.getExpert().getBrief());// 简介
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getExpert().getPhoto(), ivDocPhoto, R.mipmap.ic_default_square);
+        doctorImage = bean.getExpert().getPhoto();
         // 评论
         if (bean.getCommentlist() != null) {
             data.addAll(bean.getCommentlist());

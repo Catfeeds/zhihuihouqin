@@ -10,9 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.InformationAdapter;
 import com.moe.wl.ui.main.bean.InformationClazzBean;
+import com.moe.wl.ui.main.fragment.InformationFragment;
+import com.moe.wl.ui.main.model.InformationClassModel;
 import com.moe.wl.ui.main.modelimpl.InformationClassModelImpl;
 import com.moe.wl.ui.main.presenter.InformationClassPresenter;
 import com.moe.wl.ui.main.view.InformationClassView;
@@ -23,10 +28,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.ui.main.fragment.InformationFragment;
-import com.moe.wl.ui.main.model.InformationClassModel;
 
 /**
  * 类描述：
@@ -77,10 +78,10 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
             return;
         }
         if (log == 1) {
-            className.clear();
-            fragments.clear();
-//            clearCacheFragments();
+            clearCacheFragments();
         }
+        className.clear();
+        fragments.clear();
         className.add("推荐");
 
         Bundle b = new Bundle();
@@ -91,6 +92,7 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
         for (int i = 0; i < bean.getNoticeTypeList().size(); i++) {
             className.add(bean.getNoticeTypeList().get(i).getName());
             Bundle bundle = new Bundle();
+            LogUtils.d("typeID : " + bean.getNoticeTypeList().get(i).getId());
             bundle.putInt("typeID", bean.getNoticeTypeList().get(i).getId());
             bundle.putBoolean("isRecommend", false);
             InformationFragment fragment = new InformationFragment();

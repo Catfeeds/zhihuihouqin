@@ -3,7 +3,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/bg_page">
 
     <LinearLayout
         android:id="@+id/bottom"
@@ -52,19 +52,41 @@
                 android:layout_height="wrap_content"
                 android:background="@color/blue">
 
-                <ImageView
-                    android:id="@+id/iv_doc_detail_back"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                <LinearLayout
+                    android:id="@+id/top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="12dp"
                     android:layout_marginTop="12dp"
-                    android:padding="3dp"
-                    android:src="@mipmap/back" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_doc_detail_back"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:padding="3dp"
+                        android:src="@mipmap/back" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:src="@drawable/pay_white_question" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/iv_doc_detail_back"
+                    android:layout_below="@id/top"
                     android:layout_margin="12dp"
                     android:orientation="horizontal">
 
@@ -108,8 +130,8 @@
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_weight="1"
                             android:layout_marginTop="4dp"
+                            android:layout_weight="1"
                             android:gravity="center_vertical">
 
                             <RatingBar
@@ -196,7 +218,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="10dp"
-                android:text="个人简介："
+                android:text="个人简介"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_big"
                 android:textStyle="bold" />
@@ -219,11 +241,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="10dp"
-                android:text="擅长领域："
+                android:text="擅长领域"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_big"
                 android:textStyle="bold" />
@@ -246,6 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:padding="12dp"
+                android:background="@color/white"
                 android:text="问诊服务"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_big"
@@ -258,6 +280,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -285,6 +308,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -326,6 +350,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleView1"
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp">
 
@@ -379,6 +404,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
+                android:background="@color/white"
                 android:paddingTop="8dp" />
 
             <TextView

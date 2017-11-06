@@ -182,6 +182,8 @@ public class WaterFragment extends BaseFragment2 {
             public void onError(Throwable e) {
                 LogUtils.d("获取订单出现问题");
                 dismissProgressDialog();
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
             }
 
             @Override
@@ -195,6 +197,10 @@ public class WaterFragment extends BaseFragment2 {
                     }
                     data.addAll(orderBean.getList());
                     adapter.notifyDataSetChanged();
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(orderBean.getMsg());
                 }
             }
         });

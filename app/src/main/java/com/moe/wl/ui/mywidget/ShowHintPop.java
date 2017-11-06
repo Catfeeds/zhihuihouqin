@@ -59,16 +59,16 @@ public class ShowHintPop extends PopupWindow {
             iKnow.setVisibility(View.VISIBLE);
         }
 
-        scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
-            @Override
-            public void onScrollBottom(boolean isBottom) {
-                if (isBottom) {
-                    iKnow.setVisibility(View.VISIBLE);
-                } else {
-                    iKnow.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
+//            @Override
+//            public void onScrollBottom(boolean isBottom) {
+//                if (isBottom) {
+//                    iKnow.setVisibility(View.VISIBLE);
+//                } else {
+//                    iKnow.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
 
         //设置SelectPicPopupWindow的View
         this.setContentView(view);

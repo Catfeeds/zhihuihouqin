@@ -78,7 +78,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         } else {
             userName.setText(SharedPrefHelper.getInstance().getRealName());
         }
-        tvTime.setText(getIntent().getStringExtra("Time"));
+//        tvTime.setText(getIntent().getStringExtra("Time"));
         phoneNumber.setText(SharedPrefHelper.getInstance().getPhoneNumber());
         list = new ArrayList<>();
         data = (List<VegetableBean.PageEntity.ListEntity>) getIntent().getSerializableExtra("Data");

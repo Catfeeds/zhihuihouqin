@@ -183,6 +183,8 @@ public class OrderHairCutFragment extends BaseFragment2 {
             public void onError(Throwable e) {
                 LogUtils.i("获取订单出现问题");
                 dismissProgressDialog();
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
             }
 
             @Override
@@ -196,6 +198,10 @@ public class OrderHairCutFragment extends BaseFragment2 {
                     }
                     data.addAll(orderBean.getOrderlist());
                     adapter.notifyDataSetChanged();
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(orderBean.getMsg());
                 }
             }
         });

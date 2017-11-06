@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
@@ -17,7 +16,6 @@ import com.moe.wl.framework.base.MessageEvent;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.login.activity.IdentityActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
@@ -264,10 +262,10 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
     }
 
     //更改头像和昵称
-    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         showToast("更改了用户头像");
-        if(event.HEADERCHANGE==event.getCode()){
+        if (event.HEADERCHANGE == event.getCode()) {
 //            LogUtils.i("更改了用户头像================"+"url="+event.getParam1());
 //            Glide.with(getActivity()).load(event.getParam1()).placeholder(R.drawable.avatar2).into(civHeader);
 //            tvName.setText(event.getParam3() + "~" + event.getParam2());
@@ -307,6 +305,13 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.tv_conference_five, R.id.rl_conference})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.ll_personal_auth) {
+            if (SharedPrefHelper.getInstance().getAuthStatus() == 2) {
+                showToast("该账号已通过认证，不可重复认证");
+                return;
+            } else if (SharedPrefHelper.getInstance().getAuthStatus() == 1) {
+                showToast("该账号正在认证审核中，请等待审核结果");
+                return;
+            }
             Intent intent3 = new Intent(getActivity(), IdentityActivity.class);
             startActivity(intent3);
             return;

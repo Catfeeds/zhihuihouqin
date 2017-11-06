@@ -179,6 +179,8 @@ public class OrderConferenceFragment extends BaseFragment2 {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
             }
 
             @Override
@@ -192,6 +194,10 @@ public class OrderConferenceFragment extends BaseFragment2 {
                     }
                     data.addAll(orderBean.getList());
                     adapter.notifyDataSetChanged();
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(orderBean.getMsg());
                 }
             }
         });

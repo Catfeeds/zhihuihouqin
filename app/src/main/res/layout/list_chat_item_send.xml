@@ -22,20 +22,19 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_avatar"
+            android:id="@+id/iv_header"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"
-            android:src="@mipmap/ic_default_square"
-            />
+            android:src="@mipmap/ic_default_square" />
 
         <TextView
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_toLeftOf="@+id/iv_avatar"
+            android:layout_toLeftOf="@id/iv_header"
             android:background="@drawable/send_msg_normal"
             android:gravity="center"
             android:text="你好"

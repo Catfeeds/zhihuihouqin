@@ -212,7 +212,7 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         orderNumber.setText("订单号：" + data.getOrdercode());
         orderTime.setText("下单时间：" + data.getCreatetime());
         time.setText("预约时间：" + data.getScheduledate());
-        state.setText("支付状态：未支付"/* + (data.get == 0 ? "未支付" : "已支付")*/);
+        orderState.setText("支付状态：未支付"/* + (data.get == 0 ? "未支付" : "已支付")*/);
         if (data.getDoctor() != null) {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getDoctor().getPhoto(), image, R.mipmap.ic_default_square);
             name.setText(data.getDoctor().getRealname());

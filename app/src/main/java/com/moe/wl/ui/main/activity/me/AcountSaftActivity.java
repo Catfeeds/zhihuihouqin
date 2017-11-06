@@ -57,25 +57,25 @@ public class AcountSaftActivity extends Base2Activity {
     @Override
     protected void initView() {
         Intent intent = getIntent();
-        from = intent.getIntExtra("from",1);
-        if(from==Constants.ACCOUNT_SAFT){
+        from = intent.getIntExtra("from", 1);
+        if (from == Constants.ACCOUNT_SAFT) {
             title.setTitle("验证手机号");
-        }else if(from==Constants.CHANGE_PWD){
+        } else if (from == Constants.CHANGE_PWD) {
             title.setTitle("找回密码");
             btNext.setText("验证");
-        }else if(from==Constants.FORGET_PWD){
+        } else if (from == Constants.FORGET_PWD) {
             title.setTitle("找回密码");
             btNext.setText("验证");
-        }else if(from==Constants.SET_PWD){
+        } else if (from == Constants.SET_PWD) {
             title.setTitle("设置交易密码");
         }
 
         title.setBack(true);
     }
 
-    @OnClick({R.id.tv_send_code,R.id.bt_next})
+    @OnClick({R.id.tv_send_code, R.id.bt_next})
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_send_code:
                 mobile = etMobile.getText().toString();
 
@@ -87,25 +87,25 @@ public class AcountSaftActivity extends Base2Activity {
                 break;
             case R.id.bt_next:
                 String code = etCode.getText().toString().trim();
-                if(TextUtils.isEmpty(code)){
+                if (TextUtils.isEmpty(code)) {
                     showToast("请输入验证码");
                     return;
                 }
-                if(from==Constants.ACCOUNT_SAFT){//帐号安全
+                if (from == Constants.ACCOUNT_SAFT) {//帐号安全
                     Intent intent = new Intent(AcountSaftActivity.this, RegistStepTwoActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("mobile", mobile);
-                    bundle.putString("captcha",code);
-                    bundle.putInt("from",Constants.FORGET);
+                    bundle.putString("captcha", code);
+                    bundle.putInt("from", Constants.FORGET);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
-                }else if(from==Constants.CHANGE_PWD){//修改支付密码
-                    Intent intent=new Intent(this,ChangePayPwdActivity.class);
+                } else if (from == Constants.CHANGE_PWD) {//修改支付密码
+                    Intent intent = new Intent(this, ChangePayPwdActivity.class);
                     startActivity(intent);
                     finish();
-                }else if(from==Constants.FORGET_PWD||from==Constants.SET_PWD){//忘记密码||设置密码
-                    Intent intent=new Intent(this,ForgetPayPwdActivity.class);
+                } else if (from == Constants.FORGET_PWD || from == Constants.SET_PWD) {//忘记密码||设置密码
+                    Intent intent = new Intent(this, ForgetPayPwdActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -133,14 +133,13 @@ public class AcountSaftActivity extends Base2Activity {
 
             @Override
             public void onNext(CaptchaBean captchaBean) {
-                if(captchaBean.errCode==0){
+                if (captchaBean.errCode == 0) {
                     showToast("获取验证码成功");
                     doTimer();//计时
-                    LogUtils.i("验证码"+captchaBean.captcha);
-                }else if(captchaBean.errCode==1010){
+                    LogUtils.i("验证码" + captchaBean.captcha);
+                } else if (captchaBean.errCode == 1010) {
                     showToast(captchaBean.msg);
-                }
-                else{
+                } else {
                     showToast("获取验证码失败了");
                 }
             }

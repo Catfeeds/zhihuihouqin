@@ -26,7 +26,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -131,6 +130,8 @@ public class OrderBookFragment extends BaseFragment2 {
             public void onError(Throwable e) {
                 LogUtils.d("获取订单出现问题");
                 dismissProgressDialog();
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
             }
 
             @Override
@@ -144,8 +145,10 @@ public class OrderBookFragment extends BaseFragment2 {
                 if (orderBean.getErrCode() == 0) {
                     orderList.addAll(orderBean.getOrderlist());
                     bookOrderAdapter.setData(orderList, state);
+                }  else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
                 } else {
-                    ToastUtil.showToast(getActivity(), orderBean.getMsg());
+                    showToast(orderBean.getMsg());
                 }
             }
         });

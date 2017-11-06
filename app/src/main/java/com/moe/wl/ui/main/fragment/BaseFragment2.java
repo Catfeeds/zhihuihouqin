@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
+import com.moe.wl.framework.manager.UIManager;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
+import com.moe.wl.ui.login.activity.LoginActivity;
 
 /**
  * Created by 我的电脑 on 2017/9/15 0015.
@@ -71,5 +75,14 @@ public abstract class BaseFragment2 extends Fragment {
     }
     public void showToast(String info) {
         Toast.makeText(getActivity(), info, Toast.LENGTH_SHORT).show();
+    }
+
+    public void reLogin(String msg) {
+        if (!TextUtils.isEmpty(msg))
+            showToast(msg);
+        SharedPrefHelper.getInstance().setPassword("");
+        SharedPrefHelper.getInstance().setToken("");
+        UIManager.turnToAct(getActivity(), LoginActivity.class);
+        getActivity().finish();
     }
 }
