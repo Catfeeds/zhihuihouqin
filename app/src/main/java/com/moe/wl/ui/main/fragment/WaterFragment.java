@@ -188,6 +188,8 @@ public class WaterFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderWaterBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

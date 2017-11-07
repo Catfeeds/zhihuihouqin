@@ -189,6 +189,8 @@ public class OrderExpertFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderExpertBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

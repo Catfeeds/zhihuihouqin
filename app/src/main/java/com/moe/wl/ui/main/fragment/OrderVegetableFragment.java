@@ -185,6 +185,8 @@ public class OrderVegetableFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderVegetableBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

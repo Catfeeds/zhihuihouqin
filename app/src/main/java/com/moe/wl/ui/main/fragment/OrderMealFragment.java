@@ -177,6 +177,8 @@ public class OrderMealFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderMealBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

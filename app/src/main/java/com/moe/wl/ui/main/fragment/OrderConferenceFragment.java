@@ -185,12 +185,11 @@ public class OrderConferenceFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderConferenceBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();
-                        recyclerView.refreshComplete();
-                    } else {
-                        recyclerView.loadMoreComplete();
                     }
                     data.addAll(orderBean.getList());
                     adapter.notifyDataSetChanged();

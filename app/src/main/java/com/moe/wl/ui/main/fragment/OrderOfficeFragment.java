@@ -185,6 +185,8 @@ public class OrderOfficeFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderOfficeBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

@@ -187,6 +187,8 @@ public class OrderDryFragment extends BaseFragment2 {
 
             @Override
             public void onNext(CheckDryOrderBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     list = orderBean.getList();
                     if (page == 1) {

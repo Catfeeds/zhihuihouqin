@@ -136,6 +136,8 @@ public class OrderBookFragment extends BaseFragment2 {
 
             @Override
             public void onNext(BookOrderListBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (page == 1) {
                     orderList.clear();
                     recyclerView.refreshComplete();

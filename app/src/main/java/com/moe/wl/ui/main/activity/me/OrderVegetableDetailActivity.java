@@ -94,7 +94,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
         price.setText("¥" + data.getDetail().getPrice());
         allPrice.setText("总计：¥" + data.getDetail().getTotalprice());
         practicePrice.setText("¥" + data.getDetail().getTotalprice());
-        time.setText("取货时间：" + data.getDetail().getTaketime());
+        time.setText("取菜时间：" + data.getDetail().getTaketime());
         orderId.setText("订单号：" + data.getDetail().getOrdercode());
         orderTime.setText("下单时间：" + data.getDetail().getCreatetime());
         String pay;

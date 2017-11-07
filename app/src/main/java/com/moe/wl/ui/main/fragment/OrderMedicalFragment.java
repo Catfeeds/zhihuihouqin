@@ -189,6 +189,8 @@ public class OrderMedicalFragment extends BaseFragment2 {
 
             @Override
             public void onNext(OrderMedicalBean orderBean) {
+                recyclerView.refreshComplete();
+                recyclerView.loadMoreComplete();
                 if (orderBean.getErrCode() == 0) {
                     if (page == 1) {
                         data.clear();

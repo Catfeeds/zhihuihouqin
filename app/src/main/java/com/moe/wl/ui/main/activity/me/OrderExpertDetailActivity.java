@@ -190,18 +190,23 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         states = data.getStatus();
         switch (states) {
             case 1: // 1: 已预约
-                right.setText("取消订单");
+                state.setText("已预约");
+                right.setText("取消预约");
                 break;
-            case 2: // 2: 配送中
+            case 2: // 2: 服务中
+                state.setText("服务中");
                 right.setText("已完成");
                 break;
             case 3: // 3：已完成
-                right.setText("再次预订");
+                state.setText("已完成");
+                right.setText("再次预约");
                 break;
             case 4: // 4：待评价
+                state.setText("待评价");
                 right.setText("立即评价");
                 break;
             case 5: // 5：已取消
+                state.setText("已取消");
                 right.setText("删除订单");
                 break;
         }
@@ -227,18 +232,23 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
         states = data.getStatus();
         switch (states) {
             case 1: // 1: 已预约
-                right.setText("取消订单");
+                state.setText("已预约");
+                right.setText("取消预约");
                 break;
-            case 2: // 2: 配送中
+            case 2: // 2: 服务中
+                state.setText("服务中");
                 right.setText("已完成");
                 break;
             case 3: // 3：已完成
-                right.setText("再次预订");
+                state.setText("已完成");
+                right.setText("再次预约");
                 break;
             case 4: // 4：待评价
+                state.setText("待评价");
                 right.setText("立即评价");
                 break;
             case 5: // 5：已取消
+                state.setText("已取消");
                 right.setText("删除订单");
                 break;
         }
