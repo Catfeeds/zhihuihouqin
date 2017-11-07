@@ -188,7 +188,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
         titleBar.setTitle("美容美发");
     }
 
-    @OnClick({R.id.tv_barber_num, R.id.tv_now_order, R.id.ll_call,R.id.iv_hint})
+    @OnClick({R.id.tv_barber_num, R.id.tv_now_order, R.id.ll_call, R.id.iv_hint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_barber_num:
@@ -199,7 +199,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 startActivity(intent);
                 break;
             case R.id.iv_hint:
-                SharedPrefHelper.getInstance().setServiceHint(Constants.BARBER,false);
+                SharedPrefHelper.getInstance().setServiceHint(Constants.HAIRCUTS, false);
                 showHint(infoBean);
                 break;
             case R.id.tv_now_order:

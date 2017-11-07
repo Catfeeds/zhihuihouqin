@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/standard_padding"
             android:padding="3dp"
-            android:src="@drawable/bule_doubt" />
+            android:src="@drawable/blue_doubt" />
     </RelativeLayout>
 
     <View
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/iv_wen"
-            android:src="@drawable/bule_doubt"
+            android:src="@drawable/blue_doubt"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

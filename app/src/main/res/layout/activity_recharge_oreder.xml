@@ -24,7 +24,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/standard_padding"
-            android:src="@drawable/bule_doubt" />
+            android:src="@drawable/blue_doubt" />
     </RelativeLayout>
 
     <View

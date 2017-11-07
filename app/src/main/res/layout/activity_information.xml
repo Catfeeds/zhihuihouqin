@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/main"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -16,14 +17,25 @@
             android:background="@color/white" />
 
         <ImageView
-            android:id="@+id/search"
+            android:id="@+id/hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
+            android:src="@drawable/blue_doubt"
+            android:layout_marginRight="10dp"
+            android:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/hint"
             android:padding="5dp"
             android:src="@drawable/search" />
+
     </RelativeLayout>
 
 

@@ -2221,13 +2221,15 @@ carcode	是	string	车牌号*/
     public static Observable getInformation(int typeid, int isRecommend, String keyword, int page) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
-            Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("typeid", typeid + "");
-            tempMap.put("isRecommend", isRecommend + "");
+            Map<String, Object> tempMap = new HashMap<>();
+            if (isRecommend != 1) {
+                tempMap.put("typeid", typeid);
+            }
+            tempMap.put("isRecommend", isRecommend);
             tempMap.put("keyword", keyword);
-            tempMap.put("page", page + "");
-            tempMap.put("limit", 20 + "");
-            addParam(paramsMap, tempMap);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -2723,6 +2725,7 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.orderVegetableDetail(paramsMap));
     }
+
     /**
      * 是否可以预约
      */
@@ -2866,13 +2869,13 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable getChargeOrder(int page,int limit,int type) {
+    public static Observable getChargeOrder(int page, int limit, int type) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("page",page+"");
-            tempMap.put("limit",limit+"");
-            tempMap.put("isUnderway",type+"");
+            tempMap.put("page", page + "");
+            tempMap.put("limit", limit + "");
+            tempMap.put("isUnderway", type + "");
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
@@ -3003,11 +3006,11 @@ carcode	是	string	车牌号*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(serviceType.equals("1")){//公告收藏
+        if (serviceType.equals("1")) {//公告收藏
             return getObservable(api.findUserFavorList1(paramsMap));
-        }else if(serviceType.equals("2")){//办公用品收藏
+        } else if (serviceType.equals("2")) {//办公用品收藏
             return getObservable(api.findUserFavorList2(paramsMap));
-        }else if(serviceType.equals("3")){//理发收藏
+        } else if (serviceType.equals("3")) {//理发收藏
             return getObservable(api.findUserFavorList3(paramsMap));
         } else if (serviceType.equals("4")) {//图书收藏
             return getObservable(api.findUserFavorList4(paramsMap));
@@ -3064,6 +3067,7 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.findUserWallet(paramsMap));
     }
+
     /**
      * 对公钱包信息
      *
@@ -3073,7 +3077,7 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("serviceType",serviceType);
+            tempMap.put("serviceType", serviceType);
             addParam(paramsMap, tempMap);
 
         } catch (Exception e) {
@@ -3087,12 +3091,12 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable findWalletLog(String page,String limit) {
+    public static Observable findWalletLog(String page, String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("page",page);
-            tempMap.put("limit",limit);
+            tempMap.put("page", page);
+            tempMap.put("limit", limit);
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
@@ -3105,12 +3109,12 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable generateChargeWalletOrder(double money,int ordertype) {
+    public static Observable generateChargeWalletOrder(double money, int ordertype) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
             tempMap.put("money", money + "");
-           // tempMap.put("paytype", paytype + "");
+            // tempMap.put("paytype", paytype + "");
             tempMap.put("ordertype", ordertype + "");
             addParam(paramsMap, tempMap);
 
@@ -3125,12 +3129,12 @@ carcode	是	string	车牌号*/
      *
      * @return
      */
-    public static Observable findChargeOrder(String page,String limit) {
+    public static Observable findChargeOrder(String page, String limit) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("page",page);
-            tempMap.put("limit",limit);
+            tempMap.put("page", page);
+            tempMap.put("limit", limit);
             addParam(paramsMap, tempMap);
         } catch (Exception e) {
             e.printStackTrace();
@@ -3154,6 +3158,7 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.getUserDeposit(paramsMap));
     }
+
     /**
      * 查询押金
      *
@@ -3170,6 +3175,7 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.backDeposit(paramsMap));
     }
+
     /**
      * 是否有交易密码
      *
@@ -3240,6 +3246,7 @@ carcode	是	string	车牌号*/
         }
         return getObservable(api.findPurchaseAccountList(paramsMap));
     }
+
     /**
      * 意见反馈
      *

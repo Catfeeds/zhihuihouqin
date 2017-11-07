@@ -7,20 +7,27 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.InformationAdapter;
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.InformationClazzBean;
 import com.moe.wl.ui.main.fragment.InformationFragment;
 import com.moe.wl.ui.main.model.InformationClassModel;
 import com.moe.wl.ui.main.modelimpl.InformationClassModelImpl;
 import com.moe.wl.ui.main.presenter.InformationClassPresenter;
 import com.moe.wl.ui.main.view.InformationClassView;
+import com.moe.wl.ui.mywidget.ShowHintPop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +35,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.ToastUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * 类描述：
@@ -46,6 +56,8 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
     ViewPager viewPager;
     @BindView(R.id.add_module)
     ImageView add_module;
+    @BindView(R.id.hint)
+    ImageView hint;
 
     //    private int id;
     private List<String> className;
@@ -68,7 +80,9 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
         className = new ArrayList<>();
 //        id = getIntent().getIntExtra("userID", 0);
         getPresenter().getInformationClass(1);
-
+        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.INFORMATION)) {
+            getHint();
+        }
         fragments = new ArrayList<>();
     }
 
@@ -125,11 +139,47 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
 
     }
 
-    @OnClick({R.id.search})
+    @OnClick({R.id.search, R.id.hint})
     public void onViewClicked(View view) {
-        if (view.getId() == R.id.search) {
-            startActivity(new Intent(InformationActivity.this, SearchInformationActivity.class));
+        switch (view.getId()) {
+            case R.id.search:
+                startActivity(new Intent(InformationActivity.this, SearchInformationActivity.class));
+                break;
+            case R.id.hint:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.INFORMATION, false);
+                getHint();
+                break;
         }
+    }
+
+
+    private void getHint() {
+        Observable observable = RetrofitUtils.getInstance().getBanner(Constants.INFORMATION);
+        observable.subscribe(new Subscriber<BannerResponse>() {
+
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BannerResponse mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.errCode == 0) {
+
+                    // TODO 弹温馨出提示窗
+                    ShowHintPop pop = new ShowHintPop(InformationActivity.this, mResponse.getServiceInfo().getRemind(), Constants.INFORMATION);
+                    pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                } else {
+                    ToastUtil.showToast(InformationActivity.this, mResponse.msg);
+                }
+            }
+        });
     }
 
     @Override
