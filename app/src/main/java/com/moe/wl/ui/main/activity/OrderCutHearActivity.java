@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,7 +27,7 @@ import com.moe.wl.ui.main.model.ShopModel;
 import com.moe.wl.ui.main.modelimpl.ShopModelImpl;
 import com.moe.wl.ui.main.presenter.ShopPresenter;
 import com.moe.wl.ui.main.view.ShopView;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
+import mvp.cn.util.DensityUtil;
 import mvp.cn.util.LogUtil;
 import mvp.cn.util.StringUtil;
 
@@ -157,8 +157,14 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     private void showHint(BannerResponse.ServiceInfoBean infoBean) {
         // TODO 弹温馨出提示窗
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.HAIRCUTS)) {
-            ShowHintPop pop = new ShowHintPop(this, infoBean.getRemind(), Constants.HAIRCUTS);
-            pop.showAtLocation(findViewById(R.id.activity_order_cut_hear), Gravity.CENTER, 0, 0);
+            final ShowHintDialog pop = new ShowHintDialog(this, infoBean.getRemind(), Constants.HAIRCUTS);
+            pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                @Override
+                public void onSetting(TextView content) {
+                    pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(OrderCutHearActivity.this, 280));
+                }
+            });
+            pop.show();
         }
     }
 

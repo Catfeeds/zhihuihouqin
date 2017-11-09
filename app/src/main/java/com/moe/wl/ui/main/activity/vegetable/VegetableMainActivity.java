@@ -26,7 +26,7 @@ import com.moe.wl.ui.main.modelimpl.VegetableMainModelImpl;
 import com.moe.wl.ui.main.presenter.VegetableMainPresenter;
 import com.moe.wl.ui.main.view.VegetableMainView;
 import com.moe.wl.ui.mywidget.ShowBigPhotoPop;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 import com.moe.wl.ui.mywidget.TsAlertDialog;
 
 import java.io.Serializable;
@@ -37,6 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
 import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
@@ -155,14 +156,14 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
 //        getPresenter().getVegetableData(page, "");
     }
 
-    @OnClick({R.id.submit, R.id.search,R.id.iv_hint})
+    @OnClick({R.id.submit, R.id.search, R.id.iv_hint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.submit:
                 submitOrder();
                 break;
             case R.id.iv_hint:
-                SharedPrefHelper.getInstance().setServiceHint(Constants.VEGETABLE,false);
+                SharedPrefHelper.getInstance().setServiceHint(Constants.VEGETABLE, false);
                 getHint();
                 break;
             case R.id.search:
@@ -300,8 +301,15 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                 if (mResponse.errCode == 0) {
 
                     // TODO 弹温馨出提示窗
-                        ShowHintPop pop = new ShowHintPop(VegetableMainActivity.this, mResponse.getServiceInfo().getRemind(), Constants.VEGETABLE);
-                        pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                    final ShowHintDialog pop = new ShowHintDialog(VegetableMainActivity.this, mResponse.getServiceInfo().getRemind(), Constants.VEGETABLE);
+//                        pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                    pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                        @Override
+                        public void onSetting(TextView content) {
+                            pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(VegetableMainActivity.this, 280));
+                        }
+                    });
+                    pop.show();
                 } else {
                     ToastUtil.showToast(VegetableMainActivity.this, mResponse.msg);
                 }

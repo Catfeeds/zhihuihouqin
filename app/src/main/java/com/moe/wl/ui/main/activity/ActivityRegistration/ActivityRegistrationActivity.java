@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ import com.moe.wl.ui.main.model.BannerModel;
 import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
 import com.moe.wl.ui.main.presenter.BannerPresenter;
 import com.moe.wl.ui.main.view.BannerView;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -162,8 +162,14 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
 
         // TODO 弹温馨出提示窗
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.TEAMACTIVE)) {
-            ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.TEAMACTIVE);
-            pop.showAtLocation(findViewById(R.id.activity_registration2), Gravity.CENTER, 0, 0);
+            final ShowHintDialog pop = new ShowHintDialog(this, bean.getRemind(), Constants.TEAMACTIVE);
+            pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                @Override
+                public void onSetting(TextView content) {
+                    pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(ActivityRegistrationActivity.this, 280));
+                }
+            });
+            pop.show();
         }
     }
 

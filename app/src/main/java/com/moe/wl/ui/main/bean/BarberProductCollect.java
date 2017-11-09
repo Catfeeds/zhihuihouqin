@@ -71,6 +71,13 @@ public class BarberProductCollect {
         private String smallimg;
         private Object url;
 
+        private String address;
+        private String mobile;
+        private String photo;
+        private int positionid;
+        private double score;
+        private int valid;
+
         public int getBarberid() {
             return barberid;
         }
@@ -157,6 +164,54 @@ public class BarberProductCollect {
 
         public void setUrl(Object url) {
             this.url = url;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
+
+        public int getPositionid() {
+            return positionid;
+        }
+
+        public void setPositionid(int positionid) {
+            this.positionid = positionid;
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
+        }
+
+        public int getValid() {
+            return valid;
+        }
+
+        public void setValid(int valid) {
+            this.valid = valid;
         }
     }
 }

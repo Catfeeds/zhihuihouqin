@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.view;
 
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
-import com.moe.wl.ui.main.bean.BarberCollect;
 import com.moe.wl.ui.main.bean.BarberProductCollect;
 import com.moe.wl.ui.main.bean.BookCollect;
 import com.moe.wl.ui.main.bean.InfolistBean;
@@ -31,5 +30,5 @@ public interface McNoticeView extends MvpView {
 
     void getCollect6(List<ActivityHomeBean.ActivitylistBean> activitylist);
 
-    void getCollect7(List<BarberCollect.ListBean> barberlist);
+    void getCollect7(List<BarberProductCollect.ListBean> barberlist);
 }

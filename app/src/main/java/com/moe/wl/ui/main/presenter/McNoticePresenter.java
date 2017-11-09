@@ -27,208 +27,207 @@ public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeVi
     public void findUserFavorList(String type) {
         getView().showProgressDialog();
         Observable request = getModel().findUserFavorList(type);
-       if(type.equals("1")) {
-           getNetWork(request, new Subscriber<InforMationCollect>() {
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+        if (type.equals("1")) {
+            getNetWork(request, new Subscriber<InforMationCollect>() {
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(InforMationCollect mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
-                       getView().getCollect1(mResponse.getList());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }else if(type.equals("2")) {
-           getNetWork(request, new Subscriber<OfficeCollect>() {
+                @Override
+                public void onNext(InforMationCollect mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
+                        getView().getCollect1(mResponse.getList());
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        } else if (type.equals("2")) {
+            getNetWork(request, new Subscriber<OfficeCollect>() {
 
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(OfficeCollect mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
+                @Override
+                public void onNext(OfficeCollect mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
                         getView().getCollect2(mResponse.getList());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }else if("3".equals(type)){//理发收藏
-           getNetWork(request, new Subscriber<BarberProductCollect>() {
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        } else if ("3".equals(type)) {//理发收藏
+            getNetWork(request, new Subscriber<BarberProductCollect>() {
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(BarberProductCollect mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
-                       getView().getCollect3(mResponse.getList());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }
-       else if("4".equals(type)){//图书收藏
-           getNetWork(request, new Subscriber<BookCollect>() {
+                @Override
+                public void onNext(BarberProductCollect mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
+                        getView().getCollect3(mResponse.getList());
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        } else if ("4".equals(type)) {//图书收藏
+            getNetWork(request, new Subscriber<BookCollect>() {
 
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(BookCollect mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
-                       getView().getCollect4(mResponse.getList());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }else if("5".equals(type)){//专家收藏
-           getNetWork(request, new Subscriber<HealthServerceHomeBean>() {
+                @Override
+                public void onNext(BookCollect mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
+                        getView().getCollect4(mResponse.getList());
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        } else if ("5".equals(type)) {//专家收藏
+            getNetWork(request, new Subscriber<HealthServerceHomeBean>() {
 
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(HealthServerceHomeBean mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
-                       getView().getCollect5(mResponse.getInfolist());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }else if("6".equals(type)){//活动收藏
-           getNetWork(request, new Subscriber<ActivityHomeBean>() {
+                @Override
+                public void onNext(HealthServerceHomeBean mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
+                        getView().getCollect5(mResponse.getList());
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        } else if ("6".equals(type)) {//活动收藏
+            getNetWork(request, new Subscriber<ActivityHomeBean>() {
 
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(ActivityHomeBean mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
-                       getView().getCollect6(mResponse.getActivitylist());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }else if("7".equals(type)){//理发师收藏
-           getNetWork(request, new Subscriber<BarberCollect>() {
-               @Override
-               public void onCompleted() {
-                   getView().dismissProgressDialog();
-               }
+                @Override
+                public void onNext(ActivityHomeBean mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
+                        getView().getCollect6(mResponse.getActivitylist());
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        } else if ("7".equals(type)) {//理发师收藏
+            getNetWork(request, new Subscriber<BarberCollect>() {
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
 
-               @Override
-               public void onError(Throwable e) {
-                   getView().dismissProgressDialog();
-                   Log.e("Throwable", e.getMessage());
-               }
+                @Override
+                public void onError(Throwable e) {
+                    getView().dismissProgressDialog();
+                    Log.e("Throwable", e.getMessage());
+                }
 
-               @Override
-               public void onNext(BarberCollect mResponse) {
-                   if (mResponse == null)
-                       return;
-                   if (mResponse.getErrCode() == 2) {
-                       getView().reLogin(Constants.LOGIN_ERROR);
-                       return;
-                   }
-                   if (mResponse.getErrCode() == 0) {
-                       getView().getCollect7(mResponse.getList());
-                   } else {
-                       getView().showToast(mResponse.getMsg());
-                   }
-               }
-           });
-       }
+                @Override
+                public void onNext(BarberCollect mResponse) {
+                    if (mResponse == null)
+                        return;
+                    if (mResponse.getErrCode() == 2) {
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }
+                    if (mResponse.getErrCode() == 0) {
+                        getView().getCollect7(mResponse.getList());
+                    } else {
+                        getView().showToast(mResponse.getMsg());
+                    }
+                }
+            });
+        }
     }
 
     @Override

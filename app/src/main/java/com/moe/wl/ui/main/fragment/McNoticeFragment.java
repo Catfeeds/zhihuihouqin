@@ -19,7 +19,6 @@ import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
 import com.moe.wl.ui.main.adapter.InfomationCollectAdapter;
 import com.moe.wl.ui.main.adapter.OfficeCollectAdapter;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
-import com.moe.wl.ui.main.bean.BarberCollect;
 import com.moe.wl.ui.main.bean.BarberProductCollect;
 import com.moe.wl.ui.main.bean.BookCollect;
 import com.moe.wl.ui.main.bean.BooklistBean;
@@ -65,7 +64,7 @@ public class McNoticeFragment extends BaseFragment<McNocticeModel, McNoticeView,
     private BookCollectAdapter bookAdapter;
     private BarberProAdapter bpAdapter;
     private BarberCollectAdapter barberAdapter;
-    private List<BarberCollect.ListBean> barberlist;
+    private List<BarberProductCollect.ListBean> barberlist;
 
     public static McNoticeFragment getInstance(String type) {
         McNoticeFragment fragment = new McNoticeFragment();
@@ -223,7 +222,7 @@ public class McNoticeFragment extends BaseFragment<McNocticeModel, McNoticeView,
     }
 
     @Override//理发师
-    public void getCollect7(List<BarberCollect.ListBean> barberList) {
+    public void getCollect7(List<BarberProductCollect.ListBean> barberList) {
         if(page==1){
             barberlist.clear();
         }

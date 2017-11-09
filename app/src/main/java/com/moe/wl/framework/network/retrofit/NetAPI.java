@@ -818,6 +818,7 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.findUserFavorList)
     Observable<BarberCollect> findUserFavorList7(@FieldMap Map<String, Object> map);
+
     //修改用户信息
     @FormUrlEncoded
     @POST(NetUrl.changeUserInfo)

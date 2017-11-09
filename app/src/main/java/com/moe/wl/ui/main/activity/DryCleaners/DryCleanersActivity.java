@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.DryCleaners;
 import android.content.Intent;
 import android.text.Html;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,7 +22,7 @@ import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
 import com.moe.wl.ui.main.presenter.BannerPresenter;
 import com.moe.wl.ui.main.view.BannerView;
 import com.moe.wl.ui.mywidget.AlertDialog;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import java.util.ArrayList;
 
@@ -190,8 +189,9 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
     private void showHint(BannerResponse.ServiceInfoBean bean) {
         // TODO 弹温馨出提示窗
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.DRYCLEANER)) {
-            ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.DRYCLEANER);
-            pop.showAtLocation(findViewById(R.id.activity_dry_cleaners), Gravity.CENTER, 0, 0);
+            ShowHintDialog pop = new ShowHintDialog(this, bean.getRemind(), Constants.DRYCLEANER);
+//            pop.showAtLocation(findViewById(R.id.activity_dry_cleaners), Gravity.CENTER, 0, 0);
+            pop.show();
         }
     }
 

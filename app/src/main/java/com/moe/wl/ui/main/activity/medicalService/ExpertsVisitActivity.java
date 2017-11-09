@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +18,7 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityRegistrationActivity;
 import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
 import com.moe.wl.ui.main.activity.ReserveInfoActivity;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
@@ -32,7 +32,7 @@ import com.moe.wl.ui.main.modelimpl.ExpertDetailModelImpl;
 import com.moe.wl.ui.main.presenter.ExpertDetailPresenter;
 import com.moe.wl.ui.main.view.ExpertDetailView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;
@@ -40,6 +40,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
 import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
@@ -253,8 +254,14 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                     return;
                 if (mResponse.errCode == 0) {
                     // TODO 弹温馨出提示窗
-                    ShowHintPop pop = new ShowHintPop(ExpertsVisitActivity.this, mResponse.getServiceInfo().getRemind(), Constants.EXPERTS);
-                    pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                    final ShowHintDialog pop = new ShowHintDialog(ExpertsVisitActivity.this, mResponse.getServiceInfo().getRemind(), Constants.EXPERTS);
+                    pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                        @Override
+                        public void onSetting(TextView content) {
+                            pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(ExpertsVisitActivity.this, 280));
+                        }
+                    });
+                    pop.show();
                 } else {
                     ToastUtil.showToast(ExpertsVisitActivity.this, mResponse.msg);
                 }

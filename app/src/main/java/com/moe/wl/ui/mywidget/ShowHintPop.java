@@ -2,6 +2,7 @@ package com.moe.wl.ui.mywidget;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Editable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
+
+import org.xml.sax.XMLReader;
 
 /**
  * 类描述：每个子项目的弹出窗
@@ -33,7 +36,7 @@ public class ShowHintPop extends PopupWindow {
 
         this.context = context;
         view = LayoutInflater.from(context).inflate(R.layout.pop_show_hint, null);
-        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         content = (TextView) view.findViewById(R.id.content);
         isShowNext = (CheckBox) view.findViewById(R.id.next_show);
         iKnow = (TextView) view.findViewById(R.id.i_know);
@@ -42,7 +45,12 @@ public class ShowHintPop extends PopupWindow {
         if (cont == null) {
             content.setText("空");
         } else {
-            content.setText(Html.fromHtml(cont));
+            content.setText(Html.fromHtml(cont, null, new Html.TagHandler() {
+                @Override
+                public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+//                    LogUtils.d("opening : " + opening + " tag : " + tag + " output : " + output.toString() + " xmlReader : " + xmlReader.toString());
+                }
+            }));
         }
 
         iKnow.setOnClickListener(new View.OnClickListener() {
@@ -52,23 +60,23 @@ public class ShowHintPop extends PopupWindow {
                 dismiss();
             }
         });
-        LogUtils.d("是否可依向下滚动？" + scroll.canScrollVertically(-1));
-        if (scroll.canScrollVertically(0)) {
-            iKnow.setVisibility(View.INVISIBLE);
-        } else {
-            iKnow.setVisibility(View.VISIBLE);
-        }
+//        LogUtils.d("是否可依向下滚动？" + scroll.canScrollVertically(-1));
+//        if (scroll.canScrollVertically(0)) {
+//            iKnow.setVisibility(View.INVISIBLE);
+//        } else {
+//            iKnow.setVisibility(View.VISIBLE);
+//        }
 
-//        scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
-//            @Override
-//            public void onScrollBottom(boolean isBottom) {
-//                if (isBottom) {
-//                    iKnow.setVisibility(View.VISIBLE);
-//                } else {
-//                    iKnow.setVisibility(View.INVISIBLE);
-//                }
-//            }
-//        });
+        scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
+            @Override
+            public void onScrollBottom(boolean isBottom) {
+                if (isBottom) {
+                    iKnow.setVisibility(View.VISIBLE);
+                } else {
+                    iKnow.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         //设置SelectPicPopupWindow的View
         this.setContentView(view);
@@ -102,5 +110,15 @@ public class ShowHintPop extends PopupWindow {
         });*/
     }
 
+    @Override
+    public int getHeight() {
+        LogUtils.d("高度：" + super.getHeight());
+        return super.getHeight();
+    }
 
+    @Override
+    public int getWidth() {
+        LogUtils.d("宽度：" + super.getWidth());
+        return super.getWidth();
+    }
 }

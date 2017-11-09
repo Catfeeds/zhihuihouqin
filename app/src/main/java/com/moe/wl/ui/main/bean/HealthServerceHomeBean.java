@@ -18,7 +18,7 @@ public class HealthServerceHomeBean {
     private String msg;
     private int errCode;
     private String picture;
-    private List<InfolistBean> infolist;
+    private List<InfolistBean> list;
 
     public String getMsg() {
         return msg;
@@ -44,12 +44,12 @@ public class HealthServerceHomeBean {
         this.picture = picture;
     }
 
-    public List<InfolistBean> getInfolist() {
-        return infolist;
+    public List<InfolistBean> getList() {
+        return list;
     }
 
-    public void setInfolist(List<InfolistBean> infolist) {
-        this.infolist = infolist;
+    public void setList(List<InfolistBean> infolist) {
+        this.list = infolist;
     }
 
 }

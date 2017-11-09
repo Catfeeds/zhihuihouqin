@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -27,7 +27,7 @@ import com.moe.wl.ui.main.model.InformationClassModel;
 import com.moe.wl.ui.main.modelimpl.InformationClassModelImpl;
 import com.moe.wl.ui.main.presenter.InformationClassPresenter;
 import com.moe.wl.ui.main.view.InformationClassView;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
 import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
@@ -173,8 +174,14 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
                 if (mResponse.errCode == 0) {
 
                     // TODO 弹温馨出提示窗
-                    ShowHintPop pop = new ShowHintPop(InformationActivity.this, mResponse.getServiceInfo().getRemind(), Constants.INFORMATION);
-                    pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+                    final ShowHintDialog pop = new ShowHintDialog(InformationActivity.this, mResponse.getServiceInfo().getRemind(), Constants.INFORMATION);
+                    pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                        @Override
+                        public void onSetting(TextView content) {
+                            pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(InformationActivity.this, 280));
+                        }
+                    });
+                    pop.show();
                 } else {
                     ToastUtil.showToast(InformationActivity.this, mResponse.msg);
                 }

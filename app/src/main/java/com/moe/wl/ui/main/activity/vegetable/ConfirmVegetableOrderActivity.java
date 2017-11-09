@@ -91,7 +91,7 @@ public class ConfirmVegetableOrderActivity extends BaseActivity<ConfirmVegetable
         }
         DecimalFormat df = new DecimalFormat("###.00");
         price.setText("¥" + df.format(priceNum));
-        submit.setText("去结算(" + vegetableNum + ")");
+//        submit.setText("去结算(" + vegetableNum + ")");
         adapter = new VegetableOrderAdapter(this, list);
         listView.setAdapter(adapter);
     }

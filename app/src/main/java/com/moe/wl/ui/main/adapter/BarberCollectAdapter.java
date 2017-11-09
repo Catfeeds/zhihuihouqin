@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
-import com.moe.wl.ui.main.bean.BarberCollect;
+import com.moe.wl.ui.main.bean.BarberProductCollect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class BarberCollectAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<BarberCollect.ListBean> data=new ArrayList<>();
+    private List<BarberProductCollect.ListBean> data=new ArrayList<>();
 
     public BarberCollectAdapter(Context mContext) {
         this.mContext = mContext;
@@ -43,7 +43,7 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         if(data!=null){
-            BarberCollect.ListBean listBean = data.get(position);
+            BarberProductCollect.ListBean listBean = data.get(position);
             viewHolder.setData(listBean,position);
         }
     }
@@ -57,7 +57,7 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void setData(List<BarberCollect.ListBean> data) {
+    public void setData(List<BarberProductCollect.ListBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -69,7 +69,7 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
         TextView tvSpDes;
         @BindView(R.id.tv_price)
         TextView tvPrice;
-        private BarberCollect.ListBean data;
+        private BarberProductCollect.ListBean data;
         private int id;
 
         ViewHolder(View view) {
@@ -77,7 +77,7 @@ public class BarberCollectAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(BarberCollect.ListBean listBean, int position) {
+        public void setData(BarberProductCollect.ListBean listBean, int position) {
             this.data=listBean;
             GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,listBean.getPhoto(),icSpPhoto,R.mipmap.ic_default_square);
             tvSpDes.setText(listBean.getName());

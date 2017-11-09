@@ -5,10 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -28,15 +28,15 @@ import com.moe.wl.ui.main.model.BannerModel;
 import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
 import com.moe.wl.ui.main.presenter.BannerPresenter;
 import com.moe.wl.ui.main.view.BannerView;
-import com.moe.wl.ui.mywidget.ShowHintPop;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
 
 /**
  * 图书馆首页
@@ -144,8 +144,14 @@ public class LibraryActivity extends BaseActivity<BannerModel, BannerView, Banne
     private void showHint(BannerResponse.ServiceInfoBean bean) {
         // TODO 弹温馨出提示窗
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.BOOK)) {
-            ShowHintPop pop = new ShowHintPop(this, bean.getRemind(), Constants.BOOK);
-            pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
+            final ShowHintDialog pop = new ShowHintDialog(this, bean.getRemind(), Constants.BOOK);
+            pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                @Override
+                public void onSetting(TextView content) {
+                    pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(LibraryActivity.this, 280));
+                }
+            });
+            pop.show();
         }
     }
 
