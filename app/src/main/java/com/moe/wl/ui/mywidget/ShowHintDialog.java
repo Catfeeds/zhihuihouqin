@@ -65,26 +65,6 @@ public class ShowHintDialog extends Dialog {
             tvContent.setText(Html.fromHtml(content));
         }
 
-//        iKnow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SharedPrefHelper.getInstance().setServiceHint(serviceType, isShowNext.isChecked());
-//                dismiss();
-//            }
-//        });
-
-//        ll.setOnLinearHeight(new HeightLinearLayout.OnLinearHeight() {
-//            @Override
-//            public void onHeight(int height) {
-//                if (height < DensityUtil.dip2px(context, 280)) {
-//                    LogUtils.d("没有ScrollView高");
-//                } else {
-//                    LogUtils.d("比ScrollView高");
-//                }
-//
-//            }
-//        });
-
         scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
             @Override
             public void onScrollBottom(boolean isBottom) {
@@ -105,6 +85,7 @@ public class ShowHintDialog extends Dialog {
         view.setLayoutParams(params);
         setContentView(view, params);
         setCanceledOnTouchOutside(false);
+        setCancelable(false);
 
         WindowManager.LayoutParams p = getWindow().getAttributes();
         p.gravity = Gravity.CENTER;

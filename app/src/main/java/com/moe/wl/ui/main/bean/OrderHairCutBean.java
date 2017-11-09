@@ -206,6 +206,7 @@ public class OrderHairCutBean implements Serializable {
         private int score;
         private int status;
         private int uid;
+        private int checkstatus;
 
         public String getAddr() {
             return addr;
@@ -349,6 +350,14 @@ public class OrderHairCutBean implements Serializable {
 
         public void setUid(int uid) {
             this.uid = uid;
+        }
+
+        public int getCheckstatus() {
+            return checkstatus;
+        }
+
+        public void setCheckstatus(int checkstatus) {
+            this.checkstatus = checkstatus;
         }
     }
 }

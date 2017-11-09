@@ -13,5 +13,9 @@ import mvp.cn.common.MvpView;
 public interface VegetableMainView extends MvpView {
 
     void getVegetableDataSucc(VegetableBean bean);
-void canOrderedResult(CanOrderedBean bean);
+
+    void canOrderedResult(CanOrderedBean bean);
+
+    void onError();
+
 }

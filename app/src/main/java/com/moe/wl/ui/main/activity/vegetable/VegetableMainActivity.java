@@ -97,6 +97,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             public void onRefresh() {
                 page = 1;
                 getPresenter().getVegetableData(page, "");
+
             }
 
             @Override
@@ -245,14 +246,11 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
             return;
         }
         if (page == 1) {
-            recycleView.refreshComplete();
             number = 0;
             vegetableNum.setText("共0份");
             price.setText("¥0");
             submit.setText("去结算");
             data.clear();
-        } else {
-            recycleView.loadMoreComplete();
         }
         page = bean.getPage().getCurrPage();
         data.addAll(bean.getPage().getList());
@@ -281,6 +279,15 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         }
     }
 
+    @Override
+    public void onError() {
+        if (page == 1) {
+            recycleView.refreshComplete();
+        } else {
+            recycleView.loadMoreComplete();
+        }
+    }
+
     private void getHint() {
         Observable observable = RetrofitUtils.getInstance().getBanner(Constants.VEGETABLE);
         observable.subscribe(new Subscriber<BannerResponse>() {
@@ -300,7 +307,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
                     return;
                 if (mResponse.errCode == 0) {
 
-                    // TODO 弹温馨出提示窗
+                    // TODO 弹出温馨提示窗
                     final ShowHintDialog pop = new ShowHintDialog(VegetableMainActivity.this, mResponse.getServiceInfo().getRemind(), Constants.VEGETABLE);
 //                        pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
                     pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {

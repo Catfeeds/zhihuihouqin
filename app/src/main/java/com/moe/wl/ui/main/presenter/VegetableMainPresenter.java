@@ -33,13 +33,15 @@ public class VegetableMainPresenter extends MvpRxPresenter<VegetableMainModel, V
             public void onError(Throwable e) {
                 Log.e("Throwable", e.getMessage());
                 getView().dismissProgressDialog();
+                getView().onError();
             }
 
             @Override
             public void onNext(VegetableBean mResponse) {
-                if (mResponse==null)
+                getView().onError();
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
@@ -51,6 +53,7 @@ public class VegetableMainPresenter extends MvpRxPresenter<VegetableMainModel, V
             }
         });
     }
+
     public void canOrdered() {
         getView().showProgressDialog();
         Observable request = getModel().canOrdered();
@@ -69,20 +72,21 @@ public class VegetableMainPresenter extends MvpRxPresenter<VegetableMainModel, V
 
             @Override
             public void onNext(CanOrderedBean mResponse) {
-                if (mResponse==null)
+                if (mResponse == null)
                     return;
-                if (mResponse.getErrCode()==2){
+                if (mResponse.getErrCode() == 2) {
                     getView().reLogin(Constants.LOGIN_ERROR);
                     return;
                 }
                 if (mResponse.getErrCode() == 0) {
                     getView().canOrderedResult(mResponse);
-                } else if(mResponse.getErrCode()==1001){
+                } else if (mResponse.getErrCode() == 1001) {
                     getView().canOrderedResult(mResponse);
                 }
             }
         });
     }
+
     @Override
     public void detachView(boolean retainInstance) {
         super.detachView(retainInstance);

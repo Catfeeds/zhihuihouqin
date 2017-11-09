@@ -107,6 +107,11 @@ public class VegetableSearchActivity extends BaseActivity<VegetableMainModel, Ve
 
     }
 
+    @Override
+    public void onError() {
+
+    }
+
     private View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 
         @Override
