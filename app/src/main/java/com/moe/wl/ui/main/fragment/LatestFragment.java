@@ -56,7 +56,7 @@ public class LatestFragment extends BaseFragment<LibraryHomeModel, LibraryHomeVi
             @Override
             public void cb(BooklistBean bookListvBean, String BookID, boolean again) {
                 Intent intent = new Intent(getActivity(), BookDescriptionActivity.class);
-                intent.putExtra("content", bookListvBean.getShortbrief());
+                intent.putExtra("content", bookListvBean.getBrief());
                 intent.putExtra("bean", bookListvBean);
                 intent.putExtra("again", again);
                 if (activity.bookList != null && activity.bookList.size() > 0) {

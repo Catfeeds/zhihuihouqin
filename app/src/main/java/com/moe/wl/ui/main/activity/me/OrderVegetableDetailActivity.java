@@ -128,6 +128,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
         state = data.getDetail().getStatus();
         switch (state) {
             case 1: // 1: 已预约
+
                 right.setText("取消订单");
                 break;
             case 2: // 2: 配送中

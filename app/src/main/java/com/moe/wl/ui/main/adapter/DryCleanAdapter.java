@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.DryCleaners.DryToCommentAct;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.me.OrderDryDetailActivity;
 import com.moe.wl.ui.main.bean.CheckDryOrderBean;
 
@@ -113,8 +115,19 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
                 }
                 switch (state) {
                     case 1:
+                        if (mList.get(position).getPayStatus() == 0) {
+                            tvToComment.setVisibility(View.VISIBLE);
+                            if (mList.get(position).getCheckstatus() == 0) {
+                                tvToComment.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_order_gray_button));
+                                tvToComment.setClickable(false);
+                            } else {
+                                tvToComment.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_order_button));
+                                tvToComment.setClickable(true);
+                            }
+                        } else {
+                            tvToComment.setVisibility(View.GONE);
+                        }
                         tvAll.setText("取消预订");
-                        tvToComment.setVisibility(View.GONE);
                         tvAll.setOnClickListener(this);
                         break;
                     case 2:
@@ -152,6 +165,20 @@ public class DryCleanAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, OrderDryDetailActivity.class);
                     intent.putExtra("OrderID", listBean.getId());
+                    mContext.startActivity(intent);
+                }
+            });
+
+            tvToComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, PayFiveJiaoActivity.class);
+                    intent.putExtra("from", Constants.DRYCLEANER);
+                    intent.putExtra("pay", listBean.getTotalprice());
+                    intent.putExtra("orderid", listBean.getId() + "");
+                    intent.putExtra("ordercode", listBean.getOrdercode());
+                    intent.putExtra("ordertype", Constants.DRYCLEANER + "");
+                    intent.putExtra("time", listBean.getCreatetime());
                     mContext.startActivity(intent);
                 }
             });

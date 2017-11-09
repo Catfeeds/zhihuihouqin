@@ -51,6 +51,7 @@ public class OrderDryClearDetailBean {
         private String ordercode;
         private String serviceMobile;
         private List<ClothesListEntity> clothesList;
+        private int checkstatus;
 
         public String getCreatetime() {
             return createtime;
@@ -177,6 +178,14 @@ public class OrderDryClearDetailBean {
             public void setClothesName(String clothesName) {
                 this.clothesName = clothesName;
             }
+        }
+
+        public int getCheckstatus() {
+            return checkstatus;
+        }
+
+        public void setCheckstatus(int checkstatus) {
+            this.checkstatus = checkstatus;
         }
     }
 }

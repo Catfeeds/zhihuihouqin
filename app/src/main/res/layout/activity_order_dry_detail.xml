@@ -32,7 +32,6 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:text="取消订单"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
             android:visibility="gone" />
@@ -48,7 +47,6 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:text="评论"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
             android:visibility="gone" />

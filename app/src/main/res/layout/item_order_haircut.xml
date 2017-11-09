@@ -126,7 +126,7 @@
             android:textSize="@dimen/sp_small" />
 
         <TextView
-            android:id="@+id/comment"
+            android:id="@+id/pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
@@ -138,7 +138,7 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:text="评价"
+            android:text="支付"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
             android:visibility="gone" />

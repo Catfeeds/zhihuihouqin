@@ -15,6 +15,7 @@ import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderDryClearDetailAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -134,6 +135,17 @@ public class OrderDryDetailActivity extends MyBaseActivity {
         state = data.getDetail().getStatus();
         switch (state) {
             case 1: // 1: 已预约
+                if (data.getDetail().getPayStatus() == 0) {
+                    left.setVisibility(View.VISIBLE);
+                    left.setText("支付");
+                    if (data.getDetail().getCheckstatus() == 0) {
+                        left.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_order_gray_button));
+                        left.setClickable(false);
+                    } else {
+                        left.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_order_button));
+                        left.setClickable(true);
+                    }
+                }
                 serviceState.setText("服务状态：已下单");
                 right.setText("取消预订");
                 break;
@@ -212,9 +224,16 @@ public class OrderDryDetailActivity extends MyBaseActivity {
                 break;
 
             case R.id.left:
-                // TODO 在线沟通
+                // TODO 支付
+                Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+                intent.putExtra("from", Constants.DRYCLEANER);
+                intent.putExtra("pay", data.getDetail().getTotalprice());
+                intent.putExtra("orderid", data.getDetail().getId()+ "");
+                intent.putExtra("ordercode", data.getDetail().getOrdercode());
+                intent.putExtra("ordertype", Constants.DRYCLEANER + "");
+                intent.putExtra("time", data.getDetail().getCreatetime());
+                startActivity(intent);
                 break;
-
         }
     }
 

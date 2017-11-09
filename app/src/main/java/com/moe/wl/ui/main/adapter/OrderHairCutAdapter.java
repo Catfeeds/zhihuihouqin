@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.widget.CircleImageView;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.me.OrderHairCutDetailActivity;
 import com.moe.wl.ui.main.bean.OrderHairCutBean;
 
@@ -53,7 +55,7 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
         } else {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getPhoto(), holder.header);
         }
-        if (data.get(position).getRealname() == null || "".equals(data.get(position).getRealname())){
+        if (data.get(position).getRealname() == null || "".equals(data.get(position).getRealname())) {
             holder.userName.setText("理发师");
         } else {
             holder.userName.setText(data.get(position).getRealname());
@@ -65,24 +67,33 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
 
         switch (state) {
             case 0:
-                holder.comment.setVisibility(View.GONE);
+                if (data.get(position).getPaystatus() == 0) {
+                    holder.pay.setVisibility(View.VISIBLE);
+                    if (data.get(position).getCheckstatus() == 0) {
+                        holder.pay.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_gray_button));
+                        holder.pay.setClickable(false);
+                    } else {
+                        holder.pay.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_button));
+                        holder.pay.setClickable(true);
+                    }
+                } else {
+                    holder.pay.setVisibility(View.GONE);
+                }
                 holder.order.setText("取消预约");
                 break;
             case 1:
-                holder.comment.setVisibility(View.GONE);
+                holder.pay.setVisibility(View.GONE);
                 holder.order.setText("已完成");
                 break;
             case 2:
-//                holder.comment.setVisibility(View.VISIBLE);
                 holder.order.setVisibility(View.GONE);
-//                holder.order.setText("再次预约");
                 break;
             case 3:
-                holder.comment.setVisibility(View.GONE);
+                holder.pay.setVisibility(View.GONE);
                 holder.order.setText("立即评价");
                 break;
             case 4:
-                holder.comment.setVisibility(View.GONE);
+                holder.pay.setVisibility(View.GONE);
                 holder.order.setText("删除订单");
                 break;
         }
@@ -92,6 +103,20 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 if (listener != null)
                     listener.onClick(state, position);
+            }
+        });
+
+        holder.pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PayFiveJiaoActivity.class);
+                intent.putExtra("from", Constants.HAIRCUTS);
+                intent.putExtra("pay", data.get(position).getPrice());
+                intent.putExtra("orderid", data.get(position).getOrderid() + "");
+                intent.putExtra("ordercode", data.get(position).getOrdercode());
+                intent.putExtra("ordertype", Constants.HAIRCUTS + "");
+                intent.putExtra("time", data.get(position).getCreatetime());
+                context.startActivity(intent);
             }
         });
 
@@ -126,8 +151,8 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
         TextView number;
         @BindView(R.id.order)
         TextView order;
-        @BindView(R.id.comment)
-        TextView comment;
+        @BindView(R.id.pay)
+        TextView pay;
         @BindView(R.id.item)
         LinearLayout item;
 

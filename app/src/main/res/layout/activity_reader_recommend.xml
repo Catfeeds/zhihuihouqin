@@ -41,7 +41,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:hint="输入书籍名称"
+                    android:textColorHint="@color/gray" />
             </LinearLayout>
 
             <View
@@ -68,7 +71,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:hint="输入作者名称"
+                    android:textColorHint="@color/gray" />
             </LinearLayout>
 
             <View
@@ -95,7 +100,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:hint="输入出版社名称"
+                    android:textColorHint="@color/gray" />
             </LinearLayout>
 
             <View
@@ -123,10 +130,10 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/shape_remark"
                     android:gravity="top"
-                    android:hint="请输入你想要的书籍详细内容"
+                    android:hint="请输入您想要的书籍详细内容"
                     android:padding="10dp"
                     android:textColor="@color/tv_black"
-                    android:textColorHint="@color/gray_light"
+                    android:textColorHint="@color/gray"
                     android:textSize="@dimen/sp_big" />
 
             </LinearLayout>

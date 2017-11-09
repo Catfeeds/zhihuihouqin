@@ -45,6 +45,8 @@ public class CheckDryOrderBean {
         private String ordercode;
         private String serviceMobile;
         private List<ClothesListEntity> clothesList;
+        private int checkstatus;
+        private double totalprice;
 
         public String getCreatetime() {
             return createtime;
@@ -131,6 +133,22 @@ public class CheckDryOrderBean {
             public void setClothesName(String clothesName) {
                 this.clothesName = clothesName;
             }
+        }
+
+        public int getCheckstatus() {
+            return checkstatus;
+        }
+
+        public void setCheckstatus(int checkstatus) {
+            this.checkstatus = checkstatus;
+        }
+
+        public double getTotalprice() {
+            return totalprice;
+        }
+
+        public void setTotalprice(double totalprice) {
+            this.totalprice = totalprice;
         }
     }
 }

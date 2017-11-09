@@ -15,6 +15,7 @@ public class BooklistBean implements Serializable{
     private String publisher;
     private double score;
     private String shortbrief;
+    private String brief;
     private String title;
     private int typeid;
     private String url;
@@ -65,6 +66,14 @@ public class BooklistBean implements Serializable{
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
     }
 
     public String getShortbrief() {

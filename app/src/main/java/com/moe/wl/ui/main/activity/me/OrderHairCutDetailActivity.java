@@ -17,6 +17,7 @@ import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.OrderCutHearActivity;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderHairCutBean;
@@ -98,6 +99,16 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
         right.setVisibility(View.VISIBLE);
         switch (state) {
             case 1: // 1: 已预约
+                if (data.getPaystatus() == 0) {
+                    left.setVisibility(View.VISIBLE);
+                    left.setText("支付");
+                    if (data.getCheckstatus() == 0) {
+                        left.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_order_gray_button));
+                        left.setClickable(false);
+                    } else {
+                        left.setClickable(true);
+                    }
+                }
                 states.setText("已预约");
                 right.setText("取消预约");
                 break;
@@ -145,7 +156,15 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
                 break;
 
             case R.id.left:
-                // TODO 在线沟通
+                // TODO 去支付
+                Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+                intent.putExtra("from", Constants.HAIRCUTS);
+                intent.putExtra("pay", data.getPrice());
+                intent.putExtra("orderid", data.getOrderid() + "");
+                intent.putExtra("ordercode", data.getOrdercode());
+                intent.putExtra("ordertype", Constants.HAIRCUTS + "");
+                intent.putExtra("time", data.getCreatetime());
+                startActivity(intent);
                 break;
 
         }
