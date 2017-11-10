@@ -101,7 +101,9 @@
                     android:id="@+id/iv_book_pic"
                     android:layout_width="80dp"
                     android:layout_height="100dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="15dp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_default_book" />
 
@@ -131,8 +133,8 @@
                             android:id="@+id/tv_state"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:minWidth="50dp"
                             android:layout_marginLeft="5dp"
+                            android:minWidth="50dp"
                             android:textColor="@color/green"
                             android:textSize="@dimen/sp_small" />
 

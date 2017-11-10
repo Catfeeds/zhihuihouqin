@@ -126,8 +126,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.login.activity.LoginActivity">
+        <activity android:name=".ui.login.activity.LoginActivity">
             <!--android:windowSoftInputMode="stateVisible|adjustResize"-->
 
             <intent-filter>
@@ -168,61 +167,123 @@
             android:name=".zxing.android.CaptureActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name=".ui.main.activity.PayFiveJiaoActivity" />
+        <activity
+            android:name=".ui.main.activity.PayFiveJiaoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.MoreActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.BarberDetailActivity" />
-        <activity android:name=".ui.main.activity.BarberMoreProductActivity" />
-        <activity android:name=".ui.main.activity.HairStyleDetailActivity" />
-        <activity android:name=".ui.main.activity.BarberJianjieActivity" />
+        <activity
+            android:name=".ui.main.activity.BarberDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.BarberMoreProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.HairStyleDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.BarberJianjieActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.property_maintenance.PropertyAintenanceActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.main.activity.property_maintenance.OrderTimeActivity" />
+        <activity
+            android:name=".ui.main.activity.property_maintenance.OrderTimeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.Library.LibraryActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.Library.BookDescriptionActivity" />
-        <activity android:name=".ui.main.activity.Library.BorrowOrderActivity" />
+        <activity
+            android:name=".ui.main.activity.Library.BookDescriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.Library.BorrowOrderActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.Library.BookConfirmOrderActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ui.main.activity.Library.ReaderRecommendActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.SignUpPersonActivity" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.FillInfoActivity" />
+        <activity
+            android:name=".ui.main.activity.Library.ReaderRecommendActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".ui.main.activity.ActivityRegistration.ActivityRegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.ActivityRegistration.ActivityDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.ActivityRegistration.SignUpPersonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.ActivityRegistration.FillInfoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.ActivityRegistration.ActivityPostedActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.main.activity.ActivityRegistration.PostedNotesActivity" />
-        <activity android:name=".ui.login.activity.RegistStepOneActivity" />
-        <activity android:name=".ui.main.activity.DryCleaners.DryCleanersActivity" />
+        <activity
+            android:name=".ui.main.activity.ActivityRegistration.PostedNotesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.activity.RegistStepOneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.DryCleaners.DryCleanersActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.DryCleaners.DryCleanReserveInfoActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity" />
-        <activity android:name=".ui.main.activity.DryCleaners.SubmitResultActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSuppliesActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity" />
+        <activity
+            android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.DryCleaners.SubmitResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.OfficeSuppliesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.OfficeCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.SpDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.SpAllCommentActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.OfficeSupplies.OrderRemarkActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.DeliveryAddressActivity" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.DeliveryAddressActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.OfficeSupplies.BianJiAddressActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpPayActivity" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.SpPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.SpPaySuccessActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.login.activity.IdentityActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".ui.login.activity.PositionActivity" />
-        <activity android:name=".ui.login.activity.AuthSuccessActivity" />
-        <activity android:name=".ui.main.activity.medicalService.HealthSearchActivity" />
+        <activity
+            android:name=".ui.login.activity.PositionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.activity.AuthSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.medicalService.HealthSearchActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.ordering.OrderingActivity"
             android:screenOrientation="portrait"
@@ -272,8 +333,12 @@
         <activity
             android:name=".ui.main.activity.vegetable.VegetableMainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.Library.JieYueSuccActivity" />
-        <activity android:name=".ui.main.activity.Library.BookSearchActivity" />
+        <activity
+            android:name=".ui.main.activity.Library.JieYueSuccActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.Library.BookSearchActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.me.LaiFangActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
@@ -500,9 +565,15 @@
         <activity
             android:name=".ui.main.activity.medicalService.ConfirmOrderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.OfficeSupplies.CheckFailActivity" />
-        <activity android:name=".ui.main.activity.MealsRecharge.RechargeOrederActivity" />
-        <activity android:name=".ui.main.activity.MealsRecharge.RechargeContentAct"></activity>
+        <activity
+            android:name=".ui.main.activity.OfficeSupplies.CheckFailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.MealsRecharge.RechargeOrederActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.MealsRecharge.RechargeContentAct"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

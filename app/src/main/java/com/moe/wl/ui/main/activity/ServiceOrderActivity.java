@@ -205,37 +205,37 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_public_maintain:
-                goServiceActivity(0, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(0, Constants.PROPERRY, Constants.orderRepairs);
                 break;
             case R.id.tv_office_supplies:
-                goServiceActivity(0, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(0, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
             case R.id.tv_clear_vegetables:
-                goServiceActivity(0, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(0, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
             case R.id.tv_order_water:
-                goServiceActivity(0, Constants.ORDERWATER, orderWater);
+                goServiceActivity(0, Constants.ORDERWATER, Constants.orderWater);
                 break;
             case R.id.tv_work_meal:
-                goServiceActivity(0, Constants.ORDERMEAL, orderFood);
+                goServiceActivity(0, Constants.ORDERMEAL, Constants.orderFood);
                 break;
             case R.id.tv_health_service:
-                goServiceActivity(0, Constants.MEDICAL, orderMedical);
+                goServiceActivity(0, Constants.MEDICAL, Constants.orderMedical);
                 break;
             case R.id.tv_cut_hair:
-                goServiceActivity(0, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(0, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
             case R.id.tv_dry_cleaner:
-                goServiceActivity(0, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(0, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
             case R.id.tv_experts_visit:
-                goServiceActivity(0, Constants.EXPERTS, orderExperts);
+                goServiceActivity(0, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_book_order:
-                goServiceActivity(0, Constants.BOOK, orderBook);
+                goServiceActivity(0, Constants.BOOK, Constants.orderBook);
                 break;
             case R.id.tv_office:
-                goServiceActivity(0, Constants.CONFERENCE, orderConference);
+                goServiceActivity(0, Constants.CONFERENCE, Constants.orderConference);
                 break;
         }
     }
@@ -256,28 +256,5 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
         startActivity(intent);
         finish();
     }
-
-    // 我的报修 标题
-    private static final String orderRepairs = "待接单,已接单,已完成,待评价,已取消";
-    // 办公用品 标题
-    private static final String orderOfficeSupplies = "待发货,配送中,已完成,待评价,已取消";
-    // 我的订餐 标题
-    private static final String orderFood = "已下单,已完成,待评价,已取消";
-    // 理发订单 标题
-    private static final String orderHaircuts = "已预约,服务中,已完成,待评价,已取消";
-    // 订水订单 标题
-    private static final String orderWater = "已下单,配送中,已完成,待评价,已取消";
-    // 医疗订单 标题
-    private static final String orderMedical = "已预约,服务中,已完成,待评价,已取消";
-    // 专家坐诊 标题
-    private static final String orderExperts = "已预约,服务中,已完成,待评价,已取消";
-    //  洗衣店 标题
-    private static final String orderDryCleaner = "已下单,已受理,已完成,待评价,已取消";
-    // 图书订单 标题
-    private static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
-    // 净菜订单 标题
-    private static final String orderVegetable = "已下单,已完成,待评价,已取消";
-    // 会议室
-    private static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
 
 }

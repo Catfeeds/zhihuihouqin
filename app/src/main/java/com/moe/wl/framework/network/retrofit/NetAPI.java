@@ -648,6 +648,11 @@ public interface NetAPI {
     @POST(NetUrl.conferenceOrderList)
     Observable<OrderConferenceBean> conferenceOrderList(@FieldMap Map<String, Object> map);
 
+    // 来访人员列表
+    @FormUrlEncoded
+    @POST(NetUrl.visitorsOrderList)
+    Observable<OrderVisitorsListBean> visitorsOrderList(@FieldMap Map<String, Object> map);
+
     // 理发订单列表
     @FormUrlEncoded
     @POST(NetUrl.hairCutOrderList)

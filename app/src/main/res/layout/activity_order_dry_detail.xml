@@ -18,8 +18,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="12dp"
-        android:gravity="right"
         android:background="@color/white"
+        android:gravity="right"
         android:orientation="horizontal">
 
         <TextView
@@ -251,7 +251,7 @@
                 android:layout_margin="12dp"
                 android:text="衣物信息"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <com.moe.wl.framework.widget.NoSlidingListView
                 android:id="@+id/list_view"
@@ -279,7 +279,7 @@
                     android:layout_weight="1"
                     android:text="订单金额"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big"
+                    android:textSize="@dimen/sp_common"
                     android:textStyle="bold" />
 
                 <TextView
@@ -301,7 +301,7 @@
                 android:layout_marginTop="12dp"
                 android:text="订单信息"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -315,7 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -328,7 +328,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -341,7 +341,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -354,15 +354,38 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginBottom="12dp"
+                    android:background="@color/gray_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="订单备注:"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
+
+                <com.moe.wl.framework.widget.NoSlidingListView
+                    android:id="@+id/remake_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/background_edit"
+                    android:divider="@null"
+                    android:dividerHeight="0dp">
+
+                </com.moe.wl.framework.widget.NoSlidingListView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
                     android:background="@color/gray_line" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

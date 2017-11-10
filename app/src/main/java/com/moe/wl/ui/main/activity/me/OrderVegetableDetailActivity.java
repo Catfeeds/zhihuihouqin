@@ -13,6 +13,7 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.activity.vegetable.VegetableMainActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -128,7 +129,12 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
         state = data.getDetail().getStatus();
         switch (state) {
             case 1: // 1: 已预约
-
+                if (data.getDetail().getPayStatus() == 0) {
+                    left.setVisibility(View.VISIBLE);
+                    left.setText("支付");
+                } else {
+                    left.setVisibility(View.GONE);
+                }
                 right.setText("取消订单");
                 break;
             case 2: // 2: 配送中
@@ -173,7 +179,21 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
 
             case R.id.left:
                 // TODO 立即评论
-                OtherUtils.gotoComment(OrderVegetableDetailActivity.this, data.getDetail().getId(), Constants.VEGETABLE);
+                switch (state) {
+                    case 1:
+                        Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+                        intent.putExtra("from", Constants.VEGETABLE);
+                        intent.putExtra("pay", data.getDetail().getTotalprice());
+                        intent.putExtra("orderid", data.getDetail().getId()+ "");
+                        intent.putExtra("ordercode", data.getDetail().getOrdercode());
+                        intent.putExtra("ordertype", Constants.VEGETABLE + "");
+                        intent.putExtra("time", data.getDetail().getCreatetime());
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        OtherUtils.gotoComment(OrderVegetableDetailActivity.this, data.getDetail().getId(), Constants.VEGETABLE);
+                        break;
+                }
                 break;
 
         }

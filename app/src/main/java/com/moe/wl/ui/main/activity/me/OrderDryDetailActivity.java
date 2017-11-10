@@ -18,6 +18,7 @@ import com.moe.wl.ui.main.activity.DryCleaners.DryCleanersActivity;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderDryClearDetailAdapter;
+import com.moe.wl.ui.main.adapter.OrderDryClearRemakerAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderDryClearDetailBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -92,9 +93,12 @@ public class OrderDryDetailActivity extends MyBaseActivity {
     TextView text5;
     @BindView(R.id.text6)
     TextView text6;
+    @BindView(R.id.remake_list)
+    NoSlidingListView remakeList;
 
     private OrderDryClearDetailBean data;
     private OrderDryClearDetailAdapter adapter;
+    private OrderDryClearRemakerAdapter remakerAdapter;
 
     private CustomerDialog progressDialog;
     private int orderID; // 订单类型分类
@@ -125,6 +129,10 @@ public class OrderDryDetailActivity extends MyBaseActivity {
         if (data.getDetail() != null && data.getDetail().getClothesList() != null) {
             adapter = new OrderDryClearDetailAdapter(this, data.getDetail().getClothesList());
             listView.setAdapter(adapter);
+        }
+        if (data.getDetail().getRemarklist() != null) {
+            remakerAdapter = new OrderDryClearRemakerAdapter(this, data.getDetail().getRemarklist());
+            remakeList.setAdapter(remakerAdapter);
         }
         price.setText("¥" + data.getDetail().getTotalprice());
         orderId.setText("订  单  号：" + data.getDetail().getOrdercode());
@@ -228,7 +236,7 @@ public class OrderDryDetailActivity extends MyBaseActivity {
                 Intent intent = new Intent(this, PayFiveJiaoActivity.class);
                 intent.putExtra("from", Constants.DRYCLEANER);
                 intent.putExtra("pay", data.getDetail().getTotalprice());
-                intent.putExtra("orderid", data.getDetail().getId()+ "");
+                intent.putExtra("orderid", data.getDetail().getId() + "");
                 intent.putExtra("ordercode", data.getDetail().getOrdercode());
                 intent.putExtra("ordertype", Constants.DRYCLEANER + "");
                 intent.putExtra("time", data.getDetail().getCreatetime());

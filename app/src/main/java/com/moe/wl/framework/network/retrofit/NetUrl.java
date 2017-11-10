@@ -244,5 +244,8 @@ public interface NetUrl {
     /*------------------------------节能减排------------------------------------------------*/
     String information = "appuser/wallet/information";  //资讯列表
 
+    /*---------------------------------来访人员---------------------------------------*/
+    String visitorsOrderList = "appuser/user/orderlist";
+
 
 }

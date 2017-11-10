@@ -42,7 +42,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:background="@null"
-                    android:enabled="false"
                     android:hint="输入书籍名称"
                     android:textColorHint="@color/gray" />
             </LinearLayout>
@@ -148,10 +147,10 @@
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bg_blue_rounded"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="@dimen/normal_padding"
                 android:text="提交"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

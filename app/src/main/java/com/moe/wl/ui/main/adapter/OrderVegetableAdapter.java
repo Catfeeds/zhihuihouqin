@@ -14,6 +14,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.me.OrderVegetableDetailActivity;
 import com.moe.wl.ui.main.bean.OrderVegetableBean;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import mvp.cn.util.DateUtil;
 
 /**
  * 类描述：报修订单Adapter
@@ -62,7 +64,12 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
 
         switch (state) {
             case 0:
-                holder.left.setVisibility(View.GONE);
+                if (data.get(position).getPayStatus() == 0) {
+                    holder.left.setVisibility(View.VISIBLE);
+                    holder.left.setText("支付");
+                } else {
+                    holder.left.setVisibility(View.GONE);
+                }
                 holder.order.setText("取消订单");
                 break;
             case 2:
@@ -99,7 +106,18 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
         holder.left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OtherUtils.gotoComment(context, data.get(position).getId(), Constants.VEGETABLE);
+                if (state == 0) {
+                    Intent intent = new Intent(context, PayFiveJiaoActivity.class);
+                    intent.putExtra("from", Constants.VEGETABLE);
+//                    intent.putExtra("pay", data.get(position).getTotalprice());
+                    intent.putExtra("orderid", data.get(position).getId()+ "");
+                    intent.putExtra("ordercode", data.get(position).getOrdercode());
+                    intent.putExtra("ordertype", Constants.VEGETABLE + "");
+                    intent.putExtra("time", DateUtil.getTimeyyyyMMddHHmm());
+                    context.startActivity(intent);
+                } else if (state == 2) {
+                    OtherUtils.gotoComment(context, data.get(position).getId(), Constants.VEGETABLE);
+                }
             }
         });
 

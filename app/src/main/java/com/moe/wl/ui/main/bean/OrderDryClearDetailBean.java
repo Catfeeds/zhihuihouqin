@@ -52,6 +52,7 @@ public class OrderDryClearDetailBean {
         private String serviceMobile;
         private List<ClothesListEntity> clothesList;
         private int checkstatus;
+        private List<RemarklistEntity> remarklist;
 
         public String getCreatetime() {
             return createtime;
@@ -149,6 +150,14 @@ public class OrderDryClearDetailBean {
             this.clothesList = clothesList;
         }
 
+        public List<RemarklistEntity> getRemarklist() {
+            return remarklist;
+        }
+
+        public void setRemarklist(List<RemarklistEntity> remarklist) {
+            this.remarklist = remarklist;
+        }
+
         public static class ClothesListEntity {
 
             private double price;
@@ -180,12 +189,35 @@ public class OrderDryClearDetailBean {
             }
         }
 
+
         public int getCheckstatus() {
             return checkstatus;
         }
 
         public void setCheckstatus(int checkstatus) {
             this.checkstatus = checkstatus;
+        }
+
+        public static class RemarklistEntity {
+
+            private String name;
+            private String remark;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
         }
     }
 }

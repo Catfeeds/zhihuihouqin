@@ -40,7 +40,34 @@ public class Constants {
     public static final int DRYCLEANER = 16; // 洗衣店
     public static final int ORDERWATER = 18; // 订水订单
     public static final int RECHARGE = 19; // 充值
+    public static final int VISITORS = 20; // 来访人员
     public static final String LOGIN_ERROR = "您的登录已过时，请重新登录。"; //登录token已失效
+
+
+    // 我的报修 标题
+    public static final String orderRepairs = "待接单,已接单,已完成,待评价,已取消";
+    // 办公用品 标题
+    public static final String orderOfficeSupplies = "待发货,配送中,已完成,待评价,已取消";
+    // 我的订餐 标题
+    public static final String orderFood = "已下单,已完成,待评价,已取消";
+    // 理发订单 标题
+    public static final String orderHaircuts = "已预约,服务中,已完成,待评价,已取消";
+    // 订水订单 标题
+    public static final String orderWater = "已下单,配送中,已完成,待评价,已取消";
+    // 医疗订单 标题
+    public static final String orderMedical = "已预约,服务中,已完成,待评价,已取消";
+    // 专家坐诊 标题
+    public static final String orderExperts = "已预约,服务中,已完成,待评价,已取消";
+    //  洗衣店 标题
+    public static final String orderDryCleaner = "已下单,已受理,已完成,待评价,已取消";
+    // 图书订单 标题
+    public static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
+    // 净菜订单 标题
+    public static final String orderVegetable = "已下单,已完成,待评价,已取消";
+    // 会议室
+    public static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
+    // 来访人员
+    public static final String orderVisitors = "已预约,已完成,待评价,已取消";
 
 }
 

@@ -2622,6 +2622,26 @@ carcode	是	string	车牌号*/
         return getObservable(api.conferenceOrderList(paramsMap));
     }
 
+    /**
+     * 查看来访人员订单
+     *
+     * @return
+     */
+    public static Observable getVisitorsOrder(int orderStatus, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("orderStatus", orderStatus);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.visitorsOrderList(paramsMap));
+    }
+
     /*------------------------------------------删除各种订单------------------------------------------*/
 
     /**

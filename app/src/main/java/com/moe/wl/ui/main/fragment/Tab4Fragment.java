@@ -44,29 +44,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presenter> implements Tab4View {
 
-    // 我的报修 标题
-    private static final String orderRepairs = "待接单,已接单,已完成,待评价,已取消";
-    // 办公用品 标题
-    private static final String orderOfficeSupplies = "待发货,配送中,已完成,待评价,已取消";
-    // 我的订餐 标题
-    private static final String orderFood = "已下单,已完成,待评价,已取消";
-    // 理发订单 标题
-    private static final String orderHaircuts = "已预约,服务中,已完成,待评价,已取消";
-    // 订水订单 标题
-    private static final String orderWater = "已下单,配送中,已完成,待评价,已取消";
-    // 医疗订单 标题
-    private static final String orderMedical = "已预约,服务中,已完成,待评价,已取消";
-    // 专家坐诊 标题
-    private static final String orderExperts = "已预约,服务中,已完成,待评价,已取消";
-    //  洗衣店 标题
-    private static final String orderDryCleaner = "已下单,已受理,已完成,待评价,已取消";
-    // 图书订单 标题
-    private static final String orderBook = "已预订,已借阅,已归还,待评价,已取消";
-    // 净菜订单 标题
-    private static final String orderVegetable = "已下单,已完成,待评价,已取消";
-    // 会议室
-    private static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
-
     Unbinder unbinder;
     @BindView(R.id.ll_my_packge)
     LinearLayout llMyPackge;
@@ -302,7 +279,8 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.rl_turn9, R.id.tv_yuding9, R.id.tv_jieyue9, R.id.tv_guihuan9, R.id.tv_pingjia9, R.id.tv_cancle9,
             R.id.rl_vegetable, R.id.tv_vegetable_one, R.id.tv_vegetable_two, R.id.tv_vegetable_three, R.id.tv_vegetable_four,
             R.id.tv_vegetable_five, R.id.tv_conference_one, R.id.tv_conference_two, R.id.tv_conference_three, R.id.tv_conference_four,
-            R.id.tv_conference_five, R.id.rl_conference})
+            R.id.tv_conference_five, R.id.rl_conference,
+            R.id.rl_visitors, R.id.tv_visitors_one, R.id.tv_visitors_two, R.id.tv_visitors_three, R.id.tv_visitors_four})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.ll_personal_auth) {
             if (SharedPrefHelper.getInstance().getAuthStatus() == 2) {
@@ -348,212 +326,227 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 break;
 
             case R.id.rl_turn1://我的报修
-                goServiceActivity(0, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(0, Constants.PROPERRY, Constants.orderRepairs);
                 break;
             case R.id.tv_daijiedan1:
-                goServiceActivity(0, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(0, Constants.PROPERRY, Constants.orderRepairs);
                 break;
             case R.id.tv_jiedan1:
-                goServiceActivity(1, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(1, Constants.PROPERRY, Constants.orderRepairs);
                 break;
             case R.id.tv_finish1:
-                goServiceActivity(2, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(2, Constants.PROPERRY, Constants.orderRepairs);
                 break;
             case R.id.tv_pingjia1:
-                goServiceActivity(3, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(3, Constants.PROPERRY, Constants.orderRepairs);
                 break;
             case R.id.tv_cancle1:
-                goServiceActivity(4, Constants.PROPERRY, orderRepairs);
+                goServiceActivity(4, Constants.PROPERRY, Constants.orderRepairs);
                 break;
 
             case R.id.rl_turn2://办公用品
-                goServiceActivity(0, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(0, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
             case R.id.tv_daijiedan2:
-                goServiceActivity(0, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(0, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
             case R.id.tv_jiedan2:
-                goServiceActivity(1, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(1, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
             case R.id.tv_finish2:
-                goServiceActivity(2, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(2, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
             case R.id.tv_pingjia2:
-                goServiceActivity(3, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(3, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
             case R.id.tv_cancle2:
-                goServiceActivity(4, Constants.OFFICESUPPLIES, orderOfficeSupplies);
+                goServiceActivity(4, Constants.OFFICESUPPLIES, Constants.orderOfficeSupplies);
                 break;
 
             case R.id.rl_turn3:// 我的订餐
-                goServiceActivity(0, Constants.ORDERMEAL, orderFood);
+                goServiceActivity(0, Constants.ORDERMEAL, Constants.orderFood);
                 break;
             case R.id.tv_daijiedan3:
-                goServiceActivity(0, Constants.ORDERMEAL, orderFood);
+                goServiceActivity(0, Constants.ORDERMEAL, Constants.orderFood);
                 break;
 //            case R.id.tv_jiedan3:
-//                goServiceActivity(2, Constants.ORDERMEAL, orderFood);
+//                goServiceActivity(2, Constants.ORDERMEAL, Constants.orderFood);
 //                break;
             case R.id.tv_finish3:
-                goServiceActivity(1, Constants.ORDERMEAL, orderFood);
+                goServiceActivity(1, Constants.ORDERMEAL, Constants.orderFood);
                 break;
             case R.id.tv_pingjia3:
-                goServiceActivity(2, Constants.ORDERMEAL, orderFood);
+                goServiceActivity(2, Constants.ORDERMEAL, Constants.orderFood);
                 break;
             case R.id.tv_cancle3:
-                goServiceActivity(3, Constants.ORDERMEAL, orderFood);
+                goServiceActivity(3, Constants.ORDERMEAL, Constants.orderFood);
                 break;
 
             case R.id.rl_turn4:// 理发订单
-                goServiceActivity(0, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(0, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
             case R.id.tv_daijiedan4:
-                goServiceActivity(0, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(0, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
             case R.id.tv_jiedan4:
-                goServiceActivity(1, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(1, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
             case R.id.tv_finish4:
-                goServiceActivity(2, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(2, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
             case R.id.tv_pingjia4:
-                goServiceActivity(3, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(3, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
             case R.id.tv_cancle4:
-                goServiceActivity(4, Constants.HAIRCUTS, orderHaircuts);
+                goServiceActivity(4, Constants.HAIRCUTS, Constants.orderHaircuts);
                 break;
 
             case R.id.rl_turn5://订水订单
-                goServiceActivity(0, Constants.ORDERWATER, orderWater);
+                goServiceActivity(0, Constants.ORDERWATER, Constants.orderWater);
                 break;
             case R.id.tv_daijiedan5:
-                goServiceActivity(0, Constants.ORDERWATER, orderWater);
+                goServiceActivity(0, Constants.ORDERWATER, Constants.orderWater);
                 break;
             case R.id.tv_jiedan5:
-                goServiceActivity(1, Constants.ORDERWATER, orderWater);
+                goServiceActivity(1, Constants.ORDERWATER, Constants.orderWater);
                 break;
             case R.id.tv_finish5:
-                goServiceActivity(2, Constants.ORDERWATER, orderWater);
+                goServiceActivity(2, Constants.ORDERWATER, Constants.orderWater);
                 break;
             case R.id.tv_pingjia5:
-                goServiceActivity(3, Constants.ORDERWATER, orderWater);
+                goServiceActivity(3, Constants.ORDERWATER, Constants.orderWater);
                 break;
             case R.id.tv_cancle5:
-                goServiceActivity(4, Constants.ORDERWATER, orderWater);
+                goServiceActivity(4, Constants.ORDERWATER, Constants.orderWater);
                 break;
 
             case R.id.rl_turn6://医疗订单
-                goServiceActivity(0, Constants.MEDICAL, orderMedical);
+                goServiceActivity(0, Constants.MEDICAL, Constants.orderMedical);
                 break;
             case R.id.tv_daijiedan6:
-                goServiceActivity(0, Constants.MEDICAL, orderMedical);
+                goServiceActivity(0, Constants.MEDICAL, Constants.orderMedical);
                 break;
             case R.id.tv_jiedan6:
-                goServiceActivity(1, Constants.MEDICAL, orderMedical);
+                goServiceActivity(1, Constants.MEDICAL, Constants.orderMedical);
                 break;
             case R.id.tv_finish6:
-                goServiceActivity(2, Constants.MEDICAL, orderMedical);
+                goServiceActivity(2, Constants.MEDICAL, Constants.orderMedical);
                 break;
             case R.id.tv_pingjia6:
-                goServiceActivity(3, Constants.MEDICAL, orderMedical);
+                goServiceActivity(3, Constants.MEDICAL, Constants.orderMedical);
                 break;
             case R.id.tv_cancle6:
-                goServiceActivity(4, Constants.MEDICAL, orderMedical);
+                goServiceActivity(4, Constants.MEDICAL, Constants.orderMedical);
                 break;
 
             case R.id.rl_turn7://专家坐诊
-                goServiceActivity(0, Constants.EXPERTS, orderExperts);
+                goServiceActivity(0, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_daijiedan7:
-                goServiceActivity(0, Constants.EXPERTS, orderExperts);
+                goServiceActivity(0, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_jiedan7:
-                goServiceActivity(1, Constants.EXPERTS, orderExperts);
+                goServiceActivity(1, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_service7:
-                goServiceActivity(2, Constants.EXPERTS, orderExperts);
+                goServiceActivity(2, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_finish7:
-                goServiceActivity(3, Constants.EXPERTS, orderExperts);
+                goServiceActivity(3, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_daipingjia7:
-                goServiceActivity(4, Constants.EXPERTS, orderExperts);
+                goServiceActivity(4, Constants.EXPERTS, Constants.orderExperts);
                 break;
 
             case R.id.rl_turn8: // 洗衣店
-                goServiceActivity(0, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(0, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
             case R.id.tv_yuyue8:
-                goServiceActivity(0, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(0, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
             case R.id.tv_service8:
-                goServiceActivity(1, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(1, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
             case R.id.tv_finish8:
-                goServiceActivity(2, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(2, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
             case R.id.tv_pingjia8:
-                goServiceActivity(3, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(3, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
             case R.id.tv_cancle8:
-                goServiceActivity(4, Constants.DRYCLEANER, orderDryCleaner);
+                goServiceActivity(4, Constants.DRYCLEANER, Constants.orderDryCleaner);
                 break;
 
             case R.id.rl_turn9: // 图书借阅
-                goServiceActivity(0, Constants.BOOK, orderBook);
+                goServiceActivity(0, Constants.BOOK, Constants.orderBook);
                 break;
             case R.id.tv_yuding9:
-                goServiceActivity(0, Constants.BOOK, orderBook);
+                goServiceActivity(0, Constants.BOOK, Constants.orderBook);
                 break;
             case R.id.tv_jieyue9:
-                goServiceActivity(1, Constants.BOOK, orderBook);
+                goServiceActivity(1, Constants.BOOK, Constants.orderBook);
                 break;
             case R.id.tv_guihuan9:
-                goServiceActivity(2, Constants.BOOK, orderBook);
+                goServiceActivity(2, Constants.BOOK, Constants.orderBook);
                 break;
             case R.id.tv_pingjia9:
-                goServiceActivity(3, Constants.BOOK, orderBook);
+                goServiceActivity(3, Constants.BOOK, Constants.orderBook);
                 break;
             case R.id.tv_cancle9:
-                goServiceActivity(4, Constants.BOOK, orderBook);
+                goServiceActivity(4, Constants.BOOK, Constants.orderBook);
                 break;
 
             case R.id.rl_vegetable: // 净菜
-                goServiceActivity(0, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(0, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
             case R.id.tv_vegetable_one:
-                goServiceActivity(0, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(0, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
             case R.id.tv_vegetable_two:
-                goServiceActivity(1, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(1, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
             case R.id.tv_vegetable_three:
-                goServiceActivity(2, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(2, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
             case R.id.tv_vegetable_four:
-                goServiceActivity(3, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(3, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
             case R.id.tv_vegetable_five:
-                goServiceActivity(4, Constants.VEGETABLE, orderVegetable);
+                goServiceActivity(4, Constants.VEGETABLE, Constants.orderVegetable);
                 break;
 
             case R.id.rl_conference:
-                goServiceActivity(0, Constants.CONFERENCE, orderConference);
+                goServiceActivity(0, Constants.CONFERENCE, Constants.orderConference);
                 break;
             case R.id.tv_conference_one:
-                goServiceActivity(0, Constants.CONFERENCE, orderConference);
+                goServiceActivity(0, Constants.CONFERENCE, Constants.orderConference);
                 break;
             case R.id.tv_conference_two:
-                goServiceActivity(1, Constants.CONFERENCE, orderConference);
+                goServiceActivity(1, Constants.CONFERENCE, Constants.orderConference);
                 break;
             case R.id.tv_conference_three:
-                goServiceActivity(2, Constants.CONFERENCE, orderConference);
+                goServiceActivity(2, Constants.CONFERENCE, Constants.orderConference);
                 break;
             case R.id.tv_conference_four:
-                goServiceActivity(3, Constants.CONFERENCE, orderConference);
+                goServiceActivity(3, Constants.CONFERENCE, Constants.orderConference);
                 break;
             case R.id.tv_conference_five:
-                goServiceActivity(4, Constants.CONFERENCE, orderConference);
+                goServiceActivity(4, Constants.CONFERENCE, Constants.orderConference);
+                break;
+            case R.id.rl_visitors:
+                goServiceActivity(1, Constants.VISITORS, Constants.orderVisitors);
+                break;
+            case R.id.tv_visitors_one:
+                goServiceActivity(1, Constants.VISITORS, Constants.orderVisitors);
+                break;
+            case R.id.tv_visitors_two:
+                goServiceActivity(3, Constants.VISITORS, Constants.orderVisitors);
+                break;
+            case R.id.tv_visitors_three:
+                goServiceActivity(4, Constants.VISITORS, Constants.orderVisitors);
+                break;
+            case R.id.tv_visitors_four:
+                goServiceActivity(5, Constants.VISITORS, Constants.orderVisitors);
                 break;
 
             case R.id.rl_laifang_person: // 来访人员
