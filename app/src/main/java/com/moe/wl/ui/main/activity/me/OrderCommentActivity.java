@@ -27,6 +27,7 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.mywidget.AddPhotoPop;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class OrderCommentActivity extends AppCompatActivity {
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.rating_bar)
-    RatingBar ratingBar;
+    StarBar ratingBar;
     @BindView(R.id.appraise)
     TextView appraise;
     @BindView(R.id.et_content)
@@ -71,11 +72,11 @@ public class OrderCommentActivity extends AppCompatActivity {
     @BindView(R.id.text_one)
     TextView textOne;
     @BindView(R.id.rating_one)
-    RatingBar ratingOne;
+    StarBar ratingOne;
     @BindView(R.id.text_two)
     TextView textTwo;
     @BindView(R.id.rating_two)
-    RatingBar ratingTwo;
+    StarBar ratingTwo;
 
     private GridViewImageAdapter adapter;
     private ArrayList<String> paths;
@@ -99,6 +100,11 @@ public class OrderCommentActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        //对星星进行设置
+        ratingOne.ismove(true);
+        ratingOne.setIntegerMark(true);
+        ratingTwo.setIntegerMark(true);
+        ratingTwo.ismove(true);
         progressDialog = new CustomerDialog(this, R.style.dialog_style);
         titleBar.setBack(true);
         titleBar.setTitle("评论");
@@ -189,10 +195,38 @@ public class OrderCommentActivity extends AppCompatActivity {
             }
         });
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+      /*  ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 switch ((int) rating) {
+                    case 0:
+                        appraise.setText("0分");
+                        break;
+                    case 1:
+                        appraise.setText("1分");
+                        break;
+                    case 2:
+                        appraise.setText("2分");
+                        break;
+                    case 3:
+                        appraise.setText("3分");
+                        break;
+                    case 4:
+                        appraise.setText("4分");
+                        break;
+                    case 5:
+                        appraise.setText("5分");
+                        break;
+                }
+            }
+        });*/
+        //对评分星星监听，评分取整，可以滑动
+        ratingBar.setIntegerMark(true);
+        ratingBar.ismove(true);
+        ratingBar.setOnStarChangeListener(new StarBar.OnStarChangeListener() {
+            @Override
+            public void onStarChange(float mark) {
+                switch ((int) mark) {
                     case 0:
                         appraise.setText("0分");
                         break;
@@ -222,13 +256,13 @@ public class OrderCommentActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.submit:
-                if (ratingBar.getRating() == 0 || ratingOne.getRating() == 0 || ratingTwo.getRating() == 0) {
+                if (ratingBar.getStarMark() == 0 || ratingOne.getStarMark() == 0 || ratingTwo.getStarMark() == 0) {
                     Toast.makeText(this, "评分不能为0！", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 paths.remove(paths.size() - 1);
-                Observable observable = RetrofitUtils.getInstance().commentOrder(orderID, ratingBar.getRating(),
-                        ratingOne.getRating(), ratingTwo.getRating(),
+                Observable observable = RetrofitUtils.getInstance().commentOrder(orderID, ratingBar.getStarMark(),
+                        ratingOne.getStarMark(), ratingTwo.getStarMark(),
                         etContent.getText().toString(), radioButton.isChecked() ? 1 : 0, from, paths);
                 progressDialog.show();
                 observable.subscribe(new Subscriber<CollectBean>() {

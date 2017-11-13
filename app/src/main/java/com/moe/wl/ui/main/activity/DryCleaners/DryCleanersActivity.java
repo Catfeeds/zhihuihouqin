@@ -2,12 +2,15 @@ package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
@@ -16,6 +19,7 @@ import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.framework.widget.bean.BannerItem;
+import com.moe.wl.ui.main.activity.vegetable.VegetableIndexActivity;
 import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.model.BannerModel;
 import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
@@ -30,6 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.CallPhoneUtils;
+import mvp.cn.util.DensityUtil;
 import mvp.cn.util.LogUtil;
 
 public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, BannerPresenter> implements BannerView {
@@ -37,8 +42,8 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
 
     @BindView(R.id.dry_cleaners_title)
     TitleBar titleBar;
-    @BindView(R.id.h_banner_viewPager)
-    SimpleImageBanner sib;
+    @BindView(R.id.slider_layout)
+    SliderLayout sliderLayout;
     @BindView(R.id.shop_name)
     TextView shopName;
     @BindView(R.id.iv_cut_hear_logo)
@@ -98,7 +103,7 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
         });
     }
 
-    private void initBanner(String[] topPhotos) {
+   /* private void initBanner(String[] topPhotos) {
         if (topPhotos.length > 0) {
             ArrayList<BannerItem> list = new ArrayList<>();
             for (int i = 0; i < topPhotos.length; i++) {
@@ -110,20 +115,20 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
             sib
                     .setSource(list)
                     .startScroll();
-        } /*else {
+        } *//*else {
             sib
                     .setSource(DataProvider.getList())
                     .startScroll();
-        }*/
+        }*//*
         sib.setOnItemClickL(new SimpleImageBanner.OnItemClickL() {
             @Override
             public void onItemClick(int position) {
-                /*showToast("position--->" + position);*/
+                *//*showToast("position--->" + position);*//*
             }
         });
-    }
+    }*/
 
-    @Override
+  /*  @Override
     public void onResume() {
         super.onResume();
         sib.computeScroll();
@@ -133,11 +138,11 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
     public void onPause() {
         super.onPause();
         sib.pauseScroll();
-    }
+    }*/
 
     private void initTitle() {
         titleBar.setBack(true);
-        titleBar.setTitle("店铺");
+        titleBar.setTitle("洗衣店");
     }
 
     @OnClick({R.id.iv_hot_phone, R.id.tv_now_order,R.id.iv_show_dialog})
@@ -160,14 +165,26 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
     public void setData(BannerResponse.ServiceInfoBean bean) {
         this.bean=bean;
         String topphoto = bean.getTopphoto();//轮播图
-        String[] topPhotos = topphoto.split(",");
+       // String[] topPhotos = topphoto.split(",");
         String name = bean.getTradename();//店名
         String smallimg = bean.getSmallimg();//小图
         String place = bean.getPlace();//地址
         String businesshour = bean.getBusinesshour();//shijian
         String mobile = bean.getMobile();//电话
         Log.e("打印备案:", bean + "");
-        initBanner(topPhotos);
+        //initBanner(topPhotos);
+
+        if (bean != null && !TextUtils.isEmpty(topphoto)) {
+            //this.bean=bean;
+            String[] strings = bean.getTopphoto().split(",");
+            sliderLayout.removeAllSliders();
+            for (int i = 0; i < strings.length; i++) {
+                TextSliderView textSliderView = new TextSliderView(DryCleanersActivity.this);
+                textSliderView.description("").image(strings[i]);
+                sliderLayout.addSlider(textSliderView);
+            }
+        }
+
         shopName.setText(name);
         GlideLoading.getInstance().loadImgUrlNyImgLoader(DryCleanersActivity.this,
                 smallimg, ivCutHearLogo);
@@ -188,8 +205,15 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
 
     private void showHint(BannerResponse.ServiceInfoBean bean) {
         // TODO 弹温馨出提示窗
+        final ShowHintDialog pop = new ShowHintDialog(this, bean.getRemind(), Constants.DRYCLEANER);
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.DRYCLEANER)) {
-            ShowHintDialog pop = new ShowHintDialog(this, bean.getRemind(), Constants.DRYCLEANER);
+            pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                @Override
+                public void onSetting(TextView content) {
+                    pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(DryCleanersActivity.this, 280));
+                }
+            });
+
 //            pop.showAtLocation(findViewById(R.id.activity_dry_cleaners), Gravity.CENTER, 0, 0);
             pop.show();
         }

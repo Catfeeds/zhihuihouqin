@@ -22,6 +22,7 @@ import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderHairCutBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +58,7 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    StarBar ratingBar;
     @BindView(R.id.score)
     TextView score;
     @BindView(R.id.address)
@@ -91,7 +92,9 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
         orderState.setText("支付状态：" + (data.getPaystatus() == 0 ? "未支付" : "已支付"));
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getPhoto(), image);
         name.setText(data.getRealname());
-        ratingBar.setRating(data.getScore());
+        ratingBar.setStarMark(data.getScore());
+        ratingBar.setIntegerMark(false);
+        ratingBar.ismove(false);
         score.setText("" + data.getScore());
         address.setText("地址：" + data.getAddr());
 

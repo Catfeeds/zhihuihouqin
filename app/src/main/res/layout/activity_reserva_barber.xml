@@ -16,6 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/gray_line" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,13 +34,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_barber_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/ic_default_rectangle"
                     android:scaleType="fitXY"
                     android:src="#1caca1a1" />
 
@@ -45,10 +49,13 @@
                     android:background="#a0ffffff" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:orientation="horizontal">
+                    android:background="@color/white"
+                    android:padding="@dimen/normal_padding"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/civ_barber_header"
@@ -58,19 +65,19 @@
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_default_rectangle" />
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp">
+
 
                         <TextView
                             android:id="@+id/tv_barber_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="任命"
+                            android:layout_marginTop="6dp"
                             android:textColor="@color/tv_black"
                             android:textSize="@dimen/sp_big" />
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
@@ -93,7 +100,9 @@
                                 android:textColor="@color/tv_black"
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
-                    </RelativeLayout>
+
+
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -154,6 +163,7 @@
 
             <com.moe.wl.ui.mywidget.NoScrollExpandableListView
                 android:id="@+id/e_list"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:childDivider="#c8c7cc"
@@ -193,7 +203,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:padding="@dimen/standard_padding"
                 android:orientation="horizontal">
 
                 <TextView
@@ -232,6 +243,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/standard_padding"
                 android:text="订单备注"
+                android:background="@color/white"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_common" />
 
@@ -249,7 +261,7 @@
 
                 <EditText
                     android:id="@+id/et_scanner"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
                     android:gravity="top"
@@ -276,8 +288,9 @@
                 android:background="@color/bg_page" />
         </LinearLayout>
     </ScrollView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="60dp">
 

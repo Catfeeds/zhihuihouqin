@@ -1,6 +1,9 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
@@ -82,6 +89,8 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     EditText etMobile;
     @BindView(R.id.activity_reserva_barber)
     LinearLayout activityReservaBarber;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout refresh;
 
 
     private BarberGridAdapter gridAdapter;
@@ -95,6 +104,12 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     private OrderTimeAdapter orderTimeAdapter;
     private List<PreOrderBean.TimelistBean> timelist;
     private List<PreOrderBean.TimelistBean.SchedulelistBean> schedulelist;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+    private boolean isRefresh;
 
     @Override
     public PreOrderBarberPresenter createPresenter() {
@@ -157,6 +172,14 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
         };
         etScanner.addTextChangedListener(watcher);
 
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRefresh = true;
+                getPresenter().getData(barberlistBean.getId());
+            }
+        });
+
     }
 
     private void setListener() {
@@ -183,6 +206,7 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     @Override
     public void getBarberInfo(PreOrderBean preOrderBean) {
         if (preOrderBean != null) {
+            refresh.setRefreshing(false);
             //理发类型数据
             final List<PreOrderBean.ItemlistBeanX> itemlist = preOrderBean.getItemlist();
             ExpandableListAdapter adapter = new ExpandableListAdapter(this, itemlist);
@@ -196,12 +220,14 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
                     for (int i = 0; i < itemlist.size(); i++) {
                         PreOrderBean.ItemlistBeanX itemlistBeanX = itemlist.get(i);
                         List<PreOrderBean.ItemlistBeanX.ItemlistBean> itemlist1 = itemlistBeanX.getItemlist();
+                        int typeid = itemlistBeanX.getTypeid();//以及衣物类型的id
                         for (int j = 0; j < itemlist1.size(); j++) {
                             if (itemlist1.get(j).isSelect()) {
-                                sum = Arith.add(sum, itemlist1.get(j).getPrice());
+                                double price = itemlist1.get(j).getPrice();
+                                sum = Arith.add(sum,price);//选择项目的总价格
                                 count++;
                                 int id = itemlist1.get(j).getId();
-                                list.add(new Itemid(id));
+                                list.add(new Itemid(id,price,typeid));
                             }
                         }
                     }
@@ -214,6 +240,10 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
 
             //timelist = preOrderBean.getTimelist();
             if (preOrderBean.getTimelist() != null) {
+                if(isRefresh){
+                    timelist.clear();
+                    isRefresh=false;
+                }
                 timelist.addAll(preOrderBean.getTimelist());
                 orderTimeAdapter.notifyDataSetChanged();
             }
@@ -317,17 +347,65 @@ public class ReservaBarberActivity extends BaseActivity<PreOderBarberModel, PreO
     @Override
     public void createOrederResult(CreateorderBean bean) {
         LogUtils.i("预约理发师下单" + bean.getMsg() + bean.getErrCode());
-        Intent intent = new Intent(this, PayFiveJiaoActivity.class);
-        int orderid = bean.getOrderid();
-        int ordertype = bean.getOrdertype();
-        intent.putExtra("from", Constants.BARBER);
-        intent.putExtra("pay", sumAll);
-        intent.putExtra("orderid", orderid + "");
-        intent.putExtra("ordercode", bean.getOrdercode());
-        intent.putExtra("ordertype", ordertype + "");
-        intent.putExtra("time", bean.getCreatetime());
+        Intent intent = new Intent(this, SubmitSuccessActivity.class);
+        intent.putExtra("from", Constants.HAIRCUTS);
+
+//        Intent intent = new Intent(this, PayFiveJiaoActivity.class);
+//        int orderid = bean.getOrderid();
+//        int ordertype = bean.getOrdertype();
+//        intent.putExtra("from", Constants.BARBER);
+//        intent.putExtra("pay", sumAll);
+//        intent.putExtra("orderid", orderid + "");
+//        intent.putExtra("ordercode", bean.getOrdercode());
+//        intent.putExtra("ordertype", ordertype + "");
+//        intent.putExtra("time", bean.getCreatetime());
         //intent.putExtra("from",Constants.BARBER);
         //intent.putExtra("ordertype",6);//订单类型为理发
         startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("ReservaBarber Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 }
