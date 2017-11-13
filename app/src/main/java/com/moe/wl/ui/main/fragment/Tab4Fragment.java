@@ -534,19 +534,19 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 goServiceActivity(4, Constants.CONFERENCE, Constants.orderConference);
                 break;
             case R.id.rl_visitors:
-                goServiceActivity(1, Constants.VISITORS, Constants.orderVisitors);
+                goServiceActivity(0, Constants.VISITORS, Constants.orderVisitors);
                 break;
             case R.id.tv_visitors_one:
-                goServiceActivity(1, Constants.VISITORS, Constants.orderVisitors);
+                goServiceActivity(0, Constants.VISITORS, Constants.orderVisitors);
                 break;
             case R.id.tv_visitors_two:
-                goServiceActivity(3, Constants.VISITORS, Constants.orderVisitors);
+                goServiceActivity(1, Constants.VISITORS, Constants.orderVisitors);
                 break;
             case R.id.tv_visitors_three:
-                goServiceActivity(4, Constants.VISITORS, Constants.orderVisitors);
+                goServiceActivity(2, Constants.VISITORS, Constants.orderVisitors);
                 break;
             case R.id.tv_visitors_four:
-                goServiceActivity(5, Constants.VISITORS, Constants.orderVisitors);
+                goServiceActivity(3, Constants.VISITORS, Constants.orderVisitors);
                 break;
 
             case R.id.rl_laifang_person: // 来访人员

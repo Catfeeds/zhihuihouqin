@@ -2631,7 +2631,7 @@ carcode	是	string	车牌号*/
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
-            tempMap.put("orderStatus", orderStatus);
+            tempMap.put("type", orderStatus);
             tempMap.put("page", page);
             tempMap.put("limit", 20);
             addParams(paramsMap, tempMap);
