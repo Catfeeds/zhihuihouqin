@@ -71,10 +71,8 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
                     holder.pay.setVisibility(View.VISIBLE);
                     if (data.get(position).getCheckstatus() == 0) {
                         holder.pay.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_gray_button));
-                        holder.pay.setClickable(false);
                     } else {
                         holder.pay.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_button));
-                        holder.pay.setClickable(true);
                     }
                 } else {
                     holder.pay.setVisibility(View.GONE);
@@ -109,14 +107,16 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
         holder.pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PayFiveJiaoActivity.class);
-                intent.putExtra("from", Constants.HAIRCUTS);
-                intent.putExtra("pay", data.get(position).getPrice());
-                intent.putExtra("orderid", data.get(position).getOrderid() + "");
-                intent.putExtra("ordercode", data.get(position).getOrdercode());
-                intent.putExtra("ordertype", Constants.HAIRCUTS + "");
-                intent.putExtra("time", data.get(position).getCreatetime());
-                context.startActivity(intent);
+                if (data.get(position).getCheckstatus() == 1) {
+                    Intent intent = new Intent(context, PayFiveJiaoActivity.class);
+                    intent.putExtra("from", Constants.HAIRCUTS);
+                    intent.putExtra("pay", data.get(position).getPrice());
+                    intent.putExtra("orderid", data.get(position).getOrderid() + "");
+                    intent.putExtra("ordercode", data.get(position).getOrdercode());
+                    intent.putExtra("ordertype", Constants.HAIRCUTS + "");
+                    intent.putExtra("time", data.get(position).getCreatetime());
+                    context.startActivity(intent);
+                }
             }
         });
 

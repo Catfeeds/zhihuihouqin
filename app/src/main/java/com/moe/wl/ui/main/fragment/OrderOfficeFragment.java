@@ -93,7 +93,7 @@ public class OrderOfficeFragment extends BaseFragment2 {
                         break;
 
                     case 3:
-                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.PROPERRY);
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.OFFICESUPPLIES);
                         break;
 
                     case 4: // 删除订单

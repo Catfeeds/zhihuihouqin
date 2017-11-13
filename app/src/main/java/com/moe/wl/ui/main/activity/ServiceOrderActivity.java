@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.adapter.MyPagerAdapter;
 import com.moe.wl.ui.main.fragment.OrderBookFragment;
 import com.moe.wl.ui.main.fragment.OrderConferenceFragment;
@@ -25,6 +25,7 @@ import com.moe.wl.ui.main.fragment.OrderMedicalFragment;
 import com.moe.wl.ui.main.fragment.OrderOfficeFragment;
 import com.moe.wl.ui.main.fragment.OrderRepairFragment;
 import com.moe.wl.ui.main.fragment.OrderVegetableFragment;
+import com.moe.wl.ui.main.fragment.OrderVisitorsFragment;
 import com.moe.wl.ui.main.fragment.WaterFragment;
 import com.moe.wl.ui.mywidget.OrderPop;
 
@@ -36,7 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ServiceOrderActivity extends AppCompatActivity implements View.OnClickListener {
+public class ServiceOrderActivity extends MyBaseActivity implements View.OnClickListener {
 
     @BindView(R.id.back)
     ImageView back;
@@ -158,6 +159,13 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                 fragments.add(OrderConferenceFragment.getInstance(3));
                 fragments.add(OrderConferenceFragment.getInstance(4));
                 break;
+
+            case Constants.VISITORS: // 来访人员
+                fragments.add(OrderVisitorsFragment.getInstance(0));
+                fragments.add(OrderVisitorsFragment.getInstance(2));
+                fragments.add(OrderVisitorsFragment.getInstance(3));
+                fragments.add(OrderVisitorsFragment.getInstance(4));
+                break;
         }
         initViewpager();
         viewPager.setCurrentItem(index);
@@ -236,6 +244,9 @@ public class ServiceOrderActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.tv_office:
                 goServiceActivity(0, Constants.CONFERENCE, Constants.orderConference);
+                break;
+            case R.id.tv_visitors:
+                goServiceActivity(0, Constants.VISITORS, Constants.orderVisitors);
                 break;
         }
     }

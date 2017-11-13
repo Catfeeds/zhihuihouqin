@@ -11,6 +11,7 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.main.activity.me.LaiFangActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderVisitorsAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -87,7 +88,7 @@ public class OrderVisitorsFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 再来一单
-//                        startActivity(new Intent(getActivity(), PropertyAintenanceActivity.class));
+                        startActivity(new Intent(getActivity(), LaiFangActivity.class));
                         break;
 
                     case 3: // 评价
@@ -113,7 +114,7 @@ public class OrderVisitorsFragment extends BaseFragment2 {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.PROPERRY);
+                        intent.putExtra("from", Constants.VISITORS);
                         if (data.size() >= mPosition) {
                             OrderVisitorsListBean.OrderlistEntity listBean = data.get(mPosition);
                             if (state == 0) {
@@ -167,6 +168,9 @@ public class OrderVisitorsFragment extends BaseFragment2 {
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * 获取数据
+     */
     public void getData() {
         Observable observable = RetrofitUtils.getInstance().getConferenceOrder(state + 1, page);
         showProgressDialog();
@@ -204,7 +208,7 @@ public class OrderVisitorsFragment extends BaseFragment2 {
 
     // 删除订单接口
     private void deleteOrder(int orderID) {
-        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.CONFERENCE, orderID);
+        Observable observable = RetrofitUtils.getInstance().deleteOrder(Constants.VISITORS, orderID);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override

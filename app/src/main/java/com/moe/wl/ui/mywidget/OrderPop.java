@@ -43,6 +43,8 @@ public class OrderPop extends PopupWindow {
     TextView tvBookOrder;
     @BindView(R.id.tv_office)
     TextView tvOffice;
+    @BindView(R.id.tv_visitors)
+    TextView tvVisitors;
 
     private Context context;
     private View view;
@@ -63,6 +65,7 @@ public class OrderPop extends PopupWindow {
         tvExpertsVisit.setOnClickListener(click);
         tvBookOrder.setOnClickListener(click);
         tvOffice.setOnClickListener(click);
+        tvVisitors.setOnClickListener(click);
 
         //设置SelectPicPopupWindow的View
         this.setContentView(view);

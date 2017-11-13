@@ -113,7 +113,7 @@ public class OrderConferenceFragment extends BaseFragment2 {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
-                        intent.putExtra("from", Constants.PROPERRY);
+                        intent.putExtra("from", Constants.CONFERENCE);
                         if (data.size() >= mPosition) {
                             OrderConferenceBean.ListEntity listBean = data.get(mPosition);
                             if (state == 0) {

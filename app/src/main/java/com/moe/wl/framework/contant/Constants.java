@@ -40,7 +40,7 @@ public class Constants {
     public static final int DRYCLEANER = 16; // 洗衣店
     public static final int ORDERWATER = 18; // 订水订单
     public static final int RECHARGE = 19; // 充值
-    public static final int VISITORS = 20; // 来访人员
+    public static final int VISITORS = 21; // 来访人员
     public static final String LOGIN_ERROR = "您的登录已过时，请重新登录。"; //登录token已失效
 
 

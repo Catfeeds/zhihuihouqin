@@ -116,6 +116,14 @@
                 android:layout_centerHorizontal="true"
                 android:minWidth="100dp"
                 android:text="会议室订单" />
+
+            <TextView
+                android:id="@+id/tv_visitors"
+                style="@style/shaptextstyle"
+                android:layout_alignParentRight="true"
+                android:minWidth="100dp"
+                android:text="来访人员" />
+
         </RelativeLayout>
 
     </LinearLayout>

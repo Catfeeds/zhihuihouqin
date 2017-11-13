@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -172,6 +171,13 @@ public class OrderCommentActivity extends AppCompatActivity {
                 textOne.setText("配送速度");
                 textTwo.setText("服务评价");
                 break;
+
+            case Constants.VISITORS:
+                name.setText("安保处");
+                textOne.setText("安保质量");
+                textTwo.setText("服务评价");
+                break;
+
         }
         paths = new ArrayList<>();
         paths.add("addComment");
