@@ -1457,12 +1457,13 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable dryOrderCommit(String mobile, String expectarrivaItme,
+    public static Observable dryOrderCommit(String mobile,double totalprice, String expectarrivaItme,
                                             String clothList) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
             tempMap.put("mobile", mobile);
+            tempMap.put("totalprice", totalprice+"");
             tempMap.put("expectarrivaItme", expectarrivaItme);
             tempMap.put("clothList", clothList);
             addParam(paramsMap, tempMap);
@@ -2132,31 +2133,22 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     /**
      * 拜访人员
      */
-    /*username	是	string	访问人姓名
-mobile	是	string	电话
-roomnum	是	string	访问房间号
-reason	是	string	拜访原因
-expertarrivaltime	是	string	到访时间2017-09-09 11：11
-expertleavetime	是	string	离开时间2017-09-09 11：11
-visitperiod	是	number	周期 1: 一次，2：一星期，3：半个月，4：长期
-cartype	是	string	车类型
-carcode	是	string	车牌号*/
-    public static Observable postBaifagnInfo(String username, String mobile, String roomnum, String reason,
-                                             String expertarrivaltime, String expertleavetime, String
-                                                     visitperiod, String cartype, String carcode) {
+    public static Observable postBaifagnInfo(String realname, String phonenum, String roomnum, String vname,
+                                             String vmobile,  String
+                                                     vidnum, String vpnum,String time,String department) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
-            tempMap.put("username", username);
-            tempMap.put("mobile", mobile);
+            tempMap.put("realname", realname);
+            tempMap.put("phonenum", phonenum);
             tempMap.put("roomnum", roomnum);
-            tempMap.put("reason", reason);
-            tempMap.put("expertarrivaltime", expertarrivaltime);
-            tempMap.put("expertleavetime", expertleavetime);
-            tempMap.put("visitperiod", visitperiod);
-            tempMap.put("cartype", cartype);
-            tempMap.put("carcode", carcode);
+            tempMap.put("vname", vname);
+            tempMap.put("vmobile", vmobile);
+            tempMap.put("vidnum", vidnum);
+            tempMap.put("vpnum", vpnum);
             addParam(paramsMap, tempMap);
+            tempMap.put("unit", department);
+            tempMap.put("visittime", time);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -3043,7 +3035,6 @@ carcode	是	string	车牌号*/
         }
         return null;
     }
-
 
     /**
      * 修改用户信息

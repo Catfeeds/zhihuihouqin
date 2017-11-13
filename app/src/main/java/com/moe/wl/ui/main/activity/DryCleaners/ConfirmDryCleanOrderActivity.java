@@ -106,12 +106,14 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
 
     private void commit() {
         JSONArray json1 = new JSONArray();
+        double sum=0;
         for (int i = 0; i < list.size(); i++) {
             JSONObject object = new JSONObject();
             try {
                 int count = list.get(i).getCount();
                 double price = list.get(i).getPrice();
                 double totalprice=count*price;
+                sum+=totalprice;
                 object.put("clothestypeid", list.get(i).getId());
                 object.put("count",count );
                 object.put("name", list.get(i).getName());
@@ -124,7 +126,7 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
             }
         }
         LogUtils.i(json1.toString());
-        Observable observable = RetrofitUtils.getInstance().dryOrderCommit(mobile, time, json1.toString());
+        Observable observable = RetrofitUtils.getInstance().dryOrderCommit(mobile,sum, time, json1.toString());
         showProgressDialog();
         observable.subscribe(new Subscriber<JieYueBean>() {
             @Override

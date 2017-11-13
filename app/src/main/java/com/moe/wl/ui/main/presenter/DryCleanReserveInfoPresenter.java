@@ -53,9 +53,9 @@ public class DryCleanReserveInfoPresenter extends MvpRxPresenter<DryCleanReserve
 
     }
 
-    public void getCommitResult(String mobile, String expectarrivaItme,
+    public void getCommitResult(String mobile,double sum, String expectarrivaItme,
                                 String clothList) {
-        Observable observable = getModel().CommitData(mobile, expectarrivaItme, clothList);
+        Observable observable = getModel().CommitData(mobile,sum,expectarrivaItme, clothList);
         getView().showProgressDialog();
         observable.subscribe(new Subscriber<JieYueBean>() {
             @Override

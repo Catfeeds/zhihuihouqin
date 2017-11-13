@@ -21,9 +21,9 @@ public class DryCleanReserveInfoModelImpl implements DryCleanReserveInfoModel {
     }
 
     @Override
-    public Observable CommitData(String mobile, String expectarrivaItme, String clothList) {
+    public Observable CommitData(String mobile,double sum, String expectarrivaItme, String clothList) {
         Log.e("MedicalDetailModelImpl","请求数据-->login");
-        Observable observer = RetrofitUtils.getInstance().dryOrderCommit(mobile,expectarrivaItme,
+        Observable observer = RetrofitUtils.getInstance().dryOrderCommit(mobile,sum,expectarrivaItme,
                 clothList);
         return observer ;
     }

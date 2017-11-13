@@ -10,6 +10,6 @@ import rx.Observable;
 public interface DryCleanReserveInfoModel extends MvpModel {
     Observable getData(String page, String limit);
 
-    Observable CommitData(String mobile, String expectarrivaItme,
+    Observable CommitData(String mobile,double sum, String expectarrivaItme,
                           String clothList);
 }
