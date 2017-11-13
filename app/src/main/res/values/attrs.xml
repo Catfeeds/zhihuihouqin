@@ -65,4 +65,18 @@
         <attr name="cbd_calendar_row"/>
     </declare-styleable>
 
+    <declare-styleable name="RatingBars">
+        <!--星星间距-->
+        <attr format="dimension" name="starDistance"/>
+        <!--星星大小-->
+        <attr format="dimension" name="starSize"/>
+        <!--星星个数-->
+        <attr format="integer" name="starCounts"/>
+        <!--星星空图-->
+        <attr format="reference" name="starEmptys"/>
+        <!--星星满图-->
+        <attr format="reference" name="starFills"/>
+    </declare-styleable>
+
+
 </resources>

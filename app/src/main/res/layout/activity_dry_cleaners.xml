@@ -30,7 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/gray_line" />
-    <!--轮播图占位-->
+    <!--轮播图-->
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider_layout"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@mipmap/ic_default_rectangle" />
+
+   <!-- &lt;!&ndash;轮播图占位&ndash;&gt;
     <com.moe.wl.framework.widget.SimpleImageBanner
         android:id="@+id/h_banner_viewPager"
         android:layout_width="match_parent"
@@ -57,7 +64,7 @@
         banner:bb_period="5"
         banner:bb_scale="0.5625"
         banner:bb_textColor="#ffffff"
-        banner:bb_textSize="13.5sp" />
+        banner:bb_textSize="13.5sp" />-->
 
     <ScrollView
         android:layout_width="match_parent"

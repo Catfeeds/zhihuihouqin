@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -61,15 +62,26 @@
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_big" />
 
-                <RatingBar
+                <com.moe.wl.ui.mywidget.StarBar
                     android:id="@+id/rating_bar"
-                    style="@style/fiveRatingBar_big"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/display"
                     android:layout_gravity="center_horizontal"
-                    android:numStars="5"
-                    android:rating="5"
-                    android:stepSize="1.0" />
+                    ratingbar:starCounts="5"
+                    ratingbar:starDistance="5dp"
+                    ratingbar:starEmptys="@drawable/start_null_small"
+                    ratingbar:starFills="@drawable/start_fill_small"
+                    ratingbar:starSize="26dp" />
+                <!-- <RatingBar
+                     android:id="@+id/rating_bar"
+                     style="@style/fiveRatingBar_big"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_horizontal"
+                     android:numStars="5"
+                     android:rating="5"
+                     android:stepSize="1.0" />-->
 
                 <View
                     android:layout_width="match_parent"
@@ -93,7 +105,18 @@
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_small" />
 
-                    <RatingBar
+                    <com.moe.wl.ui.mywidget.StarBar
+                        android:id="@+id/rating_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/display"
+                        android:layout_gravity="center_vertical"
+                        ratingbar:starCounts="5"
+                        ratingbar:starDistance="5dp"
+                        ratingbar:starEmptys="@drawable/start_null_small"
+                        ratingbar:starFills="@drawable/start_fill_small"
+                        ratingbar:starSize="16dp" />
+                    <!--<RatingBar
                         android:id="@+id/rating_one"
                         style="@style/fiveRatingBar_small"
                         android:layout_width="wrap_content"
@@ -101,7 +124,7 @@
                         android:layout_gravity="center_horizontal"
                         android:numStars="5"
                         android:rating="5"
-                        android:stepSize="1.0" />
+                        android:stepSize="1.0" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -121,15 +144,26 @@
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_small" />
 
-                    <RatingBar
+                    <com.moe.wl.ui.mywidget.StarBar
                         android:id="@+id/rating_two"
-                        style="@style/fiveRatingBar_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:numStars="5"
-                        android:rating="5"
-                        android:stepSize="1.0" />
+                        android:layout_below="@+id/display"
+                        android:layout_gravity="center_vertical"
+                        ratingbar:starCounts="5"
+                        ratingbar:starDistance="5dp"
+                        ratingbar:starEmptys="@drawable/start_null_small"
+                        ratingbar:starFills="@drawable/start_fill_small"
+                        ratingbar:starSize="16dp" />
+                    <!-- <RatingBar
+                         android:id="@+id/rating_two"
+                         style="@style/fiveRatingBar_small"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="center_horizontal"
+                         android:numStars="5"
+                         android:rating="5"
+                         android:stepSize="1.0" />-->
                 </LinearLayout>
 
                 <View

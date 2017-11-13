@@ -20,7 +20,7 @@
         android:text="立即预约"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_big"
-        android:visibility="gone" />
+        />
 
     <LinearLayout
         android:id="@+id/top"
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="@dimen/normal_padding">
+                    android:padding="@dimen/standard_padding">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -162,21 +162,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="@dimen/normal_padding">
+                    android:padding="@dimen/standard_padding">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:src="@drawable/business_time" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="营业时间： "
+                        android:text="营业时间:"
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_small" />
 
@@ -203,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="@dimen/normal_padding">
+                        android:padding="@dimen/standard_padding">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -244,6 +242,7 @@
                     android:background="@color/bg_page" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
@@ -270,6 +269,7 @@
                 </LinearLayout>
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
+                    android:visibility="gone"
                     android:id="@+id/shop_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

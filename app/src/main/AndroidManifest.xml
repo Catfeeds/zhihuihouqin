@@ -236,7 +236,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.DryCleaners.DryCleanReserveInfoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".ui.main.activity.DryCleaners.ConfirmDryCleanOrderActivity"
             android:screenOrientation="portrait" />
@@ -364,7 +364,9 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct" />
         <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity" />
-        <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity" />
+        <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
         <activity
             android:name=".ui.main.activity.vegetable.VegetableSearchActivity"
             android:screenOrientation="portrait" />
@@ -574,6 +576,7 @@
         <activity
             android:name=".ui.main.activity.MealsRecharge.RechargeContentAct"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.activity.vegetable.VegetableIndexActivity" />
     </application>
 
 </manifest>

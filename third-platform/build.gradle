@@ -28,8 +28,8 @@ dependencies {
     //微信支付
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //地图
-    compile 'com.amap.api:location:latest.integration'
-    compile 'com.amap.api:search:latest.integration'
+//    compile 'com.amap.api:location:latest.integration'
+   // compile 'com.amap.api:search:latest.integration'
 //    compile 'com.amap.api:navi-3dmap:5.0.0'
     compile project(':mvp-rx')
 }
