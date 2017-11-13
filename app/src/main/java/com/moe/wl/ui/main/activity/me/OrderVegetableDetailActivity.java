@@ -61,7 +61,6 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
     @BindView(R.id.time)
     TextView time;
 
-
     private OrderVegetableDetailBean data;
 
     private CustomerDialog progressDialog;
@@ -129,6 +128,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
         state = data.getDetail().getStatus();
         switch (state) {
             case 1: // 1: 已预约
+                left.setVisibility(View.GONE);
                 if (data.getDetail().getPayStatus() == 0) {
                     left.setVisibility(View.VISIBLE);
                     left.setText("支付");
@@ -142,13 +142,15 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
                 break;
             case 3: // 3：已完成
                 left.setVisibility(View.VISIBLE);
-                left.setText("立即评论");
+                left.setText("立即评价");
                 right.setText("再次预订");
                 break;
             case 4: // 4：待评价
+                left.setVisibility(View.GONE);
                 right.setText("立即评价");
                 break;
             case 5: // 5：已取消
+                left.setVisibility(View.GONE);
                 right.setText("删除订单");
                 break;
         }

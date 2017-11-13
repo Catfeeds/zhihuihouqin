@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +22,7 @@ import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.mywidget.AddPhotoPop;
@@ -47,7 +46,7 @@ import rx.Subscriber;
  * 作者：Shixhe On 2017/10/9 0009
  */
 
-public class OrderCommentActivity extends AppCompatActivity {
+public class OrderCommentActivity extends MyBaseActivity {
 
     private static final int TAKE_PHOTO_CAMERA = 10001;
     private static final int TAKE_PHOTO_ALBUM = 10002;

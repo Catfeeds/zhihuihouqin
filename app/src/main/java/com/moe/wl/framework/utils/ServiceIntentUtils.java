@@ -19,7 +19,7 @@ import com.moe.wl.ui.main.activity.nutritionalmeal.NutritionActivity;
 import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
 import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
-import com.moe.wl.ui.main.activity.vegetable.VegetableMainActivity;
+import com.moe.wl.ui.main.activity.vegetable.VegetableIndexActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -80,7 +80,7 @@ public class ServiceIntentUtils {
 
                 break;
             case 4: // 4	净菜预订
-                return VegetableMainActivity.class;
+                return VegetableIndexActivity.class;
 
             case 5: // 5	厨师服务
 

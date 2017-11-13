@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.vegetable;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.moe.wl.framework.manager.UIManager;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.login.activity.LoginActivity;
 import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -37,7 +37,7 @@ import rx.Subscriber;
  * Created by 我的电脑 on 2017/11/9 0009.
  */
 
-public class VegetableIndexActivity extends AppCompatActivity {
+public class VegetableIndexActivity extends MyBaseActivity {
     @BindView(R.id.dry_cleaners_title)
     TitleBar title;
     @BindView(R.id.iv_show_dialog)
@@ -70,9 +70,7 @@ public class VegetableIndexActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initTitle();
         tvNowOrder.setText("立即预订");
-        if (!SharedPrefHelper.getInstance().getServiceHint(Constants.VEGETABLE)) {
-            getHint();
-        }
+        getHint();
     }
 
     private void initTitle() {
@@ -140,15 +138,16 @@ public class VegetableIndexActivity extends AppCompatActivity {
                     }
 
                     // TODO 弹出温馨提示窗
-                    final ShowHintDialog pop = new ShowHintDialog(VegetableIndexActivity.this, mResponse.getServiceInfo().getRemind(), Constants.VEGETABLE);
-//                        pop.showAtLocation(findViewById(R.id.main), Gravity.CENTER, 0, 0);
-                    pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
-                        @Override
-                        public void onSetting(TextView content) {
-                            pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(VegetableIndexActivity.this, 280));
-                        }
-                    });
-                    pop.show();
+                    if (!SharedPrefHelper.getInstance().getServiceHint(Constants.VEGETABLE)) {
+                        final ShowHintDialog pop = new ShowHintDialog(VegetableIndexActivity.this, mResponse.getServiceInfo().getRemind(), Constants.VEGETABLE);
+                        pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                            @Override
+                            public void onSetting(TextView content) {
+                                pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(VegetableIndexActivity.this, 280));
+                            }
+                        });
+                        pop.show();
+                    }
                 } else {
                     ToastUtil.showToast(VegetableIndexActivity.this, mResponse.msg);
                 }

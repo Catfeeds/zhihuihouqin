@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.me.OrderVegetableDetailActivity;
@@ -74,6 +75,13 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
                 break;
             case 2:
                 holder.left.setVisibility(View.VISIBLE);
+                if (data.get(position).getStatus() == 3) {
+                    holder.left.setText("已评价");
+                    holder.left.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_gray_button));
+                } else {
+                    holder.left.setText("立即评价");
+                    holder.left.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_button));
+                }
                 holder.order.setText("再次预订");
                 break;
             case 3:
@@ -106,17 +114,20 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
         holder.left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LogUtils.d("state = " + state + " data.get(position).getStatus() = " + data.get(position).getStatus());
                 if (state == 0) {
                     Intent intent = new Intent(context, PayFiveJiaoActivity.class);
                     intent.putExtra("from", Constants.VEGETABLE);
 //                    intent.putExtra("pay", data.get(position).getTotalprice());
-                    intent.putExtra("orderid", data.get(position).getId()+ "");
+                    intent.putExtra("orderid", data.get(position).getId() + "");
                     intent.putExtra("ordercode", data.get(position).getOrdercode());
                     intent.putExtra("ordertype", Constants.VEGETABLE + "");
                     intent.putExtra("time", DateUtil.getTimeyyyyMMddHHmm());
                     context.startActivity(intent);
                 } else if (state == 2) {
-                    OtherUtils.gotoComment(context, data.get(position).getId(), Constants.VEGETABLE);
+                    if (data.get(position).getStatus() == 4) {
+                        OtherUtils.gotoComment(context, data.get(position).getId(), Constants.VEGETABLE);
+                    }
                 }
             }
         });

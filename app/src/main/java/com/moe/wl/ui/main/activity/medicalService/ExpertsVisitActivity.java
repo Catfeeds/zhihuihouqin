@@ -18,7 +18,6 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
-import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityRegistrationActivity;
 import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
 import com.moe.wl.ui.main.activity.ReserveInfoActivity;
 import com.moe.wl.ui.main.adapter.DoctorDetailrvAdapter;
@@ -213,7 +212,7 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvStarNum.setText(bean.getExpert().getScore() + "");// 分数
         ratingBar.setRating((float) bean.getExpert().getScore());
         skilledInfo.setText(/*"擅长：" + */bean.getExpert().getSkilledinfo());// 擅长
-        tvOrderPersonNum.setText(bean.getExpert().getRemaincount() + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
+        tvOrderPersonNum.setText((bean.getExpert().getInvitetotalcount() - bean.getExpert().getRemaincount()) + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间
         tvContent.setText(bean.getExpert().getBrief());// 简介
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getExpert().getPhoto(), ivDocPhoto, R.mipmap.ic_default_square);

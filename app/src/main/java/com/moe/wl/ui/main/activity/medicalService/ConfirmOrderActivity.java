@@ -91,7 +91,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
         OtherUtils.ratingBarColor(ratingBar, this);
         ratingBar.setRating((float) entity.getScore());
         tvStarNum.setText(entity.getScore() + "");
-        reservationNum.setText(entity.getRemaincount() + 1 + "/" + entity.getInvitetotalcount());
+        reservationNum.setText((entity.getInvitetotalcount() - entity.getRemaincount() + 1) + "/" + entity.getInvitetotalcount());
     }
 
     @OnClick(R.id.tv_commit)
@@ -119,7 +119,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
     public void submitExpertOrderSucc(ExpertOrderBean bean) {
         Intent intent = new Intent(this, SubmitSuccessActivity.class);
         intent.putExtra("from", Constants.EXPERTS);
-        intent.putExtra("index",0);
+        intent.putExtra("index", 0);
         startActivity(intent);
         finish();
     }

@@ -6,24 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_page"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <com.moe.wl.framework.widget.TitleBar
-        android:id="@+id/dry_cleaners_title"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/white" />
-    <ImageView
-        android:id="@+id/iv_show_dialog"
-        android:src="@drawable/blue_doubt"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/normal_padding"
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <com.moe.wl.framework.widget.TitleBar
+            android:id="@+id/dry_cleaners_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_show_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/normal_padding"
+            android:src="@drawable/blue_doubt" />
+    </RelativeLayout>
 
 
     <View
@@ -37,34 +41,34 @@
         android:layout_height="180dp"
         android:background="@mipmap/ic_default_rectangle" />
 
-   <!-- &lt;!&ndash;轮播图占位&ndash;&gt;
-    <com.moe.wl.framework.widget.SimpleImageBanner
-        android:id="@+id/h_banner_viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        banner:bb_barColor="#00000000"
-        banner:bb_barPaddingBottom="5dp"
-        banner:bb_barPaddingLeft="10dp"
-        banner:bb_barPaddingRight="10dp"
-        banner:bb_barPaddingTop="5dp"
-        banner:bb_delay="2"
-        banner:bb_indicatorCornerRadius="3dp"
-        banner:bb_indicatorGap="8dp"
-        banner:bb_indicatorGravity="CENTER"
-        banner:bb_indicatorHeight="6dp"
-        banner:bb_indicatorSelectColor="@color/tv_blue"
-        banner:bb_indicatorStyle="CORNER_RECTANGLE"
-        banner:bb_indicatorUnselectColor="#88ffffff"
-        banner:bb_indicatorWidth="6dp"
-        banner:bb_isAutoScrollEnable="true"
-        banner:bb_isBarShowWhenLast="true"
-        banner:bb_isIndicatorShow="true"
-        banner:bb_isLoopEnable="true"
-        banner:bb_isTitleShow="true"
-        banner:bb_period="5"
-        banner:bb_scale="0.5625"
-        banner:bb_textColor="#ffffff"
-        banner:bb_textSize="13.5sp" />-->
+    <!-- &lt;!&ndash;轮播图占位&ndash;&gt;
+     <com.moe.wl.framework.widget.SimpleImageBanner
+         android:id="@+id/h_banner_viewPager"
+         android:layout_width="match_parent"
+         android:layout_height="160dp"
+         banner:bb_barColor="#00000000"
+         banner:bb_barPaddingBottom="5dp"
+         banner:bb_barPaddingLeft="10dp"
+         banner:bb_barPaddingRight="10dp"
+         banner:bb_barPaddingTop="5dp"
+         banner:bb_delay="2"
+         banner:bb_indicatorCornerRadius="3dp"
+         banner:bb_indicatorGap="8dp"
+         banner:bb_indicatorGravity="CENTER"
+         banner:bb_indicatorHeight="6dp"
+         banner:bb_indicatorSelectColor="@color/tv_blue"
+         banner:bb_indicatorStyle="CORNER_RECTANGLE"
+         banner:bb_indicatorUnselectColor="#88ffffff"
+         banner:bb_indicatorWidth="6dp"
+         banner:bb_isAutoScrollEnable="true"
+         banner:bb_isBarShowWhenLast="true"
+         banner:bb_isIndicatorShow="true"
+         banner:bb_isLoopEnable="true"
+         banner:bb_isTitleShow="true"
+         banner:bb_period="5"
+         banner:bb_scale="0.5625"
+         banner:bb_textColor="#ffffff"
+         banner:bb_textSize="13.5sp" />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -137,7 +141,6 @@
                     android:id="@+id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="机关教育部业务楼右侧100米"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
             </LinearLayout>
@@ -173,7 +176,6 @@
                     android:id="@+id/tv_work_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="8:00----21:00"
                     android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_common" />
             </LinearLayout>
@@ -214,7 +216,6 @@
                         android:id="@+id/tv_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1234567890"
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_common" />
                 </LinearLayout>
@@ -235,14 +236,14 @@
                 android:background="@color/bg_page">
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/message_hint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/standard_padding"
                     android:text="温馨提示..."
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/sp_common" />
+                    android:textSize="@dimen/sp_common"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

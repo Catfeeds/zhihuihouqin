@@ -70,6 +70,12 @@ public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
         if (mList != null && mList.size() > 0) {
             viewHolder.setData(mList.get(position), position);
         }
+        if (mList.get(position).getRemark() != null && mList.get(position).getRemark().length() > 0) {
+            viewHolder.remark.setVisibility(View.VISIBLE);
+            viewHolder.remark.setText("备注：" + mList.get(position).getRemark());
+        } else {
+            viewHolder.remark.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
@@ -82,6 +88,9 @@ public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
         TextView tvCount;
         @BindView(R.id.tv_price)
         TextView tvPrice;
+        @BindView(R.id.remark)
+        TextView remark;
+
         private int mPosition;
         private ClothBean.PageEntity.ListEntity listBean;
 
@@ -96,7 +105,7 @@ public class ConfirmDryCleanOrderAdapter extends BaseAdapter {
                 if (listBean.getCount() > 0) {
                     tvCategory.setText(listBean.getName());
                     tvCount.setText("x" + listBean.getCount());
-                    tvPrice.setText("￥" + listBean.getPrice());
+                    tvPrice.setText("¥" + listBean.getPrice());
                 } else {
                     rlItem.setVisibility(View.GONE);
                 }

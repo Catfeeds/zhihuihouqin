@@ -49,7 +49,7 @@ public class VegetableAdapter extends RecyclerView.Adapter {
         h.title.setText(entity.getName());
         h.content.setText(entity.getOriginal());
         h.price.setText("¥" + entity.getPrice());
-        h.num.setText(entity.getRemain() + "/" + entity.getTotalcount());
+        h.num.setText((entity.getTotalcount() - entity.getRemain()) + "/" + entity.getTotalcount());
         if (entity.getNumber() == 0) {
             h.number.setVisibility(View.GONE);
             h.minus.setVisibility(View.GONE);
@@ -96,7 +96,7 @@ public class VegetableAdapter extends RecyclerView.Adapter {
         h.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (imageClickListener!=null)
+                if (imageClickListener != null)
                     imageClickListener.onImageClick(data.get(position).getImg());
             }
         });

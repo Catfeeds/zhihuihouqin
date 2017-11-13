@@ -57,7 +57,7 @@ public class Constants {
     // 医疗订单 标题
     public static final String orderMedical = "已预约,服务中,已完成,待评价,已取消";
     // 专家坐诊 标题
-    public static final String orderExperts = "已预约,服务中,已完成,待评价,已取消";
+    public static final String orderExperts = "已预约,已完成,待评价,已取消";//服务中,
     //  洗衣店 标题
     public static final String orderDryCleaner = "已下单,已受理,已完成,待评价,已取消";
     // 图书订单 标题

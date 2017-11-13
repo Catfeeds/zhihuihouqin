@@ -972,7 +972,8 @@
                                 android:gravity="center"
                                 android:text="服务中"
                                 android:textColor="@color/tv_black"
-                                android:textSize="@dimen/sp_small" />
+                                android:textSize="@dimen/sp_small"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tv_service7"
@@ -1570,14 +1571,14 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl_laifang_person"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="10dp"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_img2"
