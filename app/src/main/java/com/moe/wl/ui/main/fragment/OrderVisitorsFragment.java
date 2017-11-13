@@ -172,7 +172,7 @@ public class OrderVisitorsFragment extends BaseFragment2 {
      * 获取数据
      */
     public void getData() {
-        Observable observable = RetrofitUtils.getInstance().getConferenceOrder(state + 1, page);
+        Observable observable = RetrofitUtils.getInstance().getVisitorsOrder(state + 1, page);
         showProgressDialog();
         observable.subscribe(new Subscriber<OrderVisitorsListBean>() {
             @Override
