@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.activity.DryCleaners;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.DryCleanersLvAdapter;
 import com.moe.wl.ui.main.bean.ClothBean;
@@ -60,7 +62,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
     /* @BindView(R.id.tv_more)
      TextView tvMore;*/
     private int page = 1;
-    private String limit = "10";
+    private String limit = "40";
     private DryCleanersLvAdapter lvAdapter;
     private List<ClothBean.PageEntity.ListEntity> listAll = new ArrayList<>();
     private int sum;
@@ -119,13 +121,41 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                     tvSum.setText("共" + sum + "件");
                 }
             });
+            lvAdapter.setEtListener(new DryCleanersLvAdapter.EtListener() {
+                @Override
+                public void etlisten(int position, String content) {
+                    listAll.get(position).setRemark(content);
+                }
+            });
         }
     }
+    public  boolean isVisBottom(RecyclerView recyclerView){
+     /*   LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        //屏幕中最后一个可见子项的position
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        //当前屏幕所看到的子项个数
+        int visibleItemCount = layoutManager.getChildCount();
+        //当前RecyclerView的所有子项个数
+        int totalItemCount = layoutManager.getItemCount();
+        //RecyclerView的滑动状态
+        int state = recyclerView.getScrollState();
+        if(visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == recyclerView.SCROLL_STATE_IDLE){
+            return true;
+        }else {
+            return false;
+        }*/
 
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
     private void initListView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         lvAdapter = new DryCleanersLvAdapter(this);
         recyclerView.setAdapter(lvAdapter);
+        recyclerView.setLoadingMoreEnabled(false);
         recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -139,6 +169,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
             @Override
             public void onLoadMore() {
                 page++;
+                if(!isVisBottom(recyclerView))
                 getData(page + "", limit + "");
                 recyclerView.loadMoreComplete();
             }
@@ -168,6 +199,7 @@ public class DryCleanReserveInfoActivity extends BaseActivity<DryCleanReserveInf
                 List<ClothBean.PageEntity.ListEntity> mList = new ArrayList<>();
                 for (int i = 0; i < listAll.size(); i++) {
                     if (listAll.get(i).getCount() != 0) {
+                        LogUtils.i("ListEntity==="+listAll.get(i));
                         mList.add(listAll.get(i));
                     }
                 }

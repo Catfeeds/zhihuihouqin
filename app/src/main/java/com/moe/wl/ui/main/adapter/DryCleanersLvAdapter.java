@@ -2,10 +2,14 @@ package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -67,6 +71,10 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
         TextView tvCount1;
         @BindView(R.id.iv_add1)
         ImageView ivAdd1;
+        @BindView(R.id.ll_remark)
+        LinearLayout llRemark;
+        @BindView(R.id.et_remark)
+        EditText remark;
         private int count = 0;
         private ClothBean.PageEntity.ListEntity listBean;
         private int mPosition;
@@ -76,6 +84,25 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
             ivAdd1.setOnClickListener(this);
             ivMinus1.setOnClickListener(this);
+            remark.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    listBean.setRemark(s.toString());
+                    if (etListener != null) {
+                        etListener.etlisten(mPosition, s.toString());
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
 
         @Override
@@ -88,6 +115,7 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
                     if (addListener != null) {
                         addListener.addClick(count, mPosition);
                     }
+                    isHint(count);
                     break;
                 case R.id.iv_minus1:
                     count = listBean.getCount();
@@ -99,6 +127,7 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
                     if (minusListener != null) {
                         minusListener.minusClick(count, mPosition);
                     }
+                    isHint(count);
                     break;
             }
             tvCount1.setText(count + "");
@@ -112,7 +141,23 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
                 this.listBean = listBean;
                 tvYiwu.setText(listBean.getName());
                 tvMoney1.setText("￥" + listBean.getPrice());
-                tvCount1.setText(listBean.getCount()+"");
+                int count = listBean.getCount();
+                tvCount1.setText(count + "");
+                if (count > 0) {
+                    remark.setText(listBean.getRemark());
+                } else {
+                    remark.setText("");
+                }
+                isHint(count);
+
+            }
+        }
+
+        public void isHint(int count) {
+            if (count > 0) {
+                llRemark.setVisibility(View.VISIBLE);
+            } else {
+                llRemark.setVisibility(View.GONE);
             }
         }
     }
@@ -134,5 +179,15 @@ public class DryCleanersLvAdapter extends RecyclerView.Adapter {
 
     public interface OnMinusClickListener {
         void minusClick(int count, int position);
+    }
+
+    private EtListener etListener;
+
+    public void setEtListener(EtListener etListener) {
+        this.etListener = etListener;
+    }
+
+    public interface EtListener {
+        void etlisten(int position, String content);
     }
 }

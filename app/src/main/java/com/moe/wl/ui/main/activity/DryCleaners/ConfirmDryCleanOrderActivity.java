@@ -109,10 +109,15 @@ public class ConfirmDryCleanOrderActivity extends Base2Activity {
         for (int i = 0; i < list.size(); i++) {
             JSONObject object = new JSONObject();
             try {
+                int count = list.get(i).getCount();
+                double price = list.get(i).getPrice();
+                double totalprice=count*price;
                 object.put("clothestypeid", list.get(i).getId());
-                object.put("count", list.get(i).getCount());
+                object.put("count",count );
                 object.put("name", list.get(i).getName());
-                object.put("price", list.get(i).getPrice());
+                object.put("price",price );
+                object.put("totalprice", totalprice);
+                object.put("remark", list.get(i).getRemark());
                 json1.put(object);
             } catch (JSONException e) {
                 e.printStackTrace();

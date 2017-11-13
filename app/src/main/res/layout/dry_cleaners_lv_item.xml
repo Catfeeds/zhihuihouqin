@@ -65,6 +65,33 @@
                 android:src="@drawable/blue_add" />
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_remark"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_padding"
+        android:orientation="horizontal">
+        <TextView
+            android:text="订单备注: "
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_remark"
+            android:hint="填写订单备注"
+            android:textSize="@dimen/sp_small"
+            android:textColor="@color/tv_black"
+            android:minHeight="60dp"
+            android:gravity="top"
+            android:background="@null"
+            android:textColorHint="@color/tv_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
