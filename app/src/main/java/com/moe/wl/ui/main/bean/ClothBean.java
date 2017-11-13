@@ -91,6 +91,26 @@ public class ClothBean {
             private String name;
             private double price;
             private int count;
+            private String remark;
+
+            @Override
+            public String toString() {
+                return "ListEntity{" +
+                        "id=" + id +
+                        ", name='" + name + '\'' +
+                        ", price=" + price +
+                        ", count=" + count +
+                        ", remark='" + remark + '\'' +
+                        '}';
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
 
             public int getId() {
                 return id;
