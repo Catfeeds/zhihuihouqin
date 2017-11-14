@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,19 +8,17 @@ import java.util.List;
  * 作者：Shixhe On 2017/11/10 0010
  */
 
-public class OrderVisitorsListBean {
+public class OrderVisitorsListBean implements Serializable {
 
-    private String msg;
+    /**
+     * orderlist : [{"buildnum":"","cancelreason":"","carcode":"","cartype":"","createtime":"2017-11-14 11:16:46","expertarrivaltime":"","expertleavetime":"","id":50,"isdel":0,"mobile":"","ordercode":"0211510629406792","phonenum":"123456789","realname":"流","reason":"","roomnum":"2211","status":1,"uid":41,"unit":"教育Bu","username":"","vidnum":"110226198501272116","visitperiod":1,"visittime":"2017-11-14 12:20:00","vmobile":"13552029887","vname":"船","vpnum":10}]
+     * errCode : 0
+     * msg : success
+     */
+
     private int errCode;
+    private String msg;
     private List<OrderlistEntity> orderlist;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 
     public int getErrCode() {
         return errCode;
@@ -27,6 +26,14 @@ public class OrderVisitorsListBean {
 
     public void setErrCode(int errCode) {
         this.errCode = errCode;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public List<OrderlistEntity> getOrderlist() {
@@ -37,9 +44,9 @@ public class OrderVisitorsListBean {
         this.orderlist = orderlist;
     }
 
-    public static class OrderlistEntity {
+    public static class OrderlistEntity implements Serializable {
 
-        private int buildnum;
+        private String buildnum;
         private String cancelreason;
         private String carcode;
         private String cartype;
@@ -49,25 +56,27 @@ public class OrderVisitorsListBean {
         private int id;
         private int isdel;
         private String mobile;
+        private String ordercode;
         private String phonenum;
+        private String realname;
         private String reason;
         private String roomnum;
         private int status;
         private int uid;
         private String unit;
         private String username;
-        private int vidnum;
+        private String vidnum;
         private int visitperiod;
         private String visittime;
         private String vmobile;
         private String vname;
         private int vpnum;
 
-        public int getBuildnum() {
+        public String getBuildnum() {
             return buildnum;
         }
 
-        public void setBuildnum(int buildnum) {
+        public void setBuildnum(String buildnum) {
             this.buildnum = buildnum;
         }
 
@@ -143,12 +152,28 @@ public class OrderVisitorsListBean {
             this.mobile = mobile;
         }
 
+        public String getOrdercode() {
+            return ordercode;
+        }
+
+        public void setOrdercode(String ordercode) {
+            this.ordercode = ordercode;
+        }
+
         public String getPhonenum() {
             return phonenum;
         }
 
         public void setPhonenum(String phonenum) {
             this.phonenum = phonenum;
+        }
+
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
         }
 
         public String getReason() {
@@ -199,11 +224,11 @@ public class OrderVisitorsListBean {
             this.username = username;
         }
 
-        public int getVidnum() {
+        public String getVidnum() {
             return vidnum;
         }
 
-        public void setVidnum(int vidnum) {
+        public void setVidnum(String vidnum) {
             this.vidnum = vidnum;
         }
 

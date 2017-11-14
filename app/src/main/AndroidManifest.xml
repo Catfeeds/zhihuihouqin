@@ -364,9 +364,9 @@
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPayAct" />
         <activity android:name=".ui.main.activity.OfficeSupplies.OfficeSpPaySuccessAct" />
         <activity android:name=".ui.main.activity.vegetable.VegetableOrderMessageActivity" />
-        <activity android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+        <activity
+            android:name=".ui.main.activity.vegetable.ConfirmVegetableOrderActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".ui.main.activity.vegetable.VegetableSearchActivity"
             android:screenOrientation="portrait" />
@@ -576,7 +576,12 @@
         <activity
             android:name=".ui.main.activity.MealsRecharge.RechargeContentAct"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.activity.vegetable.VegetableIndexActivity" />
+        <activity
+            android:name=".ui.main.activity.vegetable.VegetableIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.me.OrderVisitorsDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

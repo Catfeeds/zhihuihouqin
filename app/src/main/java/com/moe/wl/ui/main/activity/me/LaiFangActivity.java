@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
-import com.moe.wl.ui.main.activity.Library.JieYueSuccActivity;
 import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.UserInfoBean;
@@ -217,7 +216,7 @@ public class LaiFangActivity extends Base2Activity {
             public void onNext(ActivityPostBean postBean) {
                 if (postBean.getErrCode() == 0) {
                     Intent intent = new Intent(LaiFangActivity.this, SubmitSuccessActivity.class);
-                    intent.putExtra("from", 2);
+                    intent.putExtra("from", Constants.VISITORS);
                     startActivity(intent);
                     finish();
                 } else {

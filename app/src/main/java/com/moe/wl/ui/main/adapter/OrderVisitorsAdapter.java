@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
-import com.moe.wl.ui.main.activity.me.OrderMealDetailActivity;
+import com.moe.wl.ui.main.activity.me.OrderVisitorsDetailActivity;
 import com.moe.wl.ui.main.bean.OrderVisitorsListBean;
 
 import java.util.List;
@@ -46,25 +46,42 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
 
-//        holder.orderNumber.setText("订单号：" + data.get(position).get);
-//        holder.name.setText("会议名称：" + data.get(position).getConferencename());
-//        if (data.get(position).getConferencetype() == 1) {
-//            holder.type.setText("会议类型：文艺会议");
-//        }
+        holder.orderNumber.setText("订单号：" + data.get(position).getOrdercode());
+        holder.time.setText("下单时间：" + data.get(position).getCreatetime());
+        holder.name.setText("被访人员：" + data.get(position).getRealname());
+        holder.roomNumber.setText("房间号：" + data.get(position).getRoomnum());
+        holder.arriveName.setText("来访人员：" + data.get(position).getVname());
+        holder.mobile.setText("电话：" + data.get(position).getVmobile());
+        holder.people.setText("随行人数：" + data.get(position).getVpnum());
+        switch (data.get(position).getVisitperiod()) {
+            case 1:
+                holder.arriveTime.setText("来访时间：一次");
+                break;
+            case 2:
+                holder.arriveTime.setText("来访时间：一星期");
+                break;
+            case 3:
+                holder.arriveTime.setText("来访时间：半个月");
+                break;
+            case 4:
+                holder.arriveTime.setText("来访时间：长期");
+                break;
+            default:
+                holder.arriveTime.setText("来访时间：无");
+                break;
+        }
 
         switch (state) {
             case 0:
                 holder.comment.setVisibility(View.GONE);
                 holder.order.setText("取消订单");
                 break;
-            case 1:
-                holder.comment.setText("已完成");
-                holder.comment.setVisibility(View.VISIBLE);
-                holder.order.setText("会议加时");
-                break;
+//            case 1:
+//                holder.comment.setVisibility(View.GONE);
+//                holder.order.setText("会议加时");
+//                break;
             case 2:
-                holder.comment.setText("支付");
-                holder.comment.setVisibility(View.VISIBLE);
+                holder.comment.setVisibility(View.GONE);
                 holder.order.setText("再次预订");
                 break;
             case 3:
@@ -85,21 +102,11 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
             }
         });
 
-        // 评价
-        holder.comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (state == 2) {
-                    // 支付
-                }
-            }
-        });
-
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderMealDetailActivity.class);
-                intent.putExtra("OrderID", data.get(position).getId());
+                Intent intent = new Intent(context, OrderVisitorsDetailActivity.class);
+                intent.putExtra("Data", data.get(position));
                 context.startActivity(intent);
             }
         });

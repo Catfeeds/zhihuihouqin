@@ -31,7 +31,7 @@
         android:paddingTop="@dimen/normal_padding"
         android:text="提交"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_small" />
 
     <ScrollView
         android:layout_width="match_parent"

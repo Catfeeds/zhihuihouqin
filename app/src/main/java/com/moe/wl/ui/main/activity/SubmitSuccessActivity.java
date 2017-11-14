@@ -113,6 +113,10 @@ public class SubmitSuccessActivity extends AppCompatActivity {
                 intent.putExtra("state", Constants.orderConference);
                 break;
 
+            case Constants.VISITORS: // 来访人员
+                intent.putExtra("state", Constants.orderVisitors);
+                break;
+
             default:
                 intent.putExtra("state", Constants.orderRepairs);
                 break;

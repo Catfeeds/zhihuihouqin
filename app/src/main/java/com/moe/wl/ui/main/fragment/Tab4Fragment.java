@@ -446,16 +446,16 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
                 goServiceActivity(0, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_jiedan7:
-                goServiceActivity(1, Constants.EXPERTS, Constants.orderExperts);
+//                goServiceActivity(1, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_service7:
-                goServiceActivity(2, Constants.EXPERTS, Constants.orderExperts);
+                goServiceActivity(1, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_finish7:
-                goServiceActivity(3, Constants.EXPERTS, Constants.orderExperts);
+                goServiceActivity(2, Constants.EXPERTS, Constants.orderExperts);
                 break;
             case R.id.tv_daipingjia7:
-                goServiceActivity(4, Constants.EXPERTS, Constants.orderExperts);
+                goServiceActivity(3, Constants.EXPERTS, Constants.orderExperts);
                 break;
 
             case R.id.rl_turn8: // 洗衣店

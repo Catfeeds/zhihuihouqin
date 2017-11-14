@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title_bar"
@@ -76,31 +76,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:layout_weight="1"
-                    android:text="订单详情"
-                    android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
-
-                <TextView
-                    android:id="@+id/fix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:text="固定餐"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/sp_big"
-                    android:visibility="gone" />
-
-            </LinearLayout>
+                android:layout_margin="12dp"
+                android:text="受访人员信息"
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,53 +92,45 @@
                 android:paddingTop="12dp">
 
                 <TextView
-                    android:id="@+id/group_name"
+                    android:id="@+id/real_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_marginLeft="12dp"
-                    android:text="机关餐厅"
+                    android:text="被访人员"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/gray_line" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/my_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="@dimen/normal_padding"
+                    android:text="电话"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
 
-                    <TextView
-                        android:id="@+id/item_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_small" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
-                    <TextView
-                        android:id="@+id/number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/tv_gray"
-                        android:textSize="@dimen/sp_small" />
-
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/sp_small" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/room_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:padding="@dimen/normal_padding"
+                    android:text="房间号"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -168,25 +142,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="12dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
-                android:text="送货信息"
-                android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray_line" />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="12dp"
-                android:text="取货时间："
+                android:layout_marginTop="12dp"
+                android:text="来访人员信息"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
@@ -196,12 +155,72 @@
                 android:background="@color/gray_line" />
 
             <TextView
-                android:id="@+id/address"
+                android:id="@+id/arrive_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="12dp"
-                android:text="送货地点："
+                android:text="来访人员："
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
+            <TextView
+                android:id="@+id/mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:text="电话："
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
+            <TextView
+                android:id="@+id/id_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:text="身份证号："
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
+            <TextView
+                android:id="@+id/arrive_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:text="随行人员："
+                android:textColor="@color/tv_black"
+                android:textSize="@dimen/sp_small" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
+            <TextView
+                android:id="@+id/arrive_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:text="来访时间："
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
@@ -213,12 +232,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
                 android:text="订单信息"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
             <View
                 android:layout_width="match_parent"
