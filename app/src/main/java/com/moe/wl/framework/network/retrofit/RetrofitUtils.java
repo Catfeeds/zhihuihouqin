@@ -1457,13 +1457,13 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      *
      * @return
      */
-    public static Observable dryOrderCommit(String mobile,double totalprice, String expectarrivaItme,
+    public static Observable dryOrderCommit(String mobile, double totalprice, String expectarrivaItme,
                                             String clothList) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, Object> tempMap = new HashMap<>();
             tempMap.put("mobile", mobile);
-            tempMap.put("totalprice", totalprice+"");
+            tempMap.put("totalprice", totalprice + "");
             tempMap.put("expectarrivaItme", expectarrivaItme);
             tempMap.put("clothList", clothList);
             addParams(paramsMap, tempMap);
@@ -2134,8 +2134,8 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
      * 拜访人员
      */
     public static Observable postBaifagnInfo(String realname, String phonenum, String roomnum, String vname,
-                                             String vmobile,  String
-                                                     vidnum, String vpnum,String time,String department) {
+                                             String vmobile, String
+                                                     vidnum, String vpnum, String time, String department) {
         Map<String, Object> paramsMap = new HashMap<>();
         try {
             Map<String, String> tempMap = new HashMap<>();
@@ -2144,11 +2144,22 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("roomnum", roomnum);
             tempMap.put("vname", vname);
             tempMap.put("vmobile", vmobile);
+            tempMap.put("visitperiod","");
             tempMap.put("vidnum", vidnum);
             tempMap.put("vpnum", vpnum);
-            addParam(paramsMap, tempMap);
             tempMap.put("unit", department);
             tempMap.put("visittime", time);
+            addParam(paramsMap, tempMap);
+            /*realname	是	string	受访人员姓名
+                phonenum	是	string	受访人办公电话
+                roomnum	是	string	受访人房间号
+                vname	是	string	来访人姓名
+                vmobile	是	string	来访人手机号
+                visitperiod	是	number	周期 1: 一次，2：一星期，3：半个月，4：长期
+                vidnum	是	string	来访人员身份证号
+                vpnum	是	int	随行人数
+                unit	string	单位
+                visittime	string*/
 
         } catch (Exception e) {
             e.printStackTrace();
