@@ -232,7 +232,7 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
     // 提交订单操作
     private void submitOrder() {
         if (number == 0) {
-            ToastUtil.showToast(this, "您还没有点餐！");
+            ToastUtil.showToast(this, "您还没有选择菜品");
             return;
         }
         Intent intent = new Intent(this, ConfirmVegetableOrderActivity.class);
@@ -262,9 +262,9 @@ public class VegetableMainActivity extends BaseActivity<VegetableMainModel, Vege
         int status = bean.getStatus();
         String rule = bean.getRule();
         if (status == 1) {//可以预定
-            if (!SharedPrefHelper.getInstance().getServiceHint(Constants.VEGETABLE)) {
+          /*  if (!SharedPrefHelper.getInstance().getServiceHint(Constants.VEGETABLE)) {
                 getHint();
-            }
+            }*/
             getPresenter().getVegetableData(page, "");
         } else if (status == 0) {//不可以预定
             TsAlertDialog dialog = new TsAlertDialog(this).builder();
