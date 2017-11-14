@@ -717,15 +717,20 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.getUserInfo)
     Observable<UserInfoBean> getUserInfo(@FieldMap Map<String, Object> map);
-    /*----------------------------------删除各种订单列表-------------------------------------*/
 
+    /*----------------------------------删除各种订单列表-------------------------------------*/
     // 删除订单
     @FormUrlEncoded
     @POST(NetUrl.deleteOrder)
     Observable<CollectBean> deleteOrder(@FieldMap Map<String, Object> map);
 
-    /*----------------------------------评论各种订单-------------------------------------*/
+    /*----------------------------------完成订单-------------------------------------*/
+    // 完成订单
+    @FormUrlEncoded
+    @POST(NetUrl.finishOrder)
+    Observable<CollectBean> finishOrder(@FieldMap Map<String, Object> map);
 
+    /*----------------------------------评论各种订单-------------------------------------*/
     // 评论订单
     @Multipart
     @POST(NetUrl.commentOrder)

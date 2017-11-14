@@ -100,8 +100,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
             case Constants.HAIRCUTS:// 理发订单
                 fragments.add(OrderHairCutFragment.getInstance(0));
                 fragments.add(OrderHairCutFragment.getInstance(1));
-                fragments.add(OrderHairCutFragment.getInstance(2));
                 fragments.add(OrderHairCutFragment.getInstance(3));
+                fragments.add(OrderHairCutFragment.getInstance(2));
                 fragments.add(OrderHairCutFragment.getInstance(4));
                 break;
 
@@ -124,8 +124,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
             case Constants.EXPERTS:// 专家坐诊
                 fragments.add(OrderExpertFragment.getInstance(0));
 //                fragments.add(OrderExpertFragment.getInstance(1));
-                fragments.add(OrderExpertFragment.getInstance(2));
                 fragments.add(OrderExpertFragment.getInstance(3));
+                fragments.add(OrderExpertFragment.getInstance(2));
                 fragments.add(OrderExpertFragment.getInstance(4));
                 break;
 
@@ -140,8 +140,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
             case Constants.BOOK: // 图书馆
                 fragments.add(OrderBookFragment.getInstance(0));
                 fragments.add(OrderBookFragment.getInstance(1));
-                fragments.add(OrderBookFragment.getInstance(2));
                 fragments.add(OrderBookFragment.getInstance(3));
+                fragments.add(OrderBookFragment.getInstance(2));
                 fragments.add(OrderBookFragment.getInstance(4));
                 break;
 
@@ -162,8 +162,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
 
             case Constants.VISITORS: // 来访人员
                 fragments.add(OrderVisitorsFragment.getInstance(0));
-                fragments.add(OrderVisitorsFragment.getInstance(2));
                 fragments.add(OrderVisitorsFragment.getInstance(3));
+                fragments.add(OrderVisitorsFragment.getInstance(2));
                 fragments.add(OrderVisitorsFragment.getInstance(4));
                 break;
         }

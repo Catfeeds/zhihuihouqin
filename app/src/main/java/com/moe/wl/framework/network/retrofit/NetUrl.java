@@ -13,6 +13,7 @@ public interface NetUrl {
     String cancelOrder = "appuser/orderCommon/orderCancel"; // 取消订单 所有服务
     String deleteOrder = "appuser/orderCommon/orderDelete"; // 删除订单
     String commentOrder = "appuser/orderCommon/addComment"; // 订单评论
+    String finishOrder = "appuser/orderCommon/finishOrder"; // 完成订单
 
     //
     String signup = "appuser/user/login?";

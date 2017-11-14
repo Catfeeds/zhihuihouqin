@@ -84,15 +84,16 @@ public class OrderExpertFragment extends BaseFragment2 {
                         break;
 
                     case 1: // 已完成
-//                        showAlertDialog("是否拨打服务电话", position);
+                        // TODO 完成服务
+                        toFinish(data.get(position).getId());
                         break;
 
-                    case 2: // 再次预订
-                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
-                        break;
-
-                    case 3: // 立即评价
+                    case 2: // 立即评价
                         OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.EXPERTS);
+                        break;
+
+                    case 3: // 再次预订
+                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
                         break;
 
                     case 4: // 删除订单
@@ -122,8 +123,6 @@ public class OrderExpertFragment extends BaseFragment2 {
                                 intent.putExtra("OrderingID", id);
                                 startActivity(intent);
                             } else if (state == 1) {
-                                // TODO 完成服务
-
                             } else if (state == 4) {
                                 // TODO 删除
                                 deleteOrder(listBean.getId());
@@ -135,7 +134,6 @@ public class OrderExpertFragment extends BaseFragment2 {
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 }).show();
     }
@@ -170,7 +168,33 @@ public class OrderExpertFragment extends BaseFragment2 {
         EventBus.getDefault().unregister(this);
     }
 
-    public void getData() {
+    // 点击完成
+    private void toFinish(int id) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.EXPERTS, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    showToast("已完成该订单");
+                } else {
+                    showToast(orderBean.getMsg());
+                }
+            }
+        });
+    }
+
+    private void getData() {
         Observable observable = RetrofitUtils.getInstance().getExpertOrder(state + 1, page);
         showProgressDialog();
         observable.subscribe(new Subscriber<OrderExpertBean>() {
@@ -181,7 +205,6 @@ public class OrderExpertFragment extends BaseFragment2 {
 
             @Override
             public void onError(Throwable e) {
-                LogUtils.i("获取订单出现问题");
                 dismissProgressDialog();
                 recyclerView.refreshComplete();
                 recyclerView.loadMoreComplete();

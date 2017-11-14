@@ -84,11 +84,11 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
                 holder.order.setText("已完成");
                 break;
             case 2:
-                holder.order.setVisibility(View.GONE);
-                break;
-            case 3:
                 holder.pay.setVisibility(View.GONE);
                 holder.order.setText("立即评价");
+                break;
+            case 3:
+                holder.order.setVisibility(View.GONE);
                 break;
             case 4:
                 holder.pay.setVisibility(View.GONE);

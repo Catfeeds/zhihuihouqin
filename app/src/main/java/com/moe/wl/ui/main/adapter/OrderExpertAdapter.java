@@ -66,10 +66,10 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
                 holder.order.setText("已完成");
                 break;
             case 2:
-                holder.order.setText("再次预约");
+                holder.order.setText("立即评价");
                 break;
             case 3:
-                holder.order.setText("立即评价");
+                holder.order.setText("再次预约");
                 break;
             case 4:
                 holder.order.setText("删除订单");

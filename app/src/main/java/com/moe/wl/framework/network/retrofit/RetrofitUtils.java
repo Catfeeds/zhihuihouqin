@@ -2687,6 +2687,24 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return getObservable(api.commentOrder(paramsMap, getImgList(files, "files")));
     }
 
+    /*------------------------------------------完成订单------------------------------------------*/
+
+    /**
+     * 删除订单
+     */
+    public static Observable finishOrder(int serviceType, int oid) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("serviceType", serviceType);
+            tempMap.put("oid", oid);
+            addParams(paramsMap, tempMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.finishOrder(paramsMap));
+    }
+
     /*------------------------------------------订单详情------------------------------------------*/
 
     /**

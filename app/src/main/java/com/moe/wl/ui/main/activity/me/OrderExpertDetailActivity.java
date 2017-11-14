@@ -16,7 +16,8 @@ import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
-import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
+import com.moe.wl.ui.main.activity.medicalService.ExpertsVisitActivity;
+import com.moe.wl.ui.main.activity.medicalService.HealthServerceActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderExpertsDetailBean;
@@ -109,17 +110,17 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
                         showAlertDialog("是否取消订单", states);
                         break;
                     case 2:
-//                        showAlertDialog("是否拨打电话", states);
+                        toFinish(data.getId());
                         break;
-                    case 3:
-                        if (type == 1) {
-                            startActivity(new Intent(OrderExpertDetailActivity.this, orderWaterServiceActivity.class));
-                        } else {
-                            startActivity(new Intent(OrderExpertDetailActivity.this, orderWaterServiceActivity.class));
-                        }
-                        break;
-                    case 4:
+                    case 3: // 评价
                         OtherUtils.gotoComment(OrderExpertDetailActivity.this, orderID, Constants.ORDERWATER);
+                        break;
+                    case 4: // 再次预订
+                        if (type == 1) {
+                            startActivity(new Intent(OrderExpertDetailActivity.this, HealthServerceActivity.class));
+                        } else {
+                            startActivity(new Intent(OrderExpertDetailActivity.this, ExpertsVisitActivity.class));
+                        }
                         break;
                     case 5:
                         showAlertDialog("是否删除订单", states);
@@ -131,6 +132,32 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
                 // TODO 在线沟通
                 break;
         }
+    }
+
+    // 点击完成
+    private void toFinish(int id) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.EXPERTS, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(OrderExpertDetailActivity.this, "已完成该订单");
+                } else {
+                    ToastUtil.showToast(OrderExpertDetailActivity.this, orderBean.getMsg());
+                }
+            }
+        });
     }
 
     private void showAlertDialog(String s, final int state) {
@@ -197,13 +224,13 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
                 state.setText("服务中");
                 right.setText("已完成");
                 break;
-            case 3: // 3：已完成
-                state.setText("已完成");
-                right.setText("再次预约");
-                break;
-            case 4: // 4：待评价
+            case 3: // 3：待评价
                 state.setText("待评价");
                 right.setText("立即评价");
+                break;
+            case 4: // 4：已完成
+                state.setText("已完成");
+                right.setText("再次预约");
                 break;
             case 5: // 5：已取消
                 state.setText("已取消");
@@ -239,13 +266,13 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
                 state.setText("服务中");
                 right.setText("已完成");
                 break;
-            case 3: // 3：已完成
-                state.setText("已完成");
-                right.setText("再次预约");
-                break;
-            case 4: // 4：待评价
+            case 3: // 3：待评价
                 state.setText("待评价");
                 right.setText("立即评价");
+                break;
+            case 4: // 4：已完成
+                state.setText("已完成");
+                right.setText("再次预约");
                 break;
             case 5: // 5：已取消
                 state.setText("已取消");

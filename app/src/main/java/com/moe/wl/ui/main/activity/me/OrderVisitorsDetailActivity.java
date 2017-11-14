@@ -62,7 +62,7 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
     private OrderVisitorsListBean.OrderlistEntity data;
 
     private CustomerDialog progressDialog;
-//    private int orderID; // 订单类型分类
+    //    private int orderID; // 订单类型分类
     private int state;
 
     @Override
@@ -96,24 +96,7 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
         mobile.setText("电话：" + data.getVmobile());
         idCard.setText("身份证号：" + data.getVidnum());
         arrivePeople.setText("随行人员：" + data.getVpnum());
-        switch (data.getVisitperiod()) {
-            case 1:
-                arriveTime.setText("来访时间：一次");
-                break;
-            case 2:
-                arriveTime.setText("来访时间：一星期");
-                break;
-            case 3:
-                arriveTime.setText("来访时间：半个月");
-                break;
-            case 4:
-                arriveTime.setText("来访时间：长期");
-                break;
-            default:
-                arriveTime.setText("来访时间：无");
-                break;
-        }
-
+        arriveTime.setText("来访时间：" + data.getVisittime());
         orderId.setText("订单号：" + data.getOrdercode());
         orderTime.setText("下单时间：" + data.getCreatetime());
 
@@ -125,11 +108,11 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
             case 2: // 2: 配送中
 //                right.setText("已完成");
                 break;
-            case 3: // 3：已完成
-                right.setText("再次预订");
-                break;
-            case 4: // 4：待评价
+            case 3: // 3：待评价
                 right.setText("立即评价");
+                break;
+            case 4: // 4：已完成
+                right.setText("再次预订");
                 break;
             case 5: // 5：已取消
                 right.setText("删除订单");
@@ -149,10 +132,10 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
 //                        showAlertDialog("是否拨打电话", state);
                         break;
                     case 3:
-                        startActivity(new Intent(OrderVisitorsDetailActivity.this, OrderingActivity.class));
+                        OtherUtils.gotoComment(OrderVisitorsDetailActivity.this, data.getId(), Constants.VISITORS);
                         break;
                     case 4:
-                        OtherUtils.gotoComment(OrderVisitorsDetailActivity.this, data.getId(), Constants.VISITORS);
+                        startActivity(new Intent(OrderVisitorsDetailActivity.this, LaiFangActivity.class));
                         break;
                     case 5:
                         showAlertDialog("是否删除订单", state);

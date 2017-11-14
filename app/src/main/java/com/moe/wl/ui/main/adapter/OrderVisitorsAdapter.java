@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：工作餐订单Adapter
+ * 类描述：来访人员订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 
@@ -53,23 +53,8 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
         holder.arriveName.setText("来访人员：" + data.get(position).getVname());
         holder.mobile.setText("电话：" + data.get(position).getVmobile());
         holder.people.setText("随行人数：" + data.get(position).getVpnum());
-        switch (data.get(position).getVisitperiod()) {
-            case 1:
-                holder.arriveTime.setText("来访时间：一次");
-                break;
-            case 2:
-                holder.arriveTime.setText("来访时间：一星期");
-                break;
-            case 3:
-                holder.arriveTime.setText("来访时间：半个月");
-                break;
-            case 4:
-                holder.arriveTime.setText("来访时间：长期");
-                break;
-            default:
-                holder.arriveTime.setText("来访时间：无");
-                break;
-        }
+
+        holder.arriveTime.setText("来访时间：" + data.get(position).getVisittime());
 
         switch (state) {
             case 0:
@@ -82,11 +67,11 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
 //                break;
             case 2:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("再次预订");
+                holder.order.setText("立即评价");
                 break;
             case 3:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("立即评价");
+                holder.order.setText("再次预订");
                 break;
             case 4:
                 holder.comment.setVisibility(View.GONE);
