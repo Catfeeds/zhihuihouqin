@@ -11,6 +11,7 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.home.activity.office.OfficeListActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderConferenceAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -28,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -82,12 +84,12 @@ public class OrderConferenceFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 1: // 拨打电话
-//                        showAlertDialog("是否拨打服务电话", position);
+                    case 1: // 完成
+                        toFinish(data.get(position).getId(), position);
                         break;
 
                     case 2: // 再来一单
-//                        startActivity(new Intent(getActivity(), PropertyAintenanceActivity.class));
+                        startActivity(new Intent(getActivity(), OfficeListActivity.class));
                         break;
 
                     case 3: // 评价
@@ -97,6 +99,34 @@ public class OrderConferenceFragment extends BaseFragment2 {
                     case 4: // 删除订单
                         showAlertDialog("是否删除订单", position);
                         break;
+                }
+            }
+        });
+    }
+
+    // 点击完成
+    private void toFinish(int id, final int position) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.CONFERENCE, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(getActivity(), "完成订单");
+//                    data.remove(position);
+//                    adapter.notifyDataSetChanged();
+                } else {
+                    ToastUtil.showToast(getActivity(), orderBean.getMsg());
                 }
             }
         });
@@ -132,7 +162,6 @@ public class OrderConferenceFragment extends BaseFragment2 {
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 }).show();
     }

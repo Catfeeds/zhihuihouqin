@@ -14,7 +14,6 @@ import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderVisitorsListBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -101,6 +100,7 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
         orderTime.setText("下单时间：" + data.getCreatetime());
 
         state = data.getStatus();
+        right.setVisibility(View.VISIBLE);
         switch (state) {
             case 1: // 1: 已预约
                 right.setText("取消订单");

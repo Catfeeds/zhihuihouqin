@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -119,14 +118,14 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
                 states.setText("服务中");
                 right.setText("已完成");
                 break;
-            case 3: // 3：已完成
+            case 3: // 3：待评价
+                states.setText("待评价");
+                right.setText("立即评价");
+                break;
+            case 4: // 4：已完成
                 states.setText("已完成");
                 right.setText("再次预约");
                 right.setVisibility(View.GONE);
-                break;
-            case 4: // 4：待评价
-                states.setText("待评价");
-                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
                 states.setText("已取消");
@@ -144,7 +143,7 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
                         showAlertDialog("是否取消预约", state);
                         break;
                     case 2:
-//                        showAlertDialog("是否拨打电话", state);
+                        toFinish(data.getOrderid());
                         break;
                     case 3:
                         startActivity(new Intent(OrderHairCutDetailActivity.this, OrderCutHearActivity.class));
@@ -171,6 +170,32 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
                 break;
 
         }
+    }
+
+    // 点击完成
+    private void toFinish(int id) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.HAIRCUTS, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(OrderHairCutDetailActivity.this, "完成订单");
+                } else {
+                    ToastUtil.showToast(OrderHairCutDetailActivity.this, orderBean.getMsg());
+                }
+            }
+        });
     }
 
     private void showAlertDialog(String s, final int state) {

@@ -454,7 +454,7 @@
             android:name=".ui.main.activity.me.OrderOfficeDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.me.OrderExpertDetailActivity"
+            android:name=".ui.main.activity.me.OrderHairCutDetailActivity$OrderExpertDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.activity.me.OrderHairCutDetailActivity"

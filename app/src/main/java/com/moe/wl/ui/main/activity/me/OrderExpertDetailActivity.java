@@ -34,7 +34,7 @@ import rx.Subscriber;
 import static com.moe.wl.R.id.visits_num;
 
 /**
- * 类描述：订水订单详情页
+ * 类描述：专家坐诊和医疗服务订单详情页
  * 作者：Shixhe On 2017/10/10 0010
  */
 public class OrderExpertDetailActivity extends MyBaseActivity {
@@ -136,7 +136,12 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
 
     // 点击完成
     private void toFinish(int id) {
-        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.EXPERTS, id);
+        Observable observable;
+        if (type == 1) {
+            observable = RetrofitUtils.getInstance().finishOrder(Constants.MEDICAL, id);
+        } else {
+            observable = RetrofitUtils.getInstance().finishOrder(Constants.EXPERTS, id);
+        }
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override
@@ -152,7 +157,7 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
             @Override
             public void onNext(CollectBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    ToastUtil.showToast(OrderExpertDetailActivity.this, "已完成该订单");
+                    ToastUtil.showToast(OrderExpertDetailActivity.this, "完成订单");
                 } else {
                     ToastUtil.showToast(OrderExpertDetailActivity.this, orderBean.getMsg());
                 }

@@ -80,15 +80,15 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
 
     @Override
     public void initView() {
-        Intent intent=getIntent();
-        id=intent.getStringExtra("id");
-        equipmentids=intent.getStringExtra("equipmentids");
-        conferencetype= (TypeListBean) intent.getSerializableExtra("conferencetype");
-        conferencename=intent.getStringExtra("conferencename");
-        attendnum=intent.getStringExtra("attendnum");
-        attentdleader=intent.getStringExtra("attentdleader");
-        remark=intent.getStringExtra("remark");
-        dates= (List<AppointmentDateBean>) intent.getSerializableExtra("list");
+        Intent intent = getIntent();
+        id = intent.getStringExtra("id");
+        equipmentids = intent.getStringExtra("equipmentids");
+        conferencetype = (TypeListBean) intent.getSerializableExtra("conferencetype");
+        conferencename = intent.getStringExtra("conferencename");
+        attendnum = intent.getStringExtra("attendnum");
+        attentdleader = intent.getStringExtra("attentdleader");
+        remark = intent.getStringExtra("remark");
+        dates = (List<AppointmentDateBean>) intent.getSerializableExtra("list");
 
         username = SharedPrefHelper.getInstance().getRealName();
         mobile = SharedPrefHelper.getInstance().getMobile();
@@ -101,7 +101,7 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
         tvLeader.setText(attentdleader);
         tvRemark.setText(remark);
 
-        AffirmDateAdapter adapter=new AffirmDateAdapter(this);
+        AffirmDateAdapter adapter = new AffirmDateAdapter(this);
         adapter.setItemList(dates);
         lv_time.setAdapter(adapter);
 
@@ -117,7 +117,7 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
         return new AffirmOrderModelImpl();
     }
 
-    @OnClick({R.id.ll_back,R.id.tv_submit})
+    @OnClick({R.id.ll_back, R.id.tv_submit})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -129,22 +129,22 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
                 if (dates != null && dates.size() != 0) {
                     ja = new JsonArray();
                     for (int i = 0; i < dates.size(); i++) {
-                        AppointmentDateBean bean=dates.get(i);
-                        JsonObject obj=new JsonObject();
-                        StringBuffer buffer=new StringBuffer();
-                        for (int j = 0; j < bean.getTimes().size() ; j++) {
-                            if (buffer.length()!=0){
+                        AppointmentDateBean bean = dates.get(i);
+                        JsonObject obj = new JsonObject();
+                        StringBuffer buffer = new StringBuffer();
+                        for (int j = 0; j < bean.getTimes().size(); j++) {
+                            if (buffer.length() != 0) {
                                 buffer.append(",");
                             }
                             buffer.append(bean.getTimes().get(j).getIntervalid());
                         }
-                        obj.addProperty("date",bean.getDate());
-                        obj.addProperty("intervalids",buffer.toString());
+                        obj.addProperty("date", bean.getDate());
+                        obj.addProperty("intervalids", buffer.toString());
                         ja.add(obj);
                     }
                 }
-                LogUtils.d("------------ja---------------"+ja);
-                getPresenter().findAvailableEquipment(id,username,mobile,equipmentids,conferencetype.getId(),conferencename,attendnum,attentdleader,remark,ja,path);
+                LogUtils.d("------------ja---------------" + ja);
+                getPresenter().findAvailableEquipment(id, username, mobile, equipmentids, conferencetype.getId(), conferencename, attendnum, attentdleader, remark, ja, path);
                 break;
         }
     }

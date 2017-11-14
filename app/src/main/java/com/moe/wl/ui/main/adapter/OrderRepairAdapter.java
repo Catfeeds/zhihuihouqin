@@ -67,11 +67,11 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
                 break;
             case 2:
                 holder.onLine.setVisibility(View.GONE);
-                holder.order1.setText("再次预订");
+                holder.order1.setText("立即评价");
                 break;
             case 3:
                 holder.onLine.setVisibility(View.GONE);
-                holder.order1.setText("立即评价");
+                holder.order1.setText("再次预订");
                 break;
             case 4:
                 holder.onLine.setVisibility(View.GONE);

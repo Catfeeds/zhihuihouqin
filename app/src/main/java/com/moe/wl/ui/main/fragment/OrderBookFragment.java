@@ -26,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -59,6 +60,34 @@ public class OrderBookFragment extends BaseFragment2 {
         setClick();
     }
 
+    // 点击完成
+    private void toFinish(int id, final int position) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.BOOK, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(getActivity(), "完成订单");
+//                    data.remove(position);
+//                    adapter.notifyDataSetChanged();
+                } else {
+                    ToastUtil.showToast(getActivity(), orderBean.getMsg());
+                }
+            }
+        });
+    }
+
     private void setClick() {
         bookOrderAdapter.setListener(new BookOrderAdapter.OnClickListener() {
             @Override
@@ -68,7 +97,7 @@ public class OrderBookFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", state, position);
                         break;
                     case 1:
-//                        showAlertDialog("是否拨打服务电话", state, position);
+                        toFinish(orderList.get(position).getOrderid(), position);
                         break;
                     case 2:
                         startActivity(new Intent(getActivity(), LibraryActivity.class));

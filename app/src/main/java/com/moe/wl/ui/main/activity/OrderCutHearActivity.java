@@ -100,7 +100,6 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
     public void getShopInfo(ShopBean shopBean) {
         getPresenter().getphotos(6);//获取顶部轮播图
         this.shopBean = shopBean;
-        System.out.println("shopBean = " + shopBean);
         if (shopBean != null) {
             shopName.setText(shopBean.getTradename());
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, shopBean.getPicture(), ivCutHearLogo);
@@ -148,10 +147,7 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 }
             }
             showHint(infoBean);
-
-
         }
-
     }
 
     private void showHint(BannerResponse.ServiceInfoBean infoBean) {
@@ -209,8 +205,8 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 showHint(infoBean);
                 break;
             case R.id.tv_now_order:
-                Intent intent1 = new Intent(this, NowReservaBarberActivity.class);
                 // TODO: 2017/9/28 0028
+                Intent intent1 = new Intent(this, NowReservaBarberActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.ll_call:
@@ -234,6 +230,5 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 break;
         }
     }
-
 
 }

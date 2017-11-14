@@ -85,7 +85,6 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
                 page = 1;
                 getData(page, 10);
                 rvActivity.refreshComplete();
-
             }
 
             @Override

@@ -96,11 +96,11 @@ public class OrderBookDetailActivity extends MyBaseActivity {
             case 2: // 2: 配送中
                 right.setText("已归还");
                 break;
-            case 3: // 3：已完成
-                right.setText("再次预订");
-                break;
-            case 4: // 4：待评价
+            case 3: // 3：待评价
                 right.setText("立即评价");
+                break;
+            case 4: // 4：已完成
+                right.setText("再次预订");
                 break;
             case 5: // 5：已取消
                 right.setText("删除订单");
@@ -117,13 +117,13 @@ public class OrderBookDetailActivity extends MyBaseActivity {
                         showAlertDialog("是否取消预约", state);
                         break;
                     case 2:
-//                        showAlertDialog("是否拨打电话", state);
+                        toFinish(data.getOrderid());
                         break;
                     case 3:
-                        startActivity(new Intent(OrderBookDetailActivity.this, LibraryActivity.class));
+                        OtherUtils.gotoComment(OrderBookDetailActivity.this, data.getOrderid(), Constants.BOOK);
                         break;
                     case 4:
-                        OtherUtils.gotoComment(OrderBookDetailActivity.this, data.getOrderid(), Constants.BOOK);
+                        startActivity(new Intent(OrderBookDetailActivity.this, LibraryActivity.class));
                         break;
                     case 5:
                         showAlertDialog("是否删除订单", state);
@@ -138,6 +138,32 @@ public class OrderBookDetailActivity extends MyBaseActivity {
         }
     }
 
+    // 点击完成
+    private void toFinish(int id) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.BOOK, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(OrderBookDetailActivity.this, "完成订单");
+                } else {
+                    ToastUtil.showToast(OrderBookDetailActivity.this, orderBean.getMsg());
+                }
+            }
+        });
+    }
+
     private void showAlertDialog(String s, final int state) {
         new AlertDialog(this).builder()
                 .setBigMsg(s)
@@ -149,10 +175,7 @@ public class OrderBookDetailActivity extends MyBaseActivity {
                             intent.putExtra("from", Constants.BOOK);
                             intent.putExtra("OrderingID", data.getOrderid());
                             startActivity(intent);
-                        } else if (state == 3) {
-                            // TODO 再次预订
-
-                        } else if (state == 5) {
+                        }  else if (state == 5) {
                             // 删除订单
                             deleteOrder(data.getOrderid());
                         } else if (state == 6) {
@@ -165,7 +188,6 @@ public class OrderBookDetailActivity extends MyBaseActivity {
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 }).show();
     }

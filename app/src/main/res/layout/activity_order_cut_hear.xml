@@ -19,8 +19,7 @@
         android:paddingTop="12dp"
         android:text="立即预约"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_big"
-        />
+        android:textSize="@dimen/sp_big" />
 
     <LinearLayout
         android:id="@+id/top"
@@ -41,12 +40,12 @@
 
             <ImageView
                 android:id="@+id/iv_hint"
-                android:padding="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/normal_padding"
+                android:padding="3dp"
                 android:src="@drawable/blue_doubt" />
         </RelativeLayout>
 
@@ -242,10 +241,10 @@
                     android:background="@color/bg_page" />
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -269,11 +268,11 @@
                 </LinearLayout>
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
-                    android:visibility="gone"
                     android:id="@+id/shop_grid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:numColumns="4" />
+                    android:numColumns="4"
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"

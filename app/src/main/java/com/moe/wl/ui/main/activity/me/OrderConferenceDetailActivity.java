@@ -115,7 +115,7 @@ public class OrderConferenceDetailActivity extends AppCompatActivity {
                         showAlertDialog("是否取消预约", state);
                         break;
                     case 2:
-//                        showAlertDialog("是否拨打电话", state);
+                        toFinish(data.getDetail().getId());
                         break;
                     case 3:
                         startActivity(new Intent(OrderConferenceDetailActivity.this, OrderingActivity.class));
@@ -134,6 +134,32 @@ public class OrderConferenceDetailActivity extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    // 点击完成
+    private void toFinish(int id) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.BOOK, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(OrderConferenceDetailActivity.this, "完成订单");
+                } else {
+                    ToastUtil.showToast(OrderConferenceDetailActivity.this, orderBean.getMsg());
+                }
+            }
+        });
     }
 
     private void showAlertDialog(String s, final int state) {

@@ -55,7 +55,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
     @Override
     public void initView() {
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
 
         ll_back = (LinearLayout) findViewById(R.id.ll_back);
         ll_back.setOnClickListener(this);
@@ -72,7 +72,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
         tv_subscribe.setOnClickListener(this);
 
         initData();
-        if (!TextUtils.isEmpty(id)){
+        if (!TextUtils.isEmpty(id)) {
             getPresenter().officedetails(id);
         }
 
@@ -97,7 +97,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
                 break;
             case R.id.tv_subscribe:  //预订
                 Intent intent = new Intent(this, SubscribeInfoActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 finish();
                 break;
@@ -116,16 +116,16 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
     @Override
     public void setData(OfficeDetailsResponse.RoomDetailBean bean) {
-        if (bean!=null){
+        if (bean != null) {
             tv_name.setText(bean.getName());
-            tv_saturation.setText(bean.getCapacity()+"人");
-            if ("1".equals(bean.getTimeserving())){
+            tv_saturation.setText(bean.getCapacity() + "人");
+            if ("1".equals(bean.getTimeserving())) {
                 tv_time.setText("上午");
-            }else if ("2".equals(bean.getTimeserving())){
+            } else if ("2".equals(bean.getTimeserving())) {
                 tv_time.setText("下午午");
-            }else if ("3".equals(bean.getTimeserving())){
+            } else if ("3".equals(bean.getTimeserving())) {
                 tv_time.setText("全天");
-            }else{
+            } else {
                 tv_time.setText("全天");
             }
             tv_number.setText(bean.getUsenumber());
@@ -133,7 +133,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
 
             tv_introduce.setText(bean.getIntroduce());
 
-            if (bean.getImgList()!=null){
+            if (bean.getImgList() != null) {
                 HashMap<String, String> map = new HashMap<>();
                 for (int i = 0; i < bean.getImgList().size(); i++) {
                     map.put("", bean.getImgList().get(i));

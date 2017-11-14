@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_page">
+    android:background="@color/bg_page"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/ll_back"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,10 +27,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/font_black"
             android:layout_centerInParent="true"
-            android:text="确认订单" />
+            android:gravity="center"
+            android:text="确认订单"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/sp_big" />
 
     </RelativeLayout>
 
@@ -45,194 +47,227 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:padding="@dimen/normal_padding"
+                android:text="个人信息"
                 android:textColor="@color/font_black"
-                android:text="个人信息"/>
+                android:textSize="@dimen/sp_small" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:background="@color/white"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:background="@color/white">
+                android:paddingTop="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:text="预订人"
                     android:textColor="@color/font_black"
-                    android:text="预订人"/>
+                    android:textSize="@dimen/sp_small" />
+
                 <TextView
                     android:id="@+id/tv_people"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_vertical|right"
                     android:paddingLeft="10dp"
                     android:textColor="@color/font_black"
-                    android:text="王某人"/>
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"/>
+                android:background="@color/divider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:background="@color/white"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:padding="12dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:text="手机号"
                     android:textColor="@color/font_black"
-                    android:text="手机号"/>
+                    android:textSize="@dimen/sp_small" />
+
                 <TextView
                     android:id="@+id/tv_phone"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_vertical|right"
                     android:paddingLeft="10dp"
                     android:textColor="@color/font_black"
-                    android:text="1233553"/>
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"/>
+                android:background="@color/divider" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:padding="12dp"
+                android:text="会议信息"
                 android:textColor="@color/font_black"
-                android:text="会议信息"/>
+                android:textSize="@dimen/sp_small" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:padding="12dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:text="会议名称："
                         android:textColor="@color/font_black"
-                        android:text="会议名称："/>
+                        android:textSize="@dimen/sp_small" />
+
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/font_black"
-                        android:paddingLeft="10dp" />
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:padding="12dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:text="会议类型："
                         android:textColor="@color/font_black"
-                        android:text="会议类型："/>
+                        android:textSize="@dimen/sp_small" />
+
                     <TextView
                         android:id="@+id/tv_type"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:textColor="@color/font_black" />
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="预约时间："
                         android:textColor="@color/font_black"
-                        android:text="预约时间："/>
-                   <com.moe.wl.framework.widget.NoSlidingListView
-                       android:id="@+id/lv_time"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:dividerHeight="0dp"
-                       android:divider="@null"/>
+                        android:textSize="@dimen/sp_small" />
+
+                    <com.moe.wl.framework.widget.NoSlidingListView
+                        android:id="@+id/lv_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:padding="12dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:text="参会人数："
                         android:textColor="@color/font_black"
-                        android:text="参会人数："/>
+                        android:textSize="@dimen/sp_small" />
+
                     <TextView
                         android:id="@+id/tv_number"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/font_black"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp" />
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/font_black"
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:padding="12dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:text="参会领导："
                         android:textColor="@color/font_black"
-                        android:text="参会领导："/>
+                        android:textSize="@dimen/sp_small" />
+
                     <TextView
                         android:id="@+id/tv_leader"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/font_black"
-                        android:paddingLeft="10dp" />
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -240,17 +275,17 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"/>
+                android:background="@color/divider" />
 
             <TextView
                 android:id="@+id/tv_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:paddingTop="10dp"
                 android:textColor="@color/font_black" />
 
         </LinearLayout>
@@ -259,11 +294,12 @@
     <TextView
         android:id="@+id/tv_submit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bt"
         android:gravity="center"
-        android:background="@color/font_blue"
-        android:textSize="@dimen/sp_big"
+        android:padding="12dp"
+        android:text="提交"
         android:textColor="@color/white"
-        android:text="提交"/>
+        android:textSize="@dimen/sp_small" />
 
 </LinearLayout>

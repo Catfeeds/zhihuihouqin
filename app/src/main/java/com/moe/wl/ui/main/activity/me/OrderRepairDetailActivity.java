@@ -93,11 +93,11 @@ public class OrderRepairDetailActivity extends MyBaseActivity {
                 left.setVisibility(View.VISIBLE);
                 right.setText("拨打电话");
                 break;
-            case 3: // 3：已完成
-                right.setText("再次预订");
-                break;
-            case 4: // 4：待评价
+            case 3: // 3：待评价
                 right.setText("立即评价");
+                break;
+            case 4: // 4：已完成
+                right.setText("再次预订");
                 break;
             case 5: // 5：已取消
                 right.setText("删除订单");
@@ -136,10 +136,10 @@ public class OrderRepairDetailActivity extends MyBaseActivity {
                         showAlertDialog("是否拨打电话");
                         break;
                     case 3:
-                        startActivity(new Intent(OrderRepairDetailActivity.this, PropertyAintenanceActivity.class));
+                        OtherUtils.gotoComment(OrderRepairDetailActivity.this, orderID, Constants.PROPERRY);
                         break;
                     case 4:
-                        OtherUtils.gotoComment(OrderRepairDetailActivity.this, orderID, Constants.PROPERRY);
+                        startActivity(new Intent(OrderRepairDetailActivity.this, PropertyAintenanceActivity.class));
                         break;
                     case 5:
                         showAlertDialog("是否删除订单");

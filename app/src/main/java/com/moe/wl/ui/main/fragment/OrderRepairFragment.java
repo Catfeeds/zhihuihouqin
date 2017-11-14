@@ -89,11 +89,11 @@ public class OrderRepairFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 再来一单
-                        startActivity(new Intent(getActivity(), PropertyAintenanceActivity.class));
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.PROPERRY);
                         break;
 
                     case 3: // 评价
-                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.PROPERRY);
+                        startActivity(new Intent(getActivity(), PropertyAintenanceActivity.class));
                         break;
 
                     case 4: // 删除订单
@@ -138,7 +138,6 @@ public class OrderRepairFragment extends BaseFragment2 {
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 }).show();
     }

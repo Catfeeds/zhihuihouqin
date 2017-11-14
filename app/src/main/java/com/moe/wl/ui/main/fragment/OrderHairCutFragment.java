@@ -29,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -84,7 +85,7 @@ public class OrderHairCutFragment extends BaseFragment2 {
                         break;
 
                     case 1: // 已完成
-//                        showAlertDialog("是否拨打服务电话", position);
+                        toFinish(data.get(position).getOrderid(), position);
                         break;
 
                     case 2: // 再次预约
@@ -121,9 +122,6 @@ public class OrderHairCutFragment extends BaseFragment2 {
                                 LogUtils.d("id:" + id + "  position:" + position);
                                 intent.putExtra("OrderingID", id);
                                 startActivity(intent);
-                            } else if (state == 1) {
-                                // TODO 完成理发服务
-
                             } else if (state == 4) {
                                 // TODO 删除
                                 deleteOrder(listBean.getOrderid());
@@ -135,9 +133,36 @@ public class OrderHairCutFragment extends BaseFragment2 {
                 .setNegativeButton("否", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 }).show();
+    }
+
+    // 点击完成
+    private void toFinish(int id, final int position) {
+        Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.HAIRCUTS, id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(getActivity(), "完成订单");
+//                    data.remove(position);
+//                    adapter.notifyDataSetChanged();
+                } else {
+                    ToastUtil.showToast(getActivity(), orderBean.getMsg());
+                }
+            }
+        });
     }
 
     private void initRecycler() {

@@ -29,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import mvp.cn.util.ToastUtil;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -85,7 +86,7 @@ public class OrderExpertFragment extends BaseFragment2 {
 
                     case 1: // 已完成
                         // TODO 完成服务
-                        toFinish(data.get(position).getId());
+                        toFinish(data.get(position).getId(), position);
                         break;
 
                     case 2: // 立即评价
@@ -169,7 +170,7 @@ public class OrderExpertFragment extends BaseFragment2 {
     }
 
     // 点击完成
-    private void toFinish(int id) {
+    private void toFinish(int id, final int position) {
         Observable observable = RetrofitUtils.getInstance().finishOrder(Constants.EXPERTS, id);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
@@ -186,9 +187,11 @@ public class OrderExpertFragment extends BaseFragment2 {
             @Override
             public void onNext(CollectBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
-                    showToast("已完成该订单");
+                    ToastUtil.showToast(getActivity(), "完成订单");
+//                    data.remove(position);
+//                    adapter.notifyDataSetChanged();
                 } else {
-                    showToast(orderBean.getMsg());
+                    ToastUtil.showToast(getActivity(), orderBean.getMsg());
                 }
             }
         });
