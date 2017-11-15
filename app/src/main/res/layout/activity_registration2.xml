@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_registration2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_page"
     android:orientation="vertical">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/activity_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/white" />
+    <ImageView
+        android:id="@+id/iv_hint"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/normal_padding"
+        android:src="@drawable/blue_doubt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+
 
     <View
         android:id="@+id/view_title"
@@ -19,19 +29,32 @@
         android:layout_height="1px"
         android:background="@color/divider" />
 
-    <!--轮播图-->
-    <com.daimajia.slider.library.SliderLayout
-        android:id="@+id/slider_layout"
-        android:layout_width="match_parent"
-        android:layout_height="186dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_default_rectangle" />
-
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/rv_activity"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!--轮播图-->
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/slider_layout"
+            android:layout_width="match_parent"
+            android:layout_height="186dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_default_rectangle" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
