@@ -5,57 +5,31 @@
     android:background="@color/bg_page"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:id="@+id/ll_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="10dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:src="@mipmap/ic_title_back" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="会议室预订"
-            android:textColor="@color/font_black" />
-
-    </RelativeLayout>
+        android:layout_height="@dimen/title_height"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider" />
+        android:background="@color/divider"/>
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_default_rectangle"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_default_rectangle" />
+        android:adjustViewBounds="true"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider" />
+        android:background="@color/divider"/>
 
     <ListView
         android:id="@+id/lv_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>

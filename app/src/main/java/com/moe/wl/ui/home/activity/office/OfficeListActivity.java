@@ -1,5 +1,6 @@
 package com.moe.wl.ui.home.activity.office;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.adapter.office.OfficeLitsAdapter;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.model.office.OfficeListModel;
@@ -19,18 +21,21 @@ import com.moe.wl.ui.home.view.office.OfficeListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 办公室列表
  */
-public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeListView, OfficeListPresenter> implements View.OnClickListener,OfficeListView {
+public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeListView, OfficeListPresenter> implements  OfficeListView {
 
-    private LinearLayout ll_back;
-    private TextView tv_title;
-    private ImageView iv_icon;
-    private ListView lv_content;
 
+    @BindView(R.id.title)
+    TitleBar title;
+    @BindView(R.id.iv_icon)
+    ImageView ivIcon;
+    @BindView(R.id.lv_content)
+    ListView lvContent;
     private OfficeLitsAdapter adapter;
     private List<OfficeListResponse.ListBean> mList;
 
@@ -43,15 +48,16 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
 
     @Override
     public void initView() {
-        ll_back = (LinearLayout) findViewById(R.id.ll_back);
-        ll_back.setOnClickListener(this);
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        iv_icon = (ImageView) findViewById(R.id.iv_icon);
-        lv_content = (ListView) findViewById(R.id.lv_content);
+        initTitle();
 
         initData();
         getPresenter().officelist();
 
+    }
+
+    private void initTitle() {
+        title.setBack(true);
+        title.setTitle("会议室预订");
     }
 
     @Override
@@ -65,29 +71,20 @@ public class OfficeListActivity extends BaseActivity<OfficeListModel, OfficeList
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.ll_back:
-                finish();
-                break;
-        }
-    }
-
     private void initData() {
 
-        mList=new ArrayList<>();
+        mList = new ArrayList<>();
 
         adapter = new OfficeLitsAdapter(this);
         adapter.setItemList(mList);
-        lv_content.setAdapter(adapter);
+        lvContent.setAdapter(adapter);
 
     }
 
     @Override
     public void setData(List<OfficeListResponse.ListBean> list, String img) {
-        GlideLoading.getInstance().loadImgUrlHeader(this,img,iv_icon,R.mipmap.ic_default_rectangle);
-        if (list!=null && list.size()!=0){
+        GlideLoading.getInstance().loadImgUrlHeader(this, img, ivIcon, R.mipmap.ic_default_rectangle);
+        if (list != null && list.size() != 0) {
             mList.addAll(list);
             adapter.notifyDataSetChanged();
         }

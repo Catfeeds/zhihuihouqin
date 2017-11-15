@@ -34,6 +34,17 @@
         android:layout_marginTop="40dp"
         android:text="提交成功"
         android:textSize="@dimen/sp_big" />
+    <TextView
+        android:id="@+id/tv_des"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:textSize="@dimen/sp_common"
+        android:textColor="@color/font_gray"
+        android:text="恭喜您，提交成功\n很荣幸为您服务，请将衣服送至洗衣店" />
 
     <TextView
         android:id="@+id/tv_check_order"

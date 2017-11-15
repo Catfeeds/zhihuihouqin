@@ -10,18 +10,17 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity;
+import com.moe.wl.ui.home.adapter.MyBaseAdapter;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
-import com.moe.wl.ui.main.adapter.MyBaseAdapter;
 
 /**
- * 办公室列表
+ * Created by 我的电脑 on 2017/11/6 0006.
  */
-public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean> {
 
-    public OfficeLitsAdapter(Context context) {
+public class ServiceItemAdapter extends MyBaseAdapter {
+    public ServiceItemAdapter(Context context) {
         super(context);
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
@@ -33,32 +32,15 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final OfficeListResponse.ListBean bean=getItem(position);
-        viewHolder.tv_name.setText(bean.getName());
-        viewHolder.tv_saturation.setText(bean.getCapacity()+"人");
-//        if ("1".equals(bean.getTimeserving())){
-//            viewHolder.tv_time.setText("上午");
-//        }else if ("2".equals(bean.getTimeserving())){
-//            viewHolder.tv_time.setText("下午午");
-//        }else if ("3".equals(bean.getTimeserving())){
-//            viewHolder.tv_time.setText("全天");
-//        }else{
-//            viewHolder.tv_time.setText("全天");
-//        }
-//        viewHolder.tv_number.setText(bean.getUsenumber());
-        viewHolder.tv_location.setText(bean.getAddress());
-      /*  if ("1".equals(bean.getStatus())){
-            viewHolder.tv_subscribe.setText("可预订");
-            viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_blue);
-        }else{
-            viewHolder.tv_subscribe.setText("使用中");
-            viewHolder.tv_subscribe.setBackgroundResource(R.mipmap.bg_btn_red);
-        }*/
+//        final OfficeListResponse.ListBean bean=getItem(position);
+//        viewHolder.tv_name.setText(bean.getName());
+//        viewHolder.tv_saturation.setText(bean.getCapacity()+"人");
+//        viewHolder.tv_location.setText(bean.getAddress());
         viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OfficeDetailsActivity.class);
-                intent.putExtra("id",bean.getId());
+//                intent.putExtra("id",bean.getId());
                 getContext().startActivity(intent);
             }
         });
@@ -83,10 +65,7 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             this.tv_saturation = (TextView) rootView.findViewById(R.id.tv_saturation);
             tv_area = (TextView) rootView.findViewById(R.id.tv_area);
-//            this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
-//            this.tv_number = (TextView) rootView.findViewById(R.id.tv_number);
             this.tv_location = (TextView) rootView.findViewById(R.id.tv_location);
-//            this.tv_subscribe = (TextView) rootView.findViewById(R.id.tv_subscribe);
         }
 
     }

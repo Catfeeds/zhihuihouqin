@@ -21,6 +21,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.adapter.office.AffirmEquipmentAdapter;
 import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
 import com.moe.wl.ui.home.bean.office.EquipmentListBean;
@@ -32,6 +33,7 @@ import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
 import com.moe.wl.ui.home.view.office.ConferenceTypePop;
 import com.moe.wl.ui.home.view.office.SubscribeInfoView;
 import com.moe.wl.ui.main.adapter.ActivityPostMulitPicAdapter;
+import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.ui.mywidget.StringListDialog;
 
 import java.io.File;
@@ -54,18 +56,29 @@ import mvp.cn.util.DateUtil;
  */
 public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, SubscribeInfoView, SubscribeInfoPresenter> implements View.OnClickListener, SubscribeInfoView {
 
-    @BindView(R.id.ll_back)
-    LinearLayout llBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.rl_time)
-    RelativeLayout rlTime;
+
+    @BindView(R.id.title)
+    TitleBar title;
     @BindView(R.id.lv_equipment)
     NoSlidingGridView lvEquipment;
+    @BindView(R.id.tv_type)
+    TextView tvType;
     @BindView(R.id.ll_type)
     LinearLayout llType;
     @BindView(R.id.et_name)
     EditText etName;
+    @BindView(R.id.et_number)
+    EditText etNumber;
+    @BindView(R.id.et_leader)
+    EditText etLeader;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.rl_time)
+    RelativeLayout rlTime;
+    @BindView(R.id.rv_equipment)
+    NoSlideRecyclerView rvEquipment;
+    @BindView(R.id.rv_service_needs)
+    NoSlideRecyclerView rvServiceNeeds;
     @BindView(R.id.tv_enclosure)
     TextView tvEnclosure;
     @BindView(R.id.et_remark)
@@ -74,15 +87,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     GridView gvPic;
     @BindView(R.id.tv_finish)
     TextView tvFinish;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
-    @BindView(R.id.tv_type)
-    TextView tvType;
-    @BindView(R.id.et_number)
-    EditText etNumber;
-    @BindView(R.id.et_leader)
-    EditText etLeader;
-
     private StringListDialog dialog;
 
     private AffirmEquipmentAdapter adapter;
@@ -195,13 +199,10 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         return new SubscribeInfoModelImpl();
     }
 
-    @OnClick({R.id.ll_back, R.id.rl_time, R.id.ll_type, R.id.tv_enclosure, R.id.tv_finish})
+    @OnClick({ R.id.rl_time, R.id.ll_type, R.id.tv_enclosure, R.id.tv_finish})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
             case R.id.rl_time:  //预约时间
                 startActivityForResult(new Intent(this, SubscribeTimeActivity.class), TAKE_TIME);
                 break;
@@ -234,7 +235,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                     return;
                 }
                 String remark = etRemark.getText().toString();
-                if (dates==null || dates.size() == 0) {
+                if (dates == null || dates.size() == 0) {
                     showToast("请选择预约时间");
                     return;
                 }
@@ -269,14 +270,14 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                     pw = new ConferenceTypePop(SubscribeInfoActivity.this, new ConferenceTypePop.MyOnClick() {
                         @Override
                         public void click(TypeListBean bean) {
-                            conferencetype =bean;
+                            conferencetype = bean;
                             tvType.setText(conferencetype.getTypename());
                         }
                     });
                     pw.setData(typeList);
                 }
             }
-            if (typeList.size()>0){
+            if (typeList.size() > 0) {
                 conferencetype = typeList.get(0);
                 typeList.get(0).setCheck(true);
                 tvType.setText(typeList.get(0).getTypename());
@@ -434,12 +435,5 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 }
             }
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

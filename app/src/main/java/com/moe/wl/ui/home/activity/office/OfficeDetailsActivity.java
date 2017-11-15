@@ -11,7 +11,9 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.adapter.office.OfficeEquipmentAdapter;
+import com.moe.wl.ui.home.adapter.office.ServiceItemAdapter;
 import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.model.office.OfficeDetailsModel;
 import com.moe.wl.ui.home.modelimpl.office.OfficeDetailsModelImpl;
@@ -19,28 +21,35 @@ import com.moe.wl.ui.home.presenter.office.OfficeDetailsPresenter;
 import com.moe.wl.ui.home.view.office.OfficeDetailsView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 办公室详情
  */
 public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, OfficeDetailsView, OfficeDetailsPresenter> implements View.OnClickListener, OfficeDetailsView {
+    @BindView(R.id.title)
+    TitleBar title;
+    @BindView(R.id.ll_slider)
+    SliderLayout llSlider;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_personnum)
+    TextView tvPersonnum;
+    @BindView(R.id.tv_area)
+    TextView tvArea;
+    @BindView(R.id.gv_equipment)
+    NoSlidingGridView gvEquipment;
+    @BindView(R.id.gv_service)
+    NoSlidingGridView gvService;
+    @BindView(R.id.tv_subscribe)
+    TextView tvSubscribe;
 
-    private LinearLayout ll_back;
-    private TextView tv_title;
-    private LinearLayout ll_right;
-    private SliderLayout ll_slider;
-    private TextView tv_name;
-    private TextView tv_saturation;
-    private TextView tv_time;
-    private TextView tv_number;
-    private TextView tv_location;
-    private TextView tv_introduce;
-    private NoSlidingGridView gv_equipment;
-    private TextView tv_subscribe;
 
     private OfficeEquipmentAdapter adapter;
     private List<OfficeDetailsResponse.RoomDetailBean.EnameListBean> mList;
@@ -56,26 +65,17 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
     @Override
     public void initView() {
         id = getIntent().getStringExtra("id");
-
-        ll_back = (LinearLayout) findViewById(R.id.ll_back);
-        ll_back.setOnClickListener(this);
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        ll_slider = (SliderLayout) findViewById(R.id.ll_slider);
-        tv_name = (TextView) findViewById(R.id.tv_name);
-        tv_saturation = (TextView) findViewById(R.id.tv_saturation);
-        tv_time = (TextView) findViewById(R.id.tv_time);
-        tv_number = (TextView) findViewById(R.id.tv_number);
-        tv_location = (TextView) findViewById(R.id.tv_location);
-        tv_introduce = (TextView) findViewById(R.id.tv_introduce);
-        gv_equipment = (NoSlidingGridView) findViewById(R.id.gv_equipment);
-        tv_subscribe = (TextView) findViewById(R.id.tv_subscribe);
-        tv_subscribe.setOnClickListener(this);
-
+        initTitle();
         initData();
         if (!TextUtils.isEmpty(id)) {
             getPresenter().officedetails(id);
         }
 
+    }
+
+    private void initTitle() {
+        title.setBack(true);
+        title.setTitle("会议室信息");
     }
 
     @Override
@@ -107,53 +107,45 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
     private void initData() {
 
         mList = new ArrayList<>();
-
+        //会场设备
         adapter = new OfficeEquipmentAdapter(this);
         adapter.setItemList(mList);
-        gv_equipment.setAdapter(adapter);
-
+        gvEquipment.setAdapter(adapter);
+        //可供服务
+        // TODO: 2017/11/6 0006 还没有设置数据
+        ServiceItemAdapter serviceItemAdapter = new ServiceItemAdapter(this);
+        gvService.setAdapter(serviceItemAdapter);
     }
 
     @Override
     public void setData(OfficeDetailsResponse.RoomDetailBean bean) {
         if (bean != null) {
-            tv_name.setText(bean.getName());
-            tv_saturation.setText(bean.getCapacity() + "人");
-            if ("1".equals(bean.getTimeserving())) {
-                tv_time.setText("上午");
-            } else if ("2".equals(bean.getTimeserving())) {
-                tv_time.setText("下午午");
-            } else if ("3".equals(bean.getTimeserving())) {
-                tv_time.setText("全天");
-            } else {
-                tv_time.setText("全天");
-            }
-            tv_number.setText(bean.getUsenumber());
-            tv_location.setText(bean.getAddress());
-
-            tv_introduce.setText(bean.getIntroduce());
+            tvName.setText(bean.getName());
+            tvPersonnum.setText(bean.getCapacity() + "人");
+            tvAddress.setText(bean.getAddress());
+            tvArea.setText("");
 
             if (bean.getImgList() != null) {
-                HashMap<String, String> map = new HashMap<>();
+                llSlider.removeAllSliders();
                 for (int i = 0; i < bean.getImgList().size(); i++) {
-                    map.put("", bean.getImgList().get(i));
+                    // map.put("", bean.getImgList().get(i));
+                    TextSliderView textSliderView = new TextSliderView(getActivity());
+                    textSliderView
+                            .description("")
+                            .image(bean.getImgList().get(i));
+                    llSlider.addSlider(textSliderView);
                 }
-                initSliderLayout(map);
             }
             mList.addAll(bean.getEnameList());
             adapter.notifyDataSetChanged();
         }
     }
 
-    // 轮播图数据
-    private void initSliderLayout(HashMap<String, String> map) {
-        ll_slider.removeAllSliders();
-        for (String desc : map.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .description(desc)
-                    .image(map.get(desc));
-            ll_slider.addSlider(textSliderView);
-        }
+    @OnClick(R.id.tv_subscribe)
+    public void onViewClicked() {//预定
+        Intent intent = new Intent(this, SubscribeInfoActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+        finish();
     }
 }
