@@ -101,9 +101,11 @@ public class OrderCommentActivity extends MyBaseActivity {
     private void initData() {
         //对星星进行设置
         ratingOne.ismove(true);
+        ratingOne.setStarMark(5);
         ratingOne.setIntegerMark(true);
-        ratingTwo.setIntegerMark(true);
         ratingTwo.ismove(true);
+        ratingTwo.setStarMark(5);
+        ratingTwo.setIntegerMark(true);
         progressDialog = new CustomerDialog(this, R.style.dialog_style);
         titleBar.setBack(true);
         titleBar.setTitle("评论");
@@ -221,6 +223,7 @@ public class OrderCommentActivity extends MyBaseActivity {
         });*/
         //对评分星星监听，评分取整，可以滑动
         ratingBar.setIntegerMark(true);
+        ratingBar.setStarMark(5);
         ratingBar.ismove(true);
         ratingBar.setOnStarChangeListener(new StarBar.OnStarChangeListener() {
             @Override

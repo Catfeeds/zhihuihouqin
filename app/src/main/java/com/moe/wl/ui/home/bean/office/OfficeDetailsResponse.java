@@ -10,54 +10,36 @@ import java.util.List;
 
 public class OfficeDetailsResponse extends BaseResponse {
 
+    private RoomDetailEntity roomDetail;
 
-    /**
-     * roomDetail : {"address":"大楼东侧","capacity":80,"enameList":[{"id":"1","name":"鲜花"},{"id":"2","name":"投影仪"}],"enames":"1-鲜花,2-投影仪,3-热毛巾,4-音响","id":1,"imgList":["11"],"imgs":"11","Stringroduce":"测试测试","name":"会议室2","photo":"1111","status":null,"timeserving":1,"usenumber":20}
-     * errCode : 0
-     * msg : success
-     */
-
-    private RoomDetailBean roomDetail;
-
-    public RoomDetailBean getRoomDetail() {
+    public RoomDetailEntity getRoomDetail() {
         return roomDetail;
     }
 
-    public void setRoomDetail(RoomDetailBean roomDetail) {
+    public void setRoomDetail(RoomDetailEntity roomDetail) {
         this.roomDetail = roomDetail;
     }
 
-
-    public static class RoomDetailBean {
-        /**
-         * address : 大楼东侧
-         * capacity : 80
-         * enameList : [{"id":"1","name":"鲜花"},{"id":"2","name":"投影仪"}]
-         * enames : 1-鲜花,2-投影仪,3-热毛巾,4-音响
-         * id : 1
-         * imgList : ["11"]
-         * imgs : 11
-         * introduce : 测试测试
-         * name : 会议室2
-         * photo : 1111
-         * status : null
-         * timeserving : 1
-         * usenumber : 20
-         */
+    public static class RoomDetailEntity {
 
         private String address;
-        private String capacity;
+        private String area;
+        private int capacity;
         private String enames;
-        private String id;
+        private int id;
         private String imgs;
         private String introduce;
         private String name;
         private String photo;
-        private String status;
-        private String timeserving;
-        private String usenumber;
-        private List<EnameListBean> enameList;
+        private String snames;
+        private int status;
+        private int usenumber;
+        private List<EnameListEntity> enameList;
+        private List<Integer> equipmentList;
+        private List<ImgEntityListEntity> imgEntityList;
         private List<String> imgList;
+        private List<Integer> serviceList;
+        private List<SlistEntity> slist;
 
         public String getAddress() {
             return address;
@@ -67,11 +49,19 @@ public class OfficeDetailsResponse extends BaseResponse {
             this.address = address;
         }
 
-        public String getCapacity() {
+        public String getArea() {
+            return area;
+        }
+
+        public void setArea(String area) {
+            this.area = area;
+        }
+
+        public int getCapacity() {
             return capacity;
         }
 
-        public void setCapacity(String capacity) {
+        public void setCapacity(int capacity) {
             this.capacity = capacity;
         }
 
@@ -83,11 +73,11 @@ public class OfficeDetailsResponse extends BaseResponse {
             this.enames = enames;
         }
 
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
@@ -123,36 +113,52 @@ public class OfficeDetailsResponse extends BaseResponse {
             this.photo = photo;
         }
 
-        public String getStatus() {
+        public String getSnames() {
+            return snames;
+        }
+
+        public void setSnames(String snames) {
+            this.snames = snames;
+        }
+
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 
-        public String getTimeserving() {
-            return timeserving;
-        }
-
-        public void setTimeserving(String timeserving) {
-            this.timeserving = timeserving;
-        }
-
-        public String getUsenumber() {
+        public int getUsenumber() {
             return usenumber;
         }
 
-        public void setUsenumber(String usenumber) {
+        public void setUsenumber(int usenumber) {
             this.usenumber = usenumber;
         }
 
-        public List<EnameListBean> getEnameList() {
+        public List<EnameListEntity> getEnameList() {
             return enameList;
         }
 
-        public void setEnameList(List<EnameListBean> enameList) {
+        public void setEnameList(List<EnameListEntity> enameList) {
             this.enameList = enameList;
+        }
+
+        public List<Integer> getEquipmentList() {
+            return equipmentList;
+        }
+
+        public void setEquipmentList(List<Integer> equipmentList) {
+            this.equipmentList = equipmentList;
+        }
+
+        public List<ImgEntityListEntity> getImgEntityList() {
+            return imgEntityList;
+        }
+
+        public void setImgEntityList(List<ImgEntityListEntity> imgEntityList) {
+            this.imgEntityList = imgEntityList;
         }
 
         public List<String> getImgList() {
@@ -163,29 +169,33 @@ public class OfficeDetailsResponse extends BaseResponse {
             this.imgList = imgList;
         }
 
-        public static class EnameListBean {
-            /**
-             * id : 1
-             * name : 鲜花
-             */
+        public List<Integer> getServiceList() {
+            return serviceList;
+        }
 
-            private String id;
+        public void setServiceList(List<Integer> serviceList) {
+            this.serviceList = serviceList;
+        }
+
+        public List<SlistEntity> getSlist() {
+            return slist;
+        }
+
+        public void setSlist(List<SlistEntity> slist) {
+            this.slist = slist;
+        }
+
+        public static class EnameListEntity {
+
+            private int id;
             private String name;
-            private String estatus;
+            private int estatus;
 
-            public String getEstatus() {
-                return estatus;
-            }
-
-            public void setEstatus(String estatus) {
-                this.estatus = estatus;
-            }
-
-            public String getId() {
+            public int getId() {
                 return id;
             }
 
-            public void setId(String id) {
+            public void setId(int id) {
                 this.id = id;
             }
 
@@ -195,6 +205,85 @@ public class OfficeDetailsResponse extends BaseResponse {
 
             public void setName(String name) {
                 this.name = name;
+            }
+
+            public int getEstatus() {
+                return estatus;
+            }
+
+            public void setEstatus(int estatus) {
+                this.estatus = estatus;
+            }
+        }
+
+        public static class ImgEntityListEntity {
+
+            private int id;
+            private String img;
+            private int productId;
+            private int sort;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public int getProductId() {
+                return productId;
+            }
+
+            public void setProductId(int productId) {
+                this.productId = productId;
+            }
+
+            public int getSort() {
+                return sort;
+            }
+
+            public void setSort(int sort) {
+                this.sort = sort;
+            }
+        }
+
+        public static class SlistEntity {
+
+            private int id;
+            private String name;
+            private int estatus;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getEstatus() {
+                return estatus;
+            }
+
+            public void setEstatus(int estatus) {
+                this.estatus = estatus;
             }
         }
     }

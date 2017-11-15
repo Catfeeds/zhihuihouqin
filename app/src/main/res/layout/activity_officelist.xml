@@ -8,28 +8,28 @@
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"/>
+        android:layout_height="@dimen/title_height" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider"/>
+        android:background="@color/divider" />
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@mipmap/ic_default_rectangle"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:adjustViewBounds="true"/>
+        android:src="@mipmap/ic_default_rectangle" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider"/>
+        android:background="@color/divider" />
 
     <ListView
         android:id="@+id/lv_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

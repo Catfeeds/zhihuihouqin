@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -56,7 +55,6 @@ import mvp.cn.util.DateUtil;
  */
 public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, SubscribeInfoView, SubscribeInfoPresenter> implements View.OnClickListener, SubscribeInfoView {
 
-
     @BindView(R.id.title)
     TitleBar title;
     @BindView(R.id.lv_equipment)
@@ -92,7 +90,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     private AffirmEquipmentAdapter adapter;
     private List<EquipmentListBean> mList;
 
-
     private static final int TAKE_PHOTO_CAMERA = 10001;
     private static final int TAKE_PHOTO_ALBUM = 10002;
     private static final int TAKE_TIME = 10003;
@@ -115,7 +112,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     private List<AppointmentDateBean> dates;  //预约的时间
 
-
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_subscribe);
@@ -125,7 +121,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     @Override
     public void initView() {
         id = getIntent().getStringExtra("id");
-
 
         //单张图片的集合
         paths = new ArrayList<>();
@@ -138,8 +133,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         if (!TextUtils.isEmpty(id)) {
             getPresenter().subscribeInfo(id);
         }
-
-
     }
 
     /**
@@ -147,7 +140,6 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
      */
     public void initEquipment() {
         mList = new ArrayList<>();
-
         adapter = new AffirmEquipmentAdapter(this);
         adapter.setItemList(mList);
         lvEquipment.setAdapter(adapter);
@@ -242,14 +234,13 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 Intent intent = new Intent(this, AffirmOrderActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("equipmentids", equipmentids);
-                intent.putExtra("conferencetype", (Serializable) conferencetype);
+                intent.putExtra("conferencetype", conferencetype);
                 intent.putExtra("conferencename", conferencename);
                 intent.putExtra("attendnum", attendnum);
                 intent.putExtra("attentdleader", attentdleader);
                 if (!TextUtils.isEmpty(remark)) {
                     intent.putExtra("remark", remark);
                 }
-
                 intent.putExtra("list", (Serializable) dates);
                 startActivity(intent);
                 finish();
@@ -282,9 +273,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                 typeList.get(0).setCheck(true);
                 tvType.setText(typeList.get(0).getTypename());
             }
-
         }
-
     }
 
     private void showButtomDialog() {

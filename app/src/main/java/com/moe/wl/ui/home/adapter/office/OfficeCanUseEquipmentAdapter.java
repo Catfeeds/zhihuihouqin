@@ -12,11 +12,11 @@ import com.moe.wl.ui.home.adapter.MyBaseAdapter;
 import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 
 /**
- * 办公室设备列表
+ * 办公室可用设备列表
  */
-public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.RoomDetailEntity.EnameListEntity> {
+public class OfficeCanUseEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.RoomDetailEntity.SlistEntity> {
 
-    public OfficeEquipmentAdapter(Context context) {
+    public OfficeCanUseEquipmentAdapter(Context context) {
         super(context);
     }
 
@@ -31,7 +31,7 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        OfficeDetailsResponse.RoomDetailEntity.EnameListEntity bean = getItem(position);
+        OfficeDetailsResponse.RoomDetailEntity.SlistEntity bean = getItem(position);
 
         viewHolder.tv_name.setText(bean.getName());
         if (bean.getEstatus() == 0) {

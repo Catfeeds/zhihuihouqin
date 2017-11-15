@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import mvp.cn.util.DateUtil;
 
 /**
- * 类描述：报修订单Adapter
+ * 类描述：净菜订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 
@@ -118,7 +118,7 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
                 if (state == 0) {
                     Intent intent = new Intent(context, PayFiveJiaoActivity.class);
                     intent.putExtra("from", Constants.VEGETABLE);
-//                    intent.putExtra("pay", data.get(position).getTotalprice());
+                    intent.putExtra("pay", data.get(position).getTotalprice());
                     intent.putExtra("orderid", data.get(position).getId() + "");
                     intent.putExtra("ordercode", data.get(position).getOrdercode());
                     intent.putExtra("ordertype", Constants.VEGETABLE + "");

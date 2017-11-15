@@ -3,7 +3,6 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,8 +12,9 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
+import com.moe.wl.ui.home.activity.office.OfficeListActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
-import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderConferenceDetailBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -27,10 +27,10 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 类描述：订餐订单详情页面
+ * 类描述：会议室订单详情页面
  * 作者：Shixhe On 2017/10/12 0012
  */
-public class OrderConferenceDetailActivity extends AppCompatActivity {
+public class OrderConferenceDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
@@ -104,6 +104,60 @@ public class OrderConferenceDetailActivity extends AppCompatActivity {
         }
         state = data.getDetail().getStatus();
 
+        switch (data.getDetail().getCheckstatus()) {
+            case 3:
+                view3.setBackgroundColor(getResources().getColor(R.color.bt));
+                point3.setBackgroundColor(getResources().getColor(R.color.bt));
+            case 2:
+                view2.setBackgroundColor(getResources().getColor(R.color.bt));
+                point2.setBackgroundColor(getResources().getColor(R.color.bt));
+            case 1:
+                view1.setBackgroundColor(getResources().getColor(R.color.bt));
+                point1.setBackgroundColor(getResources().getColor(R.color.bt));
+                break;
+        }
+        orderNumber.setText("订单号：" + data.getDetail().getOrdercode());
+        name.setText("会议名称：" + data.getDetail().getConferencename());
+        switch (data.getDetail().getConferencetype()) {
+            case 0:
+                type.setText("会议类型：普通会议");
+                break;
+            case 1:
+                type.setText("会议类型：文艺会议");
+                break;
+        }
+
+        timeStart.setText("开始时间：" + data.getDetail().getCreatetime());
+        timeEnd.setText("结束时间：" + data.getDetail().getCreatetime());
+        number.setText("参会人数：" + data.getDetail().getAttendnum());
+        people.setText("参会人员：" + data.getDetail().getAttentdleader());
+        content.setText("备注说明：" + data.getDetail().getRemark());
+
+        switch (state) {
+            case 1:
+                left.setVisibility(View.GONE);
+                right.setText("取消订单");
+                break;
+            case 2:
+                left.setText("已完成");
+                left.setVisibility(View.VISIBLE);
+                right.setText("会议加时");
+                break;
+            case 3:
+                left.setText("支付");
+                left.setVisibility(View.VISIBLE);
+                right.setText("再次预订");
+                break;
+            case 4:
+                left.setVisibility(View.GONE);
+                right.setText("立即评价");
+                break;
+            case 5:
+                left.setVisibility(View.GONE);
+                right.setText("删除订单");
+                break;
+        }
+
     }
 
     @OnClick({R.id.left, R.id.right})
@@ -118,7 +172,7 @@ public class OrderConferenceDetailActivity extends AppCompatActivity {
                         toFinish(data.getDetail().getId());
                         break;
                     case 3:
-                        startActivity(new Intent(OrderConferenceDetailActivity.this, OrderingActivity.class));
+                        startActivity(new Intent(OrderConferenceDetailActivity.this, OfficeListActivity.class));
                         break;
                     case 4:
                         OtherUtils.gotoComment(OrderConferenceDetailActivity.this, data.getDetail().getId(), Constants.CONFERENCE);

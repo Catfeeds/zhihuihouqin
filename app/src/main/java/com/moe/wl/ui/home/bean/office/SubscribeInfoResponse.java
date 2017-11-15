@@ -8,17 +8,10 @@ import java.util.List;
 
 public class SubscribeInfoResponse {
 
-
-    /**
-     * equipmentList : [{"code":"12","id":1,"name":"鲜花"},{"code":null,"id":2,"name":"投影仪"}]
-     * typeList : [{"id":1,"typename":"文艺会议"},{"id":2,"typename":"小型会议"}]
-     * errCode : 0
-     * msg : success
-     */
-
     private int errCode;
     private String msg;
     private List<EquipmentListBean> equipmentList;
+    private List<EquipmentListBean> serviceList;
     private List<TypeListBean> typeList;
 
     public int getErrCode() {
@@ -45,6 +38,14 @@ public class SubscribeInfoResponse {
         this.equipmentList = equipmentList;
     }
 
+    public List<EquipmentListBean> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<EquipmentListBean> serviceList) {
+        this.serviceList = serviceList;
+    }
+
     public List<TypeListBean> getTypeList() {
         return typeList;
     }
@@ -52,5 +53,4 @@ public class SubscribeInfoResponse {
     public void setTypeList(List<TypeListBean> typeList) {
         this.typeList = typeList;
     }
-
 }

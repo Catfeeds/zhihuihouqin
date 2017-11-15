@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.main.adapter.MyBaseAdapter;
@@ -33,9 +34,10 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final OfficeListResponse.ListBean bean=getItem(position);
+        final OfficeListResponse.ListBean bean = getItem(position);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(ct, bean.getPhoto(), viewHolder.iv_icon, R.mipmap.ic_default_square);
         viewHolder.tv_name.setText(bean.getName());
-        viewHolder.tv_saturation.setText(bean.getCapacity()+"人");
+        viewHolder.tv_saturation.setText(bean.getCapacity() + "人");
 //        if ("1".equals(bean.getTimeserving())){
 //            viewHolder.tv_time.setText("上午");
 //        }else if ("2".equals(bean.getTimeserving())){
@@ -58,7 +60,7 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OfficeDetailsActivity.class);
-                intent.putExtra("id",bean.getId());
+                intent.putExtra("id", bean.getId());
                 getContext().startActivity(intent);
             }
         });
@@ -66,7 +68,7 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
         return convertView;
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         public View rootView;
         public ImageView iv_icon;
         public TextView tv_name;
@@ -75,7 +77,7 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
         public TextView tv_number;
         public TextView tv_location;
         public TextView tv_subscribe;
-        private  TextView tv_area;
+        private TextView tv_area;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -83,10 +85,7 @@ public class OfficeLitsAdapter extends MyBaseAdapter<OfficeListResponse.ListBean
             this.tv_name = (TextView) rootView.findViewById(R.id.tv_name);
             this.tv_saturation = (TextView) rootView.findViewById(R.id.tv_saturation);
             tv_area = (TextView) rootView.findViewById(R.id.tv_area);
-//            this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
-//            this.tv_number = (TextView) rootView.findViewById(R.id.tv_number);
             this.tv_location = (TextView) rootView.findViewById(R.id.tv_location);
-//            this.tv_subscribe = (TextView) rootView.findViewById(R.id.tv_subscribe);
         }
 
     }

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/bg_page"
+    android:fitsSystemWindows="true">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title_bar"
@@ -67,8 +68,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom"
-        android:layout_below="@id/view">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,10 +80,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
 
                 <View
                     android:id="@+id/view1"
@@ -131,12 +135,13 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="8dp">
 
                 <TextView
                     android:id="@+id/text1"
@@ -146,7 +151,7 @@
                     android:gravity="center"
                     android:text="提交"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/text2"
@@ -156,7 +161,7 @@
                     android:gravity="center"
                     android:text="审核中"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/text3"
@@ -166,19 +171,19 @@
                     android:gravity="center"
                     android:text="审核失败"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
                 android:text="会议信息"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_small" />
 
             <View
                 android:layout_width="match_parent"
@@ -189,6 +194,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="12dp">
 
@@ -198,17 +204,20 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="订单号"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="会议名称"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/type"
@@ -217,8 +226,9 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="会议类型"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/time_start"
@@ -227,8 +237,9 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="开始时间"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/time_end"
@@ -237,8 +248,9 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="结束时间"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/number"
@@ -247,8 +259,9 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="参会人数"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/people"
@@ -257,17 +270,25 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:text="参会人员"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <TextView
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:text="备注"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_big" />
+                android:textSize="@dimen/sp_small" />
 
         </LinearLayout>
     </ScrollView>

@@ -44,7 +44,7 @@
                 android:layout_margin="12dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/tv_gray"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <LinearLayout
                 android:layout_width="match_parent"

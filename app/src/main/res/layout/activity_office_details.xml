@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_page">
+    android:background="@color/bg_page"
+    android:orientation="vertical">
 
-   <com.moe.wl.framework.widget.TitleBar
-       android:id="@+id/title"
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/title_height"/>
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider"/>
+        android:background="@color/gray_line" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,27 +30,27 @@
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/ll_slider"
                 android:layout_width="match_parent"
-                android:background="@mipmap/ic_default_rectangle"
-                android:layout_height="180dp" />
+                android:layout_height="200dp"
+                android:background="@mipmap/ic_default_rectangle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:padding="@dimen/standard_padding"
-                android:background="@color/white"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/font_black"
-                    android:textSize="@dimen/sp_common" />
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -63,16 +64,16 @@
                         android:id="@+id/tv_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/font_gray"
                         android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/font_gray"
                         android:textSize="@dimen/sp_small" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -86,8 +87,8 @@
                         android:id="@+id/tv_personnum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         android:textColor="@color/font_gray"
                         android:textSize="@dimen/sp_small" />
                 </LinearLayout>
@@ -95,7 +96,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -109,39 +110,39 @@
                         android:id="@+id/tv_area"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/font_gray"
                         android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/font_gray"
                         android:textSize="@dimen/sp_small" />
                 </LinearLayout>
-
-
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"/>
+                android:background="@color/divider" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="会场设备"
-                android:textColor="#c000"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
+                android:text="会场设备"
+                android:textColor="#c000"
                 android:textSize="@dimen/sp_common" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:padding="12dp">
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/gv_equipment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:listSelector="@android:color/transparent"
                     android:numColumns="3" />
 
             </LinearLayout>
@@ -149,21 +150,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="可供服务"
-                android:paddingLeft="10dp"
-                android:textColor="@color/font_black"
                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="可供服务"
+                android:textColor="@color/font_black"
                 android:textSize="@dimen/sp_common" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:padding="12dp">
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/gv_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:listSelector="@android:color/transparent"
                     android:numColumns="3" />
 
             </LinearLayout>
@@ -171,14 +174,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:text="温馨提示："
                     android:textColor="@color/font_gray"
                     android:textSize="@dimen/sp_small" />
@@ -186,6 +191,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:text="1.会议室设备颜色深的为不提供的装备"
                     android:textColor="@color/font_gray"
                     android:textSize="@dimen/sp_small" />
@@ -193,6 +199,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:text="2.会议室预订不收取任何费用"
                     android:textColor="@color/font_gray"
                     android:textSize="@dimen/sp_small" />
@@ -203,11 +210,12 @@
     <TextView
         android:id="@+id/tv_subscribe"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/font_blue"
-        android:textSize="@dimen/sp_big"
-        android:textColor="@color/white"
         android:gravity="center"
-        android:text="立即预订"/>
+        android:padding="@dimen/normal_padding"
+        android:text="立即预订"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_small" />
 
 </LinearLayout>

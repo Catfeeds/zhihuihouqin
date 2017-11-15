@@ -231,11 +231,11 @@ public interface NetUrl {
     String findPurchaseAccountList="appuser/wallet/findPurchaseAccountList";//查询对公账户列表
 
     /*------------------------------办公室预订模块------------------------------------------------*/
+    String findAvailableTime = "appuser/hysfworder/findAvailableTime";  //查询会议室预约列表
     String officelist = "appuser/hysfwconferenceroom/findConferenceList";  //办公室列表
-    String officedetails = "appuser/hysfwconferenceroom/findConferenceList";  //办公室详情
+    String officedetails = "appuser/hysfwconferenceroom/findConferenceDetail";  //办公室详情
     String subscribeInfo = "appuser/hysfwconferenceroom/findAvailableEquipment";  //查询会议室内可以预定的设备
     String generateOfficeOrder = "appuser/hysfworder/generateOrder";  //生成会议室订单
-    String findAvailableTime = "appuser/hysfworder/findAvailableTime";  //查询会议室预约列表
     String orderinfo = "appuser/wallet/orderinfo";  //办公室预订订单信息
     String conferenceOrderList = "appuser/hysfworder/findOrderList"; // 会议室订单列表
     String orderConferenceDetail = "appuser/hysfworder/getOrderDetail";

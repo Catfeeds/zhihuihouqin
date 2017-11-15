@@ -11,6 +11,6 @@ import mvp.cn.common.MvpView;
 
 public interface OfficeDetailsView extends MvpView {
 
-    void setData(OfficeDetailsResponse.RoomDetailBean bean);
+    void setData(OfficeDetailsResponse.RoomDetailEntity bean);
 
 }
