@@ -4,14 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -29,8 +26,6 @@ import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
-import com.moe.wl.framework.widget.SimpleImageBanner;
-import com.moe.wl.framework.widget.bean.BannerItem;
 import com.moe.wl.ui.main.adapter.HomeAdapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv2Adapter;
@@ -47,14 +42,12 @@ import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.zxing.android.CaptureActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import mvp.cn.util.LogUtil;
 import rx.Observable;
 import rx.Subscriber;
 

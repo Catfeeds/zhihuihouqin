@@ -8,7 +8,7 @@ import rx.Observable;
  */
 
 public interface LoginModel extends MvpModel{
-    Observable getData();
+//    Observable getData();
 
     Observable login(String s, String s1);
 

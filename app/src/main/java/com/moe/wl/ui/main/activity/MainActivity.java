@@ -10,22 +10,22 @@ import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.moe.wl.R;
+import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.widget.TabBar;
 import com.moe.wl.ui.main.fragment.Tab1Fragment;
 import com.moe.wl.ui.main.fragment.Tab2Fragment;
 import com.moe.wl.ui.main.fragment.Tab3Fragment;
 import com.moe.wl.ui.main.fragment.Tab4Fragment;
 import com.moe.wl.ui.main.model.MainModel;
 import com.moe.wl.ui.main.modelimpl.MainModelImpl;
+import com.moe.wl.ui.main.presenter.MainPresenter;
+import com.moe.wl.ui.main.view.MainView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import com.moe.wl.R;
-import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.widget.TabBar;
-import com.moe.wl.ui.main.presenter.MainPresenter;
-import com.moe.wl.ui.main.view.MainView;
 import mvp.cn.util.ToastUtil;
 
 public class MainActivity extends BaseActivity<MainModel, MainView, MainPresenter> implements MainView {
@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
             isExit = false;
         }
     };
-
 
     @BindView(R.id.m_frameLayout)
     FrameLayout mFrameLayout;

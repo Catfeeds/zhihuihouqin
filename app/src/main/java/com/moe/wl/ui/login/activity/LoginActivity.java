@@ -351,7 +351,6 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
         CommonUtil.closeSoftKeyboard(this, etUname);
         // doLoginRequest(mobile, md5Pwd);
         getPresenter().getData(mobile, md5Pwd);
-
     }
 
     @Override

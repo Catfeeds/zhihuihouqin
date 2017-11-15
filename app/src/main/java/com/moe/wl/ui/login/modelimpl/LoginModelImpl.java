@@ -11,12 +11,12 @@ import rx.Observable;
  */
 
 public class LoginModelImpl implements LoginModel {
-    @Override
-    public Observable getData() {
-        LogUtil.log("MainModel请求数据");
-        Observable observer = RetrofitUtils.getInstance().login("", "");
-        return observer ;
-    }
+//    @Override
+//    public Observable getData() {
+//        LogUtil.log("MainModel请求数据");
+//        Observable observer = RetrofitUtils.getInstance().login("", "");
+//        return observer ;
+//    }
 
     @Override
     public Observable login(String s, String s1) {
