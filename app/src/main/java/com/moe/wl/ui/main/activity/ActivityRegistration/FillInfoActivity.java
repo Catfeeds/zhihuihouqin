@@ -18,6 +18,9 @@ import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscriber;
 
+/**
+ * 填写信息
+ */
 public class FillInfoActivity extends Base2Activity {
 
     @BindView(R.id.activity_title)
@@ -95,13 +98,6 @@ public class FillInfoActivity extends Base2Activity {
     }
     //包名成功
     private void signSucc(String s) {
-        showToast(s);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(3000);
-                finish();
-            }
-        }).start();
+       finish();
     }
 }

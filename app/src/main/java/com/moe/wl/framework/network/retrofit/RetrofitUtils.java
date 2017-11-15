@@ -10,6 +10,8 @@ import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.network.AppConstants;
 import com.moe.wl.framework.network.ServerConstants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.FileUtil;
+import com.moe.wl.framework.utils.ImageUtil;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.login.bean.Auth;
 import com.moe.wl.ui.login.bean.CarInfo;
@@ -242,21 +244,29 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         for (int i = 0; i < paths.size(); i++) {
             //这里采用的Compressor图片压缩
             LogUtils.d("图片地址：" + paths.get(i));
-            File files = new File(paths.get(i));
-            LogUtils.i(files.length() + "");
-            File file = new Compressor.Builder(SoftApplication.softApplication)
-                    .setMaxWidth(720)
-                    .setMaxHeight(1080)
-                    .setQuality(80)
-                    .setCompressFormat(Bitmap.CompressFormat.PNG)
-                    .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                    .build()
-                    .compressToFile(files);
+            File files = new File(ImageUtil.getSmallBitmap(paths.get(i)));
+            //if(files.exists())
+            //files.mkdirs();
+            LogUtils.i("files.is==" + files.exists());
+            //LogUtils.i(files.length() + "");
+           /* if (files.exists() && files.length() > 0) {
+                File file = new Compressor.Builder(SoftApplication.softApplication)
+                        .setMaxWidth(720)
+                        .setMaxHeight(1080)
+                        .setQuality(80)
+                        .setCompressFormat(Bitmap.CompressFormat.PNG)
+                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                        .build()
+                        .compressToFile(files);
 //                    .compressToFile(new File(paths.get(i)));
 
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image*//*"), files);
+                MultipartBody.Part part = MultipartBody.Part.createFormData(s, file.getName(), requestFile);
+                parts.add(part);
+            }*/
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), files);
+            MultipartBody.Part part = MultipartBody.Part.createFormData(s, files.getName(), requestFile);
             parts.add(part);
         }
         return parts;
@@ -900,7 +910,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         Map<String, RequestBody> paramsMap = new HashMap<>();
         Log.e("postActivity", "---》home");
         try {
-            Map<String, String> tempMap = new HashMap<String, String>();
+            Map<String, String> tempMap = new HashMap<>();
             tempMap.put("aContactMobile", aContactMobile);
             tempMap.put("aContent", aContent);
             tempMap.put("aPlace", aPlace);
@@ -908,7 +918,6 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("aTitle", aTitle);
             tempMap.put("aTotal", aTotal);
             tempMap.put("aSponsor", aSponsor);
-            //图片文件上传
             tempMap.put("aRealname", aRealname);
             tempMap.put("aNaion", aNaion);
             getRequestBody(paramsMap, tempMap);
@@ -2144,7 +2153,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             tempMap.put("roomnum", roomnum);
             tempMap.put("vname", vname);
             tempMap.put("vmobile", vmobile);
-            tempMap.put("visitperiod","");
+            tempMap.put("visitperiod", "");
             tempMap.put("vidnum", vidnum);
             tempMap.put("vpnum", vpnum);
             tempMap.put("unit", department);
