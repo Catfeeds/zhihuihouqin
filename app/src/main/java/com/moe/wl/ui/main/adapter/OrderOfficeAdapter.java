@@ -48,7 +48,7 @@ public class OrderOfficeAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
 
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getImg(), holder.image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getImg(), holder.image, R.mipmap.ic_default_square);
         holder.name.setText(data.get(position).getProductName());
         holder.mass.setText(data.get(position).getSkuname());
         holder.number.setText("x" + data.get(position).getCount());

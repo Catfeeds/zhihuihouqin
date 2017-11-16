@@ -34,13 +34,13 @@ public class OfficeEquipmentAdapter extends MyBaseAdapter<OfficeDetailsResponse.
         OfficeDetailsResponse.RoomDetailEntity.EnameListEntity bean = getItem(position);
 
         viewHolder.tv_name.setText(bean.getName());
-        if (bean.getEstatus() == 0) {
-            viewHolder.ll_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_order_gray_button));
-            viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.white));
-        } else {
+//        if (bean.getEstatus() == 0) {
+//            viewHolder.ll_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_order_gray_button));
+//            viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.white));
+//        } else {
             viewHolder.ll_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_white_round_gray));
             viewHolder.tv_name.setTextColor(getContext().getResources().getColor(R.color.font_black));
-        }
+//        }
         return convertView;
     }
 

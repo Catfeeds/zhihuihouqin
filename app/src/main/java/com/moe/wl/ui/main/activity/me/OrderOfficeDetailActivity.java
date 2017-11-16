@@ -99,7 +99,7 @@ public class OrderOfficeDetailActivity extends MyBaseActivity {
             ToastUtil.showToast(this, "订水订单数据异常！");
             finish();
         }
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getDetail().getImg(), image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getDetail().getImg(), image, R.mipmap.ic_default_square);
         number.setText("x" + data.getDetail().getCount());
         itemName.setText(data.getDetail().getSkuname());
         price.setText("¥" + data.getDetail().getPrice());

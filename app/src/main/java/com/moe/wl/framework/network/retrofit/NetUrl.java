@@ -128,7 +128,7 @@ public interface NetUrl {
     //    String cancelOfficeOrder = "appuser/bgypfworder/orderCancel";
 //    String deleteOfficeOrder = "appuser/bgypfworder/orderDelete"; // 删除订单
 //    String commentOfficeOrder = "appuser/bgypfworder/addComment";  // 评论办公用品订单
-    String orderOfficeDetail = "appuser/bgypfwproduct/getOrderDetail"; // 办公用品订单详情
+    String orderOfficeDetail = "appuser/bgypfworder/getOrderDetail"; // 办公用品订单详情
 
     // 工作餐预订
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
