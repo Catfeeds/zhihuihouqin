@@ -2,7 +2,6 @@ package com.moe.wl.ui.main.activity.information;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +14,7 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.NoSlidingListView;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.adapter.InformationCommentAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.InformationDetailBean;
@@ -31,7 +31,7 @@ import rx.Subscriber;
  * 类描述：
  * 作者：Shixhe On 2017/10/18 0018
  */
-public class InformationDetailActivity extends AppCompatActivity {
+public class InformationDetailActivity extends MyBaseActivity {
 
     @BindView(R.id.title)
     TextView title;
@@ -150,9 +150,9 @@ public class InformationDetailActivity extends AppCompatActivity {
                 if (orderBean.getErrCode() == 0) {
                     setUI(orderBean);
                     int favorNum = orderBean.getFavorNum();
-                    if(favorNum==0){
+                    if (favorNum == 0) {
                         collect.setImageResource(R.drawable.collect);
-                    }else if(favorNum==1){
+                    } else if (favorNum == 1) {
                         collect.setImageResource(R.drawable.collected);
                     }
                 }
@@ -186,7 +186,7 @@ public class InformationDetailActivity extends AppCompatActivity {
 
     // 添加收藏
     private void collect() {
-        Observable observable = RetrofitUtils.getInstance().addCollect(serviceType, informationID+"");
+        Observable observable = RetrofitUtils.getInstance().addCollect(serviceType, informationID + "");
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override
@@ -203,9 +203,9 @@ public class InformationDetailActivity extends AppCompatActivity {
             public void onNext(CollectBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
                     int status = orderBean.getStatus();
-                    if(status==0){
+                    if (status == 0) {
                         collect.setImageResource(R.drawable.collect);
-                    }else if(status==1){
+                    } else if (status == 1) {
                         collect.setImageResource(R.drawable.collected);
                     }
                     ToastUtil.showToast(InformationDetailActivity.this, "收藏成功！");

@@ -3,7 +3,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/bg_page"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <ScrollView
