@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CircleImageView;
 import com.moe.wl.ui.main.activity.me.OrderExpertDetailActivity;
 import com.moe.wl.ui.main.bean.OrderExpertBean;
@@ -60,18 +62,27 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
 
         switch (state) {
             case 0:
+                holder.comment.setVisibility(View.GONE);
                 holder.order.setText("取消预约");
                 break;
             case 1:
+                holder.comment.setVisibility(View.GONE);
                 holder.order.setText("已完成");
                 break;
             case 2:
+                holder.comment.setVisibility(View.GONE);
                 holder.order.setText("立即评价");
                 break;
             case 3:
+                if (data.get(position).getStatus() == 3) {
+                    holder.comment.setVisibility(View.VISIBLE);
+                } else {
+                    holder.comment.setVisibility(View.GONE);
+                }
                 holder.order.setText("再次预约");
                 break;
             case 4:
+                holder.comment.setVisibility(View.GONE);
                 holder.order.setText("删除订单");
                 break;
         }
@@ -91,6 +102,13 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
                 intent.putExtra("OrderID", data.get(position).getId());
                 intent.putExtra("Type", 2);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OtherUtils.gotoComment(context, data.get(position).getId(), Constants.EXPERTS);
             }
         });
 
@@ -136,6 +154,8 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
         TextView order;
         @BindView(R.id.item)
         LinearLayout item;
+        @BindView(R.id.comment)
+        TextView comment;
 
         ViewHolder(View view) {
             super(view);

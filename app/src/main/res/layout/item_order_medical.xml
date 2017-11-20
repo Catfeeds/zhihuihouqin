@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:text="小刚"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big" />
 
@@ -57,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="订  单  号：454242452424242424"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
@@ -68,7 +66,6 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="预约时间：2017-10-08"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
@@ -79,8 +76,6 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-
-                android:text="下单时间：2017-10-08"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
 
@@ -139,23 +134,23 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small" />
 
-        <!--<TextView
+        <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@id/order"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/bg_order_button"
             android:gravity="center"
             android:minWidth="90dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:text="评价"
-            android:textColor="@color/tv_black"
+            android:paddingTop="6dp"
+            android:text="立即评价"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
-            android:visibility="gone" />-->
+            android:visibility="gone" />
 
     </RelativeLayout>
 

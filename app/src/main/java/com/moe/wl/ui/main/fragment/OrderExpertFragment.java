@@ -11,7 +11,7 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
-import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
+import com.moe.wl.ui.main.activity.medicalService.ExpertsVisitActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.adapter.OrderExpertAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -94,7 +94,7 @@ public class OrderExpertFragment extends BaseFragment2 {
                         break;
 
                     case 3: // 再次预订
-                        startActivity(new Intent(getActivity(), orderWaterServiceActivity.class));
+                        startActivity(new Intent(getActivity(), ExpertsVisitActivity.class));
                         break;
 
                     case 4: // 删除订单
