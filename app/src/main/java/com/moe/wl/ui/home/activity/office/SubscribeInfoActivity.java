@@ -20,6 +20,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.adapter.office.AffirmEquipmentAdapter;
 import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
@@ -32,7 +33,6 @@ import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
 import com.moe.wl.ui.home.view.office.ConferenceTypePop;
 import com.moe.wl.ui.home.view.office.SubscribeInfoView;
 import com.moe.wl.ui.main.adapter.ActivityPostMulitPicAdapter;
-import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.ui.mywidget.StringListDialog;
 
 import java.io.File;
@@ -74,9 +74,9 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     @BindView(R.id.rl_time)
     RelativeLayout rlTime;
     @BindView(R.id.rv_equipment)
-    NoSlideRecyclerView rvEquipment;
+    NoSlidingListView rvEquipment;
     @BindView(R.id.rv_service_needs)
-    NoSlideRecyclerView rvServiceNeeds;
+    NoSlidingListView rvServiceNeeds;
     @BindView(R.id.tv_enclosure)
     TextView tvEnclosure;
     @BindView(R.id.et_remark)
@@ -87,8 +87,9 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     TextView tvFinish;
     private StringListDialog dialog;
 
-    private AffirmEquipmentAdapter adapter;
-    private List<EquipmentListBean> mList;
+    private AffirmEquipmentAdapter adapterOne, adapterTwo;
+    private List<EquipmentListBean> listOne;
+    private List<EquipmentListBean> listTwo;
 
     private static final int TAKE_PHOTO_CAMERA = 10001;
     private static final int TAKE_PHOTO_ALBUM = 10002;
@@ -120,6 +121,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @Override
     public void initView() {
+        title.setBack(true);
+        title.setTitle("预订信息");
         id = getIntent().getStringExtra("id");
 
         //单张图片的集合
@@ -139,31 +142,68 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
      * 初始化会场设备
      */
     public void initEquipment() {
-        mList = new ArrayList<>();
-        adapter = new AffirmEquipmentAdapter(this);
-        adapter.setItemList(mList);
-        lvEquipment.setAdapter(adapter);
-        adapter.setMyCallBack(new AffirmEquipmentAdapter.MyCallBack() {
+        listOne = new ArrayList<>();
+        adapterOne = new AffirmEquipmentAdapter(this);
+        adapterOne.setItemList(listOne);
+        rvEquipment.setAdapter(adapterOne);
+        adapterOne.setOnMinusClickListener(new AffirmEquipmentAdapter.OnMinusClickListener() {
+            @Override
+            public void onMinusClick(int pos, int count) {
+                listOne.get(pos).setCheck(count > 0);
+                listOne.get(pos).setCount(count);
+                adapterOne.notifyDataSetChanged();
+            }
+        });
+        adapterOne.setOnAddClickListener(new AffirmEquipmentAdapter.OnAddClickListener() {
+            @Override
+            public void onAddClick(int pos, int count) {
+                listOne.get(pos).setCheck(count > 0);
+                listOne.get(pos).setCount(count);
+                adapterOne.notifyDataSetChanged();
+            }
+        });
+
+        listTwo = new ArrayList<>();
+        adapterTwo = new AffirmEquipmentAdapter(this);
+        adapterTwo.setItemList(listTwo);
+        rvServiceNeeds.setAdapter(adapterTwo);
+        adapterTwo.setOnMinusClickListener(new AffirmEquipmentAdapter.OnMinusClickListener() {
+            @Override
+            public void onMinusClick(int pos, int count) {
+                listTwo.get(pos).setCheck(count > 0);
+                listTwo.get(pos).setCount(count);
+                adapterTwo.notifyDataSetChanged();
+            }
+        });
+        adapterTwo.setOnAddClickListener(new AffirmEquipmentAdapter.OnAddClickListener() {
+            @Override
+            public void onAddClick(int pos, int count) {
+                listTwo.get(pos).setCheck(count > 0);
+                listTwo.get(pos).setCount(count);
+                adapterTwo.notifyDataSetChanged();
+            }
+        });
+        /*adapterOne.setMyCallBack(new AffirmEquipmentAdapter.MyCallBack() {
             @Override
             public void cb(int pos) {
-                if (mList.get(pos).isCheck()) {
-                    mList.get(pos).setCheck(false);
+                if (listOne.get(pos).isCheck()) {
+                    listOne.get(pos).setCheck(false);
                 } else {
-                    mList.get(pos).setCheck(true);
+                    listOne.get(pos).setCheck(true);
                 }
                 StringBuffer buffer = new StringBuffer();
-                for (int i = 0; i < mList.size(); i++) {
-                    if (mList.get(pos).isCheck()) {
+                for (int i = 0; i < listOne.size(); i++) {
+                    if (listOne.get(pos).isCheck()) {
                         if (buffer.length() > 0) {
                             buffer.append(",");
                         }
-                        buffer.append(mList.get(pos).getId());
+                        buffer.append(listOne.get(pos).getId());
                     }
                 }
                 equipmentids = buffer.toString();
-                adapter.notifyDataSetChanged();
+                adapterOne.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
     private void initGrlid() {
@@ -191,7 +231,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         return new SubscribeInfoModelImpl();
     }
 
-    @OnClick({ R.id.rl_time, R.id.ll_type, R.id.tv_enclosure, R.id.tv_finish})
+    @OnClick({R.id.rl_time, R.id.ll_type, R.id.tv_enclosure, R.id.tv_finish})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -251,8 +291,12 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     @Override
     public void setData(SubscribeInfoResponse mResponse) {
         if (mResponse.getEquipmentList() != null) {
-            mList.addAll(mResponse.getEquipmentList());
-            adapter.notifyDataSetChanged();
+            listOne.addAll(mResponse.getEquipmentList());
+            adapterOne.notifyDataSetChanged();
+        }
+        if (mResponse.getServiceList() != null) {
+            listTwo.addAll(mResponse.getServiceList());
+            adapterTwo.notifyDataSetChanged();
         }
         if (mResponse.getTypeList() != null) {
             typeList.addAll(mResponse.getTypeList());
@@ -368,7 +412,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @PermissionFail(requestCode = 100)
     public void doFailSomething() {
-        Toast.makeText(this, "Contact permission is not granted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "未获得权限许可", Toast.LENGTH_SHORT).show();
     }
 
     @Override

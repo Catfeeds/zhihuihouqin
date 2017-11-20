@@ -9,25 +9,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="首页"
             android:gravity="center"
+            android:text="首页"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_bigger" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/white"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="5dp">
 
         <ImageView
@@ -72,7 +72,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider"/>
+        android:background="@color/divider" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe"
@@ -100,35 +100,35 @@
                     android:id="@+id/slider_layout"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:background="@mipmap/ic_default_rectangle"/>
+                    android:background="@mipmap/ic_default_rectangle" />
 
-               <!-- <com.moe.wl.framework.widget.SimpleImageBanner
-                    android:id="@+id/h_banner_viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="186dp"
-                    banner:bb_barColor="#00000000"
-                    banner:bb_barPaddingBottom="5dp"
-                    banner:bb_barPaddingLeft="10dp"
-                    banner:bb_barPaddingRight="10dp"
-                    banner:bb_barPaddingTop="5dp"
-                    banner:bb_delay="2"
-                    banner:bb_indicatorCornerRadius="3dp"
-                    banner:bb_indicatorGap="8dp"
-                    banner:bb_indicatorGravity="CENTER"
-                    banner:bb_indicatorHeight="6dp"
-                    banner:bb_indicatorSelectColor="@color/tv_blue"
-                    banner:bb_indicatorStyle="CORNER_RECTANGLE"
-                    banner:bb_indicatorUnselectColor="#88ffffff"
-                    banner:bb_indicatorWidth="6dp"
-                    banner:bb_isAutoScrollEnable="true"
-                    banner:bb_isBarShowWhenLast="true"
-                    banner:bb_isIndicatorShow="true"
-                    banner:bb_isLoopEnable="true"
-                    banner:bb_isTitleShow="true"
-                    banner:bb_period="5"
-                    banner:bb_scale="0.5625"
-                    banner:bb_textColor="#ffffff"
-                    banner:bb_textSize="13.5sp" />-->
+                <!-- <com.moe.wl.framework.widget.SimpleImageBanner
+                     android:id="@+id/h_banner_viewPager"
+                     android:layout_width="match_parent"
+                     android:layout_height="186dp"
+                     banner:bb_barColor="#00000000"
+                     banner:bb_barPaddingBottom="5dp"
+                     banner:bb_barPaddingLeft="10dp"
+                     banner:bb_barPaddingRight="10dp"
+                     banner:bb_barPaddingTop="5dp"
+                     banner:bb_delay="2"
+                     banner:bb_indicatorCornerRadius="3dp"
+                     banner:bb_indicatorGap="8dp"
+                     banner:bb_indicatorGravity="CENTER"
+                     banner:bb_indicatorHeight="6dp"
+                     banner:bb_indicatorSelectColor="@color/tv_blue"
+                     banner:bb_indicatorStyle="CORNER_RECTANGLE"
+                     banner:bb_indicatorUnselectColor="#88ffffff"
+                     banner:bb_indicatorWidth="6dp"
+                     banner:bb_isAutoScrollEnable="true"
+                     banner:bb_isBarShowWhenLast="true"
+                     banner:bb_isIndicatorShow="true"
+                     banner:bb_isLoopEnable="true"
+                     banner:bb_isTitleShow="true"
+                     banner:bb_period="5"
+                     banner:bb_scale="0.5625"
+                     banner:bb_textColor="#ffffff"
+                     banner:bb_textSize="13.5sp" />-->
 
                 <!--<com.lc.model.framework.widget.SimpleImageBanner
                     android:id="@+id/h_banner_viewPager"
@@ -201,7 +201,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/nsrlv1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -236,8 +236,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
 
                     <TextView

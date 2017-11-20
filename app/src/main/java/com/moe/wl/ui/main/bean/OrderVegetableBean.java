@@ -48,7 +48,7 @@ public class OrderVegetableBean implements Serializable {
         private String foodName;
         private String serviceMobile;
         private String foodImg;
-        private int totalprice;
+        private double totalprice;
 
         public int getId() {
             return id;
@@ -114,11 +114,11 @@ public class OrderVegetableBean implements Serializable {
             this.foodImg = foodImg;
         }
 
-        public int getTotalprice() {
+        public double getTotalprice() {
             return totalprice;
         }
 
-        public void setTotalprice(int totalprice) {
+        public void setTotalprice(double totalprice) {
             this.totalprice = totalprice;
         }
     }

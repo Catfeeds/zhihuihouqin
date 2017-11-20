@@ -36,7 +36,6 @@
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/sp_common" />
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
@@ -119,9 +118,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
+                android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp">
+                android:paddingTop="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,33 +134,40 @@
                 <EditText
                     android:id="@+id/et_name"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_box"
+                    android:background="@drawable/background_edit"
                     android:hint="请输入会议名称"
+                    android:paddingBottom="7dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:paddingTop="7dp"
                     android:textColor="@color/font_gray"
                     android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_smaller" />
+                    android:textSize="@dimen/sp_small" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingLeft="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -173,25 +180,25 @@
                     <EditText
                         android:id="@+id/et_number"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:background="@drawable/bg_box"
-                        android:hint="请输入参会人数"
+                        android:background="@drawable/background_edit"
+                        android:hint="人数"
                         android:inputType="number"
+                        android:paddingBottom="7dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:paddingTop="7dp"
                         android:textColor="@color/font_gray"
                         android:textColorHint="@color/tv_gray"
-                        android:textSize="@dimen/sp_smaller" />
-
+                        android:textSize="@dimen/sp_small" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
@@ -207,20 +214,27 @@
                     <EditText
                         android:id="@+id/et_leader"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_box"
+                        android:layout_weight="2"
+                        android:background="@drawable/background_edit"
                         android:hint="请输入参会领导"
+                        android:paddingBottom="7dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:paddingTop="7dp"
                         android:textColor="@color/font_gray"
                         android:textColorHint="@color/tv_gray"
-                        android:textSize="@dimen/sp_smaller" />
+                        android:textSize="@dimen/sp_small" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <RelativeLayout
                 android:id="@+id/rl_time"
@@ -228,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="@dimen/standard_padding">
+                android:padding="@dimen/normal_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -274,7 +288,7 @@
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/sp_common" />
 
-            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
+            <com.moe.wl.framework.widget.NoSlidingListView
                 android:id="@+id/rv_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -287,11 +301,11 @@
                 android:textColor="@color/font_black"
                 android:textSize="@dimen/sp_common" />
 
-            <com.moe.wl.ui.mywidget.NoSlideRecyclerView
+            <com.moe.wl.framework.widget.NoSlidingListView
                 android:id="@+id/rv_service_needs"
                 android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -320,9 +334,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="（+附件上传）"
+                        android:text="（+ 附件上传）"
                         android:textColor="@color/font_blue"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
                 </LinearLayout>
 
                 <EditText
@@ -331,10 +345,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_box"
+                    android:background="@drawable/background_edit"
                     android:gravity="top"
                     android:hint="请输入相关备注文字"
-                    android:minHeight="100dp"
+                    android:minHeight="120dp"
                     android:padding="10dp"
                     android:textColor="@color/font_gray"
                     android:textColorHint="@color/tv_gray"
@@ -345,9 +359,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:background="@color/white"
                     android:numColumns="5"
                     android:paddingBottom="10dp"
-                    android:background="@color/white"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:visibility="gone" />

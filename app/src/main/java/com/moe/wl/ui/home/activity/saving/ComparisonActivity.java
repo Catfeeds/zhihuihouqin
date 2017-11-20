@@ -84,7 +84,7 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     private List<String> spinner2List;
     private ArrayAdapter spinner2Adapter;
     private MenuPopwindow popwindow;
-    private int REQUEST_CODE=1000;
+    private int REQUEST_CODE = 1000;
 
     @Override
     public ComparisonPresenter createPresenter() {
@@ -127,7 +127,7 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
         spinner2List.add("广州");
         spinner2List.add("深圳");
 
-        spinner1Adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinner1List);
+        spinner1Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinner1List);
         spinner1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(spinner1Adapter);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -142,7 +142,7 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
             }
         });
 
-        spinner2Adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinner2List);
+        spinner2Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinner2List);
         spinner2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(spinner2Adapter);
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -168,16 +168,15 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     }
 
     private void addLineToData() {
+        generateData();
+
         if (data.getLines().size() >= maxNumberOfLines) {
             Toast.makeText(getActivity(), "Samples app uses max 4 lines!", Toast.LENGTH_SHORT).show();
             return;
         } else {
             ++numberOfLines;
         }
-
-        generateData();
     }
-
 
     private ColumnChartData generateColumnChartData() {
         int numSubcolumns = 1;
@@ -251,7 +250,7 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     }
 
 
-    @OnClick({R.id.ll_back,R.id.ll_right,R.id.bt_end})
+    @OnClick({R.id.ll_back, R.id.ll_right, R.id.bt_end})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -259,28 +258,29 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
                 finish();
                 break;
             case R.id.ll_right:
-                if (popwindow==null){
-                    popwindow=new MenuPopwindow(this, new String[]{"按年查看", "按月查看","按日查看"}, new MenuPopwindow.MyOnClick() {
+                if (popwindow == null) {
+                    popwindow = new MenuPopwindow(this, new String[]{"按年查看", "按月查看", "按日查看"}, new MenuPopwindow.MyOnClick() {
                         @Override
                         public void click(String s, int pos) {
-                            if (pos==0){
+                            if (pos == 0) {
                                 tvRight.setText("按年");
-                                Intent intent=new Intent(ComparisonActivity.this,SelectDateActivity.class);
-                                intent.putExtra("type",0);
-                                startActivityForResult(intent,REQUEST_CODE);
-                            }if (pos==1){
+                                Intent intent = new Intent(ComparisonActivity.this, SelectDateActivity.class);
+                                intent.putExtra("type", 0);
+                                startActivityForResult(intent, REQUEST_CODE);
+                            }
+                            if (pos == 1) {
                                 tvRight.setText("按月");
-                                Intent intent=new Intent(ComparisonActivity.this,SelectDateActivity.class);
-                                intent.putExtra("type",1);
-                                startActivityForResult(intent,REQUEST_CODE);
-                            }else if (pos==2){
+                                Intent intent = new Intent(ComparisonActivity.this, SelectDateActivity.class);
+                                intent.putExtra("type", 1);
+                                startActivityForResult(intent, REQUEST_CODE);
+                            } else if (pos == 2) {
                                 tvRight.setText("按日");
-                                startActivityForResult(new Intent(ComparisonActivity.this,CalendarActivity.class),REQUEST_CODE);
+                                startActivityForResult(new Intent(ComparisonActivity.this, CalendarActivity.class), REQUEST_CODE);
                             }
                         }
                     });
                 }
-                popwindow.showPopupWindow(this,llRight);
+                popwindow.showPopupWindow(this, llRight);
                 break;
             case R.id.bt_end:
                 columnChartc.setColumnChartData(generateColumnChartData());
@@ -297,8 +297,8 @@ public class ComparisonActivity extends BaseActivity<ComparisonModel, Comparison
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==REQUEST_CODE && data!=null){
-           String date=data.getStringExtra("date");
+        if (requestCode == REQUEST_CODE && data != null) {
+            String date = data.getStringExtra("date");
             showToast(date);
         }
     }

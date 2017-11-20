@@ -16,6 +16,7 @@ public class EquipmentListBean {
     private String code;
     private String id;
     private String name;
+    private int count;
     private boolean isCheck;
 
     public boolean isCheck() {
@@ -48,5 +49,13 @@ public class EquipmentListBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
