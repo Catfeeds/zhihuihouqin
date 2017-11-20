@@ -65,8 +65,8 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     SimpleImageBanner hBannerViewPager;*/
     @BindView(R.id.slider_layout)
     SliderLayout sliderLayout;
-   /* @BindView(R.id.h_banner_viewPager)
-    SimpleImageBanner sib;*/
+    /* @BindView(R.id.h_banner_viewPager)
+     SimpleImageBanner sib;*/
     @BindView(R.id.gridView_catogary)
     NoSlidingGridView gridViewCatogary;
     @BindView(R.id.pullToRefreshScrollView)

@@ -406,9 +406,9 @@ public class ActivityPostedActivity extends Base2Activity implements View.OnClic
     private void postActivity(String aContactMobile, String aContent, String aPlace
             , String aSponsor, String aTime, String aTitle, String aTotal, List<String> photos, List<String> imgs, String aRealname,
                               String aNaion) {
-        imgs.remove(imgs.get(imgs.size()-1));//将最后一个图片从集合中清除
+        imgs.remove(imgs.get(imgs.size() - 1));//将最后一个图片从集合中清除
         for (String str : imgs) {
-            LogUtils.i("多张图片："+str);
+            LogUtils.i("多张图片：" + str);
         }
         Observable observable = RetrofitUtils.getInstance().postActivity(aContactMobile, aContent, aPlace, aSponsor, aTime, aTitle,
                 aTotal, photos, imgs, aRealname, aNaion);
