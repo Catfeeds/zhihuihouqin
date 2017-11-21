@@ -339,20 +339,38 @@
                         android:visibility="visible" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_remark"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/background_edit"
-                    android:gravity="top"
-                    android:hint="请输入相关备注文字"
-                    android:minHeight="120dp"
-                    android:padding="10dp"
-                    android:textColor="@color/font_gray"
-                    android:textColorHint="@color/tv_gray"
-                    android:textSize="@dimen/sp_small" />
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <EditText
+                        android:id="@+id/et_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:hint="请输入相关备注文字"
+                        android:minHeight="120dp"
+                        android:padding="1dp"
+                        android:textColor="@color/font_gray"
+                        android:textColorHint="@color/tv_gray"
+                        android:textSize="@dimen/sp_small" />
+
+                    <com.moe.wl.framework.widget.NoSlidingGridView
+                        android:id="@+id/grid_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:numColumns="5">
+
+                    </com.moe.wl.framework.widget.NoSlidingGridView>
+
+                </LinearLayout>
+
 
                 <com.moe.wl.framework.widget.NoSlidingGridView
                     android:id="@+id/gv_pic"

@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -120,7 +121,12 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
             if (requestCode == SCANNING_CODE) {
                 if (data != null) {
                     String content = data.getStringExtra("Result");
+                    // 跳转系统浏览器
                     ToastUtil.showToast(MainActivity.this, "扫描结果： " + content);
+                    Intent intent= new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    intent.setData(Uri.parse(content));
+                    startActivity(intent);
                 }
             }
         }

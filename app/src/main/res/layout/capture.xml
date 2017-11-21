@@ -13,7 +13,7 @@
         android:id="@+id/viewfinder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    
+
     <!--<RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -39,6 +39,6 @@
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/qr_code_title"
         android:layout_width="match_parent"
-        android:background="#fff"
-        android:layout_height="60dp"/>
+        android:background="@color/white"
+        android:layout_height="45dp"/>
 </merge>

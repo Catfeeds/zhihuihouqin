@@ -3,12 +3,10 @@ package com.moe.wl.ui.home.activity.office;
 import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -16,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jhworks.library.ImageSelector;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
@@ -33,13 +32,11 @@ import com.moe.wl.ui.home.presenter.office.SubscribeInfoPresenter;
 import com.moe.wl.ui.home.view.office.ConferenceTypePop;
 import com.moe.wl.ui.home.view.office.SubscribeInfoView;
 import com.moe.wl.ui.main.adapter.ActivityPostMulitPicAdapter;
+import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.mywidget.StringListDialog;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,7 +45,6 @@ import butterknife.OnClick;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
-import mvp.cn.util.DateUtil;
 
 /**
  * 填写预订信息
@@ -85,6 +81,9 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     GridView gvPic;
     @BindView(R.id.tv_finish)
     TextView tvFinish;
+    @BindView(R.id.grid_view)
+    NoSlidingGridView gridView;
+
     private StringListDialog dialog;
 
     private AffirmEquipmentAdapter adapterOne, adapterTwo;
@@ -113,6 +112,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     private List<AppointmentDateBean> dates;  //预约的时间
 
+    private GridViewImageAdapter imageAdapter;
+
     @Override
     public void setContentLayout() {
         setContentView(R.layout.activity_subscribe);
@@ -129,6 +130,8 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         paths = new ArrayList<>();
         //多张图片的集合
         pics = new ArrayList<>();
+        imageAdapter = new GridViewImageAdapter(SubscribeInfoActivity.this, pics, null);
+        gridView.setAdapter(imageAdapter);
 
         initGrlid();
         initEquipment();
@@ -321,34 +324,34 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     }
 
     private void showButtomDialog() {
-        if (dialog == null) {
-            dialog = new StringListDialog(this, R.style.dialog_style);
-            List<String> itemList = new ArrayList<String>();
-            itemList.add("相机拍摄");
-            itemList.add("手机相册");
-            itemList.add("取消");
-            dialog.setData(itemList);
-            dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    switch (position) {
-                        case 0:// 拍照上传
+//        if (dialog == null) {
+//            dialog = new StringListDialog(this, R.style.dialog_style);
+//            List<String> itemList = new ArrayList<String>();
+//            itemList.add("相机拍摄");
+//            itemList.add("手机相册");
+//            itemList.add("取消");
+//            dialog.setData(itemList);
+//            dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    switch (position) {
+//                        case 0:// 拍照上传
                             doTakePhoto();
-                            dialog.dismiss();
-                            break;
-                        case 1:// 从gallery选择
-                            doPickPhotoFromGallery();
-                            dialog.dismiss();
-                            break;
-                        case 2:// 取消
-                            dialog.dismiss();
-                            break;
-                    }
-                }
-            });
-        }
-        dialog.show();
+//                            dialog.dismiss();
+//                            break;
+//                        case 1:// 从gallery选择
+//                            doPickPhotoFromGallery();
+//                            dialog.dismiss();
+//                            break;
+//                        case 2:// 取消
+//                            dialog.dismiss();
+//                            break;
+//                    }
+//                }
+//            });
+//        }
+//        dialog.show();
     }
 
     /**
@@ -388,7 +391,15 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
     @PermissionSuccess(requestCode = 100)
     public void doSomething() {
-        imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
+        ImageSelector selector = ImageSelector.create();
+        selector.single();  // single mode
+        selector.multi();  // multi mode, default mode;
+        selector.origin(pics) // original select data set, used width #.multi()
+                .showCamera(true)   // show camera or not. true by default
+                .count(6)   // max select image size, 9 by default. used width #.multi()
+                .spanCount(3)  // image span count ，default is 3.
+                .start(this, TAKE_PHOTO_CAMERA);
+        /*imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
         File file = new File(imageUri);
         File file1 = new File(imageLocation);
         if (!file1.exists()) {
@@ -407,7 +418,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         //为拍摄的图片指定一个存储的路径
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, TAKE_PHOTO_CAMERA);
-        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();*/
     }
 
     @PermissionFail(requestCode = 100)
@@ -432,16 +443,19 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
             } else {
                 switch (requestCode) {
                     case TAKE_PHOTO_CAMERA:// 相机
-                        if (null != imageUri) {
+                        pics.clear();
+                        pics.addAll(data.getStringArrayListExtra(ImageSelector.EXTRA_RESULT));
+                        imageAdapter.notifyDataSetChanged();
+                        /*if (null != imageUri) {
                             if (isOne) {
                                 paths.clear();
                                 paths.add(imageUri);
-                         /*   GlideLoading.getInstance().loadImgUrlNyImgLoader(this,imageUri,addPhoto);*/
+                         *//*   GlideLoading.getInstance().loadImgUrlNyImgLoader(this,imageUri,addPhoto);*//*
                             } else {
                                 pics.add(0, imageUri);
                                 picAdapter.setData(pics);
                             }
-                        }
+                        }*/
                         break;
                     case TAKE_PHOTO_ALBUM:// 相册
                         if (data != null) {

@@ -1,7 +1,6 @@
 package com.moe.wl.ui.home.activity.office;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.model.office.TestModel;
 import com.moe.wl.ui.home.modelimpl.office.TestModelImpl;
 import com.moe.wl.ui.home.presenter.office.TestPresenter;
@@ -25,12 +23,12 @@ import butterknife.OnClick;
  */
 public class SubmitSuccActivity extends BaseActivity<TestModel, TestView, TestPresenter> implements TestView {
 
-    @BindView(R.id.title)
-    TitleBar title;
+    //    @BindView(R.id.title)
+//    TitleBar title;
     @BindView(R.id.tv_check_order)
     TextView tvCheckOrder;
-    private LinearLayout ll_back;
-
+    @BindView(R.id.ll_back)
+    LinearLayout ll_back;
 
     @Override
     public void setContentLayout() {
@@ -40,8 +38,8 @@ public class SubmitSuccActivity extends BaseActivity<TestModel, TestView, TestPr
 
     @Override
     public void initView() {
-        title.setBack(true);
-        title.setTitle("提交结果");
+//        title.setBack(true);
+//        title.setTitle("提交结果");
         initData();
 
     }
@@ -59,11 +57,18 @@ public class SubmitSuccActivity extends BaseActivity<TestModel, TestView, TestPr
     private void initData() {
     }
 
-    @OnClick(R.id.tv_check_order)
-    public void onViewClicked() {
-        Intent intent=new Intent(this, ServiceOrderActivity.class);
-        intent.putExtra("from", Constants.CONFERENCE);
-        intent.putExtra("index",0);
-        startActivity(intent);
+    @OnClick({R.id.tv_check_order, R.id.ll_back})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+            case R.id.tv_check_order:
+                Intent intent = new Intent(this, ServiceOrderActivity.class);
+                intent.putExtra("from", Constants.CONFERENCE);
+                intent.putExtra("index", 0);
+                startActivity(intent);
+                break;
+        }
     }
 }
