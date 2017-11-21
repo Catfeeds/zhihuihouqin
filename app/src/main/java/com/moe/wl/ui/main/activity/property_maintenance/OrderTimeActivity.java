@@ -2,7 +2,6 @@ package com.moe.wl.ui.main.activity.property_maintenance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,23 +9,23 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.moe.wl.framework.widget.TitleBar;
-
-import java.util.Arrays;
-import java.util.List;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.moe.wl.R;
-
+import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.adapter.BarberGridAdapter;
 import com.moe.wl.ui.main.adapter.OrderTimesAdapter;
 import com.moe.wl.ui.main.adapter.TimeOrderAdapter;
 
+import java.util.Arrays;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import mvp.cn.util.DateUtils;
 
 
-public class OrderTimeActivity extends AppCompatActivity {
+public class OrderTimeActivity extends MyBaseActivity {
 
     @BindView(R.id.reserve_info_title)
     TitleBar titleBar;
