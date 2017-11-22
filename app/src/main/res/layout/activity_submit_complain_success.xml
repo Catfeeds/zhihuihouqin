@@ -12,8 +12,8 @@
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/heath_serverce_title"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="#1000" />
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white" />
 
     <View
         android:layout_width="match_parent"

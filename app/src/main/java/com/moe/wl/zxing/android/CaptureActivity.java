@@ -1,6 +1,7 @@
 package com.moe.wl.zxing.android;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,7 +18,6 @@ import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
-import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.zxing.camera.CameraManager;
 import com.moe.wl.zxing.view.ViewfinderView;
 
@@ -31,7 +31,7 @@ import mvp.cn.util.ToastUtil;
  * 这个activity打开相机，在后台线程做常规的扫描；它绘制了一个结果view来帮助正确地显示条形码，在扫描的时候显示反馈信息，
  * 然后在扫描成功的时候覆盖扫描结果
  */
-public final class CaptureActivity extends MyBaseActivity implements
+public final class CaptureActivity extends Activity implements
         SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();

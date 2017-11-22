@@ -10,7 +10,6 @@ import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.network.AppConstants;
 import com.moe.wl.framework.network.ServerConstants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
-import com.moe.wl.framework.utils.FileUtil;
 import com.moe.wl.framework.utils.ImageUtil;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.login.bean.Auth;
@@ -247,7 +246,7 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
             File files = new File(ImageUtil.getSmallBitmap(paths.get(i)));
             //if(files.exists())
             //files.mkdirs();
-            LogUtils.i("files.is==" + files.exists());
+            LogUtils.d("图片长度：" + files.length());
             //LogUtils.i(files.length() + "");
            /* if (files.exists() && files.length() > 0) {
                 File file = new Compressor.Builder(SoftApplication.softApplication)
