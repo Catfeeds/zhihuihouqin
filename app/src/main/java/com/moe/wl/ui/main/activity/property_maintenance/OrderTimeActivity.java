@@ -91,10 +91,10 @@ public class OrderTimeActivity extends MyBaseActivity {
                 finish();
                 break;
             case R.id.tv_confirm_select_time:
-                /*String s = TimeOrderAdapter.getTime();*/
+                String s = orderTimeAdapter.getTime();
                 int selectPosition = orderTimesAdapter.getSelectPosition();
                 //获得时间
-                //intent.putExtra("time", s+" "+this.time.get(selectPosition));
+                intent.putExtra("time", s+" "+this.time.get(selectPosition));
                 setResult(RESULT_OK,intent);
                 finish();
                 break;

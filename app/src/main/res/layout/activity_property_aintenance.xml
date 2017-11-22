@@ -5,25 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/bg_page">
 
-    <RelativeLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.moe.wl.framework.widget.TitleBar
-            android:id="@+id/reserve_info_title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:background="@color/white" />
-
-        <ImageView
-            android:id="@+id/hint"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
-
     <View
         android:id="@+id/view_down"
         android:layout_width="match_parent"
@@ -138,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -154,7 +136,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/tv_gray"
+                    android:hint="请输入预约时间"
+                    android:textColorHint="@color/tv_gray"
+                    android:textColor="@color/tv_black"
                     android:textSize="@dimen/sp_small" />
 
                 <ImageView
@@ -208,14 +192,49 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="服务分类"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_big" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
+            <com.moe.wl.framework.widget.NoSlidingGridView
+                android:id="@+id/nsgv_service_type2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:minHeight="40dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_trans"
+                android:padding="12dp"
+                android:text="服务分类"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_big" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray_line" />
 
             <com.moe.wl.framework.widget.NoSlidingGridView
                 android:id="@+id/nsgv_service_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="4"
+                android:minHeight="40dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp" />
 
@@ -251,10 +270,33 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:numColumns="5">
-
                 </com.moe.wl.framework.widget.NoSlidingGridView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <com.moe.wl.framework.widget.TitleBar
+            android:id="@+id/reserve_info_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/normal_padding"
+            android:src="@drawable/blue_doubt" />
+
+    </RelativeLayout>
 </RelativeLayout>

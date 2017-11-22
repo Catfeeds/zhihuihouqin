@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.jhworks.library.ImageSelector;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
@@ -26,11 +28,13 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.adapter.WeixiuAdapter;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.RepairItmeBean;
 import com.moe.wl.ui.main.model.WuyeHomeModel;
 import com.moe.wl.ui.main.modelimpl.WuyeHomeModelImpl;
 import com.moe.wl.ui.main.presenter.WuyeHomePresenter;
 import com.moe.wl.ui.main.view.WuyeHomeView;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 import com.moe.wl.ui.mywidget.StringListDialog;
 
 import java.io.File;
@@ -49,7 +53,11 @@ import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 import mvp.cn.util.DateUtil;
+import mvp.cn.util.DensityUtil;
+import mvp.cn.util.ToastUtil;
 import mvp.cn.util.VerifyCheck;
+import rx.Observable;
+import rx.Subscriber;
 
 public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, WuyeHomeView, WuyeHomePresenter> implements WuyeHomeView {
 
@@ -76,9 +84,8 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     LinearLayout rlTime;
     @BindView(R.id.tv_yuyue_time)
     TextView tvYuyueTime;
-    private List<String> lists = Arrays.asList(
-            "马桶疏通", "水电维修", "房屋维修",
-            "开锁/换锁", "线路维修", "其他");
+    @BindView(R.id.nsgv_service_type2)
+    NoSlidingGridView getNsgvServiceType2;
     private List<RepairItmeBean.ItemlistEntity> data;
     private String mobile;
     private WeixiuAdapter weixiuAdapter;
@@ -88,13 +95,6 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     //    private ProertyAddPicAdapter picAdapter;
     private GridViewImageAdapter imageAdapter;
     private ArrayList<String> pics;
-    private static final int TAKE_PHOTO_CAMERA = 10001;
-    private static final int TAKE_PHOTO_ALBUM = 10002;
-    private String imageLocation = Environment.getExternalStorageDirectory().getPath() + "/file/";
-    private String imageName = "_complain.jpg";
-    String imageUri;
-    private ArrayList<String> paths;
-    private StringListDialog dialog;
     private int maxNum=6;
     private int imageSpanCount=3;
     private int REQUEST_IMAGE=1;
@@ -108,17 +108,18 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
 
     @Override
     public void initView() {
-        paths = new ArrayList<>();
         mobile = SharedPrefHelper.getInstance().getMobile();
         realName = SharedPrefHelper.getInstance().getRealName();
         tvName.setText(realName);
         etPhoneNum.setText(mobile);
         etPhoneNum.setSelection(mobile.length());
         initTitle();
-        getPresenter().getRepairItem();
+        getHint();
         pics = new ArrayList<>();
         pics.add("addPhoto");
         initAddPhotoGrid();
+//        List<String> firSercives= Arrays.asList("公共维修");
+//        getNsgvServiceType2.getChildAt(0).performClick();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -133,9 +134,58 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                 LogUtils.i("mSelectPath=="+mSelectPath.size()+"======="+mSelectPath.get(0));
                 imageAdapter.notifyDataSetChanged();
             }
+        }else if(requestCode==ORDERTIMEREQUEST){
+            if (resultCode == RESULT_OK) {
+                String time = data.getStringExtra("time");
+                tvYuyueTime.setText(time);
+
+            }
         }
     }
+    private void getHint() {
+        Observable observable = RetrofitUtils.getInstance().getBanner(Constants.PROPERRY);
+        observable.subscribe(new Subscriber<BannerResponse>() {
 
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BannerResponse mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.errCode == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.errCode == 0) {
+                    //获得维修项目
+                    getPresenter().getRepairItem();
+                    //初始化首页信息
+                    BannerResponse.ServiceInfoBean bean = mResponse.getServiceInfo();
+
+                    // TODO 弹出温馨提示窗
+                    if (!SharedPrefHelper.getInstance().getServiceHint(Constants.PROPERRY)) {
+                        final ShowHintDialog pop = new ShowHintDialog(PropertyAintenanceActivity.this, mResponse.getServiceInfo().getRemind(), Constants.PROPERRY);
+                        pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                            @Override
+                            public void onSetting(TextView content) {
+                                pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(PropertyAintenanceActivity.this, 280));
+                            }
+                        });
+                        pop.show();
+                    }
+                } else {
+                    ToastUtil.showToast(PropertyAintenanceActivity.this, mResponse.msg);
+                }
+            }
+        });
+    }
     private void initAddPhotoGrid() {
         imageAdapter = new GridViewImageAdapter(this, pics, new GridViewImageAdapter.OnAddPhotoClickListener() {
             @Override
@@ -173,7 +223,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         titleBar.setTitle("物业维修");
     }
 
-    @OnClick({R.id.rl_time, R.id.tv_now_posted})
+    @OnClick({R.id.rl_time, R.id.tv_now_posted,R.id.iv_hint})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_time:
@@ -182,6 +232,10 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
                 break;
             case R.id.tv_now_posted:
                 doPost();
+                break;
+            case R.id.iv_hint:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.PROPERRY, false);
+                getHint();
                 break;
         }
     }
