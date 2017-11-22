@@ -30,10 +30,12 @@ public class TimeOrderAdapter extends RecyclerView.Adapter {
     public TimeOrderAdapter(Context mContext) {
         this.mContext = mContext;
     }
-    /*public String getTime() {
-        String s = s2.substring(2, s2.length());
-        return s+"/"+weeks.get(selectPosition);
-    }*/
+    public String getTime() {
+        String s1 = date.get(selectPosition);
+        String[] split = s1.split("-");
+        String s = split[1]+"/"+split[2];
+        return s+"/"+week.get(selectPosition);
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.order_times_item, parent, false);
@@ -78,8 +80,10 @@ public class TimeOrderAdapter extends RecyclerView.Adapter {
         }
         public void setData(String s, String s1, int position) {
             mPosition=position;
+            //处理一下日期的格式
+            String[] split = s1.split("-");
             tvWorkday.setText(s);
-            tvDay.setText(s1);
+            tvDay.setText(split[1]+"/"+split[2]);
             if (selectPosition == position) {
                 llTime.setBackgroundColor(Color.parseColor("#00CCFF"));
                 tvWorkday.setTextColor(Color.WHITE);
