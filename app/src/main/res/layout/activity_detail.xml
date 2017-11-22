@@ -65,7 +65,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
-                        android:text="温习党训活动"
                         android:textSize="@dimen/sp_bigger" />
 
                     <TextView

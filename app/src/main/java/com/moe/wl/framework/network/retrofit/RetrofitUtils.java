@@ -271,7 +271,6 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         return parts;
     }
 
-
     /*加密*/
     private static String getSign(String biz, String timestamp, String secretKey) throws UnsupportedEncodingException {
         return Md5Util.getMD5(URLEncoder.encode(biz, "UTF-8") + timestamp + secretKey);
