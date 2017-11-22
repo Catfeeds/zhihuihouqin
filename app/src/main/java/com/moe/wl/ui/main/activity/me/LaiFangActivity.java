@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -25,6 +26,8 @@ import com.moe.wl.ui.mywidget.CenterTimeDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.wechat.friends.Wechat;
+import lc.cn.thirdplatform.sharesdk.onekeyshare.OnekeyShare;
 import mvp.cn.util.DateUtil;
 import mvp.cn.util.ToastUtil;
 import mvp.cn.util.VerifyCheck;
@@ -122,6 +125,14 @@ public class LaiFangActivity extends Base2Activity {
     protected void initView() {
         laifangTitle.setBack(true);
         laifangTitle.setTitle("来访信息");
+        laifangTitle.setTitleRight("分享");
+        laifangTitle.setOnRightclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShare();
+
+            }
+        });
         String realName = SharedPrefHelper.getInstance().getRealName();
         etName.setText(realName);
         getUserInfo();//获取用户信息
@@ -139,6 +150,28 @@ public class LaiFangActivity extends Base2Activity {
                 }
             }
         });
+    }
+
+    private void showShare() {
+        //快捷分享，没有九宫格，只有编辑页
+        //Using onekeyshare to share which provide some ui
+        OnekeyShare oks = new OnekeyShare();
+        //分享时Notification的图标和文字
+        //Setting the notification of picture and content on status bar
+        //oks.setNotification(R.drawable.ic_launcher, "Gtpass");
+        //设置编辑页的初始化选中平台，设置后，就没有九格宫
+        //Setting the share of weibo platform
+        oks.setPlatform(Wechat.NAME);
+        //text是分享文本,the content to share
+        oks.setText("SinaWeibo share");
+        //网络图片地址,the picture to share
+        oks.setImageUrl("http://img.appgo.cn/imgs/sharesdk/content/2013/07/25/1374723172663.jpg");
+        //设置platform后，silent=true,没有界面，直接分享；silent=false,就有编辑界面，没有就九格宫
+        //开发者可以自己修改，玩玩
+        //If the params of platform is setted ,and siletn param is true , then it will share on background
+        oks.setSilent(false);
+        //执行动作, Action share
+        oks.show(LaiFangActivity.this);
     }
 
     @OnClick({R.id.tv_commit,R.id.rl_revice_time})

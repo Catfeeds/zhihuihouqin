@@ -39,12 +39,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider_layout"
+                android:layout_width="match_parent"
+                android:layout_height="186dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_default_rectangle" />
+           <!-- <ImageView
                 android:id="@+id/iv_big_pic"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,12 +64,13 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/tv_title"
+                        android:id="@+id/tv_theme"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
+                        android:text="主题"
                         android:textSize="@dimen/sp_bigger" />
 
                     <TextView
@@ -145,8 +151,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="主办方"
-                    android:textColor="@color/tv_gray"
-                    android:textSize="@dimen/sp_big" />
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/tv_zhubanfang"
@@ -154,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="80dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -168,8 +174,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="活动简介"
-                    android:textColor="@color/tv_gray"
-                    android:textSize="@dimen/sp_big" />
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/tv_jianjie"
@@ -177,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="80dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
             </RelativeLayout>
 
             <LinearLayout
