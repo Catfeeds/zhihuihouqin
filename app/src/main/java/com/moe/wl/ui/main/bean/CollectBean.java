@@ -18,6 +18,7 @@ public class CollectBean {
      */
 
     private int status;
+    private String url;
 
     public int getErrCode() {
         return errCode;
@@ -41,5 +42,13 @@ public class CollectBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

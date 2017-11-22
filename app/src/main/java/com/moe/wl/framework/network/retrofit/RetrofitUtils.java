@@ -2138,6 +2138,29 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
     }
 
     /**
+     * 获取分享的url
+     */
+    public static Observable getLaiFangShareUrl(String roomnum, String vmobile, String type, String phonenum, String realname) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("roomnum", roomnum);
+            tempMap.put("type", type);
+            if ("1".equals(type)) {
+                tempMap.put("vmobile", vmobile);
+            }
+            tempMap.put("phonenum", phonenum);
+            tempMap.put("realname", realname);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getLaiFangShareUrl(paramsMap));
+    }
+
+
+    /**
      * 拜访人员
      */
     public static Observable postBaifagnInfo(String realname, String phonenum, String roomnum, String vname,

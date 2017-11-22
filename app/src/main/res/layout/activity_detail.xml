@@ -23,40 +23,43 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:padding="3dp"
-            android:visibility="gone"
-            android:src="@mipmap/ic_info_share" />
+            android:src="@mipmap/ic_info_share"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
         android:fillViewport="true"
+        android:focusable="true"
         android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider_layout"
                 android:layout_width="match_parent"
                 android:layout_height="186dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_default_rectangle" />
-           <!-- <ImageView
+
+            <ImageView
                 android:id="@+id/iv_big_pic"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop" />-->
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:paddingBottom="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,11 +69,11 @@
                     <TextView
                         android:id="@+id/tv_theme"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
+                        android:layout_weight="1"
                         android:text="主题"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/sp_bigger" />
 
                     <TextView
@@ -189,9 +192,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -233,7 +236,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:divider="@color/divider"
-                    android:dividerHeight="1px"/>
+                    android:dividerHeight="1px" />
 
             </LinearLayout>
 

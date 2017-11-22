@@ -510,6 +510,11 @@ public interface NetAPI {
     @POST(NetUrl.feedbackMessage)
     Observable<CollectBean> feedbackMessage(@FieldMap Map<String, Object> map);
 
+    // 反馈新信息
+    @FormUrlEncoded
+    @POST(NetUrl.getLaiFangShareUrl)
+    Observable<CollectBean> getLaiFangShareUrl(@FieldMap Map<String, Object> map);
+
     // 获取信息公告分类
     @FormUrlEncoded
     @POST(NetUrl.informationClass)
