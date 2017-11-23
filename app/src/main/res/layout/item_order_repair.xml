@@ -16,8 +16,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:layout_gravity="center_vertical"
+            android:layout_height="96dp"
             android:scaleType="fitXY" />
 
         <LinearLayout

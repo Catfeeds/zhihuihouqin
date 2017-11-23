@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/title_bar"
@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/view"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -31,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:text="订单详情"
             android:textColor="@color/blue"
             android:textSize="@dimen/sp_big" />
@@ -48,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:text="订单状态"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_big" />
@@ -70,12 +71,6 @@
         android:layout_marginBottom="5dp"
         android:layout_marginRight="12dp"
         android:orientation="horizontal">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/white" />
 
         <TextView
             android:id="@+id/left"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -26,7 +27,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 类描述：订餐订单详情页面
+ * 类描述：来访人员订单详情页面
  * 作者：Shixhe On 2017/10/12 0012
  */
 public class OrderVisitorsDetailActivity extends MyBaseActivity {
@@ -57,6 +58,10 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
     TextView orderId;
     @BindView(R.id.order_time)
     TextView orderTime;
+    @BindView(R.id.ll_users)
+    LinearLayout llUsers;
+    @BindView(R.id.arrive_users)
+    TextView arriveUsers;
 
     private OrderVisitorsListBean.OrderlistEntity data;
 
@@ -98,6 +103,16 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
         arriveTime.setText("来访时间：" + data.getVisittime());
         orderId.setText("订单号：" + data.getOrdercode());
         orderTime.setText("下单时间：" + data.getCreatetime());
+        if (data.getByuserlist() == null || data.getByuserlist().size() == 0) {
+            llUsers.setVisibility(View.GONE);
+        } else {
+            llUsers.setVisibility(View.VISIBLE);
+            StringBuffer str = new StringBuffer();
+            for (int i = 0; i < data.getByuserlist().size(); i++) {
+                str.append("姓名：" + data.getByuserlist().get(i).getName() + "\n身份证号：" + data.getByuserlist().get(i).getIdcard() + "\n");
+            }
+            arriveUsers.setText(str.toString());
+        }
 
         state = data.getStatus();
         right.setVisibility(View.VISIBLE);

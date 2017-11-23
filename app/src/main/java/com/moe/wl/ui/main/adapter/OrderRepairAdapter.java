@@ -49,7 +49,7 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
         ViewHolder holder = (ViewHolder) holders;
 
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getMenderphoto(), holder.image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(context, data.get(position).getMenderphoto(), holder.image, R.mipmap.ic_default_square);
         holder.orderNumber.setText("订  单  号：" + data.get(position).getOrdercode());
         holder.time.setText("下单时间：" + data.get(position).getCreatetime());
         holder.repairType.setText("维修类型：" + data.get(position).getItemname());

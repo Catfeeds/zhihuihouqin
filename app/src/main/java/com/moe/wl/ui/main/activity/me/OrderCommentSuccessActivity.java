@@ -1,12 +1,12 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.home.activity.MyBaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +16,7 @@ import butterknife.OnClick;
  * 类描述：
  * 作者：Shixhe On 2017/9/4 0004
  */
-public class OrderCommentSuccessActivity extends AppCompatActivity {
+public class OrderCommentSuccessActivity extends MyBaseActivity {
 
     @BindView(R.id.all_sp_comment_title)
     TitleBar titleBar;

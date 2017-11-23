@@ -1,5 +1,7 @@
 package com.moe.wl.ui.main.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -71,6 +73,8 @@ public class OrderVisitorsListBean implements Serializable {
         private String vmobile;
         private String vname;
         private int vpnum;
+        private List<ByuserlistEntity> byuserlist;
+
 
         public String getBuildnum() {
             return buildnum;
@@ -270,6 +274,61 @@ public class OrderVisitorsListBean implements Serializable {
 
         public void setVpnum(int vpnum) {
             this.vpnum = vpnum;
+        }
+
+        public List<ByuserlistEntity> getByuserlist() {
+            return byuserlist;
+        }
+
+        public void setByuserlist(List<ByuserlistEntity> byuserlist) {
+            this.byuserlist = byuserlist;
+        }
+
+        public static class ByuserlistEntity implements Serializable {
+            /**
+             * id : 1
+             * idcard : 1
+             * name : 1
+             * visituid : 50
+             */
+
+            @SerializedName("id")
+            private int idX;
+            private String idcard;
+            private String name;
+            private int visituid;
+
+            public int getIdX() {
+                return idX;
+            }
+
+            public void setIdX(int idX) {
+                this.idX = idX;
+            }
+
+            public String getIdcard() {
+                return idcard;
+            }
+
+            public void setIdcard(String idcard) {
+                this.idcard = idcard;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getVisituid() {
+                return visituid;
+            }
+
+            public void setVisituid(int visituid) {
+                this.visituid = visituid;
+            }
         }
     }
 }

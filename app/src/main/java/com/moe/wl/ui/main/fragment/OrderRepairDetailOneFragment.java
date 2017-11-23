@@ -21,7 +21,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 类描述：净菜订单详情
+ * 类描述：物业报修详情ONE
  * 作者：Shixhe On 2017/10/11 0011
  */
 
@@ -80,7 +80,7 @@ public class OrderRepairDetailOneFragment extends BaseFragment2 {
         orderState.setText("支付状态：" + (data.getDetail().getPaystatus() == 0 ? "未支付" : "已支付"));
         time.setText("上门时间：" + data.getDetail().getInvitetime());
         serviceContent.setText("服务内容：" + data.getDetail().getItemname());
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), data.getDetail().getMenderphoto(), image);
+        GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), data.getDetail().getMenderphoto(), image, R.mipmap.ic_default_square);
         name.setText(data.getDetail().getMendername());
         ratingBar.setRating(data.getDetail().getScore());
         score.setText("" + data.getDetail().getScore() + "分");

@@ -19,7 +19,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 类描述：报修订单状态详情
+ * 类描述：物业报修详情TWO
  * 作者：Shixhe On 2017/10/11 0011
  */
 

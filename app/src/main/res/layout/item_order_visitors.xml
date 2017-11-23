@@ -11,15 +11,15 @@
         android:id="@+id/order_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="订单号："
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_small" />
 
     <View
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:maxLines="1"
             android:text="时间"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/name"
@@ -51,7 +51,7 @@
             android:maxLines="1"
             android:text="被访人员"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/room_number"
@@ -62,7 +62,7 @@
             android:maxLines="1"
             android:text="房间号"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/arrive_name"
@@ -73,7 +73,7 @@
             android:maxLines="1"
             android:text="来访人员"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/mobile"
@@ -84,7 +84,7 @@
             android:maxLines="1"
             android:text="电话"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/people"
@@ -95,7 +95,7 @@
             android:maxLines="1"
             android:text="随行人数"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/arrive_time"
@@ -106,7 +106,7 @@
             android:maxLines="1"
             android:text="来访时间"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
     </LinearLayout>
 
@@ -151,10 +151,10 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:text="评价"
+            android:text="提交订单"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_small"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
