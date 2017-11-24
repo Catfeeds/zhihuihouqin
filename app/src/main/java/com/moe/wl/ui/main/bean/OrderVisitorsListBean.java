@@ -73,8 +73,16 @@ public class OrderVisitorsListBean implements Serializable {
         private String vmobile;
         private String vname;
         private int vpnum;
+        private int visitchecked;
         private List<ByuserlistEntity> byuserlist;
 
+        public int getVisitchecked() {
+            return visitchecked;
+        }
+
+        public void setVisitchecked(int visitchecked) {
+            this.visitchecked = visitchecked;
+        }
 
         public String getBuildnum() {
             return buildnum;

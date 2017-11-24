@@ -28,6 +28,7 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<OrderVisitorsListBean.OrderlistEntity> data;
     private OnClickListener listener;
+    private OnSureClickListener sureClickListener;
     private int state;
 
     public OrderVisitorsAdapter(Context context, List<OrderVisitorsListBean.OrderlistEntity> data, int state) {
@@ -58,7 +59,12 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
 
         switch (state) {
             case 0:
-                holder.comment.setVisibility(View.GONE);
+                if (data.get(position).getVisitchecked() == 0) {
+                    holder.comment.setVisibility(View.VISIBLE);
+                } else {
+                    holder.comment.setVisibility(View.GONE);
+                }
+                holder.comment.setText("确认订单");
                 holder.order.setText("取消订单");
                 break;
 //            case 1:
@@ -93,6 +99,15 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
                 Intent intent = new Intent(context, OrderVisitorsDetailActivity.class);
                 intent.putExtra("Data", data.get(position));
                 context.startActivity(intent);
+            }
+        });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sureClickListener != null) {
+                    sureClickListener.onClick(position, data.get(position).getId());
+                }
             }
         });
     }
@@ -139,4 +154,13 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }
+
+    public interface OnSureClickListener {
+        void onClick(int position, int id);
+    }
+
+    public void setOnSureClickListener(OnSureClickListener listener) {
+        this.sureClickListener = listener;
+    }
+
 }

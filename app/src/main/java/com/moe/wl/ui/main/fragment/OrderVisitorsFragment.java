@@ -101,6 +101,42 @@ public class OrderVisitorsFragment extends BaseFragment2 {
                 }
             }
         });
+        adapter.setOnSureClickListener(new OrderVisitorsAdapter.OnSureClickListener() {
+            @Override
+            public void onClick(int position, int id) {
+                commitOrder(position, id);
+            }
+        });
+    }
+
+    // 审核通过这个订单
+    private void commitOrder(final int position, int id) {
+        Observable observable = RetrofitUtils.getInstance().commitOrder(id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    showToast("确认订单成功");
+                    data.get(position).setVisitchecked(1);
+                    adapter.notifyDataSetChanged();
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(orderBean.getMsg());
+                }
+            }
+        });
     }
 
     int mPosition;

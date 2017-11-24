@@ -109,7 +109,10 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
             llUsers.setVisibility(View.VISIBLE);
             StringBuffer str = new StringBuffer();
             for (int i = 0; i < data.getByuserlist().size(); i++) {
-                str.append("姓名：" + data.getByuserlist().get(i).getName() + "\n身份证号：" + data.getByuserlist().get(i).getIdcard() + "\n");
+                str.append("姓名：" + data.getByuserlist().get(i).getName() + "\n身份证号：" + data.getByuserlist().get(i).getIdcard());
+                if (i != data.getByuserlist().size() - 1) {
+                    str.append("\n");
+                }
             }
             arriveUsers.setText(str.toString());
         }
@@ -118,6 +121,12 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
         right.setVisibility(View.VISIBLE);
         switch (state) {
             case 1: // 1: 已预约
+                left.setText("确认订单");
+                if (data.getVisitchecked() == 0) {
+                    left.setVisibility(View.VISIBLE);
+                } else {
+                    left.setVisibility(View.GONE);
+                }
                 right.setText("取消订单");
                 break;
             case 2: // 2: 配送中
@@ -159,7 +168,8 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
                 break;
 
             case R.id.left:
-                // TODO 在线沟通
+                // TODO 提交订单
+                commitOrder(data.getId());
                 break;
 
         }
@@ -191,6 +201,34 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
 
                     }
                 }).show();
+    }
+
+    // 审核通过这个订单
+    private void commitOrder(int id) {
+        Observable observable = RetrofitUtils.getInstance().commitOrder(id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(OrderVisitorsDetailActivity.this, "确认订单成功");
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    ToastUtil.showToast(OrderVisitorsDetailActivity.this, orderBean.getMsg());
+                }
+            }
+        });
     }
 
     // 删除订单接口

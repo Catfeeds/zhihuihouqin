@@ -177,7 +177,6 @@ public interface NetUrl {
 
     // 拜访人员
     String baifang = "appuser/user/addVisitLog";
-    String getLaiFangShareUrl = "appuser/user/getvisitaddr";
 
     // 净菜预订
     String getVegetableData = "appuser/tdcfwfood/findFoodList"; // 获取食物列表
@@ -248,6 +247,8 @@ public interface NetUrl {
 
     /*---------------------------------来访人员---------------------------------------*/
     String visitorsOrderList = "appuser/user/orderlist";
+    String getLaiFangShareUrl = "appuser/user/getvisitaddr";
+    String commitOrder = "appuser/user/check";
 
 
 }
