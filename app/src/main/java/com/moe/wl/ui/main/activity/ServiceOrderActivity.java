@@ -77,8 +77,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
             case Constants.PROPERRY:// 物业维修
                 fragments.add(OrderRepairFragment.getInstance(0));
                 fragments.add(OrderRepairFragment.getInstance(1));
-                fragments.add(OrderRepairFragment.getInstance(2));
                 fragments.add(OrderRepairFragment.getInstance(3));
+                fragments.add(OrderRepairFragment.getInstance(2));
                 fragments.add(OrderRepairFragment.getInstance(4));
                 break;
 
@@ -162,8 +162,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
 
             case Constants.VISITORS: // 来访人员
                 fragments.add(OrderVisitorsFragment.getInstance(0));
-                fragments.add(OrderVisitorsFragment.getInstance(3));
                 fragments.add(OrderVisitorsFragment.getInstance(2));
+                fragments.add(OrderVisitorsFragment.getInstance(3));
                 fragments.add(OrderVisitorsFragment.getInstance(4));
                 break;
         }

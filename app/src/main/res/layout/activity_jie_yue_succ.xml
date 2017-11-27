@@ -4,6 +4,7 @@
     android:id="@+id/activity_jie_yue_succ"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -43,5 +44,18 @@
         android:text="感谢您的提交，我方将以最快时间为您来准备，\n感谢您的借阅!"
         android:textColor="@color/font_gray"
         android:textSize="@dimen/sp_small" />
+
+    <TextView
+        android:id="@+id/tv_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_padding"
+        android:background="@drawable/bg_blue_rounded"
+        android:gravity="center"
+        android:padding="@dimen/normal_padding"
+        android:text="查看订单"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_common" />
 
 </LinearLayout>

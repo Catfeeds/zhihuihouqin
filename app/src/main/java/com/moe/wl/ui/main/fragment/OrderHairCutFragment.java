@@ -89,11 +89,11 @@ public class OrderHairCutFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 再次预约
-                        startActivity(new Intent(getActivity(), OrderCutHearActivity.class));
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.HAIRCUTS);
                         break;
 
                     case 3: // 评价
-                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.HAIRCUTS);
+                        startActivity(new Intent(getActivity(), OrderCutHearActivity.class));
                         break;
 
                     case 4: // 删除订单

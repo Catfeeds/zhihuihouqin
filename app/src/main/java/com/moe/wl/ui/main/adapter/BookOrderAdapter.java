@@ -113,14 +113,14 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
                     break;
 
                 case 2:
-                    tvAll.setText("再次预订");
+                    tvAll.setText("立即评价");
 //                    tvToComment.setVisibility(View.VISIBLE);
 //                    tvToComment.setOnClickListener(this);
                     tvAll.setOnClickListener(this);
                     break;
 
                 case 3:
-                    tvAll.setText("立即评价");
+                    tvAll.setText("再次预订");
 //                    tvToComment.setVisibility(View.GONE);
                     tvAll.setOnClickListener(this);
                     break;

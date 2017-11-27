@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：报修订单Adapter
+ * 类描述：理发订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 

@@ -100,10 +100,10 @@ public class OrderBookFragment extends BaseFragment2 {
                         toFinish(orderList.get(position).getOrderid(), position);
                         break;
                     case 2:
-                        startActivity(new Intent(getActivity(), LibraryActivity.class));
+                        OtherUtils.gotoComment(getActivity(), orderList.get(position).getOrderid(), Constants.BOOK);
                         break;
                     case 3:
-                        OtherUtils.gotoComment(getActivity(), orderList.get(position).getOrderid(), Constants.BOOK);
+                        startActivity(new Intent(getActivity(), LibraryActivity.class));
                         break;
                     case 4:
                         showAlertDialog("是否删除订单", state, position);

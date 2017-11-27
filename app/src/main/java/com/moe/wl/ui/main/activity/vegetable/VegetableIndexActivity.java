@@ -63,6 +63,8 @@ public class VegetableIndexActivity extends MyBaseActivity {
     @BindView(R.id.tv_now_order)
     TextView tvNowOrder;
 
+    private String phoneNumber;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,19 @@ public class VegetableIndexActivity extends MyBaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_call:
+                new AlertDialog(VegetableIndexActivity.this).builder()
+                        .setMsg("拨打服务热线:  " + phoneNumber)
+                        .setPositiveButton("是", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                CallPhoneUtils.callPhone(phoneNumber, VegetableIndexActivity.this);
+                            }
+                        })
+                        .setNegativeButton("否", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        }).show();
                 break;
             case R.id.tv_now_order:
                 Intent intent = new Intent(this, VegetableMainActivity.class);
@@ -120,10 +135,10 @@ public class VegetableIndexActivity extends MyBaseActivity {
                     BannerResponse.ServiceInfoBean bean = mResponse.getServiceInfo();
                     String place = bean.getPlace();
                     String businesshour = bean.getBusinesshour();
-                    String mobile = bean.getMobile();
+                    phoneNumber = bean.getMobile();
                     tvAddress.setText(place);
                     tvWorkTime.setText(businesshour);
-                    tvPhone.setText(mobile);
+                    tvPhone.setText(phoneNumber);
                     //获得轮播图
                     //serviceInfo.get
                     if (bean != null && !TextUtils.isEmpty(bean.getTopphoto())) {

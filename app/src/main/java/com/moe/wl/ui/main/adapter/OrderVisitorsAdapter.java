@@ -73,11 +73,11 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
 //                break;
             case 2:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("立即评价");
+                holder.order.setText("再次预订");
                 break;
             case 3:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("再次预订");
+                holder.order.setText("立即评价");
                 break;
             case 4:
                 holder.comment.setVisibility(View.GONE);

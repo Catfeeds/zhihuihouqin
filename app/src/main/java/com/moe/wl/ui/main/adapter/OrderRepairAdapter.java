@@ -62,7 +62,7 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
                 holder.order1.setText("取消订单");
                 break;
             case 1:
-                holder.onLine.setVisibility(View.VISIBLE);
+                holder.onLine.setVisibility(View.GONE);
                 holder.order1.setText("拨打电话");
                 break;
             case 2:

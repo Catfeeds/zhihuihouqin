@@ -133,10 +133,10 @@ public class OrderVisitorsDetailActivity extends MyBaseActivity {
 //                right.setText("已完成");
                 break;
             case 3: // 3：待评价
-                right.setText("立即评价");
+                right.setText("再次预订");
                 break;
             case 4: // 4：已完成
-                right.setText("再次预订");
+                right.setText("立即评价");
                 break;
             case 5: // 5：已取消
                 right.setText("删除订单");

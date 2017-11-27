@@ -146,10 +146,10 @@ public class OrderHairCutDetailActivity extends MyBaseActivity {
                         toFinish(data.getOrderid());
                         break;
                     case 3:
-                        startActivity(new Intent(OrderHairCutDetailActivity.this, OrderCutHearActivity.class));
+                        OtherUtils.gotoComment(OrderHairCutDetailActivity.this, data.getOrderid(), Constants.HAIRCUTS);
                         break;
                     case 4:
-                        OtherUtils.gotoComment(OrderHairCutDetailActivity.this, data.getOrderid(), Constants.HAIRCUTS);
+                        startActivity(new Intent(OrderHairCutDetailActivity.this, OrderCutHearActivity.class));
                         break;
                     case 5:
                         showAlertDialog("是否删除订单", state);
