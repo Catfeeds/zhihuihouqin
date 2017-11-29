@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.view;
 
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.OfficeIndexBean;
 import mvp.cn.common.MvpView;
 
@@ -12,4 +13,5 @@ public interface OfficeIndexView extends MvpView {
 
     void getIndexInfo(OfficeIndexBean bean);
 
+    void setData(BannerResponse.ServiceInfoBean serviceInfo);
 }

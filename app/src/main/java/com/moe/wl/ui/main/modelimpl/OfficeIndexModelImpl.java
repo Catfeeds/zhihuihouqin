@@ -16,4 +16,10 @@ public class OfficeIndexModelImpl implements OfficeIndexModel {
         Observable observable = RetrofitUtils.getInstance().officeIndex();
         return observable;
     }
+
+    @Override
+    public Observable getBanner(int serviceType) {
+        Observable observable = RetrofitUtils.getInstance().getBanner(serviceType);
+        return observable;
+    }
 }

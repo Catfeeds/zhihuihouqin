@@ -11,5 +11,6 @@ import rx.Observable;
 public interface OfficeIndexModel extends MvpModel {
 
     Observable getIndex();
+    Observable getBanner(int serviceType);
 
 }
