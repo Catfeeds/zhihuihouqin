@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.bean.ShopCarInfoBean;
 
@@ -19,7 +20,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.moe.wl.R;
 import mvp.cn.util.DensityUtil;
 import mvp.cn.util.ScreenUtils;
 
@@ -58,6 +58,9 @@ public class ShopCarDialog extends Dialog {
     LinearLayout ll;
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
+    @BindView(R.id.product_name)
+    TextView productName;
+
     private Context ct;
     private int count;
     private List<ShopCarInfoBean.SkuListBean> itemList;
@@ -90,44 +93,55 @@ public class ShopCarDialog extends Dialog {
         getWindow().setWindowAnimations(R.style.AnimationDialog);
 
     }
+
     public void setData(final List<ShopCarInfoBean.SkuListBean> itemList) {
         this.itemList = itemList;
         for (int i = 0; i < itemList.size(); i++) {
-            final TextView textView =  new TextView(ct);
-            textView.setText(itemList.get(i).getSkuname());
+            final TextView textView = new TextView(ct);
+            StringBuffer str = new StringBuffer();
+            for (int j = 0; j < itemList.get(i).getCatainfolist().size(); j++) {
+                str.append(itemList.get(i).getCatainfolist().get(j).getContent() + " ");
+            }
+            str.append(itemList.get(i).getSkuname());
+//            textView.setText(itemList.get(i).getSkuname());
+            textView.setText(str.toString());
             textView.setTextColor(Color.parseColor("#333333"));
             textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(14);
+            textView.setTextSize(12);
             textView.setBackgroundColor(Color.parseColor("#F6F5F5"));
-            textView.setPadding(DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 8));
+            textView.setPadding(DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 5), DensityUtil.dip2px(ct, 8), DensityUtil.dip2px(ct, 5));
             flowLayout.addView(textView);
-            flowLayout.getChildAt(0).performClick();
+            if (i == 0) {
+                productName.setText(itemList.get(0).getSkuname());
+            }
         }
+        flowLayout.getChildAt(0).performClick();
 
         for (int j = 0; j < flowLayout.getChildCount(); j++) {
-            final int index=j;
-            this.selectPosition=index;
+            final int index = j;
+            this.selectPosition = index;
             flowLayout.getChildAt(j).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    count=0;
+                    count = 0;
                     //String s = ((TextView) flowLayout.getChildAt(index)).getText().toString();
                     skuListBean = itemList.get(index);
                     int id = skuListBean.getId();//库存id
                     cid = id;
                     GlideLoading.getInstance().loadImgUrlNyImgLoader(ct,
-                            skuListBean.getMainimg(),ivPic);
-                    price.setText("￥"+ skuListBean.getPrice());
-                    tvKucun.setText("库存"+ skuListBean.getStore()+"件");
-                   int in=index;
-                    position=in;
+                            skuListBean.getMainimg(), ivPic);
+                    price.setText("￥" + skuListBean.getPrice());
+                    tvKucun.setText("库存" + skuListBean.getStore() + "件");
+                    productName.setText(skuListBean.getSkuname());
+                    int in = index;
+                    position = in;
                     for (int i = 0; i < flowLayout.getChildCount(); i++) {
-                        if(i==in){
-                            ((TextView) flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_blue_confirm);
+                        if (i == in) {
+                            (flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_blue_confirm);
                             ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#ffffff"));
-                        }else{
+                        } else {
                             //((TextView) flowLayout.getChildAt(i)).setBackgroundColor(Color.parseColor("#F6F5F5"));
-                            ((TextView) flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_gray_content_light);
+                            (flowLayout.getChildAt(i)).setBackgroundResource(R.drawable.shape_gray_content_light);
                             ((TextView) flowLayout.getChildAt(i)).setTextColor(Color.parseColor("#333333"));
                         }
                     }
@@ -157,27 +171,27 @@ public class ShopCarDialog extends Dialog {
                 doAdd();
                 break;
             case R.id.tv_confirm:
-             if(listener!=null){
-                 listener.onItemClickListener(count,cid,position);
-             }
+                if (listener != null) {
+                    listener.onItemClickListener(count, cid, position);
+                }
                 break;
         }
     }
 
     private void doAdd() {
         int store = skuListBean.getStore();
-        if(store>count)//判断库存数量
-         count++;
-        tvSum.setText(count+"");
+        if (store > count)//判断库存数量
+            count++;
+        tvSum.setText(count + "");
     }
 
     private void doMinus() {
-        if(count<=0){
-            count=0;
-        }else{
+        if (count <= 0) {
+            count = 0;
+        } else {
             count--;
         }
-        tvSum.setText(count+"");
+        tvSum.setText(count + "");
     }
 
     public interface OnItemClickListener {

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -25,7 +24,6 @@ import com.moe.wl.ui.main.model.SpDetailModel;
 import com.moe.wl.ui.main.modelimpl.SpDetailModelImpl;
 import com.moe.wl.ui.main.presenter.SpDetailPresenter;
 import com.moe.wl.ui.main.view.SpDetailView;
-import com.moe.wl.ui.mywidget.NewShopCarDialog;
 import com.moe.wl.ui.mywidget.ShopCarDialog;
 
 import java.util.List;
@@ -185,7 +183,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
 
     private void showPop(boolean isAddShopCar) {
         this.mIsAddShopCar = isAddShopCar;
-        NewShopCarDialog newShopCarDialog = new NewShopCarDialog(this, R.style.dialog_style);
+        /*NewShopCarDialog newShopCarDialog = new NewShopCarDialog(this, R.style.dialog_style);
         newShopCarDialog.show();
 
         String testJson = "{\n" +
@@ -332,8 +330,8 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                     showToast("您还没有选择购买的商品");
                 }
             }
-        });
-       /* shopCarDialog = new ShopCarDialog(this, R.style.dialog_style);
+        });*/
+        shopCarDialog = new ShopCarDialog(this, R.style.dialog_style);
         shopCarDialog.show();
         if (shopCarInfoBean != null) {
             skuList = shopCarInfoBean.getSkuList();
@@ -348,7 +346,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                         if (count > 0) {
                             getPresenter().shopCar(id + "", count + "");
                             shopCarDialog.dismiss();
-                        }else{
+                        } else {
                             showToast("您还没有选择购买的商品");
                         }
                     }
@@ -356,7 +354,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
             }
         } else {
             LogUtils.i("bean 为null");
-        }*/
+        }
 
     }
 
@@ -454,9 +452,9 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     public void getShopCar(ActivityPostBean bean) {
         if (bean != null) {
             //if (mIsAddShopCar == true) {//是购物车
-                Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
-                startActivity(intent);
-           // } else {
+            Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
+            startActivity(intent);
+            // } else {
               /*  Intent intent = new Intent(this, OfficeSpConfirmOrderAct.class);
                 intent.putExtra("count", mCount);
                 intent.putExtra("from", "nowpay");

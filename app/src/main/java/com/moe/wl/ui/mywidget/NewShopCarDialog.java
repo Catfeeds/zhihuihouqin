@@ -27,10 +27,7 @@ import mvp.cn.util.DensityUtil;
 import mvp.cn.util.ScreenUtils;
 import mvp.cn.util.ToastUtil;
 
-import static android.R.id.list;
-
 public class NewShopCarDialog extends Dialog {
-
 
     @BindView(R.id.iv_close)
     ImageView ivClose;
@@ -106,7 +103,6 @@ public class NewShopCarDialog extends Dialog {
 
     // TODO: 2017/11/28 0028 设置购物车信息
     public void setDatas(ShopCarInfoBean shopCarInfoBean) {
-        LogUtils.i("=================" + shopCarInfoBean.toString());
         if (shopCarInfoBean != null) {
             //库存列表,用于列表查询
             List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();

@@ -161,6 +161,7 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
                 break;
 
             case Constants.VISITORS: // 来访人员
+                fragments.add(OrderVisitorsFragment.getInstance(9));
                 fragments.add(OrderVisitorsFragment.getInstance(0));
                 fragments.add(OrderVisitorsFragment.getInstance(2));
                 fragments.add(OrderVisitorsFragment.getInstance(3));

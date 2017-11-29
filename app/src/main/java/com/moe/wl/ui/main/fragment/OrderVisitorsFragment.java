@@ -83,7 +83,7 @@ public class OrderVisitorsFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 1: // 拨打电话
+                    case 9: // 拨打电话
 //                        showAlertDialog("是否拨打服务电话", position);
                         break;
 

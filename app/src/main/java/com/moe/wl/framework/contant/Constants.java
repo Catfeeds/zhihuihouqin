@@ -67,7 +67,7 @@ public class Constants {
     // 会议室
     public static final String orderConference = "待服务,服务中,已完成,待评价,已取消";
     // 来访人员
-    public static final String orderVisitors = "已预约,已完成,待评价,已取消";
+    public static final String orderVisitors = "待提交,已预约,已完成,待评价,已取消";
 
 }
 

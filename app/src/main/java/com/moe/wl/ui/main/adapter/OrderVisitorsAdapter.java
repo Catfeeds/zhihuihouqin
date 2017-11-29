@@ -67,10 +67,10 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
                 holder.comment.setText("确认订单");
                 holder.order.setText("取消订单");
                 break;
-//            case 1:
-//                holder.comment.setVisibility(View.GONE);
-//                holder.order.setText("会议加时");
-//                break;
+            case 9: // 待提交
+                holder.comment.setVisibility(View.GONE);
+                holder.order.setText("审核通过");
+                break;
             case 2:
                 holder.comment.setVisibility(View.GONE);
                 holder.order.setText("再次预订");
