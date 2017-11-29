@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by 我的电脑 on 2017/9/18 0018.
  */
 
-public class SpCategoryAdapter extends FragmentPagerAdapter {
+public class SpCategoryAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> data=new ArrayList<>();
     private List<String> titles=new ArrayList<>();
     public void setData(List<Fragment> data,List<String> titles){

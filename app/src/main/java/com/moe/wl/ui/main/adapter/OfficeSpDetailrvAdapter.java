@@ -12,6 +12,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.bean.SpDetailBean;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class OfficeSpDetailrvAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.user_ratingBar)
-        RatingBar userRatingBar;
+        StarBar userRatingBar;
         @BindView(R.id.tv_evaluate)
         TextView tvEvaluate;
 
@@ -83,8 +84,9 @@ public class OfficeSpDetailrvAdapter extends RecyclerView.Adapter {
              GlideLoading.getInstance().loadImgUrlNyImgLoader(context,
                      commentlistBean.getPhoto(),civUserPhoto);
              tvUserName.setText(commentlistBean.getRealname());
-             userRatingBar.setRating((float) commentlistBean.getScore());
-             OtherUtils.ratingBarColor(userRatingBar,context);
+             userRatingBar.setStarMark((float) commentlistBean.getScore());
+             userRatingBar.setIntegerMark(false);
+             userRatingBar.ismove(false);
              tvTime.setText(commentlistBean.getCreatetime());
              tvEvaluate.setText(commentlistBean.getContent());
          }

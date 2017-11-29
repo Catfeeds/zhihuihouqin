@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -25,9 +25,9 @@ import com.moe.wl.ui.main.model.SpDetailModel;
 import com.moe.wl.ui.main.modelimpl.SpDetailModelImpl;
 import com.moe.wl.ui.main.presenter.SpDetailPresenter;
 import com.moe.wl.ui.main.view.SpDetailView;
+import com.moe.wl.ui.mywidget.NewShopCarDialog;
 import com.moe.wl.ui.mywidget.ShopCarDialog;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +61,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     LinearLayout activitySpDetail;
 
     private SliderLayout sib;
+    //private SimpleImageBanner sib;
 
     private TextView tvSpCategory;
     private TextView tvSpPrice;
@@ -83,6 +84,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     private String name;
     private String addressName;
     private int id1;
+    private boolean enableShow = false;
 
     @Override
     public SpDetailPresenter createPresenter() {
@@ -120,6 +122,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
         spDetailRv.setPullRefreshEnabled(false);
         View header = View.inflate(this, R.layout.sp_detail_header, null);
         sib = (SliderLayout) header.findViewById(R.id.slider_layout);
+        //sib = (SimpleImageBanner) header.findViewById(R.id.slider_layout);
         tvSpCategory = (TextView) header.findViewById(R.id.tv_sp_category);
         tvSpPrice = (TextView) header.findViewById(R.id.tv_sp_price);
         address = (LinearLayout) header.findViewById(R.id.ll_address);
@@ -151,6 +154,14 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     private void intiTitle() {
         spDetailTitle.setBack(true);
         spDetailTitle.setTitle("商品详情");
+        spDetailTitle.setTitleRight("购物车");
+        spDetailTitle.setOnRightclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);//进入购物车
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick({R.id.ll_share, R.id.ll_collect, R.id.tv_add_car, R.id.tv_now_buy})
@@ -162,17 +173,167 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 getPresenter().getCollectInfo(2, id);
                 break;
             case R.id.tv_add_car:
-                showPop(true);
+                if (enableShow)//获取购物车详情成功后才可以弹出购物车
+                    showPop(true);
                 break;
             case R.id.tv_now_buy:
-                showPop(false);
+                if (enableShow)
+                    showPop(false);
                 break;
         }
     }
 
     private void showPop(boolean isAddShopCar) {
         this.mIsAddShopCar = isAddShopCar;
-        shopCarDialog = new ShopCarDialog(this, R.style.dialog_style);
+        NewShopCarDialog newShopCarDialog = new NewShopCarDialog(this, R.style.dialog_style);
+        newShopCarDialog.show();
+
+        String testJson = "{\n" +
+                "  \"msg\": \"success\",\n" +
+                "  \"skuList\": [\n" +
+                "    {\n" +
+                "      \"cataName\": null,\n" +
+                "      \"catainfolist\": [\n" +
+                "        {\n" +
+                "          \"cataid\": 2,\n" +
+                "          \"content\": \"8G\",\n" +
+                "          \"id\": 4,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": 76\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"cataid\": 1,\n" +
+                "          \"content\": \"red\",\n" +
+                "          \"id\": 1,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": 76\n" +
+                "        }\n" +
+                "      ],\n" +
+                "      \"createtime\": \"2017-11-21 19:03:49\",\n" +
+                "      \"failedreason\": null,\n" +
+                "      \"failedreasonids\": null,\n" +
+                "      \"firstcataid\": 2,\n" +
+                "      \"gg\": null,\n" +
+                "      \"id\": 76,\n" +
+                "      \"isMain\": 0,\n" +
+                "      \"mainimg\": \"http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201711211511262217898.jpg\",\n" +
+                "      \"price\": 1.5,\n" +
+                "      \"productid\": 52,\n" +
+                "      \"secondcataid\": null,\n" +
+                "      \"skuname\": \"得力胶棒（21G）/支\",\n" +
+                "      \"status\": 1,\n" +
+                "      \"store\": 199\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"cataName\": null,\n" +
+                "      \"catainfolist\": [\n" +
+                "        {\n" +
+                "          \"cataid\": 1,\n" +
+                "          \"content\": \"yellow\",\n" +
+                "          \"id\": 8,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": 77\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"cataid\": 2,\n" +
+                "          \"content\": \"8G\",\n" +
+                "          \"id\": 7,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": 77\n" +
+                "        }\n" +
+                "      ],\n" +
+                "      \"createtime\": \"2017-11-21 19:04:23\",\n" +
+                "      \"failedreason\": null,\n" +
+                "      \"failedreasonids\": null,\n" +
+                "      \"firstcataid\": 2,\n" +
+                "      \"gg\": null,\n" +
+                "      \"id\": 77,\n" +
+                "      \"isMain\": 0,\n" +
+                "      \"mainimg\": \"http://dentist.oss-cn-beijing.aliyuncs.com/zhhq:dcfw:img201711211511262217898.jpg\",\n" +
+                "      \"price\": 3,\n" +
+                "      \"productid\": 52,\n" +
+                "      \"secondcataid\": null,\n" +
+                "      \"skuname\": \"得力胶棒（36G）/支\",\n" +
+                "      \"status\": 1,\n" +
+                "      \"store\": 189\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"allskuinfolist\": [\n" +
+                "    {\n" +
+                "      \"cataid\": 1,\n" +
+                "      \"cataname\": \"颜色分类\",\n" +
+                "      \"infolist\": [\n" +
+                "        {\n" +
+                "          \"cataid\": 1,\n" +
+                "          \"content\": \"red\",\n" +
+                "          \"id\": null,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": null\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"cataid\": 1,\n" +
+                "          \"content\": \"yellow\",\n" +
+                "          \"id\": null,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": null\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"cataid\": 2,\n" +
+                "      \"cataname\": \"大小分类\",\n" +
+                "      \"infolist\": [\n" +
+                "        {\n" +
+                "          \"cataid\": 2,\n" +
+                "          \"content\": \"8G\",\n" +
+                "          \"id\": null,\n" +
+                "          \"productid\": 52,\n" +
+                "          \"skuid\": null\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"errCode\": 0\n" +
+                "}";
+        Gson gson = new Gson();
+        ShopCarInfoBean shopCarInfo = gson.fromJson(testJson, ShopCarInfoBean.class);
+
+        newShopCarDialog.setDatas(shopCarInfo);
+        newShopCarDialog.setListener(new NewShopCarDialog.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int count, int id, int position) {
+                mPositon = position;
+                mCount = count;
+                if (count > 0) {
+                    LogUtils.i("id===" + id + "count==" + count);
+
+                    if (mIsAddShopCar == true) {//是购物车
+                        getPresenter().shopCar(id + "", count + "");
+                    }
+                    else {
+                        Intent intent = new Intent(SpDetailActivity.this, OfficeSpConfirmOrderAct.class);
+                        intent.putExtra("count", mCount);
+                        intent.putExtra("from", "nowpay");
+                        List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();
+                        ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
+                        double price = skuListBean.getPrice();
+                        intent.putExtra("price", price);
+                        intent.putExtra("position", mPositon);
+                        intent.putExtra("skuListBean", skuListBean);
+                        //传递个人信息
+                        intent.putExtra("Mobile", mobile);
+                        intent.putExtra("ID", id1);
+                        intent.putExtra("Name", name);
+                        intent.putExtra("Address", addressName);
+                        startActivity(intent);
+                    }
+                    shopCarDialog.dismiss();
+                } else {
+                    showToast("您还没有选择购买的商品");
+                }
+            }
+        });
+       /* shopCarDialog = new ShopCarDialog(this, R.style.dialog_style);
         shopCarDialog.show();
         if (shopCarInfoBean != null) {
             skuList = shopCarInfoBean.getSkuList();
@@ -195,7 +356,7 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
             }
         } else {
             LogUtils.i("bean 为null");
-        }
+        }*/
 
     }
 
@@ -246,15 +407,24 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 //List<String> imgList = product.getImgList();
                 if (imgEntityList.size() > 0) {
                     // TODO 轮播图数据
-                    HashMap<String, String> map = new HashMap<>();
+                    sib.removeAllSliders();
                     for (int i = 0; i < imgEntityList.size(); i++) {
-                        String content = "";
-                        for (int j = 0; j < i; j++) {
-                            content = content + " ";
-                        }
-                        map.put(content, imgEntityList.get(i).getImg());
+                        TextSliderView textSliderView = new TextSliderView(getActivity());
+                        textSliderView.description("").image(imgEntityList.get(i).getImg());
+                        sib.addSlider(textSliderView);
                     }
-                    initSliderLayout(map);
+
+                   /* ArrayList<BannerItem> list = new ArrayList<>();
+                    for (int i = 0; i < imgEntityList.size(); i++) {
+                        BannerItem item = new BannerItem();
+                        item.imgUrl = imgEntityList.get(i).getImg();
+                        LogUtil.log(item.imgUrl);
+                        list.add(item);
+                    }
+                    sib
+                            .setSource(list)
+                            .startScroll();*/
+
                 }
             }
         }
@@ -272,22 +442,10 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
 
     }
 
-    // 轮播图数据
-    private void initSliderLayout(HashMap<String, String> map) {
-        LogUtils.d("map的长度：" + map.size());
-        sib.setSystemUiVisibility(View.GONE);
-        sib.removeAllSliders();
-        for (String desc : map.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .description(desc)
-                    .image(map.get(desc));
-            sib.addSlider(textSliderView);
-        }
-    }
 
     @Override
     public void getShopCarInfo(ShopCarInfoBean bean) {
+        this.enableShow = true;
         this.shopCarInfoBean = bean;
 
     }
@@ -295,11 +453,11 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
     @Override
     public void getShopCar(ActivityPostBean bean) {
         if (bean != null) {
-            if (mIsAddShopCar == true) {//是购物车
+            //if (mIsAddShopCar == true) {//是购物车
                 Intent intent = new Intent(SpDetailActivity.this, ShopCarActivity.class);
                 startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, OfficeSpConfirmOrderAct.class);
+           // } else {
+              /*  Intent intent = new Intent(this, OfficeSpConfirmOrderAct.class);
                 intent.putExtra("count", mCount);
                 intent.putExtra("from", "nowpay");
                 List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();
@@ -308,13 +466,13 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                 intent.putExtra("price", price);
                 intent.putExtra("position", mPositon);
                 intent.putExtra("skuListBean", skuListBean);
-               //传递个人信息
-                intent.putExtra("Mobile",mobile);
-                intent.putExtra("ID",id1);
-                intent.putExtra("Name",name);
-                intent.putExtra("Address",addressName);
+                //传递个人信息
+                intent.putExtra("Mobile", mobile);
+                intent.putExtra("ID", id1);
+                intent.putExtra("Name", name);
+                intent.putExtra("Address", addressName);
                 startActivity(intent);
-            }
+            }*/
 
         } else {
             LogUtils.i(bean.getMsg());
