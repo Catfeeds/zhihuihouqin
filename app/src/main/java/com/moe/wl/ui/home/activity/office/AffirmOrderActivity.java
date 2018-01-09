@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingListView;
@@ -19,6 +20,7 @@ import com.moe.wl.ui.home.model.office.AffirmOrderModel;
 import com.moe.wl.ui.home.modelimpl.office.AffirmOrderModelImpl;
 import com.moe.wl.ui.home.presenter.office.AffirmOrderPresenter;
 import com.moe.wl.ui.home.view.office.AffirmOrderView;
+import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
 
 import java.util.List;
 
@@ -151,7 +153,11 @@ public class AffirmOrderActivity extends BaseActivity<AffirmOrderModel, AffirmOr
 
     @Override
     public void setData() {
-        startActivity(new Intent(this, SubmitSuccActivity.class));
+        Intent intent = new Intent(this, SubmitSuccessActivity.class);
+        //startActivity(new Intent(this, SubmitSuccActivity.class));
+        intent.putExtra("from", Constants.CONFERENCE);
+        intent.putExtra("isPay",false);
+        startActivity(intent);
         finish();
     }
 

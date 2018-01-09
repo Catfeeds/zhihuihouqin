@@ -1,9 +1,9 @@
 package com.moe.wl.ui.home.activity.office;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
@@ -22,13 +22,15 @@ import butterknife.OnClick;
  * 提交订单成功
  */
 public class SubmitSuccActivity extends BaseActivity<TestModel, TestView, TestPresenter> implements TestView {
+    @BindView(R.id.ll_back)
+    LinearLayout llBack;
 
     //    @BindView(R.id.title)
 //    TitleBar title;
-    @BindView(R.id.tv_check_order)
+  /*  @BindView(R.id.tv_check_order)
     TextView tvCheckOrder;
     @BindView(R.id.ll_back)
-    LinearLayout ll_back;
+    LinearLayout ll_back;*/
 
     @Override
     public void setContentLayout() {

@@ -6,8 +6,10 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.adapter.office.SubscribeTimeAdapter;
 import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
 import com.moe.wl.ui.home.bean.office.AppointmentListBean;
@@ -21,7 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,6 +88,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
 
     private List<AppointmentDateBean> selectTime;
     private List<AppointmentDateBean> listAll;
+    private Map<String, List<AppointmentListBean>> map;
 
     @Override
     public void setContentLayout() {
@@ -93,6 +98,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
 
     @Override
     public void initView() {
+        map = new HashMap<>();
         id = getIntent().getStringExtra("id");
 
         listDate = new ArrayList<>();
@@ -135,7 +141,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
         listTime = new ArrayList<>();
         selectTime= new ArrayList<>();
         adapter = new SubscribeTimeAdapter(this);
-        adapter.setItemList(listTime);
+
         gvTime.setAdapter(adapter);
         adapter.setMyCallBack(new SubscribeTimeAdapter.MyCallBack() {
             @Override
@@ -169,6 +175,8 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
                 finish();
                 break;
             case R.id.ll_right:
+
+
                 selectTime.clear();
                 selectTime.addAll(listAll);
                 for (int i = 0; i < selectTime.size() ; i++) {
@@ -220,7 +228,9 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
      * 获取未来日期
      */
     public void clickDate(int pos) {
+
         for (int i = 0; i < listDate.size(); i++) {
+            //获得点击的日期
             date = dates[pos];
             if (i == pos) {
                 listDate.get(i).setBackgroundResource(R.mipmap.bg_btn_blue);
@@ -231,6 +241,27 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
             }
         }
         boolean bln = false;
+        for(String key:map.keySet() ){
+            //map集合中有该日期的时间
+            if(key.equals(dates[pos])){
+                List<AppointmentListBean> timeList = map.get(key);
+               /* for (int i = 0; i < timeList.size(); i++) {
+                    AppointmentListBean appointmentListBean = timeList.get(i);
+                    LogUtils.i("timeList的数量:"+timeList.size()+"appointmentListBean===="+appointmentListBean);
+                }*/
+                bln=true;
+                //说明之前添加过
+                listTime.clear();
+                listTime.addAll(timeList);
+                adapter.setItemList(listTime);
+                adapter.notifyDataSetChanged();
+                break;
+            }
+        }
+        if (!bln){  //说明之前没有添加过
+            getPresenter().findAvailableEquipment(id, date);
+        }
+       /* boolean bln = false;
         for (int i = 0; i < listAll.size(); i++) {
             if (date.equals(listAll.get(i).getDate())){
                 bln=true;
@@ -243,7 +274,7 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
         }
         if (!bln){  //说明之前没有添加过
             getPresenter().findAvailableEquipment(id, date);
-        }
+        }*/
 
     }
 
@@ -270,25 +301,25 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
      * 根据当前日期获得是星期几
      */
     public String getWeek(Calendar c) {
-        if (c.get(Calendar.DAY_OF_WEEK) == 1) {
+        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             return "日";
         }
-        if (c.get(Calendar.DAY_OF_WEEK) == 2) {
+        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
             return "一";
         }
-        if (c.get(Calendar.DAY_OF_WEEK) == 3) {
+        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY) {
             return "二";
         }
-        if (c.get(Calendar.DAY_OF_WEEK) == 4) {
+        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
             return "三";
         }
-        if (c.get(Calendar.DAY_OF_WEEK) == 5) {
+        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
             return "四";
         }
-        if (c.get(Calendar.DAY_OF_WEEK) == 6) {
+        if (c.get(Calendar.DAY_OF_WEEK) ==Calendar.FRIDAY) {
             return "五";
         }
-        if (c.get(Calendar.DAY_OF_WEEK) == 7) {
+        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             return "六";
         }
         return "";
@@ -302,6 +333,8 @@ public class SubscribeTimeActivity extends BaseActivity<SubscribeTimeModel, Subs
         listTime.clear();
         listTime.addAll(bean.getTimes());
         listAll.add(bean);
+        map.put(date,bean.getTimes());
+        adapter.setItemList(listTime);
         adapter.notifyDataSetChanged();
     }
 }

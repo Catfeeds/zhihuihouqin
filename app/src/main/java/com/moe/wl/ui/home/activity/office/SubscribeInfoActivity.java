@@ -13,14 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.jhworks.library.ImageSelector;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.Imglibrary.ImageSelector;
 import com.moe.wl.ui.home.adapter.office.AffirmEquipmentAdapter;
 import com.moe.wl.ui.home.bean.office.AppointmentDateBean;
 import com.moe.wl.ui.home.bean.office.EquipmentListBean;
@@ -239,7 +238,9 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_time:  //预约时间
-                startActivityForResult(new Intent(this, SubscribeTimeActivity.class), TAKE_TIME);
+                Intent intent1 = new Intent(this, SubscribeTimeActivity.class);
+                intent1.putExtra("id",id);
+                startActivityForResult(intent1, TAKE_TIME);
                 break;
             case R.id.ll_type:  //会议类型
                 int[] location = new int[2];
