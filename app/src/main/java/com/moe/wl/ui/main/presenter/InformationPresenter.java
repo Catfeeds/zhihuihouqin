@@ -55,6 +55,42 @@ public class InformationPresenter extends MvpRxPresenter<InformationModel, Infor
             }
         });
     }
+    public void getInfor(String keyword, int page) {
+//        getView().showProgressDialog();
+        Observable request = getModel().getInforData( keyword, page);
+        getNetWork(request, new Subscriber<InformationBean>() {
+
+            @Override
+            public void onCompleted() {
+//                getView().dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(InformationBean mResponse) {
+                if (mResponse==null)
+                    return;
+                if (mResponse.getErrCode()==2){
+                    getView().reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (getView() == null) {
+                    LogUtils.d("返回了" + "View为空！");
+                    onCompleted();
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    getView().getInformationSucc(mResponse);
+                } else {
+                    getView().showToast(mResponse.getMsg());
+                }
+            }
+        });
+    }
 
     @Override
     public void detachView(boolean retainInstance) {

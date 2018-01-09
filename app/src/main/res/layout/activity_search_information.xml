@@ -75,5 +75,13 @@
         android:layout_height="match_parent">
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
-
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:text="暂没有数据"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/tv_gray"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

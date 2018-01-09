@@ -177,7 +177,7 @@ public interface NetUrl {
     String informationClass = "appuser/tnoticetype/findNoticeTypeList";
     String informationData = "appuser/tnotice/findNoticeList";
     String updataInformationClass = "appuser/tnoticetype/updateUserNoticeType";
-    String getinformationDetail = "appuser/tnotice/getNoticeInfo";
+    String getinformationDetail = "appuser/tnotice/getNoticeInfo";//获得信息详情
     String informationDetailComment = "appuser/tnotice/addComment"; // 评论
 
     // 拜访人员

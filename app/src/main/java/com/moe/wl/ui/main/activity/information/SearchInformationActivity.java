@@ -1,10 +1,12 @@
 package com.moe.wl.ui.main.activity.information;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
@@ -38,6 +40,8 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
     EditText etSearch;
     @BindView(R.id.recycleView)
     XRecyclerView recycleView;
+    @BindView(R.id.tv_no_data)
+    TextView tvNoData;
 
     private HomeNsrlv1Adapter adapter;
     private List<ListEntity> data;
@@ -56,6 +60,7 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
         data = new ArrayList<>();
         adapter = new HomeNsrlv1Adapter(this, data);
         etSearch.setOnKeyListener(onKeyListener);
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
         recycleView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -69,6 +74,7 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
                 getData();
             }
         });
+        recycleView.setAdapter(adapter);
     }
 
     @OnClick({R.id.clear_edit, R.id.iv_back})
@@ -109,7 +115,7 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
             ToastUtil.showToast(this, "搜索内容不能为空！");
             return;
         }
-        getPresenter().getInformation(0, 0, content, page);
+        getPresenter().getInfor(/*0, 0,*/ content, page);
     }
 
     @Override
@@ -125,8 +131,15 @@ public class SearchInformationActivity extends BaseActivity<InformationModel, In
         } else {
             recycleView.setLoadingMoreEnabled(true);
         }
-        data.addAll(bean.getPage().getList());
-        adapter.notifyDataSetChanged();
+        if(bean.getPage().getList().size()>0){
+            tvNoData.setVisibility(View.GONE);
+            recycleView.setVisibility(View.VISIBLE);
+            data.addAll(bean.getPage().getList());
+            adapter.notifyDataSetChanged();
+        }else{//没有消息
+            tvNoData.setVisibility(View.VISIBLE);
+            recycleView.setVisibility(View.GONE);
+        }
     }
 
     @Override

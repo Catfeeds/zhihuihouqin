@@ -2357,6 +2357,20 @@ public class RetrofitUtils implements AppConstants, ServerConstants {
         }
         return getObservable(api.getInformation(paramsMap));
     }
+    public static Observable getInfor( String keyword, int page) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        try {
+            Map<String, Object> tempMap = new HashMap<>();
+            tempMap.put("keyword", keyword);
+            tempMap.put("page", page);
+            tempMap.put("limit", 20);
+            addParams(paramsMap, tempMap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getObservable(api.getInformation(paramsMap));
+    }
 
 
     /**

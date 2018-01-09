@@ -25,6 +25,7 @@ public class SharedPrefHelper {
     private static final String LATITUDE = "LATITUDE";
     private static final String USER = "data";
     private static final String HELP = "help";
+    private int positionId;
 
     public static synchronized SharedPrefHelper getInstance() {
         if (null == sharedPrefHelper) {
@@ -222,5 +223,14 @@ public class SharedPrefHelper {
     public boolean getServiceHint(int serviceType) {
         return sharedPreferences.getBoolean("ServiceHint" + serviceType, false);
     }
+    public void setPositionId(int positionid) {
+        sharedPreferences.edit().putInt("positionid" , positionid).commit();
+    }
+    public int getPositionId() {
+        return sharedPreferences.getInt("positionid",1);
+    }
 
+    /*public void setPositionId(int positionId) {
+        this.positionId = positionId;
+    }*/
 }

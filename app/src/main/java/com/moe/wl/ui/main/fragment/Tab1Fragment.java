@@ -36,6 +36,7 @@ import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.framework.widget.VpSwipeRefreshLayout;
 import com.moe.wl.ui.main.activity.MainSearchAct;
 import com.moe.wl.ui.main.activity.WebViewActivity;
 import com.moe.wl.ui.main.adapter.HomeAdapter;
@@ -90,7 +91,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     @BindView(R.id.pullToRefreshScrollView)
     ScrollView sv;
     @BindView(R.id.id_swipe)
-    SwipeRefreshLayout swipeRefresh;
+    VpSwipeRefreshLayout swipeRefresh;
     Unbinder unbinder;
     @BindView(R.id.nsrlv1)
     NoSlideRecyclerView nsrlv1;

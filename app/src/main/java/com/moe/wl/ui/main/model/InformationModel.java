@@ -11,5 +11,6 @@ import rx.Observable;
 public interface InformationModel extends MvpModel {
 
     Observable getInformationData(int typeid, int isRecommend, String keyword, int page);
+    Observable getInforData( String keyword, int page);
 
 }

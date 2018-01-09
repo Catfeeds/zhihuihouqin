@@ -16,4 +16,11 @@ public class InformationModelImpl implements InformationModel {
         Observable observable = RetrofitUtils.getInstance().getInformation(typeId, isRecommend, keyword, page);
         return observable;
     }
+
+
+    @Override
+    public Observable getInforData( String keyword, int page) {
+        Observable observable = RetrofitUtils.getInstance().getInfor( keyword, page);
+        return observable;
+    }
 }

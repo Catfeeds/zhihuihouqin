@@ -204,6 +204,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
         } else {
             sexid = 0;
         }
+        positionId=SharedPrefHelper.getInstance().getPositionId();
         nickname = tvNicheng.getText().toString();
         phone = tvPhone.getText().toString();
         tel = etOfficePhone.getText().toString();
@@ -433,6 +434,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                 case POSITIONREQUESTCODE:
                     if (data != null) {
                         positionId = data.getIntExtra("positionId", 0);
+                        SharedPrefHelper.getInstance().setPositionId(positionId);
                         String position = data.getStringExtra("position");
                         tvPosition.setText(position);
                     }
@@ -525,7 +527,6 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
 //            Glide.with(this).load(url).into(iv_header);
             tvNicheng.setText(userinfo.getNickname());
             SharedPrefHelper.getInstance().setNickname(userinfo.getNickname());
-
             tvId.setText(userinfo.getId() + "");
             etOfficePhone.setText(userinfo.getTel());
             etRoomNum.setText(userinfo.getRoomnum() + "");
@@ -534,7 +535,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
             SharedPrefHelper.getInstance().setPhoneNumber(userinfo.getMobile());
 
             tvPosition.setText(userinfo.getPosition());
-            etBuildNum.setText(userinfo.getBuildnum());
+            etBuildNum.setText(userinfo.getBuildnum()+"");
         }
     }
 

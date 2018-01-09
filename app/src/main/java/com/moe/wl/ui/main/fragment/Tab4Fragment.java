@@ -290,9 +290,10 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             } else if (SharedPrefHelper.getInstance().getAuthStatus() == 1) {
                 showToast("该账号正在认证审核中，请等待审核结果");
                 return;
+            }else{
+                Intent intent3 = new Intent(getActivity(), IdentityActivity.class);
+                startActivity(intent3);
             }
-            Intent intent3 = new Intent(getActivity(), IdentityActivity.class);
-            startActivity(intent3);
             return;
         }
         if (!OtherUtils.isAuth()) {
