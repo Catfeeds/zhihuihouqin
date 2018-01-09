@@ -343,8 +343,36 @@ public class SpDetailActivity extends BaseActivity<SpDetailModel, SpDetailView, 
                     public void onItemClickListener(int count, int id, int position) {
                         mPositon = position;
                         mCount = count;
-                        if (count > 0) {
+                        /*if (count > 0) {
                             getPresenter().shopCar(id + "", count + "");
+                            shopCarDialog.dismiss();
+                        } else {
+                            showToast("您还没有选择购买的商品");
+                        }
+*/
+                        if (count > 0) {
+                            LogUtils.i("id===" + id + "count==" + count);
+
+                            if (mIsAddShopCar == true) {//是购物车
+                                getPresenter().shopCar(id + "", count + "");
+                            }
+                            else {
+                                Intent intent = new Intent(SpDetailActivity.this, OfficeSpConfirmOrderAct.class);
+                                intent.putExtra("count", mCount);
+                                intent.putExtra("from", "nowpay");
+                                List<ShopCarInfoBean.SkuListBean> skuList = shopCarInfoBean.getSkuList();
+                                ShopCarInfoBean.SkuListBean skuListBean = skuList.get(mPositon);
+                                double price = skuListBean.getPrice();
+                                intent.putExtra("price", price);
+                                intent.putExtra("position", mPositon);
+                                intent.putExtra("skuListBean", skuListBean);
+                                //传递个人信息
+                                intent.putExtra("Mobile", mobile);
+                                intent.putExtra("ID", id1);
+                                intent.putExtra("Name", name);
+                                intent.putExtra("Address", addressName);
+                                startActivity(intent);
+                            }
                             shopCarDialog.dismiss();
                         } else {
                             showToast("您还没有选择购买的商品");

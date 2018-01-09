@@ -13,4 +13,16 @@ public class InformationModelImpl implements InformationModel {
         return observable;
     }
 
+   /* @Override
+    public Observable getHomeBanner() {
+        Observable observable = RetrofitUtils.getInstance().getHomeBanner();
+        return observable;
+    }*/
+
+    @Override
+    public Observable getHomeList(int page,int limit) {
+        Observable observable = RetrofitUtils.getInstance().getHomeList(page,limit);
+        return observable;
+    }
+
 }

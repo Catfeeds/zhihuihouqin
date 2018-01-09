@@ -29,6 +29,8 @@ import com.moe.wl.ui.mywidget.AlertDialog;
 import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +80,7 @@ public class DryCleanersActivity extends BaseActivity<BannerModel, BannerView, B
     public void initView() {
         initTitle();
         getPresenter().getBanner(16);
-    }
+           }
 
     private void call(final String mobile) {
         llCall.setOnClickListener(new View.OnClickListener() {

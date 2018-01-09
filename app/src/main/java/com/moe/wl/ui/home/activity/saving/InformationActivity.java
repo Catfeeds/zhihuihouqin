@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.ui.home.adapter.saving.InformationAdapter;
+import com.moe.wl.ui.home.bean.saving.SaveHomeListBean;
 import com.moe.wl.ui.home.model.saving.InformationModel;
 import com.moe.wl.ui.home.modelimpl.saving.InformationModelImpl;
 import com.moe.wl.ui.home.presenter.saving.InformationPresenter;
@@ -56,7 +57,7 @@ public class InformationActivity extends BaseActivity<InformationModel, Informat
         mList=new ArrayList<>();
 
         adapter=new InformationAdapter(this);
-        adapter.setItemList(mList);
+        //adapter.setItemList(mList);
         lvContent.setAdapter(adapter);
         lvContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,6 +84,14 @@ public class InformationActivity extends BaseActivity<InformationModel, Informat
         for (int i = 0; i < 10 ; i++) {
             mList.add("");
         }
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getHomeList(SaveHomeListBean homeListBean) {
+        //设置列表
+        List<SaveHomeListBean.NewsBean> news = homeListBean.getNews();
+        adapter.setItemList(news);
         adapter.notifyDataSetChanged();
     }
 }

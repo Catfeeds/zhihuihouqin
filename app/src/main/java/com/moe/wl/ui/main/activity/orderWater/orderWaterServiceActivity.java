@@ -6,15 +6,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.OrderWaterAdapter;
 import com.moe.wl.ui.main.adapter.OrderWaterTypeAdapter;
+import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.bean.OrderWaterSumAndcount;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
 import com.moe.wl.ui.main.bean.QueryWaterTypeBean;
@@ -23,6 +29,7 @@ import com.moe.wl.ui.main.model.OrderHomeModel;
 import com.moe.wl.ui.main.modelimpl.OrderHomeModelImpl;
 import com.moe.wl.ui.main.presenter.OrderHomePresenter;
 import com.moe.wl.ui.main.view.OrderHomeView;
+import com.moe.wl.ui.mywidget.ShowHintDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,6 +41,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
+import mvp.cn.util.ToastUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, OrderHomeView, OrderHomePresenter> implements OrderHomeView {
 
@@ -112,6 +123,7 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, Orde
         listAll = new ArrayList<>();
         initTitle();
         initTypeView();
+        getHint();
         getPresenter().queryWaterType();
         fragments = new ArrayList<>();
     }
@@ -126,17 +138,64 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, Orde
         typeAdapter = new OrderWaterTypeAdapter(this);
         rvType.setAdapter(typeAdapter);
     }
+    private void getHint() {
+        Observable observable = RetrofitUtils.getInstance().getBanner(Constants.ORDERWATER);
+        observable.subscribe(new Subscriber<BannerResponse>() {
 
-    @OnClick(R.id.tv_now_order)
-    public void onViewClicked() {
-        if (countNum > 0) {
-            Intent intent = new Intent(this, ConfirmOrderActivity.class);
-            Gson gson = new Gson();
-            String json = gson.toJson(list);
-            intent.putExtra("json", json);
-            startActivity(intent);
-        } else {
-            showToast("你还没有选择购买");
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Throwable", e.getMessage());
+            }
+
+            @Override
+            public void onNext(BannerResponse mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.errCode == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.errCode == 0) {
+                    //初始化首页信息
+                    // TODO 弹出温馨提示窗
+                    if (!SharedPrefHelper.getInstance().getServiceHint(Constants.ORDERWATER)) {
+                        final ShowHintDialog pop = new ShowHintDialog(orderWaterServiceActivity.this, mResponse.getServiceInfo().getRemind(), Constants.ORDERWATER);
+                        pop.setOnSetIKnowState(new ShowHintDialog.OnSetIKnowState() {
+                            @Override
+                            public void onSetting(TextView content) {
+                                pop.setButtonStateNo(content.getHeight() <= DensityUtil.dip2px(orderWaterServiceActivity.this, 280));
+                            }
+                        });
+                        pop.show();
+                    }
+                } else {
+                    ToastUtil.showToast(orderWaterServiceActivity.this, mResponse.msg);
+                }
+            }
+        });
+    }
+    @OnClick({R.id.tv_now_order,R.id.iv_hint})
+    public void onViewClicked(View v) {
+        switch (v.getId()){
+            case R.id.tv_now_order:
+                if (countNum > 0) {
+                    Intent intent = new Intent(this, ConfirmOrderActivity.class);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(list);
+                    intent.putExtra("json", json);
+                    startActivity(intent);
+                } else {
+                    showToast("你还没有选择购买");
+                }
+                break;
+            case R.id.iv_hint:
+                SharedPrefHelper.getInstance().setServiceHint(Constants.ORDERWATER, false);
+                getHint();
+                break;
         }
 
     }
@@ -151,7 +210,8 @@ public class orderWaterServiceActivity extends BaseActivity<OrderHomeModel, Orde
                     QueryWaterTypeBean.CategoryListBean categoryListBean = categoryList.get(i);
                     if (categoryListBean != null) {
                         int id = categoryListBean.getId();
-                        fragments.add(OrderWaterFragment.getInstance(id));
+                        int needdeposit = categoryListBean.getNeeddeposit();
+                        fragments.add(OrderWaterFragment.getInstance(id,needdeposit));
                     }
                 }
             }

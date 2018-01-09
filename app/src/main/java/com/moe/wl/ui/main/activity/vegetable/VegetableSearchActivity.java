@@ -3,10 +3,13 @@ package com.moe.wl.ui.main.activity.vegetable;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.R;
@@ -38,6 +41,8 @@ public class VegetableSearchActivity extends BaseActivity<VegetableMainModel, Ve
     EditText etSearch;
     @BindView(R.id.recycleView)
     XRecyclerView recycleView;
+    @BindView(R.id.clear_edit)
+    ImageView clearEdit;
 
     private VegetableSearchAdapter adapter;
     private List<VegetableBean.PageEntity.ListEntity> data;
@@ -79,6 +84,26 @@ public class VegetableSearchActivity extends BaseActivity<VegetableMainModel, Ve
             public void onLoadMore() {
                 page++;
                 getData();
+            }
+        });
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length() > 0) {
+                    clearEdit.setVisibility(View.VISIBLE);
+                } else {
+                    clearEdit.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

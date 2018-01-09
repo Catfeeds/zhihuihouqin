@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jhworks.library.ImageSelector;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
@@ -25,10 +24,13 @@ import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.Imglibrary.ImageSelector;
+import com.moe.wl.ui.main.activity.me.BuildNumAct;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.adapter.WeixiuAdapter;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.BannerResponse;
+import com.moe.wl.ui.main.bean.PropertyOrderInfo;
 import com.moe.wl.ui.main.bean.RepairItmeBean;
 import com.moe.wl.ui.main.model.WuyeHomeModel;
 import com.moe.wl.ui.main.modelimpl.WuyeHomeModelImpl;
@@ -86,6 +88,10 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     TextView tvYuyueTime;
     @BindView(R.id.nsgv_service_type2)
     NoSlidingGridView getNsgvServiceType2;
+    @BindView(R.id.ll_build_num)
+    LinearLayout llBuildNum;
+    @BindView(R.id.tv_build_num)
+    TextView tvBuildNum;
     private List<RepairItmeBean.ItemlistEntity> data;
     private String mobile;
     private WeixiuAdapter weixiuAdapter;
@@ -99,6 +105,11 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
     private int imageSpanCount=3;
     private int REQUEST_IMAGE=1;
     private ArrayList<String> mSelectPath;
+    private String date;
+    private int intervalid;
+    private List<PropertyOrderInfo> infoList;
+    private int BUILDNUMREQUEST=11;
+    private int buildNum;
 
     @Override
     public void setContentLayout() {
@@ -108,6 +119,8 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
 
     @Override
     public void initView() {
+        //初始化预定信息结合
+        infoList = new ArrayList<>();
         mobile = SharedPrefHelper.getInstance().getMobile();
         realName = SharedPrefHelper.getInstance().getRealName();
         tvName.setText(realName);
@@ -137,22 +150,34 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         }else if(requestCode==ORDERTIMEREQUEST){
             if (resultCode == RESULT_OK) {
                 String time = data.getStringExtra("time");
+                date = data.getStringExtra("date");
+                intervalid = data.getIntExtra("id", 1);
+                infoList.clear();
+                infoList.add(new PropertyOrderInfo(date, intervalid+""));
                 tvYuyueTime.setText(time);
 
+            }
+        }else if(requestCode==BUILDNUMREQUEST){
+            if(resultCode==RESULT_OK){
+                String buildname = data.getStringExtra("buildname");
+                tvBuildNum.setText(buildname);
+                buildNum = data.getIntExtra("buildNum", 0);
             }
         }
     }
     private void getHint() {
         Observable observable = RetrofitUtils.getInstance().getBanner(Constants.PROPERRY);
+        showProgressDialog();
         observable.subscribe(new Subscriber<BannerResponse>() {
 
             @Override
             public void onCompleted() {
+                dismissProgressDialog();
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e("Throwable", e.getMessage());
+                Log.e("Throwable==hint", e.getMessage());
             }
 
             @Override
@@ -223,12 +248,16 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
         titleBar.setTitle("物业维修");
     }
 
-    @OnClick({R.id.rl_time, R.id.tv_now_posted,R.id.iv_hint})
+    @OnClick({R.id.rl_time, R.id.tv_now_posted,R.id.iv_hint,R.id.ll_build_num})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_time:
                 Intent intent = new Intent(PropertyAintenanceActivity.this, OrderTimeActivity.class);
                 startActivityForResult(intent, ORDERTIMEREQUEST);
+                break;
+            case R.id.ll_build_num:
+                Intent intent1 = new Intent(PropertyAintenanceActivity.this, BuildNumAct.class);
+                startActivityForResult(intent1, BUILDNUMREQUEST);
                 break;
             case R.id.tv_now_posted:
                 doPost();
@@ -272,7 +301,7 @@ public class PropertyAintenanceActivity extends BaseActivity<WuyeHomeModel, Wuye
 //            return;
 //        }
         // 发布传入图片文件
-        getPresenter().getData(menditem, realName, mobile, invitetime, address, mendcontent, pics);
+        getPresenter().getData(infoList,menditem, realName, mobile, invitetime, address, mendcontent, pics);
     }
 
     @Override

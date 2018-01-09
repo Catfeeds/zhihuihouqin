@@ -1,6 +1,9 @@
 
 package com.moe.wl.ui.home.view.saving;
 
+import com.moe.wl.ui.home.bean.saving.EnergyCostCompare;
+import com.moe.wl.ui.main.bean.BuildNumList;
+
 import mvp.cn.common.MvpView;
 
 /**
@@ -11,5 +14,7 @@ import mvp.cn.common.MvpView;
 public interface ComparisonView extends MvpView {
 
     void setData();
+    void getBuildNum(BuildNumList bean);
+    void getInfo(EnergyCostCompare bean);
 
 }

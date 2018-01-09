@@ -13,9 +13,9 @@ import rx.Subscriber;
 
 public class StatisticsPresenter extends MvpRxPresenter<StatisticsModel, StatisticsView> {
 
-    public void information() {
+    public void getData(String time,int i,int j,int k) {
         getView().showProgressDialog();
-        Observable request = getModel().information();
+        Observable request = getModel().getData(time,i,j,k);
         getNetWork(request, new Subscriber<CollectBean>() {
 
             @Override
@@ -25,8 +25,9 @@ public class StatisticsPresenter extends MvpRxPresenter<StatisticsModel, Statist
 
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 LogUtils.d("接口请求错误："+e);
-                getView().setData();
+                //getView().setData();
             }
 
             @Override
@@ -38,7 +39,7 @@ public class StatisticsPresenter extends MvpRxPresenter<StatisticsModel, Statist
                     return;
                 }
                 if (listBean.getErrCode() == 0) {
-                    getView().setData();
+                    //getView().setData();
                 } else {
                     getView().showToast(listBean.getMsg());
                 }

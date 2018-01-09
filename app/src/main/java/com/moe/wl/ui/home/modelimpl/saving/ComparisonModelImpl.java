@@ -14,4 +14,16 @@ public class ComparisonModelImpl implements ComparisonModel {
         return observable;
     }
 
+    @Override
+    public Observable getBuildNum() {
+        Observable observable = RetrofitUtils.getInstance().getBuildNum();
+        return observable;
+    }
+
+    @Override
+    public Observable getinfo(int dateType, int energyType, int[] bid, String date) {
+        Observable observable = RetrofitUtils.getInstance().energyCostCompare(dateType,energyType,bid,date);
+        return observable;
+    }
+
 }

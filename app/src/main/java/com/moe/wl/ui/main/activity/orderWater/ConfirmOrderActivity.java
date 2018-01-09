@@ -14,13 +14,16 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.Arith;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.OfficeSupplies.RemarkActivity;
 import com.moe.wl.ui.main.activity.OfficeSupplies.SpPayActivity;
 import com.moe.wl.ui.main.activity.PayFiveJiaoActivity;
 import com.moe.wl.ui.main.activity.ordering.AddressManagerActivity;
+import com.moe.wl.ui.main.activity.property_maintenance.OrderTimeActivity;
 import com.moe.wl.ui.main.adapter.ComfirmOrderWaterAdapter;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.ApppointmentInfo;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.QueryWaterListBean;
@@ -31,12 +34,14 @@ import com.moe.wl.ui.main.modelimpl.MyDepositModelImpl;
 import com.moe.wl.ui.main.presenter.MyDepositPresenter;
 import com.moe.wl.ui.main.view.MyDepositView;
 import com.moe.wl.ui.mywidget.AlertDialog;
+import com.moe.wl.ui.mywidget.BottomPayWayDialog;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.ui.mywidget.OrderWaterPayDialog;
 import com.moe.wl.ui.mywidget.OrderWaterSelectTimePop;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +55,7 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
 
     private static final int ADDRESSREQUESTCODE = 10;
     private static final int REMARKREUQESTCODE = 20;
+    private static final int ORDERWATERTIME=30;
     @BindView(R.id.title)
     TitleBar titleBar;
     @BindView(R.id.tv_username)
@@ -88,6 +94,8 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
     TextView tvYaJIn;
     @BindView(R.id.choose_address)
     TextView choose_address;
+    @BindView(R.id.tv_jiaona)
+    TextView tvJiaona;
     @BindView(R.id.activity_office_sp_confirm_order)
     LinearLayout activityOfficeSpConfirmOrder;
     private List<QueryWaterListBean.PageBean.ListBean> list;
@@ -103,6 +111,10 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
     private int deposit;
     private String json;
     private Object[] arr;
+    private int id;
+    private ApppointmentInfo apppointmentInfo;
+    private List<ApppointmentInfo> timeInfoList;
+
 
     @Override
     public MyDepositPresenter createPresenter() {
@@ -124,10 +136,11 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
     public void initView() {
 //        EventBus.getDefault().register(this);
         initTitle();
+        timeInfoList = new ArrayList<>();
         //检测是否交押金
         getPresenter().getDepositInfo();
         Intent intent = getIntent();
-        // 处理传递过来的衣服数据
+        //
         json = intent.getStringExtra("json");
         Gson gson = new Gson();
         list = gson.fromJson(json,
@@ -136,7 +149,8 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
         arr = new Object[list.size()];
         for (int i = 0; i < list.size(); i++) {
             QueryWaterListBean.PageBean.ListBean listBean = list.get(i);
-            int id = listBean.getId();
+            //水的类型
+            id = listBean.getId();
             int count = listBean.getCount();
             Map<String, Integer> map = new HashMap<>();
             map.put("goodsid", id);
@@ -176,7 +190,10 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
                 startActivityForResult(intent1, ADDRESSREQUESTCODE);
                 break;
             case R.id.rl_expect_time:
-                getPresenter().getOrderTime();
+                //getPresenter().getOrderTime();
+                //Intent intent2 = new Intent(this, OrderWaterSelectTimeAct.class);
+                Intent intent2 = new Intent(this, OrderWaterTimeActivity.class);
+                startActivityForResult(intent2,ORDERWATERTIME);
                 break;
             case R.id.ll_write_other:
                 Intent intent = new Intent(this, RemarkActivity.class);
@@ -184,11 +201,26 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
                 startActivityForResult(intent, REMARKREUQESTCODE);
                 break;
             case R.id.tv_now_pay:
-                if (deposit <= 0) { //没有交押金,
-                    showIsHasYajin();
-                } else {
-                    getData();
+                boolean need=false;
+                if(deposit>0){//已经交了押金
+                    getData();//提交订单
+                }else {//没有叫押金
+                    for (int i = 0; i < list.size(); i++) {
+                        LogUtils.i("订水类型=="+list.get(i).getId());
+                        if(list.get(i).getNeeddeposit()==1){//没有交押金,并且订水类型是桶装水
+                            need=true;
+                            break;
+                        }else {
+                            need=false;
+                        }
+                    }
+                    if(need){
+                        showIsHasYajin();
+                    }else{
+                        getData();
+                    }
                 }
+
                 break;
         }
     }
@@ -200,31 +232,41 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
             return;
         }
         if (timeID == 0) {
-            ToastUtil.showToast(this, "请选择送货时间");
+            ToastUtil.showToast(this, "请选择送水时间");
             return;
         }
-        getPresenter().generateOrder(userName, phone, addressID, timeID, arr, remark);//下单
+        if(apppointmentInfo==null){
+            showToast("请选择送水时间");
+            return;
+        }
+        timeInfoList.add(apppointmentInfo);
+        getPresenter().generateOrder(timeInfoList,userName, phone, addressID, timeID, arr, remark);//下单
     }
 
     private void showPayDialog(final GenerateOrderWaterBean bean) {
-        OrderWaterPayDialog payDialog = new OrderWaterPayDialog(this, R.style.dialog_style);
+        BottomPayWayDialog payDialog = new BottomPayWayDialog(this, R.style.dialog_style);
         payDialog.show();
-        payDialog.setListener(new OrderWaterPayDialog.OnConfirmClickListener() {
+        payDialog.setListener2(new BottomPayWayDialog.ClickListener() {
             @Override
-            public void onConfirmClickListener(boolean isPersonal) {
+            public void onClickListener(boolean isPersonal) {
                 if (isPersonal) {//个人支付
                     Intent intent = new Intent(ConfirmOrderActivity.this, PayFiveJiaoActivity.class);
                     intent.putExtra("pay", sum);
                     intent.putExtra("from", Constants.ORDERWATER);
                     intent.putExtra("orderid", bean.getOrderid());
                     intent.putExtra("ordercode", bean.getOrdercode());
-                    intent.putExtra("ordertype", bean.getOrdertype());
+                    intent.putExtra("ordertype", bean.getOrdertype()+"");
                     intent.putExtra("time",bean.getCreatetime());
-                    intent.putExtra("ordertype",bean.getOrdertype());
+                    //intent.putExtra("ordertype",bean.getOrdertype());
                     startActivity(intent);
                 } else {//对公支付
                     Intent intent2 = new Intent(ConfirmOrderActivity.this, SpPayActivity.class);
-                    intent2.putExtra("money", sum + "");
+                    intent2.putExtra("pay", sum);
+                    intent2.putExtra("from", Constants.ORDERWATER);
+                    intent2.putExtra("orderid", bean.getOrderid());
+                    intent2.putExtra("ordercode", bean.getOrdercode());
+                    intent2.putExtra("ordertype", bean.getOrdertype()+"");
+                    intent2.putExtra("time",bean.getCreatetime());
                     startActivity(intent2);
                 }
             }
@@ -267,6 +309,13 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
                     tvUsername.setText(userName);
                     tvPhone.setText(phone);
                 }
+            }else if(requestCode==ORDERWATERTIME){
+                String time = data.getStringExtra("time");
+                String date = data.getStringExtra("date");
+                int id = data.getIntExtra("id", 0);
+                timeID = id;
+                apppointmentInfo = new ApppointmentInfo(date,id+"");
+                tvTime.setText(time);
             }
         } else if (resultCode == Constants.REMARK) {
             if (requestCode == REMARKREUQESTCODE) {
@@ -281,7 +330,14 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
     @Override
     public void getUserDepositResult(UserDepositBean bean) {
         if (bean != null) {
+            LogUtils.i("押金信息"+bean.getDeposit().getDeposit());
             deposit = bean.getDeposit().getDeposit();
+            if(deposit>0){
+                tvJiaona.setText("水桶押金(已缴纳)");
+            }else {
+                tvJiaona.setText("水桶押金(未缴纳)");
+            }
+
         }
     }
 
@@ -295,18 +351,19 @@ public class ConfirmOrderActivity extends BaseActivity<MyDepositModel, MyDeposit
 
     }
 
-    @Override
+   /* @Override
     public void getTimeSucc(OrderWaterTimeBean bean) {
-        OrderWaterSelectTimePop pop = new OrderWaterSelectTimePop(this, bean, new OrderWaterSelectTimePop.OnSelectClick() {
+       *//* OrderWaterSelectTimePop pop = new OrderWaterSelectTimePop(this, bean, new OrderWaterSelectTimePop.OnSelectClick() {
             @Override
             public void onClick(int id, String time, boolean isAm) {
+                ????
                 timeID = id;
 //                mTime = time;
                 tvTime.setText(time);
             }
         });
-        pop.showAtLocation(findViewById(R.id.activity_office_sp_confirm_order), Gravity.CENTER, 0, 0);
-    }
+        pop.showAtLocation(findViewById(R.id.activity_office_sp_confirm_order), Gravity.CENTER, 0, 0);*//*
+    }*/
 
     @Override
     public void backDepositResult(ActivityPostBean bean) {

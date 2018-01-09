@@ -7,5 +7,7 @@ import rx.Observable;
 public interface InformationModel extends MvpModel {
 
     Observable information();
+    //Observable getHomeBanner();
+    Observable getHomeList(int page,int limit);
 
 }

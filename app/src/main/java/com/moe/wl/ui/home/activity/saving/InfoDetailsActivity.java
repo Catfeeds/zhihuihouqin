@@ -1,20 +1,24 @@
 package com.moe.wl.ui.home.activity.saving;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
-import com.moe.wl.framework.widget.NoSlidingListView;
+import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.adapter.saving.CommentAdapter;
-import com.moe.wl.ui.home.model.saving.InformationModel;
-import com.moe.wl.ui.home.modelimpl.saving.InformationModelImpl;
-import com.moe.wl.ui.home.presenter.saving.InformationPresenter;
-import com.moe.wl.ui.home.view.saving.InformationView;
+import com.moe.wl.ui.home.bean.saving.InforMationDetailBean;
+import com.moe.wl.ui.home.bean.saving.SaveHomeListBean;
+import com.moe.wl.ui.home.model.saving.InformationDetailModel;
+import com.moe.wl.ui.home.modelimpl.saving.InformationDetailModelImpl;
+import com.moe.wl.ui.home.presenter.saving.InformationDetailPresenter;
+import com.moe.wl.ui.home.view.saving.InformationDetailView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +28,7 @@ import butterknife.OnClick;
 /**
  * 资讯详情页面
  */
-public class InfoDetailsActivity extends BaseActivity<InformationModel, InformationView, InformationPresenter> implements InformationView, View.OnClickListener {
+public class InfoDetailsActivity extends BaseActivity<InformationDetailModel, InformationDetailView, InformationDetailPresenter> implements InformationDetailView, View.OnClickListener {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -36,26 +40,23 @@ public class InfoDetailsActivity extends BaseActivity<InformationModel, Informat
     ImageView ivIcon;
     @BindView(R.id.tv_content)
     TextView tvContent;
-    @BindView(R.id.lv_comment)
-    NoSlidingListView lvComment;
-    @BindView(R.id.ll_back)
-    LinearLayout llBack;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     @BindView(R.id.ll_collect)
-    LinearLayout llCollect;
+    ImageView llCollect;
     @BindView(R.id.ll_share)
-    LinearLayout llShare;
-
-    private CommentAdapter adapter;
-    private List<String> mList;
+    ImageView llShare;
+   /* private CommentAdapter adapter;
+    private List<String> mList;*/
 
     @Override
-    public InformationPresenter createPresenter() {
-        return new InformationPresenter();
+    public InformationDetailPresenter createPresenter() {
+        return new InformationDetailPresenter();
     }
 
     @Override
-    public InformationModel createModel() {
-        return new InformationModelImpl();
+    public InformationDetailModel createModel() {
+        return new InformationDetailModelImpl();
     }
 
     @Override
@@ -66,33 +67,36 @@ public class InfoDetailsActivity extends BaseActivity<InformationModel, Informat
 
     @Override
     public void initView() {
-        mList = new ArrayList<>();
-
-        adapter = new CommentAdapter(this);
-        adapter.setItemList(mList);
-        lvComment.setAdapter(adapter);
-
-        for (int i = 0; i < 10; i++) {
-            mList.add("");
-        }
-        adapter.notifyDataSetChanged();
-
+        Intent intent = getIntent();
+        int infoId = intent.getIntExtra("infoId", 1);
+        //获得资讯详情
+        getPresenter().getDetail(infoId);
     }
 
-    @OnClick({R.id.ll_back})
+    @OnClick({R.id.iv_back})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_back:
+            case R.id.iv_back:
                 finish();
                 break;
         }
     }
 
-
     @Override
-    public void setData() {
-
+    public void getDetail(InforMationDetailBean bean) {
+        LogUtils.i("获得详情成功了");
+        if (bean != null) {
+            InforMationDetailBean.DataBean newsBean = bean.getData();
+            tvTitle.setText(newsBean.getTitle());
+            tvTime.setText(newsBean.getCreatTime());
+            tvSource.setText("来源:" + newsBean.getSourceName());
+           // GlideLoading.getInstance().loadImgUrlNyImgLoader(this, newsBean.getImg(), ivIcon);
+            Glide.with(this).load(newsBean.getImg()).into(ivIcon);
+            tvContent.setText(newsBean.getContent());
+        }
+        //adapter.setItemList(mList);
+        //adapter.notifyDataSetChanged();
     }
 
 }

@@ -87,7 +87,7 @@ public class ShopCarActivity extends BaseActivity<CheckShopCarModel, CheckShopCa
 
     private void initData() {
         int count=0;
-        int sum=0;
+        double sum=0;
         for (int i = 0; i <cartItems.size() ; i++) {
             boolean seclect = cartItems.get(i).isSeclect();
             int count1 = cartItems.get(i).getCount();

@@ -1,6 +1,9 @@
 
 package com.moe.wl.ui.home.view.saving;
 
+import com.moe.wl.ui.home.bean.SaveHomeBanner;
+import com.moe.wl.ui.home.bean.saving.SaveHomeListBean;
+
 import mvp.cn.common.MvpView;
 
 /**
@@ -11,5 +14,7 @@ import mvp.cn.common.MvpView;
 public interface InformationView extends MvpView {
 
     void setData();
+    //void getBanner(SaveHomeBanner bean);
+    void getHomeList(SaveHomeListBean bean);
 
 }

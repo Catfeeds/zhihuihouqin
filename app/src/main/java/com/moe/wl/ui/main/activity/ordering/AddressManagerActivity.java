@@ -92,6 +92,14 @@ public class AddressManagerActivity extends BaseActivity<AddressModel, AddressVi
                 addressId = id;
                 mAddress = address;
                 phone = mobile;
+                Intent intent1 = new Intent();
+                intent1.putExtra("ID", addressId);
+                intent1.putExtra("Name", name);
+                intent1.putExtra("Address", mAddress);
+                intent1.putExtra("Mobile", phone);
+                setResult(RESULT_OK, intent1);
+                finish();
+
             }
         });
         getPresenter().getAddress();

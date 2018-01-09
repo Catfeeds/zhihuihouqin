@@ -13,11 +13,13 @@ import com.moe.wl.ui.main.presenter.HomePagePresenter;
 import com.moe.wl.ui.main.view.HomePageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
@@ -93,14 +95,19 @@ public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageV
     private void generateStackedData() {
         int numSubcolumns = 4;
         int numColumns = 8;
+        List<String> buildList= Arrays.asList("北楼","业务楼","居民楼","大食堂","南楼"
+                ,"信访楼","礼堂","西楼");
         // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
+        List<AxisValue> axisXValues = new ArrayList<AxisValue>();
         for (int i = 0; i < numColumns; ++i) {
 
             values = new ArrayList<SubcolumnValue>();
             for (int j = 0; j < numSubcolumns; ++j) {
                 values.add(new SubcolumnValue((float) Math.random() * 20f + 5, ChartUtils.rankColor()));
+                //设置X轴的柱子所对应的属性名称
+                axisXValues.add(new AxisValue(i).setLabel(buildList.get(i)));
             }
 
             Column column = new Column(values);
@@ -115,9 +122,11 @@ public class ElectroRankingFrgment extends BaseFragment<HomePageModel, HomePageV
         data.setStacked(true);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
+            //Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
-            data.setAxisXBottom(axisX);
+            //设置X轴显示在底部，并且显示每个属性的Lable，字体颜色为黑色，X轴的名字为“学历”，每个柱子的Lable斜着显示，距离X轴的距离为8
+            data.setAxisXBottom(new Axis(axisXValues).setHasLines(true).setTextColor(getActivity().getResources().getColor(R.color.tv_black)).setName("").setHasTiltedLabels(true).setMaxLabelChars(8));
+            //data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);

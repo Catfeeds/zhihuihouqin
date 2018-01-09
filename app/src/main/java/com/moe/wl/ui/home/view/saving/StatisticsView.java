@@ -10,6 +10,6 @@ import mvp.cn.common.MvpView;
 
 public interface StatisticsView extends MvpView {
 
-    void setData();
+   // void setData();
 
 }

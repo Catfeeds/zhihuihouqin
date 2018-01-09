@@ -6,6 +6,8 @@ import android.widget.EditText;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
+import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.adapter.ReasonAdapter;
@@ -26,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.ToastUtil;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * 类描述：工作餐取消订单页面
@@ -50,6 +54,7 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
     private int from;
 
     private List<String> contentList;
+    private int state;
 
     @Override
     public void setContentLayout() {
@@ -69,7 +74,9 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
         Intent intent = getIntent();
         from = intent.getIntExtra("from", 0);
         id = intent.getIntExtra("OrderingID", 0);
+        state = intent.getIntExtra("state", 0);
 //        type = intent.getIntExtra("ServiceType", 0);
+        //获取取消原因的结果
         getPresenter().getReasonList(from);
 
         adapter.setOnSelectItemListener(new ReasonAdapter.OnSelectItemListener() {
@@ -132,8 +139,46 @@ public class CancelOrderingActivity extends BaseActivity<CancelOrderingModel, Ca
                     reasonContent = reasonContent.substring(0, reasonContent.length() - 1);
                 }
                 reasonContent = reasonContent + content;
-                getPresenter().cancelOrder(from, id, reasonContent);
+                if(state==0){//真正的订单取消
+                    getPresenter().cancelOrder(from, id, reasonContent);
+                }else if(state==9){//还不是订单的取消
+                    cancel();
+                }
+
         }
+    }
+    //取消state=9待提交的订单
+    private void cancel() {
+        Observable observable = RetrofitUtils.getInstance().commitOrder(id,2);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<CollectBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onNext(CollectBean orderBean) {
+                if(orderBean==null){
+                    return;
+                }
+                if (orderBean.getErrCode() == 0) {
+                    ToastUtil.showToast(CancelOrderingActivity.this, "取消订单成功！");
+                    setResult(RESULT_OK, new Intent().putExtra("OrderingID", id));
+                    EventBus.getDefault().post(new NotifyChange());
+                    finish();
+                } else if (orderBean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(orderBean.getMsg());
+                }
+            }
+        });
     }
 
     @Override

@@ -1,12 +1,17 @@
 package com.moe.wl.framework.base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.BadTokenException;
@@ -18,6 +23,7 @@ import com.moe.wl.framework.application.SoftApplication;
 import com.moe.wl.framework.manager.UIManager;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
+import com.moe.wl.ui.Imglibrary.ui.ImageBaseFragment;
 import com.moe.wl.ui.login.activity.LoginActivity;
 
 import java.lang.reflect.Field;
@@ -63,7 +69,55 @@ public abstract class BaseActivity<M extends MvpModel, V extends MvpView, P exte
         initView();
 
     }
+    private OnBooleanListener onPermissionListener;
+    public void onPermissionRequests(String permission, OnBooleanListener onBooleanListener) {
+        onPermissionListener = onBooleanListener;
+        Log.d("MainActivity", "0");
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Should we show an explanation?
+                Log.d("MainActivity", "1");
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.READ_CONTACTS)) {
+                    //权限已有
+                    onPermissionListener.onClick(true);
+                } else {
+                    //没有权限，申请一下
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{permission},
+                            1);
+                }
+            }else{
+                onPermissionListener.onClick(true);
+                Log.d("MainActivity", "2"+ContextCompat.checkSelfPermission(getActivity(),
+                        permission));
+            }
 
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //权限通过
+                if (onPermissionListener != null) {
+                    onPermissionListener.onClick(true);
+                }
+            } else {
+                //权限拒绝
+                if (onPermissionListener != null) {
+                    onPermissionListener.onClick(false);
+                }
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+    public interface OnBooleanListener{
+        void onClick(boolean b);
+    }
     /**
      * 设置布局文件
      */

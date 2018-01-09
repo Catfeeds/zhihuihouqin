@@ -111,17 +111,22 @@ public class PostNeedActivity extends BaseActivity<PostNeedModel, PostNeedView, 
             showToast("请输入正确的手机号码");
             return ;
         }
+        if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||
+                TextUtils.isEmpty(spCount)){
+            showToast("请将信息填写完整");
+            return;
+        }
+        if(TextUtils.isEmpty(spCount)){
+            showToast("商品数量不能少于1件");
+            return ;
+        }
         int count = Integer.parseInt(spCount);
         if(count<=0){
             showToast("商品数量不能少于1件");
             return ;
         }
-        if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||
-                TextUtils.isEmpty(spCount)){
-            showToast("请将信息填写完整");
-        }else{
             getPresenter().post(realName,phone,remark,spName,spCount);
-        }
+
     }
 
     @Override

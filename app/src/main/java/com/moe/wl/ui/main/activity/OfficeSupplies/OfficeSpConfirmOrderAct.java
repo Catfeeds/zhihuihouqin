@@ -1,7 +1,6 @@
 package com.moe.wl.ui.main.activity.OfficeSupplies;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.contant.Constants;
-import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.NumberUtils;
 import com.moe.wl.framework.widget.TitleBar;
@@ -39,6 +37,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DateUtil;
 
 /**
  * 办公用品确认订单
@@ -122,25 +121,26 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
     public void initView() {
         Intent intent = getIntent();
         //获得用户的信息
-         addressID = intent.getIntExtra("ID", 1);
-         userName = intent.getStringExtra("Name");
-         address = intent.getStringExtra("Address");
-         phone = intent.getStringExtra("Mobile");
+        addressID = intent.getIntExtra("ID", 1);
+        userName = intent.getStringExtra("Name");
+        address = intent.getStringExtra("Address");
+        phone = intent.getStringExtra("Mobile");
         //设置个人信息
         tvUsername.setText(userName);
         tvPhone.setText(phone);
         tvAddress.setText(address);
-        if(!TextUtils.isEmpty(userName)||!TextUtils.isEmpty(phone)||!TextUtils.isEmpty(address)){
+        if (!TextUtils.isEmpty(userName) || !TextUtils.isEmpty(phone) || !TextUtils.isEmpty(address)) {
             chooseAddress.setVisibility(View.GONE);
             llUserInfo.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             chooseAddress.setVisibility(View.VISIBLE);
         }
 
         from = intent.getStringExtra("from");
         if (from.equals("nowpay")) {//来自立即购买
-            price =intent.getDoubleExtra("price",0);
+            price = intent.getDoubleExtra("price", 0);
             count = intent.getIntExtra("count", -1);
+            //ShopCarInfoBean.SkuListBean skuListBean = (ShopCarInfoBean.SkuListBean) intent.getSerializableExtra("skuListBean");
             ShopCarInfoBean.SkuListBean skuListBean = (ShopCarInfoBean.SkuListBean) intent.getSerializableExtra("skuListBean");
             String mainimg = skuListBean.getMainimg();
             String cataName = skuListBean.getSkuname();
@@ -213,29 +213,33 @@ public class OfficeSpConfirmOrderAct extends BaseActivity<SpOrderModel, SpOrderV
                     return;
                 }
                 String time = tvTime.getText().toString().trim();
-                if (TextUtils.isEmpty(time)) {
+                if ("期望送货时间".equals(time)) {
                     showToast("请选择期望送货时间");
+                    return;
+                }
+                if (DateUtil.compareDate(time, DateUtil.getTimeyyyyMMddHHmm()) == 2) {
+                    showToast("送货时间不能早于当前时间");
                     return;
                 }
                 //拼接订单
                 for (int i = 0; i < cartItemLists.size(); i++) {
                     SpCheckShopCarBean.CartItemsBean cartItemsBean = cartItemLists.get(i);
-                    Map<String,Integer> map=new HashMap<>();
-                    if(cartItemsBean!=null){
-                        map.put("skuid",cartItemsBean.getSkuid());
-                        map.put("count",cartItemsBean.getCount());
+                    Map<String, Integer> map = new HashMap<>();
+                    if (cartItemsBean != null) {
+                        map.put("skuid", cartItemsBean.getSkuid());
+                        map.put("count", cartItemsBean.getCount());
                         productList.add(map);
                     }
                 }
-                if(productList.size()<=0){
+                if (productList.size() <= 0) {
                     showToast("您还没有选择购买的商品");
-                    return ;
+                    return;
                 }
-                if(TextUtils.isEmpty(remark)){
-                    remark="";
+                if (TextUtils.isEmpty(remark)) {
+                    remark = "";
                 }
                 //生成订单
-                getPresenter().getOrder(addressID+"",time,remark,productList);
+                getPresenter().getOrder(addressID + "", time, remark, productList);
 
                 break;
         }

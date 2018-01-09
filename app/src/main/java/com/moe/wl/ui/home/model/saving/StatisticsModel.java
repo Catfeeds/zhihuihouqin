@@ -6,6 +6,6 @@ import rx.Observable;
 
 public interface StatisticsModel extends MvpModel {
 
-    Observable information();
+    Observable getData(String time,int i,int j,int k);
 
 }

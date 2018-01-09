@@ -25,6 +25,7 @@ public class RankingPresenter extends MvpRxPresenter<RankingModel, RankingView> 
 
             @Override
             public void onError(Throwable e) {
+                getView().dismissProgressDialog();
                 LogUtils.d("接口请求错误："+e);
                 getView().setData();
             }

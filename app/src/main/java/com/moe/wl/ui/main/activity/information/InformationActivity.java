@@ -93,7 +93,7 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
             return;
         }
         if (log == 1) {
-            clearCacheFragments();
+            //clearCacheFragments();
         }
         className.clear();
         fragments.clear();
@@ -126,6 +126,8 @@ public class InformationActivity extends BaseActivity<InformationClassModel, Inf
             }
         });
     }
+
+
 
     private void clearCacheFragments() {
         FragmentManager fragmentManager = getSupportFragmentManager();

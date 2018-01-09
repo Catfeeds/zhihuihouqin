@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
@@ -17,8 +19,10 @@ import com.moe.wl.framework.widget.NoSlidingListView;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.adapter.SignUpPersonAdapter;
+import com.moe.wl.ui.main.bean.ActIndexBean;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.ActivitySignListBean;
+import com.moe.wl.ui.main.bean.ActivitylistBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +40,10 @@ public class ActivityDetailActivity extends Base2Activity {
 
     @BindView(R.id.activity_title)
     TitleBar activityTitle;
-    @BindView(R.id.iv_big_pic)
-    ImageView ivBigPic;
+    /*@BindView(R.id.iv_big_pic)
+    ImageView ivBigPic;*/
+    @BindView(R.id.slider_layout)
+    SliderLayout sliderLayout;
     @BindView(R.id.tv_sign_up)
     TextView tvSignUp;
     @BindView(R.id.tv_address)
@@ -62,11 +68,11 @@ public class ActivityDetailActivity extends Base2Activity {
     ScrollView sv;
     @BindView(R.id.tv_jianjie)
     TextView tvJianjie;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+    @BindView(R.id.tv_theme)
+    TextView title;
 
     private SignUpPersonAdapter rvAdapter;
-    private ActivityHomeBean.ActivitylistBean activitylistBean;
+    private ActivitylistBean activitylistBean;
     private ActivitySignListBean activitySignListBean;
     private String realName;
     private String phoneNumber;
@@ -82,7 +88,7 @@ public class ActivityDetailActivity extends Base2Activity {
 
     @Override
     protected void initView() {
-        activitylistBean = (ActivityHomeBean.ActivitylistBean) getIntent().getSerializableExtra("activitylistBean");
+        activitylistBean = (ActivitylistBean) getIntent().getSerializableExtra("activitylistBean");
         realName = SharedPrefHelper.getInstance().getRealName();
         if (TextUtils.isEmpty(realName)){
             realName = SharedPrefHelper.getInstance().getNickname();
@@ -100,9 +106,24 @@ public class ActivityDetailActivity extends Base2Activity {
     }
 
     private void setData() {
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this,
-                activitylistBean.getAImg(), ivBigPic);
-        tvTitle.setText(activitylistBean.getATitle()+"       ");
+        /*GlideLoading.getInstance().loadImgUrlNyImgLoader(this,
+                activitylistBean.getAImg(), ivBigPic);*/
+       /* List<String> picPaths=new ArrayList<>();
+        String aImg = activitylistBean.getAImg();
+        String[] split = aImg.split(",");
+        for (int i = 0; i < split.length; i++) {
+            picPaths.add(split[i]);
+        }*/
+        List<String> picPaths = activitylistBean.getaPhoto();
+        sliderLayout.removeAllSliders();
+        for (int i = 0; i < picPaths.size(); i++) {
+            TextSliderView textSliderView = new TextSliderView(ActivityDetailActivity.this);
+            textSliderView.description("").image(picPaths.get(i));
+            sliderLayout.addSlider(textSliderView);
+        }
+
+        LogUtils.i("getATitle=="+activitylistBean.getATitle());
+        title.setText(activitylistBean.getATitle());
         tvAddress.setText("活动地点：" + activitylistBean.getAPlace());
         phone.setText("场馆电话：" + activitylistBean.getAContactMobile());
         tvActNum.setText("活动人数：" + activitylistBean.getATotal() + "人");
@@ -112,11 +133,11 @@ public class ActivityDetailActivity extends Base2Activity {
             tvState.setText("报名结束");
         }
         tvPostedTime.setText(activitylistBean.getACreateTime() + "发布");
-
-
         tvZhubanfang.setText(activitylistBean.getASponsor());
         tvJianjie.setText(activitylistBean.getAContent());
-        tvSignUpNum.setText(activitylistBean.getASignCount() + "人");
+
+
+//        tvSignUpNum.setText(activitylistBean.getASignCount() + "人");
     }
 
     private void getSignList(int aId) {
@@ -138,6 +159,7 @@ public class ActivityDetailActivity extends Base2Activity {
             public void onNext(ActivitySignListBean mResponse) {
                 if (mResponse.getErrCode() == 0) {
                     data.addAll(mResponse.getMemberlist());
+                    tvSignUpNum.setText(data.size() + "人");
                     activitySignListBean = mResponse;
                     LogUtils.d("----------222------");
                     rvAdapter.notifyDataSetChanged();

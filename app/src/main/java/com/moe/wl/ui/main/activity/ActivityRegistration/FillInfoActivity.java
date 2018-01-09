@@ -98,6 +98,7 @@ public class FillInfoActivity extends Base2Activity {
     }
     //包名成功
     private void signSucc(String s) {
+        showToast(s);
        finish();
     }
 }

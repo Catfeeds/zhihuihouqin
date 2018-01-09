@@ -17,6 +17,9 @@ import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.Imglibrary.ImageSelector;
+import com.moe.wl.ui.main.activity.SubmitSuccessActivity;
+import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.adapter.LabellingAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
@@ -79,6 +82,8 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
     private String imageLocation = Environment.getExternalStorageDirectory().getPath() + "/file/";
     private String imageName = "_complain.jpg";
     String imageUri;
+    private ArrayList<String> mSelectPath;
+    private int REQUEST_IMAGE=100;
 
     @Override
     public void setContentLayout() {
@@ -92,14 +97,15 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
         titleBar.setTitle("意见投诉");
         paths = new ArrayList<>();
         paths.add("addPhoto");
-        imageAdapter = new GridViewImageAdapter(this, paths, new GridViewImageAdapter.OnAddPhotoClickListener() {
+        initAddPhotoGrid();
+        /*imageAdapter = new GridViewImageAdapter(this, paths, new GridViewImageAdapter.OnAddPhotoClickListener() {
             @Override
             public void onClick() {
                 pop = new AddPhotoPop(SubmitComplainActivity.this, click);
                 pop.showAtLocation(findViewById(R.id.main), Gravity.BOTTOM, 0, 0);
             }
         });
-        gridView.setAdapter(imageAdapter);
+        gridView.setAdapter(imageAdapter);*/
         getPresenter().getLabelling();
         labelling_gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -115,7 +121,7 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
 
     }
 
-    View.OnClickListener click = new View.OnClickListener() {
+   /* View.OnClickListener click = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -128,12 +134,39 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
                     break;
             }
         }
-    };
+    };*/
+    private void initAddPhotoGrid() {
+        imageAdapter = new GridViewImageAdapter(this, paths, new GridViewImageAdapter.OnAddPhotoClickListener() {
+            @Override
+            public void onClick() {
+                ImageSelector selector = ImageSelector.create();
+                // selector.single();  // single mode
+                selector.multi();  // multi mode, default mode;
+                selector.origin(mSelectPath) // original select data set, used width #.multi()
+                        .showCamera(true)   // show camera or not. true by default
+                        .count(6)   // max select image size, 9 by default. used width #.multi()
+                        .spanCount(3)  // image span count ，default is 3.
+                        .start(SubmitComplainActivity.this, REQUEST_IMAGE);
 
+            }
+        });
+        gridView.setAdapter(imageAdapter);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                mSelectPath = data.getStringArrayListExtra(ImageSelector.EXTRA_RESULT);
+                // data  ..
+                paths.clear();
+                paths.add("addPhoto");
+                paths.addAll(0,mSelectPath);
+                LogUtils.i("mSelectPath=="+mSelectPath.size()+"======="+mSelectPath.get(0));
+                imageAdapter.notifyDataSetChanged();
+            }
+        }
+        /*if (resultCode != RESULT_OK) {
             LogUtils.d("requestCode : " + requestCode + "resultCode : " + resultCode);
         } else {
             switch (requestCode) {
@@ -159,7 +192,7 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
                     }
                     break;
             }
-        }
+        }*/
     }
 
     @Override
@@ -182,10 +215,11 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
         }
     }
 
+
     /**
      * 相机拍照
      */
-    private void takePhotoCamera() {
+   /* private void takePhotoCamera() {
         pop.dismiss();
         imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
         File file = new File(imageUri);
@@ -208,25 +242,25 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, TAKE_PHOTO_CAMERA);
     }
-
+*/
     /**
      * 相册选取
      */
-    private void takePhotoAlbum() {
+/*    private void takePhotoAlbum() {
         pop.dismiss();
 //        imageUri = Uri.parse(imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName);
-        Intent intent = new Intent(Intent.ACTION_PICK/*, MediaStore.Images.Media.EXTERNAL_CONTENT_URI*/);
-//        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        intent.setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK*//*, MediaStore.Images.Media.EXTERNAL_CONTENT_URI*//*);
+//        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
+        intent.setType("image*//*");
         startActivityForResult(intent, TAKE_PHOTO_ALBUM);
-    }
+    }*/
 
-    // 裁图
+   /* // 裁图
     private void cropImageUri(Uri uri) {
         imageUri = imageLocation + DateUtil.yyyyMMdd_HHmmss.format(new Date()) + imageName;
         LogUtils.d("uri :" + uri.toString() + "  imageUri:" + imageUri);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        intent.setDataAndType(uri, "image*//*");
         intent.putExtra("crop", "true");
         intent.putExtra("outputX", "outputX");
         intent.putExtra("outputY", "outputX");
@@ -234,7 +268,7 @@ public class SubmitComplainActivity extends BaseActivity<SubmitComplainModel, Su
         intent.putExtra("return-data", false);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         startActivityForResult(intent, CROP_PHOTO);
-    }
+    }*/
 
     private void submitComplain() {
 

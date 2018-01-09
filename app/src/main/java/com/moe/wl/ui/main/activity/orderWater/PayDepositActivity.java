@@ -19,6 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 订水押金
+ */
 public class PayDepositActivity extends BaseActivity<PayDepositModel,PayDepositView,PayDepositPresenter> implements PayDepositView {
 
     @BindView(R.id.title)

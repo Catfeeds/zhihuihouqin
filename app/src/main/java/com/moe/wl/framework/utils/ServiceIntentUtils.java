@@ -20,6 +20,7 @@ import com.moe.wl.ui.main.activity.orderWater.orderWaterServiceActivity;
 import com.moe.wl.ui.main.activity.ordering.OrderingActivity;
 import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import com.moe.wl.ui.main.activity.vegetable.VegetableIndexActivity;
+import com.moe.wl.ui.main.activity.vegetable.VegetableMainActivity;
 
 import java.util.Arrays;
 import java.util.List;

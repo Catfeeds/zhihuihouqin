@@ -7,5 +7,6 @@ import rx.Observable;
 public interface ComparisonModel extends MvpModel {
 
     Observable information();
-
+    Observable getBuildNum();
+    Observable getinfo(int dateType ,int energyType,int[] bid,String date);
 }

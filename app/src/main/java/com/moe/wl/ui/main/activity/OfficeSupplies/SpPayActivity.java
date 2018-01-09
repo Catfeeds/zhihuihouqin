@@ -87,7 +87,7 @@ public class SpPayActivity extends BaseActivity<SpPayModel,SpPayView,SpPayPresen
         createtime = intent.getStringExtra("time");
         from = intent.getIntExtra("from", Constants.ORDERWATER);
         pay = intent.getDoubleExtra("pay", 0);
-        LogUtils.i("ordertype======  " + ordertype);
+        LogUtils.i("ordertype====== " + ordertype+"orderid=="+orderid+"ordercode=="+ordercode+"");
         initTitle();
        /* Intent intent =getIntent();
         String money = intent.getStringExtra("money");*/

@@ -9,8 +9,8 @@ import rx.Observable;
 public class StatisticsModelImpl implements StatisticsModel {
 
     @Override
-    public Observable information() {
-        Observable observable = RetrofitUtils.getInstance().information();
+    public Observable getData(String time,int i,int j,int k) {
+        Observable observable = RetrofitUtils.getInstance().energyCostQuery(time,i,j,k);
         return observable;
     }
 

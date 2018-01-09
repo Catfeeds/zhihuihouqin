@@ -8,6 +8,7 @@ public interface NetUrl {
 
     // 首页
     String homePage = "appuser/index";
+    String search="appuser/index/search";
 
     // 通用接口
     String cancelOrder = "appuser/orderCommon/orderCancel"; // 取消订单 所有服务
@@ -53,11 +54,12 @@ public interface NetUrl {
     String wuyeHome = "appuser/bxwx/addOrder";
     String repairsOrderList = "appuser/bxwx/orderlist"; // 报修订单列表
     //    String cancelRepairsOrder = "appuser/bxwx/cancelorder";
-//    String deleteRepairsOrder = "appuser/bxwx/delorder"; // 删除订单
-//    String commentRepairsOrder = "appuser/bxwx/addcomment"; // 报修评论
+    //    String deleteRepairsOrder = "appuser/bxwx/delorder"; // 删除订单
+    //    String commentRepairsOrder = "appuser/bxwx/addcomment"; // 报修评论
     String orderRepairsDetail = "appuser/bxwx/orderdetail"; // 报修订单详情
     String orderRepairsDetailTwo = "appuser/bxwx/orderstatuslist"; // 报修订单状态
     String getRepairItem = "appuser/bxwx/towywx"; // 报修分类Item
+    String getRepairsTime="appuser/bxwx/findAvailableTime";//获得时间
 
     // 活动
     String activitySign = "appuser/tdhdfw/sign";
@@ -74,6 +76,7 @@ public interface NetUrl {
     String preorder = "appuser/lffw/preorder";//预约
     String createorder = "appuser/lffw/createorder";//下单
     String hairCutOrderList = "appuser/lffw/orderlist"; // 理发订单列表
+    String hairCutOrderDetail="appuser/lffw/orderdetail";//理发订单详情
 //    String cancelHairCutOrder = "appuser/lffw/cancelorder";
 //    String deleteHairCutOrder = "appuser/lffw/delorder"; // 删除订单
 //    String commentHairCutOrder = "appuser/lffw/addcomment"; // 评论理发师
@@ -107,6 +110,7 @@ public interface NetUrl {
     String searchBookResult = "appuser/tsjyfw/search";
     String searchBookList = "appuser/tsjyfw/getbooklist";
     String bookOrderList = "appuser/tsjyfw/orderlist";
+    String getBookOrderDetail="appuser/tsjyfw/orderdetail";
 //    String cancelBookOrder = "appuser/tsjyfw/cancelorder";
 //    String deleteBookOrder = "appuser/tsjyfw/delorder"; // 删除订单
 //    String commentBookOrder = "appuser/tsjyfw/addcomment"; // 评论图书订单
@@ -134,7 +138,7 @@ public interface NetUrl {
     String createOrder = "appuser/dcfwgzcorder/generateOrder";
     String orderReason = "appuser/dcfwgzcorder/findReasonList";
     String getTime = "appuser/dcfwgzcorder/getFoodTimeList";
-    String mealOrderList = "appuser/dcfwgzcorder/generateOrder"; // 订餐订单列表
+    String mealOrderList = "appuser/dcfwgzcorder/findOrderList"; // 订餐订单列表
     //    String cancelMealOrder = "appuser/dcfwgzcorder/orderCancel";
 //    String deleteMealOrder = ""; // 删除订单
 //    String commentMealOrder = "appuser/dcfwgzcorder/addComment";  // 评论工作餐订单
@@ -150,6 +154,7 @@ public interface NetUrl {
 //    String deleteWaterOrder = ""; // 删除订单
 //    String commentWaterOrder = "appuser/dsfworder/addComment";  // 评论订水订单
     String orderWaterDetail = "appuser/dsfworder/getOrderDetail"; // 订水订单详情
+    String orderWaterTime="appuser/dsfworder/findAvailableTime";//订水时间
 
     // 地址管理
     String getAddress = "appuser/address/findUserAddressList";
@@ -219,6 +224,8 @@ public interface NetUrl {
     String findUserFavorList = "appuser/tfavor/findUserFavorList";
     //我的收藏
     String addFavor = "appuser/tfavor/addFavor";
+    //删除我的收藏
+    String deleteFavor= "appuser/tfavor/deleteFavor";
     //我的钱包
     String findUserWallet = "appuser/wallet/findUserWallet";
     String findChargeOrder = "appuser/wallet/findChargeOrder";
@@ -244,11 +251,19 @@ public interface NetUrl {
 
     /*------------------------------节能减排------------------------------------------------*/
     String information = "appuser/wallet/information";  //资讯列表
+    String energyCostQuery="appuser//energy/energyCostQuery";
+    String getHomeBanner="appuser/energy/rollingPic";//轮播图
+    String getHomeList="appuser/energy/index";//资讯列表和轮播图
+    String informationDetail="appuser/energy/information";//节能减排资讯详情
+    String energyCostCompare="appuser//energy/energyCostCompare";//节能减排的数据对比
 
     /*---------------------------------来访人员---------------------------------------*/
     String visitorsOrderList = "appuser/user/orderlist";
     String getLaiFangShareUrl = "appuser/user/getvisitaddr";
     String commitOrder = "appuser/user/check";
+    String getBuildNumList="appuser/user/buildings";
+    String visitorsOrderDetail="appuser/user/queryObjectByOid";//来访人员订单详情
+     String visitorsNoOrderDetail="appuser/user/visitDetail";//来访人员还未生成订单详情
 
 
 }

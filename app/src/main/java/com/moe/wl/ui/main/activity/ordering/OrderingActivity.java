@@ -191,7 +191,7 @@ public class OrderingActivity extends BaseActivity<OrderingModel, OrderingView, 
             ToastUtil.showToast(this, "请选择送达时间");
             return;
         }*/
-        getPresenter().getData(phoneNumber, sarahNumber, 1, "", 0);
+        getPresenter().getData(phoneNumber, sarahNumber, 1, "1", 0);
     }
 
     @Override

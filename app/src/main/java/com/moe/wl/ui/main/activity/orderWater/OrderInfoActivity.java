@@ -142,7 +142,7 @@ public class OrderInfoActivity extends BaseActivity<OrderInfoModel, OrderInfoVie
                     return;
                 }
                 //生成订单
-                getPresenter().generateOrder(realName, phone, id, time, arr, remark);
+                getPresenter().generateOrder(null,realName, phone, id, time, arr, remark);
                 break;
         }
     }

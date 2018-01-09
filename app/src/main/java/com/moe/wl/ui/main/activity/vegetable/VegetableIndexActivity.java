@@ -62,6 +62,8 @@ public class VegetableIndexActivity extends MyBaseActivity {
     TextView messageHint;
     @BindView(R.id.tv_now_order)
     TextView tvNowOrder;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
 
     private String phoneNumber;
 
@@ -72,6 +74,7 @@ public class VegetableIndexActivity extends MyBaseActivity {
         ButterKnife.bind(this);
         initTitle();
         tvNowOrder.setText("立即预订");
+        tvTime.setText("预定时间： ");
         getHint();
     }
 

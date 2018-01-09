@@ -5,7 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
@@ -17,10 +20,14 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
+import com.moe.wl.framework.widget.SimpleImageBanner;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Library.LibraryActivity;
+import com.moe.wl.ui.main.adapter.ActivityAdapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
+import com.moe.wl.ui.main.bean.ActIndexBean;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.ActivitylistBean;
 import com.moe.wl.ui.main.bean.BannerResponse;
 import com.moe.wl.ui.main.model.BannerModel;
 import com.moe.wl.ui.main.modelimpl.BannerModelImpl;
@@ -33,6 +40,7 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +52,8 @@ import mvp.cn.util.DensityUtil;
 import rx.Observable;
 import rx.Subscriber;
 
+import static android.R.id.list;
+
 /**
  * 活动报名
  */
@@ -53,8 +63,8 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
     TitleBar activityTitle;
     @BindView(R.id.view_title)
     View viewTitle;
-    @BindView(R.id.slider_layout)
-    SliderLayout sliderLayout;
+    /*@BindView(R.id.slider_layout)
+    SliderLayout sliderLayout;*/
     @BindView(R.id.rv_activity)
     RecyclerView rvActivity;
     @BindView(R.id.tv_activity_posted)
@@ -66,8 +76,13 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
     private boolean isRefresh = false;
     private int page;
     private int limit=10;
-    List<ActivityHomeBean.ActivitylistBean> listAll = new ArrayList<>();
+
     private BannerResponse.ServiceInfoBean bean;
+    private SliderLayout sliderLayout;
+    private ActivityAdapter myAdapter;
+    private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
+    private List<ActivitylistBean> listAll;
+    private HeaderAndFooterWrapper mHeaderAndFooterWrapper1;
 
     @Override
     public void setContentLayout() {
@@ -77,16 +92,32 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
 
     @Override
     public void initView() {
+        listAll = new ArrayList<>();
+        initRecycler();
         getPresenter().getBanner(5);
         getData(1, limit);
         initTitle();
-        initRecycler();
+
     }
 
     private void initRecycler() {
-        rvActivity.setLayoutManager(new LinearLayoutManager(this));
+       /* rvActivity.setLayoutManager(new LinearLayoutManager(this));
         homeNsrlv3Adapter = new HomeNsrlv3Adapter(this);
-        rvActivity.setAdapter(homeNsrlv3Adapter);
+        rvActivity.setAdapter(homeNsrlv3Adapter);*/
+
+        rvActivity.setLayoutManager(new LinearLayoutManager(this));
+        myAdapter = new ActivityAdapter(ActivityRegistrationActivity.this, R.layout.home_nsrlv3_item, listAll);
+           rvActivity.setAdapter(myAdapter);
+        mHeaderAndFooterWrapper1 = new HeaderAndFooterWrapper(myAdapter);
+           //View.inflate(this, R.layout.header, null);
+           View view = LayoutInflater.from(this).inflate(R.layout.activity_registration2_header,null,false);
+           sliderLayout = (SliderLayout) view.findViewById(R.id.slider_layout);
+           LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+           view.setLayoutParams(params);
+           mHeaderAndFooterWrapper1.addHeaderView(view);
+           rvActivity.setAdapter(mHeaderAndFooterWrapper1);
+           mHeaderAndFooterWrapper1.notifyDataSetChanged();
+
         /*rvActivity.setLoadingMoreEnabled(false);
         rvActivity.setPullRefreshEnabled(false);*/
         // rvActivity.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
@@ -143,10 +174,10 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
 
     }
 
-    public void getData(final int page, int limit) {
+    public void getData(final int page, final int limit) {
         Observable observer = RetrofitUtils.getInstance().getActivityHome(page, limit);
-        showProgressDialog();
-        observer.subscribe(new Subscriber<ActivityHomeBean>() {
+        //showProgressDialog();
+        observer.subscribe(new Subscriber<ActIndexBean>() {
             @Override
             public void onCompleted() {
                 dismissProgressDialog();
@@ -154,25 +185,30 @@ public class ActivityRegistrationActivity extends BaseActivity<BannerModel, Bann
 
             @Override
             public void onError(Throwable e) {
-                dismissProgressDialog();
+                //dismissProgressDialog();
                 Log.e("Throwable", e.getMessage());
             }
 
             @Override
-            public void onNext(ActivityHomeBean homeBean) {
+            public void onNext(ActIndexBean homeBean) {
                 if (homeBean.getErrCode() == 0) {
                     //getDataSucc(homeBean);
+
                     if (homeBean != null) {
                         if (page == 1) {
                             listAll.clear();
                             refreshlayout.finishRefresh();
-                            listAll.addAll(homeBean.getActivitylist());
-                            homeNsrlv3Adapter.setData(listAll);
+//                            listAll.addAll(homeBean.getActivitylist());
+//                            //homeNsrlv3Adapter.setData(listAll);
+//                            myAdapter.setData(listAll);
                         } else {
                             refreshlayout.finishLoadmore();
-                            listAll.addAll(homeBean.getActivitylist());
-                            homeNsrlv3Adapter.setData(listAll);
+//                            listAll.addAll(homeBean.getActivitylist());
+//                            homeNsrlv3Adapter.setData(listAll);
                         }
+                        listAll.addAll(homeBean.getActivitylist());
+                        myAdapter.notifyDataSetChanged();
+                        mHeaderAndFooterWrapper1.notifyDataSetChanged();
                     }
                 } else {
                     Log.e("ActivityHomeBean", homeBean.getMsg());

@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.OfficeSupplies;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.VerifyCheck;
+
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
@@ -191,7 +194,22 @@ public class CheckHistoryPostItemAct extends BaseActivity<PostNeedModel, PostNee
             String remark = etWrite.getText().toString().trim();
             String spName = etSpName.getText().toString().trim();
             String spCount = etSpCount.getText().toString().trim();
-            getPresenter().post(realName, phone, remark, spName, spCount);
+            if(!VerifyCheck.isMobilePhoneVerify(phone)){
+                showToast("请输入正确的手机号码");
+                return ;
+            }
+            if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(remark)||TextUtils.isEmpty(spName)||
+                    TextUtils.isEmpty(spCount)){
+                showToast("请将信息填写完整");
+            }
+            int count = Integer.parseInt(spCount);
+
+            if(count<=0){
+                showToast("商品数量不能少于1件");
+                return ;
+            }
+                getPresenter().post(realName,phone,remark,spName,spCount);
+
         }else{
             Intent intent = new Intent(this, CheckFailActivity.class);
             startActivity(intent);

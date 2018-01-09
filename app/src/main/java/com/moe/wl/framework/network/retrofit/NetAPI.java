@@ -1,12 +1,18 @@
 package com.moe.wl.framework.network.retrofit;
 
 import com.moe.wl.framework.widget.bean.BindPhoneBean;
+import com.moe.wl.ui.home.bean.EnergyCostQueryBean;
 import com.moe.wl.ui.home.bean.LoginBean;
+import com.moe.wl.ui.home.bean.RepairTimeBean;
+import com.moe.wl.ui.home.bean.SaveHomeBanner;
 import com.moe.wl.ui.home.bean.office.AffirmOrderResponse;
 import com.moe.wl.ui.home.bean.office.OfficeDetailsResponse;
 import com.moe.wl.ui.home.bean.office.OfficeListResponse;
 import com.moe.wl.ui.home.bean.office.SubscribeInfoResponse;
 import com.moe.wl.ui.home.bean.office.SubscribeTimeResponse;
+import com.moe.wl.ui.home.bean.saving.EnergyCostCompare;
+import com.moe.wl.ui.home.bean.saving.InforMationDetailBean;
+import com.moe.wl.ui.home.bean.saving.SaveHomeListBean;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.login.bean.PositionListBean;
 import com.moe.wl.ui.login.bean.RegistBean;
@@ -101,6 +107,11 @@ public interface NetAPI {
     @POST(NetUrl.homePage)
     Observable<HomePageBean> homePageData(@FieldMap Map<String, Object> map);
 
+    // 首页服务搜索
+    @FormUrlEncoded
+    @POST(NetUrl.search)
+    Observable<HomeSearchBean> homeSearch(@FieldMap Map<String, Object> map);
+
     //医疗首页
     @FormUrlEncoded
     @POST(NetUrl.healthServiceHome)
@@ -176,10 +187,15 @@ public interface NetAPI {
     @POST(NetUrl.getRepairItem)
     Observable<RepairItmeBean> getRepairItem(@FieldMap Map<String, Object> map);
 
+    //报修时间获取
+    @FormUrlEncoded
+    @POST(NetUrl.getRepairsTime)
+    Observable<RepairTimeBean> getRepairTime(@FieldMap Map<String, Object> map);
+
     //活动首页
     @FormUrlEncoded
     @POST(NetUrl.activityHome)
-    Observable<ActivityHomeBean> getActivityHome(@FieldMap Map<String, Object> map);
+    Observable<ActIndexBean> getActivityHome(@FieldMap Map<String, Object> map);
 
     //活动发布
     @Multipart
@@ -266,6 +282,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.bookOrderList)
     Observable<BookOrderListBean> bookOrderList(@FieldMap Map<String, Object> map);
+
+    //图书订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.getBookOrderDetail)
+    Observable<BookOrderDetailBean> getBookOrderDetail(@FieldMap Map<String, Object> map);
 
 
     //店铺
@@ -658,15 +679,36 @@ public interface NetAPI {
     @POST(NetUrl.visitorsOrderList)
     Observable<OrderVisitorsListBean> visitorsOrderList(@FieldMap Map<String, Object> map);
 
-    // 来访人员列表
+    // 提交来访人员列表
     @FormUrlEncoded
     @POST(NetUrl.commitOrder)
     Observable<CollectBean> commitOrder(@FieldMap Map<String, Object> map);
+
+    // 来访人员订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.visitorsOrderDetail)
+    Observable<VisitorsOrderDetailBean> visitorsOrderDetail(@FieldMap Map<String, Object> map);
+
+    // 来访人员还为生成订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.visitorsNoOrderDetail)
+    //Observable<VisitorsNoOrderDetailBean> visitorsNoOrderDetail(@FieldMap Map<String, Object> map);
+    Observable<Bbean> visitorsNoOrderDetail(@FieldMap Map<String, Object> map);
+
+    // 楼号列表
+    @FormUrlEncoded
+    @POST(NetUrl.getBuildNumList)
+    Observable<BuildNumList> getBuildNumList(@FieldMap Map<String, Object> map);
 
     // 理发订单列表
     @FormUrlEncoded
     @POST(NetUrl.hairCutOrderList)
     Observable<OrderHairCutBean> hairCutOrderList(@FieldMap Map<String, Object> map);
+
+    // 理发订单详情
+    @FormUrlEncoded
+    @POST(NetUrl.hairCutOrderDetail)
+    Observable<HairOrderDetailBean> hairOrderDetail(@FieldMap Map<String, Object> map);
 
     // 办公用品订单列表
     @FormUrlEncoded
@@ -789,6 +831,11 @@ public interface NetAPI {
     @POST(NetUrl.orderWaterDetail)
     Observable<OrderWaterDetailBean> orderWaterDetail(@FieldMap Map<String, Object> map);
 
+    // 订水时间
+    @FormUrlEncoded
+    @POST(NetUrl.orderWaterTime)
+    Observable<RepairTimeBean> orderWaterTime(@FieldMap Map<String, Object> map);
+
     // 工作餐订单详情
     @FormUrlEncoded
     @POST(NetUrl.orderMealDetail)
@@ -808,6 +855,11 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.addFavor)
     Observable<MyCollectBean> addFavor(@FieldMap Map<String, Object> map);
+
+    //删除我的收藏
+    @FormUrlEncoded
+    @POST(NetUrl.deleteFavor)
+    Observable<ActivityPostBean> deleteFavor(@FieldMap Map<String, Object> map);
 
     //我的收藏
     //公告
@@ -934,6 +986,31 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST(NetUrl.information)
     Observable<OfficeListResponse> information(@FieldMap Map<String, Object> map);
+
+    //节能加派查询
+    @FormUrlEncoded
+    @POST(NetUrl.energyCostQuery)
+    Observable<EnergyCostQueryBean> energyCostQuery(@FieldMap Map<String, Object> map);
+
+   /* //获得首页轮播图
+    @FormUrlEncoded
+    @POST(NetUrl.getHomeBanner)
+    Observable<SaveHomeBanner> getHomeBanner(@FieldMap Map<String, Object> map);*/
+
+    //获得首页资讯列表
+    @FormUrlEncoded
+    @POST(NetUrl.getHomeList)
+    Observable<SaveHomeListBean> getHomeList(@FieldMap Map<String, Object> map);
+
+    //获得首页资讯详情
+    @FormUrlEncoded
+    @POST(NetUrl.informationDetail)
+    Observable<InforMationDetailBean> informationDetail(@FieldMap Map<String, Object> map);
+
+    //节能减排的对比
+    @FormUrlEncoded
+    @POST(NetUrl.energyCostCompare)
+    Observable<EnergyCostCompare> energyCostCompare(@FieldMap Map<String, Object> map);
 
     //意见反馈
     @FormUrlEncoded
