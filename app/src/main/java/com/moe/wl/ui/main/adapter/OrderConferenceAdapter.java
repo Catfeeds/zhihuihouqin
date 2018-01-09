@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.ui.main.activity.me.OrderConferenceDetailActivity;
 import com.moe.wl.ui.main.activity.me.OrderMealDetailActivity;
 import com.moe.wl.ui.main.bean.OrderConferenceBean;
 
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：工作餐订单Adapter
+ * 类描述：会议室订单Adapter
  * 作者：Shixhe On 2017/9/27 0027
  */
 
@@ -103,7 +104,7 @@ public class OrderConferenceAdapter extends RecyclerView.Adapter {
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderMealDetailActivity.class);
+                Intent intent = new Intent(context, OrderConferenceDetailActivity.class);
                 intent.putExtra("OrderID", data.get(position).getId());
                 context.startActivity(intent);
             }

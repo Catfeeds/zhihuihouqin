@@ -605,7 +605,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ui.main.activity.WebViewActivity"></activity>
+        <activity android:name=".ui.main.activity.WebViewActivity" />
+        <activity android:name=".ui.main.activity.me.OrderOfficeRoomDetailAct"></activity>
     </application>
 
 </manifest>

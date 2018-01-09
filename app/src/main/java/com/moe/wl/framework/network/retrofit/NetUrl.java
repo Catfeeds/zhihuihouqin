@@ -247,6 +247,7 @@ public interface NetUrl {
     String conferenceOrderList = "appuser/hysfworder/findOrderList"; // 会议室订单列表
     String orderConferenceDetail = "appuser/hysfworder/getOrderDetail";
 
+
 //    String deleteConferenceOrder = ""; // 删除办公室订单
 
     /*------------------------------节能减排------------------------------------------------*/

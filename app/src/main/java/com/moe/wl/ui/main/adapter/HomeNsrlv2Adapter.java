@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.utils.OtherUtils;
+import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity;
+import com.moe.wl.ui.home.activity.office.OfficeDetailsActivity_ViewBinding;
 import com.moe.wl.ui.main.activity.me.OrderBookDetailActivity;
 import com.moe.wl.ui.main.activity.me.OrderConferenceDetailActivity;
 import com.moe.wl.ui.main.activity.me.OrderDryDetailActivity;
@@ -167,7 +169,7 @@ public class HomeNsrlv2Adapter extends RecyclerView.Adapter {
                         break;
                     case "7"://会议室预定
 //                      //OrderConferenceDetailActivity
-                        intent = new Intent(context, OrderMealDetailActivity.class);
+                        intent = new Intent(context, OrderConferenceDetailActivity.class);
                         intent.putExtra("OrderID",data.get(position).getOid());
                         context.startActivity(intent);
                         break;
