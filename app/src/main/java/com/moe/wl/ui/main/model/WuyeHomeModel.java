@@ -1,5 +1,7 @@
 package com.moe.wl.ui.main.model;
 
+import com.moe.wl.ui.main.bean.PropertyOrderInfo;
+
 import java.util.List;
 
 import mvp.cn.rx.MvpModel;
@@ -11,7 +13,7 @@ import rx.Observable;
 
 public interface WuyeHomeModel extends MvpModel {
 
-    Observable getData(int menditem, String username, String mobile,
+    Observable getData(List<PropertyOrderInfo> infoList,int menditem, String username, String mobile,
                        String invitetime, String serviceplace, String mendcontent, List<String> files);
 
     Observable getRepairItem();

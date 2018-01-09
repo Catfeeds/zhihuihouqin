@@ -54,7 +54,7 @@ public class PwdManageMentActivity extends BaseActivity<HasPwdModel,HasPwdView,H
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("密码管理");
+        title.setTitle("支付密码管理");
     }
 
     @OnClick({R.id.tv_set_pay_pwd,R.id.tv_change_pay_pwd, R.id.tv_forget_pay_pwd})
@@ -65,13 +65,11 @@ public class PwdManageMentActivity extends BaseActivity<HasPwdModel,HasPwdView,H
                 Intent intent=new Intent(this,AcountSaftActivity.class);
                 intent.putExtra("from", Constants.CHANGE_PWD);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.tv_set_pay_pwd:
                 Intent intent1=new Intent(this,AcountSaftActivity.class);
                 intent1.putExtra("from", Constants.SET_PWD);
                 startActivity(intent1);
-                finish();
                 break;
             case R.id.tv_forget_pay_pwd:
                 Intent intent2=new Intent(this,AcountSaftActivity.class);

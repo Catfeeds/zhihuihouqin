@@ -114,6 +114,24 @@ public class QueryWaterListBean {
             private String name;
             private double price;
             private int count;
+            private boolean isNeed;
+            private int needdeposit;
+
+            public int getNeeddeposit() {
+                return needdeposit;
+            }
+
+            public void setNeeddeposit(int needdeposit) {
+                this.needdeposit = needdeposit;
+            }
+
+            public boolean isNeed() {
+                return isNeed;
+            }
+
+            public void setNeed(boolean need) {
+                isNeed = need;
+            }
 
             public int getCount() {
                 return count;

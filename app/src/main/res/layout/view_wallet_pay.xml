@@ -20,7 +20,7 @@
         android:layout_height="50dp"
         app:gpvTextColor="#2196F3"
         app:gpvTextSize="25sp"
-        app:gpvLineColor="#2196F3"
+        app:gpvLineColor="@color/gray_line"
         app:gpvLineWidth="1dp"
         app:gpvGridColor="#ffffff"
         app:gpvPasswordLength="6"

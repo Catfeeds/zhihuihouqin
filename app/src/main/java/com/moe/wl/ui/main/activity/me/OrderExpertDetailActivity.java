@@ -23,6 +23,7 @@ import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.main.bean.OrderExpertsDetailBean;
 import com.moe.wl.ui.main.bean.OrderMedicalDetailBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +65,7 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
     @BindView(R.id.doc_position)
     TextView docPosition;
     @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    StarBar ratingBar;
     @BindView(R.id.score)
     TextView score;
     @BindView(visits_num)
@@ -212,7 +213,9 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getDoctor().getPhoto(), image, R.mipmap.ic_default_square);
             name.setText(bean.getDoctor().getRealname());
             docPosition.setText(bean.getDoctor().getPositionname());
-            ratingBar.setRating(bean.getDoctor().getScore());
+            ratingBar.setStarMark(bean.getDoctor().getScore());
+            ratingBar.setIntegerMark(false);
+            ratingBar.ismove(false);
             score.setText("" + bean.getDoctor().getScore() + "分");
             visitsNum.setText("问诊量：" + bean.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + bean.getDoctor().getHospitalname());
@@ -254,8 +257,9 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getDoctor().getPhoto(), image, R.mipmap.ic_default_square);
             name.setText(data.getDoctor().getRealname());
             docPosition.setText(data.getDoctor().getPositionname());
-            ratingBar.setRating(data.getDoctor().getScore());
-            OtherUtils.ratingBarColor(ratingBar, this);
+            ratingBar.setStarMark(bean.getDoctor().getScore());
+            ratingBar.setIntegerMark(false);
+            ratingBar.ismove(false);
             score.setText("" + data.getDoctor().getScore() + "分");
             visitsNum.setText("问诊量：" + data.getDoctor().getConsultcount());
             hospital.setText("所属医院：" + data.getDoctor().getHospitalName());

@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#FF9966"
+        android:background="@color/bt"
         android:orientation="vertical">
 
         <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_padding"
-                android:background="@drawable/selecter_doubt"
+                android:background="@drawable/write_doubt"
                 android:padding="5dp" />
         </LinearLayout>
 
@@ -122,7 +122,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/recharge" />
+            android:src="@drawable/barberquan" />
 
         <TextView
             android:layout_width="0dp"

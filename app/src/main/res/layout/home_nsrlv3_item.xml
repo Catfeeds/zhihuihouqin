@@ -51,8 +51,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:text="定位场地名称"
-                    android:textColor="@color/tv_gray"
-                    android:textSize="@dimen/sp_smaller" />
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_small" />
             </LinearLayout>
 
             <RelativeLayout
@@ -67,7 +67,7 @@
                     android:layout_centerVertical="true"
                     android:text="电话：135****7895"
                     android:textColor="@color/tv_gray"
-                    android:textSize="@dimen/sp_smaller" />
+                    android:textSize="@dimen/sp_small" />
 
                 <ImageView
                     android:id="@+id/iv_call_phone"
@@ -85,7 +85,7 @@
                 android:layout_centerVertical="true"
                 android:text="时间：2017-05-16 12:00-14:00"
                 android:textColor="@color/tv_gray"
-                android:textSize="@dimen/sp_smaller" />
+                android:textSize="@dimen/sp_small" />
 
         </LinearLayout>
     </LinearLayout>

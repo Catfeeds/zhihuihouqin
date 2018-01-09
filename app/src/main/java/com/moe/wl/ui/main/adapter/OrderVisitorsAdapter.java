@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,7 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
         holder.arriveTime.setText("来访时间：" + data.get(position).getVisittime());
 
         switch (state) {
-            case 0:
+            case 0://0
                 if (data.get(position).getVisitchecked() == 0) {
                     holder.comment.setVisibility(View.VISIBLE);
                 } else {
@@ -68,8 +69,16 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
                 holder.order.setText("取消订单");
                 break;
             case 9: // 待提交
-                holder.comment.setVisibility(View.GONE);
-                holder.order.setText("审核通过");
+                holder.comment.setVisibility(View.VISIBLE);
+                if(data.get(position).getVisitchecked()==0){
+                    holder.comment.setText("待审核");
+                }else if(data.get(position).getVisitchecked()==1){
+                    holder.comment.setBackgroundColor(Color.GRAY);
+                    holder.comment.setEnabled(false);
+                }else{
+                    holder.comment.setText("提交");
+                }
+                holder.order.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 holder.comment.setVisibility(View.GONE);
@@ -89,7 +98,7 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 if (listener != null)
-                    listener.onClick(state, position);
+                    listener.onClick(state, position,data.get(position).getId());
             }
         });
 
@@ -97,7 +106,10 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderVisitorsDetailActivity.class);
-                intent.putExtra("Data", data.get(position));
+                //intent.putExtra("Data", data.get(position));
+                //int orderID = getIntent().getIntExtra("OrderID", 0);
+                intent.putExtra("state",state);
+                intent.putExtra("OrderID",data.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -118,7 +130,7 @@ public class OrderVisitorsAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnClickListener {
-        void onClick(int type, int position);
+        void onClick(int type, int position,int id);
     }
 
     public void setOnClickListener(OnClickListener listener) {

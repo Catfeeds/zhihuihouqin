@@ -68,15 +68,12 @@ public class ShowHintDialog extends Dialog {
         scroll.setONScrollBottomListener(new ScrollViewBottom.OnScrollBottomListener() {
             @Override
             public void onScrollBottom(boolean isBottom) {
-                if (isBottom) {
-                    setCanClick();
-                    iKnow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_blue_line));
-                    iKnow.setTextColor(context.getResources().getColor(R.color.bt));
-                } else {
-                    setCancelClick();
-                    iKnow.setClickable(false);
-                    iKnow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_line));
-                    iKnow.setTextColor(context.getResources().getColor(R.color.gray));
+                if (isCanScroll){
+                    if (isBottom) {
+                        setCanClick();
+                    } else {
+                        setCancelClick();
+                    }
                 }
             }
         });
@@ -93,7 +90,7 @@ public class ShowHintDialog extends Dialog {
         getWindow().setWindowAnimations(R.style.AnimationDialog); // 调整dialog背景大小
     }
 
-    private void setCanClick(){
+    private void setCanClick() {
         iKnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,15 +98,19 @@ public class ShowHintDialog extends Dialog {
                 dismiss();
             }
         });
+        iKnow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_blue_line));
+        iKnow.setTextColor(context.getResources().getColor(R.color.bt));
     }
 
-    private void setCancelClick(){
+    private void setCancelClick() {
         iKnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtils.d("不可点击的点击事件");
             }
         });
+        iKnow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_line));
+        iKnow.setTextColor(context.getResources().getColor(R.color.gray));
     }
 
     @Override
@@ -137,16 +138,15 @@ public class ShowHintDialog extends Dialog {
         this.iKnowState = iKnowState;
     }
 
+    private boolean isCanScroll;
     // 设置下方按钮是否可以点击
     public void setButtonStateNo(boolean isBottom) {
         if (isBottom) {
             setCanClick();
-            iKnow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_blue_line));
-            iKnow.setTextColor(context.getResources().getColor(R.color.bt));
+            isCanScroll = false;
         } else {
             setCancelClick();
-            iKnow.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_gray_line));
-            iKnow.setTextColor(context.getResources().getColor(R.color.gray));
+            isCanScroll = true;
         }
     }
 

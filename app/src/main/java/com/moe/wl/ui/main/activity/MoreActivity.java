@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -123,9 +124,9 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     private List<ServiceDataBean> financialData;
     List<Integer> financialID = Arrays.asList(33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45);
     List<String> financialService = Arrays.asList(
-            "工资代发", "差旅费核销", "医疗费", "水费",
-            "电费", "燃气费", "有线电视", "固话",
-            "宽带缴费", "暖气费", "物业缴费", "房租缴费",
+            "工资代发", "差旅费核销", "医疗费核销", "水费收缴",
+            "电费收缴", "燃气费收缴", "有线电视费", "固话缴费",
+            "宽带缴费", "暖气费缴费", "物业缴费", "房租缴费",
             "缴费查询");
     List<Integer> financialServicePhotos = Arrays.asList(
             R.drawable.wage_undertake, R.drawable.sales_of_travel_expenses,
@@ -152,7 +153,7 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
     private List<ServiceDataBean> outInData;
     List<Integer> outInID = Arrays.asList(51, 52, 53, 54, 55, 56);
     List<String> outInManger = Arrays.asList(
-            "内部人员出入", "来访人员出入", "内部车辆出入", "来访车辆出入",
+            "内部人员出入", "来访人员", "内部车辆出入", "来访车辆出入",
             "停车引导", "楼宇门禁");
     List<Integer> outInMangerPhotos = Arrays.asList(
             R.drawable.internal_personnel_discrepancy, R.drawable.visitor_discrepancy,
@@ -233,6 +234,9 @@ public class MoreActivity extends BaseActivity<MoreServiceModel, MoreServiceView
         gridAdapter8.setType(type);
         gridAdapter9.setType(type);
         refreshUI();
+        Intent intent = new Intent();
+        intent.putExtra("str","刷新成功");
+        setResult(RESULT_OK,intent);
         finish();
     }
 

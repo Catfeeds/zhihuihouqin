@@ -272,6 +272,15 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/gray_trans">
+        <TextView
+            android:id="@+id/tv_remark"
+            android:visibility="gone"
+            android:padding="@dimen/normal_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_small"
+            android:text="温馨提示：\n\n如果五分钟内未支付，该订单将被取消！"
+            android:textColor="@color/tv_gray"/>
 
         <TextView
             android:id="@+id/bt_confirm"

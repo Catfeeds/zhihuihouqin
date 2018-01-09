@@ -1,5 +1,6 @@
 package com.moe.wl.ui.main.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -40,6 +41,8 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
     LinearLayout activityConsult;
     private BarberChatAdapter adapter;
     private int id;
+    private String photo;
+    private String name;
 
     @Override
     public ConsultPresenter createPresenter() {
@@ -59,11 +62,14 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
 
     @Override
     public void initView() {
-        id = getIntent().getIntExtra("barberid", 1);
+        Intent intent = getIntent();
+        id =intent .getIntExtra("barberid", 1);
+        photo = intent.getStringExtra("photo");
+        name = intent.getStringExtra("name");
         initTitle();
         getPresenter().getConsultBarberInfo(id);
         rvChat.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BarberChatAdapter();
+        adapter = new BarberChatAdapter(this,photo);
         rvChat.setAdapter(adapter);
         etMessage.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,7 +91,7 @@ public class ConsultActivity extends BaseActivity<ConsultModel,ConsultView,Consu
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("在线咨询");
+        title.setTitle(name);
     }
 
     @OnClick(R.id.btn_send)

@@ -124,7 +124,8 @@ public class OrderHairCutAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderHairCutDetailActivity.class);
-                intent.putExtra("Data", data.get(position));
+                //intent.putExtra("Data", data.get(position));
+                intent.putExtra("id",data.get(position).getOrderid());
                 context.startActivity(intent);
             }
         });

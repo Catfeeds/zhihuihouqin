@@ -2,14 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:banner="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/bg_page">
 
     <!--轮播图-->
+  <!--  <com.moe.wl.framework.widget.SimpleImageBanner
+        android:id="@+id/slider_layout"
+        android:layout_width="match_parent"
+        android:layout_height="186dp"
+        banner:bb_barColor="#00000000"
+        banner:bb_barPaddingBottom="5dp"
+        banner:bb_barPaddingLeft="10dp"
+        banner:bb_barPaddingRight="10dp"
+        banner:bb_barPaddingTop="5dp"
+        banner:bb_delay="2"
+        banner:bb_indicatorCornerRadius="3dp"
+        banner:bb_indicatorGap="8dp"
+        banner:bb_indicatorGravity="CENTER"
+        banner:bb_indicatorHeight="6dp"
+        banner:bb_indicatorSelectColor="@color/tv_blue"
+        banner:bb_indicatorStyle="CORNER_RECTANGLE"
+        banner:bb_indicatorUnselectColor="#88ffffff"
+        banner:bb_indicatorWidth="6dp"
+        banner:bb_isAutoScrollEnable="true"
+        banner:bb_isBarShowWhenLast="true"
+        banner:bb_isIndicatorShow="true"
+        banner:bb_isLoopEnable="true"
+        banner:bb_isTitleShow="true"
+        banner:bb_period="5"
+        banner:bb_scale="0.5625"
+        banner:bb_textColor="#ffffff"
+        banner:bb_textSize="13.5sp" />-->
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/slider_layout"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="300dp"
         android:background="@mipmap/ic_default_rectangle"/>
 
     <LinearLayout
@@ -51,14 +79,14 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_address"
-            android:text=""
+            android:text="请选择地址"
             android:textColor="@color/tv_black"
             android:textSize="@dimen/sp_small"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <ImageView
-
+            android:visibility="gone"
             android:src="@drawable/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

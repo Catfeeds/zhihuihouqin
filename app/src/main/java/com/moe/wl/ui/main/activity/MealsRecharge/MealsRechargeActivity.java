@@ -49,7 +49,7 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
     @BindView(R.id.gv_recharge_amount)
     GridView gvRechargeAmount;
     @BindView(R.id.tv_recharge_money)
-    TextView tvRechargeMoney;
+    EditText tvRechargeMoney;
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
     @BindView(R.id.tv_check_balance)
@@ -226,4 +226,5 @@ public class MealsRechargeActivity extends BaseActivity<MealsRechargeModel,Meals
         }
 
     }*/
+
 }

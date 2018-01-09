@@ -3,7 +3,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_lighter">
+    android:background="@color/bg_page">
 
     <com.moe.wl.framework.widget.TitleBar
         android:id="@+id/all_sp_comment_title"
@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:text="@string/sarah_number"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
                 <ImageView
                     android:id="@+id/minus"
@@ -137,7 +137,7 @@
                     android:paddingTop="12dp"
                     android:text="@string/name"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -146,14 +146,14 @@
                     android:paddingBottom="12dp"
                     android:paddingTop="12dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                     android:paddingTop="12dp"
                     android:text="@string/phone_number"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
                 <EditText
                     android:id="@+id/phone_number"
@@ -185,14 +185,14 @@
                     android:paddingTop="12dp"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/gray_light"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_big" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:id="@+id/ll_address"
@@ -248,7 +248,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/gray_line" />
 
             <LinearLayout
                 android:id="@+id/ll_arrive_time"
@@ -300,7 +300,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/alertdialog_line" />
+                android:background="@color/gray_line" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

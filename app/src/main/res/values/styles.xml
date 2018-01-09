@@ -169,5 +169,11 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@mipmap/ic_splash</item>
     </style>
+    <style name="MIS_NO_ACTIONBAR" parent="Theme.AppCompat.Light.NoActionBar"/>
+
+    <style name="nomal_text">
+        <item name="android:textColor">#333333</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 
 </resources>

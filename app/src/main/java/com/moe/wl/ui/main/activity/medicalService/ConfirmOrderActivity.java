@@ -2,8 +2,8 @@ package com.moe.wl.ui.main.activity.medicalService;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -20,6 +20,7 @@ import com.moe.wl.ui.main.model.ExpertOrderModel;
 import com.moe.wl.ui.main.modelimpl.ExpertOrderModelImpl;
 import com.moe.wl.ui.main.presenter.ExpertOrderPresenter;
 import com.moe.wl.ui.main.view.ExpertOrderView;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,7 +34,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
     @BindView(R.id.tv_user_phone)
-    TextView tvUserPhone;
+    EditText tvUserPhone;
     @BindView(R.id.reservation_num)
     TextView reservationNum;
     @BindView(R.id.iv_doc_photo)
@@ -43,7 +44,7 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
     @BindView(R.id.tv_doctor_position)
     TextView tvDoctorPosition;
     @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    StarBar ratingBar;
     @BindView(R.id.tv_star_num)
     TextView tvStarNum;
     @BindView(R.id.tv_seeing)
@@ -83,13 +84,14 @@ public class ConfirmOrderActivity extends BaseActivity<ExpertOrderModel, ExpertO
             tvUserName.setText(SharedPrefHelper.getInstance().getRealName());
         }
         time.setText(getIntent().getStringExtra("Time"));
-        tvUserPhone.setText(getIntent().getStringExtra("PhoneNumber"));
+        tvUserPhone.setText(SharedPrefHelper.getInstance().getPhoneNumber());
+        tvUserPhone.setSelection(SharedPrefHelper.getInstance().getPhoneNumber().length());
         tvDoctorName.setText(entity.getRealname());
         tvDoctorPosition.setText(entity.getPositionname());
         tvSeeing.setText(entity.getConsultcount() + "");
         tvHospital.setText(entity.getHospitalName());
-        OtherUtils.ratingBarColor(ratingBar, this);
-        ratingBar.setRating((float) entity.getScore());
+        ratingBar.setIntegerMark(false);
+        ratingBar.setStarMark((float) entity.getScore());
         tvStarNum.setText(entity.getScore() + "");
         reservationNum.setText((entity.getInvitetotalcount() - entity.getRemaincount() + 1) + "/" + entity.getInvitetotalcount());
     }

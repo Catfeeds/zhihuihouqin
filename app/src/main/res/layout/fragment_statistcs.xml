@@ -22,11 +22,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/sp_bigger"
-                android:layout_marginTop="@dimen/sp_bigger_20"
                 android:layout_marginBottom="20dp"
-                android:text="2017年09月01日耗能统计（时间单位：天）"/>
+                android:layout_marginTop="@dimen/sp_bigger_20"
+                android:text="2017年09月01日耗能统计（时间单位：天）"
+                android:textColor="@color/font_black"
+                android:textSize="@dimen/sp_bigger" />
 
         </RelativeLayout>
 
@@ -35,43 +35,127 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="KW/h"/>
+            android:text="KW/h" />
 
         <RelativeLayout
             android:id="@+id/rl_columnChart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/white"
-            />
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@color/white" />
 
         <RelativeLayout
             android:id="@+id/rl_preChart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:background="@color/white"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/bt_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/bg_btn_blue_trans"
-            android:textColor="@color/font_blue"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="用能比例"/>
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/bg_btn_blue_trans"
+            android:text="用能比例"
+            android:textColor="@color/font_blue" />
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="数据详情"
+        android:textColor="@color/font_black" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="教育部"
+            android:textColor="@color/font_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="日期："
+                android:textColor="@color/font_black" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/font_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="用电量："
+                android:textColor="@color/font_black" />
+
+            <TextView
+                android:id="@+id/tv_electro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/font_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="用水量："
+                android:textColor="@color/font_black" />
+
+            <TextView
+                android:id="@+id/tv_water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="@color/font_black" />
+
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

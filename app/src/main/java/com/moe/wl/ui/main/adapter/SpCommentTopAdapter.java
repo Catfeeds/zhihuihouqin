@@ -83,8 +83,8 @@ public class SpCommentTopAdapter extends RecyclerView.Adapter {
         public void setData(String s, String s1, int position) {
             this.mPosition=position;
             if(selectPosition==position){
-                tvCommentCount.setTextColor(Color.parseColor("#E67771"));
-                tvCommentType.setTextColor(Color.parseColor("#E67771"));
+                tvCommentCount.setTextColor(Color.parseColor("#2EA7E0"));
+                tvCommentType.setTextColor(Color.parseColor("#2EA7E0"));
             }else{
                 tvCommentCount.setTextColor(Color.parseColor("#333333"));
                 tvCommentType.setTextColor(Color.parseColor("#333333"));

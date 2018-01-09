@@ -36,6 +36,10 @@ public class TimeOrderAdapter extends RecyclerView.Adapter {
         String s = split[1]+"/"+split[2];
         return s+"/"+week.get(selectPosition);
     }
+    public String getDate(){
+        String s1 = date.get(selectPosition);
+        return s1;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.order_times_item, parent, false);

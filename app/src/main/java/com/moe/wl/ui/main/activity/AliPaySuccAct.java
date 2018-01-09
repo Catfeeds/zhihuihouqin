@@ -2,6 +2,7 @@ package com.moe.wl.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.githang.statusbar.StatusBarCompat;
@@ -33,6 +34,8 @@ public class AliPaySuccAct extends MyBaseActivity {
     TextView tvOrdercode;
     @BindView(R.id.tv_bt)
     TextView tvBt;
+    @BindView(R.id.tv_des)
+    TextView tvDes;
     private int ordertype;
     private String createtime;
 
@@ -70,6 +73,9 @@ public class AliPaySuccAct extends MyBaseActivity {
             tvPayType.setText("订水服务");
         } else if(ordertype==Constants.VEGETABLE){//净菜预定
             tvPayType.setText("净菜预定");
+            tvDes.setVisibility(View.VISIBLE);
+            tvDes.setText("温馨提示：\n\n请务必于5：00-5:30于机关餐厅西门取菜。");
+
         }
         tvTime.setText(createtime);
         tvOrdercode.setText(ordercode);

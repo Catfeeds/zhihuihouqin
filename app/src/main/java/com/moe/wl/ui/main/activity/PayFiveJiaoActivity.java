@@ -31,6 +31,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -77,6 +79,8 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
     RelativeLayout rlBanance;
     @BindView(R.id.rl_banance_pay)
     RelativeLayout rlBanancePay;
+    @BindView(R.id.tv_remark)
+    TextView remark;
 
     private int paytype;
     private String payTypeName;
@@ -99,9 +103,9 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
 
     @Override
     public void initView() {
-        EventBus.getDefault().register(this);
         initTitle();
         initData();
+        EventBus.getDefault().register(this);
     }
 
     private void initData() {
@@ -125,7 +129,10 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         } else if (from == Constants.RECHARGE||from==Constants.MEALSPAY) {//钱包充值
             rlBanance.setVisibility(View.GONE);
             rlBanancePay.setVisibility(View.GONE);
-        } else {
+        } else if(from==Constants.VEGETABLE){//净菜预定
+            remark.setVisibility(View.VISIBLE);
+        }
+        else{
             rlDaijinquanPay.setVisibility(View.GONE);
         }
         getPresenter().findUserWallet();//查询钱包信息
@@ -292,9 +299,11 @@ public class PayFiveJiaoActivity extends BaseActivity<PayModel, PayView, PayPres
         if (bean != null) {
             //对私钱包余额
             walletRemain = bean.getWalletRemain();
+
             double publicRemain = bean.getPublicRemain();//对公钱包余额
             voucherNum = bean.getVoucherNum();//理发券数量
-            tvAvailableBalance.setText("￥" + walletRemain);
+            DecimalFormat df = new DecimalFormat("###.00");
+            tvAvailableBalance.setText("¥" + df.format(walletRemain));
             LogUtils.i("代金券的数量" + voucherNum);
         }
     }

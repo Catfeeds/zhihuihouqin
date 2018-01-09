@@ -26,7 +26,7 @@
             android:paddingTop="12dp"
             android:text="总金额"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
         <TextView
             android:id="@+id/price_number"
@@ -38,7 +38,7 @@
             android:paddingTop="12dp"
             android:text="¥0"
             android:textColor="@color/tv_red"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
         <Button
             android:id="@+id/send"
@@ -47,7 +47,7 @@
             android:background="@color/blue"
             android:text="提交"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_bigger" />
+            android:textSize="@dimen/sp_big" />
 
     </LinearLayout>
 
@@ -78,7 +78,7 @@
                     android:layout_weight="1"
                     android:text="@string/sarah_number"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_common" />
 
                 <ImageView
                     android:id="@+id/minus"
@@ -137,7 +137,7 @@
                     android:paddingTop="12dp"
                     android:text="@string/name"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_common" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -146,7 +146,7 @@
                     android:paddingBottom="12dp"
                     android:paddingTop="12dp"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_common" />
 
             </LinearLayout>
 
@@ -171,7 +171,7 @@
                     android:paddingTop="12dp"
                     android:text="@string/phone_number"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_common" />
 
                 <EditText
                     android:id="@+id/phone_number"
@@ -185,7 +185,7 @@
                     android:paddingTop="12dp"
                     android:textColor="@color/tv_black"
                     android:textColorHint="@color/gray_light"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_common" />
 
             </LinearLayout>
 
@@ -327,7 +327,8 @@
                     android:padding="12dp"
                     android:text="订餐类型"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_common"
+                    android:id="@+id/textView2" />
 
                 <View
                     android:layout_width="match_parent"
@@ -350,7 +351,7 @@
                         android:paddingLeft="8dp"
                         android:text="午餐"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_big" />
+                        android:textSize="@dimen/sp_common" />
 
                     <CheckBox
                         android:id="@+id/dinner"
@@ -363,7 +364,7 @@
                         android:paddingLeft="8dp"
                         android:text="晚餐"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_big" />
+                        android:textSize="@dimen/sp_common" />
 
                 </LinearLayout>
 
@@ -378,14 +379,69 @@
                     android:padding="12dp"
                     android:text="订餐期限"
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_bigger" />
+                    android:textSize="@dimen/sp_common" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
+                <LinearLayout
+                    android:id="@+id/ll_select_begain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:text="开始日期"
+                        android:textColor="@color/tv_black"
+                        android:padding="@dimen/normal_padding"
+                        android:textSize="@dimen/sp_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_begain"
+                        android:hint="请选择开始日期"
+                        android:textColorHint="@color/tv_gray"
+                        android:textColor="@color/tv_black"
+                        android:padding="@dimen/normal_padding"
+                        android:textSize="@dimen/sp_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_line" />
+                <LinearLayout
+                    android:id="@+id/ll_select_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:text="结束日期"
+                        android:textColor="@color/tv_black"
+                        android:padding="@dimen/normal_padding"
+                        android:textSize="@dimen/sp_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_end"
+                        android:hint="请选择结束日期"
+                        android:textColorHint="@color/tv_gray"
+                        android:textColor="@color/tv_black"
+                        android:padding="@dimen/normal_padding"
+                        android:textSize="@dimen/sp_common"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/gray_line" />
 
+
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -401,7 +457,7 @@
                         android:paddingLeft="8dp"
                         android:text="一星期"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_big" />
+                        android:textSize="@dimen/sp_common" />
 
                     <RadioButton
                         android:id="@+id/two_week"
@@ -414,7 +470,7 @@
                         android:paddingLeft="8dp"
                         android:text="两星期"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_big" />
+                        android:textSize="@dimen/sp_common" />
 
                     <RadioButton
                         android:id="@+id/one_mouth"
@@ -427,7 +483,7 @@
                         android:paddingLeft="8dp"
                         android:text="一个月"
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_big" />
+                        android:textSize="@dimen/sp_common" />
                 </LinearLayout>
 
                 <View

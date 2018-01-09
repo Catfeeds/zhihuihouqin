@@ -16,6 +16,7 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.ActivityRegistration.ActivityDetailActivity;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.ActivitylistBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +31,9 @@ import mvp.cn.util.CallPhoneUtils;
 
 public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
     private Context mContext;
-    private List<ActivityHomeBean.ActivitylistBean> data;
+    private List<ActivitylistBean> data;
 
-    public HomeNsrlv3Adapter(Context mContext, List<ActivityHomeBean.ActivitylistBean> data) {
+    public HomeNsrlv3Adapter(Context mContext, List<ActivitylistBean> data) {
         this.mContext = mContext;
         this.data = data;
     }
@@ -61,7 +62,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    public void setData(List<ActivityHomeBean.ActivitylistBean> data) {
+    public void setData(List<ActivitylistBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -81,7 +82,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
         ImageView ivCalPhone;
         @BindView(R.id.iv_photo)
         ImageView ivPhoto;
-        private ActivityHomeBean.ActivitylistBean activitylistBean;
+        private ActivitylistBean activitylistBean;
 
         ViewHolder(View view) {
             super(view);
@@ -113,7 +114,7 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
             CallPhoneUtils.callPhone(phone, mContext);
         }
 
-        public void setData(ActivityHomeBean.ActivitylistBean activitylistBean, int position) {
+        public void setData(ActivitylistBean activitylistBean, int position) {
             if (activitylistBean != null) {
                 this.activitylistBean = activitylistBean;
                 tvThridrvContent.setText(activitylistBean.getATitle());
@@ -131,7 +132,9 @@ public class HomeNsrlv3Adapter extends RecyclerView.Adapter {
                     tvThridrvTime.setText("时间：" + activitylistBean.getACreateTime());
                 }
                 tvSignUp.setText("报名(" + activitylistBean.getASignCount() + "/" + activitylistBean.getATotal() + ")");
-                GlideLoading.getInstance().loadImgUrlHeader(mContext, activitylistBean.getAImg(), ivPhoto, R.mipmap.ic_default_square);
+                if(activitylistBean.getaPhoto()!=null&&activitylistBean.getaPhoto().size()>0){
+                    GlideLoading.getInstance().loadImgUrlHeader(mContext, activitylistBean.getAImg()/*activitylistBean.getaPhoto().get(0)*/, ivPhoto, R.mipmap.ic_default_square);
+                }
             }
         }
     }

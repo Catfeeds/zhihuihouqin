@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
@@ -49,8 +50,18 @@
                     android:layout_marginRight="12dp"
                     android:textSize="@dimen/sp_small" />
             </LinearLayout>
-
-            <RatingBar
+            <com.moe.wl.ui.mywidget.StarBar
+                android:id="@+id/user_ratingBar"
+                android:layout_below="@+id/display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                ratingbar:starEmptys="@drawable/start_null_small"
+                ratingbar:starFills="@drawable/start_fill_small"
+                ratingbar:starDistance="5dp"
+                ratingbar:starCounts="5"
+                ratingbar:starSize="12dp"/>
+          <!--  <RatingBar
                 android:id="@+id/user_ratingBar"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
@@ -59,7 +70,7 @@
                 android:progressBackgroundTint="@color/gray"
                 android:progressTint="@color/yellow"
                 android:secondaryProgressTint="@color/gray"
-                android:theme="@style/RatingBar" />
+                android:theme="@style/RatingBar" />-->
 
             <TextView
                 android:id="@+id/tv_evaluate"

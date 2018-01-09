@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/isHasSp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="没有商品"
+        android:textColor="@color/tv_gray"
+        android:textSize="@dimen/sp_common"
+        android:layout_height="match_parent" />
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/sp_grid"
         android:layout_width="match_parent"
-        android:layout_marginBottom="100dp"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:layout_height="match_parent"/>
+</RelativeLayout>

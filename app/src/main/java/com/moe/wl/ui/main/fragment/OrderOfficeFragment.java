@@ -34,7 +34,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * 报修订单Fragment
+ * 订单Fragment
  * Created by 我的电脑 on 2017/8/17 0017.
  */
 public class OrderOfficeFragment extends BaseFragment2 {

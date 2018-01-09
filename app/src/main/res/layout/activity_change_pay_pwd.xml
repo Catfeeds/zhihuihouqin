@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/gray_trans">
+        android:background="@color/bg_page">
         <TextView
             android:id="@+id/tv_change_des"
             android:textSize="@dimen/sp_common"
@@ -27,6 +27,7 @@
             android:text="请输入旧的支付密码,以验证身份"
             android:layout_width="match_parent"
             android:padding="16dp"
+        android:layout_marginLeft="24dp"
             android:layout_height="wrap_content" />
         <com.moe.wl.ui.mywidget.gridpasswordview.GridPasswordView
             android:id="@+id/pswView"
@@ -36,7 +37,7 @@
             android:layout_height="50dp"
             app:gpvTextColor="#2196F3"
             app:gpvTextSize="25sp"
-            app:gpvLineColor="#2196F3"
+            app:gpvLineColor="@color/gray_line"
             app:gpvLineWidth="1dp"
             app:gpvGridColor="#ffffff"
             app:gpvPasswordLength="6"

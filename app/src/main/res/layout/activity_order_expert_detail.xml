@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:fitsSystemWindows="true">
 
@@ -90,7 +91,7 @@
                     android:layout_weight="1"
                     android:text="订单号："
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/state"
@@ -123,7 +124,7 @@
                     android:layout_marginTop="10dp"
                     android:text="预约时间："
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/order_time"
@@ -132,7 +133,7 @@
                     android:layout_marginTop="10dp"
                     android:text="下单时间："
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
                 <TextView
                     android:id="@+id/number"
@@ -141,7 +142,7 @@
                     android:layout_marginTop="10dp"
                     android:text="预  约  号："
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big"
+                    android:textSize="@dimen/sp_small"
                     android:visibility="gone" />
 
                 <TextView
@@ -152,7 +153,7 @@
                     android:layout_marginTop="10dp"
                     android:text="支付状态："
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_big" />
+                    android:textSize="@dimen/sp_small" />
 
             </LinearLayout>
 
@@ -182,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_big"
+                        android:textSize="@dimen/sp_small"
                         android:textStyle="bold" />
 
                     <TextView
@@ -194,9 +195,19 @@
                         android:layout_toRightOf="@id/name"
                         android:text=""
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
-
-                    <RatingBar
+                        android:textSize="@dimen/sp_small" />
+                    <com.moe.wl.ui.mywidget.StarBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name"
+                        android:layout_gravity="center_vertical"
+                        ratingbar:starCounts="5"
+                        ratingbar:starDistance="5dp"
+                        ratingbar:starEmptys="@drawable/start_null_small"
+                        ratingbar:starFills="@drawable/start_fill_small"
+                        ratingbar:starSize="12dp" />
+                    <!--<RatingBar
                         android:id="@+id/ratingBar"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
@@ -206,7 +217,7 @@
                         android:progressBackgroundTint="@color/gray"
                         android:progressTint="@color/yellow"
                         android:secondaryProgressTint="@color/gray"
-                        android:theme="@style/RatingBar" />
+                        android:theme="@style/RatingBar" />-->
 
                     <TextView
                         android:id="@+id/score"
@@ -217,7 +228,7 @@
                         android:layout_toRightOf="@id/ratingBar"
                         android:text=""
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
 
                     <TextView
                         android:id="@+id/visits_num"
@@ -227,7 +238,7 @@
                         android:layout_marginTop="6dp"
                         android:text="问诊量："
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
 
                     <TextView
                         android:id="@+id/hospital"
@@ -237,7 +248,7 @@
                         android:layout_marginTop="6dp"
                         android:text="所属医院："
                         android:textColor="@color/tv_black"
-                        android:textSize="@dimen/sp_common" />
+                        android:textSize="@dimen/sp_small" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

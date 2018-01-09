@@ -123,8 +123,8 @@ public class LoginActivity extends BaseActivity<LoginModel, LoginView, LoginPres
     @Override
     public void initView() {
         controlKeyboardLayout(findViewById(R.id.scrollview), findViewById(R.id.l_cb_remenberPwd));
-        if (SharedPrefHelper.getInstance().isRememberAccount()
-                && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getUserId())
+        if (/*SharedPrefHelper.getInstance().isRememberAccount()
+                && */!TextUtils.isEmpty(SharedPrefHelper.getInstance().getUserId())
                 && !TextUtils.isEmpty(SharedPrefHelper.getInstance().getToken())) {
             startActivity(new Intent(this, MainActivity.class));
             finish();

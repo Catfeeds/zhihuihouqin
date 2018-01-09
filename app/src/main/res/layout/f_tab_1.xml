@@ -3,6 +3,7 @@
     xmlns:banner="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
     android:background="@color/bg_page"
     android:orientation="vertical">
 
@@ -176,14 +177,52 @@
                         android:numColumns="4" />
 
                 </LinearLayout>
-
                 <LinearLayout
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="1px"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:padding="@dimen/normal_padding">
+                    <TextView
+                        android:id="@+id/tv_one"
+                        android:layout_width="0dp"
+                        android:text="最新公告"
+                        android:gravity="center_horizontal"
+                        android:textSize="@dimen/sp_small"
+                        android:textColor="@color/tv_black"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tv_two"
+                        android:layout_width="0dp"
+                        android:text="最新活动"
+                        android:gravity="center_horizontal"
+                        android:textSize="@dimen/sp_small"
+                        android:textColor="@color/tv_black"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tv_three"
+                        android:layout_width="0dp"
+                        android:text="我的订单"
+                        android:gravity="center_horizontal"
+                        android:textSize="@dimen/sp_small"
+                        android:textColor="@color/tv_black"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_gonggao"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -198,42 +237,15 @@
                         android:layout_height="1px"
                         android:background="@color/gray_line" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                         android:id="@+id/nsrlv1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
                 </LinearLayout>
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="物业报修"
-                        android:textSize="@dimen/sp_big" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/gray_line" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/nsrlv2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                    android:id="@+id/ll_activity"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
@@ -241,6 +253,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -255,10 +268,41 @@
                         android:layout_height="1px"
                         android:background="@color/gray_line" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <com.moe.wl.ui.mywidget.NoSlideRecyclerView
                         android:id="@+id/nsrlv3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_my_order"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="物业报修"
+                        android:textSize="@dimen/sp_big" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/gray_line" />
+
+                    <com.moe.wl.ui.mywidget.NoSlideRecyclerView
+                        android:id="@+id/nsrlv2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                 </LinearLayout>
 
 

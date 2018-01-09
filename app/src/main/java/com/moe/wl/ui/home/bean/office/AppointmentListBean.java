@@ -20,6 +20,16 @@ public class AppointmentListBean implements Serializable{
     private String status;
     private boolean isCheck;
 
+    @Override
+    public String toString() {
+        return "AppointmentListBean{" +
+                "durationstr='" + durationstr + '\'' +
+                ", intervalid='" + intervalid + '\'' +
+                ", status='" + status + '\'' +
+                ", isCheck=" + isCheck +
+                '}';
+    }
+
     public boolean isCheck() {
         return isCheck;
     }

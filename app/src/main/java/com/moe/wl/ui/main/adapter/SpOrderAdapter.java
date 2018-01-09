@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.NumberUtils;

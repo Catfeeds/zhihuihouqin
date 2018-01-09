@@ -14,13 +14,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.moe.wl.R;
+import com.moe.wl.ui.home.bean.RepairTimeBean;
 
 /**
  * Created by 我的电脑 on 2017/9/7 0007.
  */
 
 public class OrderTimesAdapter extends BaseAdapter {
-    private List<String> data = new ArrayList();
+    private List<RepairTimeBean.AppointmentListBean> data = new ArrayList();
 
     @Override
     public int getCount() {
@@ -50,19 +51,16 @@ public class OrderTimesAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (data != null && data.size() > 0)
-            viewHolder.setData(data.get(position), position);
+        if (data != null && data.size() > 0){
+            RepairTimeBean.AppointmentListBean appointmentListBean = data.get(position);
+            viewHolder.setData(appointmentListBean, position);
+        }
         return convertView;
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<RepairTimeBean.AppointmentListBean> data) {
         this.data = data;
         notifyDataSetChanged();
-    }
-
-    private int selectPosition = 0;
-    public int getSelectPosition(){
-        return selectPosition;
     }
 
     class ViewHolder {
@@ -74,25 +72,43 @@ public class OrderTimesAdapter extends BaseAdapter {
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
+        }
+
+        public void setData(RepairTimeBean.AppointmentListBean bean, final int position) {
+            this.mPosition = position;
+            tvBarberGridItem.setText(bean.getDurationstr());
+            int status = bean.getStatus();
+            if(status==1){//可以使使用的
+                if(bean.isChecked()){
+                    tvBarberGridItem.setBackgroundColor(Color.parseColor("#00CCFF"));
+                    tvBarberGridItem.setTextColor(Color.WHITE);
+                }else{
+                    tvBarberGridItem.setBackgroundColor(Color.WHITE);
+                    tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
+                }
+                llContainer.setEnabled(true);
+            }else{
+                tvBarberGridItem.setBackgroundColor(Color.parseColor("#BBBBBB"));
+                tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
+                llContainer.setEnabled(false);
+            }
+            llContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectPosition=mPosition;
-                    notifyDataSetChanged();
+                    if(listener!=null){
+                        listener.onTimeSelectListener(position);
+                    }
                 }
             });
         }
+    }
+    private OnTimeSelectListener listener;
 
-        public void setData(String s, int position) {
-            this.mPosition = position;
-            tvBarberGridItem.setText(s);
-            if(selectPosition==position){
-                tvBarberGridItem.setBackgroundColor(Color.parseColor("#00CCFF"));
-                tvBarberGridItem.setTextColor(Color.WHITE);
-            }else{
-                tvBarberGridItem.setBackgroundColor(Color.WHITE);
-                tvBarberGridItem.setTextColor(Color.parseColor("#333333"));
-            }
-        }
+    public void setListener(OnTimeSelectListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnTimeSelectListener{
+        void onTimeSelectListener(int position);
     }
 }

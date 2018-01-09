@@ -74,7 +74,7 @@
             android:layout_weight="3">
             <TextView
                 android:id="@+id/tv_add_car"
-                android:background="@color/yellow"
+                android:background="@color/yellow1"
                 android:text="加入购物车"
                 android:gravity="center"
                 android:textSize="@dimen/sp_small"
@@ -88,7 +88,7 @@
                 android:background="@color/gray_lighter"/>
             <TextView
                 android:id="@+id/tv_now_buy"
-                android:background="@color/yellow"
+                android:background="@color/bt"
                 android:text="立即购买"
                 android:gravity="center"
                 android:textSize="@dimen/sp_small"

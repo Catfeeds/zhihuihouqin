@@ -24,7 +24,7 @@
             android:maxLines="1"
             android:text="暂无名称"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
 
         <TextView
             android:id="@+id/tv_secondrv_time"

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger" />
+        android:textSize="@dimen/sp_common" />
 
     <TextView
         android:id="@+id/tv_day"
@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_big" />
+        android:textSize="@dimen/sp_common" />
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.moe.wl.R;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.home.bean.office.AppointmentListBean;
 import com.moe.wl.ui.main.adapter.MyBaseAdapter;
 
@@ -33,14 +34,18 @@ public class SubscribeTimeAdapter extends MyBaseAdapter<AppointmentListBean> {
         }
 
         final AppointmentListBean bean=getItem(position);
+        LogUtils.i("AppointmentListBean==="+bean);
         viewHolder.tv_time.setText(bean.getDurationstr());
+        viewHolder.tv_time.setEnabled(true);
         //状态1可租用2不可租用3已租用
         if ("2".equals(bean.getStatus())){
             viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.white));
             viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_gay);
+            viewHolder.tv_time.setEnabled(false);
         }else if ("3".equals(bean.getStatus())){
             viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.white));
             viewHolder.tv_time.setBackgroundResource(R.mipmap.bg_btn_gay);
+            viewHolder.tv_time.setEnabled(false);
         }else{
             if (bean.isCheck()){
                 viewHolder.tv_time.setTextColor(getContext().getResources().getColor(R.color.white));

@@ -67,7 +67,7 @@ public class ChangePayPwdActivity extends BaseActivity<ChangePayPwdModel, Change
                     passwordView.clearPassword();
                     count = 3;
                     firstPwd = psw;
-                    tvChangeDes.setText("请再次输入新的交易密码以确认");
+                    tvChangeDes.setText("请再次输入新的交易密码");
                 } else if (psw.length() == 6 && count == 3) {
                     if (psw.equals(firstPwd)) {
                         Log.e("MainActivity", "The password is: " + psw);
@@ -75,7 +75,7 @@ public class ChangePayPwdActivity extends BaseActivity<ChangePayPwdModel, Change
                     } else {
                         showToast("你输入的密码不一致");
                         passwordView.clearPassword();
-                        tvChangeDes.setText("请设置支付密码,建议勿与银行卡密码相同");
+                        tvChangeDes.setText("请输入6位支付密码");
                         count=2;
                     }
                 }
@@ -90,7 +90,7 @@ public class ChangePayPwdActivity extends BaseActivity<ChangePayPwdModel, Change
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("修改交易密码");
+        title.setTitle("修改支付密码");
     }
 
     @OnClick(R.id.tv_finish)

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.PropertyOrderInfo;
 import com.moe.wl.ui.main.bean.RepairItmeBean;
 import com.moe.wl.ui.main.model.WuyeHomeModel;
 import com.moe.wl.ui.main.view.WuyeHomeView;
@@ -21,12 +22,12 @@ import rx.Subscriber;
 
 public class WuyeHomePresenter extends MvpRxPresenter<WuyeHomeModel, WuyeHomeView> {
 
-    public void getData(int menditem, String username, String mobile,
+    public void getData(List<PropertyOrderInfo> infoList,int menditem, String username, String mobile,
                         String invitetime, String serviceplace, String mendcontent, List<String> files) {
         getView().showProgressDialog();
         LogUtil.log("BarberListPresenter发出请求");
         files.remove(files.size() - 1);
-        Observable login = getModel().getData(menditem, username, mobile, invitetime, serviceplace, mendcontent, files);
+        Observable login = getModel().getData(infoList,menditem, username, mobile, invitetime, serviceplace, mendcontent, files);
         getNetWork(login, new Subscriber<ActivityPostBean>() {
             @Override
             public void onCompleted() {

@@ -88,6 +88,15 @@ public class OfficeCollect {
         private String supplierName;
         private List<ImgEntityListBean> imgEntityList;
         private List<?> imgList;
+        private boolean isSelect;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
 
         public int getCategoryOneId() {
             return categoryOneId;

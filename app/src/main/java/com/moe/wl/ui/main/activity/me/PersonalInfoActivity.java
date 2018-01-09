@@ -1,13 +1,21 @@
 package com.moe.wl.ui.main.activity.me;
 
 import android.Manifest;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +24,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.application.SoftApplication;
@@ -25,6 +34,8 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.Imglibrary.ui.ImageBaseFragment;
+import com.moe.wl.ui.Imglibrary.utils.FileUtils;
 import com.moe.wl.ui.login.activity.PositionActivity;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.ChangeUserInfo;
@@ -115,6 +126,9 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
     private String roomNum;
     private String sex;
     private UserInfoBean.UserinfoEntity userinfo;
+    private File mTmpFile;
+    private int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION=1000;
+    private int REQUEST_CAMERA=1001;
 
     @Override
     public void setContentLayout() {
@@ -221,11 +235,13 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                 dialog.setData(itemList);
                 dialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         switch (position) {
                             case 0:// 拍照上传
                                 doTakePhoto();
+                                //showCameraAction();
                                 dialog.dismiss();
                                 break;
                             case 1:// 从gallery选择
@@ -259,7 +275,78 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .request();
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void showCameraAction() {
 
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    getString(R.string.mis_permission_rationale_write_storage), REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
+        } else {
+
+            final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                try {
+                    mTmpFile = FileUtils.createTmpFile(getActivity());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (mTmpFile != null && mTmpFile.exists()) {
+                    // // FIXME: 2017/4/11 修复android N 打开相机崩溃
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
+                    } else {
+                        ContentValues contentValues = new ContentValues(1);
+                        contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
+                        Uri uri = getContentResolver().insert(
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    }
+                    onPermissionRequests(Manifest.permission.CAMERA, new OnBooleanListener() {
+                        @Override
+                        public void onClick(boolean b) {
+                            if(b){
+                                startActivityForResult(intent, REQUEST_CAMERA);
+                            }else{
+                                Toast.makeText(getActivity(), "拍照或无法正常使用", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(getActivity(), R.string.mis_error_image_not_exist, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getActivity(), R.string.mis_msg_no_camera, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestPermission(final String permission, String rationale, final int requestCode) {
+        if (shouldShowRequestPermissionRationale(permission)) {
+            new AlertDialog.Builder(this).setTitle(R.string.mis_permission_dialog_title).setMessage(rationale)
+                    .setPositiveButton(R.string.mis_permission_dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestPermissions(new String[]{permission}, requestCode);
+                        }
+                    }).setNegativeButton(R.string.mis_permission_dialog_cancel, null).create().show();
+        } else {
+            requestPermissions(new String[]{permission}, requestCode);
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE_WRITE_ACCESS_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showCameraAction();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
     private void doTakePhoto() {
         PermissionGen.with(this)
                 .addRequestCode(100)
@@ -269,20 +356,30 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                 .request();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-    }
 
     @PermissionSuccess(requestCode = 100)
     public void doSomething() {
-        Intent openCameraIntent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE);
-        tempUri = Uri.fromFile(new File(Environment
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       /* tempUri = Uri.fromFile(new File(Environment
                 .getExternalStorageDirectory(), "temp_image.jpg"));
         // 将拍照所得的相片保存到SD卡根目录
-        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);*/
+        try {
+            mTmpFile = FileUtils.createTmpFile(getActivity());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            tempUri = Uri.fromFile(mTmpFile);
+            openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+        } else {
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
+            tempUri = getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+        }
+
         startActivityForResult(openCameraIntent, TAKE_PICTURE);
 //        Toast.makeText(this, "Contact permission is granted", Toast.LENGTH_SHORT).show();
     }
@@ -458,7 +555,7 @@ public class PersonalInfoActivity extends BaseActivity<UserInfoModel, UserInfoVi
                     SharedPrefHelper.getInstance().setSex("女");
                 }
                 //通知头像和昵称发生变化
-                EventBus.getDefault().postSticky(new MessageEvent(MessageEvent.HEADERCHANGE,url,nickName,tvPosition.getText().toString()) );
+               // EventBus.getDefault().postSticky(new MessageEvent(MessageEvent.HEADERCHANGE,url,nickName,tvPosition.getText().toString()) );
                 //EventBus.getDefault().post(new ChangeUserInfo(url, nickName, tvPosition.getText().toString()));
             } else {
                 showToast("修改信息失败");

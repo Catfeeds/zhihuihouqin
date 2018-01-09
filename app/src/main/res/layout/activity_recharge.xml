@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_recharge"
     android:orientation="vertical"
-    android:background="@color/gray_trans"
+    android:background="@color/bg_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <com.moe.wl.framework.widget.TitleBar
@@ -17,7 +17,7 @@
         android:background="@color/gray_lighter"/>
     <TextView
         android:text="充值金额"
-        android:textSize="@dimen/sp_bigger"
+        android:textSize="@dimen/sp_big"
         android:textColor="@color/black"
         android:padding="16dp"
         android:layout_width="match_parent"
@@ -50,13 +50,13 @@
     <TextView
         android:id="@+id/tv_confirm_pay"
         android:text="确定"
-        android:textSize="@dimen/sp_bigger_20"
+        android:textSize="@dimen/sp_big"
         android:textColor="@color/white"
         android:padding="@dimen/standard_padding"
         android:gravity="center"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/shape_confirm_yellow"
+        android:background="@drawable/shape_blue_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

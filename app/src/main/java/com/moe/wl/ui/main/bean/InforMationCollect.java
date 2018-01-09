@@ -70,6 +70,15 @@ public class InforMationCollect {
         private String typeName;
         private int typeid;
         private Object url;
+        private boolean isSelect;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
 
         public String getContent() {
             return content;

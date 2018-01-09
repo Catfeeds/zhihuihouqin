@@ -6,10 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.imageload.GlideLoading;
@@ -23,6 +21,7 @@ import com.moe.wl.ui.main.model.BookDetailModel;
 import com.moe.wl.ui.main.modelimpl.BookDetailModelImpl;
 import com.moe.wl.ui.main.presenter.BookDetailPresenter;
 import com.moe.wl.ui.main.view.BookDetailView;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +46,7 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     @BindView(R.id.tv_state)
     TextView tvState;
     @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    StarBar ratingBar;
     @BindView(R.id.tv_star_num)
     TextView tvStarNum;
     @BindView(R.id.tv_author)
@@ -115,8 +114,10 @@ public class BookDescriptionActivity extends BaseActivity<BookDetailModel, BookD
     private void initAllViw() {
         GlideLoading.getInstance().loadImgUrlNyImgLoader(this, bean.getImg(), ivBookPic, R.mipmap.ic_default_book);
         tvBookName.setText(bean.getTitle());
-        ratingBar.setRating(((float) bean.getScore()));
-        OtherUtils.ratingBarColor(ratingBar, this);
+        ratingBar.setIntegerMark(false);
+        ratingBar.ismove(false);
+        ratingBar.setStarMark(((float) bean.getScore()));
+       // OtherUtils.ratingBarColor(ratingBar, this);
         tvStarNum.setText(bean.getScore() + "分");
         tvAuthor.setText(bean.getAuthor());
         tvChubanshe.setText(bean.getPublisher());

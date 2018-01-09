@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_saving2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.moe.wl.framework.widget.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
+
+    <!--轮播图-->
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/ll_slider"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@mipmap/ic_default_rectangle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        <TextView
+            android:id="@+id/tv_Statistics"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_horizontal"
+            android:drawableTop="@mipmap/ic_saving_statistics"
+            android:text="消耗统计" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_horizontal"
+            android:drawableTop="@mipmap/ic_saving_ranking"
+            android:text="消耗统计" />
+        <TextView
+            android:id="@+id/tv_ranking"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_horizontal"
+            android:drawableTop="@mipmap/ic_saving_comparison"
+            android:text="消耗统计" />
+        </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
+    <TextView
+        android:text="资讯推荐"
+        android:padding="@dimen/standard_padding"
+        android:textSize="@dimen/sp_common"
+        android:textColor="@color/tv_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

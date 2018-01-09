@@ -88,7 +88,7 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
 
-        public void setData(BookOrderListBean.OrderlistBean orderlistBean, final int position, int state) {
+        public void setData(final BookOrderListBean.OrderlistBean orderlistBean, final int position, int state) {
             this.mPosition = position;
             this.state = state;
             if (orderlistBean != null) {
@@ -137,7 +137,9 @@ public class BookOrderAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, OrderBookDetailActivity.class);
-                    intent.putExtra("Data", mList.get(position));
+                    int orderid = orderlistBean.getOrderid();
+                    intent.putExtra("id",orderid);
+                    //intent.putExtra("Data", mList.get(position));
                     mContext.startActivity(intent);
                 }
             });

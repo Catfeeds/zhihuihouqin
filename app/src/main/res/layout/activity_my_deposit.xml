@@ -62,6 +62,6 @@
         android:text="退还押金"
         android:background="@color/white"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger_20"
+        android:textSize="@dimen/sp_bigger"
         />
 </LinearLayout>

@@ -205,9 +205,14 @@ public class OrderCutHearActivity extends BaseActivity<ShopModel, ShopView, Shop
                 showHint(infoBean);
                 break;
             case R.id.tv_now_order:
+                Intent intent2 = new Intent(this, BarberActivity.class);
+                String place1 = tvAddress.getText().toString().trim();
+                intent2.putExtra("address", place1);
+                intent2.putExtra("shopName", shopBean.getTradename());
+                startActivity(intent2);
+               /* Intent intent1 = new Intent(this, NowReservaBarberActivity.class);
                 // TODO: 2017/9/28 0028
-                Intent intent1 = new Intent(this, NowReservaBarberActivity.class);
-                startActivity(intent1);
+                startActivity(intent1);*/
                 break;
             case R.id.ll_call:
                 final String phone = tvPhone.getText().toString().trim();

@@ -3,7 +3,7 @@
     android:id="@+id/activity_fill_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-              android:background="@color/bg_page"
+    android:background="@color/bg_page"
     android:orientation="vertical">
 
     <com.moe.wl.framework.widget.TitleBar
@@ -13,9 +13,10 @@
         android:background="@color/white" />
 
     <View
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter" />
+        android:background="@color/gray_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,15 +38,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray_lighter" />
+            android:background="@color/gray_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,10 +62,12 @@
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="请输入电话号"
+                android:textColorHint="@color/tv_gray"
                 android:paddingLeft="@dimen/standard_padding"
                 android:textColor="@color/tv_black"
                 android:textSize="@dimen/sp_small" />
         </LinearLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -74,9 +77,9 @@
                 android:id="@+id/tv_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 android:background="@mipmap/bg_btn_blue_long"
                 android:gravity="center"

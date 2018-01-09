@@ -18,7 +18,7 @@ public class BookCollect {
 
     private int errCode;
     private String msg;
-    private List<ListBean> list;
+    private List<BooklistBean> list;
 
     public int getErrCode() {
         return errCode;
@@ -36,16 +36,22 @@ public class BookCollect {
         this.msg = msg;
     }
 
-    public List<ListBean> getList() {
+    /*public List<ListBean> getList() {
+        return list;
+    }*/
+    public List<BooklistBean> getList() {
         return list;
     }
 
-    public void setList(List<ListBean> list) {
+  /*  public void setList(List<ListBean> list) {
+        this.list = list;
+    }*/
+    public void setList(List<BooklistBean> list) {
         this.list = list;
     }
 
-    public static class ListBean {
-        /**
+    /*public static class ListBean {
+        *//**
          * author : 骆驼祥子
          * authorbrief : 老人与海，讲述了......
          * bollowstatus : 2
@@ -64,7 +70,7 @@ public class BookCollect {
          * title : 老人与海
          * typeid : 3
          * url : null
-         */
+         *//*
 
         private String author;
         private String authorbrief;
@@ -84,6 +90,15 @@ public class BookCollect {
         private String title;
         private int typeid;
         private Object url;
+        private boolean isSelect;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
 
         public String getAuthor() {
             return author;
@@ -228,5 +243,5 @@ public class BookCollect {
         public void setUrl(Object url) {
             this.url = url;
         }
-    }
+    }*/
 }

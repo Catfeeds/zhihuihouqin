@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.OfficeSupplies.SpDetailActivity;
 import com.moe.wl.ui.main.bean.OfficeCollect;
 
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
 public class OfficeCollectAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<OfficeCollect.ListBean> data = new ArrayList<>();
+    private boolean mIsEdit=false;
 
     public OfficeCollectAdapter(Context mContext) {
         this.mContext = mContext;
@@ -63,7 +65,11 @@ public class OfficeCollectAdapter extends RecyclerView.Adapter {
         this.data = data;
         notifyDataSetChanged();
     }
-
+    public void setIsEdit(boolean isEdit) {
+        this.mIsEdit = isEdit;
+        LogUtils.i("adapter里的isEdit==" + isEdit);
+        notifyDataSetChanged();
+    }
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ic_sp_photo)
         ImageView icSpPhoto;
@@ -71,6 +77,8 @@ public class OfficeCollectAdapter extends RecyclerView.Adapter {
         TextView tvSpDes;
         @BindView(R.id.tv_price)
         TextView tvPrice;
+        @BindView(R.id.iv_cancel)
+        ImageView cancel;
         private OfficeCollect.ListBean bean;
         private int mPosition;
 
@@ -86,6 +94,18 @@ public class OfficeCollectAdapter extends RecyclerView.Adapter {
                     mContext.startActivity(intent);
                 }
             });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean select = bean.isSelect();
+                    select = !select;
+                    bean.setSelect(select);
+                    notifyDataSetChanged();
+                    if (listener != null) {
+                        listener.updataListListener(select, mPosition);
+                    }
+                }
+            });
         }
 
         public void setData(OfficeCollect.ListBean listBean, int position) {
@@ -94,6 +114,27 @@ public class OfficeCollectAdapter extends RecyclerView.Adapter {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, listBean.getProductImg(), icSpPhoto, R.mipmap.ic_default_square);
             tvSpDes.setText(listBean.getProductname());
             tvPrice.setText(listBean.getPricerange());
+
+            if (mIsEdit) {
+                cancel.setVisibility(View.VISIBLE);
+            } else {
+                cancel.setVisibility(View.GONE);
+            }
+            boolean select = listBean.isSelect();
+            if (select) {
+                cancel.setImageResource(R.drawable.selected);
+            } else {
+                cancel.setImageResource(R.drawable.unselected);
+            }
         }
+    }
+    private UpdataListListener listener;
+
+    public void setListener(UpdataListListener listener) {
+        this.listener = listener;
+    }
+
+    public interface UpdataListListener {
+        void updataListListener(boolean isSelect, int position);
     }
 }

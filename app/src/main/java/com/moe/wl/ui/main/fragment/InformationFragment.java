@@ -42,6 +42,7 @@ public class InformationFragment extends BaseFragment2 {
     private boolean isRecommend = false;
     private int typeID = 0;
     private String keyword;
+    private boolean isPrepared;
 
     public static InformationFragment getInstance(int id, boolean isRecommend, String keyword) {
         InformationFragment fragment = new InformationFragment();
@@ -66,6 +67,9 @@ public class InformationFragment extends BaseFragment2 {
         typeID = getArguments().getInt("typeID", 0);
         keyword = getArguments().getString("keyWord", "");
         isRecommend = getArguments().getBoolean("isRecommend", false);
+        isPrepared = true;
+        getData();
+//        lazyLoad();
 
         data = new ArrayList<>();
         adapter = new HomeNsrlv1Adapter(getActivity(), data);
@@ -76,15 +80,18 @@ public class InformationFragment extends BaseFragment2 {
             public void onRefresh() {
                 page = 1;
                 getData();
+//                lazyLoad();
             }
 
             @Override
             public void onLoadMore() {
                 page++;
                 getData();
+
             }
         });
         getData();
+
     }
 
     private void getData() {
@@ -135,4 +142,56 @@ public class InformationFragment extends BaseFragment2 {
         });
     }
 
+   /* @Override
+    protected void lazyLoad() {
+        if(!isPrepared || !isVisible) {
+            return;
+        }
+        //填充各控件的数据
+        Observable observable;
+        if (isRecommend) {
+            observable = RetrofitUtils.getInstance().getInformation(0, 1, keyword, page);
+        } else {
+            observable = RetrofitUtils.getInstance().getInformation(typeID, 0, keyword, page);
+        }
+        showProgressDialog();
+        observable.subscribe(new Subscriber<InformationBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+                recycleView.refreshComplete();
+                recycleView.loadMoreComplete();
+            }
+
+            @Override
+            public void onNext(InformationBean bean) {
+                if (bean == null || bean.getPage() == null || bean.getPage().getList() == null)
+                    return;
+                if (bean.getErrCode() == 0) {
+                    if (bean.getPage().getTotalPage() <= page) {
+                        recycleView.setLoadingMoreEnabled(false);
+                    } else {
+                        recycleView.setLoadingMoreEnabled(true);
+                    }
+                    if (page == 1) {
+                        data.clear();
+                        recycleView.refreshComplete();
+                    } else {
+                        recycleView.loadMoreComplete();
+                    }
+                    data.addAll(bean.getPage().getList());
+                    adapter.notifyDataSetChanged();
+                } else if (bean.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                } else {
+                    showToast(bean.getMsg());
+                }
+            }
+        });
+    }*/
 }

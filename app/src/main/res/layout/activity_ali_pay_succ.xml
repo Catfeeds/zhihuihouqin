@@ -193,4 +193,14 @@
         android:text="查看订单"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_common" />
+    <TextView
+        android:id="@+id/tv_des"
+        android:text=""
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textSize="@dimen/sp_small"
+        android:textColor="@color/tv_red"
+        android:layout_margin="@dimen/normal_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

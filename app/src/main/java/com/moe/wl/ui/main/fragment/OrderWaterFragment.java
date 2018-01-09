@@ -37,6 +37,7 @@ public class OrderWaterFragment extends BaseFragment<QueryWaterListModel, QueryW
     private boolean isRefresh;
     private int id;
     private List<QueryWaterListBean.PageBean.ListBean> mList;
+    private int needdeposit;
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
@@ -50,14 +51,16 @@ public class OrderWaterFragment extends BaseFragment<QueryWaterListModel, QueryW
         Bundle bundle = getArguments();
         if (bundle != null) {
             id = bundle.getInt("id");
+            needdeposit = bundle.getInt("needdeposit");
             getPresenter().queryWaterType(id, page, limit);
         }
     }
 
-    public static OrderWaterFragment getInstance(int id) {
+    public static OrderWaterFragment getInstance(int id,int needdeposit) {
         OrderWaterFragment fragment = new OrderWaterFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
+        bundle.putInt("needdeposit",needdeposit);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -110,6 +113,7 @@ public class OrderWaterFragment extends BaseFragment<QueryWaterListModel, QueryW
 //                        count+=count1;
 //                        LogUtils.d("sum:" + sum + "  count:" + count);
 //                    }
+                    bean.setNeeddeposit(needdeposit);
                     EventBus.getDefault().post(new OrderWaterSumAndcount(id, bean, isAdd));
                 }
             });

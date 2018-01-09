@@ -6,6 +6,7 @@ package com.moe.wl.ui.main.bean;
 
 public class UserDepositBean {
 
+
     /**
      * deposit : {"deposit":50,"id":1,"type":20,"uid":16}
      * errCode : 0

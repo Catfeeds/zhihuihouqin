@@ -55,10 +55,10 @@
             android:layout_height="@dimen/title_height"
             android:layout_weight="1"
             android:background="@color/white"
-            app:tabIndicatorColor="@color/tv_red"
+            app:tabIndicatorColor="@color/bt"
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/tv_red"
+            app:tabSelectedTextColor="@color/bt"
             app:tabTextColor="@color/tv_black" />
 
         <ImageView

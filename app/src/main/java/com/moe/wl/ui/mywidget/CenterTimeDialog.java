@@ -30,6 +30,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
     private int curHour;
     private int curMin;
     private NumericWheelAdapter numericWheelAdapter;
+    private int norYear;
 
     public CenterTimeDialog(Context context, int theme) {
         super(context, theme);
@@ -51,7 +52,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         tvCancel.setOnClickListener(this);
         tvConfirm.setOnClickListener(this);
         Calendar c = Calendar.getInstance();
-        int norYear = c.get(Calendar.YEAR);
+        norYear = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -127,7 +128,7 @@ public class CenterTimeDialog extends Dialog implements View.OnClickListener {
         @Override
         public void onScrollingFinished(WheelView wheel) {
             //年
-            curYear = year.getCurrentItem() + 2017;//月
+            curYear = year.getCurrentItem() + norYear;//月
             curMonth = month.getCurrentItem() + 1;
             initDay();
             curDate = Integer.parseInt(numericWheelAdapter.getItemText(day.getCurrentItem()).toString());

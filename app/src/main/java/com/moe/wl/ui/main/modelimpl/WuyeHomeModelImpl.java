@@ -1,6 +1,7 @@
 package com.moe.wl.ui.main.modelimpl;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.ui.main.bean.PropertyOrderInfo;
 import com.moe.wl.ui.main.model.WuyeHomeModel;
 
 import java.util.List;
@@ -14,10 +15,10 @@ import rx.Observable;
 public class WuyeHomeModelImpl implements WuyeHomeModel {
 
     @Override
-    public Observable getData(int menditem,String username,String mobile,
-                              String invitetime,String serviceplace,String mendcontent,List<String> files) {
+    public Observable getData(List<PropertyOrderInfo> infoList,int menditem, String username, String mobile,
+                              String invitetime, String serviceplace, String mendcontent, List<String> files) {
         Observable observer = RetrofitUtils.getInstance().getWuyeHomeInfo(
-                menditem,username,mobile,invitetime,serviceplace,mendcontent,files);
+                infoList, menditem,username,mobile,invitetime,serviceplace,mendcontent,files);
         return observer ;
     }
 

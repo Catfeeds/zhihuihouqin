@@ -6,7 +6,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray_lighter"/>
+        android:background="@color/gray_line"/>
     <RelativeLayout
         android:padding="@dimen/standard_padding"
         android:layout_width="match_parent"
@@ -37,4 +37,5 @@
         android:layout_centerVertical="true"
         android:src="@drawable/unselect" />
     </RelativeLayout>
+
 </LinearLayout>

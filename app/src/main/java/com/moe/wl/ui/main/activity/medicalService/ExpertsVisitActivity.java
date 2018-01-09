@@ -32,6 +32,7 @@ import com.moe.wl.ui.main.presenter.ExpertDetailPresenter;
 import com.moe.wl.ui.main.view.ExpertDetailView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.ShowHintDialog;
+import com.moe.wl.ui.mywidget.StarBar;
 import com.suke.widget.SwitchButton;
 
 import java.util.ArrayList;
@@ -60,8 +61,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
     TextView tvDoctorName;
     @BindView(R.id.tv_doctor_position)
     TextView tvDoctorPosition;
-    @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    @BindView(R.id.starBar)
+    StarBar ratingBar;
     @BindView(R.id.tv_star_num)
     TextView tvStarNum;
     @BindView(R.id.tv_seeing)
@@ -150,7 +151,6 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         adapter = new DoctorDetailrvAdapter(this, data, 1);
         recycleView.setLayoutManager(new NoScrollLinearLayoutManager(this));
         recycleView.setAdapter(adapter);
-        OtherUtils.ratingBarColor(ratingBar, this);
         getPresenter().getExpertDetail();
         if (!SharedPrefHelper.getInstance().getServiceHint(Constants.EXPERTS)) {
             getHint();
@@ -175,7 +175,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
                     ToastUtil.showToast(ExpertsVisitActivity.this, "请选择预约时间！");
                     return;
                 }
-                Intent intent2 = new Intent(this, ReserveInfoActivity.class);
+                //Intent intent2 = new Intent(this, ReserveInfoActivity.class);
+                Intent intent2 = new Intent(this, ConfirmOrderActivity.class);
                 intent2.putExtra("TimeID", timeID);
                 intent2.putExtra("Time", time);
                 if (entity.getId() != 0) {
@@ -210,7 +211,8 @@ public class ExpertsVisitActivity extends BaseActivity<ExpertDetailModel, Expert
         tvDoctorPosition.setText(bean.getExpert().getPositionname());// 职位名
         tvHospital.setText(bean.getExpert().getHospitalName());// 医院名
         tvStarNum.setText(bean.getExpert().getScore() + "");// 分数
-        ratingBar.setRating((float) bean.getExpert().getScore());
+        ratingBar.setStarMark((float) bean.getExpert().getScore());
+        ratingBar.setIntegerMark(false);
         skilledInfo.setText(/*"擅长：" + */bean.getExpert().getSkilledinfo());// 擅长
         tvOrderPersonNum.setText((bean.getExpert().getInvitetotalcount() - bean.getExpert().getRemaincount()) + "/" + bean.getExpert().getInvitetotalcount());// 预约人数
         tvWorkTime.setText(bean.getExpert().getWorktime());// 工作时间

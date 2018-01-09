@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -77,14 +78,16 @@ public class OrderVisitorsFragment extends BaseFragment2 {
     private void setClick() {
         adapter.setOnClickListener(new OrderVisitorsAdapter.OnClickListener() {
             @Override
-            public void onClick(int type, int position) {
+            public void onClick(int type, int position,int id) {
                 switch (type) {
                     case 0: // 取消订单
                         showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 9: // 拨打电话
+                    case 9: // 取消订单
 //                        showAlertDialog("是否拨打服务电话", position);
+                        //commitOrder(position, id);
+                        showAlertDialog("是否取消订单", position);
                         break;
 
                     case 2: // 再来一单
@@ -111,7 +114,7 @@ public class OrderVisitorsFragment extends BaseFragment2 {
 
     // 审核通过这个订单
     private void commitOrder(final int position, int id) {
-        Observable observable = RetrofitUtils.getInstance().commitOrder(id);
+        Observable observable = RetrofitUtils.getInstance().commitOrder(id,1);
         showProgressDialog();
         observable.subscribe(new Subscriber<CollectBean>() {
             @Override
@@ -153,9 +156,11 @@ public class OrderVisitorsFragment extends BaseFragment2 {
                         intent.putExtra("from", Constants.VISITORS);
                         if (data.size() >= mPosition) {
                             OrderVisitorsListBean.OrderlistEntity listBean = data.get(mPosition);
-                            if (state == 0) {
+                            LogUtils.i("stata====---"+state);
+                            if (state == 9||state==0) {
                                 int id = listBean.getId();
                                 LogUtils.d("id:" + id + "  position:" + mPosition);
+                                intent.putExtra("state",state);
                                 intent.putExtra("OrderingID", id);
                                 startActivity(intent);
                             } else if (state == 4) {
@@ -231,7 +236,9 @@ public class OrderVisitorsFragment extends BaseFragment2 {
                     if (page == 1) {
                         data.clear();
                     }
-                    data.addAll(orderBean.getOrderlist());
+                    List<OrderVisitorsListBean.OrderlistEntity> orderlist = orderBean.getOrderlist();
+                    Collections.reverse(orderlist);
+                    data.addAll(orderlist);
                     adapter.notifyDataSetChanged();
                 } else if (orderBean.getErrCode() == 2) {
                     reLogin(Constants.LOGIN_ERROR);

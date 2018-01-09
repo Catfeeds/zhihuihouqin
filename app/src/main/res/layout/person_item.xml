@@ -23,6 +23,6 @@
             android:layout_marginLeft="5dp"
             android:text="小明"
             android:textColor="@color/font_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_small" />
     </LinearLayout>
 </LinearLayout>

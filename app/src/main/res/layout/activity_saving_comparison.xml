@@ -34,8 +34,30 @@
             android:text="消耗对比" />
 
         <LinearLayout
+            android:id="@+id/ll_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="10dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_energy_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textColor="@color/font_black"
+                android:text="电耗" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_triangle_down" />
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/ll_right"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="10dp"
             android:gravity="right"
@@ -146,23 +168,70 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+           >
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_build"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="楼宇"
+                    android:padding="@dimen/normal_padding"
+                    style="@style/nomal_text"/>
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/line_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_build_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="北楼"
+                    android:padding="@dimen/normal_padding"
+                    style="@style/nomal_text"/>
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/line2_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_build_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="业务楼"
+                    android:padding="@dimen/normal_padding"
+                    style="@style/nomal_text"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+               android:gravity="center"
+                android:text="暂无数据展示"/>
             <lecho.lib.hellocharts.view.LineChartView
                 android:id="@+id/lineChart"
+                android:visibility="gone"
+                android:layout_below="@+id/ll_build"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>
 
             <lecho.lib.hellocharts.view.ColumnChartView
                 android:id="@+id/columnChartc"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="300dp"/> >
 
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </LinearLayout>

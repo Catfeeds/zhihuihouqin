@@ -12,6 +12,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.bean.CommentlistBean;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +59,9 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         CommentlistBean commentlistBean = data.get(position);
         GlideLoading.getInstance().loadImgUrlNyImgLoader(context, commentlistBean.getPhoto(), holder.civUserPhoto/*, R.mipmap.ic_default_square*/);
         holder.tvUserName.setText(commentlistBean.getRealname());
-        holder.userRatingBar.setRating((float) commentlistBean.getScore());
-        OtherUtils.ratingBarColor(holder.userRatingBar, context);
+        holder.userRatingBar.setStarMark((float) commentlistBean.getScore());
+        holder.userRatingBar.setIntegerMark(false);
+        holder.userRatingBar.ismove(false);
         holder.tvTime.setText(commentlistBean.getCreatetime());
         holder.tvEvaluate.setText(commentlistBean.getContent());
     }
@@ -84,7 +86,7 @@ public class DoctorDetailrvAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.user_ratingBar)
-        RatingBar userRatingBar;
+        StarBar userRatingBar;
         @BindView(R.id.tv_evaluate)
         TextView tvEvaluate;
 

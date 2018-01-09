@@ -214,6 +214,8 @@ public class BarberDetailActivity extends BaseActivity<BarberDetailModel, Barber
             case R.id.zixun://咨询
                 Intent intent3 = new Intent(this, ConsultActivity.class);
                 intent3.putExtra("barberid", id);
+                intent3.putExtra("photo",barberlistBean.getPhoto());
+                intent3.putExtra("name",barberlistBean.getName());
                 startActivity(intent3);
                 break;
             case R.id.tv_now_order:

@@ -3,7 +3,9 @@ package com.moe.wl.ui.main.presenter;
 import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.BarberCollect;
 import com.moe.wl.ui.main.bean.BarberProductCollect;
 import com.moe.wl.ui.main.bean.BookCollect;
@@ -12,6 +14,8 @@ import com.moe.wl.ui.main.bean.InforMationCollect;
 import com.moe.wl.ui.main.bean.OfficeCollect;
 import com.moe.wl.ui.main.model.McNocticeModel;
 import com.moe.wl.ui.main.view.McNoticeView;
+
+import java.util.List;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -23,9 +27,36 @@ import rx.Subscriber;
  */
 
 public class McNoticePresenter extends MvpRxPresenter<McNocticeModel, McNoticeView> {
+    //删除我的收藏
+    public void deleteFavorList(List type) {
+        Observable request = getModel().deleteFavorList(type);
 
+            getNetWork(request, new Subscriber<ActivityPostBean>() {
+
+                @Override
+                public void onCompleted() {
+                    getView().dismissProgressDialog();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    LogUtils.i("删除收藏"+e.getMessage());
+                }
+
+                @Override
+                public void onNext(ActivityPostBean bean) {
+                    if(bean.getErrCode()==0){
+                        getView().getDetleteResult(bean);
+                    }else if(bean.getErrCode()==2){
+                        getView().reLogin(Constants.LOGIN_ERROR);
+                        return;
+                    }else{
+                        getView().showToast(bean.getMsg());
+                    }
+                }
+            });
+    }
     public void findUserFavorList(String type) {
-        getView().showProgressDialog();
         Observable request = getModel().findUserFavorList(type);
         if (type.equals("1")) {
             getNetWork(request, new Subscriber<InforMationCollect>() {

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.moe.wl.R;
@@ -26,12 +25,12 @@ import butterknife.ButterKnife;
 public class OrderMealAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<OrderMealBean.ListEntity> data;
+    private List<OrderMealBean.ListBean> data;
     private OnCommentClickListener commentListener;
     private OnClickListener listener;
     private int state;
 
-    public OrderMealAdapter(Context context, List<OrderMealBean.ListEntity> data, int state) {
+    public OrderMealAdapter(Context context, List<OrderMealBean.ListBean> data, int state) {
         this.context = context;
         this.data = data;
         this.state = state;
@@ -95,7 +94,7 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
             }
         });
 
-        holder.item.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderMealDetailActivity.class);
@@ -110,30 +109,6 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
         return data.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.order_number)
-        TextView orderNumber;
-        @BindView(R.id.time)
-        TextView time;
-        @BindView(R.id.arrive_time)
-        TextView arriveTime;
-        @BindView(R.id.number)
-        TextView number;
-        @BindView(R.id.order)
-        TextView order;
-        @BindView(R.id.comment)
-        TextView comment;
-        @BindView(R.id.fixation)
-        TextView fixation;
-        @BindView(R.id.item)
-        LinearLayout item;
-
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 
     public interface OnCommentClickListener {
         void onCommentClick();
@@ -149,5 +124,27 @@ public class OrderMealAdapter extends RecyclerView.Adapter {
 
     public void setOnClickListener(OnClickListener listener) {
         this.listener = listener;
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.order_number)
+        TextView orderNumber;
+        @BindView(R.id.fixation)
+        TextView fixation;
+        @BindView(R.id.time)
+        TextView time;
+        @BindView(R.id.arrive_time)
+        TextView arriveTime;
+        @BindView(R.id.number)
+        TextView number;
+        @BindView(R.id.order)
+        TextView order;
+        @BindView(R.id.comment)
+        TextView comment;
+
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
     }
 }

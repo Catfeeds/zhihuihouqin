@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_page">
+    android:background="@color/bg_page"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/ll_back"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,92 +30,97 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@color/font_black"
-            android:text="节能减排" />
+            android:text="节能减排"
+            android:textColor="@color/font_black" />
 
     </RelativeLayout>
 
-    <ScrollView
+    <!--<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical">-->
 
             <!--轮播图-->
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/ll_slider"
                 android:layout_width="match_parent"
-                android:background="@mipmap/ic_default_rectangle"
-                android:layout_height="180dp" />
+                android:layout_height="180dp"
+                android:background="@mipmap/ic_default_rectangle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:layout_marginTop="10dp"
-                android:paddingTop="5dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
                 android:paddingBottom="5dp"
-                android:orientation="horizontal">
+                android:paddingTop="5dp">
+
                 <LinearLayout
                     android:id="@+id/ll_statistics"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_saving_statistics"/>
+                        android:src="@mipmap/ic_saving_statistics" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="消耗统计"/>
+                        android:text="消耗统计" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ll_ranking"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_saving_ranking"/>
+                        android:src="@mipmap/ic_saving_ranking" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="消耗排名"/>
+                        android:text="消耗排名" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_comparison"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_saving_comparison"/>
+                        android:src="@mipmap/ic_saving_comparison" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="消耗对比"/>
+                        android:text="消耗对比" />
 
                 </LinearLayout>
 
@@ -123,50 +128,61 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_height="50dp">
+                android:paddingRight="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/font_black"
-                    android:text="资讯推荐"/>
+                    android:text="资讯推荐"
+                    android:textColor="@color/font_black" />
+
                 <LinearLayout
                     android:id="@+id/ll_more"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal">
+
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/font_black"
-                        android:text="更多"/>
+                        android:text="更多"
+                        android:textColor="@color/font_black" />
+
                     <ImageView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_more"/>
+                        android:src="@mipmap/ic_more" />
                 </LinearLayout>
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"/>
+                android:background="@color/divider" />
 
-            <com.moe.wl.framework.widget.NoSlidingListView
-                android:id="@+id/lv_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"/>
+                android:background="@color/white" />
+            <!-- <com.moe.wl.framework.widget.NoSlidingListView
+                 android:id="@+id/lv_content"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@color/white"/>-->
 
-        </LinearLayout>
+      <!--  </LinearLayout>
 
-    </ScrollView>
+    </ScrollView>-->
 
 </LinearLayout>

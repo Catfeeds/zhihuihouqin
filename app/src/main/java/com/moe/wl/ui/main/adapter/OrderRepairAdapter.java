@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.me.OrderRepairDetailActivity;
 import com.moe.wl.ui.main.bean.OrderRepairBean;
 
@@ -99,6 +100,7 @@ public class OrderRepairAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderRepairDetailActivity.class);
+                LogUtils.i("orderid=="+data.get(position).getOrderid());
                 intent.putExtra("OrderID", data.get(position).getOrderid());
                 intent.putExtra("State", data.get(position).getOrderstatus());
                 intent.putExtra("Mobile", data.get(position).getMendermobile());

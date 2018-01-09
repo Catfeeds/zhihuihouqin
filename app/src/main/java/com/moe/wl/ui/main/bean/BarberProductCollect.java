@@ -78,6 +78,16 @@ public class BarberProductCollect {
         private double score;
         private int valid;
 
+        private boolean isSelect;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
+
         public int getBarberid() {
             return barberid;
         }

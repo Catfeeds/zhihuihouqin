@@ -61,10 +61,10 @@ public class AcountSaftActivity extends Base2Activity {
         if (from == Constants.ACCOUNT_SAFT) {
             title.setTitle("验证手机号");
         } else if (from == Constants.CHANGE_PWD) {
-            title.setTitle("找回密码");
+            title.setTitle("修改支付密码");
             btNext.setText("验证");
         } else if (from == Constants.FORGET_PWD) {
-            title.setTitle("找回密码");
+            title.setTitle("忘记支付密");
             btNext.setText("验证");
         } else if (from == Constants.SET_PWD) {
             title.setTitle("设置交易密码");
@@ -103,13 +103,12 @@ public class AcountSaftActivity extends Base2Activity {
                 } else if (from == Constants.CHANGE_PWD) {//修改支付密码
                     Intent intent = new Intent(this, ChangePayPwdActivity.class);
                     startActivity(intent);
-                    finish();
+
                 } else if (from == Constants.FORGET_PWD || from == Constants.SET_PWD) {//忘记密码||设置密码
                     Intent intent = new Intent(this, ForgetPayPwdActivity.class);
                     startActivity(intent);
-                    finish();
+
                 }
-                finish();
                 break;
 
         }

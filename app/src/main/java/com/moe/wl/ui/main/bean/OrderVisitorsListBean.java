@@ -292,13 +292,13 @@ public class OrderVisitorsListBean implements Serializable {
             this.byuserlist = byuserlist;
         }
 
-        public static class ByuserlistEntity implements Serializable {
-            /**
+       /* public static class ByuserlistEntity implements Serializable {
+            *//**
              * id : 1
              * idcard : 1
              * name : 1
              * visituid : 50
-             */
+             *//*
 
             @SerializedName("id")
             private int idX;
@@ -337,6 +337,6 @@ public class OrderVisitorsListBean implements Serializable {
             public void setVisituid(int visituid) {
                 this.visituid = visituid;
             }
-        }
+        }*/
     }
 }

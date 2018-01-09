@@ -1,10 +1,13 @@
 package com.moe.wl.ui.main.modelimpl;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.ui.main.bean.ApppointmentInfo;
 import com.moe.wl.ui.main.model.AddressModel;
 import com.moe.wl.ui.main.model.OrderInfoModel;
 
 import org.json.JSONArray;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -22,8 +25,8 @@ public class OrderInfoModelImpl implements OrderInfoModel {
     }
 
     @Override
-    public Observable generateOrder(String realname, String mobile, int addressId, String sendTime, Object[] arr, String remark) {
-        Observable observable = RetrofitUtils.getInstance().generateOrder(realname,mobile,addressId,sendTime,arr,remark);
+    public Observable generateOrder(List<ApppointmentInfo> timeList, String realname, String mobile, int addressId, String sendTime, Object[] arr, String remark) {
+        Observable observable = RetrofitUtils.getInstance().generateOrder(timeList,realname,mobile,addressId,sendTime,arr,remark);
         return observable;
     }
 }

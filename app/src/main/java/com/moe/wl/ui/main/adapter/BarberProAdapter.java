@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.HairStyleDetailActivity;
 import com.moe.wl.ui.main.bean.BarberProductCollect;
 
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 public class BarberProAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<BarberProductCollect.ListBean> data;
+    private boolean mIsEdit = false;
 
     public BarberProAdapter(Context mContext) {
         this.mContext = mContext;
@@ -43,17 +45,17 @@ public class BarberProAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        if(data!=null){
+        if (data != null) {
             BarberProductCollect.ListBean listBean = data.get(position);
-            viewHolder.setData(listBean,position);
+            viewHolder.setData(listBean, position);
         }
     }
 
     @Override
     public int getItemCount() {
-        if(data!=null){
+        if (data != null) {
             return data.size();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -63,17 +65,29 @@ public class BarberProAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder{
+    private int selectPosition;
+
+    public void setIsEdit(boolean isEdit) {
+        this.mIsEdit = isEdit;
+        LogUtils.i("adapter里的isEdit==" + isEdit);
+        notifyDataSetChanged();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ic_sp_photo)
         ImageView icSpPhoto;
         @BindView(R.id.tv_sp_des)
         TextView tvSpDes;
         @BindView(R.id.tv_price)
         TextView tvPrice;
-         private BarberProductCollect.ListBean data;
-         private int id;
+        @BindView(R.id.iv_cancel)
+        ImageView cancel;
+        private BarberProductCollect.ListBean data;
+        private int id;
+        private int mPosition;
+        private BarberProductCollect.ListBean mlistBean;
 
-         ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(new View.OnClickListener() {
@@ -81,21 +95,57 @@ public class BarberProAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, HairStyleDetailActivity.class);
                     intent.putExtra("workid", id);
-                    intent.putExtra("img",data.getDetailimg());
-                    intent.putExtra("price",data.getPrice());
-                    intent.putExtra("name",data.getName());
-                    intent.putExtra("brief",data.getBrief());
+                    intent.putExtra("img", data.getDetailimg());
+                    intent.putExtra("price", data.getPrice());
+                    intent.putExtra("name", data.getName());
+                    intent.putExtra("brief", data.getBrief());
                     mContext.startActivity(intent);
+                }
+            });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectPosition = mPosition;
+                    boolean select = mlistBean.isSelect();
+                    select = !select;
+                    mlistBean.setSelect(select);
+                    notifyDataSetChanged();
+                    if (listener != null) {
+                        listener.updataListListener(select, mPosition);
+                    }
                 }
             });
         }
 
         public void setData(BarberProductCollect.ListBean listBean, int position) {
-            this.data=listBean;
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext,listBean.getDetailimg(),icSpPhoto,R.mipmap.ic_default_square);
+            this.data = listBean;
+            this.mPosition = position;
+            this.mlistBean = listBean;
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, listBean.getDetailimg(), icSpPhoto, R.mipmap.ic_default_square);
             tvSpDes.setText(listBean.getName());
-            tvPrice.setText("￥" +listBean.getPrice());
+            tvPrice.setText("￥" + listBean.getPrice());
             id = listBean.getId();
+            if (mIsEdit) {
+                cancel.setVisibility(View.VISIBLE);
+            } else {
+                cancel.setVisibility(View.GONE);
+            }
+            boolean select = listBean.isSelect();
+            if (select) {
+                cancel.setImageResource(R.drawable.selected);
+            } else {
+                cancel.setImageResource(R.drawable.unselected);
+            }
         }
+    }
+
+    private UpdataListListener listener;
+
+    public void setListener(UpdataListListener listener) {
+        this.listener = listener;
+    }
+
+    public interface UpdataListListener {
+        void updataListListener(boolean isSelect, int position);
     }
 }

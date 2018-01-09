@@ -27,7 +27,7 @@
                 android:maxLines="1"
                 android:text="健康是吃出来的，营养套餐为您贴心安排"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger"
+                android:textSize="@dimen/sp_big"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -85,7 +85,7 @@
                 android:paddingTop="10dp"
                 android:text="用户评论"
                 android:textColor="@color/tv_black"
-                android:textSize="@dimen/sp_bigger" />
+                android:textSize="@dimen/sp_big" />
 
             <com.moe.wl.framework.widget.NoSlidingListView
                 android:id="@+id/list_view"

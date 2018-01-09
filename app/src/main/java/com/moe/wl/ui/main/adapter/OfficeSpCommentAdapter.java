@@ -17,6 +17,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.moe.wl.R;
+import com.moe.wl.ui.mywidget.StarBar;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -69,7 +71,7 @@ public class OfficeSpCommentAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.user_ratingBar)
-        RatingBar userRatingBar;
+        StarBar userRatingBar;
         @BindView(R.id.tv_evaluate)
         TextView tvEvaluate;
 
@@ -82,7 +84,9 @@ public class OfficeSpCommentAdapter extends RecyclerView.Adapter {
              GlideLoading.getInstance().loadImgUrlNyImgLoader(context,
                      commentlistBean.getPhoto(),civUserPhoto);
              tvUserName.setText(commentlistBean.getRealname());
-             userRatingBar.setRating((float) commentlistBean.getScore());
+             userRatingBar.setStarMark((float) commentlistBean.getScore());
+             userRatingBar.setIntegerMark(false);
+             userRatingBar.ismove(false);
              tvTime.setText(commentlistBean.getCreatetime());
              tvEvaluate.setText(commentlistBean.getContent());
          }

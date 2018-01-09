@@ -29,6 +29,10 @@ import lc.cn.thirdplatform.pay.alipay.PayListener;
 import lc.cn.thirdplatform.pay.wxpay.WecatPay;
 import mvp.cn.util.ToastUtil;
 
+/**
+ * 充值界面
+ */
+
 public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeAmountView,RechargeAmountPresenter> implements RechargeAmountView {
 
     @BindView(R.id.title)
@@ -102,7 +106,7 @@ public class RechargeActivity extends BaseActivity<RechargeAmountModel,RechargeA
             String ordercode = bean.getOrdercode();
             int orderid = bean.getOrderid();
             int ordertype = bean.getOrdertype();
-            float money = Float.parseFloat(amount);
+            double money = Double.parseDouble(amount);
             Intent intent=new Intent(this, PayFiveJiaoActivity.class);
             intent.putExtra("orderid",orderid+"");
             intent.putExtra("ordercode",ordercode);

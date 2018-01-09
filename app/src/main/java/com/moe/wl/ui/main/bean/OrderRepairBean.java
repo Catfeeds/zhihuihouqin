@@ -49,7 +49,8 @@ public class OrderRepairBean {
         private int menditem;
         private int orderchange;
         private String ordercode;
-        private int orderid;
+        ///private int orderid;
+        private int id;
         private int orderstatus;
         private int paystatus;
         private int score;
@@ -137,11 +138,11 @@ public class OrderRepairBean {
         }
 
         public int getOrderid() {
-            return orderid;
+            return id;
         }
 
         public void setOrderid(int orderid) {
-            this.orderid = orderid;
+            this.id = orderid;
         }
 
         public int getOrderstatus() {

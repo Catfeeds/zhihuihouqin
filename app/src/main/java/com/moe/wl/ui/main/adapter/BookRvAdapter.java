@@ -13,6 +13,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.bean.BooklistBean;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +70,10 @@ public class BookRvAdapter extends RecyclerView.Adapter {
         TextView tvState;
         @BindView(R.id.iv_book_pic)
         ImageView ivBookPic;
+//        @BindView(R.id.ratingBar)
+//        RatingBar ratingBar;
         @BindView(R.id.ratingBar)
-        RatingBar ratingBar;
+        StarBar starBar;
         @BindView(R.id.tv_star_num)
         TextView tvStarNum;
         @BindView(R.id.tv_author)
@@ -97,8 +100,11 @@ public class BookRvAdapter extends RecyclerView.Adapter {
             this.bookListvBean = booklistBean;
             GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, booklistBean.getImg(), ivBookPic, R.mipmap.ic_default_square);
             tvBookName.setText(booklistBean.getTitle());
-            ratingBar.setRating(((float) booklistBean.getScore()));
-            OtherUtils.ratingBarColor(ratingBar, mContext);
+            starBar.setStarMark(((float) booklistBean.getScore()));
+            starBar.setIntegerMark(false);
+            starBar.ismove(false);
+//            ratingBar.setRating(((float) booklistBean.getScore()));
+//            OtherUtils.ratingBarColor(ratingBar, mContext);
             tvStarNum.setText(booklistBean.getScore() + "分");
             tvAuthor.setText("作者:" + booklistBean.getAuthor());
             tvChubanshe.setText(booklistBean.getPublisher());

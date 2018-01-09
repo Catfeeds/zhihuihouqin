@@ -22,7 +22,9 @@ import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.NoSlidingGridView;
 import com.moe.wl.framework.widget.TitleBar;
+import com.moe.wl.ui.Imglibrary.ImageSelector;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
+import com.moe.wl.ui.main.activity.property_maintenance.PropertyAintenanceActivity;
 import com.moe.wl.ui.main.adapter.GridViewImageAdapter;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.mywidget.AddPhotoPop;
@@ -51,6 +53,7 @@ public class OrderCommentActivity extends MyBaseActivity {
     private static final int TAKE_PHOTO_CAMERA = 10001;
     private static final int TAKE_PHOTO_ALBUM = 10002;
     private static final int CROP_PHOTO = 10003;
+    private static final int REQUEST_IMAGE=1;
 
     @BindView(R.id.name)
     TextView name;
@@ -89,6 +92,10 @@ public class OrderCommentActivity extends MyBaseActivity {
     private CustomerDialog progressDialog;
     private int orderID;
     private int from;
+    private GridViewImageAdapter imageAdapter;
+    private int maxNum=5;
+    private ArrayList<String> mSelectPath;
+    private ArrayList<String> pics;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +104,23 @@ public class OrderCommentActivity extends MyBaseActivity {
         ButterKnife.bind(this);
         initData();
     }
+    private void initAddPhotoGrid() {
+        imageAdapter = new GridViewImageAdapter(this, pics, new GridViewImageAdapter.OnAddPhotoClickListener() {
+            @Override
+            public void onClick() {
+                ImageSelector selector = ImageSelector.create();
+                // selector.single();  // single mode
+                selector.multi();  // multi mode, default mode;
+                selector.origin(mSelectPath) // original select data set, used width #.multi()
+                        .showCamera(true)   // show camera or not. true by default
+                        .count(maxNum)   // max select image size, 9 by default. used width #.multi()
+                        .spanCount(3)  // image span count ，default is 3.
+                        .start(OrderCommentActivity.this, REQUEST_IMAGE);
 
+            }
+        });
+        gridView.setAdapter(imageAdapter);
+    }
     private void initData() {
         //对星星进行设置
         ratingOne.ismove(true);
@@ -188,39 +211,18 @@ public class OrderCommentActivity extends MyBaseActivity {
         }
         paths = new ArrayList<>();
         paths.add("addComment");
-        adapter = new GridViewImageAdapter(this, paths, new GridViewImageAdapter.OnAddPhotoClickListener() {
+
+        pics = new ArrayList<>();
+        pics.add("addPhoto");
+        initAddPhotoGrid();
+      /*  adapter = new GridViewImageAdapter(this, paths, new GridViewImageAdapter.OnAddPhotoClickListener() {
             @Override
             public void onClick() {
                 pop = new AddPhotoPop(OrderCommentActivity.this, click);
                 pop.showAtLocation(findViewById(R.id.main), Gravity.BOTTOM, 0, 0);
             }
-        });
-
-      /*  ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                switch ((int) rating) {
-                    case 0:
-                        appraise.setText("0分");
-                        break;
-                    case 1:
-                        appraise.setText("1分");
-                        break;
-                    case 2:
-                        appraise.setText("2分");
-                        break;
-                    case 3:
-                        appraise.setText("3分");
-                        break;
-                    case 4:
-                        appraise.setText("4分");
-                        break;
-                    case 5:
-                        appraise.setText("5分");
-                        break;
-                }
-            }
         });*/
+
         //对评分星星监听，评分取整，可以滑动
         ratingBar.setIntegerMark(true);
         ratingBar.setStarMark(5);
@@ -251,7 +253,7 @@ public class OrderCommentActivity extends MyBaseActivity {
             }
         });
 
-        gridView.setAdapter(adapter);
+        //gridView.setAdapter(adapter);
     }
 
     @OnClick({R.id.submit})
@@ -299,7 +301,7 @@ public class OrderCommentActivity extends MyBaseActivity {
         if (resultCode != RESULT_OK) {
             LogUtils.d("requestCode : " + requestCode + "resultCode : " + resultCode);
         } else {
-            switch (requestCode) {
+           /* switch (requestCode) {
                 case TAKE_PHOTO_CAMERA:// 相机
                     if (null != imageUri) {
                         paths.add(0, imageUri);
@@ -328,6 +330,17 @@ public class OrderCommentActivity extends MyBaseActivity {
                     if (data == null)
                         return;
                     break;
+            }*/
+            if (requestCode == REQUEST_IMAGE) {
+                if (resultCode == RESULT_OK) {
+                    mSelectPath = data.getStringArrayListExtra(ImageSelector.EXTRA_RESULT);
+                    // data  ..
+                    pics.clear();
+                    pics.add("addPhoto");
+                    pics.addAll(0,mSelectPath);
+                    LogUtils.i("mSelectPath=="+mSelectPath.size()+"======="+mSelectPath.get(0));
+                    imageAdapter.notifyDataSetChanged();
+                }
             }
         }
     }

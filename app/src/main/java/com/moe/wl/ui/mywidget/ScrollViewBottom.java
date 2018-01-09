@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
+import com.moe.wl.framework.utils.LogUtils;
+
 /**
  * 类描述：判断是否滚动到最下方
  * 作者：Shixhe On 2017/11/3 0003
@@ -25,6 +27,7 @@ public class ScrollViewBottom extends ScrollView {
         View view = getChildAt(getChildCount() - 1);
         int d = view.getBottom();
         d -= (getHeight() + getScrollY());
+        LogUtils.i("getHeight=="+getHeight()+"  d=="+"gety=="+getScrollY());
         if (d == 0) {
             if (listener != null) {
                 listener.onScrollBottom(true);

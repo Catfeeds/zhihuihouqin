@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.activity.information.InformationDetailActivity;
 import com.moe.wl.ui.main.bean.InforMationCollect;
 
@@ -30,6 +31,7 @@ import butterknife.ButterKnife;
 public class InfomationCollectAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<InforMationCollect.ListBean> data = new ArrayList<>();
+    private boolean mIsEdit=false;
 
     public InfomationCollectAdapter(Context mContext) {
         this.mContext = mContext;
@@ -40,10 +42,15 @@ public class InfomationCollectAdapter extends RecyclerView.Adapter {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_nsrlv1_item, null);
         return new ViewHolder(view);
     }
-
+    public void setIsEdit(boolean isEdit) {
+        this.mIsEdit = isEdit;
+        LogUtils.i("adapter里的isEdit==" + isEdit);
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder holder1 = (ViewHolder) holder;
+        final InforMationCollect.ListBean listBean = data.get(position);
         holder1.tvFirstrvTitle.setText(data.get(position).getTitle());
         holder1.tvFirstrvTime.setText(data.get(position).getCreatetime());
         holder1.tvFirstrvDes.setText(data.get(position).getSource());
@@ -57,6 +64,29 @@ public class InfomationCollectAdapter extends RecyclerView.Adapter {
                 mContext.startActivity(intent);
             }
         });
+        holder1.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean select = listBean.isSelect();
+                select=!select;
+                listBean.setSelect(select);
+                notifyDataSetChanged();
+                if(listener!=null){
+                    listener.updataListListener(select,position);
+                }
+            }
+        });
+        if (mIsEdit) {
+            holder1.cancel.setVisibility(View.VISIBLE);
+        } else {
+            holder1.cancel.setVisibility(View.GONE);
+        }
+        boolean select = listBean.isSelect();
+        if (select) {
+            holder1.cancel.setImageResource(R.drawable.selected);
+        } else {
+            holder1.cancel.setImageResource(R.drawable.unselected);
+        }
     }
 
     @Override
@@ -84,10 +114,20 @@ public class InfomationCollectAdapter extends RecyclerView.Adapter {
         TextView tvFirstrvDes;
         @BindView(R.id.item)
         RelativeLayout item;
-
+        @BindView(R.id.iv_cancel)
+        ImageView cancel;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    private UpdataListListener listener;
+
+    public void setListener(UpdataListListener listener) {
+        this.listener = listener;
+    }
+
+    public interface UpdataListListener {
+        void updataListListener(boolean isSelect, int position);
     }
 }

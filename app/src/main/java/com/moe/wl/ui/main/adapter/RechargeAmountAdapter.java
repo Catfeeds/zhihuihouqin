@@ -61,6 +61,7 @@ public class RechargeAmountAdapter extends BaseAdapter {
 
     public void setData(List<String> data) {
         this.mList = data;
+        notifyDataSetChanged();
     }
 
     public int selectPosition = 0;

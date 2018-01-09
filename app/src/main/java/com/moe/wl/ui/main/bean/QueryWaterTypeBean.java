@@ -54,6 +54,15 @@ public class QueryWaterTypeBean {
         private int id;
         private Object pskucataid;
         private String skucataname;
+        private int needdeposit;
+
+        public int getNeeddeposit() {
+            return needdeposit;
+        }
+
+        public void setNeeddeposit(int needdeposit) {
+            this.needdeposit = needdeposit;
+        }
 
         public String getCreatetime() {
             return createtime;

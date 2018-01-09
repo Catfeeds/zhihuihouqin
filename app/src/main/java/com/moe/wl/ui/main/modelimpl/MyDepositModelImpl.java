@@ -1,7 +1,10 @@
 package com.moe.wl.ui.main.modelimpl;
 
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.ui.main.bean.ApppointmentInfo;
 import com.moe.wl.ui.main.model.MyDepositModel;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -32,13 +35,13 @@ public class MyDepositModelImpl implements MyDepositModel {
     }
 
     @Override
-    public Observable generateOrder(String realname, String mobile, int addressId, String sendTime, Object[] arr, String remark) {
-        Observable observable = RetrofitUtils.getInstance().generateOrder(realname,mobile,addressId,sendTime,arr,remark);
+    public Observable generateOrder(List<ApppointmentInfo> timeList,String realname, String mobile, int addressId, String sendTime, Object[] arr, String remark) {
+        Observable observable = RetrofitUtils.getInstance().generateOrder(timeList,realname,mobile,addressId,sendTime,arr,remark);
         return observable;
     }
 
     @Override
-    public Observable backDeposit() {
+    public Observable getBackDeposit() {
         Observable observable = RetrofitUtils.getInstance().backDeposit();
         return observable;
     }

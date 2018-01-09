@@ -19,7 +19,7 @@ import rx.Subscriber;
 public class HomePagePresenter extends MvpRxPresenter<HomePageModel, HomePageView> {
 
     public void getHomePageData() {
-        getView().showProgressDialog();
+        //getView().showProgressDialog();
         Observable request = getModel().getHomePageData();
         getNetWork(request, new Subscriber<HomePageBean>() {
             @Override

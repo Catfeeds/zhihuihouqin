@@ -1,103 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="@dimen/standard_padding">
-
-    <ImageView
-        android:id="@+id/iv_book_pic"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_default_book" />
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/sp_small" />
-
-            <TextView
-                android:id="@+id/tv_book_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/tv_state"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_big" />
-
-        </RelativeLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center_vertical"
+            android:paddingRight="8dp"
+            android:src="@drawable/unselected" />
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="?android:attr/ratingBarStyleSmall"
+        <ImageView
+            android:id="@+id/iv_book_pic"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_default_book" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/sp_small" />
+
+                <TextView
+                    android:id="@+id/tv_book_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/tv_state"
+                    android:maxLines="2"
+                    android:textColor="@color/tv_black"
+                    android:textSize="@dimen/sp_big" />
+
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:progressBackgroundTint="@color/gray"
-                android:progressTint="@color/yellow"
-                android:rating="3"
-                android:secondaryProgressTint="@color/gray"
-                android:theme="@style/RatingBar" />
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <!--<RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:progressBackgroundTint="@color/gray"
+                    android:progressTint="@color/yellow"
+                    android:rating="3"
+                    android:secondaryProgressTint="@color/gray"
+                    android:theme="@style/RatingBar" />-->
+                <com.moe.wl.ui.mywidget.StarBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/display"
+                    android:layout_gravity="center_vertical"
+                    ratingbar:starCounts="5"
+                    ratingbar:starDistance="5dp"
+                    ratingbar:starEmptys="@drawable/start_null_small"
+                    ratingbar:starFills="@drawable/start_fill_small"
+                    ratingbar:starSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_star_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:text="0分"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/sp_smaller" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_star_num"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:text="4.9分"
-                android:textColor="@color/yellow"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/tv_gray"
+                android:textSize="@dimen/sp_smaller" />
+
+            <TextView
+                android:id="@+id/tv_chubanshe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/tv_gray"
+                android:textSize="@dimen/sp_smaller" />
+
+            <TextView
+                android:id="@+id/tv_book_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/tv_gray"
                 android:textSize="@dimen/sp_smaller" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/tv_gray"
-            android:textSize="@dimen/sp_smaller" />
-
-        <TextView
-            android:id="@+id/tv_chubanshe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:gravity="center_vertical"
-            android:textColor="@color/tv_gray"
-            android:textSize="@dimen/sp_smaller" />
-
-        <TextView
-            android:id="@+id/tv_book_des"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textColor="@color/tv_gray"
-            android:textSize="@dimen/sp_smaller" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
 </LinearLayout>

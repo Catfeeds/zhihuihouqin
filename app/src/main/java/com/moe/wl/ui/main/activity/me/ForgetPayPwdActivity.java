@@ -84,7 +84,7 @@ public class ForgetPayPwdActivity extends BaseActivity<ChangePayPwdModel,ChangeP
 
     private void initTitle() {
         title.setBack(true);
-        title.setTitle("设置交易密码");
+        title.setTitle("忘记支付密码");
     }
     @OnClick(R.id.tv_finish)
     public void onViewClicked() {

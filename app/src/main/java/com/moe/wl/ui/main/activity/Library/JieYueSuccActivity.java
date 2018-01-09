@@ -2,11 +2,14 @@ package com.moe.wl.ui.main.activity.Library;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.ServiceOrderActivity;
@@ -34,6 +37,21 @@ public class JieYueSuccActivity extends MyBaseActivity {
         from = getIntent().getIntExtra("from", -1);
         initTitle();
         tvBt.setVisibility(View.GONE);
+        /*//判断行数
+        tvBookSubmitDes.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                //这个回调会调用多次，获取完行数记得注销监听
+                tvBookSubmitDes.getViewTreeObserver().removeOnPreDrawListener(this);
+                LogUtils.i("TextView 行数：" + tvBookSubmitDes.getLineCount());
+                if(tvBookSubmitDes.getLineCount()>1){
+                    tvBookSubmitDes.setGravity(Gravity.LEFT);
+                }else{
+                    tvBookSubmitDes.setGravity(Gravity.CENTER);
+                }
+                return false;
+            }
+        });*/
         if (from == 1) {
             tvBookSubmitDes.setText("感谢您的推荐");
         } else if (from == 2) {
@@ -43,7 +61,6 @@ public class JieYueSuccActivity extends MyBaseActivity {
         } else {
             tvBt.setVisibility(View.VISIBLE);
         }
-
     }
 
     @OnClick(R.id.tv_bt)

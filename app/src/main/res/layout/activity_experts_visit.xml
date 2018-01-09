@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -127,14 +128,25 @@
                                 android:textSize="@dimen/sp_small" />
                         </LinearLayout>
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_marginTop="4dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical">
-
-                            <RatingBar
+                            <com.moe.wl.ui.mywidget.StarBar
+                                android:id="@+id/starBar"
+                                android:layout_gravity="center_vertical"
+                                android:layout_below="@+id/display"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                ratingbar:starEmptys="@drawable/start_null_small"
+                                ratingbar:starFills="@drawable/start_fill_small"
+                                ratingbar:starDistance="5dp"
+                                ratingbar:starCounts="5"
+                                ratingbar:starSize="12dp"/>
+                           <!-- <RatingBar
                                 android:id="@+id/ratingBar"
                                 style="?android:attr/ratingBarStyleSmall"
                                 android:layout_width="wrap_content"
@@ -142,7 +154,7 @@
                                 android:progressBackgroundTint="@color/gray"
                                 android:progressTint="@color/yellow"
                                 android:secondaryProgressTint="@color/gray"
-                                android:theme="@style/RatingBar" />
+                                android:theme="@style/RatingBar" />-->
 
                             <TextView
                                 android:id="@+id/tv_star_num"
@@ -150,10 +162,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="3dp"
-                                android:layout_toRightOf="@id/ratingBar"
+                                android:layout_toRightOf="@id/starBar"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/sp_small" />
-                        </RelativeLayout>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"

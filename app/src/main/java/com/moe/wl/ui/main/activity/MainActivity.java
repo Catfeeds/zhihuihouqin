@@ -94,11 +94,6 @@ public class MainActivity extends BaseActivity<MainModel, MainView, MainPresente
     TabBar.OnItemChangedListener onBottomItemClickListener = new TabBar.OnItemChangedListener() {
         @Override
         public boolean onItemChecked(int position) {
-//            if (position == 2) {
-//                if (!isLogin()) {
-//                    return true;
-//                }
-//            }
             changeFragment(fragments.get(position));
             return false;
         }

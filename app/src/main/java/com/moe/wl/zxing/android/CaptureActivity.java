@@ -185,7 +185,7 @@ public final class CaptureActivity extends Activity implements
             beepManager.playBeepSoundAndVibrate();
             Intent intent = new Intent();
             intent.putExtra("Result", rawResult.getText());
-            ToastUtil.showToast(this,  "扫描成功" + rawResult.getText());
+            //ToastUtil.showToast(this,  "扫描成功" + rawResult.getText());
             //intent.putExtra("codedBitmap", barcode);
             setResult(RESULT_OK, intent);
             finish();

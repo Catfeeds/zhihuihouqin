@@ -13,9 +13,9 @@ import rx.Observable;
 
 public class OrderingModelImpl implements OrderingModel {
     @Override
-    public Observable getData(String phoneNumber, int count, int type, String fixedmealtype, int duration) {
+    public Observable getData(String phoneNumber, int count, int type, String fixedtype, int duration) {
         LogUtil.log("OrderingModelImpl-->getData");
-        Observable observer = RetrofitUtils.getInstance().createOrdering(phoneNumber, count, type, fixedmealtype, duration);
+        Observable observer = RetrofitUtils.getInstance().createOrdering(phoneNumber, count, type, fixedtype, duration);
         return observer;
     }
 

@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.moe.wl.ui.main.bean.ProductCategoryBean;
@@ -11,6 +12,7 @@ import com.moe.wl.ui.main.modelimpl.ProductCategoryModelImpl;
 import com.moe.wl.ui.main.presenter.ProductCategoryPresenter;
 import com.moe.wl.ui.main.view.ProductCategoryView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,12 +29,15 @@ import com.moe.wl.ui.main.adapter.SpAdapter;
 public class SpCategoryFragment extends BaseFragment<ProductCategoryModel, ProductCategoryView, ProductCategoryPresenter> implements ProductCategoryView {
     @BindView(R.id.sp_grid)
     XRecyclerView spGrid;
+    @BindView(R.id.isHasSp)
+    TextView isHasSp;
     Unbinder unbinder;
     private int page;
     private int limit = 10;
     private SpAdapter spAdapter;
     private int id;
     private boolean isRefresh;
+    private List<ProductCategoryBean.PageBean.ListBean> listAll;
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class SpCategoryFragment extends BaseFragment<ProductCategoryModel, Produ
 
     @Override
     public void initView(View v) {
+        listAll = new ArrayList<>();
         spGrid.setLayoutManager(new GridLayoutManager(getActivity(),2));
         spAdapter = new SpAdapter(getActivity());
         spGrid.setAdapter(spAdapter);
@@ -83,7 +89,16 @@ public class SpCategoryFragment extends BaseFragment<ProductCategoryModel, Produ
         if(bean!=null){
             List<ProductCategoryBean.PageBean.ListBean> list = bean.getPage().getList();
             if(list!=null&&list.size()>0){
-                spAdapter.setData(list);
+                if(page==1){
+                    listAll.clear();
+                }
+                listAll.addAll(list);
+                spAdapter.setData(listAll);
+                if(listAll.size()>0){
+                    isHasSp.setVisibility(View.GONE);
+                }else {
+                    isHasSp.setVisibility(View.VISIBLE);
+                }
             }
         }else{
             LogUtils.i("获取到的bean为空");

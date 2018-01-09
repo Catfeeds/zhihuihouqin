@@ -22,6 +22,7 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.ui.main.activity.ReservaBarberActivity;
 import com.moe.wl.ui.main.bean.BarberListsBean;
 import com.moe.wl.ui.main.bean.BarberlistBean;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -75,8 +76,8 @@ public class BarberAdapter extends RecyclerView.Adapter {
         TextView tvBarberName;
         @BindView(R.id.tv_now_reserva)
         TextView tvNowReserva;
-        @BindView(R.id.ratingBar)
-        RatingBar ratingBar;
+        @BindView(R.id.starBar)
+        StarBar ratingBar;
         @BindView(R.id.tv_star_num)
         TextView tvStarNum;
         @BindView(R.id.tv_barber_address)
@@ -123,9 +124,9 @@ public class BarberAdapter extends RecyclerView.Adapter {
             if (barberlistBean != null) {
                 GlideLoading.getInstance().loadImgUrlNyImgLoader(context, barberlistBean.getPhoto(), barberHeader);
                 tvBarberName.setText(barberlistBean.getName());
-                ratingBar.setRating(barberlistBean.getScore());
+                ratingBar.setStarMark(barberlistBean.getScore());
+                ratingBar.setIntegerMark(false);
                 tvStarNum.setText(barberlistBean.getScore() + "");
-                OtherUtils.ratingBarColor(ratingBar,context);
                 int tatalcount = barberlistBean.getTatalcount();
                 int remaincount = barberlistBean.getRemaincount();
                 tvPercent.setText(remaincount + "/" + tatalcount);

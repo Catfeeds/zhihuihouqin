@@ -22,7 +22,7 @@
         android:padding="@dimen/standard_padding"
         android:textColorHint="@color/gray"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger_20"
+        android:textSize="@dimen/sp_bigger"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
@@ -33,26 +33,34 @@
         android:textSize="@dimen/sp_bigger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <GridView
         android:id="@+id/gv_recharge_amount"
         android:background="@color/white"
         android:numColumns="3"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tv_recharge_money"
-        android:gravity="center_vertical"
-        android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_bigger"
-        android:layout_marginBottom="40dp"
-        android:textStyle="bold"
-        android:padding="@dimen/normal_padding"
-        android:text="50"
-        android:layout_margin="@dimen/standard_padding"
+
+    <LinearLayout
         android:background="@drawable/shape_commit_white"
-        android:paddingLeft="@dimen/standard_padding"
+        android:layout_margin="@dimen/standard_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_marginBottom="40dp"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/tv_recharge_money"
+            android:gravity="center_vertical"
+            android:textColor="@color/tv_black"
+            android:textSize="@dimen/sp_bigger"
+            android:background="@null"
+            android:textStyle="bold"
+            android:padding="@dimen/normal_padding"
+            android:text="50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_confirm"
         android:gravity="center"
@@ -62,7 +70,7 @@
         android:textStyle="bold"
         android:text="确认"
         android:layout_margin="@dimen/standard_padding"
-        android:background="@drawable/shape_confirm_yellow"
+        android:background="@drawable/shape_blue_confirm"
         android:paddingLeft="@dimen/standard_padding"
         android:padding="@dimen/normal_padding"
         android:layout_width="match_parent"

@@ -36,6 +36,7 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
     private List<OrderVegetableBean.ListEntity> data;
     private int state;
     private OnClickListener listener;
+    private boolean enableClick=true;
 
 
     public OrderVegetableAdapter(Context context, List<OrderVegetableBean.ListEntity> data, int state) {
@@ -77,11 +78,14 @@ public class OrderVegetableAdapter extends RecyclerView.Adapter {
                 holder.left.setVisibility(View.VISIBLE);
                 if (data.get(position).getStatus() == 3) {
                     holder.left.setText("已评价");
+                    enableClick=false;
                     holder.left.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_gray_button));
                 } else {
                     holder.left.setText("立即评价");
+                    enableClick=true;
                     holder.left.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_button));
                 }
+                holder.left.setEnabled(enableClick);
                 holder.order.setText("再次预订");
                 break;
             case 3:

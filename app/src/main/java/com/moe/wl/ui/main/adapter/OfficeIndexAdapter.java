@@ -88,7 +88,7 @@ public class OfficeIndexAdapter extends BaseAdapter {
          ViewHolder(View view) {
             ButterKnife.bind(this, view);
 
-            ivIvGridItem.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext,OfficeCategoryActivity.class);

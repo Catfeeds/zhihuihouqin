@@ -217,7 +217,7 @@ public class ShopCarInfoBean {
             this.catainfolist = catainfolist;
         }
 
-        public static class CatainfolistBean {
+        public static class CatainfolistBean implements Serializable {
             /**
              * cataid : 2
              * content : 8G

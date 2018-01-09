@@ -35,18 +35,19 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!--轮播图-->
+     <!--   轮播图
         <com.daimajia.slider.library.SliderLayout
             android:id="@+id/slider_layout"
             android:layout_width="match_parent"
             android:layout_height="186dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_default_rectangle" />
+            android:src="@mipmap/ic_default_rectangle" />-->
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshlayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/white"
             android:layout_weight="1">
 
             <android.support.v7.widget.RecyclerView

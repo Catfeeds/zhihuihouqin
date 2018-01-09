@@ -34,5 +34,5 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="4dp"
         android:textColor="@color/tv_black"
-        android:textSize="@dimen/sp_small" />
+        android:textSize="@dimen/sp_smaller" />
 </LinearLayout>

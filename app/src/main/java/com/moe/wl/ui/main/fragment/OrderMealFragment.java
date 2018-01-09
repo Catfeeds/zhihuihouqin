@@ -44,7 +44,7 @@ public class OrderMealFragment extends BaseFragment2 {
     Unbinder unbinder;
     private OrderMealAdapter adapter;
     private int page = 1;
-    private List<OrderMealBean.ListEntity> data;
+    private List<OrderMealBean.ListBean> data;
     private int state;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -108,7 +108,8 @@ public class OrderMealFragment extends BaseFragment2 {
                         Intent intent = new Intent(getActivity(), CancelOrderingActivity.class);
                         intent.putExtra("from", Constants.ORDERMEAL);
                         if (data != null && data.size() > 0) {
-                            OrderMealBean.ListEntity listBean = data.get(position);
+                           // OrderMealBean.ListEntity listBean = data.get(position);
+                            OrderMealBean.ListBean listBean= data.get(position);
                             if (state == 0) { // 取消订单
                                 int id = listBean.getId();
                                 intent.putExtra("OrderingID", id);
@@ -186,7 +187,8 @@ public class OrderMealFragment extends BaseFragment2 {
                     } else {
                         recyclerView.loadMoreComplete();
                     }
-                    data.addAll(orderBean.getList());
+                    List<OrderMealBean.ListBean> list = orderBean.getList();
+                    data.addAll(list);
                     adapter.notifyDataSetChanged();
                 } else if (orderBean.getErrCode() == 2) {
                     reLogin(Constants.LOGIN_ERROR);

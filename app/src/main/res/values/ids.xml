@@ -22,4 +22,7 @@
   <item type="id" name="quit"/>
   <item type="id" name="restart_preview"/>
   <item type="id" name="return_scan_result"/>
+
+  <item type="id" name="loader_category_media_store_data" />
+  <item type="id" name="loader_all_media_store_data" />
 </resources>

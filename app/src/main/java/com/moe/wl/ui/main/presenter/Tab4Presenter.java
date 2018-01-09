@@ -33,6 +33,9 @@ public class Tab4Presenter extends MvpRxPresenter<Tab4Model, Tab4View> {
 
             @Override
             public void onNext(UserInfoBean bean) {
+                if(getView()==null){
+                    return;
+                }
                 if (bean.getErrCode() == 0) {
                     getView().getUserInfo(bean);
                 } else if(bean.getErrCode() == 2){

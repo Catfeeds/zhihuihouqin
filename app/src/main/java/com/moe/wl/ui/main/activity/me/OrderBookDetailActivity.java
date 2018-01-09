@@ -11,12 +11,14 @@ import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.main.activity.Library.LibraryActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
+import com.moe.wl.ui.main.bean.BookOrderDetailBean;
 import com.moe.wl.ui.main.bean.BookOrderListBean;
 import com.moe.wl.ui.main.bean.CollectBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
@@ -62,6 +64,7 @@ public class OrderBookDetailActivity extends MyBaseActivity {
 
     private CustomerDialog progressDialog;
     private int state;
+    private Object orderInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,37 +78,23 @@ public class OrderBookDetailActivity extends MyBaseActivity {
         progressDialog = new CustomerDialog(this, R.style.dialog_style);
         titleBar.setTitle("订单详情");
         titleBar.setBack(true);
-        data = (BookOrderListBean.OrderlistBean) getIntent().getSerializableExtra("Data");
-        if (data == null) {
+        //data = (BookOrderListBean.OrderlistBean) getIntent().getSerializableExtra("Data");
+        int id = getIntent().getIntExtra("id",0);
+        if (id == 0) {
             ToastUtil.showToast(this, "图书订单数据异常！");
             finish();
         }
-        GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getImg(), image);
+        //获得订单信息
+        getOrderInfo(id);
+        /*GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getImg(), image);
         itemName.setText(data.getTitle());
         author.setText("作者：" + data.getAuthor());
         press.setText("出版社：" + data.getPublisher());
         time.setText("取书时间：" + data.getInvitegetbooktime());
         orderId.setText("订单号：" + data.getOrdercode());
         orderTime.setText("下单时间：" + data.getCreatetime());
-        right.setVisibility(View.VISIBLE);
-        state = data.getOrderstatus();
-        switch (state) {
-            case 1: // 1: 已预约
-                right.setText("取消订单");
-                break;
-            case 2: // 2: 配送中
-                right.setText("已归还");
-                break;
-            case 3: // 3：待评价
-                right.setText("立即评价");
-                break;
-            case 4: // 4：已完成
-                right.setText("再次预订");
-                break;
-            case 5: // 5：已取消
-                right.setText("删除订单");
-                break;
-        }
+        right.setVisibility(View.VISIBLE);*/
+
     }
 
     @OnClick({R.id.left, R.id.right})
@@ -175,7 +164,7 @@ public class OrderBookDetailActivity extends MyBaseActivity {
                             intent.putExtra("from", Constants.BOOK);
                             intent.putExtra("OrderingID", data.getOrderid());
                             startActivity(intent);
-                        }  else if (state == 5) {
+                        } else if (state == 5) {
                             // 删除订单
                             deleteOrder(data.getOrderid());
                         } else if (state == 6) {
@@ -224,4 +213,61 @@ public class OrderBookDetailActivity extends MyBaseActivity {
         progressDialog.show();
     }
 
+    public void getOrderInfo(int id) {
+        Observable observable = RetrofitUtils.getInstance().getBookOrderDetail(id);
+        showProgressDialog();
+        observable.subscribe(new Subscriber<BookOrderDetailBean>() {
+            @Override
+            public void onCompleted() {
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                dismissProgressDialog();
+                LogUtils.i("orderbookdetail  error"+e.getMessage());
+            }
+
+            @Override
+            public void onNext(BookOrderDetailBean mResponse) {
+                if (mResponse == null)
+                    return;
+                if (mResponse.getErrCode() == 2) {
+                    reLogin(Constants.LOGIN_ERROR);
+                    return;
+                }
+                if (mResponse.getErrCode() == 0) {
+                    BookOrderDetailBean.DetailBean detail = mResponse.getDetail();
+                    if(detail!=null){
+                        GlideLoading.getInstance().loadImgUrlNyImgLoader(OrderBookDetailActivity.this,detail.getImg(),image);
+                        itemName.setText(detail.getTitle());
+                        author.setText("作者：" + detail.getAuthor());
+                        press.setText("出版社：" + detail.getPublisher());
+                        time.setText("取书时间：" + detail.getInvitegetbooktime());
+                        orderId.setText("订单号：" + detail.getOrdercode());
+                        orderTime.setText("下单时间：" + detail.getCreatetime());
+                        right.setVisibility(View.VISIBLE);
+                        state = detail.getOrderstatus();
+                        switch (state) {
+                            case 1: // 1: 已预约
+                                right.setText("取消订单");
+                                break;
+                            case 2: // 2: 配送中
+                                right.setText("已归还");
+                                break;
+                            case 3: // 3：待评价
+                                right.setText("立即评价");
+                                break;
+                            case 4: // 4：已完成
+                                right.setText("再次预订");
+                                break;
+                            case 5: // 5：已取消
+                                right.setText("删除订单");
+                                break;
+                        }
+                    }
+                }
+            }
+        });
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.moe.wl.R;
 import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.widget.CustomerDialog;
 import com.moe.wl.framework.widget.TitleBar;
@@ -246,6 +247,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
+                LogUtils.i("净菜预定"+e.getMessage());
             }
 
             @Override

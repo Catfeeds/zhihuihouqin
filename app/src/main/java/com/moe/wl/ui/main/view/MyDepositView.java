@@ -20,7 +20,7 @@ public interface MyDepositView extends MvpView {
     void getOrderResult(WalletOrderBean bean);
     void backDepositResult(ActivityPostBean bean );
 
-    void getTimeSucc(OrderWaterTimeBean bean);
+//    void getTimeSucc(OrderWaterTimeBean bean);
 
     void generateOrderSucc(GenerateOrderWaterBean bean);
 }

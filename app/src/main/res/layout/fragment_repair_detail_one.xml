@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -43,8 +44,8 @@
                     android:id="@+id/state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/sp_small" />
 
@@ -97,7 +98,8 @@
                     android:layout_marginTop="10dp"
                     android:text="支付状态："
                     android:textColor="@color/tv_black"
-                    android:textSize="@dimen/sp_small" />
+                    android:textSize="@dimen/sp_small"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/time"
@@ -137,18 +139,29 @@
                         android:textColor="@color/tv_black"
                         android:textSize="@dimen/sp_big" />
 
-                    <RatingBar
+                    <com.moe.wl.ui.mywidget.StarBar
                         android:id="@+id/ratingBar"
-                        style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/name"
-                        android:layout_marginTop="6dp"
-                        android:progressBackgroundTint="@color/gray"
-                        android:progressTint="@color/yellow"
-                        android:secondaryProgressTint="@color/gray"
-                        android:theme="@style/RatingBar" />
-
+                        android:layout_gravity="center_vertical"
+                        ratingbar:starCounts="5"
+                        ratingbar:starDistance="5dp"
+                        ratingbar:starEmptys="@drawable/start_null_small"
+                        ratingbar:starFills="@drawable/start_fill_small"
+                        ratingbar:starSize="12dp" />
+                    <!-- <RatingBar
+                         android:id="@+id/ratingBar"
+                         style="?android:attr/ratingBarStyleSmall"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/name"
+                         android:layout_marginTop="6dp"
+                         android:progressBackgroundTint="@color/gray"
+                         android:progressTint="@color/yellow"
+                         android:secondaryProgressTint="@color/gray"
+                         android:theme="@style/RatingBar" />
+ -->
                     <TextView
                         android:id="@+id/score"
                         android:layout_width="wrap_content"

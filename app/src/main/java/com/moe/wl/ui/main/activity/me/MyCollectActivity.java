@@ -37,6 +37,14 @@ public class MyCollectActivity extends AppCompatActivity {
     private List<String> tabs = Arrays.asList("公告", "办公", "理发作品", "图书", "医生", "活动", "发型师" ,"健康资讯", "专家", "营养套餐");
     // 1: 公告，2：办公，3：理发作品，4：图书，5：医生，6：活动，7：发型师 //8:健康资讯 9专家 10营养套餐
     private List<Fragment> fragments;
+    private boolean isEdit=false;
+    private McNoticeFragment notice;
+    private McNoticeFragment office;
+    private McNoticeFragment barberProduct;
+    private McNoticeFragment book;
+    private McNoticeFragment experts;
+    private McNoticeFragment activity;
+    private McNoticeFragment barber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +59,29 @@ public class MyCollectActivity extends AppCompatActivity {
     private void initFragment() {
         fragments = new ArrayList<>();
 //1: 公告，2：办公，3：理发作品，4：图书，5：专家，6：活动，7：发型师
-        fragments.add(McNoticeFragment.getInstance("1"));
-        fragments.add(McNoticeFragment.getInstance("2"));
-        fragments.add(McNoticeFragment.getInstance("3"));
-        fragments.add(McNoticeFragment.getInstance("4"));
-        fragments.add(McNoticeFragment.getInstance("5"));
-        fragments.add(McNoticeFragment.getInstance("6"));
-        fragments.add(McNoticeFragment.getInstance("7"));
+        //公告
+        notice = McNoticeFragment.getInstance("1");
+        //公告
+        office = McNoticeFragment.getInstance("2");
+        //公告
+        barberProduct = McNoticeFragment.getInstance("3");
+        //公告
+        book = McNoticeFragment.getInstance("4");
+        //公告
+        experts = McNoticeFragment.getInstance("5");
+        //公告
+        activity = McNoticeFragment.getInstance("6");
+        //公告
+        barber = McNoticeFragment.getInstance("7");
+
+        //添加fragment 到集合当中
+        fragments.add(notice);
+        fragments.add(office);
+        fragments.add(barberProduct);
+        fragments.add(book);
+        fragments.add(experts);
+        fragments.add(activity);
+        fragments.add(barber);
 
 
     }
@@ -70,12 +94,31 @@ public class MyCollectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: 2017/10/9 0009 编辑
+                isEdit = !isEdit;
+                if(isEdit){//是正在编辑，可删除
+                    title.setTitleRight("删除");
+                }else {
+                    title.setTitleRight("编辑");
+                }
+                showCancel(isEdit);
+
             }
         });
         FmPagerAdapter pagerAdapter = new FmPagerAdapter(getSupportFragmentManager());
         vpCollect.setAdapter(pagerAdapter);
         tab.setupWithViewPager(vpCollect);
         pagerAdapter.setFragments(fragments, tabs);
+    }
+
+    private void showCancel(boolean isEdit) {
+        for(Fragment f:fragments){
+            if(f instanceof McNoticeFragment){
+                ((McNoticeFragment) f).setIsEdit(isEdit);
+            }
+        }
+//        notice.setIsEdit(isEdit);
+//        barberProduct.setIsEdit(isEdit);
+
     }
 
 }

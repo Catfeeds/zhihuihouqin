@@ -156,6 +156,7 @@
                 android:layout_gravity="center_vertical"
                 android:hint="请输入商品数量"
                 android:background="@null"
+                android:inputType="number"
                 android:gravity="right"
                 android:padding="@dimen/normal_padding"
                 android:textColor="@color/tv_black"

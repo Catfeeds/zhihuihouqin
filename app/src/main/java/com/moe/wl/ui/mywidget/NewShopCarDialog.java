@@ -182,7 +182,6 @@ public class NewShopCarDialog extends Dialog {
                                 String content = infolistBean.getContent();
                                 cid = id;
 
-
                                 /*GlideLoading.getInstance().loadImgUrlNyImgLoader(ct,
                                         skuListBean.getMainimg(), ivPic);
                                 LogUtils.i("skuListBean.getPrice()===" + skuListBean.getPrice());

@@ -8,7 +8,6 @@ import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
-import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.bean.UserDepositBean;
 import com.moe.wl.ui.main.bean.WalletOrderBean;
 import com.moe.wl.ui.main.model.MyDepositModel;
@@ -60,7 +59,7 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
 
     @OnClick(R.id.tv_return_depoosit)
     public void onViewClicked() {
-        if(deposit1==0){
+        if (deposit1 == 0) {
             showToast("你还没有交押金");
             return;
         }
@@ -85,7 +84,7 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
         if (bean != null) {
             UserDepositBean.DepositBean deposit = bean.getDeposit();
             deposit1 = deposit.getDeposit();
-            tvMoney.setText(deposit1 +"");
+            tvMoney.setText(deposit1 + "");
         }
     }
 
@@ -96,16 +95,14 @@ public class MyDeposit extends BaseActivity<MyDepositModel, MyDepositView, MyDep
 
     @Override
     public void backDepositResult(ActivityPostBean bean) {
-        if(bean!=null){
-            showToast("退换押金成功，会在2~3个工作日将押金退还到账户");
-            finish();
-        }
+        showToast("退换押金成功，会在2~3个工作日将押金退还到账户");
+        finish();
     }
 
-    @Override
+   /* @Override
     public void getTimeSucc(OrderWaterTimeBean bean) {
 
-    }
+    }*/
 
     @Override
     public void generateOrderSucc(GenerateOrderWaterBean bean) {

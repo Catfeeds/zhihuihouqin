@@ -119,6 +119,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="联系人电话"
+            android:inputType="number"
             android:maxLines="1"
             android:textColor="@color/tv_black"
             android:textColorHint="@color/gray"

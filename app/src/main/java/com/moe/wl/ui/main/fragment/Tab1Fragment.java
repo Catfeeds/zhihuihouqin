@@ -3,17 +3,25 @@ package com.moe.wl.ui.main.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
@@ -21,16 +29,21 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseFragment;
+import com.moe.wl.framework.manager.UIManager;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.spfs.SharedPrefHelper;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.framework.utils.ServiceIntentUtils;
 import com.moe.wl.framework.widget.NoSlidingGridView;
+import com.moe.wl.ui.main.activity.MainSearchAct;
+import com.moe.wl.ui.main.activity.WebViewActivity;
 import com.moe.wl.ui.main.adapter.HomeAdapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv1Adapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv2Adapter;
 import com.moe.wl.ui.main.adapter.HomeNsrlv3Adapter;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
+import com.moe.wl.ui.main.bean.ActivitylistBean;
 import com.moe.wl.ui.main.bean.HomePageBean;
 import com.moe.wl.ui.main.bean.ListEntity;
 import com.moe.wl.ui.main.bean.UserInfoBean;
@@ -39,6 +52,7 @@ import com.moe.wl.ui.main.modelimpl.HomePageModelImpl;
 import com.moe.wl.ui.main.presenter.HomePagePresenter;
 import com.moe.wl.ui.main.view.HomePageView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
+import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.zxing.android.CaptureActivity;
 
 import java.util.ArrayList;
@@ -50,6 +64,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import rx.Observable;
 import rx.Subscriber;
+
+import static android.app.Activity.RESULT_OK;
+
+//import com.daimajia.slider.library.SliderLayout;
 
 /**
  * Created by hh on 2016/5/18.
@@ -75,13 +93,26 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     SwipeRefreshLayout swipeRefresh;
     Unbinder unbinder;
     @BindView(R.id.nsrlv1)
-    RecyclerView nsrlv1;
+    NoSlideRecyclerView nsrlv1;
     @BindView(R.id.nsrlv2)
-    RecyclerView nsrlv2;
+    NoSlideRecyclerView nsrlv2;
     @BindView(R.id.nsrlv3)
-    RecyclerView nsrlv3;
+    NoSlideRecyclerView nsrlv3;
     @BindView(R.id.rl_search)
     RelativeLayout search;//关键词搜索
+    @BindView(R.id.tv_one)
+    TextView tvOne;
+    @BindView(R.id.tv_two)
+    TextView tvTwo;
+    @BindView(R.id.tv_three)
+    TextView tvThree;
+    @BindView(R.id.ll_gonggao)
+    LinearLayout llGonggao;
+    @BindView(R.id.ll_activity)
+    LinearLayout llActivity;
+    @BindView(R.id.ll_my_order)
+    LinearLayout llMyOrder;
+    Unbinder unbinder1;
 
     private String[] des = {"健康档案", "物业维修", "图书馆", "活动报名",
             "美容美发", "洗衣店", "办公用品", "更多"};
@@ -97,7 +128,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
 
     private List<HomePageBean.ServiceListEntity> serviceData; // 服务
     //    private List<HomePageBean.CarouselListEntity> roastingData; // 轮播图
-    private List<ActivityHomeBean.ActivitylistBean> activeData; // 活动
+    private List<ActivitylistBean> activeData; // 活动
     private List<ListEntity> informationData; // 公告
     private List<HomePageBean.BxwxOrderList> bxData; // 报修
 
@@ -105,12 +136,14 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     private HomeNsrlv2Adapter adapter2;
     private HomeNsrlv3Adapter adapter3;
     private HomeAdapter homeAdapter;
+    private int MOREREQUEST=100;
+    private SwipeRefreshLayout.OnRefreshListener listener;
 
 
     @Override
     public void setContentLayout(Bundle savedInstanceState) {
         sysColor = R.color.white;
-        setContentView(R.layout.f_tab_1);
+       setContentView(R.layout.f_tab_1);
         getUserInfo();
     }
 
@@ -118,17 +151,13 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void onResume() {
         super.onResume();
         StatusBarCompat.setStatusBarColor(getActivity(), getResources().getColor(R.color.white), true);
-        //sib.computeScroll();
-//        refreshLayout.setEnableRefresh(true);
     }
-
-
     @Override
     public void initView(View v) {
         ButterKnife.bind(this, v);
 
+        tvOne.performClick();
         serviceData = new ArrayList<>();
-//        roastingData = new ArrayList<>();
         activeData = new ArrayList<>();
         informationData = new ArrayList<>();
         bxData = new ArrayList<>();
@@ -167,27 +196,18 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
                 if (ServiceIntentUtils.goService(serviceData.get(position).getId()) == null) {
                     return;
                 }
-                startActivity(new Intent(getActivity(), ServiceIntentUtils.goService(serviceData.get(position).getId())));
+                LogUtils.i("serviceData.get(position).getId()=="+serviceData.get(position).getId());
+                if(serviceData.get(position).getId()==10001){
+                    startActivityForResult(new Intent(getActivity(), ServiceIntentUtils.goService(serviceData.get(position).getId())),MOREREQUEST);
+                }else{
+                    startActivity(new Intent(getActivity(), ServiceIntentUtils.goService(serviceData.get(position).getId())));
+                }
             }
         });
         sv.smoothScrollTo(0, 20);
         sv.setFocusable(true);
         getPresenter().getHomePageData();
     }
-
-//    // 轮播图数据
-//    private void initSliderLayout(HashMap<String, String> map) {
-//        LogUtils.d("map的长度：" + map.size());
-//        sliderLayout.setSystemUiVisibility(View.GONE);
-//        sliderLayout.removeAllSliders();
-//        for (String desc : map.keySet()) {
-//            TextSliderView textSliderView = new TextSliderView(getActivity());
-//            textSliderView
-//                    .description(desc)
-//                    .image(map.get(desc));
-//            sliderLayout.addSlider(textSliderView);
-//        }
-//    }
 
     private void getUserInfo() {
         if (SharedPrefHelper.getInstance().getAuthStatus() != 2) {
@@ -212,64 +232,32 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     private void setRefresh() {
         // 下拉刷新
         swipeRefresh.setColorSchemeResources(new int[]{R.color.blue, R.color.red, R.color.gress_green});//设置刷新进度条颜色
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        listener = new SwipeRefreshLayout.OnRefreshListener(){
+            public void onRefresh(){
+                getPresenter().getHomePageData();
+            }
+        };
+       /* swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // 处理刷新逻辑
                 getPresenter().getHomePageData();
             }
-        });
+        });*/
+        swipeRefresh.setOnRefreshListener(listener);
     }
-
-    // 设置下拉刷新
-    /*private void setRefresh() {
-        //设置 Header 为 Material风格
-        refreshLayout.setRefreshHeader(new MaterialHeader(getActivity()).setShowBezierWave(true));
-        //设置 Footer 为 球脉冲Scale
-        refreshLayout.setRefreshFooter(new BallPulseFooter(getActivity()).setSpinnerStyle(SpinnerStyle.Translate));
-        refreshLayout.setOnRefreshListener(new OnRefreshLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                // TODO: 2017/8/14 0014 加载更多
-                getPresenter().getHomePageData();
-                refreshlayout.finishRefresh(2000);
-            }
-
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                // TODO: 2017/8/14 0014 下拉刷新
-                getPresenter().getHomePageData();
-                refreshlayout.finishRefresh(2000);
-            }
-        });
-    }*/
-
     @Override
     public void getHomePageSucc(HomePageBean bean) {
+        swipeRefresh.setRefreshing(false);
         if (bean.getCarouselList() != null) {
             // TODO 轮播图数据
-            swipeRefresh.setRefreshing(false);
             sliderLayout.removeAllSliders();
             for (int i = 0; i < bean.getCarouselList().size(); i++) {
                 String imgs = bean.getCarouselList().get(i).getImgs();
-                //map.put("", imgs);
                 TextSliderView textSliderView = new TextSliderView(getActivity());
                 textSliderView.description("").image(imgs);
                 sliderLayout.addSlider(textSliderView);
             }
-
-
-           /* ArrayList<BannerItem> list = new ArrayList<>();
-            for (int i = 0; i < bean.getCarouselList().size(); i++) {
-                BannerItem item = new BannerItem();
-                item.imgUrl = bean.getCarouselList().get(i).getImgs();
-                LogUtil.log(item.imgUrl);
-                list.add(item);
-            }
-            sib
-                    .setSource(list)
-                    .startScroll();
-//            initSliderLayout(map);*/
         }
         if (bean.getServiceList() != null) {
             // TODO 填充服务数据
@@ -301,11 +289,9 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     @Override
     public void onPause() {
         super.onPause();
-        //sib.pauseScroll();
-//        refreshLayout.setEnableRefresh(false);
     }
 
-    @OnClick({R.id.iv_two_dimension_code, R.id.iv_search})
+    @OnClick({R.id.iv_two_dimension_code, R.id.rl_search,R.id.tv_one, R.id.tv_two, R.id.tv_three})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_two_dimension_code://二维码扫描
@@ -318,9 +304,46 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
                     init();
                 }
                 break;
-            case R.id.iv_search://关键词搜索
+            case R.id.rl_search://关键词搜索
+                UIManager.turnToAct(getActivity(),MainSearchAct.class);
+                break;
+            case R.id.tv_one:
+                check(R.id.tv_one);
+                break;
+            case R.id.tv_two:
+                check(R.id.tv_two);
+                break;
+            case R.id.tv_three:
+                check(R.id.tv_three);
                 break;
         }
+    }
+    public void blackText(){
+        tvOne.setTextColor(getResources().getColor(R.color.tv_black));
+        tvTwo.setTextColor(getResources().getColor(R.color.tv_black));
+        tvThree.setTextColor(getResources().getColor(R.color.tv_black));
+
+        llActivity.setVisibility(View.GONE);
+        llGonggao.setVisibility(View.GONE);
+        llMyOrder.setVisibility(View.GONE);
+    }
+    public void check(int id){
+        blackText();
+        switch (id){
+            case R.id.tv_one:
+                tvOne.setTextColor(getResources().getColor(R.color.bt));
+                llGonggao.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_two:
+                tvTwo.setTextColor(getResources().getColor(R.color.bt));
+                llActivity.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_three:
+                tvThree.setTextColor(getResources().getColor(R.color.bt));
+                llMyOrder.setVisibility(View.VISIBLE);
+                break;
+        }
+
     }
 
     @Override
@@ -343,6 +366,31 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SCANNING_CODE) {
+                LogUtils.i("扫描成功了");
+                //返回扫描后的结果
+                String result = data.getStringExtra("Result");
+                LogUtils.i("扫描的结果:=="+result);
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("Result", result);
+                startActivity(intent);
+            }else if(requestCode==MOREREQUEST){
+                LogUtils.i("刷新");
+                swipeRefresh.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefresh.setRefreshing(true);
+                    }
+                });
+                listener.onRefresh();
+            }
+        }
+    }
+
+    @Override
     public HomePageModel createModel() {
         return new HomePageModelImpl();
     }
@@ -351,4 +399,5 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public HomePagePresenter createPresenter() {
         return new HomePagePresenter();
     }
+
 }

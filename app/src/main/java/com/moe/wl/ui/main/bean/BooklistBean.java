@@ -19,6 +19,15 @@ public class BooklistBean implements Serializable{
     private String title;
     private int typeid;
     private String url;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getAuthor() {
         return author;

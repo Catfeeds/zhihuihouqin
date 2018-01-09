@@ -100,8 +100,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
             case Constants.HAIRCUTS:// 理发订单
                 fragments.add(OrderHairCutFragment.getInstance(0));
                 fragments.add(OrderHairCutFragment.getInstance(1));
-                fragments.add(OrderHairCutFragment.getInstance(3));
                 fragments.add(OrderHairCutFragment.getInstance(2));
+                fragments.add(OrderHairCutFragment.getInstance(3));
                 fragments.add(OrderHairCutFragment.getInstance(4));
                 break;
 
@@ -161,11 +161,11 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
                 break;
 
             case Constants.VISITORS: // 来访人员
-                fragments.add(OrderVisitorsFragment.getInstance(9));
-                fragments.add(OrderVisitorsFragment.getInstance(0));
-                fragments.add(OrderVisitorsFragment.getInstance(2));
-                fragments.add(OrderVisitorsFragment.getInstance(3));
-                fragments.add(OrderVisitorsFragment.getInstance(4));
+                fragments.add(OrderVisitorsFragment.getInstance(9));//9
+                fragments.add(OrderVisitorsFragment.getInstance(0));//0
+                fragments.add(OrderVisitorsFragment.getInstance(2));//2
+                fragments.add(OrderVisitorsFragment.getInstance(3));//3
+                fragments.add(OrderVisitorsFragment.getInstance(4));//4
                 break;
         }
         initViewpager();

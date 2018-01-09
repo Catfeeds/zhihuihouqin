@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
@@ -16,6 +18,9 @@ import com.moe.wl.framework.widget.TitleBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mvp.cn.util.DensityUtil;
+
+import static com.moe.wl.R.id.from;
 
 public class SubmitSuccessActivity extends AppCompatActivity {
 
@@ -29,7 +34,10 @@ public class SubmitSuccessActivity extends AppCompatActivity {
     TextView tvCheckOrder;
     @BindView(R.id.iv_submit_or_pay)
     ImageView ivSubmitOrPay;
+    @BindView(R.id.tv_des)
+    TextView tvDes;
     private boolean isPay;
+    private int from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +50,22 @@ public class SubmitSuccessActivity extends AppCompatActivity {
         tvSubmitSuccess.setTypeface(Typeface.DEFAULT_BOLD);
         Intent intent = getIntent();
         isPay = intent.getBooleanExtra("isPay", false);
+        from = intent.getIntExtra("from", 0);
         processShow();
+        initDes();
+    }
+
+    private void initDes() {
+        if(from==Constants.DRYCLEANER){
+            tvDes.setVisibility(View.VISIBLE);
+        }else if(from==Constants.HAIRCUTS){
+            tvDes.setVisibility(View.VISIBLE);
+            tvDes.setText("恭喜您，提交成功\n很荣幸为您服务，请按时到理发店理发");
+        }else if(from==Constants.VISITORS){
+            tvDes.setVisibility(View.VISIBLE);
+            tvDes.setPadding(DensityUtil.dip2px(this,12),0,0,DensityUtil.dip2px(this,12));
+            tvDes.setText("您的申请已提交成功\n我们会尽快审核完毕，审核后会以短信方式通知您，感谢您的配合");
+        }
     }
 
     private void processShow() {
@@ -67,7 +90,7 @@ public class SubmitSuccessActivity extends AppCompatActivity {
     public void onViewClicked() {
         Intent intent = new Intent(this, ServiceOrderActivity.class);
         intent.putExtra("index", 0);
-        intent.putExtra("from", getIntent().getIntExtra("from", 0));
+        intent.putExtra("from",from);
         switch (getIntent().getIntExtra("from", 0)) {
             case Constants.PROPERRY:// 物业维修
                 intent.putExtra("state", Constants.orderRepairs);
@@ -112,6 +135,9 @@ public class SubmitSuccessActivity extends AppCompatActivity {
             case Constants.CONFERENCE: // 会议室
                 intent.putExtra("state", Constants.orderConference);
                 break;
+            /*case Constants.VISITORS:
+                Toast.makeText(this, "还没有订单", Toast.LENGTH_SHORT).show();
+                break;*/
 
             case Constants.VISITORS: // 来访人员
                 intent.putExtra("state", Constants.orderVisitors);

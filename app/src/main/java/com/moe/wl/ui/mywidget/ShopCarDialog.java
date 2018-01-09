@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
+import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.ui.main.bean.ShopCarInfoBean;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mvp.cn.util.DensityUtil;
 import mvp.cn.util.ScreenUtils;
+import mvp.cn.util.ToastUtil;
 
 public class ShopCarDialog extends Dialog {
 

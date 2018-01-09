@@ -21,7 +21,10 @@
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/tv_red"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/blue"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/blue"
         app:tabMode="scrollable"
         app:tabTextColor="@color/tv_black" />
     <View

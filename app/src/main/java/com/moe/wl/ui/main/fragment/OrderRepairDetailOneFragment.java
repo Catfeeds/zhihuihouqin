@@ -12,6 +12,7 @@ import com.moe.wl.R;
 import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.ui.main.bean.OrderRepairsDetailOneBean;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +48,7 @@ public class OrderRepairDetailOneFragment extends BaseFragment2 {
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    StarBar ratingBar;
     @BindView(R.id.score)
     TextView score;
     @BindView(R.id.service_content)
@@ -66,7 +67,11 @@ public class OrderRepairDetailOneFragment extends BaseFragment2 {
 
     @Override
     public void initView() {
-        getData(getArguments().getInt("OrderID"));
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            int orderID = bundle.getInt("OrderID");
+            getData(orderID);
+        }
     }
 
     private void setUI() {
@@ -77,12 +82,15 @@ public class OrderRepairDetailOneFragment extends BaseFragment2 {
         orderNumber.setText("订单号：" + data.getDetail().getOrdercode());
         orderTime.setText("下单时间：" + data.getDetail().getCreatetime());
         address.setText("服务地址：" + data.getDetail().getServiceplace());
+        serviceType.setText("服务类型："+data.getDetail().getItemname());
         orderState.setText("支付状态：" + (data.getDetail().getPaystatus() == 0 ? "未支付" : "已支付"));
         time.setText("上门时间：" + data.getDetail().getInvitetime());
         serviceContent.setText("服务内容：" + data.getDetail().getItemname());
         GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), data.getDetail().getMenderphoto(), image, R.mipmap.ic_default_square);
         name.setText(data.getDetail().getMendername());
-        ratingBar.setRating(data.getDetail().getScore());
+        ratingBar.setStarMark(data.getDetail().getScore());
+        ratingBar.setIntegerMark(false);
+        ratingBar.ismove(false);
         score.setText("" + data.getDetail().getScore() + "分");
         state = data.getDetail().getOrderstatus();
         switch (state) {

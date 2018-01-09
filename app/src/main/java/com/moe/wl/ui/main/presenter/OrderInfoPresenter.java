@@ -3,10 +3,13 @@ package com.moe.wl.ui.main.presenter;
 import android.util.Log;
 
 import com.moe.wl.framework.contant.Constants;
+import com.moe.wl.ui.main.bean.ApppointmentInfo;
 import com.moe.wl.ui.main.bean.GenerateOrderWaterBean;
 import com.moe.wl.ui.main.bean.OrderWaterTimeBean;
 import com.moe.wl.ui.main.model.OrderInfoModel;
 import com.moe.wl.ui.main.view.OrderInfoView;
+
+import java.util.List;
 
 import mvp.cn.rx.MvpRxPresenter;
 import rx.Observable;
@@ -51,10 +54,10 @@ public class OrderInfoPresenter extends MvpRxPresenter<OrderInfoModel, OrderInfo
             }
         });
     }
-    public void generateOrder(String realname, String mobile, int addressId , String sendTime,
+    public void generateOrder(List<ApppointmentInfo> timeList, String realname, String mobile, int addressId , String sendTime,
                               Object[] arr, String remark) {
         getView().showProgressDialog();
-        Observable request = getModel().generateOrder(realname,mobile,addressId,sendTime,arr,remark);
+        Observable request = getModel().generateOrder(timeList,realname,mobile,addressId,sendTime,arr,remark);
         getNetWork(request, new Subscriber<GenerateOrderWaterBean>() {
 
             @Override

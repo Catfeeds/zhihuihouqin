@@ -280,7 +280,8 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             R.id.rl_vegetable, R.id.tv_vegetable_one, R.id.tv_vegetable_two, R.id.tv_vegetable_three, R.id.tv_vegetable_four,
             R.id.tv_vegetable_five, R.id.tv_conference_one, R.id.tv_conference_two, R.id.tv_conference_three, R.id.tv_conference_four,
             R.id.tv_conference_five, R.id.rl_conference,
-            R.id.rl_visitors, R.id.tv_visitors_one, R.id.tv_visitors_two, R.id.tv_visitors_three, R.id.tv_visitors_four})
+            R.id.rl_visitors, R.id.tv_visitors_one, R.id.tv_visitors_two, R.id.tv_visitors_three, R.id.tv_visitors_four,
+            R.id.tv_daitijao})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.ll_personal_auth) {
             if (SharedPrefHelper.getInstance().getAuthStatus() == 2) {
@@ -536,17 +537,20 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             case R.id.rl_visitors:
                 goServiceActivity(0, Constants.VISITORS, Constants.orderVisitors);
                 break;
-            case R.id.tv_visitors_one:
+            case R.id.tv_daitijao:
                 goServiceActivity(0, Constants.VISITORS, Constants.orderVisitors);
                 break;
-            case R.id.tv_visitors_two:
+            case R.id.tv_visitors_one:
                 goServiceActivity(1, Constants.VISITORS, Constants.orderVisitors);
                 break;
-            case R.id.tv_visitors_three:
+            case R.id.tv_visitors_two:
                 goServiceActivity(2, Constants.VISITORS, Constants.orderVisitors);
                 break;
-            case R.id.tv_visitors_four:
+            case R.id.tv_visitors_three:
                 goServiceActivity(3, Constants.VISITORS, Constants.orderVisitors);
+                break;
+            case R.id.tv_visitors_four:
+                goServiceActivity(4, Constants.VISITORS, Constants.orderVisitors);
                 break;
 
             case R.id.rl_laifang_person: // 来访人员
@@ -600,7 +604,7 @@ public class Tab4Fragment extends BaseFragment<Tab4Model, Tab4View, Tab4Presente
             SharedPrefHelper.getInstance().setNickname(userinfo.getNickname());
             SharedPrefHelper.getInstance().setuserPhoto(userinfo.getPhoto());
             SharedPrefHelper.getInstance().setRealName(userinfo.getRealname());
-            GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), userinfo.getPhoto(), civHeader, R.drawable.avatar2);
+            GlideLoading.getInstance().loadImgUrlNyImgLoader(getActivity(), userinfo.getPhoto(), civHeader, R.drawable.header);
             if (TextUtils.isEmpty(userinfo.getNickname())) {
                 if (TextUtils.isEmpty(userinfo.getPosition())) {
                     tvName.setText("职位" + "~" + "暂无昵称");

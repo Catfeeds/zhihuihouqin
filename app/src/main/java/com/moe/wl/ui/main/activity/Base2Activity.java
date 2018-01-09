@@ -2,12 +2,16 @@ package com.moe.wl.ui.main.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.moe.wl.R;
+import com.moe.wl.framework.manager.UIManager;
+import com.moe.wl.framework.spfs.SharedPrefHelper;
 import com.moe.wl.framework.widget.CustomerDialog;
+import com.moe.wl.ui.login.activity.LoginActivity;
 
 /**
  * Created by 我的电脑 on 2017/9/7 0007.
@@ -60,6 +64,14 @@ public abstract class Base2Activity extends AppCompatActivity {
             progressDialog.dismiss();
             progressDialog = null;
         }
+    }
+    public void reLogin(String msg) {
+        if (!TextUtils.isEmpty(msg))
+            showToast(msg);
+        SharedPrefHelper.getInstance().setPassword("");
+        SharedPrefHelper.getInstance().setToken("");
+        UIManager.turnToAct(this, LoginActivity.class);
+        finish();
     }
     public void showToast(String info) {
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
