@@ -55,6 +55,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
     private List<OfficeDetailsResponse.RoomDetailEntity.SlistEntity> mData;
 
     private String id;
+    private int personNum;
 
     @Override
     public void setContentLayout() {
@@ -97,6 +98,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
             case R.id.tv_subscribe:  //预订
                 Intent intent = new Intent(this, SubscribeInfoActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("personNum", personNum);
                 startActivity(intent);
                 finish();
                 break;
@@ -128,7 +130,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
             tvPersonnum.setText(bean.getCapacity() + "人");
             tvAddress.setText(bean.getAddress());
             tvArea.setText("");
-
+            personNum = bean.getCapacity();
             if (bean.getImgList() != null) {
                 llSlider.removeAllSliders();
                 for (int i = 0; i < bean.getImgList().size(); i++) {
@@ -151,6 +153,7 @@ public class OfficeDetailsActivity extends BaseActivity<OfficeDetailsModel, Offi
     public void onViewClicked() {//预定
         Intent intent = new Intent(this, SubscribeInfoActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("personNum", personNum);
         startActivity(intent);
         finish();
     }

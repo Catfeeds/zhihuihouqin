@@ -245,6 +245,7 @@
                 android:padding="@dimen/normal_padding">
 
                 <TextView
+                    android:id="@+id/tv_time_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -257,6 +258,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:gravity="center_vertical|right"
+                    android:paddingLeft="10dp"
+                    android:layout_toRightOf="@+id/tv_time_hint"
                     android:orientation="horizontal">
 
                     <TextView
@@ -266,6 +270,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="5dp"
                         android:text="未选择"
+                        android:gravity="right|center_vertical"
                         android:textColor="@color/font_black"
                         android:textSize="@dimen/sp_small" />
 

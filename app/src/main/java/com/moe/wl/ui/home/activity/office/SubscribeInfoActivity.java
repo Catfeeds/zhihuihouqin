@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -44,6 +46,7 @@ import butterknife.OnClick;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
+import mvp.cn.util.ToastUtil;
 
 /**
  * 填写预订信息
@@ -112,6 +115,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
     private List<AppointmentDateBean> dates;  //预约的时间
 
     private GridViewImageAdapter imageAdapter;
+    private int personNum;
 
     @Override
     public void setContentLayout() {
@@ -124,6 +128,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         title.setBack(true);
         title.setTitle("预订信息");
         id = getIntent().getStringExtra("id");
+        personNum = getIntent().getIntExtra("personNum",0);
 
         //单张图片的集合
         paths = new ArrayList<>();
@@ -138,6 +143,26 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
         if (!TextUtils.isEmpty(id)) {
             getPresenter().subscribeInfo(id);
         }
+
+        etNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s.toString()) && Integer.parseInt(s.toString())>personNum){
+                    ToastUtil.showToast(SubscribeInfoActivity.this,"参会人数不能超过会议室容纳人数");
+                    etNumber.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /**
@@ -436,7 +461,17 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
                     dates = new ArrayList<>();
                 }
                 dates = (List<AppointmentDateBean>) data.getSerializableExtra("list");
-                tvTime.setText("已选择");
+                String times = "";
+                for (int i = 0; i < dates.size(); i++) {
+                    times += dates.get(i).getDate()+" ";
+                    for (int j = 0; j < dates.get(i).getTimes().size(); j++) {
+                        times += dates.get(i).getTimes().get(j).getDurationstr()+" ";
+                    }
+                    if (i != dates.size()-1){
+                        times += "\n";
+                    }
+                }
+                tvTime.setText(times);
             }
         } else {
             if (resultCode != RESULT_OK) {
