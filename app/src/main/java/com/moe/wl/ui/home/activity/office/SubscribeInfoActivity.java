@@ -152,7 +152,7 @@ public class SubscribeInfoActivity extends BaseActivity<SubscribeInfoModel, Subs
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (TextUtils.isEmpty(s.toString()) && Integer.parseInt(s.toString())>personNum){
+                if (!TextUtils.isEmpty(s.toString()) && Integer.parseInt(s.toString())>personNum){
                     ToastUtil.showToast(SubscribeInfoActivity.this,"参会人数不能超过会议室容纳人数");
                     etNumber.setText("");
                 }
