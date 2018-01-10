@@ -8,11 +8,14 @@ import com.moe.wl.R;
 import com.moe.wl.framework.base.BaseActivity;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.model.ChangePayPwdModel;
 import com.moe.wl.ui.main.modelimpl.ChangePayPwdModelImpl;
 import com.moe.wl.ui.main.presenter.ChangePayPwdPresenter;
 import com.moe.wl.ui.main.view.ChangePayPwdView;
 import com.moe.wl.ui.mywidget.gridpasswordview.GridPasswordView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +97,7 @@ public class ForgetPayPwdActivity extends BaseActivity<ChangePayPwdModel,ChangeP
     @Override
     public void modifyCodeResult(ActivityPostBean bean) {
         showToast("设置密码成功");
+        EventBus.getDefault().post(new NotifyChange());
         finish();
     }
 

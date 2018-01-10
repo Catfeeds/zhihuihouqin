@@ -47,6 +47,7 @@ import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.ActivitylistBean;
 import com.moe.wl.ui.main.bean.HomePageBean;
 import com.moe.wl.ui.main.bean.ListEntity;
+import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.UserInfoBean;
 import com.moe.wl.ui.main.model.HomePageModel;
 import com.moe.wl.ui.main.modelimpl.HomePageModelImpl;
@@ -55,6 +56,10 @@ import com.moe.wl.ui.main.view.HomePageView;
 import com.moe.wl.ui.mywidget.NoScrollLinearLayoutManager;
 import com.moe.wl.ui.mywidget.NoSlideRecyclerView;
 import com.moe.wl.zxing.android.CaptureActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +150,7 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public void setContentLayout(Bundle savedInstanceState) {
         sysColor = R.color.white;
        setContentView(R.layout.f_tab_1);
+        EventBus.getDefault().register(this);
         getUserInfo();
     }
 
@@ -400,5 +406,13 @@ public class Tab1Fragment extends BaseFragment<HomePageModel, HomePageView, Home
     public HomePagePresenter createPresenter() {
         return new HomePagePresenter();
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        listener.onRefresh();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

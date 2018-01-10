@@ -143,7 +143,9 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
                 break;
             case 3: // 3：已完成
                 left.setVisibility(View.VISIBLE);
-                left.setText("立即评价");
+                left.setText("已评价");
+                left.setClickable(false);
+                left.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.bg_order_gray_button));
                 right.setText("再次预订");
                 break;
             case 4: // 4：待评价
@@ -173,6 +175,7 @@ public class OrderVegetableDetailActivity extends MyBaseActivity {
                         break;
                     case 4:
                         OtherUtils.gotoComment(OrderVegetableDetailActivity.this, data.getDetail().getId(), Constants.VEGETABLE);
+                        finish();
                         break;
                     case 5:
                         showAlertDialog("是否删除订单", state);

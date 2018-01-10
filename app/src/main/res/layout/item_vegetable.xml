@@ -91,6 +91,15 @@
                 android:src="@drawable/blue_add" />
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/tv_no_thing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已售完"
+            android:layout_alignBottom="@id/price"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            />
 
     </RelativeLayout>
 

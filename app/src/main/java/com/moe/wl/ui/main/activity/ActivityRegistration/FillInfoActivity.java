@@ -11,6 +11,9 @@ import com.moe.wl.framework.network.retrofit.RetrofitUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.activity.Base2Activity;
 import com.moe.wl.ui.main.bean.ActivitySignBean;
+import com.moe.wl.ui.main.bean.NotifyChange;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +58,7 @@ public class FillInfoActivity extends Base2Activity {
     private void initData() {
         etPhone.setText(phone);
         etPhone.setSelection(etPhone.length());
-        tvName.setText("姓名："+name);
+        tvName.setText("姓名：" + name);
 
     }
 
@@ -68,6 +71,7 @@ public class FillInfoActivity extends Base2Activity {
     public void onViewClicked() {
         getSignData(aId, name, phone);
     }
+
     private void getSignData(int aId, String realName, String phoneNumber) {
         Observable sign = RetrofitUtils.getInstance().getActivitySign(aId, realName, phoneNumber);
         showProgressDialog();
@@ -96,9 +100,11 @@ public class FillInfoActivity extends Base2Activity {
             }
         });
     }
+
     //包名成功
     private void signSucc(String s) {
         showToast(s);
-       finish();
+        EventBus.getDefault().post(new NotifyChange());
+        finish();
     }
 }

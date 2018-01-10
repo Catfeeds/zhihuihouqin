@@ -50,6 +50,13 @@ public class VegetableAdapter extends RecyclerView.Adapter {
         h.content.setText(entity.getOriginal());
         h.price.setText("¥" + entity.getPrice());
         h.num.setText((entity.getTotalcount() - entity.getRemain()) + "/" + entity.getTotalcount());
+        if (entity.getRemain()==0){
+            h.add.setVisibility(View.GONE);
+            h.no_thing_hint.setVisibility(View.VISIBLE);
+        }else {
+            h.add.setVisibility(View.VISIBLE);
+            h.no_thing_hint.setVisibility(View.GONE);
+        }
         if (entity.getNumber() == 0) {
             h.number.setVisibility(View.GONE);
             h.minus.setVisibility(View.GONE);
@@ -125,6 +132,8 @@ public class VegetableAdapter extends RecyclerView.Adapter {
         TextView number;
         @BindView(R.id.add)
         ImageView add;
+        @BindView(R.id.tv_no_thing)
+        TextView no_thing_hint;
 
         ViewHolder(View view) {
             super(view);

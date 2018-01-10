@@ -58,7 +58,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_big"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/time_end"
@@ -68,7 +70,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/tv_black"
-            android:textSize="@dimen/sp_big" />
+            android:textSize="@dimen/sp_big"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/number"

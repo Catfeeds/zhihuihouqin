@@ -264,6 +264,9 @@ public class OrderCommentActivity extends MyBaseActivity {
                     Toast.makeText(this, "评分不能为0！", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (paths.size()<=0){
+                    return;
+                }
                 paths.remove(paths.size() - 1);
                 Observable observable = RetrofitUtils.getInstance().commentOrder(orderID, ratingBar.getStarMark(),
                         ratingOne.getStarMark(), ratingTwo.getStarMark(),

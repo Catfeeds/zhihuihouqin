@@ -115,8 +115,12 @@ public class MyPurseActivity extends BaseActivity<MyPurseModel, MyPurseView, MyP
     public void getInfoSucc(UserWalletBean bean) {
         if (bean != null) {
             publicRemain = bean.getPublicRemain();
-
-            tvBalance.setText(bean.getWalletRemain() + "");//钱包余额
+            double walletRemain = bean.getWalletRemain();
+            if (walletRemain>10000){
+                tvBalance.setText(walletRemain/10000 + "万");//钱包余额
+            }else {
+                tvBalance.setText(walletRemain + "");//钱包余额
+            }
             tvTicketCount.setText(bean.getVoucherNum() + "张");//理发券数量
             int hasBuyAuth = bean.getHasBuyAuth();//是否有团购权限
             int payPasswordState = bean.getPayPasswordState();//是否有支付密码

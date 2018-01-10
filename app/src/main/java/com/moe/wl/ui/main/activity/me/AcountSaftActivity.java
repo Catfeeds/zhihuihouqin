@@ -19,6 +19,11 @@ import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.login.activity.RegistStepTwoActivity;
 import com.moe.wl.ui.login.bean.CaptchaBean;
 import com.moe.wl.ui.main.activity.Base2Activity;
+import com.moe.wl.ui.main.bean.NotifyChange;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +57,7 @@ public class AcountSaftActivity extends Base2Activity {
     protected void initLayout() {
         setContentView(R.layout.activity_acount_saft);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -197,5 +203,14 @@ public class AcountSaftActivity extends Base2Activity {
             return false;
         }
         return true;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        finish();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

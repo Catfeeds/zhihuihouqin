@@ -52,8 +52,8 @@ public class OrderConferenceAdapter extends RecyclerView.Adapter {
         if (data.get(position).getConferencetype()==1){
             holder.type.setText("会议类型：文艺会议");
         }
-        holder.timeStart.setText("开始时间：" + data.get(position).getCreatetime());
-        holder.timeEnd.setText("开始时间：" + data.get(position).getCreatetime());
+//        holder.timeStart.setText("开始时间：" + data.get(position).getCreatetime());
+//        holder.timeEnd.setText("开始时间：" + data.get(position).getCreatetime());
         holder.number.setText("参会人数：" + data.get(position).getAttendnum());
         holder.people.setText("参会人员：" + data.get(position).getAttentdleader());
         holder.content.setText("备注说明：" + data.get(position).getRemark());

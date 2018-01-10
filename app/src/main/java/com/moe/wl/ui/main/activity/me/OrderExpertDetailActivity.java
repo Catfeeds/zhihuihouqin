@@ -3,6 +3,7 @@ package com.moe.wl.ui.main.activity.me;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -257,7 +258,8 @@ public class OrderExpertDetailActivity extends MyBaseActivity {
             GlideLoading.getInstance().loadImgUrlNyImgLoader(this, data.getDoctor().getPhoto(), image, R.mipmap.ic_default_square);
             name.setText(data.getDoctor().getRealname());
             docPosition.setText(data.getDoctor().getPositionname());
-            ratingBar.setStarMark(bean.getDoctor().getScore());
+            float starMark = data.getDoctor().getScore();
+            ratingBar.setStarMark(starMark);
             ratingBar.setIntegerMark(false);
             ratingBar.ismove(false);
             score.setText("" + data.getDoctor().getScore() + "分");

@@ -23,6 +23,11 @@ import com.moe.wl.ui.main.bean.ActIndexBean;
 import com.moe.wl.ui.main.bean.ActivityHomeBean;
 import com.moe.wl.ui.main.bean.ActivitySignListBean;
 import com.moe.wl.ui.main.bean.ActivitylistBean;
+import com.moe.wl.ui.main.bean.NotifyChange;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +89,7 @@ public class ActivityDetailActivity extends Base2Activity {
     protected void initLayout() {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -204,6 +210,14 @@ public class ActivityDetailActivity extends Base2Activity {
         }
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        finish();
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

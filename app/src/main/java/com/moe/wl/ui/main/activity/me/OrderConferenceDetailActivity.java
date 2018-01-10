@@ -16,8 +16,13 @@ import com.moe.wl.ui.home.activity.MyBaseActivity;
 import com.moe.wl.ui.home.activity.office.OfficeListActivity;
 import com.moe.wl.ui.main.activity.ordering.CancelOrderingActivity;
 import com.moe.wl.ui.main.bean.CollectBean;
+import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.bean.OrderConferenceDetailBean;
 import com.moe.wl.ui.mywidget.AlertDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +90,7 @@ public class OrderConferenceDetailActivity extends MyBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_conference_detail);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initData();
     }
 
@@ -131,7 +137,7 @@ public class OrderConferenceDetailActivity extends MyBaseActivity {
         timeEnd.setText("结束时间：" + data.getDetail().getCreatetime());
         number.setText("参会人数：" + data.getDetail().getAttendnum());
         people.setText("参会人员：" + data.getDetail().getAttentdleader());
-        content.setText("备注说明：" + data.getDetail().getRemark());
+        content.setText("备注说明：" + data.getDetail().getRemark()==null?"无备注说明":data.getDetail().getRemark());
 
         switch (state) {
             case 1:
@@ -302,4 +308,14 @@ public class OrderConferenceDetailActivity extends MyBaseActivity {
         progressDialog.show();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

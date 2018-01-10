@@ -74,6 +74,11 @@ public class OrderHairCutFragment extends BaseFragment2 {
         initRecycler();
         setClick();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
 
     private void setClick() {
         adapter.setOnClickListener(new OrderHairCutAdapter.OnClickListener() {
@@ -89,11 +94,11 @@ public class OrderHairCutFragment extends BaseFragment2 {
                         break;
 
                     case 2: // 再次预约
-                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.HAIRCUTS);
+                        startActivity(new Intent(getActivity(), OrderCutHearActivity.class));
                         break;
 
                     case 3: // 评价
-                        startActivity(new Intent(getActivity(), OrderCutHearActivity.class));
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getOrderid(), Constants.HAIRCUTS);
                         break;
 
                     case 4: // 删除订单
@@ -156,8 +161,7 @@ public class OrderHairCutFragment extends BaseFragment2 {
             public void onNext(CollectBean orderBean) {
                 if (orderBean.getErrCode() == 0) {
                     ToastUtil.showToast(getActivity(), "完成订单");
-//                    data.remove(position);
-//                    adapter.notifyDataSetChanged();
+                    getData();
                 } else {
                     ToastUtil.showToast(getActivity(), orderBean.getMsg());
                 }

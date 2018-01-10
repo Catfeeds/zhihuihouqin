@@ -12,10 +12,15 @@ import com.moe.wl.framework.contant.Constants;
 import com.moe.wl.framework.utils.LogUtils;
 import com.moe.wl.framework.widget.TitleBar;
 import com.moe.wl.ui.main.bean.ActivityPostBean;
+import com.moe.wl.ui.main.bean.NotifyChange;
 import com.moe.wl.ui.main.model.HasPwdModel;
 import com.moe.wl.ui.main.modelimpl.HasPwdModelImpl;
 import com.moe.wl.ui.main.presenter.HasPwdPresenter;
 import com.moe.wl.ui.main.view.HasPwdView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +49,7 @@ public class PwdManageMentActivity extends BaseActivity<HasPwdModel,HasPwdView,H
     public void setContentLayout() {
         setContentView(R.layout.activity_pwd_manage_ment);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -92,5 +98,15 @@ public class PwdManageMentActivity extends BaseActivity<HasPwdModel,HasPwdView,H
                 llNoHaspwd.setVisibility(View.VISIBLE);
             }
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NotifyChange event) {
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
