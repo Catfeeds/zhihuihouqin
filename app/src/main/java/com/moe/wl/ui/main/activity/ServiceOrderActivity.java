@@ -124,8 +124,8 @@ public class ServiceOrderActivity extends MyBaseActivity implements View.OnClick
             case Constants.EXPERTS:// 专家坐诊
                 fragments.add(OrderExpertFragment.getInstance(0));
 //                fragments.add(OrderExpertFragment.getInstance(1));
-                fragments.add(OrderExpertFragment.getInstance(3));
                 fragments.add(OrderExpertFragment.getInstance(2));
+                fragments.add(OrderExpertFragment.getInstance(3));
                 fragments.add(OrderExpertFragment.getInstance(4));
                 break;
 

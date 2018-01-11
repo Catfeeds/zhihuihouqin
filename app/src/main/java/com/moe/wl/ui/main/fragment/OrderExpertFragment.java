@@ -84,17 +84,15 @@ public class OrderExpertFragment extends BaseFragment2 {
                         showAlertDialog("是否取消订单", position);
                         break;
 
-                    case 1: // 已完成
+                    case 2: // 已完成
                         // TODO 完成服务
-                        toFinish(data.get(position).getId(), position);
-                        break;
-
-                    case 2: // 立即评价
-                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.EXPERTS);
-                        break;
-
-                    case 3: // 再次预订
+//                        toFinish(data.get(position).getId(), position);
+                        //再次预约
                         startActivity(new Intent(getActivity(), ExpertsVisitActivity.class));
+                        break;
+
+                    case 3: // 立即评价
+                        OtherUtils.gotoComment(getActivity(), data.get(position).getId(), Constants.EXPERTS);
                         break;
 
                     case 4: // 删除订单

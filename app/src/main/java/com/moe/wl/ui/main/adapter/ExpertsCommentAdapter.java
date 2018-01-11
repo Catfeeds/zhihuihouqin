@@ -13,6 +13,7 @@ import com.moe.wl.framework.imageload.GlideLoading;
 import com.moe.wl.framework.utils.OtherUtils;
 import com.moe.wl.ui.main.activity.MoreUSerCommentActivity;
 import com.moe.wl.ui.main.bean.ExpertsCommentBean;
+import com.moe.wl.ui.mywidget.StarBar;
 
 import java.util.List;
 
@@ -47,8 +48,8 @@ public class ExpertsCommentAdapter extends RecyclerView.Adapter {
 //        GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, commentlistBean.getPhoto(), viewHolder.civUserPhoto);
         GlideLoading.getInstance().loadImgUrlNyImgLoader(mContext, commentlistBean.getPhoto(), viewHolder.civUserPhoto, R.mipmap.ic_default_square);
         viewHolder.tvUserName.setText(commentlistBean.getRealname());
-        viewHolder.userRatingBar.setRating(commentlistBean.getScore());
-        OtherUtils.ratingBarColor(viewHolder.userRatingBar, mContext);
+        viewHolder.userRatingBar.setStarMark(commentlistBean.getScore());
+//        OtherUtils.ratingBarColor(viewHolder.userRatingBar, mContext);
         viewHolder.tvTime.setText(commentlistBean.getCreatetime());
         viewHolder.tvEvaluate.setText(commentlistBean.getContent());
     }
@@ -66,7 +67,7 @@ public class ExpertsCommentAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.user_ratingBar)
-        RatingBar userRatingBar;
+        StarBar userRatingBar;
         @BindView(R.id.tv_evaluate)
         TextView tvEvaluate;
 

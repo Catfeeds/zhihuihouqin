@@ -65,22 +65,29 @@ public class OrderExpertAdapter extends RecyclerView.Adapter {
                 holder.comment.setVisibility(View.GONE);
                 holder.order.setText("取消预约");
                 break;
-            case 1:
-                holder.comment.setVisibility(View.GONE);
-                holder.order.setText("已完成");
-                break;
             case 2:
                 holder.comment.setVisibility(View.GONE);
-                holder.order.setText("立即评价");
-                break;
-            case 3:
-                if (data.get(position).getStatus() == 3) {
-                    holder.comment.setVisibility(View.VISIBLE);
-                } else {
-                    holder.comment.setVisibility(View.GONE);
-                }
                 holder.order.setText("再次预约");
                 break;
+            case 3:
+                holder.comment.setVisibility(View.GONE);
+//                if (data.get(position).getStatus() == 3) {
+//                    holder.comment.setText("已评价");
+//                    holder.comment.setClickable(false);
+//                    holder.comment.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_order_gray_button));
+//                } else {
+//                    holder.comment.setText("立即评价");
+//                }
+                holder.order.setText("立即评价");
+                break;
+//            case 4:
+//                if (data.get(position).getStatus() == 3) {
+//                    holder.comment.setVisibility(View.VISIBLE);
+//                } else {
+//                    holder.comment.setVisibility(View.GONE);
+//                }
+//                holder.order.setText("再次预约");
+//                break;
             case 4:
                 holder.comment.setVisibility(View.GONE);
                 holder.order.setText("删除订单");
